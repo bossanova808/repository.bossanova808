@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="repository.bossanova808" name="bossanova808's XBMC Addons" version="0.0.1" provider-name="bossanova808 [bossanova808@gmail.com]">
+	<extension point="xbmc.addon.repository" name="bossanova808's XBMC Addon Repository">
+		<info compressed="false">https://raw.github.com/bossanova808/bossanova808-xbmc-addons/Release/addons.xml</info>
+		<checksum>https://raw.github.com/bossanova808/bossanova808-xbmc-addons/Release/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/bossanova808/bossanova808-xbmc-addons/downloads</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install bossanova808's XBMC Addons</summary>
+		<description>Download and install addons by bossanova808</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="weather.ozweather" name="Oz Weather" version="0.0.3" provider-name="Bossanova808">
 	<requires>
 		<import addon="xbmc.python" version="2.0"/>
