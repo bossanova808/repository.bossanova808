@@ -3,7 +3,7 @@
 	<extension point="xbmc.addon.repository" name="bossanova808's XBMC Addon Repository">
 		<info compressed="false">https://raw.github.com/bossanova808/bossanova808-xbmc-addons/Release/addons.xml</info>
 		<checksum>https://raw.github.com/bossanova808/bossanova808-xbmc-addons/Release/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/bossanova808/bossanova808-xbmc-addons/downloads</datadir>
+		<datadir zip="true">http://github.com/bossanova808/bossanova808-xbmc-addons/raw/Release/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install bossanova808's XBMC Addons</summary>
@@ -12,3 +12,4 @@
 	</extension>
 </addon>
 
+                   http://github.com/queeup/repository.queeup/raw/master/download
