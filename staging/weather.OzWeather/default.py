@@ -124,9 +124,13 @@ def propertiesPDOM(page):
     useLong = __addon__.getSetting('LongForecastToggle')
     if useLong == "true":
         longDayCast = common.parseDOM(page, "div", attrs = { "class": "top_left" })
+        print '@@@@@@@@@ Long 1', longDayCast
         longDayCast = common.parseDOM(longDayCast, "p" )
+        print '@@@@@@@@@ Long 2', longDayCast 
         chunks = longDayCast[0].partition('\t\t\t\t')
-        longDayCast = common.stripTags(chunks[2])
+        print '@@@@@@@@@ Long 3', chunks        
+        longDayCast = common.stripTags(chunks[0]) + ': ' +common.stripTags(chunks[2])
+        print '@@@@@@@@@ Long 4', longDayCast    
     else:
         longDayCast = shortDesc[0]
 
