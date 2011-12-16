@@ -76,8 +76,16 @@ def forecast(url):
     print 'Getting weather from ', url
     data = common._fetchPage({"link":url})
     if data != '':
-       propertiesPDOM(data["content"])
+       radarURL, satelliteURL = propertiesPDOM(data["content"])
+    #ok now we want to build the radar
+    buildImages(radarURL, satelliteURL)
+    
+def buildImages(radarURL, satelliteURL):
 
+    return
+    
+    
+       
 def striplist(l, chars):
     return([x.strip(chars) for x in l])
         
@@ -124,15 +132,15 @@ def propertiesPDOM(page):
     useLong = __addon__.getSetting('LongForecastToggle')
     if useLong == "true":
         longDayCast = common.parseDOM(page, "div", attrs = { "class": "top_left" })
-        print '@@@@@@@@@ Long 1', longDayCast
+        #print '@@@@@@@@@ Long 1', longDayCast
         longDayCast = common.parseDOM(longDayCast, "p" )
-        print '@@@@@@@@@ Long 2', longDayCast
+        #print '@@@@@@@@@ Long 2', longDayCast
         
         #new method - just strip the crap (e.g. tabs) out of the string and use a colon separator for the 'return' as we don't have much space
         longDayCast = common.stripTags(longDayCast[0])
         longDayCast = str.replace(longDayCast, '\t','')
         longDayCast = str.replace(longDayCast, '\r',': ')
-        print '@@@@@@@@@ Long 4', longDayCast    
+        #print '@@@@@@@@@ Long 4', longDayCast    
         
         """
             Old Methdod - split the string on the weird tabs and work on the parts separately        
@@ -181,7 +189,11 @@ def propertiesPDOM(page):
         if count == 3:
             break                
     
-    
+    #get the URLS and return them
+    radarURL = WeatherZoneURL + (common.parseDOM(page, "a", attrs = { "id": "animator_rad_link" }, ret="href" ))[0]
+    satelliteURL = WeatherZoneURL + (common.parseDOM(page, "a", attrs = { "id": "animator_sat_link" }, ret="href" ))[0]
+    print "~~~~~~~~~~~~ RADAR URL " + radarURL + '~~~~~~~~~ SATELLITE URL ' + satelliteURL
+    return radarURL, satelliteURL
     
 ##############################################
 ### NOW RUN THIS PUPPY    
