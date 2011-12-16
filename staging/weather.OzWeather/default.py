@@ -126,11 +126,24 @@ def propertiesPDOM(page):
         longDayCast = common.parseDOM(page, "div", attrs = { "class": "top_left" })
         print '@@@@@@@@@ Long 1', longDayCast
         longDayCast = common.parseDOM(longDayCast, "p" )
-        print '@@@@@@@@@ Long 2', longDayCast 
-        chunks = longDayCast[0].partition('\t\t\t\t')
-        print '@@@@@@@@@ Long 3', chunks        
-        longDayCast = common.stripTags(chunks[0]) + ': ' +common.stripTags(chunks[2])
+        print '@@@@@@@@@ Long 2', longDayCast
+        
+        #new method - just strip the crap (e.g. tabs) out of the string and use a colon separator for the 'return' as we don't have much space
+        longDayCast = common.stripTags(longDayCast[0])
+        longDayCast = str.replace(longDayCast, '\t','')
+        longDayCast = str.replace(longDayCast, '\r',': ')
         print '@@@@@@@@@ Long 4', longDayCast    
+        
+        """
+            Old Methdod - split the string on the weird tabs and work on the parts separately        
+                chunks = longDayCast[0].partition('\t\t\t\t')
+                print '@@@@@@@@@ Long 3', chunks        
+                longDayCast = common.stripTags(chunks[0]) + ': ' +common.stripTags(chunks[2])
+                longDayCast = str.replace(longDayCast, '\t','')
+                longDayCast = str.replace(longDayCast, '\r','')
+                print '@@@@@@@@@ Long 4', longDayCast    
+        """
+        
     else:
         longDayCast = shortDesc[0]
 
