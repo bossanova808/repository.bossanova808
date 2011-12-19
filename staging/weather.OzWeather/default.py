@@ -18,9 +18,10 @@
 import os, sys, urllib, urllib2, socket
 import xbmc, xbmcvfs, xbmcgui, xbmcaddon
 import CommonFunctions
+import re
 
 # plugin constants
-version = "0.0.3"
+version = "0.0.8"
 plugin = "OzWeather-" + version
 author = "Bossanova808"
 url = "www.bossanova808.net"
@@ -120,6 +121,10 @@ def propertiesPDOM(page):
     shortDesc = common.parseDOM(ret, "td", attrs = { "class": "bg_yellow" })
     shortDesc = common.parseDOM(ret, "span", attrs = { "style": "font-size: 0.9em;" })
     shortDesc = shortDesc[0:7]
+    for count, desc in enumerate(shortDesc):
+      shortDesc[count] = str.replace(shortDesc[count], '-<br />','')
+      #shortDesc[count] = str.replace(shortDesc[count], '<br />','')
+    
     #and the names of the days
     days = common.parseDOM(ret, "span", attrs = { "style": "font-size: larger;" })
     days = common.parseDOM(ret, "span", attrs = { "class": "bold" })
@@ -135,11 +140,11 @@ def propertiesPDOM(page):
         #print '@@@@@@@@@ Long 1', longDayCast
         longDayCast = common.parseDOM(longDayCast, "p" )
         #print '@@@@@@@@@ Long 2', longDayCast
-        
         #new method - just strip the crap (e.g. tabs) out of the string and use a colon separator for the 'return' as we don't have much space
         longDayCast = common.stripTags(longDayCast[0])
+        #print longDayCast       
         longDayCast = str.replace(longDayCast, '\t','')
-        longDayCast = str.replace(longDayCast, '\r',': ')
+        longDayCast = str.replace(longDayCast, '\r',' ')
         #print '@@@@@@@@@ Long 4', longDayCast    
         
         """
