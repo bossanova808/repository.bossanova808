@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="weather.ozweather" name="Oz Weather" version="0.0.9" provider-name="Bossanova808">
+<addon
+  id="skin.confluence.bossanova808.eden"
+  version="0.0.1"
+  name="Confluence 2.1.0 - Bossanova808 Mod"
+  provider-name="Jezz_X, Team XBMC, bossanova808">
+  <requires>
+    <import addon="xbmc.gui" version="3.00"/>
+  </requires>
+  <extension
+    point="xbmc.gui.skin"
+    defaultthemename="textures.xbt"
+    debugging="false"
+    effectslowdown="0.75">
+    <res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="ca">Aparença Confluence, per Jezz_X. (Aparença per defecte de l'XBMC)</summary>
+    <summary lang="en">Confluence skin by Jezz_X. (XBMC's default skin) - + extras by bossanova808</summary>
+    <description lang="en">Confluence is the default skin for XBMC 9.11 and above. It is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time XBMC users to understand and use.</description>
+    <disclaimer lang="en">Confluence is the default skin for XBMC, removing it may cause issues</disclaimer>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="weather.ozweather" name="Oz Weather" version="0.1" provider-name="Bossanova808">
 	<requires>
 		<import addon="xbmc.python" version="2.0"/>
         <import addon="script.module.parsedom" version="0.9.0"/>

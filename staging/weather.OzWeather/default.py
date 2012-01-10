@@ -21,7 +21,7 @@ import CommonFunctions
 import re
 
 # plugin constants
-version = "0.0.9"
+version = "0.1"
 plugin = "OzWeather-" + version
 author = "Bossanova808"
 url = "www.bossanova808.net"
@@ -146,6 +146,8 @@ def propertiesPDOM(page):
         longDayCast = str.replace(longDayCast, '\t','')
         longDayCast = str.replace(longDayCast, '\r',' ')
         #print '@@@@@@@@@ Long 4', longDayCast    
+        longDayCast = longDayCast[:-1]
+        longDayCast = longDayCast + " fire danger." 
         
         """
             Old Methdod - split the string on the weird tabs and work on the parts separately        
