@@ -1,4 +1,5 @@
-[B]2.1.0[/B]
+[B]0.0.2[/B]
 
-First bossanova808 version - changes for OzWeather
-
+Based on Confluence 2.1.0
+- Added OzWeather Long Forecasts
+- Added Time Remaining Display
