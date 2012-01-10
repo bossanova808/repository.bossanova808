@@ -1,4 +1,4 @@
-[B]0.0.2[/B]
+[B]0.0.3[/B]
 
 Based on Confluence 2.1.0
 - Added OzWeather Long Forecasts
