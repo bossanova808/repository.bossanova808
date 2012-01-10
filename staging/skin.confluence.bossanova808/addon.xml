@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
+<<<<<<< HEAD
   id="skin.confluence.bossanova808"
+=======
+  id="skin.confluence.bossanova808.eden"
+>>>>>>> 97f1214e0fa8c6f14766b0f1a6e0bf9fa6acef7f
   version="0.0.2"
   name="Confluence Bossanova808 Mod (based on  C 2.1.0)"
   provider-name="Jezz_X, Team XBMC, bossanova808">
