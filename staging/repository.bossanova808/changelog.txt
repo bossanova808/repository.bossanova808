@@ -1,0 +1,5 @@
+[B]Version 0.0.3[/B]
+- Moved to GoogleCode
+
+[B]Version 0.0.1[/B]
+- Initial version

@@ -1,8 +1,0 @@
-v0.1
-- Fixed bugs - Windy with showers has an icon, and fire dangers is rading better.
-
-v0.0.7
-- First version in repo
-
-v0.0.4
-- second alpha

@@ -21,7 +21,7 @@ import CommonFunctions
 import re
 
 # plugin constants
-version = "0.1"
+version = "0.1.1"
 plugin = "OzWeather-" + version
 author = "Bossanova808"
 url = "www.bossanova808.net"
