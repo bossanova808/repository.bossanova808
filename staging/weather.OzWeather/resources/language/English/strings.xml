@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
-	<string id="30101">Location Setup</string>
+	<string id="30101">OzWeather Settings</string>
 	<string id="30111">Change Postcode 1</string>
 	<string id="30112">Change Postcode 2</string>
 	<string id="30113">Change Postcode 3</string>
-	<string id="30114">Use Long Forecast (may require simple skin changes)</string>
+	<string id="30114">Use extended features (long forecast, radar loop)</string>
+	<string id="30115">Change Radar ID for Postcode 1</string>
+	<string id="30116">Change Radar ID for Postcode 2</string>
+	<string id="30117">Change Radar ID for Postcode 3</string>
 </strings>
+                      

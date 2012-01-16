@@ -1,3 +1,6 @@
+v0.1.9
+- First version with new radar support & 7 day forecasts
+
 v0.1
 - Fixed bugs - Windy with showers has an icon, and fire dangers is rading better.
 

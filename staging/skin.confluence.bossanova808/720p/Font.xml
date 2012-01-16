@@ -55,6 +55,11 @@
 			<size>12</size>
 		</font>
 	 	<font>
+			<name>font11_title</name>
+			<filename>DejaVuSans-Bold.ttf</filename>
+			<size>14</size>
+		</font>
+	 	<font>
 			<name>font12_title</name>
 			<filename>DejaVuSans-Bold.ttf</filename>
 			<size>16</size>
@@ -98,7 +103,7 @@
 	 	<font>
 			<name>WeatherTemp</name>
 			<filename>DejaVuSans-Bold.ttf</filename>
-			<size>80</size>
+			<size>40</size>
 		</font>
 	</fontset>
 

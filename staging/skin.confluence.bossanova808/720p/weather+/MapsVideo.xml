@@ -69,13 +69,62 @@
 					<label>[B]$LOCALIZE[31909][/B]</label>
 				</control>
 			</control>
+			
+			
+			<control type="image">
+				<description>background image</description>
+				<posx>45</posx>
+				<posy>80</posy>
+				<width>560</width>
+				<height>350</height>
+				<texture>C:\BGs\IDR023.background.png</texture>
+				<aspectratio aligny="top">keep</aspectratio>
+			</control>
+
+			<control type="image">
+				<description>locations image</description>
+				<posx>45</posx>
+				<posy>80</posy>
+				<width>560</width>
+				<height>350</height>
+				<texture>C:\BGs\IDR023.locations.png</texture>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<aspectratio aligny="top">keep</aspectratio>
+			</control>			
+	
+      <control type="image">
+				<description>background image</description>
+				<posx>45</posx>
+				<posy>80</posy>
+				<width>560</width>
+				<height>350</height>
+				<texture>C:\BGs\IDR023.catchments.png</texture>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<aspectratio aligny="top">keep</aspectratio>
+			</control>
+		
+      <!-- 
+      <control type="image">
+				<description>background image</description>
+				<posx>45</posx>
+				<posy>80</posy>
+				<width>560</width>
+				<height>350</height>
+				<texture>C:\BGs\IDR023.range.png</texture>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<aspectratio aligny="top">keep</aspectratio>
+			</control>  
+      -->
+
+
+
 			<control type="multiimage">
 				<description>maps multiimage</description>
 				<posx>45</posx>
 				<posy>80</posy>
 				<width>560</width>
 				<height>350</height>
-				<imagepath>$INFO[Window.Property(MapPath)]</imagepath>
+				<imagepath>C:\Loops\</imagepath>
 				<timeperimage>500</timeperimage>
 				<pauseatend>1000</pauseatend>
 				<fadetime>0</fadetime>

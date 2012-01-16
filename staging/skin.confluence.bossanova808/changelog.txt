@@ -1,3 +1,9 @@
+[B]0.0.4[/B]
+
+Based on Confluence 2.1.0
+- Added OzWeather support for radars
+- Weather fan art on home screen
+
 [B]0.0.3[/B]
 
 Based on Confluence 2.1.0

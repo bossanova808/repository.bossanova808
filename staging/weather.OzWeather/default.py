@@ -1,3 +1,7 @@
+#to do: fallback images
+#skin files into the repo so they get delivered with the add on and installation 
+
+
 # *  This Program is free software; you can redistribute it and/or modify
 # *  it under the terms of the GNU General Public License as published by
 # *  the Free Software Foundation; either version 2, or (at your option)
@@ -13,22 +17,25 @@
 # *  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 # *  http://www.gnu.org/copyleft/gpl.html
 # *
-
  
 import os, sys, urllib, urllib2, socket
 import xbmc, xbmcvfs, xbmcgui, xbmcaddon
 import CommonFunctions
 import re
+import ftplib
+import shutil
+import time
+from PIL import Image
 
 # plugin constants
-version = "0.1.3"
+version = "0.1.9"
 plugin = "OzWeather-" + version
-author = "Bossanova808"
+author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
 
 #parseDOM setup
-dbg = True # Set to false if you don't want debugging
-dbglevel = 3 # Do NOT change from 3
+dbg = False # Set to false if you don't want debugging
+dbglevel = 0 # Do NOT change from 3
 common = CommonFunctions.CommonFunctions()
 common.plugin = plugin
 
@@ -47,8 +54,20 @@ WEATHER_WINDOW  = xbmcgui.Window(12600)
 WeatherZoneURL = 'http://www.weatherzone.com.au'
 
 
+################################################################################
+# strip given chararacters from all members of a given list
+       
+def striplist(l, chars):
+    return([x.strip(chars) for x in l])
+
+################################################################################
+#just sets window properties we can refer to later in the MyWeather.xml skin file
+
 def set_property(name, value):
     WEATHER_WINDOW.setProperty(name, value)
+
+################################################################################
+#set the location and radar code properties
 
 def refresh_locations():
     location_set1 = __addon__.getSetting('Location1')
@@ -72,25 +91,175 @@ def refresh_locations():
         set_property('Location3', '')
     set_property('Locations', str(locations))
 
-def forecast(url):
-    #build the data urllib
-    print 'Getting weather from ', url
+    radar_set1 = __addon__.getSetting('Radar1')
+    radar_set2 = __addon__.getSetting('Radar2')
+    radar_set3 = __addon__.getSetting('Radar3')
+    radars = 0
+    if radar_set1 != '':
+        radars += 1
+        set_property('Radar1', radar_set1)
+    else:
+        set_property('Radar1', '')
+    if radar_set2 != '':
+        radars += 1 
+        set_property('Radar2', radar_set2)
+    else:
+        set_property('Radar2', '')
+    if radar_set3 != '':
+        radars += 1
+        set_property('Radar3', radar_set3)
+    else:
+        set_property('Radar3', '')
+    set_property('Radars', str(locations))
+
+
+################################################################################
+# The main forecast retrieval function
+# Does either a basic forecast or a more extended forecast with radar etc.
+# if the appropriate setting is set
+
+def forecast(url, radarCode):
+
+    extendedFeatures = __addon__.getSetting('ExtendedFeaturesToggle')
+    print 'OzWeather: Getting weather from ', url , "extended features = ", extendedFeatures  
     data = common._fetchPage({"link":url})
     if data != '':
-       radarURL, satelliteURL = propertiesPDOM(data["content"])
+       propertiesPDOM(data["content"], extendedFeatures)
     #ok now we want to build the radar
-    buildImages(radarURL, satelliteURL)
-    
-def buildImages(radarURL, satelliteURL):
+    if extendedFeatures == "true":
+      set_property('Radar', "")
+      buildImages(radarCode)
+      radar = ""
+      radar = __addon__.getSetting('Radar%s' % sys.argv[1])
+      #set the radar to blank so that xbmc will update radar images with the new set 
+      #time.sleep(1)
+      set_property('Radar', radar)
+      
+      #NO LONGER NEEDED
+      #reload the skin to force an update for the radar image
+      #only do this if we're actually on the weather page
+      #nWin = xbmcgui.getCurrentWindowId()
+      #if nWin == 12600:
+      #  print("OzWeather: Reloading the skin because we're on the weather page")
+      #  xbmc.executebuiltin( 'XBMC.ReloadSkin()' )
 
-    return
+################################################################################
+# Builds the radar images given a BOM radar code like IDR023
+# the background images are permanently cached (user can manually delete if 
+# they need to)
+# the radar images are downloaded with each update (~60kb each time)
     
+def buildImages(radarCode):
     
-       
-def striplist(l, chars):
-    return([x.strip(chars) for x in l])
+    #strings to store the paths we will use    
+    radarBackgroundsPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/radarbackgrounds/" + radarCode + "/");
+    loopImagesPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/currentloop/" + radarCode + "/");
+    ftpStub = "ftp://anonymous:someone%40somewhere.com@ftp.bom.gov.au//anon/gen/radar_transparencies/"
+
+    #remove the temporary files - we only want fresh radar files
+    #this results in maybe ~60k used per update.  
+    if xbmcvfs.exists( loopImagesPath ):
+      shutil.rmtree( loopImagesPath , ignore_errors=True)      
+
+    #we need make the directories to store stuff if they don't exist
+    if not xbmcvfs.exists( radarBackgroundsPath ):
+      os.makedirs( radarBackgroundsPath )        
+    if not xbmcvfs.exists( loopImagesPath ):
+      os.makedirs( loopImagesPath )    
+    
+    #ok get ready to retrieve some images
+    image = urllib.URLopener() 
+    
+    #download the backgrounds only if we don't have them yet
+    if not xbmcvfs.exists( radarBackgroundsPath + 'legend.png'):       
+        #the legened image showing the rain scale
+        try:
+          imageFileIndexed = radarBackgroundsPath + "legend.idx.png"
+          imageFileRGB = radarBackgroundsPath + "legend.png"
+          image.retrieve(ftpStub + "IDR.legend.0.png", imageFileIndexed )
+          im = Image.open( imageFileIndexed )
+          rgbimg = im.convert('RGBA')
+          rgbimg.save(imageFileRGB, "PNG")          
+        except Exception as inst:
+           print "OzWeather: Couldn't retrieve IDR.legend.0.png ", inst
+
+    #the background image showing the land/coast etc        
+        try:
+          imageFileIndexed = radarBackgroundsPath + "background.idx.png"
+          imageFileRGB = radarBackgroundsPath + "background.png"
+          image.retrieve(ftpStub + radarCode + ".background.png", imageFileIndexed )
+          im = Image.open( imageFileIndexed )
+          rgbimg = im.convert('RGBA')
+          rgbimg.save(imageFileRGB, "PNG")          
+        except Exception as inst:
+           print "OzWeather: Couldn't retrieve IDR.background.png ", inst
         
-def propertiesPDOM(page):
+    #location names overlay
+        try:
+          imageFileIndexed = radarBackgroundsPath + "locations.idx.png"
+          imageFileRGB = radarBackgroundsPath + "locations.png"
+          image.retrieve(ftpStub + radarCode + ".locations.png", imageFileIndexed )
+          im = Image.open( imageFileIndexed )
+          rgbimg = im.convert('RGBA')
+          rgbimg.save(imageFileRGB, "PNG")          
+        except Exception as inst:
+           print "OzWeather: Couldn't retrieve IDR.locations.png ", inst
+       
+
+    #for the future:
+    #image.retrieve(ftpStub + radarCode + ".catchments.png",       radarBackgroundsPath + "/catchments.png")
+    #image.retrieve(ftpStub + radarCode + ".rail.png",             radarBackgroundsPath + "/rail.png")
+    #image.retrieve(ftpStub + radarCode + ".roads.png",            radarBackgroundsPath + "/roads.png")
+    #image.retrieve(ftpStub + radarCode + ".range.png",            radarBackgroundsPath + "/range.png")
+    #image.retrieve(ftpStub + radarCode + ".topography.png",       radarBackgroundsPath + "/topography.png")
+    #image.retrieve(ftpStub + radarCode + ".waterways.png",        radarBackgroundsPath + "/waterways.png")
+    #image.retrieve(ftpStub + radarCode + ".wthrDistricts.png",    radarBackgroundsPath + "/wthrDistricts.png")
+
+    #Ok so we have the backgrounds...now it is time get the loop
+    #first we retrieve a list of the available files via ftp
+    files = []
+
+    ftp = ftplib.FTP("ftp.bom.gov.au")
+    ftp.login("anonymous", "anonymous@anonymous.org")
+    ftp.cwd("/anon/gen/radar/")
+
+    #connected, so let's get the list
+    try:
+        files = ftp.nlst()
+    except ftplib.error_perm, resp:
+        if str(resp) == "550 No files found":
+            print "No files in this directory!"
+        else:
+            raise
+            
+    #ok now we need just the matching radar files...
+    loopPicNames = []    
+    for f in files:
+        if radarCode in f:
+          loopPicNames.append(f)            
+  
+    #download the actual images, might as well get the longest loop they have
+    for f in loopPicNames:
+       #ignore the composite gif...
+       if f[-3:] == "png":
+         imageToRetrieve = "ftp://anonymous:someone%40somewhere.com@ftp.bom.gov.au//anon/gen/radar/" + f
+         print("OzWeather: Retrieving radar image: " + imageToRetrieve)
+         try:
+            image.retrieve(imageToRetrieve, loopImagesPath + "/" + f )
+         except:
+            print("OzWeather: Failed to retrieve radar image: " + imageToRetrieve + ", oh well never mind!")
+            
+
+################################################################################
+# this is the main scraper function that uses parseDOM to scrape the 
+# data from the weatherzone site.
+        
+def propertiesPDOM(page, extendedFeatures):
+
+    #manually clear these
+    set_property('Day4.OutlookIcon', "")
+    set_property('Day5.OutlookIcon', "")
+    set_property('Day6.OutlookIcon', "")
 
     #pull data from the current observations table
     ret = common.parseDOM(page, "div", attrs = { "class": "details_lhs" })
@@ -114,16 +283,21 @@ def propertiesPDOM(page):
     UVnumber = common.parseDOM(UVchunk, "span", ret = "title")
     UV = UVtext[0] + ' (' + UVnumber[0] + ')'
     #get the 7 day max min forecasts
-    maxMin = common.parseDOM(ret, "td", attrs = { "title": "source: BoM" })
-    maxList = striplist(maxMin[-21:-14],'&deg;C');
-    minList = striplist(maxMin[-14:-7],'&deg;C');
+    maxMin = common.parseDOM(ret, "td")
+    #for count, element in enumerate(maxMin):
+    #   print "********" , count , "^^^" , str(element)
+    maxList = striplist(maxMin[7:14],'&deg;C');
+    minList = striplist(maxMin[14:21],'&deg;C');
     #and the short forecasts
     shortDesc = common.parseDOM(ret, "td", attrs = { "class": "bg_yellow" })
     shortDesc = common.parseDOM(ret, "span", attrs = { "style": "font-size: 0.9em;" })
     shortDesc = shortDesc[0:7]
+          
     for count, desc in enumerate(shortDesc):
       shortDesc[count] = str.replace(shortDesc[count], '-<br />','')
-      #shortDesc[count] = str.replace(shortDesc[count], '<br />','')
+
+    #log the collected data, helpful for finding errors
+    print "Collected data: shortDesc [" + str(shortDesc) + "] maxList [" + str(maxList) +"] minList [" + str(minList) + "]"
     
     #and the names of the days
     days = common.parseDOM(ret, "span", attrs = { "style": "font-size: larger;" })
@@ -133,9 +307,8 @@ def propertiesPDOM(page):
         days[count] = DAYS[day]
  
     #get the longer current forecast for the day
-    # or jsut use the short one if this is disabled in settings
-    useLong = __addon__.getSetting('LongForecastToggle')
-    if useLong == "true":
+    # or just use the short one if this is disabled in settings
+    if extendedFeatures == "true":
         longDayCast = common.parseDOM(page, "div", attrs = { "class": "top_left" })
         #print '@@@@@@@@@ Long 1', longDayCast
         longDayCast = common.parseDOM(longDayCast, "p" )
@@ -145,71 +318,68 @@ def propertiesPDOM(page):
         #print longDayCast       
         longDayCast = str.replace(longDayCast, '\t','')
         longDayCast = str.replace(longDayCast, '\r',' ')
+        longDayCast = str.replace(longDayCast, '&amp;','&')
         #print '@@@@@@@@@ Long 4', longDayCast    
         longDayCast = longDayCast[:-1]
-        longDayCast = longDayCast + " fire danger." 
-        
-        """
-            Old Methdod - split the string on the weird tabs and work on the parts separately        
-                chunks = longDayCast[0].partition('\t\t\t\t')
-                print '@@@@@@@@@ Long 3', chunks        
-                longDayCast = common.stripTags(chunks[0]) + ': ' +common.stripTags(chunks[2])
-                longDayCast = str.replace(longDayCast, '\t','')
-                longDayCast = str.replace(longDayCast, '\r','')
-                print '@@@@@@@@@ Long 4', longDayCast    
-        """
-        
+        #print '@@@@@@@@@@@@@@@@' , longDayCast[-5:]
+        #if longDayCast[-5:] != "winds":
+        #  longDayCast = longDayCast + " fire danger."    
     else:
         longDayCast = shortDesc[0]
-
  
     #if for some reason the codes change return a neat 'na' response
     try:
         weathercode = WEATHER_CODES[shortDesc[0]]   
     except:
         weathercode = 'na'
+  
+    # set all the XBMC window properties.
+    # wrap it in a try: in case something goes wrong, it's better than crashing out...
     
-    #now set all the XBMC properties
-    set_property('Current.Condition'     , longDayCast)
-    set_property('Current.Temperature'   , temperature)
-    set_property('Current.Wind'          , windSpeed)
-    set_property('Current.WindDirection' , windDirection)
-    set_property('Current.Humidity'      , humidity)
-    set_property('Current.FeelsLike'     , feelsLike)
-    set_property('Current.DewPoint'      , dewPoint)
-    set_property('Current.UVIndex'       , UV)
-    set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
-    set_property('Current.FanartCode'    , weathercode)
-    for count, desc in enumerate(shortDesc):
-        try:
-            weathercode = WEATHER_CODES[shortDesc[count]]
-        except:
-            weathercode = 'na'
-        
-        day = days[count]
-        set_property('Day%i.Title'       % count, day)
-        set_property('Day%i.HighTemp'    % count, maxList[count])
-        set_property('Day%i.LowTemp'     % count, minList[count])
-        set_property('Day%i.Outlook'     % count, desc)
-        set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
-        set_property('Day%i.FanartCode'  % count, weathercode)
-        if count == 3:
-            break                
+    try:
+      #now set all the XBMC current weather properties
+      set_property('Current.Condition'     , shortDesc[0])
+      set_property('Current.ConditionLong' , longDayCast)    
+      set_property('Current.Temperature'   , temperature)
+      set_property('Current.Wind'          , windSpeed)
+      set_property('Current.WindDirection' , windDirection)
+      set_property('Current.Humidity'      , humidity)
+      set_property('Current.FeelsLike'     , feelsLike)
+      set_property('Current.DewPoint'      , dewPoint)
+      set_property('Current.UVIndex'       , UV)
+      set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
+      set_property('Current.FanartCode'    , weathercode)
+  
+      #and all the properties for the forecast
+      for count, desc in enumerate(shortDesc):
+          try:
+              weathercode = WEATHER_CODES[shortDesc[count]]
+          except:
+              weathercode = 'na'
+          
+          day = days[count]
+          set_property('Day%i.Title'       % count, day)
+          set_property('Day%i.HighTemp'    % count, maxList[count])
+          set_property('Day%i.LowTemp'     % count, minList[count])
+          set_property('Day%i.Outlook'     % count, desc)
+          set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
+          set_property('Day%i.FanartCode'  % count, weathercode)
+      
+    except:
+      print("********** OzWeather Couldn't set all the properties, sorry!!")
     
-    #get the URLS and return them
-    radarURL = WeatherZoneURL + (common.parseDOM(page, "a", attrs = { "id": "animator_rad_link" }, ret="href" ))[0]
-    satelliteURL = WeatherZoneURL + (common.parseDOM(page, "a", attrs = { "id": "animator_sat_link" }, ret="href" ))[0]
-    print "~~~~~~~~~~~~ RADAR URL " + radarURL + ' ~~~~~~~~~ SATELLITE URL ' + satelliteURL
-    return radarURL, satelliteURL
+    #We're done
     
+
+
 ##############################################
-### NOW RUN THIS PUPPY    
+### NOW ACTUALLTY RUN THIS PUPPY - this is main() in the old language...    
 
 socket.setdefaulttimeout(10)      
 
-#being called from the settings section where they choose their postcodes    
+#the being called from the settings section where the user enters their postcodes    
 if sys.argv[1].startswith('Location'):
-    keyboard = xbmc.Keyboard('', xbmc.getLocalizedString(14024), False)
+    keyboard = xbmc.Keyboard('', 'Enter your 4 digit postcode e.g. 3000', False)
     keyboard.doModal()
     if (keyboard.isConfirmed() and keyboard.getText() != ''):
         text = keyboard.getText()
@@ -262,9 +432,17 @@ if sys.argv[1].startswith('Location'):
 #script is being called in general use, not from the settings page            
 #get the currently selected location and grab it's forecast
 else:
+    #retrieve the currently set location & radar
+    location = ""
     location = __addon__.getSetting('Location%sid' % sys.argv[1])
-    forecast(location)
+    radar = ""
+    radar = __addon__.getSetting('Radar%s' % sys.argv[1])
+    #set the radar name to a property to we can use it to title the window
+    set_property('Radar', radar)
+    #now get a forecast
+    forecast(location, radar)
 
+#refressh the locations and set the weather provider property
 refresh_locations()
 set_property('WeatherProvider', 'BOM Australia via WeatherZone')
 
