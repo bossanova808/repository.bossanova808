@@ -1,5 +1,5 @@
-v0.2
-- Fixed bug in adon.xml, added topography to radar 
+v 0.2.1
+- Better logging, bug fixes, topography
 
 v0.1.9
 - First version with new radar support & 7 day forecasts

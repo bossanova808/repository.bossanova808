@@ -28,7 +28,7 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.1.9"
+version = "0.2.1"
 plugin = "OzWeather-" + version
 author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
@@ -67,10 +67,10 @@ def striplist(l, chars):
 # log messages neatly to the XBMC master log
        
 def log(message, inst=None):
-    if inst: 
-      xbmc.log("OzWeather Exception: " + message + "[" + str(inst) +"]")
+    if inst is None: 
+      xbmc.log(plugin + ": " + message)
     else:
-      xbmc.log("OzWeather: " + message)
+      xbmc.log(plugin + " Exception: " + message + "[" + str(inst) +"]")
  
 
 ################################################################################
@@ -264,11 +264,11 @@ def buildImages(radarCode):
        #ignore the composite gif...
        if f[-3:] == "png":
          imageToRetrieve = "ftp://anonymous:someone%40somewhere.com@ftp.bom.gov.au//anon/gen/radar/" + f
-         log("OzWeather: Retrieving radar image: " + imageToRetrieve)
+         log("Retrieving radar image: " + imageToRetrieve)
          try:
             image.retrieve(imageToRetrieve, loopImagesPath + "/" + f )
          except Exception as inst:
-            log("OzWeather: Failed to retrieve radar image: " + imageToRetrieve + ", oh well never mind!", inst )
+            log("Failed to retrieve radar image: " + imageToRetrieve + ", oh well never mind!", inst )
             
 
 ################################################################################
