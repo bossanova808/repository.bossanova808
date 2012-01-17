@@ -11,6 +11,5 @@
 		<setting id="Location1id" type="text" visible="false" default=""/>
 		<setting id="Location2id" type="text" visible="false" default=""/>
 		<setting id="Location3id" type="text" visible="false" default=""/>
-		<setting id="ExtendedFeaturesToggle" label="30114" type="bool" default="false"/>        
 	</category>
 </settings>
