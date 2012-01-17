@@ -1,3 +1,7 @@
+v 0.2.3
+- Temp fix to try really hard on ATV2 to get at least a basic background for troyp42
+- code to clear the window properties during updates so it's a bit neater
+
 v 0.2.2
 - Removed double setting
 

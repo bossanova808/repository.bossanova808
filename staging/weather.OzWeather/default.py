@@ -79,6 +79,37 @@ def log(message, inst=None):
 def set_property(name, value):
     WEATHER_WINDOW.setProperty(name, value)
 
+def clearProperties():
+    try:
+      set_property('Radar', "")   
+       
+      #now set all the XBMC current weather properties
+      set_property('Current.Condition'     , "")
+      set_property('Current.ConditionLong' , "")    
+      set_property('Current.Temperature'   , "")
+      set_property('Current.Wind'          , "")
+      set_property('Current.WindDirection' , "")
+      set_property('Current.Humidity'      , "")
+      set_property('Current.FeelsLike'     , "")
+      set_property('Current.DewPoint'      , "")
+      set_property('Current.UVIndex'       , "")
+      set_property('Current.OutlookIcon'   , "")
+      set_property('Current.FanartCode'    , "")
+  
+      #and all the properties for the forecast
+      for count in range(0,7):         
+          set_property('Day%i.Title'       % count, "")
+          set_property('Day%i.HighTemp'    % count, "")
+          set_property('Day%i.LowTemp'     % count, "")
+          set_property('Day%i.Outlook'     % count, "")
+          set_property('Day%i.OutlookIcon' % count, "")
+          set_property('Day%i.FanartCode'  % count, "")
+      
+    except Exception as inst:
+      log("********** OzWeather Couldn't clear all the properties, sorry!!", inst)
+    
+
+
 ################################################################################
 #set the location and radar code properties
 
@@ -134,6 +165,9 @@ def refresh_locations():
 def forecast(url, radarCode):
     global radarBackgroundsPath, loopImagesPath
 
+    #make sure updates look neat
+    clearProperties()   
+
     extendedFeatures = __addon__.getSetting('ExtendedFeaturesToggle')
     log("Getting weather from " + url + ", Extended features = " + str(extendedFeatures))  
     data = common._fetchPage({"link":url})
@@ -141,26 +175,17 @@ def forecast(url, radarCode):
        propertiesPDOM(data["content"], extendedFeatures)
     #ok now we want to build the radar
     if extendedFeatures == "true":
-
+      log("Extended feature powers -> activate!")
+      
       #strings to store the paths we will use    
       radarBackgroundsPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/radarbackgrounds/" + radarCode + "/");
       loopImagesPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/currentloop/" + radarCode + "/");
 
-      set_property('Radar', "")
       buildImages(radarCode)
       radar = ""
       radar = __addon__.getSetting('Radar%s' % sys.argv[1])
-      #set the radar to blank so that xbmc will update radar images with the new set 
-      #time.sleep(1)
       set_property('Radar', radar)
       
-      #NO LONGER NEEDED
-      #reload the skin to force an update for the radar image
-      #only do this if we're actually on the weather page
-      #nWin = xbmcgui.getCurrentWindowId()
-      #if nWin == 12600:
-      #  log("OzWeather: Reloading the skin because we're on the weather page")
-      #  xbmc.executebuiltin( 'XBMC.ReloadSkin()' )
 
 ################################################################################
 # Downloads a radar background given a BOM radar code like IDR023 & filename
@@ -193,8 +218,14 @@ def downloadBackground(radarCode, fileName):
           rgbimg.save(imageFileRGB, "PNG")
           os.remove(imageFileIndexed)          
         except Exception as inst:
-           xbmc.log("OzWeather: Error, couldn't retrieve " + fileName + " - error: " + str(inst))
-
+          xbmc.log("OzWeather: Error, couldn't retrieve " + fileName + " - error: " + str(inst))
+          #try REALLY hard to get at least the background image
+          try:
+            if "background.png" in fileName:
+              image.retrieve(ftpStub + fileName, imageFileRGB ) 
+          except Exception as inst2:
+            xbmc.log("OzWeather: No, really, -> Error, couldn't retrieve " + fileName + " - error: " + str(inst2))
+             
 
 def prepareBackgrounds(radarCode):
     global radarBackgroundsPath, loopImagesPath
@@ -278,9 +309,9 @@ def buildImages(radarCode):
 def propertiesPDOM(page, extendedFeatures):
 
     #manually clear these
-    set_property('Day4.OutlookIcon', "")
-    set_property('Day5.OutlookIcon', "")
-    set_property('Day6.OutlookIcon', "")
+    #set_property('Day4.OutlookIcon', "")
+    #set_property('Day5.OutlookIcon', "")
+    #set_property('Day6.OutlookIcon', "")
 
     #pull data from the current observations table
     ret = common.parseDOM(page, "div", attrs = { "class": "details_lhs" })
@@ -453,25 +484,34 @@ if sys.argv[1].startswith('Location'):
 #script is being called in general use, not from the settings page            
 #get the currently selected location and grab it's forecast
 else:
-    
-    #TODO - MESSAGE ON FIRST RUN??
-    #is this the first run?  If so, let's show a message and then record we've run this.
-    #runOnceToken =  xbmc.translatePath("special://profile/addon_data/weather.ozweather/" ) + "RunOnceToken"
-    #if not xbmcvfs.exists( runOnceToken ):
-    #  open(runOnceToken, 'w').close() 
-      
-
+ 
     #retrieve the currently set location & radar
     location = ""
     location = __addon__.getSetting('Location%sid' % sys.argv[1])
     radar = ""
     radar = __addon__.getSetting('Radar%s' % sys.argv[1])
-    #set the radar name to a property to we can use it to title the window
-    set_property('Radar', radar)
     #now get a forecast
     forecast(location, radar)
 
-#refressh the locations and set the weather provider property
+#refresh the locations and set the weather provider property
 refresh_locations()
 set_property('WeatherProvider', 'BOM Australia via WeatherZone')
 
+
+
+################################################################################
+# BELOW HERE IS JUST A STORAGE AREA FOR SNIPPETS, OLD STUFF ETC
+
+#NO LONGER NEEDED
+#reload the skin to force an update for the radar image
+#only do this if we're actually on the weather page
+#nWin = xbmcgui.getCurrentWindowId()
+#if nWin == 12600:
+#  log("OzWeather: Reloading the skin because we're on the weather page")
+#  xbmc.executebuiltin( 'XBMC.ReloadSkin()' )
+
+#TODO - MESSAGE ON FIRST RUN??
+#is this the first run?  If so, let's show a message and then record we've run this.
+#runOnceToken =  xbmc.translatePath("special://profile/addon_data/weather.ozweather/" ) + "RunOnceToken"
+#if not xbmcvfs.exists( runOnceToken ):
+#  open(runOnceToken, 'w').close() 
