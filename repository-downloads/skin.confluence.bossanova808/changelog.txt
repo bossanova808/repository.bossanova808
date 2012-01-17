@@ -1,6 +1,12 @@
 [B]0.0.6[/B]
 
 Based on Confluence 2.1.0
+- ADDED NOTE TO SKIN THAT PEOPLE SHOULD NOT USE THIS SKIN - 
+IT'S JSUT FOR MY PERSONAL USE
+
+[B]0.0.6[/B]
+
+Based on Confluence 2.1.0
 - Tweaks and topography in radar
 
 
