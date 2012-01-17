@@ -49,9 +49,12 @@ sys.path.append (__resource__)
 #import the tables that map conditions to icon number and short days to long days
 from utilities import *
 
-#Constants
+#Handy Strings
 WEATHER_WINDOW  = xbmcgui.Window(12600)
 WeatherZoneURL = 'http://www.weatherzone.com.au'
+ftpStub = "ftp://anonymous:someone%40somewhere.com@ftp.bom.gov.au//anon/gen/radar_transparencies/"
+radarBackgroundsPath = ""
+loopImagesPath = ""
 
 
 ################################################################################
@@ -59,6 +62,16 @@ WeatherZoneURL = 'http://www.weatherzone.com.au'
        
 def striplist(l, chars):
     return([x.strip(chars) for x in l])
+    
+################################################################################
+# log messages neatly to the XBMC master log
+       
+def log(message, inst=None):
+    if inst: 
+      xbmc.log("OzWeather Exception: " + message + "[" + str(inst) +"]")
+    else:
+      xbmc.log("OzWeather: " + message)
+ 
 
 ################################################################################
 #just sets window properties we can refer to later in the MyWeather.xml skin file
@@ -119,14 +132,20 @@ def refresh_locations():
 # if the appropriate setting is set
 
 def forecast(url, radarCode):
+    global radarBackgroundsPath, loopImagesPath
 
     extendedFeatures = __addon__.getSetting('ExtendedFeaturesToggle')
-    print 'OzWeather: Getting weather from ', url , "extended features = ", extendedFeatures  
+    log("Getting weather from " + url + ", Extended features = " + str(extendedFeatures))  
     data = common._fetchPage({"link":url})
     if data != '':
        propertiesPDOM(data["content"], extendedFeatures)
     #ok now we want to build the radar
     if extendedFeatures == "true":
+
+      #strings to store the paths we will use    
+      radarBackgroundsPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/radarbackgrounds/" + radarCode + "/");
+      loopImagesPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/currentloop/" + radarCode + "/");
+
       set_property('Radar', "")
       buildImages(radarCode)
       radar = ""
@@ -140,8 +159,58 @@ def forecast(url, radarCode):
       #only do this if we're actually on the weather page
       #nWin = xbmcgui.getCurrentWindowId()
       #if nWin == 12600:
-      #  print("OzWeather: Reloading the skin because we're on the weather page")
+      #  log("OzWeather: Reloading the skin because we're on the weather page")
       #  xbmc.executebuiltin( 'XBMC.ReloadSkin()' )
+
+################################################################################
+# Downloads a radar background given a BOM radar code like IDR023 & filename
+# Converts the image from indexed colour to RGBA colour 
+
+def downloadBackground(radarCode, fileName):
+    global radarBackgroundsPath, loopImagesPath
+
+    #ok get ready to retrieve some images
+    image = urllib.URLopener() 
+
+    outFileName = fileName
+    
+    #the legend file doesn't have the radar code int he filename
+    if fileName == "IDR.legend.0.png":
+      outFileName = "legend.png"
+    else:
+      #append the radar code 
+      fileName = radarCode + "." + fileName
+
+    #download the backgrounds only if we don't have them yet
+    if not xbmcvfs.exists( radarBackgroundsPath + fileName):       
+        #the legened image showing the rain scale
+        try:
+          imageFileIndexed = radarBackgroundsPath + "idx." + fileName
+          imageFileRGB = radarBackgroundsPath + outFileName
+          image.retrieve(ftpStub + fileName, imageFileIndexed )
+          im = Image.open( imageFileIndexed )
+          rgbimg = im.convert('RGBA')
+          rgbimg.save(imageFileRGB, "PNG")
+          os.remove(imageFileIndexed)          
+        except Exception as inst:
+           xbmc.log("OzWeather: Error, couldn't retrieve " + fileName + " - error: " + str(inst))
+
+
+def prepareBackgrounds(radarCode):
+    global radarBackgroundsPath, loopImagesPath
+
+    downloadBackground(radarCode, "IDR.legend.0.png")
+    downloadBackground(radarCode, "background.png")
+    downloadBackground(radarCode, "locations.png")
+    downloadBackground(radarCode, "range.png")
+    downloadBackground(radarCode, "topography.png")
+    downloadBackground(radarCode, "catchments.png")
+    #downloadBackground(radarCode, "waterways.png")
+    #downloadBackground(radarCode, "wthrDistricts.png")
+    #downloadBackground(radarCode, "rail.png")
+    #downloadBackground(radarCode, "roads.png")
+
+
 
 ################################################################################
 # Builds the radar images given a BOM radar code like IDR023
@@ -149,12 +218,7 @@ def forecast(url, radarCode):
 # they need to)
 # the radar images are downloaded with each update (~60kb each time)
     
-def buildImages(radarCode):
-    
-    #strings to store the paths we will use    
-    radarBackgroundsPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/radarbackgrounds/" + radarCode + "/");
-    loopImagesPath = xbmc.translatePath("special://profile/addon_data/weather.ozweather/currentloop/" + radarCode + "/");
-    ftpStub = "ftp://anonymous:someone%40somewhere.com@ftp.bom.gov.au//anon/gen/radar_transparencies/"
+def buildImages(radarCode):   
 
     #remove the temporary files - we only want fresh radar files
     #this results in maybe ~60k used per update.  
@@ -167,56 +231,13 @@ def buildImages(radarCode):
     if not xbmcvfs.exists( loopImagesPath ):
       os.makedirs( loopImagesPath )    
     
-    #ok get ready to retrieve some images
-    image = urllib.URLopener() 
     
-    #download the backgrounds only if we don't have them yet
-    if not xbmcvfs.exists( radarBackgroundsPath + 'legend.png'):       
-        #the legened image showing the rain scale
-        try:
-          imageFileIndexed = radarBackgroundsPath + "legend.idx.png"
-          imageFileRGB = radarBackgroundsPath + "legend.png"
-          image.retrieve(ftpStub + "IDR.legend.0.png", imageFileIndexed )
-          im = Image.open( imageFileIndexed )
-          rgbimg = im.convert('RGBA')
-          rgbimg.save(imageFileRGB, "PNG")          
-        except Exception as inst:
-           print "OzWeather: Couldn't retrieve IDR.legend.0.png ", inst
-
-    #the background image showing the land/coast etc        
-        try:
-          imageFileIndexed = radarBackgroundsPath + "background.idx.png"
-          imageFileRGB = radarBackgroundsPath + "background.png"
-          image.retrieve(ftpStub + radarCode + ".background.png", imageFileIndexed )
-          im = Image.open( imageFileIndexed )
-          rgbimg = im.convert('RGBA')
-          rgbimg.save(imageFileRGB, "PNG")          
-        except Exception as inst:
-           print "OzWeather: Couldn't retrieve IDR.background.png ", inst
-        
-    #location names overlay
-        try:
-          imageFileIndexed = radarBackgroundsPath + "locations.idx.png"
-          imageFileRGB = radarBackgroundsPath + "locations.png"
-          image.retrieve(ftpStub + radarCode + ".locations.png", imageFileIndexed )
-          im = Image.open( imageFileIndexed )
-          rgbimg = im.convert('RGBA')
-          rgbimg.save(imageFileRGB, "PNG")          
-        except Exception as inst:
-           print "OzWeather: Couldn't retrieve IDR.locations.png ", inst
-       
-
-    #for the future:
-    #image.retrieve(ftpStub + radarCode + ".catchments.png",       radarBackgroundsPath + "/catchments.png")
-    #image.retrieve(ftpStub + radarCode + ".rail.png",             radarBackgroundsPath + "/rail.png")
-    #image.retrieve(ftpStub + radarCode + ".roads.png",            radarBackgroundsPath + "/roads.png")
-    #image.retrieve(ftpStub + radarCode + ".range.png",            radarBackgroundsPath + "/range.png")
-    #image.retrieve(ftpStub + radarCode + ".topography.png",       radarBackgroundsPath + "/topography.png")
-    #image.retrieve(ftpStub + radarCode + ".waterways.png",        radarBackgroundsPath + "/waterways.png")
-    #image.retrieve(ftpStub + radarCode + ".wthrDistricts.png",    radarBackgroundsPath + "/wthrDistricts.png")
+    prepareBackgrounds(radarCode)        
 
     #Ok so we have the backgrounds...now it is time get the loop
     #first we retrieve a list of the available files via ftp
+    #ok get ready to retrieve some images
+    image = urllib.URLopener() 
     files = []
 
     ftp = ftplib.FTP("ftp.bom.gov.au")
@@ -228,9 +249,9 @@ def buildImages(radarCode):
         files = ftp.nlst()
     except ftplib.error_perm, resp:
         if str(resp) == "550 No files found":
-            print "No files in this directory!"
+            log("No files in BOM ftp directory!")
         else:
-            raise
+            log("Something wrong in the ftp bit of radar images")
             
     #ok now we need just the matching radar files...
     loopPicNames = []    
@@ -243,11 +264,11 @@ def buildImages(radarCode):
        #ignore the composite gif...
        if f[-3:] == "png":
          imageToRetrieve = "ftp://anonymous:someone%40somewhere.com@ftp.bom.gov.au//anon/gen/radar/" + f
-         print("OzWeather: Retrieving radar image: " + imageToRetrieve)
+         log("OzWeather: Retrieving radar image: " + imageToRetrieve)
          try:
             image.retrieve(imageToRetrieve, loopImagesPath + "/" + f )
-         except:
-            print("OzWeather: Failed to retrieve radar image: " + imageToRetrieve + ", oh well never mind!")
+         except Exception as inst:
+            log("OzWeather: Failed to retrieve radar image: " + imageToRetrieve + ", oh well never mind!", inst )
             
 
 ################################################################################
@@ -297,7 +318,7 @@ def propertiesPDOM(page, extendedFeatures):
       shortDesc[count] = str.replace(shortDesc[count], '-<br />','')
 
     #log the collected data, helpful for finding errors
-    print "Collected data: shortDesc [" + str(shortDesc) + "] maxList [" + str(maxList) +"] minList [" + str(minList) + "]"
+    #log("Collected data: shortDesc [" + str(shortDesc) + "] maxList [" + str(maxList) +"] minList [" + str(minList) + "]")
     
     #and the names of the days
     days = common.parseDOM(ret, "span", attrs = { "style": "font-size: larger;" })
@@ -365,8 +386,8 @@ def propertiesPDOM(page, extendedFeatures):
           set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
           set_property('Day%i.FanartCode'  % count, weathercode)
       
-    except:
-      print("********** OzWeather Couldn't set all the properties, sorry!!")
+    except Exception as inst:
+      log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
     
     #We're done
     
@@ -432,6 +453,14 @@ if sys.argv[1].startswith('Location'):
 #script is being called in general use, not from the settings page            
 #get the currently selected location and grab it's forecast
 else:
+    
+    #TODO - MESSAGE ON FIRST RUN??
+    #is this the first run?  If so, let's show a message and then record we've run this.
+    #runOnceToken =  xbmc.translatePath("special://profile/addon_data/weather.ozweather/" ) + "RunOnceToken"
+    #if not xbmcvfs.exists( runOnceToken ):
+    #  open(runOnceToken, 'w').close() 
+      
+
     #retrieve the currently set location & radar
     location = ""
     location = __addon__.getSetting('Location%sid' % sys.argv[1])

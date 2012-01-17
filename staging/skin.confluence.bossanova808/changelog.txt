@@ -1,3 +1,9 @@
+[B]0.0.6[/B]
+
+Based on Confluence 2.1.0
+- Tweaks and topography in radar
+
+
 [B]0.0.4[/B]
 
 Based on Confluence 2.1.0
