@@ -1,3 +1,6 @@
+V 0.2.5
+- Added DialogSeekBar.xml - if you want radar/weather when live video is paused...
+
 V 0.2.4
 - increased timout if weatherzone is taking a while and if they're down plugin will not crash
 - added hack for the national radar IDR00004 that oddly uses a different background number  

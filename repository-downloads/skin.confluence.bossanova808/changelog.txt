@@ -1,8 +1,13 @@
-[B]0.0.6[/B]
+[B]0.0.8[/B]
 
 Based on Confluence 2.1.0
-- ADDED NOTE TO SKIN THAT PEOPLE SHOULD NOT USE THIS SKIN - 
-IT'S JSUT FOR MY PERSONAL USE
+- Add radar and current weather info to DialogSeekBar - just pause video and 
+there's your radar & weather! 
+
+[B]0.0.7[/B]
+
+Based on Confluence 2.1.0
+- ADDED NOTE TO SKIN THAT PEOPLE SHOULD NOT USE THIS SKIN
 
 [B]0.0.6[/B]
 

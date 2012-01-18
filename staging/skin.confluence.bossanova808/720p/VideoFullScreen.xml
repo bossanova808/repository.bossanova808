@@ -1,6 +1,7 @@
 <window id="2005">
  <defaultcontrol>-</defaultcontrol>
 	<controls>
+		
 		<!-- media infos -->
 		<control type="group" id="1">
 			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(123) | Window.IsVisible(124) | Window.IsVisible(125) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide)]</visible>
