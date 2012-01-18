@@ -28,7 +28,7 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.2.1"
+version = "0.2.4"
 plugin = "OzWeather-" + version
 author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
@@ -117,6 +117,9 @@ def refresh_locations():
     location_set1 = __addon__.getSetting('Location1')
     location_set2 = __addon__.getSetting('Location2')
     location_set3 = __addon__.getSetting('Location3')
+    location_set4 = __addon__.getSetting('Location4')
+    location_set5 = __addon__.getSetting('Location5')
+    location_set6 = __addon__.getSetting('Location6')
     locations = 0
     if location_set1 != '':
         locations += 1
@@ -133,11 +136,29 @@ def refresh_locations():
         set_property('Location3', location_set3)
     else:
         set_property('Location3', '')
+    if location_set4 != '':
+        locations += 1
+        set_property('Location4', location_set4)
+    else:
+        set_property('Location4', '')
+    if location_set5 != '':
+        locations += 1
+        set_property('Location5', location_set5)
+    else:
+        set_property('Location5', '')
+    if location_set6 != '':
+        locations += 1
+        set_property('Location6', location_set6)
+    else:
+        set_property('Location6', '')
     set_property('Locations', str(locations))
 
     radar_set1 = __addon__.getSetting('Radar1')
     radar_set2 = __addon__.getSetting('Radar2')
     radar_set3 = __addon__.getSetting('Radar3')
+    radar_set4 = __addon__.getSetting('Radar4')
+    radar_set5 = __addon__.getSetting('Radar5')
+    radar_set6 = __addon__.getSetting('Radar6')
     radars = 0
     if radar_set1 != '':
         radars += 1
@@ -154,6 +175,21 @@ def refresh_locations():
         set_property('Radar3', radar_set3)
     else:
         set_property('Radar3', '')
+    if radar_set4 != '':
+        radars += 1
+        set_property('Radar4', radar_set4)
+    else:
+        set_property('Radar4', '')
+    if radar_set5 != '':
+        radars += 1
+        set_property('Radar5', radar_set5)
+    else:
+        set_property('Radar5', '')
+    if radar_set6 != '':
+        radars += 1
+        set_property('Radar6', radar_set6)
+    else:
+        set_property('Radar6', '')
     set_property('Radars', str(locations))
 
 
@@ -170,7 +206,10 @@ def forecast(url, radarCode):
 
     extendedFeatures = __addon__.getSetting('ExtendedFeaturesToggle')
     log("Getting weather from " + url + ", Extended features = " + str(extendedFeatures))  
-    data = common._fetchPage({"link":url})
+    try:
+      data = common._fetchPage({"link":url})
+    except Exception as inst:
+      xbmc.log("OzWeather: Error, couldn't retrieve weather page from WeatherZone - error: " + str(inst))
     if data != '':
        propertiesPDOM(data["content"], extendedFeatures)
     #ok now we want to build the radar
@@ -218,13 +257,18 @@ def downloadBackground(radarCode, fileName):
           rgbimg.save(imageFileRGB, "PNG")
           os.remove(imageFileIndexed)          
         except Exception as inst:
-          xbmc.log("OzWeather: Error, couldn't retrieve " + fileName + " - error: " + str(inst))
+          xbmc.log("Error, couldn't retrieve " + fileName + " - error: " + str(inst))
           #try REALLY hard to get at least the background image
           try:
+            #ok so something is wrong with image conversion - probably a PIL issue, so let's just get a minimal BG image
             if "background.png" in fileName:
-              image.retrieve(ftpStub + fileName, imageFileRGB ) 
+              if not '00004' in fileName:
+                image.retrieve(ftpStub + fileName, imageFileRGB ) 
+              else:
+                #national radar loop uses a different BG for some reason...
+                image.retrieve(ftpStub + 'IDE00035.background.png', imageFileRGB )                 
           except Exception as inst2:
-            xbmc.log("OzWeather: No, really, -> Error, couldn't retrieve " + fileName + " - error: " + str(inst2))
+            xbmc.log("No, really, -> Error, couldn't retrieve " + fileName + " - error: " + str(inst2))
              
 
 def prepareBackgrounds(radarCode):
@@ -427,7 +471,7 @@ def propertiesPDOM(page, extendedFeatures):
 ##############################################
 ### NOW ACTUALLTY RUN THIS PUPPY - this is main() in the old language...    
 
-socket.setdefaulttimeout(10)      
+socket.setdefaulttimeout(100)      
 
 #the being called from the settings section where the user enters their postcodes    
 if sys.argv[1].startswith('Location'):

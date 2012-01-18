@@ -1,3 +1,7 @@
+V 0.2.4
+- increased timout if weatherzone is taking a while and if they're down plugin will not crash
+- added hack for the national radar IDR00004 that oddly uses a different background number  
+
 v 0.2.3
 - Temp fix to try really hard on ATV2 to get at least a basic background for troyp42
 - code to clear the window properties during updates so it's a bit neater
