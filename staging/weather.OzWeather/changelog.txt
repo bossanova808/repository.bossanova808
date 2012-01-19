@@ -1,3 +1,6 @@
+V 0.2.7
+- Don't crash if weatherzone has missing data, exit with an error to screen
+
 V 0.2.6
 - Do images before properties so updates look better visually
 - Improved DialogSeekBar.xml - if you want radar/weather when live video is paused...

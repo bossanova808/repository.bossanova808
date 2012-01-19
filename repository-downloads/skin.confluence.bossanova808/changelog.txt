@@ -1,3 +1,8 @@
+[B]0.1[/B]
+
+Based on Confluence 2.1.0
+- Recently Added Albums now on home menu
+
 [B]0.0.8[/B]
 
 Based on Confluence 2.1.0

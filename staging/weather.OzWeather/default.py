@@ -28,7 +28,7 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.2.6"
+version = "0.2.7"
 plugin = "OzWeather-" + version
 author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
@@ -76,35 +76,35 @@ def log(message, inst=None):
 ################################################################################
 #just sets window properties we can refer to later in the MyWeather.xml skin file
 
-def set_property(name, value):
+def set_property(name, value = ""):
     WEATHER_WINDOW.setProperty(name, value)
 
 def clearProperties():
     try:
-      set_property("Weather.IsFetched", "")
-      set_property('Radar', "")   
+      set_property("Weather.IsFetched")
+      set_property('Radar')   
        
       #now set all the XBMC current weather properties
-      set_property('Current.Condition'     , "")
-      set_property('Current.ConditionLong' , "")    
-      set_property('Current.Temperature'   , "")
-      set_property('Current.Wind'          , "")
-      set_property('Current.WindDirection' , "")
-      set_property('Current.Humidity'      , "")
-      set_property('Current.FeelsLike'     , "")
-      set_property('Current.DewPoint'      , "")
-      set_property('Current.UVIndex'       , "")
-      set_property('Current.OutlookIcon'   , "")
-      set_property('Current.FanartCode'    , "")
+      set_property('Current.Condition')
+      set_property('Current.ConditionLong')    
+      set_property('Current.Temperature')
+      set_property('Current.Wind')
+      set_property('Current.WindDirection')
+      set_property('Current.Humidity')
+      set_property('Current.FeelsLike')
+      set_property('Current.DewPoint')
+      set_property('Current.UVIndex')
+      set_property('Current.OutlookIcon')
+      set_property('Current.FanartCode')
   
       #and all the properties for the forecast
       for count in range(0,7):         
-          set_property('Day%i.Title'       % count, "")
-          set_property('Day%i.HighTemp'    % count, "")
-          set_property('Day%i.LowTemp'     % count, "")
-          set_property('Day%i.Outlook'     % count, "")
-          set_property('Day%i.OutlookIcon' % count, "")
-          set_property('Day%i.FanartCode'  % count, "")
+          set_property('Day%i.Title'       % count)
+          set_property('Day%i.HighTemp'    % count)
+          set_property('Day%i.LowTemp'     % count)
+          set_property('Day%i.Outlook'     % count)
+          set_property('Day%i.OutlookIcon' % count)
+          set_property('Day%i.FanartCode'  % count)
       
     except Exception as inst:
       log("********** OzWeather Couldn't clear all the properties, sorry!!", inst)
@@ -200,11 +200,13 @@ def refresh_locations():
 # if the appropriate setting is set
 
 def forecast(url, radarCode):
+    #pull in the paths
     global radarBackgroundsPath, loopImagesPath
 
     #make sure updates look neat
     clearProperties()   
-
+  
+    #check if we're doing jsut a basic data update or data and images
     extendedFeatures = __addon__.getSetting('ExtendedFeaturesToggle')
     log("Getting weather from " + url + ", Extended features = " + str(extendedFeatures))  
 
@@ -225,7 +227,7 @@ def forecast(url, radarCode):
     try:
       data = common._fetchPage({"link":url})
     except Exception as inst:
-      xbmc.log("OzWeather: Error, couldn't retrieve weather page from WeatherZone - error: " + str(inst))
+      log("OzWeather: Error, couldn't retrieve weather page from WeatherZone - error: ", inst)
     if data != '':
        propertiesPDOM(data["content"], extendedFeatures)
       
@@ -261,7 +263,7 @@ def downloadBackground(radarCode, fileName):
           rgbimg.save(imageFileRGB, "PNG")
           os.remove(imageFileIndexed)          
         except Exception as inst:
-          xbmc.log("Error, couldn't retrieve " + fileName + " - error: " + str(inst))
+          log("Error, couldn't retrieve " + fileName + " - error: ", inst)
           #try REALLY hard to get at least the background image
           try:
             #ok so something is wrong with image conversion - probably a PIL issue, so let's just get a minimal BG image
@@ -272,7 +274,7 @@ def downloadBackground(radarCode, fileName):
                 #national radar loop uses a different BG for some reason...
                 image.retrieve(ftpStub + 'IDE00035.background.png', imageFileRGB )                 
           except Exception as inst2:
-            xbmc.log("No, really, -> Error, couldn't retrieve " + fileName + " - error: " + str(inst2))
+            log("No, really, -> Error, couldn't retrieve " + fileName + " - error: ", inst2)
              
 
 def prepareBackgrounds(radarCode):
@@ -356,121 +358,123 @@ def buildImages(radarCode):
         
 def propertiesPDOM(page, extendedFeatures):
 
-    #manually clear these
-    #set_property('Day4.OutlookIcon', "")
-    #set_property('Day5.OutlookIcon', "")
-    #set_property('Day6.OutlookIcon', "")
-
-    #pull data from the current observations table
-    ret = common.parseDOM(page, "div", attrs = { "class": "details_lhs" })
-    observations = common.parseDOM(ret, "td", attrs = { "class": "hilite bg_yellow" }) 
-    #Observations now looks like - ['18.3&deg;C', '4.7&deg;C', '18.3&deg;C', '41%', 'SSW 38km/h', '48km/h', '1015.7hPa', '-', '0.0mm / -']   
-    temperature = str.strip(observations[0], '&deg;C')
-    dewPoint = str.strip(observations[1], '&deg;C')
-    feelsLike = str.strip(observations[2], '&deg;C')
-    humidity = str.strip(observations[3], '%')
-    windTemp = observations[4].partition(' ');
-    windDirection = windTemp[0]
-    windSpeed = str.strip(windTemp[2], 'km/h')
-    #there's no UV so we get that from the forecast, see below
- 
-    #pull the basic data from the forecast table  
-    ret = common.parseDOM(page, "div", attrs = { "class": "boxed_blue_nopad" })
-    #create lists of each of the maxes, mins, and descriptions
-    #Get the days UV in text form like 'Extreme' and number '11'
-    UVchunk = common.parseDOM(ret, "td", attrs = { "style": "text-align: center;" })
-    UVtext = common.parseDOM(UVchunk, "span")
-    UVnumber = common.parseDOM(UVchunk, "span", ret = "title")
-    UV = UVtext[0] + ' (' + UVnumber[0] + ')'
-    #get the 7 day max min forecasts
-    maxMin = common.parseDOM(ret, "td")
-    #for count, element in enumerate(maxMin):
-    #   print "********" , count , "^^^" , str(element)
-    maxList = striplist(maxMin[7:14],'&deg;C');
-    minList = striplist(maxMin[14:21],'&deg;C');
-    #and the short forecasts
-    shortDesc = common.parseDOM(ret, "td", attrs = { "class": "bg_yellow" })
-    shortDesc = common.parseDOM(ret, "span", attrs = { "style": "font-size: 0.9em;" })
-    shortDesc = shortDesc[0:7]
-          
-    for count, desc in enumerate(shortDesc):
-      shortDesc[count] = str.replace(shortDesc[count], '-<br />','')
-
-    #log the collected data, helpful for finding errors
-    #log("Collected data: shortDesc [" + str(shortDesc) + "] maxList [" + str(maxList) +"] minList [" + str(minList) + "]")
-    
-    #and the names of the days
-    days = common.parseDOM(ret, "span", attrs = { "style": "font-size: larger;" })
-    days = common.parseDOM(ret, "span", attrs = { "class": "bold" })
-    days = days[0:7]
-    for count, day in enumerate(days):
-        days[count] = DAYS[day]
- 
-    #get the longer current forecast for the day
-    # or just use the short one if this is disabled in settings
-    if extendedFeatures == "true":
-        longDayCast = common.parseDOM(page, "div", attrs = { "class": "top_left" })
-        #print '@@@@@@@@@ Long 1', longDayCast
-        longDayCast = common.parseDOM(longDayCast, "p" )
-        #print '@@@@@@@@@ Long 2', longDayCast
-        #new method - just strip the crap (e.g. tabs) out of the string and use a colon separator for the 'return' as we don't have much space
-        longDayCast = common.stripTags(longDayCast[0])
-        #print longDayCast       
-        longDayCast = str.replace(longDayCast, '\t','')
-        longDayCast = str.replace(longDayCast, '\r',' ')
-        longDayCast = str.replace(longDayCast, '&amp;','&')
-        #print '@@@@@@@@@ Long 4', longDayCast    
-        longDayCast = longDayCast[:-1]
-        #print '@@@@@@@@@@@@@@@@' , longDayCast[-5:]
-        #if longDayCast[-5:] != "winds":
-        #  longDayCast = longDayCast + " fire danger."    
-    else:
-        longDayCast = shortDesc[0]
- 
-    #if for some reason the codes change return a neat 'na' response
     try:
-        weathercode = WEATHER_CODES[shortDesc[0]]   
-    except:
-        weathercode = 'na'
-  
-    # set all the XBMC window properties.
-    # wrap it in a try: in case something goes wrong, it's better than crashing out...
-    
-    try:
-      #now set all the XBMC current weather properties
-      set_property('Current.Condition'     , shortDesc[0])
-      set_property('Current.ConditionLong' , longDayCast)    
-      set_property('Current.Temperature'   , temperature)
-      set_property('Current.Wind'          , windSpeed)
-      set_property('Current.WindDirection' , windDirection)
-      set_property('Current.Humidity'      , humidity)
-      set_property('Current.FeelsLike'     , feelsLike)
-      set_property('Current.DewPoint'      , dewPoint)
-      set_property('Current.UVIndex'       , UV)
-      set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
-      set_property('Current.FanartCode'    , weathercode)
-  
-      #and all the properties for the forecast
+      #pull data from the current observations table
+      ret = common.parseDOM(page, "div", attrs = { "class": "details_lhs" })
+      observations = common.parseDOM(ret, "td", attrs = { "class": "hilite bg_yellow" }) 
+      #Observations now looks like - ['18.3&deg;C', '4.7&deg;C', '18.3&deg;C', '41%', 'SSW 38km/h', '48km/h', '1015.7hPa', '-', '0.0mm / -']   
+      temperature = str.strip(observations[0], '&deg;C')
+      dewPoint = str.strip(observations[1], '&deg;C')
+      feelsLike = str.strip(observations[2], '&deg;C')
+      humidity = str.strip(observations[3], '%')
+      windTemp = observations[4].partition(' ');
+      windDirection = windTemp[0]
+      windSpeed = str.strip(windTemp[2], 'km/h')
+      #there's no UV so we get that from the forecast, see below
+   
+      #pull the basic data from the forecast table  
+      ret = common.parseDOM(page, "div", attrs = { "class": "boxed_blue_nopad" })
+      #create lists of each of the maxes, mins, and descriptions
+      #Get the days UV in text form like 'Extreme' and number '11'
+      UVchunk = common.parseDOM(ret, "td", attrs = { "style": "text-align: center;" })
+      UVtext = common.parseDOM(UVchunk, "span")
+      UVnumber = common.parseDOM(UVchunk, "span", ret = "title")
+      UV = UVtext[0] + ' (' + UVnumber[0] + ')'
+      #get the 7 day max min forecasts
+      maxMin = common.parseDOM(ret, "td")
+      #for count, element in enumerate(maxMin):
+      #   print "********" , count , "^^^" , str(element)
+      maxList = striplist(maxMin[7:14],'&deg;C');
+      minList = striplist(maxMin[14:21],'&deg;C');
+      #and the short forecasts
+      shortDesc = common.parseDOM(ret, "td", attrs = { "class": "bg_yellow" })
+      shortDesc = common.parseDOM(ret, "span", attrs = { "style": "font-size: 0.9em;" })
+      shortDesc = shortDesc[0:7]
+            
       for count, desc in enumerate(shortDesc):
-          try:
-              weathercode = WEATHER_CODES[shortDesc[count]]
-          except:
-              weathercode = 'na'
-          
-          day = days[count]
-          set_property('Day%i.Title'       % count, day)
-          set_property('Day%i.HighTemp'    % count, maxList[count])
-          set_property('Day%i.LowTemp'     % count, minList[count])
-          set_property('Day%i.Outlook'     % count, desc)
-          set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
-          set_property('Day%i.FanartCode'  % count, weathercode)
+        shortDesc[count] = str.replace(shortDesc[count], '-<br />','')
+  
+      #log the collected data, helpful for finding errors
+      #log("Collected data: shortDesc [" + str(shortDesc) + "] maxList [" + str(maxList) +"] minList [" + str(minList) + "]")
       
-    except Exception as inst:
-      log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
+      #and the names of the days
+      days = common.parseDOM(ret, "span", attrs = { "style": "font-size: larger;" })
+      days = common.parseDOM(ret, "span", attrs = { "class": "bold" })
+      days = days[0:7]
+      for count, day in enumerate(days):
+          days[count] = DAYS[day]
+   
+      #get the longer current forecast for the day
+      # or just use the short one if this is disabled in settings
+      if extendedFeatures == "true":
+          longDayCast = common.parseDOM(page, "div", attrs = { "class": "top_left" })
+          #print '@@@@@@@@@ Long 1', longDayCast
+          longDayCast = common.parseDOM(longDayCast, "p" )
+          #print '@@@@@@@@@ Long 2', longDayCast
+          #new method - just strip the crap (e.g. tabs) out of the string and use a colon separator for the 'return' as we don't have much space
+          longDayCast = common.stripTags(longDayCast[0])
+          #print longDayCast       
+          longDayCast = str.replace(longDayCast, '\t','')
+          longDayCast = str.replace(longDayCast, '\r',' ')
+          longDayCast = str.replace(longDayCast, '&amp;','&')
+          #print '@@@@@@@@@ Long 4', longDayCast    
+          longDayCast = longDayCast[:-1]
+          #print '@@@@@@@@@@@@@@@@' , longDayCast[-5:]
+          #if longDayCast[-5:] != "winds":
+          #  longDayCast = longDayCast + " fire danger."    
+      else:
+          longDayCast = shortDesc[0]
+   
+      #if for some reason the codes change return a neat 'na' response
+      try:
+          weathercode = WEATHER_CODES[shortDesc[0]]   
+      except:
+          weathercode = 'na'
     
-    #We're done
-    set_property("Weather.IsFetched", "true")
+      # set all the XBMC window properties.
+      # wrap it in a try: in case something goes wrong, it's better than crashing out...
+      
+      try:
+        #now set all the XBMC current weather properties
+        set_property('Current.Condition'     , shortDesc[0])
+        set_property('Current.ConditionLong' , longDayCast)    
+        set_property('Current.Temperature'   , temperature)
+        set_property('Current.Wind'          , windSpeed)
+        set_property('Current.WindDirection' , windDirection)
+        set_property('Current.Humidity'      , humidity)
+        set_property('Current.FeelsLike'     , feelsLike)
+        set_property('Current.DewPoint'      , dewPoint)
+        set_property('Current.UVIndex'       , UV)
+        set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
+        set_property('Current.FanartCode'    , weathercode)
+    
+        #and all the properties for the forecast
+        for count, desc in enumerate(shortDesc):
+            try:
+                weathercode = WEATHER_CODES[shortDesc[count]]
+            except:
+                weathercode = 'na'
+            
+            day = days[count]
+            set_property('Day%i.Title'       % count, day)
+            set_property('Day%i.HighTemp'    % count, maxList[count])
+            set_property('Day%i.LowTemp'     % count, minList[count])
+            set_property('Day%i.Outlook'     % count, desc)
+            set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
+            set_property('Day%i.FanartCode'  % count, weathercode)
+        
+      except Exception as inst:
+        log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
 
+      #Ok, if we got here we're done
+      set_property("Weather.IsFetched", "true")
+
+    #probably weatherzone is fucked, so exit cleanly
+    except Exception as inst:
+      log("********** OzWeather Couldn't Parse Data, sorry!!", inst)
+      set_property('Current.Condition', "Couldn't Retrieve Data!")
+      set_property('Current.ConditionLong', "Error - Couldn't retrieve data from WeatherZone - this is usually just a temporary problem with their server and with any luck they'll fix it soon!")
+      set_property("Weather.IsFetched", "false")     
 
 
 ##############################################
