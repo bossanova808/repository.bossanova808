@@ -1,3 +1,7 @@
+V 0.2.6
+- Do images before properties so updates look better visually
+- Improved DialogSeekBar.xml - if you want radar/weather when live video is paused...
+
 V 0.2.5
 - Added DialogSeekBar.xml - if you want radar/weather when live video is paused...
 
