@@ -81,6 +81,7 @@ def set_property(name, value):
 
 def clearProperties():
     try:
+      set_property("Weather.IsFetched", "")
       set_property('Radar', "")   
        
       #now set all the XBMC current weather properties
@@ -206,13 +207,8 @@ def forecast(url, radarCode):
 
     extendedFeatures = __addon__.getSetting('ExtendedFeaturesToggle')
     log("Getting weather from " + url + ", Extended features = " + str(extendedFeatures))  
-    try:
-      data = common._fetchPage({"link":url})
-    except Exception as inst:
-      xbmc.log("OzWeather: Error, couldn't retrieve weather page from WeatherZone - error: " + str(inst))
-    if data != '':
-       propertiesPDOM(data["content"], extendedFeatures)
-    #ok now we want to build the radar
+
+    #ok now we want to build the radar images first, looks neater
     if extendedFeatures == "true":
       log("Extended feature powers -> activate!")
       
@@ -223,7 +219,15 @@ def forecast(url, radarCode):
       buildImages(radarCode)
       radar = ""
       radar = __addon__.getSetting('Radar%s' % sys.argv[1])
-      set_property('Radar', radar)
+      set_property('Radar', radar)    
+ 
+    #and now get and set all the temperatures etc.
+    try:
+      data = common._fetchPage({"link":url})
+    except Exception as inst:
+      xbmc.log("OzWeather: Error, couldn't retrieve weather page from WeatherZone - error: " + str(inst))
+    if data != '':
+       propertiesPDOM(data["content"], extendedFeatures)
       
 
 ################################################################################
@@ -465,7 +469,8 @@ def propertiesPDOM(page, extendedFeatures):
       log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
     
     #We're done
-    
+    set_property("Weather.IsFetched", "true")
+
 
 
 ##############################################

@@ -8,14 +8,14 @@
 
   <!-- JD Section -->	
 	   <control type="group" id="10121">
-				<posx>765</posx>
+        <posx>765</posx>
 				<posy>65</posy>
 				<control type="image" id="19547">
   				<description>media info background image</description>
   				<posx>256</posx>
   				<posy>25</posy>
   				<width>100</width>
-  				<height>155</height>
+  				<height>185</height>
   				<texture>black-back.png</texture>
   			</control>
   			<control type="image" id="19547">
@@ -110,7 +110,7 @@
 					<shadowcolor>black</shadowcolor>
 				</control>
  				<control type="label" id="19547">
-					<description>high label</description>
+					<description>predicted high label</description>
 					<posx>265</posx>
 					<posy>35</posy>
 					<width>460</width>
@@ -137,7 +137,22 @@
 					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
+        <control type="label" id="19547">
+ 					<description>tomorrow high label</description>
+					<posx>265</posx>
+					<posy>105</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Tomorrow[CR]High: [COLOR white]$INFO[Window(2600).Property(Day1.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+					<font>font11</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
     </control>
+    
 	  <!-- JD Section -->
 	
 		<control type="group">
