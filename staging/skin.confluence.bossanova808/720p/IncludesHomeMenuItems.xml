@@ -125,6 +125,11 @@
 			<height>35</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
+		<control type="button" id="90110">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>31328</label>
+			<onclick>ActivateWindow(MusicLibrary,musicdb://6,return)</onclick>
+		</control>
 		<control type="button" id="90112">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>133</label>
@@ -142,11 +147,6 @@
 			<label>134</label>
 			<onclick>ActivateWindow(MusicLibrary,Songs,return)</onclick>
 			<visible>Library.HasContent(Music)</visible>
-		</control>
-		<control type="button" id="90110">
-			<include>ButtonHomeSubCommonValues</include>
-			<label>31328</label>
-			<onclick>ActivateWindow(MusicLibrary,musicdb://6,return)</onclick>
 		</control>
 		<control type="button" id="90115">
 			<include>ButtonHomeSubCommonValues</include>
