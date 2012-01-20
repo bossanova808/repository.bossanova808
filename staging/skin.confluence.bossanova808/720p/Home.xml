@@ -13,16 +13,19 @@
 			<fadetime>1000</fadetime>
 		</control>
 		<include>CommonMediaPlayingBackground</include>
-		<control type="image">
+		
+    <control type="image">
 			<posx>0</posx>
-			<posy>340r</posy>
+			<posy>250r</posy>
 			<width>1280</width>
 			<height>250</height>
 			<colordiffuse>AAFFFFFF</colordiffuse>
 			<texture>HomeNowPlayingBack.png</texture>
 			<include>Window_OpenClose_Animation</include>
 		</control>
-		<control type="image">
+		
+    <!--
+    <control type="image">
 			<posx>0</posx>
 			<posy>90r</posy>
 			<width>1280</width>
@@ -31,7 +34,8 @@
 			<animation effect="fade" time="250" condition="Window.Previous(Home)">WindowOpen</animation>
 			<animation effect="fade" time="250" condition="Window.Next(Home)">WindowClose</animation>
 		</control>
-		<control type="image">
+		-->
+    <!--<control type="image">
 			<description>LOGO</description>
 			<posx>512</posx>
 			<posy>145r</posy>
@@ -43,7 +47,8 @@
 			<include>VisibleFadeEffect</include>
 			<include>Window_OpenClose_Animation</include>
 		</control>
-		<control type="image">
+		-->
+    <control type="image">
 			<posx>0</posx>
 			<posy>125</posy>
 			<width>1280</width>
