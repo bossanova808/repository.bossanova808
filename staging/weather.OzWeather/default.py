@@ -28,7 +28,7 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.3"
+version = "0.3.1"
 plugin = "OzWeather-" + version
 author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
@@ -81,8 +81,9 @@ def set_property(name, value = ""):
 
 def clearProperties():
     try:
-      set_property("Weather.IsFetched")
+      set_property('Weather.IsFetched')
       set_property('Radar')   
+      set_property('Video.1')
        
       #now set all the XBMC current weather properties
       set_property('Current.Condition')
@@ -445,72 +446,7 @@ def propertiesPDOM(page, extendedFeatures):
       set_property('Current.Condition', "Error w. Current Data!")
       set_property('Current.ConditionLong', "Error - Couldn't retrieve forecast weather data from WeatherZone - this is usually just a temporary problem with their server and with any luck they'll fix it soon!")
       set_property("Weather.IsFetched", "false")     
-    #END FORECAST DATA
-<<<<<<< HEAD
-=======
-
-
-    #ABC VIDEO URL
-    #try:
-      abcURL = "http://www.abc.net.au/news/abcnews24/weather-in-90-seconds/"
-      req = urllib2.Request(abcURL)
-      response = urllib2.urlopen(req)
-      htmlSource = str(response.read())
-      pattern_video = "http://mpegmedia.abc.net.au/news/weather/video/(.+?)video3.flv"
-      video = re.findall( pattern_video, htmlSource )
-      try:
-        url = "http://mpegmedia.abc.net.au/news/weather/video/" + video[0] + "video3.flv"
-        set_property('Video.1',url)
-      except Exception as inst:
-        log("********** OzWeather couldn't get ABC video URL", inst)
-    
-    except Exception as inst:
-      log("********** OzWeather couldn't get ABC video URL page", inst)
-    #END ABC VIDEO URL
-    
-    # set all the XBMC window properties.
-    # wrap it in a try: in case something goes wrong, it's better than crashing out...
-  
-    #SET PROPERTIES  
-    try:
-      #now set all the XBMC current weather properties
-      set_property('Current.Condition'     , shortDesc[0])
-      set_property('Current.ConditionLong' , longDayCast)    
-      set_property('Current.Temperature'   , temperature)
-      set_property('Current.Wind'          , windSpeed)
-      set_property('Current.WindDirection' , windDirection)
-      set_property('Current.Humidity'      , humidity)
-      set_property('Current.FeelsLike'     , feelsLike)
-      set_property('Current.DewPoint'      , dewPoint)
-      set_property('Current.UVIndex'       , UV)
-      set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
-      set_property('Current.FanartCode'    , weathercode)
-  
-      #and all the properties for the forecast
-      for count, desc in enumerate(shortDesc):
-          try:
-              weathercode = WEATHER_CODES[shortDesc[count]]
-          except:
-              weathercode = 'na'
-          
-          day = days[count]
-          set_property('Day%i.Title'       % count, day)
-          set_property('Day%i.HighTemp'    % count, maxList[count])
-          set_property('Day%i.LowTemp'     % count, minList[count])
-          set_property('Day%i.Outlook'     % count, desc)
-          set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
-          set_property('Day%i.FanartCode'  % count, weathercode)
-      
-    except Exception as inst:
-      log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
-
-    
-    #Ok, if we got here we're done
-    set_property("Weather.IsFetched", "true")
->>>>>>> 4c0b5841fdfb4fe64f7ab90e54aaec19e08447e6
-
-    #END SET PROPERTIES
-   
+    #END FORECAST DATA   
 
     #ABC VIDEO URL
     try:
