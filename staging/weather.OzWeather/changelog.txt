@@ -1,3 +1,7 @@
+V 0.2.9
+- Separate getting of current and forecast data so if one part of WeatherZone is not working, the rest still does
+- Added support for ABC Weather in 90 Seconds (pinched from Weather+, thanks brightstr!!)
+
 V 0.2.7
 - Don't crash if weatherzone has missing data, exit with an error to screen
 

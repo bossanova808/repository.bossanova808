@@ -8,6 +8,7 @@
 
   <!-- JD Section -->	
 	   <control type="group" id="10121">
+	      <visible>[Player.Paused]</visible>
         <posx>765</posx>
 				<posy>65</posy>
 				<control type="image" id="19547">

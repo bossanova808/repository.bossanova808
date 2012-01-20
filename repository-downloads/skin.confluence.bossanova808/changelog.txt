@@ -1,3 +1,9 @@
+[B]0.1.1[/B]
+
+Based on Confluence 2.1.0
+- Support for ABC videos in MyWeather.xml
+- Weather only shows on Pause, not seeking etc.
+
 [B]0.1[/B]
 
 Based on Confluence 2.1.0

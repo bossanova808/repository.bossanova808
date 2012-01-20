@@ -164,7 +164,7 @@
 					<align>center</align>
 					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
-					<label>Bossanova808's OzWeather for XBMC[CR]Data from and (C) Australian Bureau of Meteorology[CR]Sourced via a WeatherZone scrape[CR][CR]Radar images direct from the public BOM FTP server[CR]Radar not up to date or working?[CR]Try hitting refresh in the menu (accessed via left arrow on your remote)[CR]If radar backgrounds are not appearing, restart XBMC[CR](Reloads the skin and triggers a full texture update)</label>
+					<label>Bossanova808's $INFO[Window.Property(WeatherVersion)] for XBMC[CR]Data from and (C) Australian Bureau of Meteorology[CR]Sourced via a WeatherZone scrape[CR][CR]Radar images direct from the public BOM FTP server[CR]Radar not up to date or working?[CR]Try hitting refresh in the menu (accessed via left arrow on your remote)[CR]If radar backgrounds are not appearing, restart XBMC[CR](Reloads the skin and triggers a full texture update)</label>
 					<autoscroll time="3000" delay="4000" repeat="5000"></autoscroll>
 				</control>
 			
@@ -1204,6 +1204,14 @@
 					<description>Settings button</description>
 					<label>5</label>
 					<onclick>ActivateWindow(MyWeatherSettings)</onclick>
+					<textwidth>235</textwidth>
+					<include>ButtonCommonValues</include>
+				</control>
+				<control type="button" id="5">
+					<description>ABC video button</description>
+					<label>ABC Weather in 90 secs</label>
+						<onclick>PlayMedia($INFO[Window.Property(Video.1)],noresume)</onclick>
+						<visible>!IsEmpty(Window.Property(Video.1))</visible>
 					<textwidth>235</textwidth>
 					<include>ButtonCommonValues</include>
 				</control>
