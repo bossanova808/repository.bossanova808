@@ -358,6 +358,7 @@ def buildImages(radarCode):
         
 def propertiesPDOM(page, extendedFeatures):
 
+    ####CURRENT DATA
     try:
       #pull data from the current observations table
       ret = common.parseDOM(page, "div", attrs = { "class": "details_lhs" })
@@ -371,7 +372,15 @@ def propertiesPDOM(page, extendedFeatures):
       windDirection = windTemp[0]
       windSpeed = str.strip(windTemp[2], 'km/h')
       #there's no UV so we get that from the forecast, see below
-   
+    except Exception as inst:
+      log("********** OzWeather Couldn't Parse Data, sorry!!", inst)
+      set_property('Current.Condition', "Error w. Current Data!")
+      set_property('Current.ConditionLong', "Error - Couldn't retrieve current weather data from WeatherZone - this is usually just a temporary problem with their server and with any luck they'll fix it soon!")
+      set_property("Weather.IsFetched", "false")     
+    ####END CURRENT DATA
+    
+    ####FORECAST DATA
+    try:   
       #pull the basic data from the forecast table  
       ret = common.parseDOM(page, "div", attrs = { "class": "boxed_blue_nopad" })
       #create lists of each of the maxes, mins, and descriptions
@@ -430,52 +439,75 @@ def propertiesPDOM(page, extendedFeatures):
           weathercode = WEATHER_CODES[shortDesc[0]]   
       except:
           weathercode = 'na'
-    
-      # set all the XBMC window properties.
-      # wrap it in a try: in case something goes wrong, it's better than crashing out...
-      
-      try:
-        #now set all the XBMC current weather properties
-        set_property('Current.Condition'     , shortDesc[0])
-        set_property('Current.ConditionLong' , longDayCast)    
-        set_property('Current.Temperature'   , temperature)
-        set_property('Current.Wind'          , windSpeed)
-        set_property('Current.WindDirection' , windDirection)
-        set_property('Current.Humidity'      , humidity)
-        set_property('Current.FeelsLike'     , feelsLike)
-        set_property('Current.DewPoint'      , dewPoint)
-        set_property('Current.UVIndex'       , UV)
-        set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
-        set_property('Current.FanartCode'    , weathercode)
-    
-        #and all the properties for the forecast
-        for count, desc in enumerate(shortDesc):
-            try:
-                weathercode = WEATHER_CODES[shortDesc[count]]
-            except:
-                weathercode = 'na'
-            
-            day = days[count]
-            set_property('Day%i.Title'       % count, day)
-            set_property('Day%i.HighTemp'    % count, maxList[count])
-            set_property('Day%i.LowTemp'     % count, minList[count])
-            set_property('Day%i.Outlook'     % count, desc)
-            set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
-            set_property('Day%i.FanartCode'  % count, weathercode)
-        
-      except Exception as inst:
-        log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
 
-      #Ok, if we got here we're done
-      set_property("Weather.IsFetched", "true")
-
-    #probably weatherzone is fucked, so exit cleanly
     except Exception as inst:
       log("********** OzWeather Couldn't Parse Data, sorry!!", inst)
-      set_property('Current.Condition', "Couldn't Retrieve Data!")
-      set_property('Current.ConditionLong', "Error - Couldn't retrieve data from WeatherZone - this is usually just a temporary problem with their server and with any luck they'll fix it soon!")
+      set_property('Current.Condition', "Error w. Current Data!")
+      set_property('Current.ConditionLong', "Error - Couldn't retrieve forecast weather data from WeatherZone - this is usually just a temporary problem with their server and with any luck they'll fix it soon!")
       set_property("Weather.IsFetched", "false")     
+    #END FORECAST DATA
 
+
+    #ABC VIDEO URL
+    #try:
+      abcURL = "http://www.abc.net.au/news/abcnews24/weather-in-90-seconds/"
+      req = urllib2.Request(abcURL)
+      response = urllib2.urlopen(req)
+      htmlSource = str(response.read())
+      pattern_video = "http://mpegmedia.abc.net.au/news/weather/video/(.+?)video3.flv"
+      video = re.findall( pattern_video, htmlSource )
+      try:
+        url = "http://mpegmedia.abc.net.au/news/weather/video/" + video[0] + "video3.flv"
+        set_property('Video.1',url)
+      except Exception as inst:
+        log("********** OzWeather couldn't get ABC video URL", inst)
+    
+    except Exception as inst:
+      log("********** OzWeather couldn't get ABC video URL page", inst)
+    #END ABC VIDEO URL
+    
+    # set all the XBMC window properties.
+    # wrap it in a try: in case something goes wrong, it's better than crashing out...
+  
+    #SET PROPERTIES  
+    try:
+      #now set all the XBMC current weather properties
+      set_property('Current.Condition'     , shortDesc[0])
+      set_property('Current.ConditionLong' , longDayCast)    
+      set_property('Current.Temperature'   , temperature)
+      set_property('Current.Wind'          , windSpeed)
+      set_property('Current.WindDirection' , windDirection)
+      set_property('Current.Humidity'      , humidity)
+      set_property('Current.FeelsLike'     , feelsLike)
+      set_property('Current.DewPoint'      , dewPoint)
+      set_property('Current.UVIndex'       , UV)
+      set_property('Current.OutlookIcon'   , '%s.png' % weathercode)
+      set_property('Current.FanartCode'    , weathercode)
+  
+      #and all the properties for the forecast
+      for count, desc in enumerate(shortDesc):
+          try:
+              weathercode = WEATHER_CODES[shortDesc[count]]
+          except:
+              weathercode = 'na'
+          
+          day = days[count]
+          set_property('Day%i.Title'       % count, day)
+          set_property('Day%i.HighTemp'    % count, maxList[count])
+          set_property('Day%i.LowTemp'     % count, minList[count])
+          set_property('Day%i.Outlook'     % count, desc)
+          set_property('Day%i.OutlookIcon' % count, '%s.png' % weathercode)
+          set_property('Day%i.FanartCode'  % count, weathercode)
+      
+    except Exception as inst:
+      log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
+
+    
+    #Ok, if we got here we're done
+    set_property("Weather.IsFetched", "true")
+
+    #END SET PROPERTIES
+   
 
 ##############################################
 ### NOW ACTUALLTY RUN THIS PUPPY - this is main() in the old language...    
@@ -549,6 +581,7 @@ else:
 #refresh the locations and set the weather provider property
 refresh_locations()
 set_property('WeatherProvider', 'BOM Australia via WeatherZone')
+set_property('WeatherVersion', plugin)
 
 
 
