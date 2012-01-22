@@ -1,3 +1,7 @@
+V 0.3.2
+
+- Removed 7 day icon hack now that my patch to xbmc mainline is in beta2
+
 V 0.3.1
 
 - Separate getting of current and forecast data so if one part of WeatherZone is not working, the rest still does

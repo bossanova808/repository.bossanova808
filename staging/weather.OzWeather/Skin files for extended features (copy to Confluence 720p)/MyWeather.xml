@@ -837,7 +837,7 @@
 						<posy>8</posy>
 						<height>50</height>
 						<width>50</width>
-						<texture>special://temp/weather/128x128/$INFO[Window.Property(Day4.OutlookIcon)]</texture>
+						<texture>$INFO[Window.Property(Day4.OutlookIcon)]</texture>
 						<aspectratio align="right">keep</aspectratio>
 					</control>
           <control type="label">
@@ -913,7 +913,7 @@
 						<posy>8</posy>
 						<height>50</height>
 						<width>50</width>
-						<texture>special://temp/weather/128x128/$INFO[Window.Property(Day5.OutlookIcon)]</texture>
+						<texture>$INFO[Window.Property(Day5.OutlookIcon)]</texture>
 						<aspectratio align="right">keep</aspectratio>
 					</control>
           <control type="label">
@@ -989,7 +989,7 @@
 						<posy>8</posy>
 						<height>50</height>
 						<width>50</width>
-						<texture>special://temp/weather/128x128/$INFO[Window.Property(Day6.OutlookIcon)]</texture>
+						<texture>$INFO[Window.Property(Day6.OutlookIcon)]</texture>
 						<aspectratio align="right">keep</aspectratio>
 					</control>
           <control type="label">
