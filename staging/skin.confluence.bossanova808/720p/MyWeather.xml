@@ -1,3 +1,4 @@
+<!-- BOSSANOVA808 - This whole file is pretty much changed entirely for OzWeather-->
 <window id="2600">
 	<defaultcontrol always="true">50</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
@@ -1256,7 +1257,8 @@
 				<posx>220</posx>
 				<label>$LOCALIZE[8]</label>
 			</control>
-		</control>		<include>WindowTitleHomeButton</include>
+		</control>
+		<include>WindowTitleHomeButton</include>
 		<include>Clock</include>
 	</controls>
 </window>

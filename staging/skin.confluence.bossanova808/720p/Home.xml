@@ -23,7 +23,8 @@
 			<texture>HomeNowPlayingBack.png</texture>
 			<include>Window_OpenClose_Animation</include>
 		</control>
-		
+
+	<!-- BOSSANOVA808 - Remove logo and floor -->		
     <!--
     <control type="image">
 			<posx>0</posx>
@@ -872,6 +873,7 @@
 						<label>8</label>
 						<onclick>ActivateWindow(Weather)</onclick>
 						<icon>special://skin/backgrounds/weather.jpg</icon>
+						<!-- BOSSANOVA808 - Enable Weather FanArt on Home -->
 						<thumb>$INFO[Skin.String(WeatherFanartDir)]$INFO[Window(Weather).Property(Day0.FanartCode)]</thumb>  
 						<!--<thumb>$INFO[Skin.String(Home_Custom_Back_Weather_Folder)]</thumb>-->
 						<visible>!Skin.HasSetting(HomeMenuNoWeatherButton) + !IsEmpty(Weather.Plugin)</visible>

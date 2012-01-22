@@ -1,7 +1,6 @@
 <window id="2005">
  <defaultcontrol>-</defaultcontrol>
 	<controls>
-		
 		<!-- media infos -->
 		<control type="group" id="1">
 			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(123) | Window.IsVisible(124) | Window.IsVisible(125) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide)]</visible>
@@ -217,7 +216,8 @@
 						<texture>$INFO[VideoPlayer.AudioChannels,flagging/audio/,.png]</texture>
 					</control>
 				</control>
-				<!-- the end time is swapped with the duration -->
+				
+				<!-- BOSSANOVA808 - the end time is swapped with the duration -->
 				<control type="label" id="1">
 					<posx>0</posx>
 					<posy>120</posy>
@@ -293,6 +293,7 @@
 					<height>16</height>
 					<info>Player.Progress</info>
 				</control>
+				<!-- BOSSANOVA808 - Additions for time remaining -->
 				<control type="label" id="1">
 					<posx>930</posx>
 					<posy>0</posy>

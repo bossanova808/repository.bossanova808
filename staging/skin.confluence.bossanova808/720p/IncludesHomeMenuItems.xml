@@ -125,9 +125,10 @@
 			<height>35</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
+		<!--BOSSANOVA808 - Add Recently Added Albums to Music submenu -->
 		<control type="button" id="90110">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>31328</label>
+			<label>Recent Albums</label>
 			<onclick>ActivateWindow(MusicLibrary,musicdb://6,return)</onclick>
 		</control>
 		<control type="button" id="90112">
@@ -153,7 +154,8 @@
 			<label>744</label>
 			<onclick>ActivateWindow(MusicFiles)</onclick>
 		</control>
-		<!--
+		<!--BOSSANOVA808 - Remove this 'Library' submenu item as this is the same as clicking 'Music' itself -->
+    <!--
     <control type="button" id="90116">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>14022</label>

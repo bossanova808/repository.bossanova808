@@ -6,7 +6,8 @@
 			<filename>DejaVuSans.ttf</filename>
 			<size>12</size>
 		</font>
-	 	<font>
+	 	<!-- BOSSANOVA808 - Add font11 -->
+		<font>
 			<name>font11</name>
 			<filename>DejaVuSans.ttf</filename>
 			<size>14</size>
@@ -54,6 +55,7 @@
 			<filename>DejaVuSans-Bold.ttf</filename>
 			<size>12</size>
 		</font>
+	 	<!-- BOSSANOVA808 - Add font11 -->
 	 	<font>
 			<name>font11_title</name>
 			<filename>DejaVuSans-Bold.ttf</filename>
@@ -99,6 +101,7 @@
 			<filename>DejaVuSans-Bold-Caps.ttf</filename>
 			<size>45</size>
 		</font>
+	 	<!-- BOSSANOVA808 - Size from 80 to 40 -->
 
 	 	<font>
 			<name>WeatherTemp</name>

@@ -1,8 +1,30 @@
-﻿<window id="2006">
-	<defaultcontrol>-</defaultcontrol>
+<window id="2006">
+  <!--BOSSANOVA808 - Add controls to enable Ronie's Artist Slideshow Script -->
+	<defaultcontrol>999</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<controls>
-		<control type="visualisation" id="2">
+		<control type="button" id="999">
+    	<posx>-10</posx>
+    	<posy>-10</posy>
+    	<width>1</width>
+    	<height>1</height>
+    	<onfocus>RunScript(script.artistslideshow)</onfocus>
+    </control>
+    <control type="multiimage">
+    	<posx>0</posx>
+    	<posy>0</posy>
+    	<width>1280</width>
+    	<height>720</height>
+    	<imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
+    	<aspectratio>keep</aspectratio>
+    	<timeperimage>5000</timeperimage>
+    	<fadetime>2000</fadetime>
+    	<randomize>true</randomize>
+    	<animation effect="fade" start="0" end="100" time="300">Visible</animation>
+    	<animation effect="fade" start="100" end="0" time="300">Hidden</animation>
+    	<visible>IsEmpty(Window(Visualisation).Property(ArtistSlideshowRefresh))</visible>
+    </control>
+    <control type="visualisation" id="2">
 			<!-- FIX ME Music Visualization needs to have an id of 2 in this window to be able to lock or change preset -->
 			<description>visualisation</description>
 			<posx>0</posx>
