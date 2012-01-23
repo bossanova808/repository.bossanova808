@@ -57,6 +57,12 @@
 			<onclick>ActivateWindow(Videos,RecentlyAddedMovies,return)</onclick>
 		</control>
 		<control type="button" id="90163">
+			<visible>Skin.HasSetting(B808Kids) </visible>
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Kids</label>
+			<onclick>ActivateWindow(10025,&quot;videodb://1/1/4/&quot;)</onclick>
+		</control>
+		<control type="button" id="90163">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>369</label>
 			<onclick>ActivateWindow(Videos,MovieTitles,return)</onclick>
@@ -92,6 +98,12 @@
 			<include>ButtonHomeSubCommonValues</include>
 			<label>31328</label>
 			<onclick>ActivateWindow(Videos,RecentlyAddedEpisodes,return)</onclick>
+		</control>
+		<control type="button" id="90173">
+			<visible>Skin.HasSetting(B808Kids) </visible>
+      <include>ButtonHomeSubCommonValues</include>
+			<label>Kids</label>
+			<onclick>ActivateWindow(10025,&quot;/storage/mount/Store 06/Kids Stuff/&quot;)</onclick>
 		</control>
 		<control type="button" id="90173">
 			<include>ButtonHomeSubCommonValues</include>

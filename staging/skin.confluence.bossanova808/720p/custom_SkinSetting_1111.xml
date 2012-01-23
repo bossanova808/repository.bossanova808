@@ -157,7 +157,8 @@
 						<label2>31200</label2>
 						<onclick>-</onclick>
 					</item>
-					<item id="5">
+					<!-- BOSSANOVA808 - Settings -->
+          <item id="5">
 						<label>Bossanova808</label>
 						<label2>Settings</label2>
 						<onclick>-</onclick>
@@ -1308,7 +1309,7 @@
 						<texturefocus>MenuItemFO.png</texturefocus>
 						<texturenofocus>MenuItemNF.png</texturenofocus>
 						<onclick>Skin.ToggleSetting(B808Kids)</onclick>
-						<selected>Skin.HasSetting(B808Kidss)</selected>
+						<selected>Skin.HasSetting(B808Kids)</selected>
 					</control>
         </control>
       </control>
