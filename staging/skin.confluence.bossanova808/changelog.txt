@@ -1,3 +1,8 @@
+[B]0.1.4[/B]
+
+Based on Confluence 2.1.0 PVR Eden Beta2
+- Added Kids TV and Movies, controlled by switch in settings
+
 [B]0.1.3[/B]
 
 Based on Confluence 2.1.0
