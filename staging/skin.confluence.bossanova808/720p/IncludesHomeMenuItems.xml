@@ -62,27 +62,27 @@
 			<label>Kids</label>
 			<onclick>ActivateWindow(10025,&quot;videodb://1/1/4/&quot;)</onclick>
 		</control>
-		<control type="button" id="90163">
+		<control type="button" id="90164">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>369</label>
 			<onclick>ActivateWindow(Videos,MovieTitles,return)</onclick>
 		</control>
-		<control type="button" id="90164">
+		<control type="button" id="90165">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>135</label>
 			<onclick>ActivateWindow(Videos,MovieGenres,return)</onclick>
 		</control>
-		<control type="button" id="90165">
+		<control type="button" id="90166">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>652</label>
 			<onclick>ActivateWindow(Videos,MovieYears,return)</onclick>
 		</control>
-		<control type="button" id="90166">
+		<control type="button" id="90167">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>344</label>
 			<onclick>ActivateWindow(Videos,MovieActors,return)</onclick>
 		</control>
-		<control type="image" id="90167">
+		<control type="image" id="90168">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -105,63 +105,63 @@
 			<label>Kids</label>
 			<onclick>ActivateWindow(10025,&quot;/storage/mount/Store 06/Kids Stuff/&quot;)</onclick>
 		</control>
-		<control type="button" id="90173">
+		<control type="button" id="90174">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>369</label>
 			<onclick>ActivateWindow(Videos,TVShowTitles,return)</onclick>
 		</control>
-		<control type="button" id="90174">
+		<control type="button" id="90175">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>135</label>
 			<onclick>ActivateWindow(Videos,TVShowGenres,return)</onclick>
 		</control>
-		<control type="button" id="90175">
+		<control type="button" id="90176">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>652</label>
 			<onclick>ActivateWindow(Videos,TVShowYears,return)</onclick>
 		</control>
-		<control type="button" id="90176">
+		<control type="button" id="90177">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>344</label>
 			<onclick>ActivateWindow(Videos,TVShowActors,return)</onclick>
 		</control>
-		<control type="image" id="90177">
+		<control type="image" id="90178">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
 		</control>
 	</include>
-	<include name="HomeSubMenuMusic">
+  <include name="HomeSubMenuMusic">
 		<control type="image" id="90111">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
 		<!--BOSSANOVA808 - Add Recently Added Albums to Music submenu -->
-		<control type="button" id="90110">
+		<control type="button" id="90112">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>Recent Albums</label>
 			<onclick>ActivateWindow(MusicLibrary,musicdb://6,return)</onclick>
 		</control>
-		<control type="button" id="90112">
+		<control type="button" id="90113">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>133</label>
 			<onclick>ActivateWindow(MusicLibrary,Artists,return)</onclick>
 			<visible>Library.HasContent(Music)</visible>
 		</control>
-		<control type="button" id="90113">
+		<control type="button" id="90114">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>132</label>
 			<onclick>ActivateWindow(MusicLibrary,Albums,return)</onclick>
 			<visible>Library.HasContent(Music)</visible>
 		</control>
-		<control type="button" id="90114">
+		<control type="button" id="90115">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>134</label>
 			<onclick>ActivateWindow(MusicLibrary,Songs,return)</onclick>
 			<visible>Library.HasContent(Music)</visible>
 		</control>
-		<control type="button" id="90115">
+		<control type="button" id="90116">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>744</label>
 			<onclick>ActivateWindow(MusicFiles)</onclick>
