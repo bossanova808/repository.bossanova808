@@ -9,8 +9,8 @@
   <!-- BOSSANOVA808 - OzWeather Radar and Short Forecast -->	
 	   <control type="group" id="10121">
 	      <visible>[Player.Paused]</visible>
-        <posx>765</posx>
-				<posy>65</posy>
+        		<posx>15</posx>
+				<posy>15</posy>
 				<control type="image" id="19547">
   				<description>media info background image</description>
   				<posx>256</posx>

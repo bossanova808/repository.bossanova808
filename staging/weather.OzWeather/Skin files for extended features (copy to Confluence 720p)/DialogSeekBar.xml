@@ -6,11 +6,11 @@
 	<controls>
 
 
-  <!-- JD Section -->	
+  <!-- BOSSANOVA808 - OzWeather Radar and Short Forecast -->	
 	   <control type="group" id="10121">
 	      <visible>[Player.Paused]</visible>
-        <posx>765</posx>
-				<posy>65</posy>
+        		<posx>15</posx>
+				<posy>15</posy>
 				<control type="image" id="19547">
   				<description>media info background image</description>
   				<posx>256</posx>
@@ -424,6 +424,7 @@
 				<label>31045</label>
 				<visible>Player.Rewinding</visible>
 			</control>
+			<!-- BOSSANOVA808 - Time Remaining -->
 			<control type="label">
 				<description>Elapsed Time Label</description>
 				<posx>20</posx>
@@ -479,7 +480,7 @@
 				<textureslidernib>osd_slider_nib.png</textureslidernib>
 				<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
 				<visible>Player.Seeking</visible>
-			</control>		
+			</control>
 		</control>
 	</controls>
 </window>
