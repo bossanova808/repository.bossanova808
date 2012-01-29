@@ -1,3 +1,7 @@
+[B]0.1.8[/B]
+
+- OzWeather mini forecast on VideoFullScreen
+
 [B]0.1.7[/B]
 
 - Support for cinema experience script

@@ -1,6 +1,105 @@
 <window id="2005">
  <defaultcontrol>-</defaultcontrol>
 	<controls>
+
+  <!-- BOSSANOVA808 - OzWeather Radar and Short Forecast -->	
+	   <control type="group" id="10121">
+			  <visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(123) | Window.IsVisible(124) | Window.IsVisible(125) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide)]</visible>
+			  <animation effect="fade" time="200">VisibleChange</animation>
+        <posx>15</posx>
+				<posy>15</posy>
+				<control type="image" id="19547">
+  				<description>media info background image</description>
+  				<posx>25</posx>
+  				<posy>25</posy>
+  				<width>100</width>
+  				<height>185</height>
+  				<texture>black-back.png</texture>
+  			</control>
+ 				<control type="label" id="19547">
+					<description>currently label</description>
+					<posx>35</posx>
+					<posy>-40</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Currently</label>
+					<font>font12</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>grey</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+  			<control type="label" id="19547">
+					<description>current temp Value</description>
+					<posx>90</posx>
+					<posy>40</posy>
+					<width>180</width>
+					<height>40</height>
+					<font>WeatherTemp</font>
+					<align>right</align>
+					<aligny>top</aligny>
+					<label>$INFO[Window(2600).Property(Current.Temperature)]</label>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>				
+				<control type="label" id="19547">
+					<description>current temp Value Units</description>
+					<posx>90</posx>
+					<posy>50</posy>
+					<width>100</width>
+					<height>40</height>
+					<font>font12caps</font>
+					<align>left</align>
+					<aligny>top</aligny>
+					<label>$INFO[System.TemperatureUnits]</label>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+ 				<control type="label" id="19547">
+					<description>predicted high label</description>
+					<posx>35</posx>
+					<posy>35</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Predicted[CR]High: [COLOR white]$INFO[Window(2600).Property(Day0.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+					<font>font11</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+        <control type="label" id="19547">
+					<description>low label</description>
+					<posx>35</posx>
+					<posy>70</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Overnight[CR]Low:  [COLOR white]$INFO[Window(2600).Property(Day1.LowTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+					<font>font11</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+        <control type="label" id="19547">
+ 					<description>tomorrow high label</description>
+					<posx>35</posx>
+					<posy>105</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Tomorrow[CR]High: [COLOR white]$INFO[Window(2600).Property(Day1.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+					<font>font11</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+    </control>
+    
 		<!-- media infos -->
 		<control type="group" id="1">
 			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(123) | Window.IsVisible(124) | Window.IsVisible(125) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide)]</visible>
