@@ -28,16 +28,16 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.3.1"
+version = "0.3.3"
 plugin = "OzWeather-" + version
 author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
 
 #parseDOM setup
-dbg = False # Set to false if you don't want debugging
-dbglevel = 0 # Do NOT change from 3
-common = CommonFunctions.CommonFunctions()
+common = CommonFunctions
 common.plugin = plugin
+dbg = True # Set to false if you don't want debugging
+dbglevel = 3 # Do NOT change from 3
 
 #addon setup
 __addon__      = xbmcaddon.Addon()
@@ -226,7 +226,7 @@ def forecast(url, radarCode):
  
     #and now get and set all the temperatures etc.
     try:
-      data = common._fetchPage({"link":url})
+      data = common.fetchPage({"link":url})
     except Exception as inst:
       log("Error, couldn't retrieve weather page from WeatherZone - error: ", inst)
     if data != '':

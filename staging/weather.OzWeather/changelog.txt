@@ -1,3 +1,8 @@
+V 0.3.3
+
+- Fixes for ParseDom 0.9.1, and removed radar from DialogSeekBar as jmarshall confirms it won't re-read the images in the path
+- so it stops working after an hour or two...
+
 V 0.3.2
 
 - Removed 7 day icon hack now that my patch to xbmc mainline is in beta2
