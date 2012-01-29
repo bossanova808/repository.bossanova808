@@ -28,7 +28,7 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.3.3"
+version = "0.3.4"
 plugin = "OzWeather-" + version
 author = "Bossanova808 (bossanova808@gmail.com)"
 url = "www.bossanova808.net"
@@ -36,8 +36,8 @@ url = "www.bossanova808.net"
 #parseDOM setup
 common = CommonFunctions
 common.plugin = plugin
-dbg = True # Set to false if you don't want debugging
-dbglevel = 3 # Do NOT change from 3
+dbg = False # Set to false if you don't want debugging
+dbglevel = 3 
 
 #addon setup
 __addon__      = xbmcaddon.Addon()
