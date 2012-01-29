@@ -1,3 +1,7 @@
+[B]0.1.7[/B]
+
+- Support for cinema experience script
+
 [B]0.1.6[/B]
 
 - Matches OzWeather 0.3.3, and removed radar from DialogSeekBar as it doesn't update properly

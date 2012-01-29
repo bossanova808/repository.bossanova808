@@ -1121,6 +1121,16 @@
 						<label>20410</label>
 						<visible>!IsEmpty(ListItem.Trailer) + !Skin.HasSetting(WindowedTrailer)</visible>
 					</control>
+          <!-- BOSSANOVA808 - Add Control For Cinema Experience Script -->
+           <control type="button" id="13">
+               <description>Home Theatre</description>
+               <include>ButtonInfoDialogsCommonValues</include>
+               <label>Cinema</label>
+               <onclick>Playlist.Clear</onclick>
+               <onclick>Dialog.Close(MovieInformation)</onclick>
+               <onclick>XBMC.RunScript(script.cinema.experience)</onclick>
+               <visible>system.hasaddon(script.cinema.experience) + Container.Content(movies)</visible>
+          </control>  
 					<control type="button" id="15">
 						<description>Play Trailer Windowed</description>
 						<include>ButtonInfoDialogsCommonValues</include>
