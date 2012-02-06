@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Server">
+		<setting id="banner" type="bool" label="19600" default="True"/>
+	</category>
+</settings>
