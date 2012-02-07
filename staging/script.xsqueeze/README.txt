@@ -17,7 +17,7 @@ http://sourceforge.net/projects/softsqueeze/files/squeezeslave/
 ...with notes and install/build/etc instructions here:
 http://wiki.slimdevices.com/index.php/SqueezeSlave
 
-Openelec users can find a knocked up version here (untest by me):
+Openelec users can find a knocked up version here (untested by me):
 http://openelec.tv/forum/13-miscellaneous/8027-squeezeserversoftsqueeze-on-openelecxbmc?limit=20&start=20#18826
 
 (read the whole thread and ask in there if you need help, I have no idea about this yet!)
@@ -30,7 +30,7 @@ e.g. squeezelave.exe 192.168.1.1
 
 ....the IP address is your server address
 
-If it conncets, you will not see anything happen, but you also won't see an error message!
+If it connects, you will not see anything happen, but you also won't see an error message!
 
 squeezeslave -h will give you help if anything goes wrong.
 
@@ -40,9 +40,9 @@ squeezeslave -h will give you help if anything goes wrong.
 Use the bossanova808 repo available here:
 http://wiki.xbmc.org/index.php?title=Unofficial_add-on_repositories
 
-...download the zip, and install the add on from the zip file
+...download the repo zip, and install the repo using the zip file
 
-Wait a minute or two (or force-refresh the add on) - the in the repo you will see various installable addons.  Choose XSqueeze
+Wait a minute or two (or force-refresh the repo) - then in the repo you will see various installable addons.  Choose XSqueeze and install it.
 
 ********************************************************************************
 4. Configure XSqueeze
@@ -55,6 +55,8 @@ In the add on settings, add your server IP address and port, and in the player s
 In XBMC->Programs, run XSqueeze
 
 You should get a vaguely SB like screen.  You can exit with your exit/home button (usually the big green one on MCE remotes).  To navigate, use the up/down/arrows/left/right arrows like on the SB remote etc - and hitting right is generally the 'select' action just like on actual squeezeboxes (select itself will proably also work).
+
+(Control volume via the settings within the SB system, and/or your system volume - since XBMC is not doing the playback it's not involved in the volume).
 
 ********************************************************************************
 6. Experiment and report back!
@@ -69,9 +71,9 @@ Squeezeslave is a software player and like all software players, does not suppor
 ********************************************************************************
 8. IF YOU CAN'T GET IT TO WORK
 
-Try harder!  Try really hard, and if you are then still really stuck, post to the forum thread here:
+Try harder!  Try really hard, and if you are then still really stuck, post to the forum thread here: http://forum.xbmc.org/showthread.php?t=122199
 
-I am looking for general feesback and ideas, not to spend all my time answering basic support questions at this point. So if this seems beyond, then for the moment it probably is.  Wait a bit until a more solid release comes along.
+I am looking for general feedback and ideas, not to spend all my time answering basic support questions at this point. So if this seems beyond, then for the moment it probably is.  Wait a bit until a more solid release comes along.
 
 ********************************************************************************
 
