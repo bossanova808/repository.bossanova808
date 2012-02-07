@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-	<category label="Server">
-		<setting id="banner" type="bool" label="19600" default="True"/>
-	</category>
+   <category label="Server Details">
+     <setting id="serverIP" type="ipaddress" label="Server IP or hostname" default=""/>
+     <setting id="serverPort" type="text" label="Server Port" default="9090" />
+   </category>
+   <category label="Player Details">
+     <setting id="playerMAC" type="text" label="Player MAC" default="00:00:00:00:00:01"/>
+   </category>
 </settings>
