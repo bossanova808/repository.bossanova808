@@ -22,7 +22,17 @@ ACTION_CODES = {
                 'ACTION_NEXT_ITEM'        :14,
                 'ACTION_PREV_ITEM'        :15,
                 'ACTION_FORWARD'          :16, 
-                'ACTION_REWIND'           :17 
+                'ACTION_REWIND'           :17,
+                'REMOTE_0'                :58, 
+                'REMOTE_1'                :59, 
+                'REMOTE_2'                :60, 
+                'REMOTE_3'                :61, 
+                'REMOTE_4'                :62, 
+                'REMOTE_5'                :63, 
+                'REMOTE_6'                :64, 
+                'REMOTE_7'                :65, 
+                'REMOTE_8'                :66, 
+                'REMOTE_9'                :67 
 
 
 }
