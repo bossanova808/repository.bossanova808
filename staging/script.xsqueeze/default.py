@@ -25,7 +25,9 @@ __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Geck
 #useful paths
 SOURCEPATH = __cwd__
 RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ) )
-IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
+STATIC_IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
+CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.xsqueeze/current_images/");
+
 sys.path.append( os.path.join( RESOURCES_PATH, "lib" ) )
 
 #a file that gives nice names to action numbers
@@ -70,7 +72,7 @@ class ActionHandler(xbmcgui.Window):
     self.strLine2 = xbmcgui.ControlLabel(300, 250, 500, 200, '', 'font14', '0xFF00FF00')
     self.addControl(self.strLine2)
     
-    self.coverArt = xbmcgui.ControlImage(300,300,)
+    #self.coverArt = xbmcgui.ControlImage(300,300,)
     
     #and get the current data on screen...
     self.update()
@@ -85,7 +87,14 @@ class ActionHandler(xbmcgui.Window):
   #this is called every 100 millis and is used to update the window's display
   #e.g. if trac/cover art changes etc 
   def update(self):     
-     self.updateLineDisplay()
+    songChanged = player.songChanged()
+     
+    #if song has changed, get new cover art etc.
+    if songChanged:
+      player.updateCoverArt()
+      
+    #always update the line display even if song hasn't changed 
+    self.updateLineDisplay()
     
   ##############################################################################
   #Maps XBMC window actions to squeezeslave methods
@@ -136,48 +145,85 @@ class SqueezePlayer:
 
   #get the current two line display text and return it
   def getDisplay(self):
-    displayText = self.sq.requestRaw("display ? ?", True)  
+    displayText = self.sb.requestRaw("display ? ?", True)  
     lines = displayText.split(" ")    
     return self.unquote(lines[2]), self.unquote(lines[3])
 
-  def getTrackID(self):
-     pass
-
+  def songChanged(self):
+    newSong = self.sb.get_track_current_title()
+    if newSong != self.getCurrentTrack():
+      log(" Song change to: " + newSong)
+      self.setCurrentTrack(newSong)
+      return True;
+    else:  
+      return False
+  
+  #downloads the cover art for the current song from the server
+  def updateCoverArt(self):
+    log( "Updating images" )
+    try:
+      coverURL = "http://" + self.serverURL + "/music/current/cover.jpg?player=" + self.playerMAC 
+      log ("Getting: " + coverURL)
+      coverArt = self.image.retrieve(  coverURL , CHANGING_IMAGES_PATH + "currentCover.jpg" )
+      log ("Retrieved new cover art")
+    except Exception as inst:
+      log( "Couldn't retrieve currernt cover art", inst)
+    
+  
   #functions to map buttons to actions and then update the display once actioned...
   #called in ActionHandler...
   def button(self, text):
-    self.sq.ir_button(text)
+    self.sb.ir_button(text)
 
+  def getCurrentTrack(self):
+    if not self.currentTrack:
+       self.currentTrack = self.sb.get_track_current_title()
+    return self.currentTrack
+
+  def setCurrentTrack(self, newTrackName = ""):
+    #if we're not supplied a new track name, let's go get one
+    if not newTrackName:
+      newTrackName = self.sb.get_track_current_title()
+    self.currentTrack = newTrackName
+    
   #constructor - connect to the server and player so we can do stuff
   def __init__(self):
 
     #get the various settings... 
-    serverIP    = __addon__.getSetting('serverIP')
-    serverPort  = __addon__.getSetting('serverPort')
-    playerMAC   = __addon__.getSetting('playerMAC')
+    self.serverIP    = __addon__.getSetting('serverIP')
+    self.serverPort  = __addon__.getSetting('serverPort')
+    self.serverURL   = self.serverIP + ":9000"
+    self.playerMAC   = __addon__.getSetting('playerMAC')
+
+    #a handle for opening images
+    self.image = urllib.URLopener() 
 
     #connect to server
-    log("Attempting to connect to LMS at:  " + serverIP + " on port: " + serverPort)      
+    log("Attempting to connect to LMS at:  " + self.serverIP + " on port: " + self.serverPort)      
     try:
-      sc = Server(hostname=serverIP, port=serverPort)
-      sc.connect()
-      log( "Logged in: %s" % sc.logged_in )
-      log( "Version: %s" % sc.get_version() )
+      self.sc = Server(hostname=self.serverIP, port=self.serverPort)
+      self.sc.connect()
+      log( "Logged in: %s" % self.sc.logged_in )
+      log( "Version: %s" % self.sc.get_version() )
     except:
       log(" Couldn't connect to server!")
       xbmc.executebuiltin("XBMC.Notification("+ __addonname__ +": Couldn't connect to server!,Check your server settings)")
       raise
     
     #connect to player
-    log( "Attempting to connect to player: " + playerMAC)
+    log( "Attempting to connect to player: " + self.playerMAC)
     try:
-      self.sq = sc.get_player(playerMAC)    
+      self.sb = self.sc.get_player(self.playerMAC) 
     except:
-      log(" Couldn't connect to player!")
+      log(" Couldn't connect to player! " + self.playerMAC )
       xbmc.executebuiltin("XBMC.Notification("+ __addonname__ +": Couldn't connect to player!,Check you player settings)")
       raise
 
-
+    #take note of the current track...actually, no, instead let it trigger
+    #an update on the first time through the loop
+    self.currentTrack = ""       
+    self.updateCoverArt()
+    
 
 
 ################################################################################
@@ -188,6 +234,16 @@ if ( __name__ == "__main__" ):
     
     #log some tracks...
     footprints()
+
+    #make our storage paths
+    try:
+      if not xbmcvfs.exists( CHANGING_IMAGES_PATH ):
+        log ( "Making output directory for cover art etc. in addon_data")
+        os.makedirs( CHANGING_IMAGES_PATH )        
+    except Exception as inst:
+      log( "ERROR: Couldn't make folders in addon_data - bailing out!" )
+      sys.exit()
+      
     
     try:
       player = SqueezePlayer()
