@@ -18,6 +18,8 @@ __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Geck
 #useful paths
 SOURCEPATH = __cwd__
 RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ) )
+LIB_PATH = os.path.join( RESOURCES_PATH, "lib")
+CLASS_PATH = os.path.join (LIB_PATH, "classes")
 STATIC_IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
 CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.xsqueeze/current_images/");
 
@@ -26,5 +28,5 @@ SQUEEZETEXT   = '0xFF00FF00'
 UPCOMINGTEXT  = '0xFF5555FF'
 
 #extend the python path
-sys.path.append( os.path.join( RESOURCES_PATH, "lib" ) )
-sys.path.append( os.path.join( RESOURCES_PATH, "lib\\classes" ) )
+sys.path.append( LIB_PATH )
+sys.path.append( CLASS_PATH )
