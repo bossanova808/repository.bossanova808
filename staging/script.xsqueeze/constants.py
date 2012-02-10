@@ -23,7 +23,7 @@ CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.x
 
 #colours
 SQUEEZETEXT   = '0xFF00FF00'
-UPCOMINGTEXT  = '0xFF0000FF'
+UPCOMINGTEXT  = '0xFF5555FF'
 
 #extend the python path
 sys.path.append( os.path.join( RESOURCES_PATH, "lib" ) )

@@ -1,8 +1,14 @@
 import xbmcgui
 import constants
 import Logger
+import sys
+
 #a file that gives nice names to action numbers
 from actionmap import *
+from traceback import print_exc
+
+from SqueezePlayer import *
+
 
 ################################################################################
 ################################################################################
@@ -11,29 +17,30 @@ from actionmap import *
 class NowPlayingWindow(xbmcgui.Window): 
  
   #constructor - create controls & add them to the window
-  def __init__(self, player):
-  
-    self.player = player
+  def __init__(self):
+
+    self.running = True
     
-    Logger.log("@")
-    #a Now Playing Window is attached to a particular player, so store a refernce to it
-    #self.player = player
-    Logger.log("@")
+    #create a player instance (is really a player + server combo)    
+    try:
+      self.player = SqueezePlayer()
+    except:
+      print_exc()
+      sys.exit()
     
     #blank the screen - is this the right way?
     self.addControl(xbmcgui.ControlImage(0,0,1920,1080, ''))
-    Logger.log("@")
 
     #cover art images - one diffuse in BG, large, smaller over the top
-    self.coverArtBG = xbmcgui.ControlImage(0,0,1280, 720, constants.CHANGING_IMAGES_PATH + "currentCover.jpg", colorDiffuse='0x66666666')
-    self.addControl(self.coverArtBG) 
+    #self.coverArtBG = xbmcgui.ControlImage(560,0,720, 720, constants.CHANGING_IMAGES_PATH + "currentCover.jpg", colorDiffuse='0x66666666')
+    #self.addControl(self.coverArtBG) 
     self.coverArt = xbmcgui.ControlImage(860,300,400, 400, constants.CHANGING_IMAGES_PATH + "currentCover.jpg")
     self.addControl(self.coverArt) 
         
     #create the controls for the two man SB display text lines
-    self.strLine1 = xbmcgui.ControlLabel(10, 20, 500, 200, '', 'font14', constants.SQUEEZETEXT)
+    self.strLine1 = xbmcgui.ControlLabel(10, 20, 1280, 200, '', 'font14', constants.SQUEEZETEXT)
     self.addControl(self.strLine1)
-    self.strLine2 = xbmcgui.ControlLabel(10, 50, 500, 200, '', 'font14', constants.SQUEEZETEXT)
+    self.strLine2 = xbmcgui.ControlLabel(10, 50, 1280, 200, '', 'font14', constants.SQUEEZETEXT)
     self.addControl(self.strLine2)
     
     #create the upcoming tracks list controls
@@ -47,13 +54,9 @@ class NowPlayingWindow(xbmcgui.Window):
     self.addControl(self.upcoming2)
     self.addControl(self.upcoming3)
 
-    Logger.log( "!")
     #and get the current data on screen...
     self.updateUpcomingTracks()
-    Logger.log( "#")
-
     self.update()
-    Logger.log( "@")
     
     
  #updates the display text on screen
@@ -73,19 +76,14 @@ class NowPlayingWindow(xbmcgui.Window):
   #this is called every 100 millis and is used to update the window's display
   #e.g. if trac/cover art changes etc 
   def update(self):     
-    Logger.log ("here1")
     songChanged = self.player.songChanged()
-    Logger.log ("here2")
      
     #if song has changed, get new cover art etc.
-    if songChanged:
-      Logger.log ("herea")
-    
+    if songChanged:    
       self.player.updateCoverArt()
       self.updateUpcomingTracks()
         
     #always update the line display even if song hasn't changed 
-    Logger.log ("here3")
     self.updateLineDisplay()
     
     
@@ -105,7 +103,7 @@ class NowPlayingWindow(xbmcgui.Window):
     #intercept special XBMC ones first
     if action == ACTION_CODES['ACTION_PREVIOUS_MENU']: 
       Logger.log("XBMC Action: Close")
-      running = False
+      self.running = False
       self.close()
 
     #elif etc

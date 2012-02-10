@@ -69,7 +69,7 @@ class SqueezePlayer:
   def getPlaylist(self):
     self.playlist = self.sb.playlist_get_info()
     currentIndex = int(self.sb.request("playlist index ?"))
-    Logger.log ("Index: " + str(currentIndex) + " playlist is " + str(self.playlist))
+    Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
     upcoming1 = ""
     upcoming2 = ""
     upcoming3 = ""
@@ -79,10 +79,14 @@ class SqueezePlayer:
     return upcoming1, upcoming2, upcoming3    
    
   def getConsolidatedTrackDetailsFromPlaylist(self, trackNum):
-    songTitle = self.playlist[trackNum]['title']
-    songArtist = self.playlist[trackNum]['artist']
-    songAlbum = self.playlist[trackNum]['album']      
-    return songTitle + " by " + songArtist + " from " + songAlbum
+    #if we are near the end of the playlist, don't return tracks...
+    returnText = ""
+    if trackNum < len(self.playlist):
+      songTitle = self.playlist[trackNum]['title']
+      songArtist = self.playlist[trackNum]['artist']
+      songAlbum = self.playlist[trackNum]['album']      
+      returnText = songTitle + " by " + songArtist + " from " + songAlbum
+    return returnText
 
   #constructor - connect to the server and player so we can do stuff
   def __init__(self):

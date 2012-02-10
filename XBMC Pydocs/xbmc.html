@@ -1,0 +1,758 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module xbmc</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>xbmc</strong></big></big> (version 1.3, 15 November 2005)</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br>(built-in)</font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="xbmc.html#InfoTagMusic">InfoTagMusic</a>
+</font></dt><dt><font face="helvetica, arial"><a href="xbmc.html#InfoTagVideo">InfoTagVideo</a>
+</font></dt><dt><font face="helvetica, arial"><a href="xbmc.html#Keyboard">Keyboard</a>
+</font></dt><dt><font face="helvetica, arial"><a href="xbmc.html#PlayList">PlayList</a>
+</font></dt><dt><font face="helvetica, arial"><a href="xbmc.html#PlayListItem">PlayListItem</a>
+</font></dt><dt><font face="helvetica, arial"><a href="xbmc.html#Player">Player</a>
+</font></dt><dt><font face="helvetica, arial"><a href="xbmc.html#RenderCapture">RenderCapture</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InfoTagMusic">class <strong>InfoTagMusic</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#InfoTagMusic">InfoTagMusic</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="InfoTagMusic-getAlbum"><strong>getAlbum</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getAlbum">getAlbum</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getAlbumArtist"><strong>getAlbumArtist</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getAlbumArtist">getAlbumArtist</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getArtist"><strong>getArtist</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getArtist">getArtist</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getComment"><strong>getComment</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getComment">getComment</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getDisc"><strong>getDisc</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getDisc">getDisc</a>()&nbsp;--&nbsp;returns&nbsp;an&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getDuration"><strong>getDuration</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getDuration">getDuration</a>()&nbsp;--&nbsp;returns&nbsp;an&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getGenre"><strong>getGenre</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getAlbum">getAlbum</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getLastPlayed"><strong>getLastPlayed</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getLastPlayed">getLastPlayed</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getListeners"><strong>getListeners</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getListeners">getListeners</a>()&nbsp;--&nbsp;returns&nbsp;an&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getLyrics"><strong>getLyrics</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getLyrics">getLyrics</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getPlayCount"><strong>getPlayCount</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getPlayCount">getPlayCount</a>()&nbsp;--&nbsp;returns&nbsp;an&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getReleaseDate"><strong>getReleaseDate</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getReleaseDate">getReleaseDate</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getTitle"><strong>getTitle</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getTitle">getTitle</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getTrack"><strong>getTrack</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getTrack">getTrack</a>()&nbsp;--&nbsp;returns&nbsp;an&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getTrackAndDisc"><strong>getTrackAndDisc</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getTrackAndDisc">getTrackAndDisc</a>()&nbsp;--&nbsp;returns&nbsp;an&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagMusic-getURL"><strong>getURL</strong></a>(...)</dt><dd><tt><a href="#InfoTagMusic-getURL">getURL</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="InfoTagVideo">class <strong>InfoTagVideo</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#InfoTagVideo">InfoTagVideo</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="InfoTagVideo-getCast"><strong>getCast</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getCast">getCast</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getDirector"><strong>getDirector</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getDirector">getDirector</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getFile"><strong>getFile</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getFile">getFile</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getFirstAired"><strong>getFirstAired</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getFirstAired">getFirstAired</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getGenre"><strong>getGenre</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getGenre">getGenre</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getIMDBNumber"><strong>getIMDBNumber</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getIMDBNumber">getIMDBNumber</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getLastPlayed"><strong>getLastPlayed</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getLastPlayed">getLastPlayed</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getOriginalTitle"><strong>getOriginalTitle</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getOriginalTitle">getOriginalTitle</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getPath"><strong>getPath</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getPath">getPath</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getPictureURL"><strong>getPictureURL</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getPictureURL">getPictureURL</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getPlayCount"><strong>getPlayCount</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getPlayCount">getPlayCount</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;integer.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getPlot"><strong>getPlot</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getPlot">getPlot</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getPlotOutline"><strong>getPlotOutline</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getPlotOutline">getPlotOutline</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getPremiered"><strong>getPremiered</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getPremiered">getPremiered</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getRating"><strong>getRating</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getRating">getRating</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;float.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getTagLine"><strong>getTagLine</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getTagLine">getTagLine</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getTitle"><strong>getTitle</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getTitle">getTitle</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getVotes"><strong>getVotes</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getVotes">getVotes</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getWritingCredits"><strong>getWritingCredits</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getWritingCredits">getWritingCredits</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;string.</tt></dd></dl>
+
+<dl><dt><a name="InfoTagVideo-getYear"><strong>getYear</strong></a>(...)</dt><dd><tt><a href="#InfoTagVideo-getYear">getYear</a>()&nbsp;--&nbsp;returns&nbsp;a&nbsp;integer.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Keyboard">class <strong>Keyboard</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Keyboard">Keyboard</a>&nbsp;class.<br>
+&nbsp;<br>
+<a href="#Keyboard">Keyboard</a>([default,&nbsp;heading,&nbsp;hidden])&nbsp;--&nbsp;Creates&nbsp;a&nbsp;new&nbsp;<a href="#Keyboard">Keyboard</a>&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;default&nbsp;text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heading&nbsp;and&nbsp;hidden&nbsp;input&nbsp;flag&nbsp;if&nbsp;supplied.<br>
+&nbsp;<br>
+default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;string&nbsp;-&nbsp;default&nbsp;text&nbsp;entry.<br>
+heading&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;string&nbsp;-&nbsp;keyboard&nbsp;heading.<br>
+hidden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;boolean&nbsp;-&nbsp;True&nbsp;for&nbsp;hidden&nbsp;text&nbsp;entry.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;kb&nbsp;=&nbsp;xbmc.<a href="#Keyboard">Keyboard</a>('default',&nbsp;'heading',&nbsp;True)<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-setDefault">setDefault</a>('password')&nbsp;#&nbsp;optional<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-setHeading">setHeading</a>('Enter&nbsp;password')&nbsp;#&nbsp;optional<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-setHiddenInput">setHiddenInput</a>(True)&nbsp;#&nbsp;optional<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-doModal">doModal</a>()<br>
+&nbsp;&nbsp;-&nbsp;if&nbsp;(kb.<a href="#Keyboard-isConfirmed">isConfirmed</a>()):<br>
+&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;text&nbsp;=&nbsp;kb.<a href="#Keyboard-getText">getText</a>()<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Keyboard-doModal"><strong>doModal</strong></a>(...)</dt><dd><tt><a href="#Keyboard-doModal">doModal</a>([autoclose])&nbsp;--&nbsp;Show&nbsp;keyboard&nbsp;and&nbsp;wait&nbsp;for&nbsp;user&nbsp;action.<br>
+&nbsp;<br>
+autoclose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;integer&nbsp;-&nbsp;milliseconds&nbsp;to&nbsp;autoclose&nbsp;dialog.&nbsp;(default=do&nbsp;not&nbsp;autoclose)<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-doModal">doModal</a>(30000)</tt></dd></dl>
+
+<dl><dt><a name="Keyboard-getText"><strong>getText</strong></a>(...)</dt><dd><tt><a href="#Keyboard-getText">getText</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;user&nbsp;input&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+*Note,&nbsp;This&nbsp;will&nbsp;always&nbsp;return&nbsp;the&nbsp;text&nbsp;entry&nbsp;even&nbsp;if&nbsp;you&nbsp;cancel&nbsp;the&nbsp;keyboard.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use&nbsp;the&nbsp;<a href="#Keyboard-isConfirmed">isConfirmed</a>()&nbsp;method&nbsp;to&nbsp;check&nbsp;if&nbsp;user&nbsp;cancelled&nbsp;the&nbsp;keyboard.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;text&nbsp;=&nbsp;kb.<a href="#Keyboard-getText">getText</a>()</tt></dd></dl>
+
+<dl><dt><a name="Keyboard-isConfirmed"><strong>isConfirmed</strong></a>(...)</dt><dd><tt><a href="#Keyboard-isConfirmed">isConfirmed</a>()&nbsp;--&nbsp;Returns&nbsp;False&nbsp;if&nbsp;the&nbsp;user&nbsp;cancelled&nbsp;the&nbsp;input.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;if&nbsp;(kb.<a href="#Keyboard-isConfirmed">isConfirmed</a>()):</tt></dd></dl>
+
+<dl><dt><a name="Keyboard-setDefault"><strong>setDefault</strong></a>(...)</dt><dd><tt><a href="#Keyboard-setDefault">setDefault</a>(default)&nbsp;--&nbsp;Set&nbsp;the&nbsp;default&nbsp;text&nbsp;entry.<br>
+&nbsp;<br>
+default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;default&nbsp;text&nbsp;entry.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-setDefault">setDefault</a>('password')</tt></dd></dl>
+
+<dl><dt><a name="Keyboard-setHeading"><strong>setHeading</strong></a>(...)</dt><dd><tt><a href="#Keyboard-setHeading">setHeading</a>(heading)&nbsp;--&nbsp;Set&nbsp;the&nbsp;keyboard&nbsp;heading.<br>
+&nbsp;<br>
+heading&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;keyboard&nbsp;heading.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-setHeading">setHeading</a>('Enter&nbsp;password')</tt></dd></dl>
+
+<dl><dt><a name="Keyboard-setHiddenInput"><strong>setHiddenInput</strong></a>(...)</dt><dd><tt><a href="#Keyboard-setHiddenInput">setHiddenInput</a>(hidden)&nbsp;--&nbsp;Allows&nbsp;hidden&nbsp;text&nbsp;entry.<br>
+&nbsp;<br>
+hidden&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;boolean&nbsp;-&nbsp;True&nbsp;for&nbsp;hidden&nbsp;text&nbsp;entry.<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;kb.<a href="#Keyboard-setHiddenInput">setHiddenInput</a>(True)</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#Keyboard-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PlayList">class <strong>PlayList</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PlayList">PlayList</a>&nbsp;class.<br>
+&nbsp;<br>
+<a href="#PlayList">PlayList</a>(int&nbsp;playlist)&nbsp;--&nbsp;retrieve&nbsp;a&nbsp;reference&nbsp;from&nbsp;a&nbsp;valid&nbsp;xbmc&nbsp;playlist<br>
+&nbsp;<br>
+int&nbsp;playlist&nbsp;can&nbsp;be&nbsp;one&nbsp;of&nbsp;the&nbsp;next&nbsp;values:<br>
+&nbsp;<br>
+&nbsp;&nbsp;0&nbsp;:&nbsp;xbmc.PLAYLIST_MUSIC<br>
+&nbsp;&nbsp;1&nbsp;:&nbsp;xbmc.PLAYLIST_VIDEO<br>
+&nbsp;<br>
+Use&nbsp;<a href="#PlayList">PlayList</a>[int&nbsp;position]&nbsp;or&nbsp;<a href="#PlayList-__getitem__">__getitem__</a>(int&nbsp;position)&nbsp;to&nbsp;get&nbsp;a&nbsp;<a href="#PlayListItem">PlayListItem</a>.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PlayList-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#PlayList-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="PlayList-__len__"><strong>__len__</strong></a>(...)</dt><dd><tt>x.<a href="#PlayList-__len__">__len__</a>()&nbsp;&lt;==&gt;&nbsp;len(x)</tt></dd></dl>
+
+<dl><dt><a name="PlayList-add"><strong>add</strong></a>(...)</dt><dd><tt><a href="#PlayList-add">add</a>(url[,&nbsp;listitem,&nbsp;index])&nbsp;--&nbsp;Adds&nbsp;a&nbsp;new&nbsp;file&nbsp;to&nbsp;the&nbsp;playlist.<br>
+&nbsp;<br>
+url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;filename&nbsp;or&nbsp;url&nbsp;to&nbsp;add.<br>
+listitem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;listitem&nbsp;-&nbsp;used&nbsp;with&nbsp;setInfo()&nbsp;to&nbsp;set&nbsp;different&nbsp;infolabels.<br>
+index&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;integer&nbsp;-&nbsp;position&nbsp;to&nbsp;add&nbsp;playlist&nbsp;item.&nbsp;(default=end)<br>
+&nbsp;<br>
+*Note,&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments&nbsp;and&nbsp;skip&nbsp;certain&nbsp;optional&nbsp;arguments.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once&nbsp;you&nbsp;use&nbsp;a&nbsp;keyword,&nbsp;all&nbsp;following&nbsp;arguments&nbsp;require&nbsp;the&nbsp;keyword.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;playlist&nbsp;=&nbsp;xbmc.<a href="#PlayList">PlayList</a>(xbmc.PLAYLIST_VIDEO)<br>
+&nbsp;&nbsp;-&nbsp;video&nbsp;=&nbsp;'F:\\movies\\Ironman.mov'<br>
+&nbsp;&nbsp;-&nbsp;listitem&nbsp;=&nbsp;xbmcgui.ListItem('Ironman',&nbsp;thumbnailImage='F:\\movies\\Ironman.tbn')<br>
+&nbsp;&nbsp;-&nbsp;listitem.setInfo('video',&nbsp;{'Title':&nbsp;'Ironman',&nbsp;'Genre':&nbsp;'Science&nbsp;Fiction'})<br>
+&nbsp;&nbsp;-&nbsp;playlist.<a href="#PlayList-add">add</a>(url=video,&nbsp;listitem=listitem,&nbsp;index=7)</tt></dd></dl>
+
+<dl><dt><a name="PlayList-clear"><strong>clear</strong></a>(...)</dt><dd><tt><a href="#PlayList-clear">clear</a>()&nbsp;--&nbsp;clear&nbsp;all&nbsp;items&nbsp;in&nbsp;the&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="PlayList-getposition"><strong>getposition</strong></a>(...)</dt><dd><tt><a href="#PlayList-getposition">getposition</a>()&nbsp;--&nbsp;returns&nbsp;the&nbsp;position&nbsp;of&nbsp;the&nbsp;current&nbsp;song&nbsp;in&nbsp;this&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="PlayList-load"><strong>load</strong></a>(...)</dt><dd><tt><a href="#PlayList-load">load</a>(filename)&nbsp;--&nbsp;Load&nbsp;a&nbsp;playlist.<br>
+&nbsp;<br>
+clear&nbsp;current&nbsp;playlist&nbsp;and&nbsp;copy&nbsp;items&nbsp;from&nbsp;the&nbsp;file&nbsp;to&nbsp;this&nbsp;Playlist<br>
+filename&nbsp;can&nbsp;be&nbsp;like&nbsp;.pls&nbsp;or&nbsp;.m3u&nbsp;...<br>
+returns&nbsp;False&nbsp;if&nbsp;unable&nbsp;to&nbsp;load&nbsp;playlist,&nbsp;True&nbsp;otherwise.</tt></dd></dl>
+
+<dl><dt><a name="PlayList-remove"><strong>remove</strong></a>(...)</dt><dd><tt><a href="#PlayList-remove">remove</a>(filename)&nbsp;--&nbsp;remove&nbsp;an&nbsp;item&nbsp;with&nbsp;this&nbsp;filename&nbsp;from&nbsp;the&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="PlayList-shuffle"><strong>shuffle</strong></a>(...)</dt><dd><tt><a href="#PlayList-shuffle">shuffle</a>()&nbsp;--&nbsp;shuffle&nbsp;the&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="PlayList-size"><strong>size</strong></a>(...)</dt><dd><tt><a href="#PlayList-size">size</a>()&nbsp;--&nbsp;returns&nbsp;the&nbsp;total&nbsp;number&nbsp;of&nbsp;PlayListItems&nbsp;in&nbsp;this&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="PlayList-unshuffle"><strong>unshuffle</strong></a>(...)</dt><dd><tt><a href="#PlayList-unshuffle">unshuffle</a>()&nbsp;--&nbsp;unshuffle&nbsp;the&nbsp;playlist.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#PlayList-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PlayListItem">class <strong>PlayListItem</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#PlayListItem">PlayListItem</a>&nbsp;class.<br>
+&nbsp;<br>
+<a href="#PlayListItem">PlayListItem</a>()&nbsp;--&nbsp;Creates&nbsp;a&nbsp;new&nbsp;PlaylistItem&nbsp;which&nbsp;can&nbsp;be&nbsp;added&nbsp;to&nbsp;a&nbsp;<a href="#PlayList">PlayList</a>.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="PlayListItem-getdescription"><strong>getdescription</strong></a>(...)</dt><dd><tt><a href="#PlayListItem-getdescription">getdescription</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;description&nbsp;of&nbsp;this&nbsp;<a href="#PlayListItem">PlayListItem</a>.</tt></dd></dl>
+
+<dl><dt><a name="PlayListItem-getduration"><strong>getduration</strong></a>(...)</dt><dd><tt><a href="#PlayListItem-getduration">getduration</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;duration&nbsp;of&nbsp;this&nbsp;<a href="#PlayListItem">PlayListItem</a>.</tt></dd></dl>
+
+<dl><dt><a name="PlayListItem-getfilename"><strong>getfilename</strong></a>(...)</dt><dd><tt><a href="#PlayListItem-getfilename">getfilename</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;filename&nbsp;of&nbsp;this&nbsp;<a href="#PlayListItem">PlayListItem</a>.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#PlayListItem-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Player">class <strong>Player</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#Player">Player</a>&nbsp;class.<br>
+&nbsp;<br>
+<a href="#Player">Player</a>([core])&nbsp;--&nbsp;Creates&nbsp;a&nbsp;new&nbsp;<a href="#Player">Player</a>&nbsp;with&nbsp;as&nbsp;default&nbsp;the&nbsp;xbmc&nbsp;music&nbsp;playlist.<br>
+&nbsp;<br>
+core&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;(optional)&nbsp;Use&nbsp;a&nbsp;specified&nbsp;playcore&nbsp;instead&nbsp;of&nbsp;letting&nbsp;xbmc&nbsp;decide&nbsp;the&nbsp;playercore&nbsp;to&nbsp;use.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;-&nbsp;xbmc.PLAYER_CORE_AUTO<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;-&nbsp;xbmc.PLAYER_CORE_DVDPLAYER<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;-&nbsp;xbmc.PLAYER_CORE_MPLAYER<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;-&nbsp;xbmc.PLAYER_CORE_PAPLAYER<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Player-disableSubtitles"><strong>disableSubtitles</strong></a>(...)</dt><dd><tt>DisableSubtitles()&nbsp;--&nbsp;disable&nbsp;subtitles</tt></dd></dl>
+
+<dl><dt><a name="Player-getAvailableAudioStreams"><strong>getAvailableAudioStreams</strong></a>(...)</dt><dd><tt><a href="#Player-getAvailableAudioStreams">getAvailableAudioStreams</a>()&nbsp;--&nbsp;get&nbsp;Audio&nbsp;stream&nbsp;names</tt></dd></dl>
+
+<dl><dt><a name="Player-getAvailableSubtitleStreams"><strong>getAvailableSubtitleStreams</strong></a>(...)</dt><dd><tt><a href="#Player-getAvailableSubtitleStreams">getAvailableSubtitleStreams</a>()&nbsp;--&nbsp;get&nbsp;Subtitle&nbsp;stream&nbsp;names</tt></dd></dl>
+
+<dl><dt><a name="Player-getMusicInfoTag"><strong>getMusicInfoTag</strong></a>(...)</dt><dd><tt><a href="#Player-getMusicInfoTag">getMusicInfoTag</a>()&nbsp;--&nbsp;returns&nbsp;the&nbsp;MusicInfoTag&nbsp;of&nbsp;the&nbsp;current&nbsp;playing&nbsp;'Song'.<br>
+&nbsp;<br>
+Throws:&nbsp;Exception,&nbsp;if&nbsp;player&nbsp;is&nbsp;not&nbsp;playing&nbsp;a&nbsp;file&nbsp;or&nbsp;current&nbsp;file&nbsp;is&nbsp;not&nbsp;a&nbsp;music&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-getPlayingFile"><strong>getPlayingFile</strong></a>(...)</dt><dd><tt><a href="#Player-getPlayingFile">getPlayingFile</a>()&nbsp;--&nbsp;returns&nbsp;the&nbsp;current&nbsp;playing&nbsp;file&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+Throws:&nbsp;Exception,&nbsp;if&nbsp;player&nbsp;is&nbsp;not&nbsp;playing&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-getSubtitles"><strong>getSubtitles</strong></a>(...)</dt><dd><tt><a href="#Player-getSubtitles">getSubtitles</a>()&nbsp;--&nbsp;get&nbsp;subtitle&nbsp;stream&nbsp;name</tt></dd></dl>
+
+<dl><dt><a name="Player-getTime"><strong>getTime</strong></a>(...)</dt><dd><tt><a href="#Player-getTime">getTime</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;current&nbsp;time&nbsp;of&nbsp;the&nbsp;current&nbsp;playing&nbsp;media&nbsp;as&nbsp;fractional&nbsp;seconds.<br>
+&nbsp;<br>
+Throws:&nbsp;Exception,&nbsp;if&nbsp;player&nbsp;is&nbsp;not&nbsp;playing&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-getTotalTime"><strong>getTotalTime</strong></a>(...)</dt><dd><tt><a href="#Player-getTotalTime">getTotalTime</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;total&nbsp;time&nbsp;of&nbsp;the&nbsp;current&nbsp;playing&nbsp;media&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seconds.&nbsp;&nbsp;This&nbsp;is&nbsp;only&nbsp;accurate&nbsp;to&nbsp;the&nbsp;full&nbsp;second.<br>
+&nbsp;<br>
+Throws:&nbsp;Exception,&nbsp;if&nbsp;player&nbsp;is&nbsp;not&nbsp;playing&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-getVideoInfoTag"><strong>getVideoInfoTag</strong></a>(...)</dt><dd><tt><a href="#Player-getVideoInfoTag">getVideoInfoTag</a>()&nbsp;--&nbsp;returns&nbsp;the&nbsp;VideoInfoTag&nbsp;of&nbsp;the&nbsp;current&nbsp;playing&nbsp;Movie.<br>
+&nbsp;<br>
+Throws:&nbsp;Exception,&nbsp;if&nbsp;player&nbsp;is&nbsp;not&nbsp;playing&nbsp;a&nbsp;file&nbsp;or&nbsp;current&nbsp;file&nbsp;is&nbsp;not&nbsp;a&nbsp;movie&nbsp;file.<br>
+&nbsp;<br>
+Note,&nbsp;this&nbsp;doesn't&nbsp;work&nbsp;yet,&nbsp;it's&nbsp;not&nbsp;tested</tt></dd></dl>
+
+<dl><dt><a name="Player-isPlaying"><strong>isPlaying</strong></a>(...)</dt><dd><tt><a href="#Player-isPlaying">isPlaying</a>()&nbsp;--&nbsp;returns&nbsp;True&nbsp;is&nbsp;xbmc&nbsp;is&nbsp;playing&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-isPlayingAudio"><strong>isPlayingAudio</strong></a>(...)</dt><dd><tt><a href="#Player-isPlayingAudio">isPlayingAudio</a>()&nbsp;--&nbsp;returns&nbsp;True&nbsp;is&nbsp;xbmc&nbsp;is&nbsp;playing&nbsp;an&nbsp;audio&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-isPlayingVideo"><strong>isPlayingVideo</strong></a>(...)</dt><dd><tt><a href="#Player-isPlayingVideo">isPlayingVideo</a>()&nbsp;--&nbsp;returns&nbsp;True&nbsp;if&nbsp;xbmc&nbsp;is&nbsp;playing&nbsp;a&nbsp;video.</tt></dd></dl>
+
+<dl><dt><a name="Player-onPlayBackEnded"><strong>onPlayBackEnded</strong></a>(...)</dt><dd><tt><a href="#Player-onPlayBackEnded">onPlayBackEnded</a>()&nbsp;--&nbsp;onPlayBackEnded&nbsp;method.<br>
+&nbsp;<br>
+Will&nbsp;be&nbsp;called&nbsp;when&nbsp;xbmc&nbsp;stops&nbsp;playing&nbsp;a&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Player-onPlayBackPaused"><strong>onPlayBackPaused</strong></a>(...)</dt><dd><tt><a href="#Player-onPlayBackPaused">onPlayBackPaused</a>()&nbsp;--&nbsp;onPlayBackPaused&nbsp;method.<br>
+&nbsp;<br>
+Will&nbsp;be&nbsp;called&nbsp;when&nbsp;user&nbsp;pauses&nbsp;a&nbsp;playing&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Player-onPlayBackResumed"><strong>onPlayBackResumed</strong></a>(...)</dt><dd><tt><a href="#Player-onPlayBackResumed">onPlayBackResumed</a>()&nbsp;--&nbsp;onPlayBackResumed&nbsp;method.<br>
+&nbsp;<br>
+Will&nbsp;be&nbsp;called&nbsp;when&nbsp;user&nbsp;resumes&nbsp;a&nbsp;paused&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Player-onPlayBackStarted"><strong>onPlayBackStarted</strong></a>(...)</dt><dd><tt><a href="#Player-onPlayBackStarted">onPlayBackStarted</a>()&nbsp;--&nbsp;onPlayBackStarted&nbsp;method.<br>
+&nbsp;<br>
+Will&nbsp;be&nbsp;called&nbsp;when&nbsp;xbmc&nbsp;starts&nbsp;playing&nbsp;a&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Player-onPlayBackStopped"><strong>onPlayBackStopped</strong></a>(...)</dt><dd><tt><a href="#Player-onPlayBackStopped">onPlayBackStopped</a>()&nbsp;--&nbsp;onPlayBackStopped&nbsp;method.<br>
+&nbsp;<br>
+Will&nbsp;be&nbsp;called&nbsp;when&nbsp;user&nbsp;stops&nbsp;xbmc&nbsp;playing&nbsp;a&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="Player-pause"><strong>pause</strong></a>(...)</dt><dd><tt><a href="#Player-pause">pause</a>()&nbsp;--&nbsp;Pause&nbsp;playing.</tt></dd></dl>
+
+<dl><dt><a name="Player-play"><strong>play</strong></a>(...)</dt><dd><tt><a href="#Player-play">play</a>([item,&nbsp;listitem,&nbsp;windowed])&nbsp;--&nbsp;Play&nbsp;this&nbsp;item.<br>
+&nbsp;<br>
+item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;string&nbsp;-&nbsp;filename,&nbsp;url&nbsp;or&nbsp;playlist.<br>
+listitem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;listitem&nbsp;-&nbsp;used&nbsp;with&nbsp;setInfo()&nbsp;to&nbsp;set&nbsp;different&nbsp;infolabels.<br>
+windowed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;bool&nbsp;-&nbsp;true=play&nbsp;video&nbsp;windowed,&nbsp;false=play&nbsp;users&nbsp;preference.(default)<br>
+&nbsp;<br>
+*Note,&nbsp;If&nbsp;item&nbsp;is&nbsp;not&nbsp;given&nbsp;then&nbsp;the&nbsp;<a href="#Player">Player</a>&nbsp;will&nbsp;try&nbsp;to&nbsp;play&nbsp;the&nbsp;current&nbsp;item<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;current&nbsp;playlist.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments&nbsp;and&nbsp;skip&nbsp;certain&nbsp;optional&nbsp;arguments.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once&nbsp;you&nbsp;use&nbsp;a&nbsp;keyword,&nbsp;all&nbsp;following&nbsp;arguments&nbsp;require&nbsp;the&nbsp;keyword.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;listitem&nbsp;=&nbsp;xbmcgui.ListItem('Ironman')<br>
+&nbsp;&nbsp;-&nbsp;listitem.setInfo('video',&nbsp;{'Title':&nbsp;'Ironman',&nbsp;'Genre':&nbsp;'Science&nbsp;Fiction'})<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#Player">Player</a>(&nbsp;xbmc.PLAYER_CORE_MPLAYER&nbsp;).<a href="#Player-play">play</a>(url,&nbsp;listitem,&nbsp;windowed)</tt></dd></dl>
+
+<dl><dt><a name="Player-playnext"><strong>playnext</strong></a>(...)</dt><dd><tt><a href="#Player-playnext">playnext</a>()&nbsp;--&nbsp;Play&nbsp;next&nbsp;item&nbsp;in&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="Player-playprevious"><strong>playprevious</strong></a>(...)</dt><dd><tt><a href="#Player-playprevious">playprevious</a>()&nbsp;--&nbsp;Play&nbsp;previous&nbsp;item&nbsp;in&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="Player-playselected"><strong>playselected</strong></a>(...)</dt><dd><tt><a href="#Player-playselected">playselected</a>()&nbsp;--&nbsp;Play&nbsp;a&nbsp;certain&nbsp;item&nbsp;from&nbsp;the&nbsp;current&nbsp;playlist.</tt></dd></dl>
+
+<dl><dt><a name="Player-seekTime"><strong>seekTime</strong></a>(...)</dt><dd><tt><a href="#Player-seekTime">seekTime</a>()&nbsp;--&nbsp;Seeks&nbsp;the&nbsp;specified&nbsp;amount&nbsp;of&nbsp;time&nbsp;as&nbsp;fractional&nbsp;seconds.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;time&nbsp;specified&nbsp;is&nbsp;relative&nbsp;to&nbsp;the&nbsp;beginning&nbsp;of&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currently&nbsp;playing&nbsp;media&nbsp;file.<br>
+&nbsp;<br>
+Throws:&nbsp;Exception,&nbsp;if&nbsp;player&nbsp;is&nbsp;not&nbsp;playing&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Player-setAudioStream"><strong>setAudioStream</strong></a>(...)</dt><dd><tt><a href="#Player-setAudioStream">setAudioStream</a>(stream)&nbsp;--&nbsp;set&nbsp;Audio&nbsp;Stream&nbsp;<br>
+&nbsp;<br>
+stream&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;int<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;<a href="#Player-setAudioStream">setAudioStream</a>(1)</tt></dd></dl>
+
+<dl><dt><a name="Player-setSubtitleStream"><strong>setSubtitleStream</strong></a>(...)</dt><dd><tt><a href="#Player-setSubtitleStream">setSubtitleStream</a>(stream)&nbsp;--&nbsp;set&nbsp;Subtitle&nbsp;Stream&nbsp;<br>
+&nbsp;<br>
+stream&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;int<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;<a href="#Player-setSubtitleStream">setSubtitleStream</a>(1)</tt></dd></dl>
+
+<dl><dt><a name="Player-setSubtitles"><strong>setSubtitles</strong></a>(...)</dt><dd><tt><a href="#Player-setSubtitles">setSubtitles</a>(path)&nbsp;--&nbsp;set&nbsp;subtitle&nbsp;file&nbsp;and&nbsp;enable&nbsp;subtitles<br>
+&nbsp;<br>
+path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;Path&nbsp;to&nbsp;subtitle<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;<a href="#Player-setSubtitles">setSubtitles</a>('/path/to/subtitle/test.srt')</tt></dd></dl>
+
+<dl><dt><a name="Player-showSubtitles"><strong>showSubtitles</strong></a>(...)</dt><dd><tt><a href="#Player-showSubtitles">showSubtitles</a>(visible)&nbsp;--&nbsp;enable/disable&nbsp;subtitles<br>
+&nbsp;<br>
+visible&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;boolean&nbsp;-&nbsp;True&nbsp;for&nbsp;visible&nbsp;subtitles.<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#Player">Player</a>().<a href="#Player-showSubtitles">showSubtitles</a>(True)</tt></dd></dl>
+
+<dl><dt><a name="Player-stop"><strong>stop</strong></a>(...)</dt><dd><tt><a href="#Player-stop">stop</a>()&nbsp;--&nbsp;Stop&nbsp;playing.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#Player-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="RenderCapture">class <strong>RenderCapture</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#RenderCapture">RenderCapture</a>&nbsp;class.<br>
+&nbsp;<br>
+Capture&nbsp;images&nbsp;of&nbsp;abitrary&nbsp;size&nbsp;of&nbsp;the&nbsp;currently&nbsp;displayed&nbsp;video&nbsp;stream.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="RenderCapture-capture"><strong>capture</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-capture">capture</a>(width,&nbsp;height&nbsp;[,&nbsp;flags])&nbsp;--&nbsp;issue&nbsp;capture&nbsp;request.<br>
+&nbsp;<br>
+width&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Width&nbsp;capture&nbsp;image&nbsp;should&nbsp;be&nbsp;rendered&nbsp;to<br>
+height&nbsp;&nbsp;&nbsp;:&nbsp;Height&nbsp;capture&nbsp;image&nbsp;should&nbsp;should&nbsp;be&nbsp;rendered&nbsp;to<br>
+flags&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Optional.&nbsp;Flags&nbsp;that&nbsp;control&nbsp;the&nbsp;capture&nbsp;processing.<br>
+&nbsp;<br>
+The&nbsp;value&nbsp;for&nbsp;'flags'&nbsp;could&nbsp;be&nbsp;or'ed&nbsp;from&nbsp;the&nbsp;following&nbsp;constants:<br>
+xbmc.CAPTURE_FLAG_CONTINUOUS&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;after&nbsp;a&nbsp;capture&nbsp;is&nbsp;done,&nbsp;issue&nbsp;a&nbsp;new&nbsp;capture&nbsp;request&nbsp;immediately<br>
+xbmc.CAPTURE_FLAG_IMMEDIATELY&nbsp;&nbsp;&nbsp;:&nbsp;read&nbsp;out&nbsp;immediately&nbsp;when&nbsp;<a href="#RenderCapture-capture">capture</a>()&nbsp;is&nbsp;called,&nbsp;this&nbsp;can&nbsp;cause&nbsp;a&nbsp;busy&nbsp;wait</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-getAspectRatio"><strong>getAspectRatio</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-getAspectRatio">getAspectRatio</a>()&nbsp;--&nbsp;returns&nbsp;aspect&nbsp;ratio&nbsp;of&nbsp;currently&nbsp;displayed&nbsp;video.</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-getCaptureState"><strong>getCaptureState</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-getCaptureState">getCaptureState</a>()&nbsp;--&nbsp;returns&nbsp;processing&nbsp;state&nbsp;of&nbsp;capture&nbsp;request.<br>
+&nbsp;<br>
+The&nbsp;returned&nbsp;value&nbsp;could&nbsp;be&nbsp;compared&nbsp;against&nbsp;the&nbsp;following&nbsp;constants:<br>
+xbmc.CAPTURE_STATE_WORKING&nbsp;&nbsp;:&nbsp;Capture&nbsp;request&nbsp;in&nbsp;progress.<br>
+xbmc.CAPTURE_STATE_DONE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Capture&nbsp;request&nbsp;done.&nbsp;The&nbsp;image&nbsp;could&nbsp;be&nbsp;retrieved&nbsp;with&nbsp;<a href="#RenderCapture-getImage">getImage</a>()<br>
+xbmc.CAPTURE_STATE_FAILED&nbsp;&nbsp;&nbsp;:&nbsp;Capture&nbsp;request&nbsp;failed.</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-getHeight"><strong>getHeight</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-getHeight">getHeight</a>()&nbsp;--&nbsp;returns&nbsp;height&nbsp;of&nbsp;captured&nbsp;image.</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-getImage"><strong>getImage</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-getImage">getImage</a>()&nbsp;--&nbsp;returns&nbsp;captured&nbsp;image&nbsp;as&nbsp;a&nbsp;bytearray.<br>
+&nbsp;<br>
+The&nbsp;size&nbsp;of&nbsp;the&nbsp;image&nbsp;is&nbsp;<a href="#RenderCapture-getWidth">getWidth</a>()&nbsp;*&nbsp;<a href="#RenderCapture-getHeight">getHeight</a>()&nbsp;*&nbsp;4</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-getImageFormat"><strong>getImageFormat</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-getImageFormat">getImageFormat</a>()&nbsp;--&nbsp;returns&nbsp;format&nbsp;of&nbsp;captured&nbsp;image:&nbsp;'BGRA'&nbsp;or&nbsp;'RGBA'.</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-getWidth"><strong>getWidth</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-getWidth">getWidth</a>()&nbsp;--&nbsp;returns&nbsp;width&nbsp;of&nbsp;captured&nbsp;image.</tt></dd></dl>
+
+<dl><dt><a name="RenderCapture-waitForCaptureStateChangeEvent"><strong>waitForCaptureStateChangeEvent</strong></a>(...)</dt><dd><tt><a href="#RenderCapture-waitForCaptureStateChangeEvent">waitForCaptureStateChangeEvent</a>([msecs])&nbsp;--&nbsp;wait&nbsp;for&nbsp;capture&nbsp;state&nbsp;change&nbsp;event.<br>
+&nbsp;<br>
+msecs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;Milliseconds&nbsp;to&nbsp;wait.&nbsp;Waits&nbsp;forever&nbsp;if&nbsp;not&nbsp;specified.<br>
+&nbsp;<br>
+The&nbsp;method&nbsp;will&nbsp;return&nbsp;1&nbsp;if&nbsp;the&nbsp;Event&nbsp;was&nbsp;triggered.&nbsp;Otherwise&nbsp;it&nbsp;will&nbsp;return&nbsp;0.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#RenderCapture-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-enableNavSounds"><strong>enableNavSounds</strong></a>(...)</dt><dd><tt><a href="#-enableNavSounds">enableNavSounds</a>(yesNo)&nbsp;--&nbsp;Enables/Disables&nbsp;nav&nbsp;sounds<br>
+&nbsp;<br>
+yesNo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;integer&nbsp;-&nbsp;enable&nbsp;(True)&nbsp;or&nbsp;disable&nbsp;(False)&nbsp;nav&nbsp;sounds<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-enableNavSounds">enableNavSounds</a>(True)</tt></dd></dl>
+ <dl><dt><a name="-executeJSONRPC"><strong>executeJSONRPC</strong></a>(...)</dt><dd><tt><a href="#-executeJSONRPC">executeJSONRPC</a>(jsonrpccommand)&nbsp;--&nbsp;Execute&nbsp;an&nbsp;JSONRPC&nbsp;command.<br>
+&nbsp;<br>
+jsonrpccommand&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;jsonrpc&nbsp;command&nbsp;to&nbsp;execute.<br>
+&nbsp;<br>
+List&nbsp;of&nbsp;commands&nbsp;-&nbsp;<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;response&nbsp;=&nbsp;xbmc.<a href="#-executeJSONRPC">executeJSONRPC</a>('{&nbsp;"jsonrpc":&nbsp;"2.0",&nbsp;"method":&nbsp;"JSONRPC.Introspect",&nbsp;"id":&nbsp;1&nbsp;}')</tt></dd></dl>
+ <dl><dt><a name="-executebuiltin"><strong>executebuiltin</strong></a>(...)</dt><dd><tt><a href="#-executebuiltin">executebuiltin</a>(function)&nbsp;--&nbsp;Execute&nbsp;a&nbsp;built&nbsp;in&nbsp;XBMC&nbsp;function.<br>
+&nbsp;<br>
+function&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;builtin&nbsp;function&nbsp;to&nbsp;execute.<br>
+wait&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;bool&nbsp;-&nbsp;True=Wait&nbsp;for&nbsp;end&nbsp;of&nbsp;execution,&nbsp;False=don't&nbsp;wait&nbsp;(Default)<br>
+&nbsp;<br>
+List&nbsp;of&nbsp;functions&nbsp;-&nbsp;<a href="http://wiki.xbmc.org/?title=List_of_Built_In_Functions">http://wiki.xbmc.org/?title=List_of_Built_In_Functions</a>&nbsp;<br>
+&nbsp;<br>
+NOTE:&nbsp;This&nbsp;function&nbsp;is&nbsp;executed&nbsp;asynchronously,&nbsp;so&nbsp;do&nbsp;not&nbsp;rely&nbsp;on&nbsp;it&nbsp;being&nbsp;done&nbsp;immediately<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-executebuiltin">executebuiltin</a>('XBMC.RunXBE(c:\\avalaunch.xbe)')</tt></dd></dl>
+ <dl><dt><a name="-executehttpapi"><strong>executehttpapi</strong></a>(...)</dt><dd><tt><a href="#-executehttpapi">executehttpapi</a>(httpcommand)&nbsp;--&nbsp;Execute&nbsp;an&nbsp;HTTP&nbsp;API&nbsp;command.<br>
+&nbsp;<br>
+httpcommand&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;http&nbsp;command&nbsp;to&nbsp;execute.<br>
+&nbsp;<br>
+List&nbsp;of&nbsp;commands&nbsp;-&nbsp;<a href="http://wiki.xbmc.org/?title=WebServerHTTP-API#The_Commands">http://wiki.xbmc.org/?title=WebServerHTTP-API#The_Commands</a>&nbsp;<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;response&nbsp;=&nbsp;xbmc.<a href="#-executehttpapi">executehttpapi</a>('TakeScreenShot(special://temp/test.jpg,0,false,200,-1,90)')</tt></dd></dl>
+ <dl><dt><a name="-executescript"><strong>executescript</strong></a>(...)</dt><dd><tt><a href="#-executescript">executescript</a>(script)&nbsp;--&nbsp;Execute&nbsp;a&nbsp;python&nbsp;script.<br>
+&nbsp;<br>
+script&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;script&nbsp;filename&nbsp;to&nbsp;execute.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-executescript">executescript</a>('special://home/scripts/update.py')</tt></dd></dl>
+ <dl><dt><a name="-getCacheThumbName"><strong>getCacheThumbName</strong></a>(...)</dt><dd><tt><a href="#-getCacheThumbName">getCacheThumbName</a>(path)&nbsp;--&nbsp;Returns&nbsp;a&nbsp;thumb&nbsp;cache&nbsp;filename.<br>
+&nbsp;<br>
+path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;path&nbsp;to&nbsp;file<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;thumb&nbsp;=&nbsp;xbmc.<a href="#-getCacheThumbName">getCacheThumbName</a>('f:\\videos\\movie.avi')</tt></dd></dl>
+ <dl><dt><a name="-getCleanMovieTitle"><strong>getCleanMovieTitle</strong></a>(...)</dt><dd><tt><a href="#-getCleanMovieTitle">getCleanMovieTitle</a>(path[,&nbsp;usefoldername])&nbsp;--&nbsp;Returns&nbsp;a&nbsp;clean&nbsp;movie&nbsp;title&nbsp;and&nbsp;year&nbsp;string&nbsp;if&nbsp;available.<br>
+&nbsp;<br>
+path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;String&nbsp;to&nbsp;clean<br>
+bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;bool&nbsp;-&nbsp;use&nbsp;folder&nbsp;names&nbsp;(defaults&nbsp;to&nbsp;false)<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;title,&nbsp;year&nbsp;=&nbsp;xbmc.<a href="#-getCleanMovieTitle">getCleanMovieTitle</a>('/path/to/moviefolder/test.avi',&nbsp;True)</tt></dd></dl>
+ <dl><dt><a name="-getCondVisibility"><strong>getCondVisibility</strong></a>(...)</dt><dd><tt><a href="#-getCondVisibility">getCondVisibility</a>(condition)&nbsp;--&nbsp;Returns&nbsp;True&nbsp;(1)&nbsp;or&nbsp;False&nbsp;(0)&nbsp;as&nbsp;a&nbsp;bool.<br>
+&nbsp;<br>
+condition&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;condition&nbsp;to&nbsp;check.<br>
+&nbsp;<br>
+List&nbsp;of&nbsp;Conditions&nbsp;-&nbsp;<a href="http://wiki.xbmc.org/?title=List_of_Boolean_Conditions">http://wiki.xbmc.org/?title=List_of_Boolean_Conditions</a>&nbsp;<br>
+&nbsp;<br>
+*Note,&nbsp;You&nbsp;can&nbsp;combine&nbsp;two&nbsp;(or&nbsp;more)&nbsp;of&nbsp;the&nbsp;above&nbsp;settings&nbsp;by&nbsp;using&nbsp;"+"&nbsp;as&nbsp;an&nbsp;AND&nbsp;operator,<br>
+"|"&nbsp;as&nbsp;an&nbsp;OR&nbsp;operator,&nbsp;"!"&nbsp;as&nbsp;a&nbsp;NOT&nbsp;operator,&nbsp;and&nbsp;"["&nbsp;and&nbsp;"]"&nbsp;to&nbsp;bracket&nbsp;expressions.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;visible&nbsp;=&nbsp;xbmc.<a href="#-getCondVisibility">getCondVisibility</a>('[Control.IsVisible(41)&nbsp;+&nbsp;!Control.IsVisible(12)]')</tt></dd></dl>
+ <dl><dt><a name="-getDVDState"><strong>getDVDState</strong></a>(...)</dt><dd><tt><a href="#-getDVDState">getDVDState</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;dvd&nbsp;state&nbsp;as&nbsp;an&nbsp;integer.<br>
+&nbsp;<br>
+return&nbsp;values&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;1&nbsp;:&nbsp;xbmc.DRIVE_NOT_READY<br>
+&nbsp;&nbsp;16&nbsp;:&nbsp;xbmc.TRAY_OPEN<br>
+&nbsp;&nbsp;64&nbsp;:&nbsp;xbmc.TRAY_CLOSED_NO_MEDIA<br>
+&nbsp;&nbsp;96&nbsp;:&nbsp;xbmc.TRAY_CLOSED_MEDIA_PRESENT<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;dvdstate&nbsp;=&nbsp;xbmc.<a href="#-getDVDState">getDVDState</a>()</tt></dd></dl>
+ <dl><dt><a name="-getFreeMem"><strong>getFreeMem</strong></a>(...)</dt><dd><tt><a href="#-getFreeMem">getFreeMem</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;amount&nbsp;of&nbsp;free&nbsp;memory&nbsp;in&nbsp;MB&nbsp;as&nbsp;an&nbsp;integer.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;freemem&nbsp;=&nbsp;xbmc.<a href="#-getFreeMem">getFreeMem</a>()</tt></dd></dl>
+ <dl><dt><a name="-getGlobalIdleTime"><strong>getGlobalIdleTime</strong></a>(...)</dt><dd><tt><a href="#-getGlobalIdleTime">getGlobalIdleTime</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;elapsed&nbsp;idle&nbsp;time&nbsp;in&nbsp;seconds&nbsp;as&nbsp;an&nbsp;integer.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;t&nbsp;=&nbsp;xbmc.<a href="#-getGlobalIdleTime">getGlobalIdleTime</a>()</tt></dd></dl>
+ <dl><dt><a name="-getIPAddress"><strong>getIPAddress</strong></a>(...)</dt><dd><tt><a href="#-getIPAddress">getIPAddress</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;current&nbsp;ip&nbsp;address&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;ip&nbsp;=&nbsp;xbmc.<a href="#-getIPAddress">getIPAddress</a>()</tt></dd></dl>
+ <dl><dt><a name="-getInfoImage"><strong>getInfoImage</strong></a>(...)</dt><dd><tt><a href="#-getInfoImage">getInfoImage</a>(infotag)&nbsp;--&nbsp;Returns&nbsp;a&nbsp;filename&nbsp;including&nbsp;path&nbsp;to&nbsp;the&nbsp;InfoImage's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;thumbnail&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+infotag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;infotag&nbsp;for&nbsp;value&nbsp;you&nbsp;want&nbsp;returned.<br>
+&nbsp;<br>
+List&nbsp;of&nbsp;InfoTags&nbsp;-&nbsp;<a href="http://wiki.xbmc.org/?title=InfoLabels">http://wiki.xbmc.org/?title=InfoLabels</a>&nbsp;<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;filename&nbsp;=&nbsp;xbmc.<a href="#-getInfoImage">getInfoImage</a>('Weather.Conditions')</tt></dd></dl>
+ <dl><dt><a name="-getInfoLabel"><strong>getInfoLabel</strong></a>(...)</dt><dd><tt><a href="#-getInfoLabel">getInfoLabel</a>(infotag)&nbsp;--&nbsp;Returns&nbsp;an&nbsp;InfoLabel&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+infotag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;infoTag&nbsp;for&nbsp;value&nbsp;you&nbsp;want&nbsp;returned.<br>
+&nbsp;<br>
+List&nbsp;of&nbsp;InfoTags&nbsp;-&nbsp;<a href="http://wiki.xbmc.org/?title=InfoLabels">http://wiki.xbmc.org/?title=InfoLabels</a>&nbsp;<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;label&nbsp;=&nbsp;xbmc.<a href="#-getInfoLabel">getInfoLabel</a>('Weather.Conditions')</tt></dd></dl>
+ <dl><dt><a name="-getLanguage"><strong>getLanguage</strong></a>(...)</dt><dd><tt><a href="#-getLanguage">getLanguage</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;active&nbsp;language&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;language&nbsp;=&nbsp;xbmc.<a href="#-getLanguage">getLanguage</a>()</tt></dd></dl>
+ <dl><dt><a name="-getLocalizedString"><strong>getLocalizedString</strong></a>(...)</dt><dd><tt><a href="#-getLocalizedString">getLocalizedString</a>(id)&nbsp;--&nbsp;Returns&nbsp;a&nbsp;localized&nbsp;'unicode&nbsp;string'.<br>
+&nbsp;<br>
+id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;integer&nbsp;-&nbsp;id#&nbsp;for&nbsp;string&nbsp;you&nbsp;want&nbsp;to&nbsp;localize.<br>
+&nbsp;<br>
+*Note,&nbsp;See&nbsp;strings.xml&nbsp;in&nbsp;\language\{yourlanguage}\&nbsp;for&nbsp;which&nbsp;id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;you&nbsp;need&nbsp;for&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;locstr&nbsp;=&nbsp;xbmc.<a href="#-getLocalizedString">getLocalizedString</a>(6)</tt></dd></dl>
+ <dl><dt><a name="-getRegion"><strong>getRegion</strong></a>(...)</dt><dd><tt><a href="#-getRegion">getRegion</a>(id)&nbsp;--&nbsp;Returns&nbsp;your&nbsp;regions&nbsp;setting&nbsp;as&nbsp;a&nbsp;string&nbsp;for&nbsp;the&nbsp;specified&nbsp;id.<br>
+&nbsp;<br>
+id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;id&nbsp;of&nbsp;setting&nbsp;to&nbsp;return<br>
+&nbsp;<br>
+*Note,&nbsp;choices&nbsp;are&nbsp;(dateshort,&nbsp;datelong,&nbsp;time,&nbsp;meridiem,&nbsp;tempunit,&nbsp;speedunit)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;date_long_format&nbsp;=&nbsp;xbmc.<a href="#-getRegion">getRegion</a>('datelong')</tt></dd></dl>
+ <dl><dt><a name="-getSkinDir"><strong>getSkinDir</strong></a>(...)</dt><dd><tt><a href="#-getSkinDir">getSkinDir</a>()&nbsp;--&nbsp;Returns&nbsp;the&nbsp;active&nbsp;skin&nbsp;directory&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+*Note,&nbsp;This&nbsp;is&nbsp;not&nbsp;the&nbsp;full&nbsp;path&nbsp;like&nbsp;'special://home/addons/MediaCenter',&nbsp;but&nbsp;only&nbsp;'MediaCenter'.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;skindir&nbsp;=&nbsp;xbmc.<a href="#-getSkinDir">getSkinDir</a>()</tt></dd></dl>
+ <dl><dt><a name="-getSupportedMedia"><strong>getSupportedMedia</strong></a>(...)</dt><dd><tt><a href="#-getSupportedMedia">getSupportedMedia</a>(media)&nbsp;--&nbsp;Returns&nbsp;the&nbsp;supported&nbsp;file&nbsp;types&nbsp;for&nbsp;the&nbsp;specific&nbsp;media&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+media&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;media&nbsp;type<br>
+&nbsp;<br>
+*Note,&nbsp;media&nbsp;type&nbsp;can&nbsp;be&nbsp;(video,&nbsp;music,&nbsp;picture).<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;return&nbsp;value&nbsp;is&nbsp;a&nbsp;pipe&nbsp;separated&nbsp;string&nbsp;of&nbsp;filetypes&nbsp;(eg.&nbsp;'.mov|.avi').<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;mTypes&nbsp;=&nbsp;xbmc.<a href="#-getSupportedMedia">getSupportedMedia</a>('video')</tt></dd></dl>
+ <dl><dt><a name="-log"><strong>log</strong></a>(...)</dt><dd><tt><a href="#-log">log</a>(msg[,&nbsp;level])&nbsp;--&nbsp;Write&nbsp;a&nbsp;string&nbsp;to&nbsp;XBMC's&nbsp;log&nbsp;file.<br>
+&nbsp;<br>
+msg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;text&nbsp;to&nbsp;output.<br>
+level&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;integer&nbsp;-&nbsp;log&nbsp;level&nbsp;to&nbsp;ouput&nbsp;at.&nbsp;(default=LOGNOTICE)<br>
+&nbsp;<br>
+&nbsp;<br>
+*Note,&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments&nbsp;and&nbsp;skip&nbsp;certain&nbsp;optional&nbsp;arguments.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once&nbsp;you&nbsp;use&nbsp;a&nbsp;keyword,&nbsp;all&nbsp;following&nbsp;arguments&nbsp;require&nbsp;the&nbsp;keyword.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;is&nbsp;written&nbsp;to&nbsp;the&nbsp;log&nbsp;for&nbsp;the&nbsp;following&nbsp;conditions.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XBMC&nbsp;loglevel&nbsp;==&nbsp;-1&nbsp;(NONE,&nbsp;nothing&nbsp;at&nbsp;all&nbsp;is&nbsp;logged)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XBMC&nbsp;loglevel&nbsp;==&nbsp;0&nbsp;(NORMAL,&nbsp;shows&nbsp;LOGNOTICE,&nbsp;LOGERROR,&nbsp;LOGSEVERE&nbsp;and&nbsp;LOGFATAL)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XBMC&nbsp;loglevel&nbsp;==&nbsp;1&nbsp;(DEBUG,&nbsp;shows&nbsp;all)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;pydocs&nbsp;for&nbsp;valid&nbsp;values&nbsp;for&nbsp;level.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-log">log</a>(msg='This&nbsp;is&nbsp;a&nbsp;test&nbsp;string.',&nbsp;level=xbmc.LOGDEBUG)</tt></dd></dl>
+ <dl><dt><a name="-makeLegalFilename"><strong>makeLegalFilename</strong></a>(...)</dt><dd><tt><a href="#-makeLegalFilename">makeLegalFilename</a>(filename[,&nbsp;fatX])&nbsp;--&nbsp;Returns&nbsp;a&nbsp;legal&nbsp;filename&nbsp;or&nbsp;path&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;filename/path&nbsp;to&nbsp;make&nbsp;legal<br>
+fatX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;[opt]&nbsp;bool&nbsp;-&nbsp;True=Xbox&nbsp;file&nbsp;system(Default)<br>
+&nbsp;<br>
+*Note,&nbsp;If&nbsp;fatX&nbsp;is&nbsp;true&nbsp;you&nbsp;should&nbsp;pass&nbsp;a&nbsp;full&nbsp;path.&nbsp;If&nbsp;fatX&nbsp;is&nbsp;false&nbsp;only&nbsp;pass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;basename&nbsp;of&nbsp;the&nbsp;path.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments&nbsp;and&nbsp;skip&nbsp;certain&nbsp;optional&nbsp;arguments.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once&nbsp;you&nbsp;use&nbsp;a&nbsp;keyword,&nbsp;all&nbsp;following&nbsp;arguments&nbsp;require&nbsp;the&nbsp;keyword.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;filename&nbsp;=&nbsp;xbmc.<a href="#-makeLegalFilename">makeLegalFilename</a>('F:\Trailers\Ice&nbsp;Age:&nbsp;The&nbsp;Meltdown.avi')</tt></dd></dl>
+ <dl><dt><a name="-output"><strong>output</strong></a>(...)</dt><dd><tt>'xbmc.<a href="#-output">output</a>()'&nbsp;is&nbsp;depreciated&nbsp;and&nbsp;will&nbsp;be&nbsp;removed&nbsp;in&nbsp;future&nbsp;releases,<br>
+please&nbsp;use&nbsp;'xbmc.<a href="#-log">log</a>()'&nbsp;instead</tt></dd></dl>
+ <dl><dt><a name="-playSFX"><strong>playSFX</strong></a>(...)</dt><dd><tt><a href="#-playSFX">playSFX</a>(filename)&nbsp;--&nbsp;Plays&nbsp;a&nbsp;wav&nbsp;file&nbsp;by&nbsp;filename<br>
+&nbsp;<br>
+filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;filename&nbsp;of&nbsp;the&nbsp;wav&nbsp;file&nbsp;to&nbsp;play.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-playSFX">playSFX</a>('special://xbmc/scripts/dingdong.wav')</tt></dd></dl>
+ <dl><dt><a name="-restart"><strong>restart</strong></a>(...)</dt><dd><tt><a href="#-restart">restart</a>()&nbsp;--&nbsp;Restart&nbsp;the&nbsp;xbox.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-restart">restart</a>()</tt></dd></dl>
+ <dl><dt><a name="-shutdown"><strong>shutdown</strong></a>(...)</dt><dd><tt><a href="#-shutdown">shutdown</a>()&nbsp;--&nbsp;Shutdown&nbsp;the&nbsp;xbox.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-shutdown">shutdown</a>()</tt></dd></dl>
+ <dl><dt><a name="-skinHasImage"><strong>skinHasImage</strong></a>(...)</dt><dd><tt><a href="#-skinHasImage">skinHasImage</a>(image)&nbsp;--&nbsp;Returns&nbsp;True&nbsp;if&nbsp;the&nbsp;image&nbsp;file&nbsp;exists&nbsp;in&nbsp;the&nbsp;skin.<br>
+&nbsp;<br>
+image&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;-&nbsp;image&nbsp;filename<br>
+&nbsp;<br>
+*Note,&nbsp;If&nbsp;the&nbsp;media&nbsp;resides&nbsp;in&nbsp;a&nbsp;subfolder&nbsp;include&nbsp;it.&nbsp;(eg.&nbsp;home-myfiles\\home-myfiles2.png)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You&nbsp;can&nbsp;use&nbsp;the&nbsp;above&nbsp;as&nbsp;keywords&nbsp;for&nbsp;arguments.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;exists&nbsp;=&nbsp;xbmc.<a href="#-skinHasImage">skinHasImage</a>('ButtonFocusedTexture.png')</tt></dd></dl>
+ <dl><dt><a name="-sleep"><strong>sleep</strong></a>(...)</dt><dd><tt><a href="#-sleep">sleep</a>(time)&nbsp;--&nbsp;Sleeps&nbsp;for&nbsp;'time'&nbsp;msec.<br>
+&nbsp;<br>
+time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;integer&nbsp;-&nbsp;number&nbsp;of&nbsp;msec&nbsp;to&nbsp;sleep.<br>
+&nbsp;<br>
+*Note,&nbsp;This&nbsp;is&nbsp;useful&nbsp;if&nbsp;you&nbsp;have&nbsp;for&nbsp;example&nbsp;a&nbsp;<a href="#Player">Player</a>&nbsp;class&nbsp;that&nbsp;is&nbsp;waiting<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;onPlayBackEnded()&nbsp;calls.<br>
+&nbsp;<br>
+Throws:&nbsp;PyExc_TypeError,&nbsp;if&nbsp;time&nbsp;is&nbsp;not&nbsp;an&nbsp;integer.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;xbmc.<a href="#-sleep">sleep</a>(2000)&nbsp;#&nbsp;sleeps&nbsp;for&nbsp;2&nbsp;seconds</tt></dd></dl>
+ <dl><dt><a name="-subHashAndFileSize"><strong>subHashAndFileSize</strong></a>(...)</dt><dd><tt><a href="#-subHashAndFileSize">subHashAndFileSize</a>(file)&nbsp;--&nbsp;Calculate&nbsp;subtitle&nbsp;hash&nbsp;and&nbsp;size.<br>
+&nbsp;<br>
+file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;file&nbsp;to&nbsp;calculate&nbsp;subtitle&nbsp;hash&nbsp;and&nbsp;size&nbsp;for<br>
+&nbsp;<br>
+example:<br>
+&nbsp;-&nbsp;size,hash&nbsp;=&nbsp;xbmc.<a href="#-subHashAndFileSize">subHashAndFileSize</a>(file)</tt></dd></dl>
+ <dl><dt><a name="-translatePath"><strong>translatePath</strong></a>(...)</dt><dd><tt><a href="#-translatePath">translatePath</a>(path)&nbsp;--&nbsp;Returns&nbsp;the&nbsp;translated&nbsp;path.<br>
+&nbsp;<br>
+path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;Path&nbsp;to&nbsp;format<br>
+&nbsp;<br>
+*Note,&nbsp;Only&nbsp;useful&nbsp;if&nbsp;you&nbsp;are&nbsp;coding&nbsp;for&nbsp;both&nbsp;Linux&nbsp;and&nbsp;Windows/Xbox.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g.&nbsp;Converts&nbsp;'special://masterprofile/script_data'&nbsp;-&gt;&nbsp;'/home/user/XBMC/UserData/script_data'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on&nbsp;Linux.&nbsp;Would&nbsp;return&nbsp;'special://masterprofile/script_data'&nbsp;on&nbsp;the&nbsp;Xbox.<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;fpath&nbsp;=&nbsp;xbmc.<a href="#-translatePath">translatePath</a>('special://masterprofile/script_data')</tt></dd></dl>
+ <dl><dt><a name="-validatePath"><strong>validatePath</strong></a>(...)</dt><dd><tt><a href="#-validatePath">validatePath</a>(path)&nbsp;--&nbsp;Returns&nbsp;the&nbsp;validated&nbsp;path.<br>
+&nbsp;<br>
+path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;string&nbsp;or&nbsp;unicode&nbsp;-&nbsp;Path&nbsp;to&nbsp;format<br>
+&nbsp;<br>
+*Note,&nbsp;Only&nbsp;useful&nbsp;if&nbsp;you&nbsp;are&nbsp;coding&nbsp;for&nbsp;both&nbsp;Linux&nbsp;and&nbsp;Windows/Xbox&nbsp;for&nbsp;fixing&nbsp;slash&nbsp;problems.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g.&nbsp;Corrects&nbsp;'Z://something'&nbsp;-&gt;&nbsp;'Z:\something'<br>
+&nbsp;<br>
+example:<br>
+&nbsp;&nbsp;-&nbsp;fpath&nbsp;=&nbsp;xbmc.<a href="#-validatePath">validatePath</a>(somepath)</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>CAPTURE_FLAG_CONTINUOUS</strong> = 1<br>
+<strong>CAPTURE_FLAG_IMMEDIATELY</strong> = 2<br>
+<strong>CAPTURE_STATE_DONE</strong> = 3<br>
+<strong>CAPTURE_STATE_FAILED</strong> = 4<br>
+<strong>CAPTURE_STATE_WORKING</strong> = 0<br>
+<strong>DRIVE_NOT_READY</strong> = 1<br>
+<strong>LOGDEBUG</strong> = 0<br>
+<strong>LOGERROR</strong> = 4<br>
+<strong>LOGFATAL</strong> = 6<br>
+<strong>LOGINFO</strong> = 1<br>
+<strong>LOGNONE</strong> = 7<br>
+<strong>LOGNOTICE</strong> = 2<br>
+<strong>LOGSEVERE</strong> = 5<br>
+<strong>LOGWARNING</strong> = 3<br>
+<strong>PLAYER_CORE_AUTO</strong> = 0<br>
+<strong>PLAYER_CORE_DVDPLAYER</strong> = 1<br>
+<strong>PLAYER_CORE_MPLAYER</strong> = 2<br>
+<strong>PLAYER_CORE_PAPLAYER</strong> = 3<br>
+<strong>PLAYLIST_MUSIC</strong> = 0<br>
+<strong>PLAYLIST_VIDEO</strong> = 1<br>
+<strong>TRAY_CLOSED_MEDIA_PRESENT</strong> = 96<br>
+<strong>TRAY_CLOSED_NO_MEDIA</strong> = 64<br>
+<strong>TRAY_OPEN</strong> = 16<br>
+<strong>__author__</strong> = 'J. Mulder &lt;darkie@xbmc.org&gt;'<br>
+<strong>__credits__</strong> = 'XBMC TEAM.'<br>
+<strong>__date__</strong> = '15 November 2005'<br>
+<strong>__platform__</strong> = 'XBOX'<br>
+<strong>__version__</strong> = '1.3'<br>
+<strong>abortRequested</strong> = False</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">J.&nbsp;Mulder&nbsp;&lt;darkie@xbmc.org&gt;</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Credits</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">XBMC&nbsp;TEAM.</td></tr></table>
+</body></html>

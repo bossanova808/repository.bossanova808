@@ -5,13 +5,11 @@ import xbmcgui
 import xbmcaddon
 import xbmcvfs
 import time
-from traceback import print_exc
 
 #an orderly place to keep constants
 import constants 
 #Classes
 from NowPlayingWindow import *
-from SqueezePlayer import *
 import Logger
 
 ################################################################################
@@ -45,21 +43,13 @@ if ( __name__ == "__main__" ):
       Logger.log( "ERROR: Couldn't make folders in addon_data - bailing out!" , inst)
       sys.exit()
       
-    #create a player instance (is really a player + server combo)    
-    try:
-      player = SqueezePlayer()
-    except:
-      print_exc()
-      sys.exit()
-
-    #init the player
-    #player.getPlaylist()
 
     #now let's make a window and see if we can send some commands...
-    window = NowPlayingWindow(player)
+    window = NowPlayingWindow()
     
-    running = True
-    while running:
+    window.running = True
+    
+    while window.running:
       window.update()
       window.show()
       xbmc.sleep(100)
