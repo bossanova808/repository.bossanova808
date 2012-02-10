@@ -5,6 +5,7 @@ import xbmcgui
 import xbmcaddon
 import xbmcvfs
 import time
+import sys
 
 #an orderly place to keep constants
 import constants 
@@ -33,6 +34,9 @@ if ( __name__ == "__main__" ):
     
     #log some tracks...
     footprints()
+
+    #xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Starting Up!,Wait a moment...)")
+
 
     #make our storage paths
     try:

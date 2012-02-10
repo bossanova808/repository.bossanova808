@@ -34,20 +34,27 @@ class NowPlayingWindow(xbmcgui.Window):
     #cover art images - one diffuse in BG, large, smaller over the top
     #self.coverArtBG = xbmcgui.ControlImage(560,0,720, 720, constants.CHANGING_IMAGES_PATH + "currentCover.jpg", colorDiffuse='0x66666666')
     #self.addControl(self.coverArtBG) 
-    self.coverArt = xbmcgui.ControlImage(860,300,400, 400, constants.CHANGING_IMAGES_PATH + "currentCover.jpg")
-    self.addControl(self.coverArt) 
+    self.coverArt0 = xbmcgui.ControlImage(860,300,400, 400, constants.CHANGING_IMAGES_PATH + "currentCover.jpg")
+    self.addControl(self.coverArt0) 
         
+    self.coverArt1 = xbmcgui.ControlImage(500,600,100, 100, constants.CHANGING_IMAGES_PATH + "currentCoverPlus3.jpg")
+    self.addControl(self.coverArt1) 
+    self.coverArt2 = xbmcgui.ControlImage(620,600,100, 100, constants.CHANGING_IMAGES_PATH + "currentCoverPlus2.jpg")
+    self.addControl(self.coverArt2) 
+    self.coverArt3 = xbmcgui.ControlImage(740,600,100, 100, constants.CHANGING_IMAGES_PATH + "currentCoverPlus1.jpg")
+    self.addControl(self.coverArt3) 
+
     #create the controls for the two man SB display text lines
-    self.strLine1 = xbmcgui.ControlLabel(10, 20, 1280, 200, '', 'font14', constants.SQUEEZETEXT)
+    self.strLine1 = xbmcgui.ControlLabel(20, 20, 1280, 200, '', 'font14', constants.SQUEEZETEXT)
     self.addControl(self.strLine1)
-    self.strLine2 = xbmcgui.ControlLabel(10, 50, 1280, 200, '', 'font14', constants.SQUEEZETEXT)
+    self.strLine2 = xbmcgui.ControlLabel(20, 50, 1280, 200, '', 'font14', constants.SQUEEZETEXT)
     self.addControl(self.strLine2)
     
     #create the upcoming tracks list controls
-    self.upcoming0 = xbmcgui.ControlLabel(10, 120, 1280, 200, '', 'font12', constants.UPCOMINGTEXT)
-    self.upcoming1 = xbmcgui.ControlLabel(10, 150, 1280, 200, '', 'font12', constants.UPCOMINGTEXT)
-    self.upcoming2 = xbmcgui.ControlLabel(10, 180, 1280, 200, '', 'font12', constants.UPCOMINGTEXT)
-    self.upcoming3 = xbmcgui.ControlLabel(10, 210, 1280, 200, '', 'font12', constants.UPCOMINGTEXT)    
+    self.upcoming0 = xbmcgui.ControlLabel(20, 460, 820, 200, '', 'font12', constants.UPCOMINGTEXT)
+    self.upcoming1 = xbmcgui.ControlLabel(20, 490, 820, 200, '', 'font12', constants.UPCOMINGTEXT)
+    self.upcoming2 = xbmcgui.ControlLabel(20, 520, 820, 200, '', 'font12', constants.UPCOMINGTEXT)
+    self.upcoming3 = xbmcgui.ControlLabel(20, 550, 820, 200, '', 'font12', constants.UPCOMINGTEXT)    
     self.addControl(self.upcoming0)
     self.upcoming0.setLabel("Coming up next:")
     self.addControl(self.upcoming1)
@@ -80,9 +87,9 @@ class NowPlayingWindow(xbmcgui.Window):
      
     #if song has changed, get new cover art etc.
     if songChanged:    
-      self.player.updateCoverArt()
       self.updateUpcomingTracks()
-        
+      self.player.updateCoverArt()
+       
     #always update the line display even if song hasn't changed 
     self.updateLineDisplay()
     
