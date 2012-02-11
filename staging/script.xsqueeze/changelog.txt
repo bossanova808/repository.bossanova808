@@ -1,7 +1,2 @@
-v0.0.4
-- Moved to OO structure
-- Added cover art for current plus next three tracks
-- Lots more resilience and error checking, still a long way to go though...
-
 v0.0.1
 - Initial alpha test version

@@ -3,6 +3,7 @@ import urllib
 import Logger
 import xbmc
 import sys
+import os
 
 from pysqueezecenter.server import Server
 from pysqueezecenter.player import Player
@@ -10,7 +11,7 @@ from pysqueezecenter.player import Player
 
 ################################################################################
 ################################################################################
-### CLASS SQUEEZEPLAYER 
+### CLASS SQUEEZEPLAYER
 
 class SqueezePlayer:
 
@@ -26,12 +27,12 @@ class SqueezePlayer:
 
   #get the current two line display text and return it
   def getDisplay(self):
-    displayText = self.sb.requestRaw("display ? ?", True)  
-    lines = displayText.split(" ")        
+    displayText = self.sb.requestRaw("display ? ?", True)
+    lines = displayText.split(" ")
     if lines[2] == "":
       lines[2] = "."
     if lines[3] == "":
-      lines[3] = "."  
+      lines[3] = "."
     return self.unquote(lines[2]), self.unquote(lines[3])
 
   def songChanged(self):
@@ -40,14 +41,22 @@ class SqueezePlayer:
       Logger.log(" Song change to: " + newSong)
       self.setCurrentTrack(newSong)
       return True;
-    else:  
+    else:
       return False
-  
+
   #downloads the cover art for the current song from the server
   def updateCoverArt(self):
     Logger.log( " Updating cover art" )
     try:
-      coverURL = "http://" + self.serverHTTPURL + "/music/current/cover.jpg?player=" + self.playerMAC 
+      os.remove(constants.CHANGING_IMAGES_PATH +'currentCover.jpg')
+      os.remove(constants.CHANGING_IMAGES_PATH +'currentCoverPlus1.jpg')
+      os.remove(constants.CHANGING_IMAGES_PATH +'currentCoverPlus2.jpg')
+      os.remove(constants.CHANGING_IMAGES_PATH +'currentCoverPlus3.jpg')
+    except Exception as inst:
+      Logger.log("Couldn't remove old art", inst)
+
+    try:
+      coverURL = "http://" + self.serverHTTPURL + "/music/current/cover.jpg?player=" + self.playerMAC
       Logger.log (" Getting: " + coverURL)
       coverArt = self.image.retrieve(  coverURL , constants.CHANGING_IMAGES_PATH + "currentCover.jpg" )
       Logger.log ("Retrieved new cover art")
@@ -60,17 +69,17 @@ class SqueezePlayer:
     end = index + 4
     #grab a list of up to 3 tracks after the current one (if the playlist is that long)
     idList = []
-    while  (upcomer < len(self.playlist)) and (upcomer < end): 
+    while  (upcomer < len(self.playlist)) and (upcomer < end):
       idList.append(self.playlist[upcomer]['id'])
       upcomer += 1
     #for each track id get the image
     for count, id in enumerate(idList):
-      coverURL = "http://" + self.serverHTTPURL + "/music/" + str(id) + "/cover.jpg" 
+      coverURL = "http://" + self.serverHTTPURL + "/music/" + str(id) + "/cover.jpg"
       Logger.log (" Getting future cover: " + str(count) + " from " + coverURL)
       coverArt = self.image.retrieve(  coverURL , constants.CHANGING_IMAGES_PATH + "currentCoverPlus" + str(count+1) + ".jpg" )
       Logger.log ("Retrieved new cover art")
-    
-  
+
+
   #functions to map buttons to actions and then update the display once actioned...
   #called in ActionHandler...
   def button(self, text):
@@ -94,24 +103,24 @@ class SqueezePlayer:
     #the text list of upcoming tracks
     upcoming1 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+1)
     upcoming2 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+2)
-    upcoming3 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+3)    
-    return upcoming1, upcoming2, upcoming3    
-      
-  
+    upcoming3 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+3)
+    return upcoming1, upcoming2, upcoming3
+
+
   def getConsolidatedTrackDetailsFromPlaylist(self, trackNum):
     #if we are near the end of the playlist, don't return tracks...
     returnText = "<nothing>"
     if trackNum < len(self.playlist):
       songTitle = self.playlist[trackNum]['title']
       songArtist = self.playlist[trackNum]['artist']
-      songAlbum = self.playlist[trackNum]['album']      
+      songAlbum = self.playlist[trackNum]['album']
       returnText = songTitle + " by " + songArtist + " from " + songAlbum
     return returnText
 
   #constructor - connect to the server and player so we can do stuff
   def __init__(self):
-    
-    #get the various settings... 
+
+    #get the various settings...
     self.serverIP    = constants.__addon__.getSetting('serverIP')
     self.serverPort  = constants.__addon__.getSetting('serverPort')
     self.serverHTTPURL   = self.serverIP + ":9000"
@@ -119,10 +128,10 @@ class SqueezePlayer:
     self.playerMAC   = str.lower(constants.__addon__.getSetting('playerMAC'))
 
     #a handle for opening images
-    self.image = urllib.URLopener() 
+    self.image = urllib.URLopener()
 
     #connect to server
-    Logger.log("Attempting to connect to LMS at:  " + self.serverIP + " on port: " + self.serverPort)      
+    Logger.log("Attempting to connect to LMS at:  " + self.serverIP + " on port: " + self.serverPort)
     try:
       self.sc = Server(hostname=self.serverIP, port=self.serverPort)
       self.sc.connect()
@@ -132,11 +141,11 @@ class SqueezePlayer:
       Logger.log(" Couldn't connect to server!")
       xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't connect to server!,Check your server settings)")
       raise
-    
+
     #connect to player
     Logger.log( "Attempting to connect to player: " + self.playerMAC)
     try:
-      self.sb = self.sc.get_player(self.playerMAC) 
+      self.sb = self.sc.get_player(self.playerMAC)
       if self.sb:
         Logger.log( "Connected to: %s" % self.playerMAC )
         state = self.sb.get_power_state()
@@ -151,6 +160,6 @@ class SqueezePlayer:
 
     #take note of the current track...actually, no, instead let it trigger
     #an update on the first time through the loop
-    self.currentTrack = ""       
+    self.currentTrack = ""
     self.getPlaylist()
     self.updateCoverArt()
