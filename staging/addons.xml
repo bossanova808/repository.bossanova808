@@ -20,7 +20,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.0.4"
+       version="0.0.5"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
@@ -32,7 +32,7 @@
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <summary lang="en">Control squeezebox players from XBMC.  If you're running squeezeslave locally, essentially turns your XBMC into a SqueezePlayer!</summary>
-    <description lang="en">Control squeezebox players from XBMC.  If you're runnign squeezeslave locally, essentially turns your XBMC into a SqueezePlayer!  Uses pysqueezecenter as a bridge to the CLI for squeezeboxes.  Uses squeezeslave for local playback if you wish.</description>
+    <description lang="en">Control squeezebox players from XBMC.  If you're running squeezeslave locally, essentially turns your XBMC into a SqueezePlayer!  Uses pysqueezecenter as a bridge to the CLI for squeezeboxes.  Uses squeezeslave for local playback if you wish.</description>
     <disclaimer lang="en">Strictly experiemental at the moment!!</disclaimer>
   </extension>
 </addon>
