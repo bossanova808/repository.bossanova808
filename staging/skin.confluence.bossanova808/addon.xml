@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="skin.confluence.bossanova808"
-  version="0.1.8"
+  version="0.1.9"
   name="Confluence Bossanova808 Mod (based on  C 2.1.0)"
   provider-name="Jezz_X, Team XBMC, bossanova808">
   <requires>
@@ -10,13 +10,13 @@
   <extension
     point="xbmc.gui.skin"
     defaultthemename="textures.xbt"
-    debugging="false"
+    debugging="true"
     effectslowdown="0.75">
     <res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Confluence skin by Jezz_X. (XBMC's default skin) - + extras by bossanova808</summary>
-    <description lang="en">THIS IS MY PERSONAL TWEAK OF EDEN's CONFLUENCE AND JUST IN THE REPO TO MAKE THINGS EASIER FOR ME.  PLEASE DO NOT USE THIS SKIN AS IT HAS HARDCODED REFERENCES TO SPECIFIC PATHS ETC THAT RELATE ONLY TO ME.  Eden's Confluence skin with a few mods such as Time Remaining and OzWeather radar and long forecasts, as well as weather fan art on the home page.</description>
+    <description lang="en">THIS IS MY PERSONAL TWEAK OF EDEN's CONFLUENCE AND JUST IN THE REPO TO MAKE THINGS EASIER FOR ME.  PLEASE DO NOT USE THIS SKIN AS IT HAS HARDCODED REFERENCES TO SPECIFIC LOCAL PATHS ETC THAT RELATE ONLY TO ME.  Eden's Confluence skin with a few mods such as Time Remaining and OzWeather radar and long forecasts, as well as weather fan art on the home page.</description>
     <disclaimer lang="en">Confluence is the default skin for XBMC, removing it may cause issues</disclaimer>
     <platform>all</platform>
   </extension>

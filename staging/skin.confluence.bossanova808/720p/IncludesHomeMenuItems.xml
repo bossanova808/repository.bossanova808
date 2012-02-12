@@ -39,7 +39,13 @@
 			<label>24001</label>
 			<onclick>ActivateWindow(Videos,Addons,return)</onclick>
 		</control>
-		<control type="image" id="90108">
+		<control type="button" id="90108">
+			<visible>Skin.HasSetting(B808Kids) </visible>
+      <include>ButtonHomeSubCommonValues</include>
+			<label>Home Movies</label>
+			<onclick>ActivateWindow(10025,&quot;/storage/mount/Home Movie Library/&quot;)</onclick>
+		</control>
+		<control type="image" id="90109">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>

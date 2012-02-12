@@ -1185,7 +1185,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 				</control>
-				<control type="button" id="2">
+				<control type="button" id="4">
 					<description>Refresh button</description>
 					<textwidth>235</textwidth>
 					<include>ButtonCommonValues</include>
@@ -1201,14 +1201,14 @@
 					<include>ButtonCommonValues</include>
 					<visible>Skin.HasSetting(WeatherScript_Enable) + !IsEmpty(Skin.String(WeatherScript_Label))</visible>
 				</control>
-				<control type="button" id="4">
+				<control type="button" id="6">
 					<description>Settings button</description>
 					<label>5</label>
 					<onclick>ActivateWindow(MyWeatherSettings)</onclick>
 					<textwidth>235</textwidth>
 					<include>ButtonCommonValues</include>
 				</control>
-				<control type="button" id="5">
+				<control type="button" id="7">
 					<description>ABC video button</description>
 					<label>ABC Weather in 90 secs</label>
 						<onclick>PlayMedia($INFO[Window.Property(Video.1)],noresume)</onclick>
