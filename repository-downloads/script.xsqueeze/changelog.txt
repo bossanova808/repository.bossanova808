@@ -1,7 +1,7 @@
-v0.0.4
-- Moved to OO structure
-- Added cover art for current plus next three tracks
-- Lots more resilience and error checking, still a long way to go though...
-
+v0.0.6
+- Re-Write to skinnable windowXML, pulled in current track art, details, progress etc, plus next three tracks
+- Known issue - foreign chars not right
+- cover art can be temperamental especially if there isn't any for a track...
+ 
 v0.0.1
 - Initial alpha test version
