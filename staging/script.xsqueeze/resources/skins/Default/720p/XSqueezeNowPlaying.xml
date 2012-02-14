@@ -1,0 +1,292 @@
+<!-- WARNING - DO NOT CHANGE LABEL ID NUMBERS OR YOU WILL BREAK IT!!        -->
+<!-- WARNING - LABELS IN CAPITALS GET REPLACED BY THE PLUGIN!!              -->
+
+<window>
+
+  <backgroundcolor>black</backgroundcolor>
+
+  <coordinates>
+    <posx>0</posx>
+    <posy>0</posy>
+  </coordinates>
+
+  <controls>
+
+  <control type="group">
+      <description>Current Track Details</description>
+      <posx>400</posx>
+      <posy>55</posy>
+
+      <control type="label" id="199">
+        <description>Now Playing Label</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label>Now Playing:</label>
+        <font>font30_title</font>
+        <textcolor>FF999999</textcolor>
+      </control>
+
+      <control type="label" id="200">
+        <description>Current Track Label</description>
+        <posx>20</posx>
+        <posy>50</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font24_title</font>
+        <textcolor>orange</textcolor>
+      </control>
+
+      <control type="label" id="201">
+        <description>Current Artist Label</description>
+        <posx>20</posx>
+        <posy>80</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font16</font>
+        <textcolor>FF9999FF</textcolor>
+      </control>
+
+      <control type="label" id="202">
+        <description>Current Album Label</description>
+        <posx>20</posx>
+        <posy>110</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font16</font>
+        <textcolor>FF9999FF</textcolor>
+      </control>
+
+      <control type="progress" id="203">
+          <description>Track Playing Progress</description>
+          <posx>20</posx>
+          <posy>130</posy>
+          <width>255</width>
+          <height>10</height>
+          <visible>true</visible>
+          <reveal>false</reveal>
+          <info></info>
+      </control>
+
+      <control type="label" id="204">
+        <description>Track Elapsed Label</description>
+        <posx>20</posx>
+        <posy>150</posy>
+        <width>200</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font11</font>
+        <textcolor>FF777777</textcolor>
+      </control>
+
+      <control type="label" id="205">
+        <description>Track Remaining Label</description>
+        <posx>120</posx>
+        <posy>150</posy>
+        <width>200</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font11</font>
+        <textcolor>FF777777</textcolor>
+      </control>
+
+      <control type="label" id="206">
+        <description>Track Length Label</description>
+        <posx>230</posx>
+        <posy>150</posy>
+        <width>200</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font11</font>
+        <textcolor>FF777777</textcolor>
+      </control>
+
+    </control>
+    <!-- END GROUP CURRENT TRACK LABELS -->
+
+      <!--
+   -->
+
+    <!-- COVER ART FOR CURRENT TRACK -->
+    <control type="image" id="100">
+          <description>Cover art for currently playing track</description>
+          <posx>20</posx>
+          <posy>20</posy>
+          <width>350</width>
+          <height>350</height>
+          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCover.jpg</texture>
+    </control>
+
+    <!-- THUMBNAILS FOR UPCOMING TRACKS -->
+    <control type="group">
+      <description>Upcoming Tracks Labels</description>
+      <posx>20</posx>
+      <posy>400</posy>
+
+      <control type="image" id="101">
+          <description>Cover art for currently playing track</description>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>75</width>
+          <height>75</height>
+          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCoverPlus1.jpg</texture>
+      </control>
+
+      <control type="image" id="102">
+          <description>Cover art for currently playing track</description>
+          <posx>0</posx>
+          <posy>85</posy>
+          <width>75</width>
+          <height>75</height>
+          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCoverPlus2.jpg</texture>
+      </control>
+
+      <control type="image" id="103">
+          <description>Cover art for currently playing track</description>
+          <posx>0</posx>
+          <posy>170</posy>
+          <width>75</width>
+          <height>75</height>
+          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCoverPlus3.jpg</texture>
+      </control>
+
+    </control>
+    <!-- END GROUP UPCOMING THUMBS -->
+
+      <control type="label" id="999">
+        <description>Coming Up Label</description>
+        <posx>135</posx>
+        <posy>390</posy>
+        <width>200</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label>Coming Up:</label>
+        <font>font13_title</font>
+        <textcolor>FF999999</textcolor>
+      </control>
+
+
+
+    <!-- UPCOMING TRACK LABELS -->
+    <control type="group">
+      <description>Upcoming Tracks Labels</description>
+      <posx>110</posx>
+      <posy>410</posy>
+
+      <control type="label" id="2001">
+        <description>Coming Up Track1 Label</description>
+        <posx>0</posx>
+        <posy>30</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font12</font>
+        <textcolor>FF9999FF</textcolor>
+      </control>
+
+      <control type="label" id="2002">
+        <description>Coming Up Track2 Label</description>
+        <posx>0</posx>
+        <posy>110</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font12</font>
+        <textcolor>FF9999FF</textcolor>
+      </control>
+
+      <control type="label" id="2003">
+        <description>Coming Up Track3 Label</description>
+        <posx>0</posx>
+        <posy>195</posy>
+        <width>1280</width>
+        <visible>true</visible>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label></label>
+        <font>font12</font>
+        <textcolor>FF9999FF</textcolor>
+      </control>
+
+    </control>
+    <!-- END GROUP UPCOMING TRACKS -->
+
+    <!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
+    <control type="group">
+        <description>SqueezeBox Display/Controller</description>
+        <posx>40</posx>
+        <posy>670</posy>
+
+        <control type="label" id="1000">
+          <description>SqueezeBox Display Line 1</description>
+          <posx>0</posx>
+          <posy>5</posy>
+          <width>1280</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>DISPLAY LINE 1 TEXT WILL BE INSTERTED HERE</label>
+          <font>font14</font>
+          <textcolor>FF00FF00</textcolor>
+          <wrapmultiline>false</wrapmultiline>
+          <scrollspeed>50</scrollspeed>
+          <scrollsuffix> - </scrollsuffix>
+        </control>
+
+        <control type="label" id="1001">
+          <description>SqueezeBox Display Line 2</description>
+          <posx>0</posx>
+          <posy>30</posy>
+          <width>1280</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>DISPLAY LINE 2 TEXT WILL BE INSTERTED HERE</label>
+          <font>font14</font>
+          <textcolor>FF00FF00</textcolor>
+          <wrapmultiline>false</wrapmultiline>
+          <scrollspeed>50</scrollspeed>
+          <scrollsuffix> - </scrollsuffix>
+        </control>
+
+     </control>
+     <!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
+
+ </controls>
+</window>

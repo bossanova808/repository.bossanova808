@@ -3,8 +3,8 @@ import xbmcaddon
 import os
 import sys
 
-  
-#create an add on instation and store the reference 
+
+#create an add on instation and store the reference
 __addon__       = xbmcaddon.Addon()
 #store some handy constants
 __addonname__   = __addon__.getAddonInfo('name')
@@ -26,6 +26,24 @@ CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.x
 #colours
 SQUEEZETEXT   = '0xFF00FF00'
 UPCOMINGTEXT  = '0xFF5555FF'
+
+#windows and controls - see XSqueezeNowPlaying.xml for matching controls
+MAINCOVERART          = 100
+UPCOMING1COVERART     = 101
+UPCOMING2COVERART     = 102
+UPCOMING3COVERART     = 103
+CURRENTTITLE          = 200
+CURRENTARTIST         = 201
+CURRENTALBUM          = 202
+CURRENTPROGRESS       = 203
+CURRENTELAPSED        = 204
+CURRENTREMAINING      = 205
+CURRENTLENGTH         = 206
+UPCOMING1             = 2001
+UPCOMING2             = 2002
+UPCOMING3             = 2003
+DISPLAYLINE1          = 1000
+DISPLAYLINE2          = 1001
 
 #extend the python path
 sys.path.append( LIB_PATH )

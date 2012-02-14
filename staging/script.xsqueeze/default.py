@@ -8,7 +8,7 @@ import time
 import sys
 
 #an orderly place to keep constants
-import constants 
+import constants
 #Classes
 from NowPlayingWindow import *
 import Logger
@@ -17,7 +17,7 @@ import Logger
 ################################################################################
 ################################################################################
 # Logging functions
-       
+
 
 def footprints():
 
@@ -30,8 +30,8 @@ def footprints():
 ################################################################################
 ### MAIN
 
-if ( __name__ == "__main__" ): 
-    
+if ( __name__ == "__main__" ):
+
     #log some tracks...
     footprints()
 
@@ -42,23 +42,23 @@ if ( __name__ == "__main__" ):
     try:
       if not xbmcvfs.exists( constants.CHANGING_IMAGES_PATH ):
         Logger.log ( "Making output directory for cover art etc. in addon_data")
-        os.makedirs( constants.CHANGING_IMAGES_PATH )        
+        os.makedirs( constants.CHANGING_IMAGES_PATH )
     except Exception as inst:
       Logger.log( "ERROR: Couldn't make folders in addon_data - bailing out!" , inst)
       sys.exit()
-      
+
 
     #now let's make a window and see if we can send some commands...
-    window = NowPlayingWindow()
-    
+    window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
+
     window.running = True
-    
     while window.running:
-      window.update()
       window.show()
-      xbmc.sleep(100)
-        
+      window.update()
+      xbmc.sleep(10)
+
     # after the window is closed, Destroy it.
     del window
-    
+
     Logger.log( "### Exiting XSqueeze..." )
+    sys.modules.clear()

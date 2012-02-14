@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import telnetlib
 from pysqueezecenter.player import Player
-    
+
 
 class Server(object):
 
@@ -30,11 +30,11 @@ class Server(object):
     """
 
     def __init__(self, hostname="localhost",
-                       port=9090, 
-                       username="", 
+                       port=9090,
+                       username="",
                        password="",
                        charset="utf8"):
-                       
+
         """
         Constructor
         """
@@ -50,7 +50,7 @@ class Server(object):
         self.player_count = 0
         self.players = []
         self.charset = charset
-    
+
     def connect(self, update=True):
         """
         Connect
@@ -58,13 +58,13 @@ class Server(object):
         self.telnet_connect()
         self.login()
         self.get_players(update=update)
-        
+
     def telnet_connect(self):
         """
         Telnet Connect
         """
         self.telnet = telnetlib.Telnet(self.hostname, self.port)
-    
+
     def login(self):
         """
         Login
@@ -82,7 +82,7 @@ class Server(object):
         if not preserve_encoding:
             response = self.__unquote(response)
         return response
-        
+
     def request(self, command_string, preserve_encoding=False):
         """
         Request
@@ -106,6 +106,10 @@ class Server(object):
             else:
                 result = response[len(command_string_quoted)-1:]
         result = result.strip()
+        try:
+            result = result.decode('utf8')
+        except Exception as inst:
+            result = "<Unicode error - to be fixed!>"
         return result
 
     def request_with_results(self, command_string, preserve_encoding=False):
@@ -183,7 +187,7 @@ class Server(object):
         """
         self.version = self.request("version ?")
         return self.version
-    
+
     def get_player_count(self):
         """
         Get Number Of Players
@@ -212,7 +216,7 @@ class Server(object):
             is_scanning = bool(self.request("rescan ?"))
         except:
             pass
-        
+
         if not is_scanning:
             if mode=='fast':
                 return self.request("rescan")
@@ -222,19 +226,19 @@ class Server(object):
                 return self.request("rescan playlists")
         else:
             return ""
-        
+
     def rescanprogress(self):
         """
         Return current rescan progress
         """
         return self.request_with_results("rescanprogress")
-    
+
     def __encode(self, text):
         return text.encode(self.charset)
-    
+
     def __decode(self, bytes):
         return bytes.decode(self.charset)
-    
+
     def __quote(self, text):
         try:
             import urllib.parse
