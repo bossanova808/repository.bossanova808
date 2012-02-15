@@ -1,16 +1,20 @@
-<!-- WARNING - DO NOT CHANGE LABEL ID NUMBERS OR YOU WILL BREAK IT!!        -->
-<!-- WARNING - LABELS IN CAPITALS GET REPLACED BY THE PLUGIN!!              -->
+<!-- WARNING - DO NOT CHANGE LABEL ID OF PROGRESS BAR OR YOU WILL BREAK IT!!-->
+<!-- WARNING - DO NOT REMOVE PROGRESS BAR OR YOU WILL BREAK IT!!            -->
 
 <window>
 
+  <!-- doesn't work - add on is using a black image to do this currently? -->
   <backgroundcolor>black</backgroundcolor>
 
+  <!-- full screen window -->
   <coordinates>
     <posx>0</posx>
     <posy>0</posy>
   </coordinates>
 
+  <!--------------------------------------------------------------------------->
   <controls>
+
 
   <control type="group">
       <description>Current Track Details</description>
@@ -32,7 +36,7 @@
       </control>
 
       <control type="label" id="200">
-        <description>Current Track Label</description>
+        <description>Current Track Name Label</description>
         <posx>20</posx>
         <posy>50</posy>
         <width>1280</width>
@@ -40,7 +44,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(CURRENTTITLE)]</label>
         <font>font24_title</font>
         <textcolor>orange</textcolor>
       </control>
@@ -54,7 +58,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(CURRENTARTIST)]</label>
         <font>font16</font>
         <textcolor>FF9999FF</textcolor>
       </control>
@@ -68,7 +72,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(CURRENTALBUM)]</label>
         <font>font16</font>
         <textcolor>FF9999FF</textcolor>
       </control>
@@ -93,7 +97,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(TRACKELAPSED)]</label>
         <font>font11</font>
         <textcolor>FF777777</textcolor>
       </control>
@@ -107,7 +111,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>-$INFO[Window.Property(TRACKREMAINING)]</label>
         <font>font11</font>
         <textcolor>FF777777</textcolor>
       </control>
@@ -121,16 +125,13 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(TRACKLENGTH)]</label>
         <font>font11</font>
         <textcolor>FF777777</textcolor>
       </control>
 
     </control>
     <!-- END GROUP CURRENT TRACK LABELS -->
-
-      <!--
-   -->
 
     <!-- COVER ART FOR CURRENT TRACK -->
     <control type="image" id="100">
@@ -139,7 +140,6 @@
           <posy>20</posy>
           <width>350</width>
           <height>350</height>
-          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCover.jpg</texture>
     </control>
 
     <!-- THUMBNAILS FOR UPCOMING TRACKS -->
@@ -149,34 +149,32 @@
       <posy>400</posy>
 
       <control type="image" id="101">
-          <description>Cover art for currently playing track</description>
+          <description>Cover art for track + 1</description>
           <posx>0</posx>
           <posy>0</posy>
           <width>75</width>
           <height>75</height>
-          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCoverPlus1.jpg</texture>
       </control>
 
       <control type="image" id="102">
-          <description>Cover art for currently playing track</description>
+          <description>Cover art for track + 2</description>
           <posx>0</posx>
           <posy>85</posy>
           <width>75</width>
           <height>75</height>
-          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCoverPlus2.jpg</texture>
       </control>
 
       <control type="image" id="103">
-          <description>Cover art for currently playing track</description>
+          <description>Cover art for track + 3</description>
           <posx>0</posx>
           <posy>170</posy>
           <width>75</width>
           <height>75</height>
-          <texture>special://home/userdata/addon_data/script.xsqueeze/current_images/currentCoverPlus3.jpg</texture>
       </control>
 
     </control>
     <!-- END GROUP UPCOMING THUMBS -->
+
 
       <control type="label" id="999">
         <description>Coming Up Label</description>
@@ -191,7 +189,6 @@
         <font>font13_title</font>
         <textcolor>FF999999</textcolor>
       </control>
-
 
 
     <!-- UPCOMING TRACK LABELS -->
@@ -209,7 +206,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(UPCOMING1)]</label>
         <font>font12</font>
         <textcolor>FF9999FF</textcolor>
       </control>
@@ -223,7 +220,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(UPCOMING2)]</label>
         <font>font12</font>
         <textcolor>FF9999FF</textcolor>
       </control>
@@ -237,7 +234,7 @@
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label></label>
+        <label>$INFO[Window.Property(UPCOMING3)]</label>
         <font>font12</font>
         <textcolor>FF9999FF</textcolor>
       </control>
@@ -260,7 +257,7 @@
           <align>left</align>
           <aligny>center</aligny>
           <scroll>true</scroll>
-          <label>DISPLAY LINE 1 TEXT WILL BE INSTERTED HERE</label>
+          <label>$INFO[Window.Property(DISPLAYLINE1)]</label>
           <font>font14</font>
           <textcolor>FF00FF00</textcolor>
           <wrapmultiline>false</wrapmultiline>
@@ -277,7 +274,7 @@
           <align>left</align>
           <aligny>center</aligny>
           <scroll>true</scroll>
-          <label>DISPLAY LINE 2 TEXT WILL BE INSTERTED HERE</label>
+          <label>$INFO[Window.Property(DISPLAYLINE2)]</label>
           <font>font14</font>
           <textcolor>FF00FF00</textcolor>
           <wrapmultiline>false</wrapmultiline>

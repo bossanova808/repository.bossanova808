@@ -1,3 +1,7 @@
+################################################################################
+# MAP OF ACTION NAMES TO ID NUMBERS
+# MAP OF XBMC ACTION NAMES TO SQUEEZEBOX ACTION STRINGS
+
 #FROM https://github.com/xbmc/xbmc/blob/master/xbmc/guilib/Key.h
 
 def swap_dictionary(original_dict):

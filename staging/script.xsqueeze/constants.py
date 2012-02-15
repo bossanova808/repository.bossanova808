@@ -3,7 +3,10 @@ import xbmcaddon
 import os
 import sys
 
+################################################################################
+# CONSTANTS FOR XSQUEEZE
 
+################################################################################
 #create an add on instation and store the reference
 __addon__       = xbmcaddon.Addon()
 #store some handy constants
@@ -15,6 +18,7 @@ __cwd__         = __addon__.getAddonInfo('path')
 __language__    = __addon__.getLocalizedString
 __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
 
+################################################################################
 #useful paths
 SOURCEPATH = __cwd__
 RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ) )
@@ -22,19 +26,22 @@ LIB_PATH = os.path.join( RESOURCES_PATH, "lib")
 CLASS_PATH = os.path.join (LIB_PATH, "classes")
 STATIC_IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
 CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.xsqueeze/current_images/");
+#extend the python path
+sys.path.append( LIB_PATH )
+sys.path.append( CLASS_PATH )
 
-#settings for the add on
+################################################################################
+#settings for the add on from xbmx settings page
 SERVERIP    = __addon__.getSetting('serverIP')
 SERVERPORT  = __addon__.getSetting('serverPort')
 SERVERHTTPURL   = SERVERIP + ":9000"
 #LMS is case sensitive and all MACs need to be lower case!!
 PLAYERMAC   = str.lower(__addon__.getSetting('playerMAC'))
 
-#colours
-SQUEEZETEXT   = '0xFF00FF00'
-UPCOMINGTEXT  = '0xFF5555FF'
+################################################################################
+#window control IDS - see XSqueezeNowPlaying.xml for matching controls
+# only progress bar is referred to directly, the rest is put into $INFO
 
-#windows and controls - see XSqueezeNowPlaying.xml for matching controls
 MAINCOVERART          = 100
 UPCOMING1COVERART     = 101
 UPCOMING2COVERART     = 102
@@ -52,6 +59,3 @@ UPCOMING3             = 2003
 DISPLAYLINE1          = 1000
 DISPLAYLINE2          = 1001
 
-#extend the python path
-sys.path.append( LIB_PATH )
-sys.path.append( CLASS_PATH )

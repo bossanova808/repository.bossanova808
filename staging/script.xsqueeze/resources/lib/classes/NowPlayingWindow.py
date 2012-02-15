@@ -10,17 +10,23 @@ from traceback import print_exc
 
 from SqueezePlayer import *
 
-
 ################################################################################
 ################################################################################
 ### Class ActionHandler (i.e. a window)
 
 class NowPlayingWindow(xbmcgui.WindowXML):
 
+  ##############################################################################
   #constructor - create controls & add them to the window
+  #create our SqueezePlayer object
+  #create a threadlock to make squeeze CLI operations safe
+  #initialise a few object vars
+
   def __init__( self, *args, **kwargs ):
 
+    #blanks the screen - this is crude, and probably wrong, but works
     self.addControl(xbmcgui.ControlImage(0,0,1920,1080, 'black.png'))
+
     #create a player instance (is really a player + server combo)
     try:
       self.player = SqueezePlayer()
@@ -31,18 +37,20 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #URLs for cover art are stored here so we can detect changes
     self.coverURLs = [""]
+    #a thread lock to use so that each SB related action is finished before the
+    #next one is sent - without this you get race conditions!
+    self.lock = threading.Lock()
 
-
+  ##############################################################################
+  #the method called when the window is inited
+  #starts the GUI update thread...
   def onInit( self ):
-    Logger.log("onInit")
-
-    #kick off our GUI updating thread...
+    #Logger.log("onInit")
     self.running = True
     self.thread = threading.Thread(target=self.update)
     self.thread.setDaemon(True)
     Logger.log("Starting GUI update thread")
     self.thread.start()
-
 
   ##############################################################################
   #Maps XBMC window actions to squeezeslave methods
@@ -75,36 +83,37 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     else:
        if actionSqueeze:
         Logger.log("SqueezePlayer Action: " + actionSqueeze)
-        self.player.button(actionSqueeze)
-        #trigger an immediate screen update
-        self.update(force=True)
-
+        with self.lock:
+          self.player.button(actionSqueeze)
 
   ##############################################################################
-  #this is called every 10 millis and is used to update the window's display
-  #e.g. if trac/cover art changes etc
-  #also called immediately when requires
+  #this is our GUI update thread and is used to update the window's display
+  #must lock other threads
 
-  def update(self, force=False):
+  def update(self):
     while self.running:
-      Logger.log("Update cycle...start")
-      #always update the line display even if song hasn't changed
-      self.updateLineDisplay()
-      Logger.log("Update cycle...1")
-      #self.updateCoverArt(force)
-      self.updateCoverArtFromURLs()
-      Logger.log("Update cycle...2")
-      self.updateCurrentTrack()
-      Logger.log("Update cycle...3")
-      if not self.player.getMode()=="stop":
-        self.updateTrackProgress()
-      Logger.log("Update cycle...4")
-      self.updateUpcomingTracks()
-      Logger.log("Update cycle...5")
+      with self.lock:
+        #Logger.log("Update cycle...start")
+        #always update the line display even if song hasn't changed
+        self.updateLineDisplay()
+        #Logger.log("Update cycle...1")
+        #self.updateCoverArt(force)
+        self.updateCoverArtFromURLs()
+        #Logger.log("Update cycle...2")
+        self.updateCurrentTrack()
+        #Logger.log("Update cycle...3")
+        if not self.player.getMode()=="stop":
+          self.updateTrackProgress()
+        #Logger.log("Update cycle...4")
+        self.updateUpcomingTracks()
+        #Logger.log("Update cycle...5")
+
+  ##############################################################################
+  # get the cover URLS and pass them into window properties
 
   def updateCoverArtFromURLs(self):
     newCoverURLs = self.player.getCoverArtURLs()
-    #check if the URLs have changed...
+    #check if the URLs have changed...if so update the cover art
     if newCoverURLs[0] != self.coverURLs[0]:
       self.getControl( constants.MAINCOVERART  ).setImage( newCoverURLs[0]  )
       self.getControl( constants.UPCOMING1COVERART  ).setImage( newCoverURLs[1]  )
@@ -112,49 +121,48 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       self.getControl( constants.UPCOMING3COVERART  ).setImage( newCoverURLs[3]  )
       self.coverURLs = newCoverURLs
 
-  #updates the display text on screen
+  ##############################################################################
+  # updates the 2 line squeeze display text to the window properties
   def updateLineDisplay(self):
     newLine1, newLine2 = self.player.getDisplay()
-    self.getControl( constants.DISPLAYLINE1 ).setLabel( newLine1 )
-    self.getControl( constants.DISPLAYLINE2 ).setLabel( newLine2 )
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("DISPLAYLINE1", newLine1)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("DISPLAYLINE2", newLine2)
 
-  #update all the current playing track stuff
+  ##############################################################################
+  # update all the current playing track stuff into the window properties
   def updateCurrentTrack(self):
     title, artist, album = self.player.getCurrentTrack()
-    self.getControl( constants.CURRENTTITLE  ).setLabel( title  )
-    self.getControl( constants.CURRENTARTIST ).setLabel( "by " + artist )
-    self.getControl( constants.CURRENTALBUM  ).setLabel( "from " + album  )
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTTITLE", title)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTARTIST", artist)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTALBUM", album)
 
-  #update the coming track list
+  ##############################################################################
+  # update the coming track list to the window properties
   def updateUpcomingTracks(self):
     upcoming1, upcoming2, upcoming3 = self.player.getPlaylist()
-    self.getControl( constants.UPCOMING1 ).setLabel( upcoming1 )
-    self.getControl( constants.UPCOMING2 ).setLabel( upcoming2 )
-    self.getControl( constants.UPCOMING3 ).setLabel( upcoming3 )
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING1", upcoming1)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING2", upcoming2)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING3", upcoming3)
 
-  #updates the track progress dialog
+  ##############################################################################
+  # updates the track progress dialog
   def updateTrackProgress(self):
     trackLength = float(self.player.getTrackLength())
     trackElapsed = float(self.player.getTrackElapsed())
     trackRemaining = trackLength - trackElapsed
     if trackLength != 0.0:
-      self.getControl( constants.CURRENTELAPSED   ).setLabel( self.GetInHMS(int(trackElapsed))   )
-      self.getControl( constants.CURRENTREMAINING ).setLabel( "-" + self.GetInHMS(int(trackRemaining)) )
-      self.getControl( constants.CURRENTLENGTH    ).setLabel( self.GetInHMS(int(trackLength))    )
+      xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("TRACKELAPSED", self.GetInHMS(int(trackElapsed)))
+      xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("TRACKREMAINING", self.GetInHMS(int(trackRemaining)))
+      xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("TRACKLENGTH", self.GetInHMS(int(trackLength)))
       percent = int((trackElapsed / trackLength) * 100.0)
       self.getControl( constants.CURRENTPROGRESS ).setPercent ( percent )
     else:
-      self.getControl( constants.CURRENTELAPSED   ).setLabel( "?"   )
-      self.getControl( constants.CURRENTREMAINING ).setLabel( "?"   )
-      self.getControl( constants.CURRENTLENGTH    ).setLabel( "?"   )
+      self.getControl( constants.CURRENTELAPSED   ).setLabel( ""   )
+      self.getControl( constants.CURRENTREMAINING ).setLabel( ""   )
+      self.getControl( constants.CURRENTLENGTH    ).setLabel( ""   )
 
-
-  #def updates cover art if the track gas changed
-  def updateCoverArt(self, force=False):
-    #self.player.updateCoverArt(force)
-    pass
-
-  #convert player seconds to summat nice
+  ##############################################################################
+  # helper function - convert player seconds to summat nice for screen 00:00 etc
   def GetInHMS(self, seconds):
       hours = seconds / 3600
       seconds -= 3600*hours

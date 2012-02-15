@@ -1,3 +1,11 @@
+v0.0.9
+- uses doModal and threading
+- now completely skinnable with all data going into $INFO 
+- instructions to come...
+- cover art uses direct URLs instead of downloading
+- stability fixes
+- first semi-decent version!
+
 v0.0.6
 - Re-Write to skinnable windowXML, pulled in current track art, details, progress etc, plus next three tracks
 - Known issue - foreign chars not right
