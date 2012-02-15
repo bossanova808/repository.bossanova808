@@ -21,7 +21,6 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def __init__( self, *args, **kwargs ):
 
     self.addControl(xbmcgui.ControlImage(0,0,1920,1080, 'black.png'))
-
     #create a player instance (is really a player + server combo)
     try:
       self.player = SqueezePlayer()
@@ -30,9 +29,20 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       print_exc()
       sys.exit()
 
+    #URLs for cover art are stored here so we can detect changes
+    self.coverURLs = [""]
+
 
   def onInit( self ):
-    pass
+    Logger.log("onInit")
+
+    #kick off our GUI updating thread...
+    self.running = True
+    self.thread = threading.Thread(target=self.update)
+    self.thread.setDaemon(True)
+    Logger.log("Starting GUI update thread")
+    self.thread.start()
+
 
   ##############################################################################
   #Maps XBMC window actions to squeezeslave methods
@@ -45,6 +55,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionSqueeze = SQUEEZE_CODES[actionName]
     except KeyError:
       #action is not in our handled list (see actionmap.py)
+      Logger.log("Not handling eventid " + str(action.getId()))
       actionNum = 0
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
@@ -65,7 +76,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
        if actionSqueeze:
         Logger.log("SqueezePlayer Action: " + actionSqueeze)
         self.player.button(actionSqueeze)
-        #trigger an immeidate screen update
+        #trigger an immediate screen update
         self.update(force=True)
 
 
@@ -75,14 +86,31 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   #also called immediately when requires
 
   def update(self, force=False):
-    #Logger.log("Update cycle...")
-    #always update the line display even if song hasn't changed
-    self.updateLineDisplay()
-    self.updateCoverArt(force)
-    self.updateCurrentTrack()
-    if not self.player.getMode()=="stop":
-      self.updateTrackProgress()
-    self.updateUpcomingTracks()
+    while self.running:
+      Logger.log("Update cycle...start")
+      #always update the line display even if song hasn't changed
+      self.updateLineDisplay()
+      Logger.log("Update cycle...1")
+      #self.updateCoverArt(force)
+      self.updateCoverArtFromURLs()
+      Logger.log("Update cycle...2")
+      self.updateCurrentTrack()
+      Logger.log("Update cycle...3")
+      if not self.player.getMode()=="stop":
+        self.updateTrackProgress()
+      Logger.log("Update cycle...4")
+      self.updateUpcomingTracks()
+      Logger.log("Update cycle...5")
+
+  def updateCoverArtFromURLs(self):
+    newCoverURLs = self.player.getCoverArtURLs()
+    #check if the URLs have changed...
+    if newCoverURLs[0] != self.coverURLs[0]:
+      self.getControl( constants.MAINCOVERART  ).setImage( newCoverURLs[0]  )
+      self.getControl( constants.UPCOMING1COVERART  ).setImage( newCoverURLs[1]  )
+      self.getControl( constants.UPCOMING2COVERART  ).setImage( newCoverURLs[2]  )
+      self.getControl( constants.UPCOMING3COVERART  ).setImage( newCoverURLs[3]  )
+      self.coverURLs = newCoverURLs
 
   #updates the display text on screen
   def updateLineDisplay(self):
@@ -123,7 +151,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   #def updates cover art if the track gas changed
   def updateCoverArt(self, force=False):
-    self.player.updateCoverArt(force)
+    #self.player.updateCoverArt(force)
+    pass
 
   #convert player seconds to summat nice
   def GetInHMS(self, seconds):

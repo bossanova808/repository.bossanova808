@@ -45,6 +45,31 @@ class SqueezePlayer:
     else:
       return False
 
+  def getCoverArtURLs(self):
+
+      coverURLs = []
+
+      #start at this song , end at + 3
+      index = int(self.sb.request("playlist index ?"))
+      upcomer = index
+      end = index + 4
+
+      for count in range(upcomer,end):
+        try:
+          currentID = self.playlist[count]['id']
+          coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
+          Logger.log (" Appending future cover: " + str(count) + " from " + coverURL)
+          coverURLs.append(coverURL)
+          #coverArt = self.image.retrieve(  coverURL , constants.CHANGING_IMAGES_PATH + "currentCoverPlus" + str(count-index) + ".jpg" )
+          #Logger.log ("Retrieved future cover")
+        except Exception as inst:
+          Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
+          coverURLs.append("")
+          #couldn't get cover art - just use the current cover for now
+          #coverArt = self.image.retrieve(  coverURL , constants.CHANGING_IMAGES_PATH + "currentCoverPlus" + str(count-index) + ".jpg" )
+
+      return coverURLs
+
   #downloads the cover art for the current song from the server
   def updateCoverArt(self, initialise=False):
 
@@ -68,7 +93,7 @@ class SqueezePlayer:
 ##        Logger.log("Error removing old art, tried and failed -> perhaps there wasn't any?")
 
       try:
-        coverURL = "http://" + self.serverHTTPURL + "/music/current/cover.jpg?player=" + self.playerMAC
+        coverURL = "http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC
         Logger.log (" Getting: " + coverURL)
         coverArt = self.image.retrieve(  coverURL , constants.CHANGING_IMAGES_PATH + "currentCover.jpg" )
         Logger.log ("Retrieved new cover art")
@@ -83,7 +108,7 @@ class SqueezePlayer:
       for count in range(upcomer,end):
         try:
           currentID = self.playlist[count]['id']
-          coverURL = "http://" + self.serverHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
+          coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
           Logger.log (" Getting future cover: " + str(count) + " from " + coverURL)
           coverArt = self.image.retrieve(  coverURL , constants.CHANGING_IMAGES_PATH + "currentCoverPlus" + str(count-index) + ".jpg" )
           Logger.log ("Retrieved future cover")
@@ -150,20 +175,13 @@ class SqueezePlayer:
   #constructor - connect to the server and player so we can do stuff
   def __init__(self):
 
-    #get the various settings...
-    self.serverIP    = constants.__addon__.getSetting('serverIP')
-    self.serverPort  = constants.__addon__.getSetting('serverPort')
-    self.serverHTTPURL   = self.serverIP + ":9000"
-    #LMS is case sensitive and all MACs need to be lower case!!
-    self.playerMAC   = str.lower(constants.__addon__.getSetting('playerMAC'))
-
     #a handle for opening images
     self.image = urllib.URLopener()
 
     #connect to server
-    Logger.log("Attempting to connect to LMS at:  " + self.serverIP + " on port: " + self.serverPort)
+    Logger.log("Attempting to connect to LMS at:  " + constants.SERVERIP + " on port: " + constants.SERVERPORT)
     try:
-      self.sc = Server(hostname=self.serverIP, port=self.serverPort)
+      self.sc = Server(hostname=constants.SERVERIP, port=constants.SERVERPORT)
       self.sc.connect()
       Logger.log( "Logged in: %s" % self.sc.logged_in )
       Logger.log( "Version: %s" % self.sc.get_version() )
@@ -173,18 +191,18 @@ class SqueezePlayer:
       raise
 
     #connect to player
-    Logger.log( "Attempting to connect to player: " + self.playerMAC)
+    Logger.log( "Attempting to connect to player: " + constants.PLAYERMAC)
     try:
-      self.sb = self.sc.get_player(self.playerMAC)
+      self.sb = self.sc.get_player(constants.PLAYERMAC)
       if self.sb:
-        Logger.log( "Connected to: %s" % self.playerMAC )
+        Logger.log( "Connected to: %s" % constants.PLAYERMAC )
         state = self.sb.get_power_state()
         Logger.log ( "Power state is: " + str (state) )
       else:
-        Logger.log( "Player NoneType: %s" % self.playerMAC )
+        Logger.log( "Player NoneType: %s" % constants.PLAYERMAC )
         raise Exception
     except Exception as inst:
-      Logger.log(" Couldn't connect to player: " + self.playerMAC , inst)
+      Logger.log(" Couldn't connect to player: " + constants.PLAYERMAC , inst)
       xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't connect to player!,Check you player settings)")
       sys.exit()
 

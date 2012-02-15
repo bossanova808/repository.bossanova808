@@ -23,6 +23,13 @@ CLASS_PATH = os.path.join (LIB_PATH, "classes")
 STATIC_IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
 CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.xsqueeze/current_images/");
 
+#settings for the add on
+SERVERIP    = __addon__.getSetting('serverIP')
+SERVERPORT  = __addon__.getSetting('serverPort')
+SERVERHTTPURL   = SERVERIP + ":9000"
+#LMS is case sensitive and all MACs need to be lower case!!
+PLAYERMAC   = str.lower(__addon__.getSetting('playerMAC'))
+
 #colours
 SQUEEZETEXT   = '0xFF00FF00'
 UPCOMINGTEXT  = '0xFF5555FF'

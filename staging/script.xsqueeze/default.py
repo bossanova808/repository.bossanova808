@@ -51,11 +51,13 @@ if ( __name__ == "__main__" ):
     #now let's make a window and see if we can send some commands...
     window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
 
-    window.running = True
-    while window.running:
-      window.show()
-      window.update()
-      xbmc.sleep(10)
+##    window.running = True
+##    while window.running:
+##      window.show()
+##      window.update()
+##      xbmc.sleep(10)
+
+    window.doModal()
 
     # after the window is closed, Destroy it.
     del window
