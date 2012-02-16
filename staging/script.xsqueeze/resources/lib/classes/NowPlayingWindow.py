@@ -45,6 +45,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   #the method called when the window is inited
   #starts the GUI update thread...
   def onInit( self ):
+
+    #Set some basic properties
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("PLAYER", constants.PLAYERMAC)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("SERVER", constants.SERVERIP)
+
     #Logger.log("onInit")
     self.running = True
     self.thread = threading.Thread(target=self.update)
@@ -74,6 +79,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #intercept special XBMC ones first
     if action == ACTION_CODES['ACTION_PREVIOUS_MENU']:
       Logger.log("XBMC Action: Close")
+      #we're controlling a local squeezeslave - best to stop the music before we kill it
+      #otherwise it oddly resumes automatically on restart
+      if constants.CONTROLSLAVE:
+        with self.lock:
+          self.player.button("stop")
       self.running = False
       self.close()
 

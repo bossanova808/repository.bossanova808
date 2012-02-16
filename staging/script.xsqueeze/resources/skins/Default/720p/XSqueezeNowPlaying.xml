@@ -1,25 +1,82 @@
 <!-- WARNING - DO NOT CHANGE LABEL ID OF PROGRESS BAR OR YOU WILL BREAK IT!!-->
 <!-- WARNING - DO NOT REMOVE PROGRESS BAR OR YOU WILL BREAK IT!!            -->
+<!--  - Player: $INFO[Window.Property(PLAYER)] Server: $INFO[Window.Property(SERVER)] -->
+
 
 <window>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+		<include>CommonMusicBackground</include>
+		<include>CommonMediaPlayingBackground</include>
 
-  <!-- doesn't work - add on is using a black image to do this currently? -->
-  <backgroundcolor>black</backgroundcolor>
+		<control type="image">
+			<posx>0</posx>
+			<posy>100r</posy>
+			<width>1280</width>
+			<height>100</height>
+			<texture>floor.png</texture>
+			<include>VisibleFadeEffect</include>
+			<animation effect="slide" start="0,10" end="0,0" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
+		</control>
+		<control type="group">
+			<animation type="WindowOpen" reversible="false">
+				<effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300" />
+				<effect type="fade" start="0" end="100" time="300" />
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="300" />
+				<effect type="fade" start="100" end="0" time="300" />
+			</animation>
+			<include>VisibleFadeEffect</include>
+			<control type="group">
+				<animation effect="slide" start="0,0" end="-40,0" time="200" condition="StringCompare(Weather.Plugin,weather.weatherplus)">Conditional</animation>
+				<posx>40</posx>
+				<posy>40</posy>
+				<control type="image">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>1200</width>
+					<height>600</height>
+					<texture border="20">ContentPanel.png</texture>
+				</control>
+				<control type="image">
+					<posx>0</posx>
+					<posy>592</posy>
+					<width>1200</width>
+					<height>64</height>
+					<texture border="10">ContentPanelMirror.png</texture>
+				</control>
+				<control type="image">
+					<posx>20</posx>
+					<posy>5</posy>
+					<width>1200</width>
+					<height>90</height>
+					<aspectratio>stretch</aspectratio>
+					<texture>GlassTitleBar.png</texture>
+				</control>
+				<control type="label">
+					<description>header label</description>
+					<posx>-40</posx>
+					<posy>8</posy>
+					<width>1280</width>
+					<height>30</height>
+					<font>font24_title</font>
+					<label>XSqueeze</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+      </control>
 
-  <!-- full screen window -->
-  <coordinates>
-    <posx>0</posx>
-    <posy>0</posy>
-  </coordinates>
 
-  <!--------------------------------------------------------------------------->
-  <controls>
 
 
   <control type="group">
       <description>Current Track Details</description>
-      <posx>400</posx>
-      <posy>55</posy>
+      <posx>330</posx>
+      <posy>120</posy>
 
       <control type="label" id="199">
         <description>Now Playing Label</description>
@@ -136,17 +193,17 @@
     <!-- COVER ART FOR CURRENT TRACK -->
     <control type="image" id="100">
           <description>Cover art for currently playing track</description>
-          <posx>20</posx>
-          <posy>20</posy>
-          <width>350</width>
-          <height>350</height>
+          <posx>60</posx>
+          <posy>100</posy>
+          <width>250</width>
+          <height>250</height>
     </control>
 
     <!-- THUMBNAILS FOR UPCOMING TRACKS -->
     <control type="group">
-      <description>Upcoming Tracks Labels</description>
-      <posx>20</posx>
-      <posy>400</posy>
+      <description>Upcoming Tracks Thumbs</description>
+      <posx>75</posx>
+      <posy>370</posy>
 
       <control type="image" id="101">
           <description>Cover art for track + 1</description>
@@ -178,8 +235,8 @@
 
       <control type="label" id="999">
         <description>Coming Up Label</description>
-        <posx>135</posx>
-        <posy>390</posy>
+        <posx>330</posx>
+        <posy>335</posy>
         <width>200</width>
         <visible>true</visible>
         <align>left</align>
@@ -194,8 +251,8 @@
     <!-- UPCOMING TRACK LABELS -->
     <control type="group">
       <description>Upcoming Tracks Labels</description>
-      <posx>110</posx>
-      <posy>410</posy>
+      <posx>160</posx>
+      <posy>380</posy>
 
       <control type="label" id="2001">
         <description>Coming Up Track1 Label</description>
@@ -245,14 +302,14 @@
     <!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
     <control type="group">
         <description>SqueezeBox Display/Controller</description>
-        <posx>40</posx>
-        <posy>670</posy>
+        <posx>80</posx>
+        <posy>655</posy>
 
         <control type="label" id="1000">
           <description>SqueezeBox Display Line 1</description>
           <posx>0</posx>
           <posy>5</posy>
-          <width>1280</width>
+          <width>1120</width>
           <visible>true</visible>
           <align>left</align>
           <aligny>center</aligny>
@@ -269,7 +326,7 @@
           <description>SqueezeBox Display Line 2</description>
           <posx>0</posx>
           <posy>30</posy>
-          <width>1280</width>
+          <width>1120</width>
           <visible>true</visible>
           <align>left</align>
           <aligny>center</aligny>
@@ -284,6 +341,79 @@
 
      </control>
      <!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
+
+
+
+    </control>
+
+    <!-- FROM HERE DOWN - THE CLOCK & WEATHER -->
+		<control type="group">
+			<posx>520r</posx>
+			<posy>0</posy>
+			<animation effect="slide" start="0,0" end="-60,0" delay="0" time="300" condition="Window.IsVisible(MuteBug)">conditional</animation>
+			<animation effect="slide" start="0,0" end="550,0" delay="0" time="300">WindowClose</animation>
+			<animation effect="slide" start="550,0" end="0,0" delay="0" time="300">WindowOpen</animation>
+			<visible>!Skin.HasSetting(homepageWeatherinfo) + Weather.IsFetched</visible>
+			<control type="image">
+				<description>time background</description>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>180</width>
+				<height>35</height>
+				<texture flipx="true" border="32,0,0,0">header.png</texture>
+			</control>
+			<control type="image">
+				<description>Weather image</description>
+				<posx>30</posx>
+				<posy>1</posy>
+				<width>25</width>
+				<height>25</height>
+				<aspectratio>keep</aspectratio>
+				<texture>$INFO[Window(Weather).Property(Current.ConditionIcon)]</texture>
+			</control>
+			<control type="label">
+				<description>time label</description>
+				<posx>60</posx>
+				<posy>0</posy>
+				<width>100</width>
+				<height>28</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+				<label>[B]$INFO[Weather.Temperature][/B]</label>
+			</control>
+		</control>
+		<control type="group">
+			<posx>390r</posx>
+			<posy>0</posy>
+			<animation effect="slide" start="0,0" end="-60,0" delay="0" time="300" condition="Window.IsVisible(MuteBug)">conditional</animation>
+			<animation effect="slide" start="0,0" end="420,0" delay="0" time="300">WindowClose</animation>
+			<animation effect="slide" start="420,0" end="0,0" delay="0" time="300">WindowOpen</animation>
+			<control type="image">
+				<description>time background</description>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>440</width>
+				<height>35</height>
+				<texture flipx="true" border="32,0,0,0">header.png</texture>
+			</control>
+			<control type="label">
+				<description>time label</description>
+				<posx>30</posx>
+				<posy>0</posy>
+				<width>400</width>
+				<height>28</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+				<label>[COLOR=grey]$INFO[System.Date][/COLOR] | $INFO[System.Time]</label>
+			</control>
+		</control>
+    <!-- END - THE CLOCK & WEATHER -->
 
  </controls>
 </window>

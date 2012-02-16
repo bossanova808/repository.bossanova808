@@ -28,6 +28,7 @@ if ( __name__ == "__main__" ):
     if constants.CONTROLSLAVE:
       xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Starting local Squeezeslave,Wait a moment...)")
       system = platform.system()
+      system = "Linux"
       Logger.log("Starting local Squeezeslave, system is " + system)
 
       if system=="Windows":
@@ -52,12 +53,22 @@ if ( __name__ == "__main__" ):
 
       #args = constants.SERVERIP
       Logger.log ("Attempting to start " + str(exe))
-      slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
-      #slaveProcess = subprocess.Popen(exe)
+      try:
+        if system=="Windows":
+          slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
+        else:
+          slaveProcess = subprocess.Popen(exe, shell=False)
+      except Exception as inst:
+        Logger.log("Failed creating squeezeslave process", inst)
+        xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't start process squeezeslave,Bailing out...)")
+        sys.exit()
+
       pid = slaveProcess.pid
       Logger.log("Process ID for Squeezeslave is "+ str(pid))
-      #little pause to give things time to settle...
+      #little pause to give squeezeslave time to run & connect
       time.sleep(5)
+
+
 
     #now let's make a window and see if we can send some commands...
     window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
