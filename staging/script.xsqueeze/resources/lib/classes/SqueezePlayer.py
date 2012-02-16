@@ -136,17 +136,22 @@ class SqueezePlayer:
 
   def getCurrentTrack(self):
     currentIndex = int(self.sb.request("playlist index ?"))
-    if 'title' in self.playlist[currentIndex]:
-      title = self.playlist[currentIndex]['title']
-    else:
-      title = ""
-    if 'artist' in self.playlist[currentIndex]:
-      artist = self.playlist[currentIndex]['artist']
-    else:
-        artist = ""
-    if 'album' in self.playlist[currentIndex]:
-      album = self.playlist[currentIndex]['album']
-    else:
+    try:
+      if 'title' in self.playlist[currentIndex]:
+        title = self.playlist[currentIndex]['title']
+      else:
+        title = ""
+      if 'artist' in self.playlist[currentIndex]:
+        artist = self.playlist[currentIndex]['artist']
+      else:
+          artist = ""
+      if 'album' in self.playlist[currentIndex]:
+        album = self.playlist[currentIndex]['album']
+      else:
+        album = ""
+    except IndexError:
+      title= ""
+      artist = ""
       album = ""
 
     return title, artist, album

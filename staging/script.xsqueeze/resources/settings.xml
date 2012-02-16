@@ -1,9 +1,11 @@
 <settings>
    <category label="Server Details">
-     <setting id="serverIP" type="ipaddress" label="Server IP or hostname" default=""/>
+     <setting id="serverIP" type="text" label="Server IP or hostname" default=""/>
      <setting id="serverPort" type="text" label="Server Port" default="9090" />
    </category>
    <category label="Player Details">
      <setting id="playerMAC" type="text" label="Player MAC" default="00:00:00:00:00:01"/>
+     <setting id="controlslave" type="bool" label="Start/Stop local Squeezeslave with the add on?" default="false"/>
+     <setting id="slaveargs" type="text" label="Extra SqueezeSlave arguments" default="" enable="!eq( -1,)" />
    </category>
 </settings>
