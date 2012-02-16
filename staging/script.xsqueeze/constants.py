@@ -46,9 +46,9 @@ SLAVEARGS = __addon__.getSetting('slaveargs')
 
 LOCALSQUEEZESLAVEVERSION = 'squeezeslave-1.2-311'
 BINWIN    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "\\squeezeslave.exe"
-BINOSX    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "\\squeezeslave"
-BINLIN32  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "\\squeezeslave"
-BINLIN64  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "\\squeezeslave-i64"
+BINOSX    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "//squeezeslave"
+BINLIN32  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave"
+BINLIN64  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "//squeezeslave-i64"
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls

@@ -27,7 +27,7 @@ if ( __name__ == "__main__" ):
     #are we running the locally installed Squeezeslave?
     if constants.CONTROLSLAVE:
       xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Starting local Squeezeslave,Wait a moment...)")
-      system = platform.system()
+      #system = platform.system()
       system = "Linux"
       Logger.log("Starting local Squeezeslave, system is " + system)
 
