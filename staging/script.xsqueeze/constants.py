@@ -39,8 +39,16 @@ SERVERIPPORT = SERVERIP + ":" + SERVERPORT
 SERVERHTTPURL   = SERVERIP + ":9000"
 #LMS is case sensitive and all MACs need to be lower case!!
 PLAYERMAC   = str.lower(__addon__.getSetting('playerMAC'))
-CONTROLSLAVE = __addon__.getSetting('controlslave')
+#things needed for the local squeezeslave if used
 SLAVEARGS = __addon__.getSetting('slaveargs')
+if __addon__.getSetting('controlslave')=="true":
+  CONTROLSLAVE = True
+else:
+  CONTROLSLAVE = False
+if __addon__.getSetting('openelec')=="true":
+  ISOPENELEC = True
+else:
+  ISOPENELEC = False
 
 ################################################################################
 
@@ -48,7 +56,7 @@ LOCALSQUEEZESLAVEVERSION = 'squeezeslave-1.2-311'
 BINWIN    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "\\squeezeslave.exe"
 BINOSX    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "//squeezeslave"
 BINLIN32  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave"
-BINLIN64  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "//squeezeslave-i64"
+BINLIN64  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64"
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls

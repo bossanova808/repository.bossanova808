@@ -47,7 +47,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def onInit( self ):
 
     #Set some basic properties
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("PLAYER", constants.PLAYERMAC)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("PLAYERMAC", constants.PLAYERMAC)
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("SERVER", constants.SERVERIP)
 
     #Logger.log("onInit")
@@ -68,7 +68,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionSqueeze = SQUEEZE_CODES[actionName]
     except KeyError:
       #action is not in our handled list (see actionmap.py)
-      Logger.log("Not handling eventid " + str(action.getId()))
+      #Logger.log("Not handling eventid " + str(action.getId()))
       actionNum = 0
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
