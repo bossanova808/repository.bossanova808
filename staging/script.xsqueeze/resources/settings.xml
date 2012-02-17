@@ -5,7 +5,8 @@
    </category>
    <category label="Player Details">
      <setting id="playerMAC" type="text" label="Player MAC" default="00:00:00:00:00:01"/>
-     <setting id="controlslave" type="bool" label="Start/Stop local Squeezeslave with the add on?" default="false"/>
-     <setting id="slaveargs" type="text" label="Extra SqueezeSlave arguments" default="" enable="!eq( -1,)" />
+     <setting id="controlslave" type="bool" label="Start/Stop local Squeezeslave with the add on?" default="true"/>
+     <setting id="slaveargs" type="text" label="Extra SqueezeSlave arguments" default="-m00:00:00:00:00:01" enable="!eq( -2,)" />
+     <setting id="openelec" type="bool" label="Are you running openelec?  Set this on if so..." default="false" enable="!eq( -3,)"/>
    </category>
 </settings>
