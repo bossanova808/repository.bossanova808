@@ -1,11 +1,11 @@
-README v0.1 for XSqueeze
+README v0.2.3 for XSqueeze
 
 See http://forum.xbmc.org/showthread.php?t=122199 for discussion/release notificaction!
 
 ********************************************************************************
 * INTRODUCTIONS:
 
-XSqueeze is a (so far) very basic Squeezebox controller for XBMC.   It was built by me (bossanova808@gamil.com) using some python and building on the hard work of the SqueezeSlave and Pysqueezecenter folks...
+XSqueeze is a (so far) a very basic Squeezebox controller for XBMC.   It was built by me (bossanova808@gamil.com) using some python and building on the hard work of the SqueezeSlave and Pysqueezecenter folks...
 
 
 XSqueeze can be used in two main ways:
@@ -32,6 +32,14 @@ http://wiki.xbmc.org/index.php?title=Unofficial_add-on_repositories
 ...download the repo zip, and install the repo using the zip file
 
 Wait a minute or two (or force-refresh the repo) - then in the repo you will see various installable addons.  Choose XSqueeze and install it.
+
+****** IF YOU ARE ON LINUX/OSX/Openelec
+
+Find the squeezeslave binaries in your 
+xbmc/addons/script.xsqueeze/bin/
+and chmod +x them!
+
+You will unfortunately need to do this with each new version of the add on - sorry, but those systems prevent me from doing this for you!
 
 ********************************************************************************
 2. Configure XSqueeze

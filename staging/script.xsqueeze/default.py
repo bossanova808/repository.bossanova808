@@ -26,7 +26,7 @@ if ( __name__ == "__main__" ):
 
     #are we running the locally installed Squeezeslave?
     if constants.CONTROLSLAVE:
-      xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Starting local Squeezeslave,Wait a moment...)")
+      xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Starting Squeezeslave player,Please wait a moment...)")
 
       #32 or 64 bit?
       is_64bits = sys.maxsize > 2**32
@@ -54,7 +54,7 @@ if ( __name__ == "__main__" ):
           #attempt to make the binary executable
           os.chmod(0775, exe[0])
         except:
-          pass
+          Logger.log("Couldn't chmod +x binaries - hopefully user has done this manually!")
       #no idea what platform we're on..best to stop now...
       else:
         xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't determine system type for squeezeslave,Bailing out...)")
@@ -76,13 +76,13 @@ if ( __name__ == "__main__" ):
           slaveProcess = subprocess.Popen(exe, shell=False)
       except Exception as inst:
         Logger.log("Failed creating squeezeslave process", inst)
-        xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't start process squeezeslave,Bailing out...)")
+        xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't start process squeezeslave,On OE/linux did you chmod +x the binaries?...)")
         sys.exit()
 
       pid = slaveProcess.pid
       Logger.log("Process ID for Squeezeslave is "+ str(pid))
       #little pause to give squeezeslave time to run & connect
-      time.sleep(5)
+      time.sleep(3)
 
 
     #now let's make a window and see if we can send some commands...

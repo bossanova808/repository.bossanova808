@@ -1,3 +1,6 @@
+V0.2.3
+- Bug fixes
+
 V0.2
 - Local playback now comes with the add on - i.e. Squeezeslave binaries, and control of these are now integrated into the add on
 - (Confluence) skin file much prettier
