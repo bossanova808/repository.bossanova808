@@ -82,7 +82,7 @@ if ( __name__ == "__main__" ):
       pid = slaveProcess.pid
       Logger.log("Process ID for Squeezeslave is "+ str(pid))
       #little pause to give squeezeslave time to run & connect
-      time.sleep(3)
+      time.sleep(5)
 
 
     #now let's make a window and see if we can send some commands...
