@@ -114,10 +114,12 @@ if ( __name__ == "__main__" ):
         Logger.log("Skin set to Confluence")
         window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
 
-      #add a dummy track to the playlist
-      #AddToPlaylist = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Playlist.Add", "id": 1, "params": {"item": {"songid": 7}}}')
-      #result = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Playlist.Add", "id": 1, "params": {"Playlist.Item": "' + constants.DUMMYAUDIO + '"}}')
-      #Logger.log(" Added dummy track 1" + str(result))
+      #add a dummy track to the playlist - thanks to Mizaki for the examples!!
+      #{"jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "pathandfilename"}, "playlistid": 0 }, "id": 1}
+      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "blah"}, "playlistid": 0 }, "id": 1}'
+      Logger.log("Sending JSON [" + jsonstr +"]")
+      result = xbmc.executeJSONRPC(jsonstr)
+      Logger.log(" Added dummy track 1" + str(result))
       #and kick this bad boy off....
       window.doModal()
 
