@@ -82,7 +82,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       #we're controlling a local squeezeslave - best to stop the music before we kill it
       #otherwise it oddly resumes automatically on restart
       if constants.CONTROLSLAVE:
-        xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Stopping Squeezeslave player, please wait a moment...)")
+        xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Stopping Squeezeslave player,Please wait a moment...)")
         with self.lock:
           self.player.button("stop")
       self.running = False

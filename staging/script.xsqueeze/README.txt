@@ -1,4 +1,4 @@
-README v0.2.3 for XSqueeze
+README v0.2.5 for XSqueeze
 
 See http://forum.xbmc.org/showthread.php?t=122199 for discussion/release notificaction!
 
@@ -35,16 +35,16 @@ Wait a minute or two (or force-refresh the repo) - then in the repo you will see
 
 ****** IF YOU ARE ON LINUX/OSX/Openelec
 
-Find the squeezeslave binaries in your 
+YOU  MUST Find the squeezeslave binaries in your 
 xbmc/addons/script.xsqueeze/bin/
 and chmod +x them!
 
-You will unfortunately need to do this with each new version of the add on - sorry, but those systems prevent me from doing this for you!
+You will unfortunately need to do this with each new version of the add on - sorry, but those systems prevent me from doing this for you for security reasons!
 
 ********************************************************************************
 2. Configure XSqueeze
 
-In the add on settings (go to the add on and use the context menu to get to 'configure').  You must set your LMS server IP address and port.
+In the add on settings (go to the add on and use the context menu to get to 'configure').  You must set your LMS server IP address and server CLI port (NOT THE HTTP Port!) - note this port is almost always 9090 (NOT 9000!) unless you've changed it (which is why that's the default value). 
 
 In the Player settings, either fill in the *case sensitive* details of your existing player (you can get your player's mac address from LMS -> Settings -> Information).
 
@@ -80,14 +80,30 @@ The thread for discussion/issues etc. is here:
 http://forum.xbmc.org/showthread.php?t=122199
  
 ********************************************************************************
-5. SYNC ISSUES - please experiment with sync between your players.  
+6. AUDIO ISSUES (dropouts, no audio etc) 
+
+**** FIRST TURN OFF XBMC MENU SOUNDS!!  IF you have these on, XBC greedily grabs the audio device and won't share.  
+
+If you're not getting audio from the addon then you will probably need to set your output for Squeezeslave up.
+
+You will need to manually run 'squeezeslave -L' from the command line on your system. This will list the available outputs on your system, numbered.  To tell squeezeslave to use a particular device, you must start it with -o12 (where 12 is the number you need).  Generally, the name of this output should match the audio output you generally use in XBMC, but you should experiment until you find the right one, and then add the right -oX argument to the extra squeezeslave arguments setting in XSqueeze.
+
+(You can test all of this quite easily using the -D switch for squeezesalve, so in full:
+squeezeslave -o12 -D yourserveraddress
+   
+..this will give you a text based Squeezeslave player right on your command line so you can quickly trigger audio to test etc.
+
+Later on, choosing audio outputs will probably be added directly to the add on.
+
+********************************************************************************
+6. SYNC ISSUES - please experiment with sync between your players.  
 
 Squeezeslave is a software player and like all software players, does not 100% support really precise sync like the hardware ones do - this is due to all sorts of factors involved (network latency, soundcard drift etc) 
 
 That being said, there are some tweaks available in your LMS Settings->Player->Synchronize ... this can improve things and I have so far found sync to be good enough to walk from room to room ok.  Probably not good enough for two players in one room, though, athough very close.  It's really pretty good.
 
 ********************************************************************************
-6. IF YOU CAN'T GET IT TO WORK
+7. IF YOU CAN'T GET IT TO WORK
 
 Try harder & re-read these instructions!  Try really hard, and if you are then still really stuck, post to the forum thread here: http://forum.xbmc.org/showthread.php?t=122199
 

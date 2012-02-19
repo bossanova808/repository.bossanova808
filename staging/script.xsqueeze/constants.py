@@ -2,6 +2,7 @@ import xbmc
 import xbmcaddon
 import os
 import sys
+import platform
 
 ################################################################################
 # CONSTANTS FOR XSQUEEZE
@@ -25,6 +26,8 @@ RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ) )
 LIB_PATH = os.path.join( RESOURCES_PATH, "lib")
 CLASS_PATH = os.path.join (LIB_PATH, "classes")
 BIN_PATH = os.path.join( RESOURCES_PATH, "bin")
+AUDIO_PATH = os.path.join( RESOURCES_PATH, "audio")
+DUMMYAUDIO = os.path.join( AUDIO_PATH, "XSqueeze.mp3")
 STATIC_IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
 CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.xsqueeze/current_images/");
 #extend the python path
@@ -45,10 +48,23 @@ if __addon__.getSetting('controlslave')=="true":
   CONTROLSLAVE = True
 else:
   CONTROLSLAVE = False
-if __addon__.getSetting('openelec')=="true":
-  ISOPENELEC = True
+if __addon__.getSetting('linux')=="true":
+  ISLINUX = True
 else:
-  ISOPENELEC = False
+  ISLINUX = False
+#other settings
+if __addon__.getSetting('disablescreensaver')=="true":
+  DISABLESCREENSAVER = True
+else:
+  DISABLESCREENSAVER = False
+#work out what skin xml to load
+enumVal=__addon__.getSetting('skin')
+print("********* enumVal" + enumVal)
+if enumVal=='1' or enumVal=='01':
+  SKIN="AeonNox"
+else:
+  #default to Confluence
+  SKIN="Confluence"
 
 ################################################################################
 
@@ -57,6 +73,40 @@ BINWIN    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "\\sque
 BINOSX    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "//squeezeslave"
 BINLIN32  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave"
 BINLIN64  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64"
+
+#32 or 64 bit?
+is_64bits = sys.maxsize > 2**32
+
+#need to work out what system we're on
+SYSTEM=""
+
+#this fails on Linux it seems...
+try:
+  #will return Windows or Darwin
+  SYSTEM = platform.system()
+except:
+  #must be some linux flavour...
+  SYSTEM = "Linux"
+
+#choose the right executable
+if SYSTEM=="Windows":
+  EXE = [BINWIN]
+elif SYSTEM=="Darwin":
+  EXE = [BINOSX]
+elif SYSTEM=="Linux":
+  if is_64bits:
+    EXE = [BINLIN64]
+  else:
+    EXE = [BINLIN32]
+  try:
+    #attempt to make the binary executable - this never works really...
+    os.chmod(0775, EXE[0])
+  except:
+    Logger.log("Couldn't chmod +x binaries - hopefully user has done this manually!")
+else:
+  Logger.log("Something went wrong trying to determine the underlying OS")
+  xbmc.executebuiltin("XBMC.Notification("+ __addonname__ +": Error determing OS type,Squeezeslave probably won't work...)")
+
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls
