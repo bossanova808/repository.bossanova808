@@ -39,7 +39,7 @@ class SqueezePlayer:
         state = self.sb.get_power_state()
         Logger.log ( "Power state is: " + str (state) )
       else:
-        Logger.log( "Player NoneType: %s" % constants.PLAYERMAC )
+        Logger.log( "Player is NoneType: %s" % constants.PLAYERMAC )
         raise Exception
     except Exception as inst:
       Logger.log(" Couldn't connect to player: " + constants.PLAYERMAC , inst)

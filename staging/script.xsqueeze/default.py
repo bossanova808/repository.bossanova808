@@ -12,6 +12,8 @@ import subprocess
 import constants
 #the logging class
 import Logger
+#the window for the README
+from ReadMeViewer import *
 #the window class
 from NowPlayingWindow import *
 
@@ -25,14 +27,6 @@ def sendXBMCJSON (humanDescription, jsonstr):
      result = xbmc.executeJSONRPC(jsonstr)
      Logger.log("JSON result: "  + str(result))
 
-################################################################################
-# send a JSON command to XBMC and log the human description, json string, and
-#the result returned
-
-def refreshAutoServer():
-    autoservername = constants.__addon__.getSetting('autoservername')
-    if autoservername != '':
-       set_property('autoservername', autoservername)
 
 ################################################################################
 ### MAIN
@@ -133,6 +127,8 @@ if ( __name__ == "__main__" ):
     #we're running the main script now...
     else:
 
+      viewer=ReadMeViewer()
+
       #disable the screensaver if the user has this on
       if constants.DISABLESCREENSAVER:
         Logger.log("Disabling screensaver")
@@ -148,7 +144,9 @@ if ( __name__ == "__main__" ):
         exe = constants.EXE
         args = constants.SLAVEARGS.split(" ")
         #if they have used the audio output selector
-        args.append(constants.__addon__.getSetting('outputsAuto'))
+        outputString = constants.__addon__.getSetting('outputsAuto')
+        if outputString != "":
+          args.append(outputString)
         args.append(constants.SERVERIP)
         exe.extend(args)
 
