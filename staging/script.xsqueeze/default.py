@@ -15,6 +15,25 @@ import Logger
 #the window class
 from NowPlayingWindow import *
 
+
+################################################################################
+# send a JSON command to XBMC and log the human description, json string, and
+#the result returned
+
+def sendXBMCJSON (humanDescription, jsonstr):
+     Logger.log(humanDescription + " [" + jsonstr +"]")
+     result = xbmc.executeJSONRPC(jsonstr)
+     Logger.log("JSON result: "  + str(result))
+
+################################################################################
+# send a JSON command to XBMC and log the human description, json string, and
+#the result returned
+
+def refreshAutoServer():
+    autoservername = constants.__addon__.getSetting('autoservername')
+    if autoservername != '':
+       set_property('autoservername', autoservername)
+
 ################################################################################
 ### MAIN
 
@@ -47,23 +66,70 @@ if ( __name__ == "__main__" ):
         lines = output.split("\n")
         #Each line is: My Music Library Name:9000 (192.168.1.1)
 
-        nameIPList = {}
+        names = []
+        ips = []
 
-        for count, line in enumerate(lines):
+        for line in lines:
           ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
           if len(ip) > 0:
             Logger.log("Parsing line " + line)
             #this will fail if they have a colon in their name - fuck 'em for using a stupid name
-            name = line.split(":")[0]
-            nameIPList[name] = ip[0]
+            names.append(line.split(":")[0])
+            ips.append(ip[0])
 
-        Logger.log("List of servers is " + str(nameIPList))
+        Logger.log("List of servers is " + str(names) + str(ips))
 
+        #now get them to choose an actual location
 
+        #present the server names for user choice
+        dialog = xbmcgui.Dialog()
+        if names != []:
+            selected = dialog.select("Select your server", names)
+            if selected != -1:
+                constants.__addon__.setSetting('autoserverip', ips[selected])
+                constants.__addon__.setSetting('autoservername', names[selected])
+                constants.__addon__.setSetting('serverAuto', names[selected])
+        else:
+            dialog.ok(constants.__addonname__, "No LMS Servers Found!  Check log or squeezeslave -I output manually")
 
       elif sys.argv[1].startswith('AudioOutputs'):
         Logger.log("Doing audio output discovery...")
+        exe = constants.EXE
+        exe.append("-L")
 
+        #need this to stop windows opening a console window & grab output
+        Logger.log("Calling SqueezeSlave for server discovery..." + str(exe))
+
+        if constants.SYSTEM=="Windows":
+          output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+        else:
+          output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+
+        Logger.log("Error, if any: " + str(result))
+        Logger.log("Lines returned is " + str(output))
+        lines = output.split("\n")
+        #Each line is: * 3: (Windows DirectSound) Primary Sound Driver (0/0)
+        outputNumbers = []
+        outputNames = []
+        for line in lines:
+          outputNumber = re.findall( r'[0-9]+', line )
+          if len(outputNumber)>1:
+            outputNumbers.append("-o" + outputNumber[0])
+            outputNames.append(line)
+
+        Logger.log("List of outputs is: " + str(outputNumbers) + str(outputNames))
+
+        #present the audio output for user choice
+        dialog = xbmcgui.Dialog()
+        if outputNumbers != []:
+            selected = dialog.select("Select your audio output", outputNames)
+            if selected != -1:
+               constants.__addon__.setSetting('outputsAuto', outputNumbers[selected])
+        else:
+            dialog.ok(constants.__addonname__, "No Audio Outputs Found! Check Log or squeezeslave -L output manually")
+
+
+    ############################################################################
     #we're running the main script now...
     else:
 
@@ -81,6 +147,8 @@ if ( __name__ == "__main__" ):
         #builds the list ['/path/exefile','-arg1','-arg2',...]
         exe = constants.EXE
         args = constants.SLAVEARGS.split(" ")
+        #if they have used the audio output selector
+        args.append(constants.__addon__.getSetting('outputsAuto'))
         args.append(constants.SERVERIP)
         exe.extend(args)
 
@@ -115,29 +183,46 @@ if ( __name__ == "__main__" ):
         window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
 
       #add a dummy track to the playlist - thanks to Mizaki for the examples!!
-      #{"jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "pathandfilename"}, "playlistid": 0 }, "id": 1}
-      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "blah"}, "playlistid": 0 }, "id": 1}'
-      Logger.log("Sending JSON [" + jsonstr +"]")
-      result = xbmc.executeJSONRPC(jsonstr)
-      Logger.log(" Added dummy track 1" + str(result))
-      #and kick this bad boy off....
+      #need to convert any stupid windows \\ paths to / paths
+      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 1}'
+      sendXBMCJSON("Clear Audio Playlist", jsonstr)
+      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 2}'
+      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 3}'
+      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 4}'
+      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC  + '"}, "playlistid": 2 }, "id": 5}'
+      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+      jsonstr = '{"jsonrpc": "2.0", "method": "Player.Repeat", "params": { "playerid": 0, "state": "one" }, "id": 6}'
+      sendXBMCJSON("Set Playlist To Plalist", jsonstr)
+
+      jsonstr = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Playlist.Add", "type": "method" } }, "id": 7 }'
+      sendXBMCJSON("Introspect", jsonstr)
+
+       #and kick this bad boy off....
       window.doModal()
 
       ############################################################################
       # FINISHED - CLEAN UP!
 
-      # after the window is closed, Destroy it.
-      del window
+
+##        #re-enable the screensaver as it was
+##      if constants.DISABLESCREENSAVER:
+##        Logger.log("Re-enabling screensaver")
+##        xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
+
+##      #clear the playlist
+##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 100}'
+##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
 
       #are we running the locally installed Squeezeslave? KILL IT!
       if constants.CONTROLSLAVE:
         Logger.log("Killing Squeezeslave process...")
-        slaveProcess.kill()
+        slaveProcess.terminate()
 
-      #re-enable the screensaver as it was
-      if constants.DISABLESCREENSAVER:
-        Logger.log("Re-enabling screensaver")
-        xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
+      # after the window is closed, Destroy it.
+      del window
 
-      sys.modules.clear()
+      #sys.modules.clear()
       Logger.log( "### Exiting XSqueeze..." )

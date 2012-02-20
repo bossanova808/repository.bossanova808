@@ -1,8 +1,9 @@
 <settings>
    <category label="Server Details">
-     <setting id="serverIP" type="text" label="Server IP or hostname" default=""/>
-     <setting id="serverPort" type="text" label="Server CLI Port (9090 unless you have changed it)" default="9090" />
-	   <setting id="serverAuto" label="Discover your LMS server..." type="action" action="RunScript($ID,ServerDiscovery)" default=""/>
+	   <setting id="serverAuto" label="Discover your LMS server..." type="action" action="RunScript($ID,ServerDiscovery)" default="" enable="!eq( 1,true)"/>
+     <setting id="serverManual" type="bool" label="Manually specify server details (e.g. if you have changed CLI port)" default="false"/>
+     <setting id="serverIP" type="text" label="Server IP or hostname" default="" enable="!eq( -1,false)" />
+     <setting id="serverPort" type="text" label="Server CLI Port (9090 unless you have changed it)" default="9090" enable="!eq( -2,false)" />
    </category>
    <category label="Player Details">
      <setting id="playerMAC" type="text" label="Player MAC" default="00:00:00:00:00:01"/>

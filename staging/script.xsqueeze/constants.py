@@ -22,27 +22,44 @@ __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Geck
 ################################################################################
 #useful paths
 SOURCEPATH = __cwd__
-RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ) )
-LIB_PATH = os.path.join( RESOURCES_PATH, "lib")
-CLASS_PATH = os.path.join (LIB_PATH, "classes")
-BIN_PATH = os.path.join( RESOURCES_PATH, "bin")
-AUDIO_PATH = os.path.join( RESOURCES_PATH, "audio")
-DUMMYAUDIO = os.path.join( AUDIO_PATH, "XSqueeze.mp3")
-STATIC_IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ) )
-CHANGING_IMAGES_PATH = xbmc.translatePath("special://profile/addon_data/script.xsqueeze/current_images/");
+RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ))
+LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib"))
+CLASS_PATH = xbmc.translatePath(os.path.join (LIB_PATH, "classes"))
+BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin"))
+AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio"))
+VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video"))
+IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ))
+#need to make sure this doesn't have \\ in it, in the case of windows
+DUMMYAUDIO = xbmc.translatePath(os.path.join( AUDIO_PATH, "XSqueeze.mp3")).replace( "\\", "/" )
+DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).replace( "\\", "/" )
+DUMMYPIC = xbmc.translatePath(os.path.join( IMAGES_PATH, "black.png")).replace( "\\", "/" )
 #extend the python path
 sys.path.append( LIB_PATH )
 sys.path.append( CLASS_PATH )
 
 ################################################################################
 #settings for the add on from xbmx settings page
-SERVERIP    = __addon__.getSetting('serverIP')
-SERVERPORT  = __addon__.getSetting('serverPort')
+if __addon__.getSetting('serverManual')=="true":
+  MANUALSERVER = True
+else:
+  MANUALSERVER = False
+
+if MANUALSERVER:
+  SERVERIP    = __addon__.getSetting('serverIP')
+  SERVERNAME = SERVERIP
+  SERVERPORT  = __addon__.getSetting('serverPort')
+else:
+  SERVERIP = __addon__.getSetting('autoserverip')
+  SERVERNAME = __addon__.getSetting('autoservername')
+  SERVERPORT = '9090'
+
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
 SERVERHTTPURL   = SERVERIP + ":9000"
 #LMS is case sensitive and all MACs need to be lower case!!
 PLAYERMAC   = str.lower(__addon__.getSetting('playerMAC'))
 #things needed for the local squeezeslave if used
+AUDIOOUTPUT = __addon__.getSetting('outputsAuto')
+
 SLAVEARGS = __addon__.getSetting('slaveargs')
 if __addon__.getSetting('controlslave')=="true":
   CONTROLSLAVE = True
@@ -59,7 +76,7 @@ else:
   DISABLESCREENSAVER = False
 #work out what skin xml to load
 enumVal=__addon__.getSetting('skin')
-print("********* enumVal" + enumVal)
+#print("********* enumVal" + enumVal)
 if enumVal=='1' or enumVal=='01':
   SKIN="AeonNox"
 else:
@@ -69,10 +86,10 @@ else:
 ################################################################################
 
 LOCALSQUEEZESLAVEVERSION = 'squeezeslave-1.2-311'
-BINWIN    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "\\squeezeslave.exe"
-BINOSX    = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "//squeezeslave"
-BINLIN32  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave"
-BINLIN64  = os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64"
+BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "//squeezeslave.exe")
+BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "//squeezeslave")
+BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave")
+BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64")
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32

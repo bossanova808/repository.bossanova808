@@ -48,7 +48,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #Set some basic properties
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("PLAYERMAC", constants.PLAYERMAC)
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("SERVER", constants.SERVERIP)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("SERVER", constants.SERVERNAME)
 
     #Logger.log("onInit")
     self.running = True
@@ -68,13 +68,16 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionSqueeze = SQUEEZE_CODES[actionName]
     except KeyError:
       #action is not in our handled list (see actionmap.py)
-      #Logger.log("Not handling eventid " + str(action.getId()))
+      Logger.log("Not handling eventid " + str(action.getId()))
       actionNum = 0
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
 
     if actionNum != 0:
       Logger.log("Handling action id: " + str(actionNum) +  " Name: " + actionName + " SqueezeCode if any: " + actionSqueeze)
+
+    if action == ACTION_CODES['ACTION_PAUSE']:
+        xbmc.executebuiltin("XBMC.ActivateWindow(10500)")
 
     #intercept special XBMC ones first
     if action == ACTION_CODES['ACTION_PREVIOUS_MENU']:

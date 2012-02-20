@@ -19,7 +19,7 @@ class SqueezePlayer:
   def __init__(self):
 
     #connect to server
-    Logger.log("Attempting to connect to LMS at:  " + constants.SERVERIP + " on port: " + constants.SERVERPORT)
+    Logger.log("Attempting to connect to LMS named [" + constants.SERVERNAME + "] at IP:  " + constants.SERVERIP + " on CLI port: " + constants.SERVERPORT)
     try:
       self.sc = Server(hostname=constants.SERVERIP, port=constants.SERVERPORT)
       self.sc.connect()
