@@ -82,13 +82,13 @@ if ( __name__ == "__main__" ):
         #present the server names for user choice
         dialog = xbmcgui.Dialog()
         if names != []:
-            selected = dialog.select(xbmc.getLocalizedString(19601), names)
+            selected = dialog.select(constants.__language__(19601), names)
             if selected != -1:
                 constants.__addon__.setSetting('autoserverip', ips[selected])
                 constants.__addon__.setSetting('autoservername', names[selected])
                 constants.__addon__.setSetting('serverAuto', names[selected])
         else:
-            dialog.ok(constants.__addonname__, xbmc.getLocalizedString(19602))
+            dialog.ok(constants.__addonname__, constants.__language__(19602))
 
       ##########################################################################
       # AUDIO OUTPUTS
@@ -123,11 +123,11 @@ if ( __name__ == "__main__" ):
         #present the audio output for user choice
         dialog = xbmcgui.Dialog()
         if outputNumbers != []:
-            selected = dialog.select(xbmc.getLocalizedString(19603), outputNames)
+            selected = dialog.select(constants.__language__(19603), outputNames)
             if selected != -1:
                constants.__addon__.setSetting('outputsAuto', outputNumbers[selected])
         else:
-            dialog.ok(constants.__addonname__, xbmc.getLocalizedString(19604))
+            dialog.ok(constants.__addonname__, constants.__language__(19604))
 
 
     ############################################################################
@@ -137,10 +137,10 @@ if ( __name__ == "__main__" ):
 
       #sanity checks
       if constants.CONTROLLERONLY and constants.CONTROLSLAVE:
-        Logger.notify(xbmc.getLocalizedString(19605), xbmc.getLocalizedString(19606), 10000)
+        Logger.notify(constants.__language__(19605), constants.__language__(19606), 10000)
         sys.exit()
       if not constants.CONTROLLERONLY and not constants.CONTROLSLAVE:
-        Logger.notify(xbmc.getLocalizedString(19605), xbmc.getLocalizedString(19607), 10000)
+        Logger.notify(constants.__language__(19605), constants.__language__(19607), 10000)
         sys.exit()
 
       #display the readme file if this is the users' first run of this version
@@ -156,7 +156,7 @@ if ( __name__ == "__main__" ):
 
       #are we running the locally installed Squeezeslave?
       if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-        Logger.notify(xbmc.getLocalizedString(19608),xbmc.getLocalizedString(19609))
+        Logger.notify(constants.__language__(19608),constants.__language__(19609))
         Logger.log("Starting local Squeezeslave, system is " + constants.SYSTEM)
 
         #builds the list ['/path/exefile','-arg1','-arg2',...]
@@ -182,7 +182,7 @@ if ( __name__ == "__main__" ):
             slaveProcess = subprocess.Popen(exe, shell=False)
         except Exception as inst:
           Logger.log("Failed creating squeezeslave process", inst)
-          Logger.notify(xbmc.getLocalizedString(19610),xbmc.getLocalizedString(19611))
+          Logger.notify(constants.__language__(19610),constants.__language__(19611))
           sys.exit()
 
         pid = slaveProcess.pid

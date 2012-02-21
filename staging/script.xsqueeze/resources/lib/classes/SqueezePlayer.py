@@ -23,11 +23,11 @@ class SqueezePlayer:
     try:
       self.sc = Server(hostname=constants.SERVERIP, port=constants.SERVERPORT)
       self.sc.connect()
-      Logger.log( "Logged in: %s" % self.sc.logged_in )
-      Logger.log( "Version: %s" % self.sc.get_version() )
+      Logger.log( "LMS Logged in: %s" % self.sc.logged_in )
+      Logger.log( "LMS Version: %s" % self.sc.get_version() )
     except:
       Logger.log(" Couldn't connect to server!")
-      Logger.notify(xbmc.getLocalizedString(19613),xbmc.getLocalizedString(19614))
+      Logger.notify(constants.__language__(19613),constants.__language__(19614))
       raise
 
     #connect to player
@@ -43,7 +43,7 @@ class SqueezePlayer:
         raise Exception
     except Exception as inst:
       Logger.log(" Couldn't connect to player: " + constants.PLAYERMAC , inst)
-      Logger.notify(xbmc.getLocalizedString(19615),xbmc.getLocalizedString(19616))
+      Logger.notify(constants.__language__(19615),constants.__language__(19616))
       sys.exit()
 
     #initialise

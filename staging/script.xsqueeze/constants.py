@@ -43,8 +43,11 @@ sys.path.append( CLASS_PATH )
 
 ################################################################################
 # first run stuff
+
 runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + __version__)
 if not xbmcvfs.exists(runtoken):
+  if not xbmcvfs.exists(ADDON_DATA_PATH):
+    xbmcvfs.mkdir(ADDON_DATA_PATH)
   if not xbmcvfs.exists(RUNTOKEN_PATH):
     xbmcvfs.mkdir(RUNTOKEN_PATH)
   ISFIRSTRUN=True
@@ -78,7 +81,6 @@ else:
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
 #url of the http interface for LMS
 SERVERHTTPURL   = SERVERIP + ":" + __addon__.getSetting('serverHTTPPort')
-print SERVERHTTPURL
 
 #LOCAL PLAYBACK SETTINGS
 #LMS is case sensitive and all MACs need to be lower case!!
@@ -148,20 +150,22 @@ if SYSTEM=="Windows":
   EXE = [BINWIN]
 elif SYSTEM=="Darwin":
   EXE = [BINOSX]
-elif SYSTEM=="Linux":
+else:
   if is_64bits:
     EXE = [BINLIN64]
   else:
     EXE = [BINLIN32]
-  try:
-    #attempt to make the binary executable - this never works really...
-    #it's really about triggering the messages in the except clause below...
-    os.chmod(0775, EXE[0])
-  except:
-    Logger.log("Couldn't chmod +x binaries - hopefully user has done this manually!")
-else:
-  Logger.log("Something went wrong trying to determine the underlying OS")
-  Logger.notify(xbmc.getLocalizedString(19617), xbmc.getLocalizedString(19618))
+
+#first run of each version, chmod +X the exe file...
+if SYSTEM=="Darwin" or SYSTEM=="Linux":
+  if ISFIRSTRUN:
+    try:
+      #attempt to make the binary executable - this never works really...
+      #it's really about triggering the messages in the except clause below...
+      os.system("chmod a+x " + EXE[0])
+      xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries success")
+    except:
+      xbmc.log(__addonname__ + __version__ +": Couldn't chmod +x binaries - hopefully user has done this manually!")
 
 
 ################################################################################

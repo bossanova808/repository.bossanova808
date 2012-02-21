@@ -6,7 +6,7 @@ import xbmc
 import xbmcgui
 from xbmcaddon import Addon
 import constants
-
+from traceback import print_exc
 
 class ReadMeViewer():
     # constants
