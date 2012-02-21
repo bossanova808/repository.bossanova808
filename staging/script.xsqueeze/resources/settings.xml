@@ -1,20 +1,25 @@
 <settings>
-   <category label="Server Details">
-	   <setting id="serverAuto" label="Discover your LMS server..." type="action" action="RunScript($ID,ServerDiscovery)" default="" enable="!eq( 1,true)"/>
-     <setting id="serverManual" type="bool" label="Manually specify server details (e.g. if you have changed CLI port)" default="false"/>
-     <setting id="serverIP" type="text" label="Server IP or hostname" default="" enable="!eq( -1,false)" />
-     <setting id="serverPort" type="text" label="Server CLI Port (9090 unless you have changed it)" default="9090" enable="!eq( -2,false)" />
+   <category label="19900">
+	   <setting id="serverAuto" label="19901" type="action" action="RunScript($ID,ServerDiscovery)" default="" enable="!eq( 1,true)"/>
+     <setting id="serverManual" type="bool" label="19902" default="false"/>
+     <setting id="serverIP" type="text" label="19903" default="" enable="!eq( -1,false)" />
+     <setting id="serverPort" type="text" label="19904" default="9090" enable="!eq( -2,false)" />
+     <setting id="serverHTTPPort" type="text" label="19905" default="9000" enable="!eq( -3,false)" />
    </category>
-   <category label="Player Details">
-     <setting id="playerMAC" type="text" label="Player MAC" default="00:00:00:00:00:01"/>
-     <setting id="controlslave" type="bool" label="Start/Stop local Squeezeslave with the add on?" default="true"/>
-	   <setting id="outputsAuto" label="Choose an audio output here (only if no sound/special needs)..." type="action" action="RunScript($ID,AudioOutputs)" default="" enable="!eq( -1,false)"/>
-     <setting id="slaveargs" type="text" label="Extra SqueezeSlave arguments" default="-m00:00:00:00:00:01" enable="!eq( -2,false)" />
-     <setting id="linux" type="bool" label="Are you running linux? Set this to on if so..." default="false" enable="!eq( -3,false)"/>
-     <setting id="whatever" type="bool" label="If linux/OSX have you chmodded +x the squeezeslave binaries?" default="false" enable="!eq( -4,false)"/>
+   <category label="Local Playback">
+     <setting id="controlSlave" type="bool" label="19906" default="true"/>
+     <setting id="slaveMAC" type="text" label="19907" default="00:00:00:00:00:01"/>
+     <setting id="slaveArgs" type="text" label="19908" default="" enable="!eq( -2,false)" />
+     <setting id="manualAudioOutput" type="bool" label="19909" default="false"/>
+	   <setting id="outputsAuto" label="19910" type="action" action="RunScript($ID,AudioOutputs)" default="" enable="!eq( -1,false)"/>
+   </category>
+   <category label="Controller Only">
+     <setting id="controllerOnly" type="bool" label="19911" default="false" enable="!eq( -5,false)"/>
+     <setting id="controllerMAC" type="text" label="19912" default="" enable="!eq( -1,false)"/>
    </category>
    <category label="Other Settings">
-     <setting id="disablescreensaver" type="bool" label="Disable screensaver while playing?" default="false"/>
-     <setting id="skin" type="enum" label="Skin file to use" values="Confluence|Aeon Nox" default="Confluence"/>
+     <setting id="skin" type="labelenum" label="19913" values="Confluence|Aeon Nox" default="Confluence"/>
+     <setting id="disableScreensaver" type="bool" label="19914" default="false"/>
+     <setting id="NOTE1" type="text" label="19915" default="" enable="!eq( -1,false)" />
    </category>
 </settings>

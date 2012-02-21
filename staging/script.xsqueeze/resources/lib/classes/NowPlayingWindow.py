@@ -68,7 +68,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionSqueeze = SQUEEZE_CODES[actionName]
     except KeyError:
       #action is not in our handled list (see actionmap.py)
-      Logger.log("Not handling eventid " + str(action.getId()))
+      #Logger.log("Not handling eventid " + str(action.getId()))
       actionNum = 0
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
@@ -84,8 +84,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       Logger.log("XBMC Action: Close")
       #we're controlling a local squeezeslave - best to stop the music before we kill it
       #otherwise it oddly resumes automatically on restart
-      if constants.CONTROLSLAVE:
-        xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Stopping Squeezeslave player,Please wait a moment...)")
+      if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+        Logger.notify(xbmc.getLocalizedString(19611),xbmc.getLocalizedString(19609))
         with self.lock:
           self.player.button("stop")
       self.running = False

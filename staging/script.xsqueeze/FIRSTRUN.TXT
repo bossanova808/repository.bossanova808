@@ -5,13 +5,14 @@ HERE'S A REMINDER:
 
 [B]1. IF ON LINUX/OSX/OPENELEC[/B], you MUST chmod +x the squeezeslave binaries or you won't get very far.  
 
-Squeezeslave is used for server discovery, audio output discover, and of course playback.   
+(Squeezeslave is used for server discovery, audio output discover, and of course playback).   
 
 [B]2. ISSUES?? READ THE README.txt in the addon directory[/B] 
 
 There's lots of useful stuff in there.  
 
 Also, try manually running the squeezeslave binary in the add on folder to make sure you can get a connection and play audio.
+
 
 
 

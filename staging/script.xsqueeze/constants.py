@@ -1,8 +1,10 @@
 import xbmc
 import xbmcaddon
+import xbmcvfs
 import os
 import sys
 import platform
+
 
 ################################################################################
 # CONSTANTS FOR XSQUEEZE
@@ -29,6 +31,8 @@ BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin"))
 AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio"))
 VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video"))
 IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ))
+ADDON_DATA_PATH = xbmc.translatePath("special://userdata/addon_data/script.xsqueeze/")
+RUNTOKEN_PATH = xbmc.translatePath("special://userdata/addon_data/script.xsqueeze/runtokens/")
 #need to make sure this doesn't have \\ in it, in the case of windows
 DUMMYAUDIO = xbmc.translatePath(os.path.join( AUDIO_PATH, "XSqueeze.mp3")).replace( "\\", "/" )
 DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).replace( "\\", "/" )
@@ -38,7 +42,24 @@ sys.path.append( LIB_PATH )
 sys.path.append( CLASS_PATH )
 
 ################################################################################
+# first run stuff
+runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + __version__)
+if not xbmcvfs.exists(runtoken):
+  if not xbmcvfs.exists(RUNTOKEN_PATH):
+    xbmcvfs.mkdir(RUNTOKEN_PATH)
+  ISFIRSTRUN=True
+  token = open(runtoken, 'w')
+  token.close()
+else:
+  ISFIRSTRUN=False
+
+
+################################################################################
 #settings for the add on from xbmx settings page
+
+# LMS SERVER SETTINGS
+#The LMS Server and port - either discovered in the add on settings
+# or manually set
 if __addon__.getSetting('serverManual')=="true":
   MANUALSERVER = True
 else:
@@ -53,35 +74,53 @@ else:
   SERVERNAME = __addon__.getSetting('autoservername')
   SERVERPORT = '9090'
 
+#shorthand for the full server string, so e.g. 192.168.1.1:9090
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
-SERVERHTTPURL   = SERVERIP + ":9000"
-#LMS is case sensitive and all MACs need to be lower case!!
-PLAYERMAC   = str.lower(__addon__.getSetting('playerMAC'))
-#things needed for the local squeezeslave if used
-AUDIOOUTPUT = __addon__.getSetting('outputsAuto')
+#url of the http interface for LMS
+SERVERHTTPURL   = SERVERIP + ":" + __addon__.getSetting('serverHTTPPort')
+print SERVERHTTPURL
 
-SLAVEARGS = __addon__.getSetting('slaveargs')
-if __addon__.getSetting('controlslave')=="true":
+#LOCAL PLAYBACK SETTINGS
+#LMS is case sensitive and all MACs need to be lower case!!
+
+#are we controlling the local slave or another external player?
+if __addon__.getSetting('controlSlave')=="true":
   CONTROLSLAVE = True
 else:
   CONTROLSLAVE = False
-if __addon__.getSetting('linux')=="true":
-  ISLINUX = True
+
+if __addon__.getSetting('controllerOnly')=="true":
+  CONTROLLERONLY = True
 else:
-  ISLINUX = False
-#other settings
+  CONTROLLERONLY = False
+
+
+# we either get the MAC from the local player setup, or from the controller setup
+
+if CONTROLSLAVE:
+  PLAYERMAC   = str.lower(__addon__.getSetting('slaveMAC'))
+if CONTROLLERONLY:
+  PLAYERMAC   = str.lower(__addon__.getSetting('controllerMAC'))
+
+# have they manually specified an audio output
+if __addon__.getSetting('manualAudioOutput')=="true":
+  MANUALAUDIOOUTPUT = True
+  AUDIOOUTPUT = __addon__.getSetting('outputsAuto')
+else:
+  MANUALAUDIOOUTPUT = False
+
+#any extra squeezeslave arguments supplied for special needs?
+SLAVEARGS = __addon__.getSetting('slaveargs')
+
+#OTHER SETTINGS
 if __addon__.getSetting('disablescreensaver')=="true":
   DISABLESCREENSAVER = True
 else:
   DISABLESCREENSAVER = False
+
 #work out what skin xml to load
-enumVal=__addon__.getSetting('skin')
-#print("********* enumVal" + enumVal)
-if enumVal=='1' or enumVal=='01':
-  SKIN="AeonNox"
-else:
-  #default to Confluence
-  SKIN="Confluence"
+SKIN=__addon__.getSetting('skin')
+
 
 ################################################################################
 
@@ -91,19 +130,18 @@ BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION 
 BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave")
 BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64")
 
-#32 or 64 bit?
-is_64bits = sys.maxsize > 2**32
-
 #need to work out what system we're on
 SYSTEM=""
 
-#this fails on Linux it seems...
 try:
   #will return Windows or Darwin
   SYSTEM = platform.system()
 except:
-  #must be some linux flavour...
+  #otherwise we assume some linux 2.6+ flavour...
   SYSTEM = "Linux"
+
+#32 or 64 bit?
+is_64bits = sys.maxsize > 2**32
 
 #choose the right executable
 if SYSTEM=="Windows":
@@ -117,12 +155,13 @@ elif SYSTEM=="Linux":
     EXE = [BINLIN32]
   try:
     #attempt to make the binary executable - this never works really...
+    #it's really about triggering the messages in the except clause below...
     os.chmod(0775, EXE[0])
   except:
     Logger.log("Couldn't chmod +x binaries - hopefully user has done this manually!")
 else:
   Logger.log("Something went wrong trying to determine the underlying OS")
-  xbmc.executebuiltin("XBMC.Notification("+ __addonname__ +": Error determing OS type,Squeezeslave probably won't work...)")
+  Logger.notify(xbmc.getLocalizedString(19617), xbmc.getLocalizedString(19618))
 
 
 ################################################################################

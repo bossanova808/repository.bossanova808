@@ -27,7 +27,7 @@ class SqueezePlayer:
       Logger.log( "Version: %s" % self.sc.get_version() )
     except:
       Logger.log(" Couldn't connect to server!")
-      xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't connect to server!,Check your server settings)")
+      Logger.notify(xbmc.getLocalizedString(19613),xbmc.getLocalizedString(19614))
       raise
 
     #connect to player
@@ -43,7 +43,7 @@ class SqueezePlayer:
         raise Exception
     except Exception as inst:
       Logger.log(" Couldn't connect to player: " + constants.PLAYERMAC , inst)
-      xbmc.executebuiltin("XBMC.Notification("+ constants.__addonname__ +": Couldn't connect to player!,Check you player settings)")
+      Logger.notify(xbmc.getLocalizedString(19615),xbmc.getLocalizedString(19616))
       sys.exit()
 
     #initialise
