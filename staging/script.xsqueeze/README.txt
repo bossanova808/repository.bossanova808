@@ -33,14 +33,6 @@ http://wiki.xbmc.org/index.php?title=Unofficial_add-on_repositories
 
 Wait a minute or two (or force-refresh the repo) - then in the repo you will see various installable addons.  Choose XSqueeze and install it.
 
-****** IF YOU ARE ON LINUX/OSX/Openelec ****************************************
-
-YOU  MUST Find the squeezeslave binaries in your 
-xbmc/addons/script.xsqueeze/bin/
-and chmod +x them!
-
-You will unfortunately need to do this with each new version of the add on - sorry, but those systems prevent me from doing this for you for security reasons.
-
 ********************************************************************************
 2. Configure XSqueeze
 
@@ -51,6 +43,8 @@ There are 4 tabs:
 1. LMS Server
 
 Here's where you put your LMS server details.  In most cases, just click on the 'Discover LMS Server...' field and it should find your server and you choose it.
+
+** Note server auto discovery does not currently work on OSX.
 
 However, if you've changed your LMS server's HTTP (normally 9000) or CLI port (normally 9090), then you will need to manually specify your server details.
 
@@ -64,6 +58,8 @@ If local playback is enabled you can:
 - Add a list of extra Squeezeslave arguments that will be passed on
   (see http://wiki.slimdevices.com/index.php/SqueezeSlave#Command_Line_Switches)
 - Most of the time squeezeslave will discover and use the default audio output for your system, however you can manually choose an output if you want to as well.
+
+** Note audio output discovery does not yet work on OSX
 
 3. Controller Only
 
@@ -79,18 +75,16 @@ You can also use Controller Only mode if you wish to manually install & run your
 
 You can choose to disable your screensaver during XSqueeze sessions (off by default, and note I have found this to cause hangs on XSqueeze exit so I don't really recommend it)
 
-You can also choose the skin file to use - default is of course Confluence.  I hope other users will write skin files for their favourite skins and I will add them to the add on distribution if they do, of course!  I also hope to make this automatic at a later date, i.e. it just picks up which skin you are using and automatically chooses the best match, with fall back to the basic Confluence layout otherwise.
-
 ********************************************************************************
 3. Run XSqueeze
 
 In XBMC->Add Ons->Programs, run XSqueeze 
 
-(Note - it doesn't live in the music section as it's not a typical XBMC music plugin, as the playback is external to XBMC's playback systems).  
+(Note - it doesn't live in the music section as it's not a typical XBMC music plugin, as the playback itself is external to XBMC's playback systems).  
 
 In most skins, you can use the skin settings to add the addon to your home page for easy access of course.
 
-On your first run of any new version, you will get a message window pop up with any important changes, reminders etc.  This only occurs the first run of each version, but you can find the same information in the addon folder/FIRSTRUN.txt if you need it.
+On your first run of any new version, you may get a message window pop up with any important changes, reminders etc.  This only occurs the first run of each version, but you can find the same information in the addon folder/FIRSTRUN.txt if you need it.
 
 As the add on starts, you will get messages if there are any issues (see below for troubleshooting).  Once everything is ok (and after SqueezeSlave has started if you have chosen the local playback option) - you will get to the main XSqueeze Now Playing screen.
 
@@ -124,10 +118,8 @@ squeezeslave -o12 -D yourserveraddress
    
 ..this will give you a text based Squeezeslave player right on your command line so you can quickly trigger audio to test etc.
 
-Later on, choosing audio outputs will probably be added directly to the add on.
-
 ********************************************************************************
-5. GENERAL ISSUES (can't start server/player errors) 
+6. GENERAL ISSUES (can't start server/player errors) 
 
 If you're experiencing general issues, the best thing is to simplify things and make sure squeezeslave outside of XBMC works ok. 
 

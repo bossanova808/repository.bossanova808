@@ -1207,7 +1207,7 @@
 					<textwidth>235</textwidth>
 					<include>ButtonCommonValues</include>
 				</control>
-				<control type="button" id="5">
+				<control type="button" id="6">
 					<description>ABC video button</description>
 					<label>ABC Weather in 90 secs</label>
 						<onclick>PlayMedia($INFO[Window.Property(Video.1)],noresume)</onclick>

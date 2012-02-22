@@ -41,6 +41,8 @@
 	<string id="19913">Skin file to use</string>
 	<string id="19914">Disable screensaver while playing?</string>
 	<string id="19915">(NB - EXPERIMENTAL - Can cause XSqueeze to hang on exit)</string>
+	<string id="19916">(NB - Server discovery does not yet work on OSX)</string>
+	<string id="19917">(NB - Audio output discovery does not yet work on OSX)</string>
 
 </strings>
 

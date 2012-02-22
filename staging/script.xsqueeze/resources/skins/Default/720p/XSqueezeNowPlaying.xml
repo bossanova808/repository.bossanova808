@@ -113,7 +113,7 @@
       <!-- NOW PLAYING TRACK LABELS & PROGRESS BAR -->
       <control type="group">
         <description>Current Track Details</description>
-        <posx>330</posx>
+        <posx>350</posx>
         <posy>120</posy>
         <control type="label" id="199">
           <description>Now Playing Label</description>
@@ -224,7 +224,7 @@
       <!-- COVER ART FOR CURRENT TRACK -->
       <control type="image" id="100">
         <description>Cover art for currently playing track</description>
-        <posx>60</posx>
+        <posx>80</posx>
         <posy>100</posy>
         <width>250</width>
         <height>250</height>
@@ -233,7 +233,7 @@
       <!-- THUMBNAILS FOR UPCOMING TRACKS -->
       <control type="group">
         <description>Upcoming Tracks Thumbs</description>
-        <posx>75</posx>
+        <posx>95</posx>
         <posy>370</posy>
         <control type="image" id="101">
           <description>Cover art for track + 1</description>
@@ -262,7 +262,7 @@
       <!-- COMING UP LABEL -->
       <control type="label" id="999">
         <description>Coming Up Label</description>
-        <posx>330</posx>
+        <posx>350</posx>
         <posy>335</posy>
         <width>200</width>
         <visible>true</visible>
@@ -277,7 +277,7 @@
       <!-- UPCOMING TRACK LABELS -->
       <control type="group">
         <description>Upcoming Tracks Labels</description>
-        <posx>160</posx>
+        <posx>180</posx>
         <posy>380</posy>
         <control type="label" id="2001">
           <description>Coming Up Track1 Label</description>

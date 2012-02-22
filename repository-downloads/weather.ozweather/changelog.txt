@@ -1,3 +1,6 @@
+V 0.3.5
+- New icon, little cleanup
+
 V 0.3.4
 
 - Fixes for ParseDom 0.9.1, and removed radar from DialogSeekBar as jmarshall confirms it won't re-read the images in the path

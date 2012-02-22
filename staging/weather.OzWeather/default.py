@@ -1,7 +1,3 @@
-#to do: fallback images
-#skin files into the repo so they get delivered with the add on and installation 
-
-
 # *  This Program is free software; you can redistribute it and/or modify
 # *  it under the terms of the GNU General Public License as published by
 # *  the Free Software Foundation; either version 2, or (at your option)
@@ -28,23 +24,26 @@ import time
 from PIL import Image
 
 # plugin constants
-version = "0.3.4"
-plugin = "OzWeather-" + version
-author = "Bossanova808 (bossanova808@gmail.com)"
-url = "www.bossanova808.net"
+#create an add on instation and store the reference
+__addon__       = xbmcaddon.Addon()
+
+#store some handy constants
+__addonname__   = __addon__.getAddonInfo('name')
+__addonid__     = __addon__.getAddonInfo('id')
+__author__      = __addon__.getAddonInfo('author')
+__version__     = __addon__.getAddonInfo('version')
+__cwd__         = __addon__.getAddonInfo('path')
+__language__    = __addon__.getLocalizedString
+__useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
+__plugin__ = __addonname__ + "-" + __version__
+__resource__   = xbmc.translatePath(os.path.join(__cwd__, 'resources', 'lib'))
+sys.path.append (__resource__)
 
 #parseDOM setup
 common = CommonFunctions
-common.plugin = plugin
+common.plugin = __plugin__
 dbg = False # Set to false if you don't want debugging
 dbglevel = 3 
-
-#addon setup
-__addon__      = xbmcaddon.Addon()
-__provider__   = __addon__.getAddonInfo('name')
-__cwd__        = __addon__.getAddonInfo('path')
-__resource__   = xbmc.translatePath(os.path.join(__cwd__, 'resources', 'lib'))
-sys.path.append (__resource__)
 
 #import the tables that map conditions to icon number and short days to long days
 from utilities import *
@@ -68,16 +67,18 @@ def striplist(l, chars):
        
 def log(message, inst=None):
     if inst is None: 
-      xbmc.log(plugin + ": " + message)
+      xbmc.log(__plugin__ + ": " + message)
     else:
-      xbmc.log(plugin + " Exception: " + message + "[" + str(inst) +"]")
+      xbmc.log(__plugin__ + ": Exception: " + message + "[" + str(inst) +"]")
  
-
 ################################################################################
-#just sets window properties we can refer to later in the MyWeather.xml skin file
+# Just sets window properties we can refer to later in the MyWeather.xml skin file
 
 def set_property(name, value = ""):
     WEATHER_WINDOW.setProperty(name, value)
+
+################################################################################
+# blank out all the window properties
 
 def clearProperties():
     try:
@@ -111,9 +112,8 @@ def clearProperties():
       log("********** OzWeather Couldn't clear all the properties, sorry!!", inst)
     
 
-
 ################################################################################
-#set the location and radar code properties
+# set the location and radar code properties
 
 def refresh_locations():
     location_set1 = __addon__.getSetting('Location1')
@@ -311,8 +311,7 @@ def buildImages(radarCode):
     if not xbmcvfs.exists( radarBackgroundsPath ):
       os.makedirs( radarBackgroundsPath )        
     if not xbmcvfs.exists( loopImagesPath ):
-      os.makedirs( loopImagesPath )    
-    
+      os.makedirs( loopImagesPath )        
     
     prepareBackgrounds(radarCode)        
 
@@ -502,7 +501,6 @@ def propertiesPDOM(page, extendedFeatures):
       
     except Exception as inst:
       log("********** OzWeather Couldn't set all the properties, sorry!!", inst)
-
     
     #Ok, if we got here we're done
     set_property("Weather.IsFetched", "true")
@@ -564,7 +562,7 @@ if sys.argv[1].startswith('Location'):
                 __addon__.setSetting(sys.argv[1], locations[selected])
                 __addon__.setSetting(sys.argv[1] + 'id', locationids[selected])
         else:
-            dialog.ok(__provider__, xbmc.getLocalizedString(284))
+            dialog.ok(__addonname__, xbmc.getLocalizedString(284))
 
 
 #script is being called in general use, not from the settings page            
@@ -582,23 +580,5 @@ else:
 #refresh the locations and set the weather provider property
 refresh_locations()
 set_property('WeatherProvider', 'BOM Australia via WeatherZone')
-set_property('WeatherVersion', plugin)
+set_property('WeatherVersion', __plugin__)
 
-
-
-################################################################################
-# BELOW HERE IS JUST A STORAGE AREA FOR SNIPPETS, OLD STUFF ETC
-
-#NO LONGER NEEDED
-#reload the skin to force an update for the radar image
-#only do this if we're actually on the weather page
-#nWin = xbmcgui.getCurrentWindowId()
-#if nWin == 12600:
-#  log("OzWeather: Reloading the skin because we're on the weather page")
-#  xbmc.executebuiltin( 'XBMC.ReloadSkin()' )
-
-#TODO - MESSAGE ON FIRST RUN??
-#is this the first run?  If so, let's show a message and then record we've run this.
-#runOnceToken =  xbmc.translatePath("special://profile/addon_data/weather.ozweather/" ) + "RunOnceToken"
-#if not xbmcvfs.exists( runOnceToken ):
-#  open(runOnceToken, 'w').close() 

@@ -197,13 +197,7 @@ if ( __name__ == "__main__" ):
 
         #now let's make a window and see if we can send some commands...
         #check what skin to use
-        if constants.SKIN == "Aeon Nox":
-          Logger.log("Skin set to Aeon Nox")
-          window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"AeonNox")
-        #default to Confluence
-        else:
-          Logger.log("Skin set to Confluence")
-          window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
+        window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
 
   ##      #add a dummy track to the playlist - thanks to Mizaki for the examples!!
   ##      #need to convert any stupid windows \\ paths to / paths
