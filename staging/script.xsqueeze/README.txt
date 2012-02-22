@@ -11,7 +11,7 @@ It was built by me (bossanova808@gmail.com) using some python and building on th
 
 XSqueeze can be used in two main ways:
 
-1. As simply a big-screen visualiser/controller for an existing Squeezebox player installation
+1. As simply a big-screen visualiser/controller for an existing Squeezebox player installation (all squeezebox models can be visualised, all but Touch and Radio controlled at this stage)
 
 or 
 
@@ -19,7 +19,7 @@ or
 
 Option 2 - the default - uses SqueezeSlave, either run directly by the add on or manually installed.  (Note that the player functionality only works on Windows, OSX and Linux 2.6+/Openelec - not iOS/other platforms not listed - basically, the squeezeslave binary must be available for your system for local playback to be possible)
 
-NB - below, LMS = Logitech Media Server, the software that serves up music to Squeeze-machines. 
+NB - below, LMS = Logitech Media Server, the software that serves up music to Squeeze-machines.  PLEASE USE VERSION 7.6+!
 
 ********************************************************************************
 * INSTRUCTIONS:

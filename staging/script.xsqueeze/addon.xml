@@ -12,8 +12,8 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
-    <summary lang="en">Control squeezebox players from XBMC.  Turn your XBMC into a Squeeze player!</summary>
-    <description lang="en">Control squeezebox players from XBMC.  Turn your XBMC into a Squeeze player!  Uses pysqueezecenter as a bridge to the CLI for squeezeboxes.  Uses squeezeslave for local playback.</description>
+    <summary lang="en">Squeezebox player/controller for XBMC.</summary>
+    <description lang="en">Turn your XBMC into a Squeeze player or control an external Squeezebox.</description>
     <disclaimer lang="en"></disclaimer>
   </extension>
 </addon>

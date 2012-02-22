@@ -1,17 +1,18 @@
 
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION.... 
 
-HERE'S A REMINDER:
 
-[B]1. IF ON LINUX/OSX/OPENELEC[/B], you MUST chmod +x the squeezeslave binaries or you won't get very far.  
+[B]XSqueeze addon settings have changed significantly![/B]
 
-(Squeezeslave is used for server discovery, audio output discover, and of course playback).   
+I strongly suggest you double check all your XSqueeze addon settings, and make sure you click 'ok' at the bottom (and NOT exit/back!) once all the settings are as you want, so that your new settings are properly re-saved over the old ones.
 
-[B]2. ISSUES?? READ THE README.txt in the addon directory[/B] 
+If XSqueeze does not start succesfully, try it again as some old settings sometimes seem to be cached, and check your log file for error messages!
 
-There's lots of useful stuff in there.  
+If you need help, post on the forum thread AND INCLUDE YOUR LOG FILE!
 
-Also, try manually running the squeezeslave binary in the add on folder to make sure you can get a connection and play audio.
+
+   
+
 
 
 

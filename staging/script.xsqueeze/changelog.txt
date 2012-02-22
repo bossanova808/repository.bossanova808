@@ -1,3 +1,7 @@
+V0.2.9 (late Feb 2012)
+- Server and audio output discovery, localisation, clean up and bug fixes
+- New icon
+
 V0.2.3
 - Bug fixes
 
@@ -18,5 +22,5 @@ v0.0.6
 - Known issue - foreign chars not right
 - cover art can be temperamental especially if there isn't any for a track...
  
-v0.0.1
+v0.0.1 (late Jan 2012)
 - Initial alpha test version

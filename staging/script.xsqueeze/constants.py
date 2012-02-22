@@ -163,9 +163,9 @@ if SYSTEM=="Darwin" or SYSTEM=="Linux":
       #attempt to make the binary executable - this never works really...
       #it's really about triggering the messages in the except clause below...
       os.system("chmod a+x " + EXE[0])
-      xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries success")
+      xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - success")
     except:
-      xbmc.log(__addonname__ + __version__ +": Couldn't chmod +x binaries - hopefully user has done this manually!")
+      xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - failure - user - you must do this manually!!")
 
 
 ################################################################################

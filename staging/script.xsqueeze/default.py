@@ -145,105 +145,107 @@ if ( __name__ == "__main__" ):
 
       #display the readme file if this is the users' first run of this version
       #not localized!
+      #then exit so they have a chance to re-visit their settings.
       if constants.ISFIRSTRUN:
         viewer=ReadMeViewer()
 
-      #disable the screensaver if the user has this on
-      if constants.DISABLESCREENSAVER:
-        Logger.log("Disabling screensaver")
-        screensaver = xbmc.executehttpapi( "GetGUISetting(3;screensaver.mode)" ).replace( "<li>", "" )
-        xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,None)" )
-
-      #are we running the locally installed Squeezeslave?
-      if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-        Logger.notify(constants.__language__(19608),constants.__language__(19609))
-        Logger.log("Starting local Squeezeslave, system is " + constants.SYSTEM)
-
-        #builds the list ['/path/exefile','-arg1','-arg2',...]
-        exe = constants.EXE
-        args = []
-
-        if constants.SLAVEARGS != "":
-          args = constants.SLAVEARGS.split(" ")
-
-        #if they have used the audio output selector
-        if constants.MANUALAUDIOOUTPUT:
-          args.append(constants.AUDIOOUTPUT)
-
-        args.append(constants.SERVERIP)
-        exe.extend(args)
-
-        Logger.log ("Attempting to start Squeezelave: " + str(exe))
-        try:
-          #need this to stop windows opening a console window
-          if constants.SYSTEM=="Windows":
-            slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
-          else:
-            slaveProcess = subprocess.Popen(exe, shell=False)
-        except Exception as inst:
-          Logger.log("Failed creating squeezeslave process", inst)
-          Logger.notify(constants.__language__(19610),constants.__language__(19611))
-          sys.exit()
-
-        pid = slaveProcess.pid
-        Logger.log("Process ID for Squeezeslave is "+ str(pid))
-        #little pause to give squeezeslave time to run & connect
-        time.sleep(5)
-
-      ##########################################################################
-      # SETUP DONE > ON WITH THE SHOW
-
-      #now let's make a window and see if we can send some commands...
-      #check what skin to use
-      if constants.SKIN == "Aeon Nox":
-        Logger.log("Skin set to Aeon Nox")
-        window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"AeonNox")
-      #default to Confluence
       else:
-        Logger.log("Skin set to Confluence")
-        window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
+        #disable the screensaver if the user has this on
+        if constants.DISABLESCREENSAVER:
+          Logger.log("Disabling screensaver")
+          screensaver = xbmc.executehttpapi( "GetGUISetting(3;screensaver.mode)" ).replace( "<li>", "" )
+          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,None)" )
 
-##      #add a dummy track to the playlist - thanks to Mizaki for the examples!!
-##      #need to convert any stupid windows \\ paths to / paths
-##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 1}'
-##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
-##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 2}'
-##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 3}'
-##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 4}'
-##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC  + '"}, "playlistid": 2 }, "id": 5}'
-##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-##      jsonstr = '{"jsonrpc": "2.0", "method": "Player.Repeat", "params": { "playerid": 0, "state": "one" }, "id": 6}'
-##      sendXBMCJSON("Set Playlist To Plalist", jsonstr)
-##
-##      jsonstr = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Playlist.Add", "type": "method" } }, "id": 7 }'
-##      sendXBMCJSON("Introspect", jsonstr)
+        #are we running the locally installed Squeezeslave?
+        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+          Logger.notify(constants.__language__(19608),constants.__language__(19609))
+          Logger.log("Starting local Squeezeslave, system is " + constants.SYSTEM)
 
-       #and kick this bad boy off....
-      window.doModal()
+          #builds the list ['/path/exefile','-arg1','-arg2',...]
+          exe = constants.EXE
+          args = []
 
-      ############################################################################
-      # FINISHED - CLEAN UP!
+          if constants.SLAVEARGS != "":
+            args = constants.SLAVEARGS.split(" ")
+
+          #if they have used the audio output selector
+          if constants.MANUALAUDIOOUTPUT:
+            args.append(constants.AUDIOOUTPUT)
+
+          args.append(constants.SERVERIP)
+          exe.extend(args)
+
+          Logger.log ("Attempting to start Squeezelave: " + str(exe))
+          try:
+            #need this to stop windows opening a console window
+            if constants.SYSTEM=="Windows":
+              slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
+            else:
+              slaveProcess = subprocess.Popen(exe, shell=False)
+          except Exception as inst:
+            Logger.log("Failed creating squeezeslave process", inst)
+            Logger.notify(constants.__language__(19610),constants.__language__(19611))
+            sys.exit()
+
+          pid = slaveProcess.pid
+          Logger.log("Process ID for Squeezeslave is "+ str(pid))
+          #little pause to give squeezeslave time to run & connect
+          time.sleep(5)
+
+        ##########################################################################
+        # SETUP DONE > ON WITH THE SHOW
+
+        #now let's make a window and see if we can send some commands...
+        #check what skin to use
+        if constants.SKIN == "Aeon Nox":
+          Logger.log("Skin set to Aeon Nox")
+          window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"AeonNox")
+        #default to Confluence
+        else:
+          Logger.log("Skin set to Confluence")
+          window = NowPlayingWindow("XSqueezeNowPlaying.xml",constants.__cwd__,"Default")
+
+  ##      #add a dummy track to the playlist - thanks to Mizaki for the examples!!
+  ##      #need to convert any stupid windows \\ paths to / paths
+  ##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 1}'
+  ##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
+  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 2}'
+  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 3}'
+  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 4}'
+  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC  + '"}, "playlistid": 2 }, "id": 5}'
+  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
+  ##      jsonstr = '{"jsonrpc": "2.0", "method": "Player.Repeat", "params": { "playerid": 0, "state": "one" }, "id": 6}'
+  ##      sendXBMCJSON("Set Playlist To Plalist", jsonstr)
+  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Playlist.Add", "type": "method" } }, "id": 7 }'
+  ##      sendXBMCJSON("Introspect", jsonstr)
+
+         #and kick this bad boy off....
+        window.doModal()
+
+        ############################################################################
+        # FINISHED - CLEAN UP!
 
 
-##        #re-enable the screensaver as it was
-##      if constants.DISABLESCREENSAVER:
-##        Logger.log("Re-enabling screensaver")
-##        xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
+        #re-enable the screensaver as it was
+        #this tends to cause hangs...
+        if constants.DISABLESCREENSAVER:
+          Logger.log("Re-enabling screensaver")
+          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
 
-##      #clear the playlist
-##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 100}'
-##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
+  ##      #clear the playlist
+  ##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 100}'
+  ##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
 
-      #are we running the locally installed Squeezeslave? KILL IT!
-      if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-        Logger.log("Killing Squeezeslave process...")
-        slaveProcess.terminate()
+        #are we running the locally installed Squeezeslave? KILL IT!
+        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+          Logger.log("Killing Squeezeslave process...")
+          slaveProcess.terminate()
 
-      # after the window is closed, Destroy it.
-      del window
+        # after the window is closed, Destroy it.
+        del window
 
-      #sys.modules.clear()
-      Logger.log( "### Exiting XSqueeze..." )
+        #sys.modules.clear()
+        Logger.log( "### Exiting XSqueeze..." )

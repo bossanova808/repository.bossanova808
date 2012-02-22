@@ -40,7 +40,7 @@
 	<string id="19912">Enter player MAC (See LMS Settings->Infomation)</string>
 	<string id="19913">Skin file to use</string>
 	<string id="19914">Disable screensaver while playing?</string>
-	<string id="19915">(NB - Can cause XSqueeze to hang on exit)</string>
+	<string id="19915">(NB - EXPERIMENTAL - Can cause XSqueeze to hang on exit)</string>
 
 </strings>
 
