@@ -8,7 +8,7 @@ I strongly suggest you double check all your XSqueeze addon settings, and make s
 
 If XSqueeze does not start succesfully, try it again as some old settings sometimes seem to be cached, and check your log file for error messages!
 
-If you need help, post on the forum thread AND INCLUDE YOUR LOG FILE!
+If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR LOG FILE![/B]
 
 
    
