@@ -1,0 +1,19 @@
+
+OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION.... 
+
+
+[B]XSqueeze addon settings have changed significantly![/B]
+
+I strongly suggest you double check all your XSqueeze addon settings, and make sure you click 'ok' at the bottom (and NOT exit/back!) once all the settings are as you want, so that your new settings are properly re-saved over the old ones.
+
+If XSqueeze does not start succesfully, try it again as some old settings sometimes seem to be cached, and check your log file for error messages!
+
+If you need help, post on the forum thread AND INCLUDE YOUR LOG FILE!
+
+
+   
+
+
+
+
+
