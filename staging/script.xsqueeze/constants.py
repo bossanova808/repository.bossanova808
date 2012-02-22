@@ -112,7 +112,13 @@ else:
   MANUALAUDIOOUTPUT = False
 
 #any extra squeezeslave arguments supplied for special needs?
-SLAVEARGS = __addon__.getSetting('slaveargs')
+SLAVEARGS = []
+SLAVEARGS.append("-m" + PLAYERMAC)
+tempargs = __addon__.getSetting('slaveargs').split(" ")
+if tempargs[0] != '':
+  SLAVEARGS.extend(tempargs)
+
+print SLAVEARGS
 
 #OTHER SETTINGS
 if __addon__.getSetting('disablescreensaver')=="true":

@@ -1,3 +1,6 @@
+V0.3
+-Bug fixes for player macs
+
 V0.2.9 (late Feb 2012)
 - Server and audio output discovery, localisation, clean up and bug fixes
 - New icon

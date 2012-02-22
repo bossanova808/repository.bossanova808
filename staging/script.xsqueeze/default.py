@@ -163,10 +163,8 @@ if ( __name__ == "__main__" ):
 
           #builds the list ['/path/exefile','-arg1','-arg2',...]
           exe = constants.EXE
-          args = []
 
-          if constants.SLAVEARGS != "":
-            args = constants.SLAVEARGS.split(" ")
+          args = constants.SLAVEARGS
 
           #if they have used the audio output selector
           if constants.MANUALAUDIOOUTPUT:
@@ -236,7 +234,10 @@ if ( __name__ == "__main__" ):
         #are we running the locally installed Squeezeslave? KILL IT!
         if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
           Logger.log("Killing Squeezeslave process...")
-          slaveProcess.terminate()
+          try:
+            slaveProcess.terminate()
+          except Exception as inst:
+            Logger.log("Error killing Squeezeslave", inst)
 
         # after the window is closed, Destroy it.
         del window
