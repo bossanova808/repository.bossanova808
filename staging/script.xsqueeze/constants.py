@@ -43,18 +43,20 @@ sys.path.append( CLASS_PATH )
 
 ################################################################################
 # first run stuff
-
-runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + __version__)
-if not xbmcvfs.exists(runtoken):
-  if not xbmcvfs.exists(ADDON_DATA_PATH):
-    xbmcvfs.mkdir(ADDON_DATA_PATH)
-  if not xbmcvfs.exists(RUNTOKEN_PATH):
-    xbmcvfs.mkdir(RUNTOKEN_PATH)
-  ISFIRSTRUN=True
-  token = open(runtoken, 'w')
-  token.close()
-else:
-  ISFIRSTRUN=False
+ISFIRSTRUN=True
+#set a runtoken only if we are running the __main__ not the server discovery etc.
+if len(sys.argv) == 1:
+  runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + __version__)
+  if not xbmcvfs.exists(runtoken):
+    if not xbmcvfs.exists(ADDON_DATA_PATH):
+      xbmcvfs.mkdir(ADDON_DATA_PATH)
+    if not xbmcvfs.exists(RUNTOKEN_PATH):
+      xbmcvfs.mkdir(RUNTOKEN_PATH)
+    ISFIRSTRUN=True
+    token = open(runtoken, 'w')
+    token.close()
+  else:
+    ISFIRSTRUN=False
 
 
 ################################################################################
@@ -118,7 +120,6 @@ tempargs = __addon__.getSetting('slaveargs').split(" ")
 if tempargs[0] != '':
   SLAVEARGS.extend(tempargs)
 
-print SLAVEARGS
 
 #OTHER SETTINGS
 if __addon__.getSetting('disablescreensaver')=="true":
@@ -162,17 +163,16 @@ else:
   else:
     EXE = [BINLIN32]
 
-#first run of each version, chmod +X the exe file...
+#chmod +X the exe file...
 if SYSTEM=="Darwin" or SYSTEM=="Linux":
-  if ISFIRSTRUN:
-    try:
-      #attempt to make the binary executable - this never works really...
-      #it's really about triggering the messages in the except clause below...
-      os.system("chmod a+x " + EXE[0])
-      xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - success")
-    except:
-      xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - failure - user - you must do this manually!!")
-
+  try:
+    #attempt to make the binary executable - this never works really...
+    #it's really about triggering the messages in the except clause below...
+    os.system("chmod a+x " + EXE[0])
+    xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - success")
+  except:
+    xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
+    #Logger.notify("Failed to chmod +x the binaries" "Please do so manually - most likely a user permissions error", 10000)
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls

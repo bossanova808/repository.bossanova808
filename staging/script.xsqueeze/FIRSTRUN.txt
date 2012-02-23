@@ -2,18 +2,17 @@
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION.... 
 
 
-[B]XSqueeze addon settings have changed significantly![/B]
+[B]XSqueeze addon settings have changed significantly with V0.3![/B]
 
 I strongly suggest you double check all your XSqueeze addon settings, and make sure you click 'ok' at the bottom (and NOT exit/back!) once all the settings are as you want, so that your new settings are properly re-saved over the old ones.
 
 If XSqueeze does not start succesfully, try it again as some old settings sometimes seem to be cached, and check your log file for error messages!
 
-If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR LOG FILE![/B]
+If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC LOG FILE![/B]
 
 
    
-
-
+[B] Now you can re-run XSqueeze - you won't get this message again[/B]
 
 
 

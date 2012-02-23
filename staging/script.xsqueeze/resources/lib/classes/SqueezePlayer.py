@@ -69,7 +69,27 @@ class SqueezePlayer:
       lines[2] = "."
     if lines[3] == "":
       lines[3] = "."
-    return self.unquote(lines[2]), self.unquote(lines[3])
+    cleanedLines=[]
+    cleanedLines.append(self.unquote(lines[2]))
+    cleanedLines.append(self.unquote(lines[3]))
+
+    #print(cleanedLines)
+
+    newLines=[]
+    for line in cleanedLines:
+      line = line.replace(u'solidblock', '*')
+      line = line.replace(u'leftprogress4', u'*')
+      line = line.replace(u'leftprogress2', u'*')
+      line = line.replace(u'leftprogress0', u'(Mute)')
+      line = line.replace(u'rightprogress0', u' ')
+      line = line.replace(u'rightprogress4', u'(Max)')
+      line = line.replace(u'middleprogress0', u' ')
+      line = line.replace(u'\x1f',"")
+      newLines.append(line)
+
+    #print(newLines)
+
+    return newLines[0], newLines[1]
 
   ##############################################################################
   #check if song changed and update local reference if so
@@ -98,9 +118,17 @@ class SqueezePlayer:
       upcomer = index
       end = index + 4
 
+      #currently uses the track_id in the url - works well
+      #supposed to use the cover_id number but this doesn't work so well...
       for count in range(upcomer,end):
         try:
+          #print self.playlist[count]
           currentID = self.playlist[count]['id']
+          #print "id " + str(currentID)
+          #songinfo = self.getSongInfo(currentID)
+          #print "songinfo" + str(songinfo)
+          #currentCID = str(songinfo[0]['coverid'])
+          #print "cid: " + currentCID
           coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
           #Logger.log (" Appending future cover: " + str(count) + " from " + coverURL)
           coverURLs.append(coverURL)
@@ -109,6 +137,64 @@ class SqueezePlayer:
           coverURLs.append("")
 
       return coverURLs
+
+  ##############################################################################
+  #functions to map buttons to squeezebox actions
+  #called in ActionHandler...
+
+
+  ##############################################################################
+  # Gets more info about a particular song
+
+  def getSongInfo(self, id):
+    encoded = self.sb.requestRaw("songinfo 0 100 track_id:" + str(id), True)
+
+    encoded = encoded[57:]
+    #print(encoded)
+    list = encoded.split(" ")
+    #print list
+
+    decodedList = []
+    for item in list:
+      cleanItem = self.unquote(item)
+      decodedList.append(cleanItem)
+
+    #print decodedList
+
+    songinfo = []
+    item = {}
+    for info in decodedList:
+        info = info.split(':')
+        key = info.pop(0)
+        if key:
+            item[key] = ':'.join(info)
+
+    # 9 id:39 title:I'm Not The Man artist:10000 Maniacs coverid:94339a48 duration:226.36 album_id:4 filesize:22796274 genre:Pop coverart:1 artwork_track_id:94339a48
+    # album:MTV Unplugged modificationTime:Thursday, November 27, 2008, 5:24 PM type:flc genre_id:4 bitrate:805kbps VBR artist_id:11 tracknum:4 year:1993 compilation:0
+    # addedTime:Thursday, December 8, 2011, 11:15 PM channels:2 samplesize:16 samplerate:44100 lastUpdated:Thursday, December 8, 2011, 11:15 PM album_replay_gain:-6.46 replay_gain:-3.46
+
+    #convert all the data to the right types
+    #item['position'] = int(item['position'])
+    item['id'] = int(item['id'])
+    item['duration'] = float(item['duration'])
+    item['album_id'] = int(item['album_id'])
+    item['filesize'] = int(item['filesize'])
+    item['coverart'] = int(item['coverart'])
+    item['genre_id'] = int(item['genre_id'])
+    item['artist_id'] = int(item['artist_id'])
+    item['tracknum'] = int(item['tracknum'])
+    item['year'] = int(item['year'])
+    item['compilation'] = int(item['compilation'])
+    item['channels'] = int(item['channels'])
+    item['samplesize'] = int(item['samplesize'])
+    item['samplerate'] = int(item['samplerate'])
+    item['album_replay_gain'] = float(item['album_replay_gain'])
+    item['replay_gain'] = float(item['replay_gain'])
+
+    songinfo.append(item)
+    #print "songinfo is now " + str(songinfo)
+    return songinfo
+
 
   ##############################################################################
   #functions to map buttons to squeezebox actions
@@ -153,6 +239,8 @@ class SqueezePlayer:
       title= ""
       artist = ""
       album = ""
+
+    #print repr(artist)
 
     return title, artist, album
 

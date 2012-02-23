@@ -1,6 +1,7 @@
 import xbmc
 import os
 import constants
+from traceback import print_exc
 
 ################################################################################
 # Log a message to the XBMC Log, and an exception if supplied
@@ -9,7 +10,8 @@ def log(message, inst=None):
     if inst is None:
       xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": " + str(message))
     else:
-      xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": Exception: " + str(message) + "[" + str(inst) +"]")
+      xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": Exception!")
+      print_exc(inst)
 
 
 ################################################################################

@@ -132,7 +132,7 @@
           <description>Current Track Name Label</description>
           <posx>20</posx>
           <posy>50</posy>
-          <width>1280</width>
+          <width>800</width>
           <visible>true</visible>
           <align>left</align>
           <aligny>center</aligny>
@@ -145,7 +145,7 @@
           <description>Current Artist Label</description>
           <posx>20</posx>
           <posy>80</posy>
-          <width>1280</width>
+          <width>800</width>
           <visible>true</visible>
           <align>left</align>
           <aligny>center</aligny>
@@ -158,7 +158,7 @@
           <description>Current Album Label</description>
           <posx>20</posx>
           <posy>110</posy>
-          <width>1280</width>
+          <width>800</width>
           <visible>true</visible>
           <align>left</align>
           <aligny>center</aligny>
