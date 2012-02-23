@@ -20,7 +20,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.3"
+       version="0.3.1"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
@@ -39,7 +39,7 @@
 
 <addon
   id="skin.confluence.bossanova808"
-  version="0.2"
+  version="0.2.1"
   name="Confluence Bossanova808 Mod (based on  C 2.1.0)"
   provider-name="Jezz_X, Team XBMC, bossanova808">
   <requires>

@@ -1,3 +1,9 @@
+V0.3.1
+- First run detection now doesn't count autodetect runs 
+- Confluence skin file, shortened labels so they shouldn't go off edge
+- I tnow attempts to chmod the binaries every run for good measure and so there's always a note in the log file if that is an issue
+- prep work for lots of song info available to skin (not yett exposed)
+
 V0.3
 -Bug fixes for player macs
 
