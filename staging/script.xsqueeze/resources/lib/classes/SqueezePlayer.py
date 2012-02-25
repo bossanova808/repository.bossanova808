@@ -270,7 +270,8 @@ class SqueezePlayer:
     returnText = ""
     if trackNum < len(self.playlist):
       songTitle = self.playlist[trackNum]['title']
-      songIndex = str(self.playlist[trackNum]['position'])
+      #position appears to count from 0?
+      songIndex = str((self.playlist[trackNum]['position'])+1)
       songArtist = self.playlist[trackNum]['artist']
       songAlbum = self.playlist[trackNum]['album']
       returnText = songIndex + ". " + songTitle + " (by " + songArtist + ", from " + songAlbum +")"
