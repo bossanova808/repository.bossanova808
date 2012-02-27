@@ -46,6 +46,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   #starts the GUI update thread...
   def onInit( self ):
 
+    Logger.log("On Init, window id is "+ str(xbmcgui.getCurrentWindowId()))
+
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("WINDOWID", str(xbmcgui.Window(xbmcgui.getCurrentWindowId())))
+
     #Set some basic properties
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("PLAYERMAC", constants.PLAYERMAC)
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("SERVER", constants.SERVERNAME)

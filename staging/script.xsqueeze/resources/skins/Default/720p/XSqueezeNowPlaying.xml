@@ -3,11 +3,34 @@
 <!--  - Player: $INFO[Window.Property(PLAYER)] Server: $INFO[Window.Property(SERVER)] -->
 
 <window>
-
+	<defaultcontrol>999</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <controls>
 
+		<control type="button" id="999">
+    	<posx>-10</posx>
+    	<posy>-10</posy>
+    	<width>1</width>
+    	<height>1</height>
+    	<onfocus>RunScript(script.artistslideshow,artist=$INFO[Window.Property(UNIARTIST)],windowid=$INFO[Window.Property(WINDOWID)])</onfocus>
+    </control>
+    <control type="multiimage">
+    	<posx>0</posx>
+    	<posy>0</posy>
+    	<width>1280</width>
+    	<height>720</height>
+      <imagepath fallback="DefaultFanart.jpg" background="true">$INFO[Window.Property(ArtistSlideshow)]</imagepath>
+    	<aspectratio>keep</aspectratio>
+    	<timeperimage>5000</timeperimage>
+    	<fadetime>2000</fadetime>
+    	<randomize>true</randomize>
+    	<animation effect="fade" start="0" end="100" time="300">Visible</animation>
+    	<animation effect="fade" start="100" end="0" time="300">Hidden</animation>
+    </control>
+
+
     <!-- BACKGROUND -->
+    <!--
     <control type="image">
       <posx>0</posx>
       <posy>0</posy>
@@ -15,6 +38,7 @@
       <height>720</height>
       <texture>music.jpg</texture>
     </control>
+    -->
 
     <!-- ANIMATIONS -->
     <control type="image">
