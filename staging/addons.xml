@@ -20,7 +20,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.3.1"
+       version="0.3.2"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
@@ -60,7 +60,7 @@
   </extension>
 </addon>
 
-<addon id="weather.ozweather" name="Oz Weather" version="0.3.5" provider-name="Bossanova808">
+<addon id="weather.ozweather" name="Oz Weather" version="0.3.6" provider-name="Bossanova808">
 	<requires>
 		<import addon="xbmc.python" version="2.0"/>
     <import addon="script.module.parsedom" version="0.9.1"/>

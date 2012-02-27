@@ -520,6 +520,7 @@ if sys.argv[1].startswith('Location'):
     if (keyboard.isConfirmed() and keyboard.getText() != ''):
         text = keyboard.getText()
 
+        log("Doing locations search for " + text)
         #need to submit the postcode to the weatherzone search
         searchURL = 'http://weatherzone.com.au/search/'
         user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
@@ -532,15 +533,18 @@ if sys.argv[1].startswith('Location'):
         resultPage = str(response.read())
         #was there only one match?  If so it returns the page for that match so we need to check the URL
         responseurl = response.geturl()
-        if responseurl != 'http://weatherzone.com.au/search/':
+        log("Response page url: " + responseurl)
+        if not responseurl.endswith('weatherzone.com.au/search/'):
             #we were redirected to an actual result page
             locationName = common.parseDOM(resultPage, "h1", attrs = { "class": "unenclosed" })
             locationName = str.split(locationName[0], ' Weather')
             locations = [locationName[0] + ', ' + text]
             locationids = [responseurl]
-        else:        
+            log("Single result " + str(locations) + " URL " + str(locationids))
+        else:  
             #we got back a page to choose a more specific location
-            skimmed = common.parseDOM(resultPage, "ul", attrs = { "class": "typ2" })
+            middle = common.parseDOM(resultPage, "div", attrs = { "id": "structure_middle" })
+            skimmed = common.parseDOM(middle, "ul", attrs = { "class": "typ2" })
             #ok now get two lists - one of the friendly names
             #and a matchin one of the URLs to store
             locations = common.parseDOM(skimmed[0], "a")
@@ -550,9 +554,12 @@ if sys.argv[1].startswith('Location'):
             for count, loc in enumerate(templocs):
                 locationids.append(WeatherZoneURL + loc)
             #if we did not get enough data back there are no locations with this postcode 
-            if len(skimmed)<=1:
+            if len(locations)<=1:
+                log("No locations found with this postcode")
                 locations = []
                 locationids = []
+            log("Multiple result " + str(locations) + " URLs " + str(locationids))      
+
       
         #now get them to choose an actual location
         dialog = xbmcgui.Dialog()
