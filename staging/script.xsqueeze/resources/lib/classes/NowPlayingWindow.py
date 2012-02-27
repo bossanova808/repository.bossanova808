@@ -48,7 +48,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     Logger.log("On Init, window id is "+ str(xbmcgui.getCurrentWindowId()))
 
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("WINDOWID", str(xbmcgui.Window(xbmcgui.getCurrentWindowId())))
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("WINDOWID", str(xbmcgui.getCurrentWindowId()))
 
     #Set some basic properties
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("PLAYERMAC", constants.PLAYERMAC)
@@ -150,8 +150,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   # update all the current playing track stuff into the window properties
   def updateCurrentTrack(self):
     title, artist, album = self.player.getCurrentTrack()
+    uniartist = artist
+    urllib.quote(uniartist.encode('utf8'))
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTTITLE", title)
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTARTIST", artist)
+    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UNIARTIST", uniartist)
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTALBUM", album)
 
   ##############################################################################
