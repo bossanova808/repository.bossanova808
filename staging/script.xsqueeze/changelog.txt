@@ -1,3 +1,7 @@
+V0.3.2
+- Unicode support
+- Fixed volume display
+
 V0.3.1
 - First run detection now doesn't count autodetect runs 
 - Confluence skin file, shortened labels so they shouldn't go off edge

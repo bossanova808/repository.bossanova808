@@ -1,8 +1,12 @@
 
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION.... 
 
+What's new in this version:
+- Unicode support (as long as your skin supports it too!)- super big thanks to giftie for help with this
+- Fixed the SB volume bar display if your're using local playback volume
 
-[B]XSqueeze addon settings have changed significantly with V0.3![/B]
+
+[B]NOTE: XSqueeze addon settings have changed significantly with V0.3![/B]
 
 I strongly suggest you double check all your XSqueeze addon settings, and make sure you click 'ok' at the bottom (and NOT exit/back!) once all the settings are as you want, so that your new settings are properly re-saved over the old ones.
 

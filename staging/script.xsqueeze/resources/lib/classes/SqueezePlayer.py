@@ -57,8 +57,23 @@ class SqueezePlayer:
           import urllib.parse
           return urllib.parse.unquote(text, encoding=self.charset)
       except ImportError:
-          import urllib
-          return urllib.unquote(text)
+          #import urllib
+          #return urllib.unquote(text)
+          _hexdig = '0123456789ABCDEFabcdef'
+          _hextochr = dict((a+b, chr(int(a+b,16))) for a in _hexdig for b in _hexdig)
+          if isinstance(text, unicode):
+              text = text.encode('utf-8')
+          res = text.split('%')
+          for i in xrange(1, len(res)):
+              item = res[i]
+              try:
+                  res[i] = _hextochr[item[:2]] + item[2:]
+              except KeyError:
+                  res[i] = '%' + item
+              except UnicodeDecodeError:
+                  res[i] = unichr(int(item[:2], 16)) + item[2:]
+          return "".join(res)
+
 
   ##############################################################################
   #get the current squeezebox two line display text and return it
@@ -77,14 +92,14 @@ class SqueezePlayer:
 
     newLines=[]
     for line in cleanedLines:
-      line = line.replace(u'solidblock', '*')
-      line = line.replace(u'leftprogress4', u'*')
-      line = line.replace(u'leftprogress2', u'*')
-      line = line.replace(u'leftprogress0', u'(Mute)')
-      line = line.replace(u'rightprogress0', u' ')
-      line = line.replace(u'rightprogress4', u'(Max)')
-      line = line.replace(u'middleprogress0', u' ')
-      line = line.replace(u'\x1f',"")
+      line = line.replace('solidblock', '*')
+      line = line.replace('leftprogress4', '*')
+      line = line.replace('leftprogress2', '*')
+      line = line.replace('leftprogress0', '(Mute)')
+      line = line.replace('rightprogress0', ' ')
+      line = line.replace('rightprogress4', '(Max)')
+      line = line.replace('middleprogress0', ' ')
+      line = line.replace('\x1f',"")
       newLines.append(line)
 
     #print(newLines)
@@ -270,7 +285,7 @@ class SqueezePlayer:
     returnText = ""
     if trackNum < len(self.playlist):
       songTitle = self.playlist[trackNum]['title']
-      songIndex = str(self.playlist[trackNum]['position'])
+      songIndex = str(self.playlist[trackNum]['position']+1)
       songArtist = self.playlist[trackNum]['artist']
       songAlbum = self.playlist[trackNum]['album']
       returnText = songIndex + ". " + songTitle + " (by " + songArtist + ", from " + songAlbum +")"

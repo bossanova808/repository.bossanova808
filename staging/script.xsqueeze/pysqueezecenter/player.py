@@ -616,5 +616,19 @@ class Player(object):
             import urllib.parse
             return urllib.parse.unquote(text, encoding=self.charset)
         except ImportError:
-            import urllib
-            return urllib.unquote(text)
+            #import urllib
+            #return urllib.unquote(text)
+            _hexdig = '0123456789ABCDEFabcdef'
+            _hextochr = dict((a+b, chr(int(a+b,16))) for a in _hexdig for b in _hexdig)
+            if isinstance(text, unicode):
+                text = text.encode('utf-8')
+            res = text.split('%')
+            for i in xrange(1, len(res)):
+                item = res[i]
+                try:
+                    res[i] = _hextochr[item[:2]] + item[2:]
+                except KeyError:
+                    res[i] = '%' + item
+                except UnicodeDecodeError:
+                    res[i] = unichr(int(item[:2], 16)) + item[2:]
+            return "".join(res)
