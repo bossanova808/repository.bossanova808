@@ -12,7 +12,7 @@
     	<posy>-10</posy>
     	<width>1</width>
     	<height>1</height>
-    	<onfocus>RunScript(script.artistslideshow,artist=$INFO[Window.Property(UNIARTIST)],windowid=$INFO[Window.Property(WINDOWID)])</onfocus>
+    	<onfocus>RunScript(script.artistslideshow,artist=$INFO[Window.Property(UNIARTIST)]&windowid=$INFO[Window.Property(WINDOWID)])</onfocus>
     </control>
 
 
