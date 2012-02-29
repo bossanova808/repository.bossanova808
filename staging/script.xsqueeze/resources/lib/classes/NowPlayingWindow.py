@@ -37,6 +37,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #URLs for cover art are stored here so we can detect changes
     self.coverURLs = [""]
+    #and playlist details too
+    self.playlistDetails = [""]
     #a thread lock to use so that each SB related action is finished before the
     #next one is sent - without this you get race conditions!
     self.lock = threading.Lock()
@@ -111,38 +113,41 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def update(self):
     while self.running:
       with self.lock:
-        #Logger.log("Update cycle...start")
-        #always update the line display even if song hasn't changed
         self.updateLineDisplay()
-        #Logger.log("Update cycle...1")
-        #self.updateCoverArt(force)
-        if self.player.songChanged():
-          self.updateCoverArtFromURLs()
-          #Logger.log("Update cycle...2")
-          self.updateCurrentTrack()
-          #Logger.log("Update cycle...3")
-          if not self.player.getMode()=="stop":
-            self.updateTrackProgress()
-          #Logger.log("Update cycle...4")
-          self.updateUpcomingTracks()
-          #Logger.log("Update cycle...5")
-          self.updatePlaylistDetails()
+        if not self.player.getMode()=="stop": self.updateTrackProgress()
+        self.updatePlaylistDetails()
+        self.updateCoverArtFromURLs()
+
+##          #Logger.log("Update cycle...2")
+##          #self.updateCurrentTrack()
+##          #Logger.log("Update cycle...3")
+##          #Logger.log("Update cycle...4")
+##          #self.updateUpcomingTracks()
+##          #Logger.log("Update cycle...5")
 
   ##############################################################################
   # get the cover URLS and pass them into window properties
 
   def updateCoverArtFromURLs(self):
-    newCoverURLs = self.player.getCoverArtURLs()
+    #grab the current URLs from the player
+    newCoverURLs = self.player.coverURLs
+
     #check if the URLs have changed...if so update the cover art
     if newCoverURLs[0] != self.coverURLs[0]:
-      self.getControl( constants.MAINCOVERART  ).setImage( newCoverURLs[0]  )
-      self.getControl( constants.UPCOMING1COVERART  ).setImage( newCoverURLs[1]  )
-      self.getControl( constants.UPCOMING2COVERART  ).setImage( newCoverURLs[2]  )
-      self.getControl( constants.UPCOMING3COVERART  ).setImage( newCoverURLs[3]  )
       self.coverURLs = newCoverURLs
+
+    try:
+     #set the images
+      self.getControl( constants.MAINCOVERART  ).setImage( self.coverURLs[0]  )
+      self.getControl( constants.UPCOMING1COVERART  ).setImage( self.coverURLs[1]  )
+      self.getControl( constants.UPCOMING2COVERART  ).setImage( self.coverURLs[2]  )
+      self.getControl( constants.UPCOMING3COVERART  ).setImage( self.coverURLs[3]  )
+    except IndexError:
+      pass
 
   ##############################################################################
   # updates the 2 line squeeze display text to the window properties
+
   def updateLineDisplay(self):
     newLine1, newLine2 = self.player.getDisplay()
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("DISPLAYLINE1", newLine1)
@@ -151,45 +156,49 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   ##############################################################################
   # update all the current playing track stuff into the window properties
+
   def updatePlaylistDetails(self):
-    playlistDetails = self.player.getPlaylistDetails()
-    for trackOffset in range(0,len(playlistDetails)):
+    newPlaylistDetails = self.player.playlistDetails
+    if newPlaylistDetails[0] != self.playlistDetails[0]:
+      self.playlistDetails = newPlaylistDetails
+
+    for trackOffset in range(0,len(self.playlistDetails)):
       #print("Settings window INFOs with " + str(playlistDetails[trackOffset]))
-      stub = "XS_TRACK_" + str(trackOffset) + "_"
+      stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
 
       #each element in this list looks like:
       #songinfo[{'album_id': 10, 'channels': 2, 'samplesize': 16, 'year': 2004, 'duration': 276.72000000000003, 'samplerate': 44100, 'id': 122, 'album': 'Gold - Greatest Hits', 'title': 'Lay All Your Love on Me', 'tracknum': 5, 'filesize': 34201960, 'artist_id': 17, 'type': 'flc', 'coverart': 1, 'compilation': 0, 'artwork_track_id': 'ed1047ba', 'lastUpdated': 'Thursday, December 8, 2011, 11:15 PM', 'modificationTime': 'Saturday, October 27, 2007, 5:14 PM', 'album_replay_gain': -7.7699999999999996, 'coverid': 'ed1047ba', 'genre': 'Pop', 'bitrate': '988kbps VBR', 'artist': 'Abba', 'addedTime': 'Thursday, December 8, 2011, 11:15 PM', 'replay_gain': -6.5199999999999996, 'genre_id': 4}]
       try:
-        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TITLE", playlistDetails[trackOffset]['title'])
-        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ARTIST", playlistDetails[trackOffset]['artist'])
-        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ALBUM", playlistDetails[trackOffset]['album'])
-        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKNUM", str(playlistDetails[trackOffset]['tracknum']))
-        duration = self.GetInHMS(int(playlistDetails[trackOffset]['duration']))
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TITLE", self.playlistDetails[trackOffset]['title'])
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ARTIST", self.playlistDetails[trackOffset]['artist'])
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ALBUM", self.playlistDetails[trackOffset]['album'])
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKNUM", str(self.playlistDetails[trackOffset]['tracknum']))
+        duration = self.GetInHMS(int(self.playlistDetails[trackOffset]['duration']))
         xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKLENGTH", duration)
-        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "YEAR", str(playlistDetails[trackOffset]['year']))
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "YEAR", str(self.playlistDetails[trackOffset]['year']))
       except IndexError:
         Logger.log("Index error in ")
       except Exception as inst:
         Logger.log("General exception: ", inst)
 
-  ##############################################################################
-  # update all the current playing track stuff into the window properties
-  def updateCurrentTrack(self):
-    title, artist, album = self.player.getCurrentTrack()
-    uniartist = artist
-    urllib.quote(uniartist.encode('utf8'))
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTTITLE", title)
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTARTIST", artist)
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UNIARTIST", uniartist)
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTALBUM", album)
+##  ##############################################################################
+##  # update all the current playing track stuff into the window properties
+##  def updateCurrentTrack(self):
+##    title, artist, album = self.player.getCurrentTrack()
+##    uniartist = artist
+##    urllib.quote(uniartist.encode('utf8'))
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTTITLE", title)
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTARTIST", artist)
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UNIARTIST", uniartist)
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("CURRENTALBUM", album)
 
-  ##############################################################################
-  # update the coming track list to the window properties
-  def updateUpcomingTracks(self):
-    upcoming1, upcoming2, upcoming3 = self.player.getPlaylist()
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING1", upcoming1)
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING2", upcoming2)
-    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING3", upcoming3)
+##  ##############################################################################
+##  # update the coming track list to the window properties
+##  def updateUpcomingTracks(self):
+##    upcoming1, upcoming2, upcoming3 = self.player.getPlaylist()
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING1", upcoming1)
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING2", upcoming2)
+##    xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("UPCOMING3", upcoming3)
 
   ##############################################################################
   # updates the track progress dialog

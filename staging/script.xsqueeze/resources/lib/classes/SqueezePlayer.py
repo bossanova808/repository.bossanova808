@@ -47,8 +47,12 @@ class SqueezePlayer:
       sys.exit()
 
     #initialise
-    self.currentTrack = ""
-    self.getPlaylist()
+    self.currentTrack = None
+    self.coverURLs = None
+    self.playlistDetails = None
+    self.updatePlaylistDetails()
+    self.updateCoverArtURLs()
+
 
   ##############################################################################
   #unquote text coming back from LMS
@@ -77,6 +81,7 @@ class SqueezePlayer:
 
   ##############################################################################
   #get the current squeezebox two line display text and return it
+
   def getDisplay(self):
     displayText = self.sb.requestRaw("display ? ?", True)
     lines = displayText.split(" ")
@@ -114,10 +119,12 @@ class SqueezePlayer:
   def songChanged(self):
     oldSong = self.currentTrack
     newSong = self.sb.get_track_title()
-    Logger.log("newSong [" + newSong +"] old song [" + oldSong + "]")
+    #Logger.log("New Song [" + newSong +"], Old song [" + oldSong + "]")
     if newSong != oldSong:
-      Logger.log(" Song change to: " + newSong)
+      Logger.log("### Song change to: " + newSong)
       self.currentTrack = newSong
+      self.updatePlaylistDetails()
+      self.updateCoverArtURLs()
       return True;
     else:
       return False
@@ -125,7 +132,7 @@ class SqueezePlayer:
   ##############################################################################
   # returns the URLs for the current and next three track cover art images
 
-  def getCoverArtURLs(self):
+  def updateCoverArtURLs(self):
 
       coverURLs = []
 
@@ -138,21 +145,22 @@ class SqueezePlayer:
       #supposed to use the cover_id number but this doesn't work so well...
       for count in range(upcomer,end):
         try:
-          #print self.playlist[count]
+          print self.playlist[count]
           currentID = self.playlist[count]['id']
-          #print "id " + str(currentID)
-          #songinfo = self.getSongInfo(currentID)
-          #print "songinfo" + str(songinfo)
-          #currentCID = str(songinfo[0]['coverid'])
-          #print "cid: " + currentCID
+          print "id " + str(currentID)
           coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
-          #Logger.log (" Appending future cover: " + str(count) + " from " + coverURL)
+          Logger.log (" Appending future cover: " + str(count) + " from " + coverURL)
           coverURLs.append(coverURL)
         except Exception as inst:
-          #Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
+          Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
           coverURLs.append("")
 
-      return coverURLs
+      self.coverURLs = coverURLs
+
+
+##  def getCoverArtURLs(self):
+##    return self.coverURLs
+
 
   ##############################################################################
   #functions to map buttons to squeezebox actions
@@ -227,11 +235,16 @@ class SqueezePlayer:
 
   def button(self, text):
     self.sb.ir_button(text)
+    #song may have changed, trigger an update test
+    self.songChanged()
 
   ##############################################################################
   # returns all the details of up to 10 tracks...
 
-  def getPlaylistDetails(self):
+##  def getPlaylistDetails(self):
+##    return self.playlistDetails
+
+  def updatePlaylistDetails(self):
     self.playlist = self.sb.playlist_get_info()
     currentIndex = int(self.sb.request("playlist index ?"))
     Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
@@ -245,7 +258,7 @@ class SqueezePlayer:
         playlistDetails.append(self.getSongInfo(trackID))
 
     #the caller should check the length of the playlist and process all entries...
-    return playlistDetails
+    self.playlistDetails = playlistDetails
 
   ##############################################################################
   # returns the consolidated details of the next three tracks after the current
@@ -260,33 +273,33 @@ class SqueezePlayer:
     upcoming3 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+3)
     return upcoming1, upcoming2, upcoming3
 
-  ##############################################################################
-  # retruns the details of the current track (title, artist, album)
-  # or "" if not avialble
-
-  def getCurrentTrack(self):
-    currentIndex = int(self.sb.request("playlist index ?"))
-    try:
-      if 'title' in self.playlist[currentIndex]:
-        title = self.playlist[currentIndex]['title']
-      else:
-        title = ""
-      if 'artist' in self.playlist[currentIndex]:
-        artist = self.playlist[currentIndex]['artist']
-      else:
-          artist = ""
-      if 'album' in self.playlist[currentIndex]:
-        album = self.playlist[currentIndex]['album']
-      else:
-        album = ""
-    except IndexError:
-      title= ""
-      artist = ""
-      album = ""
-
-    #print repr(artist)
-
-    return title, artist, album
+##  ##############################################################################
+##  # retruns the details of the current track (title, artist, album)
+##  # or "" if not avialble
+##
+##  def getCurrentTrack(self):
+##    currentIndex = int(self.sb.request("playlist index ?"))
+##    try:
+##      if 'title' in self.playlist[currentIndex]:
+##        title = self.playlist[currentIndex]['title']
+##      else:
+##        title = ""
+##      if 'artist' in self.playlist[currentIndex]:
+##        artist = self.playlist[currentIndex]['artist']
+##      else:
+##          artist = ""
+##      if 'album' in self.playlist[currentIndex]:
+##        album = self.playlist[currentIndex]['album']
+##      else:
+##        album = ""
+##    except IndexError:
+##      title= ""
+##      artist = ""
+##      album = ""
+##
+##    #print repr(artist)
+##
+##    return title, artist, album
 
   ##############################################################################
   # returns current track length if available (check for 0 etc. at other end)
