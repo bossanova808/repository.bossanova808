@@ -163,7 +163,7 @@
           <align>left</align>
           <aligny>center</aligny>
           <scroll>true</scroll>
-          <label>$INFO[Window.Property(CURRENTTITLE)]</label>
+          <label>$INFO[Window.Property(XS_TRACK_0_TRACKNUM)]. $INFO[Window.Property(XS_TRACK_0_TITLE)]</label>
           <font>font24_title</font>
           <textcolor>orange</textcolor>
         </control>
@@ -176,7 +176,7 @@
           <align>left</align>
           <aligny>center</aligny>
           <scroll>true</scroll>
-          <label>$INFO[Window.Property(CURRENTARTIST)]</label>
+          <label>$INFO[Window.Property(XS_TRACK_0_ARTIST)]</label>
           <font>font16</font>
           <textcolor>FF9999FF</textcolor>
         </control>
@@ -189,7 +189,7 @@
           <align>left</align>
           <aligny>center</aligny>
           <scroll>true</scroll>
-          <label>$INFO[Window.Property(CURRENTALBUM)]</label>
+          <label>$INFO[Window.Property(XS_TRACK_0_ALBUM)] ($INFO[Window.Property(XS_TRACK_0_YEAR)])</label>
           <font>font16</font>
           <textcolor>FF9999FF</textcolor>
         </control>
