@@ -47,7 +47,7 @@ class SqueezePlayer:
       sys.exit()
 
     #initialise
-    self.currentTrack = self.sb.get_track_title()
+    self.currentTrack = ""
     self.getPlaylist()
 
   ##############################################################################
@@ -90,6 +90,7 @@ class SqueezePlayer:
 
     #print(cleanedLines)
 
+    #clean out the wierd characters used to represent volume...
     newLines=[]
     for line in cleanedLines:
       line = line.replace('solidblock', '*')
@@ -113,7 +114,7 @@ class SqueezePlayer:
   def songChanged(self):
     oldSong = self.currentTrack
     newSong = self.sb.get_track_title()
-    #Logger.log("newSong [" + newSong +"] old song [" + oldSong + "]")
+    Logger.log("newSong [" + newSong +"] old song [" + oldSong + "]")
     if newSong != oldSong:
       Logger.log(" Song change to: " + newSong)
       self.currentTrack = newSong
@@ -164,19 +165,21 @@ class SqueezePlayer:
   def getSongInfo(self, id):
     encoded = self.sb.requestRaw("songinfo 0 100 track_id:" + str(id), True)
 
-    encoded = encoded[57:]
-    #print(encoded)
+    #find the index of id: - track_id%3A
+    start = encoded.find('track_id%3A')
+    encoded = encoded[start:]
+
+    #print(str(id) + " Encoded: " +str(encoded))
     list = encoded.split(" ")
-    #print list
+    #print("list: " + str(list))
 
     decodedList = []
     for item in list:
       cleanItem = self.unquote(item)
       decodedList.append(cleanItem)
 
-    #print decodedList
+    #print("DecodedList: " +str(decodedList))
 
-    songinfo = []
     item = {}
     for info in decodedList:
         info = info.split(':')
@@ -188,27 +191,34 @@ class SqueezePlayer:
     # album:MTV Unplugged modificationTime:Thursday, November 27, 2008, 5:24 PM type:flc genre_id:4 bitrate:805kbps VBR artist_id:11 tracknum:4 year:1993 compilation:0
     # addedTime:Thursday, December 8, 2011, 11:15 PM channels:2 samplesize:16 samplerate:44100 lastUpdated:Thursday, December 8, 2011, 11:15 PM album_replay_gain:-6.46 replay_gain:-3.46
 
-    #convert all the data to the right types
-    #item['position'] = int(item['position'])
-    item['id'] = int(item['id'])
-    item['duration'] = float(item['duration'])
-    item['album_id'] = int(item['album_id'])
-    item['filesize'] = int(item['filesize'])
-    item['coverart'] = int(item['coverart'])
-    item['genre_id'] = int(item['genre_id'])
-    item['artist_id'] = int(item['artist_id'])
-    item['tracknum'] = int(item['tracknum'])
-    item['year'] = int(item['year'])
-    item['compilation'] = int(item['compilation'])
-    item['channels'] = int(item['channels'])
-    item['samplesize'] = int(item['samplesize'])
-    item['samplerate'] = int(item['samplerate'])
-    item['album_replay_gain'] = float(item['album_replay_gain'])
-    item['replay_gain'] = float(item['replay_gain'])
+    #print "Item" + str(item)
 
-    songinfo.append(item)
-    #print "songinfo is now " + str(songinfo)
-    return songinfo
+    #convert all the data to the right types
+    try:
+      item['id'] = int(item['id'])
+      item['duration'] = float(item['duration'])
+      item['album_id'] = int(item['album_id'])
+      item['filesize'] = int(item['filesize'])
+      item['coverart'] = int(item['coverart'])
+      item['genre_id'] = int(item['genre_id'])
+      item['artist_id'] = int(item['artist_id'])
+      item['tracknum'] = int(item['tracknum'])
+      item['year'] = int(item['year'])
+      item['compilation'] = int(item['compilation'])
+      item['channels'] = int(item['channels'])
+      item['samplesize'] = int(item['samplesize'])
+      item['samplerate'] = int(item['samplerate'])
+      item['album_replay_gain'] = float(item['album_replay_gain'])
+      item['replay_gain'] = float(item['replay_gain'])
+    except KeyError as inst:
+      #not all data is always returned, so we can just skip that but
+      pass
+      #Logger.log("Issue with missing data in songinfo", inst)
+    except Exception as inst:
+      Logger.log("****** Other songinfo issue: ", inst)
+
+    #print "item is now " + str(item)
+    return item
 
 
   ##############################################################################
@@ -217,6 +227,25 @@ class SqueezePlayer:
 
   def button(self, text):
     self.sb.ir_button(text)
+
+  ##############################################################################
+  # returns all the details of up to 10 tracks...
+
+  def getPlaylistDetails(self):
+    self.playlist = self.sb.playlist_get_info()
+    currentIndex = int(self.sb.request("playlist index ?"))
+    Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
+    playlistDetails = []
+    #retrieve a maxiumum of 10 tracks details
+    for trackOffset in range(currentIndex,currentIndex+10):
+      #don't go off the end of the playlist
+      if trackOffset < len(self.playlist):
+        trackID = self.playlist[trackOffset]['id']
+        Logger.log("Getting full details for id: " + str(trackID))
+        playlistDetails.append(self.getSongInfo(trackID))
+
+    #the caller should check the length of the playlist and process all entries...
+    return playlistDetails
 
   ##############################################################################
   # returns the consolidated details of the next three tracks after the current

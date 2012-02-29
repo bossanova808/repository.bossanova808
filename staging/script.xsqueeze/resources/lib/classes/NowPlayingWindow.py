@@ -116,15 +116,17 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.updateLineDisplay()
         #Logger.log("Update cycle...1")
         #self.updateCoverArt(force)
-        self.updateCoverArtFromURLs()
-        #Logger.log("Update cycle...2")
-        self.updateCurrentTrack()
-        #Logger.log("Update cycle...3")
-        if not self.player.getMode()=="stop":
-          self.updateTrackProgress()
-        #Logger.log("Update cycle...4")
-        self.updateUpcomingTracks()
-        #Logger.log("Update cycle...5")
+        if self.player.songChanged():
+          self.updateCoverArtFromURLs()
+          #Logger.log("Update cycle...2")
+          self.updateCurrentTrack()
+          #Logger.log("Update cycle...3")
+          if not self.player.getMode()=="stop":
+            self.updateTrackProgress()
+          #Logger.log("Update cycle...4")
+          self.updateUpcomingTracks()
+          #Logger.log("Update cycle...5")
+          self.updatePlaylistDetails()
 
   ##############################################################################
   # get the cover URLS and pass them into window properties
@@ -145,6 +147,30 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     newLine1, newLine2 = self.player.getDisplay()
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("DISPLAYLINE1", newLine1)
     xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("DISPLAYLINE2", newLine2)
+
+
+  ##############################################################################
+  # update all the current playing track stuff into the window properties
+  def updatePlaylistDetails(self):
+    playlistDetails = self.player.getPlaylistDetails()
+    for trackOffset in range(0,len(playlistDetails)):
+      #print("Settings window INFOs with " + str(playlistDetails[trackOffset]))
+      stub = "XS_TRACK_" + str(trackOffset) + "_"
+
+      #each element in this list looks like:
+      #songinfo[{'album_id': 10, 'channels': 2, 'samplesize': 16, 'year': 2004, 'duration': 276.72000000000003, 'samplerate': 44100, 'id': 122, 'album': 'Gold - Greatest Hits', 'title': 'Lay All Your Love on Me', 'tracknum': 5, 'filesize': 34201960, 'artist_id': 17, 'type': 'flc', 'coverart': 1, 'compilation': 0, 'artwork_track_id': 'ed1047ba', 'lastUpdated': 'Thursday, December 8, 2011, 11:15 PM', 'modificationTime': 'Saturday, October 27, 2007, 5:14 PM', 'album_replay_gain': -7.7699999999999996, 'coverid': 'ed1047ba', 'genre': 'Pop', 'bitrate': '988kbps VBR', 'artist': 'Abba', 'addedTime': 'Thursday, December 8, 2011, 11:15 PM', 'replay_gain': -6.5199999999999996, 'genre_id': 4}]
+      try:
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TITLE", playlistDetails[trackOffset]['title'])
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ARTIST", playlistDetails[trackOffset]['artist'])
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ALBUM", playlistDetails[trackOffset]['album'])
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKNUM", str(playlistDetails[trackOffset]['tracknum']))
+        duration = self.GetInHMS(int(playlistDetails[trackOffset]['duration']))
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKLENGTH", duration)
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "YEAR", str(playlistDetails[trackOffset]['year']))
+      except IndexError:
+        Logger.log("Index error in ")
+      except Exception as inst:
+        Logger.log("General exception: ", inst)
 
   ##############################################################################
   # update all the current playing track stuff into the window properties
