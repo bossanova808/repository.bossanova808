@@ -39,6 +39,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     self.coverURLs = [""]
     #and playlist details too
     self.playlistDetails = [""]
+    self.playlist = [""]
     #a thread lock to use so that each SB related action is finished before the
     #next one is sent - without this you get race conditions!
     self.lock = threading.Lock()
@@ -132,13 +133,15 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
 
   def cleanup(self):
+
+    Logger.log("### Clearing window properties.....")
     self.getControl( constants.MAINCOVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING1COVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING2COVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING3COVERART  ).setImage( "" )
-    self.getControl( constants.CURRENTELAPSED   ).setLabel( ""   )
-    self.getControl( constants.CURRENTREMAINING ).setLabel( ""   )
-    self.getControl( constants.CURRENTLENGTH    ).setLabel( ""   )
+    #self.getControl( constants.CURRENTELAPSED   ).setLabel( ""   )
+    #self.getControl( constants.CURRENTREMAINING ).setLabel( ""   )
+    #self.getControl( constants.CURRENTLENGTH    ).setLabel( ""   )
 
     for trackOffset in range(0,9):
       stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
@@ -190,33 +193,51 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def updatePlaylistDetails(self):
     newPlaylistDetails = self.player.playlistDetails
+    newPlaylist = self.player.playlist
 
     #make sure the playlist is not empty...
     if not len(newPlaylistDetails)==0:
       if newPlaylistDetails[0] != self.playlistDetails[0]:
         self.playlistDetails = newPlaylistDetails
+        self.playlist = newPlaylist
+
+      #print("NPW playlistDetails is " + str(self.playlistDetails))
+      #print("NPW playlist is " + str(self.playlist))
 
       for trackOffset in range(0,len(self.playlistDetails)):
-        #print("Settings window INFOs with " + str(playlistDetails[trackOffset]))
+        #print("Settings window INFOs with " + str(self.playlistDetails[trackOffset]))
         stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
 
         #each element in this list looks like:
         #songinfo[{'album_id': 10, 'channels': 2, 'samplesize': 16, 'year': 2004, 'duration': 276.72000000000003, 'samplerate': 44100, 'id': 122, 'album': 'Gold - Greatest Hits', 'title': 'Lay All Your Love on Me', 'tracknum': 5, 'filesize': 34201960, 'artist_id': 17, 'type': 'flc', 'coverart': 1, 'compilation': 0, 'artwork_track_id': 'ed1047ba', 'lastUpdated': 'Thursday, December 8, 2011, 11:15 PM', 'modificationTime': 'Saturday, October 27, 2007, 5:14 PM', 'album_replay_gain': -7.7699999999999996, 'coverid': 'ed1047ba', 'genre': 'Pop', 'bitrate': '988kbps VBR', 'artist': 'Abba', 'addedTime': 'Thursday, December 8, 2011, 11:15 PM', 'replay_gain': -6.5199999999999996, 'genre_id': 4}]
         try:
-          xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TITLE", self.playlistDetails[trackOffset]['title'])
-          artist = self.playlistDetails[trackOffset]['artist']
-          uniartist = urllib.quote(artist)
+          #local music
+          if 'remote' not in self.playlistDetails[0]:
+            xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("XSQUEEZE_PLAYING_RADIO", "false")
+            artist = self.playlistDetails[trackOffset]['artist']
+            uniartist = urllib.quote(artist)
+            title = self.playlistDetails[trackOffset]['title']
+            xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ALBUM", self.playlistDetails[trackOffset]['album'])
+            xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKNUM", str(self.playlistDetails[trackOffset]['tracknum']))
+            duration = getInHMS(int(self.playlistDetails[trackOffset]['duration']))
+            xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKLENGTH", duration)
+            xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "YEAR", str(self.playlistDetails[trackOffset]['year']))
+
+          #radio stream
+          else:
+            xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("XSQUEEZE_PLAYING_RADIO", "true")
+            artist = self.playlist[0]['artist']
+            uniartist = urllib.quote(artist)
+            title = self.playlist[0]['title']
+
+          xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TITLE", title)
           xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ARTIST", artist)
           xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "UNIARTIST", uniartist)
-          xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "ALBUM", self.playlistDetails[trackOffset]['album'])
-          xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKNUM", str(self.playlistDetails[trackOffset]['tracknum']))
-          duration = getInHMS(int(self.playlistDetails[trackOffset]['duration']))
-          xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "TRACKLENGTH", duration)
-          xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty(stub + "YEAR", str(self.playlistDetails[trackOffset]['year']))
+
         except IndexError:
           Logger.log("Index error in updatePlaylistDetails")
-        except KeyError:
-          Logger.log("Key error in updatePlaylistDetails")
+        except KeyError as inst:
+          Logger.log("Key error in updatePlaylistDetails", inst)
         except Exception as inst:
           Logger.log("General exception: ", inst)
 
@@ -231,14 +252,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   # updates the track progress dialog
 
   def updateTrackProgress(self):
-    try:
-      trackLength = float(self.player.getTrackLength())
-      trackElapsed = float(self.player.getTrackElapsed())
-      trackRemaining = trackLength - trackElapsed
-    except:
-      trackLength = 0.0
-      trackElapsed = 0.0
-      trackRemaining = 0.0
+    trackLength = float(self.player.getTrackLength())
+    trackElapsed = float(self.player.getTrackElapsed())
+    trackRemaining = trackLength - trackElapsed
 
     if trackLength != 0.0:
       xbmcgui.Window(xbmcgui.getCurrentWindowId()).setProperty("TRACKELAPSED", getInHMS(int(trackElapsed)))
@@ -247,9 +263,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       percent = int((trackElapsed / trackLength) * 100.0)
       self.getControl( constants.CURRENTPROGRESS ).setPercent ( percent )
     else:
-      self.getControl( constants.CURRENTELAPSED   ).setLabel( ""   )
-      self.getControl( constants.CURRENTREMAINING ).setLabel( ""   )
-      self.getControl( constants.CURRENTLENGTH    ).setLabel( ""   )
+      self.getControl( constants.CURRENTELAPSED   ).setLabel( "0" )
+      self.getControl( constants.CURRENTREMAINING ).setLabel( "0" )
+      self.getControl( constants.CURRENTLENGTH    ).setLabel( "0" )
 
 
 

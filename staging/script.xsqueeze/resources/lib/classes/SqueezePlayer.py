@@ -99,7 +99,7 @@ class SqueezePlayer:
     newSong = self.sb.get_track_title()
     #Logger.log("New Song [" + newSong +"], Old song [" + oldSong + "]")
     if newSong != oldSong:
-      Logger.log("### Song change ") #to: " + unquoteUni(newSong))
+      Logger.log("### Song change to: " + repr(newSong))
       self.currentTrack = newSong
       self.updatePlaylistDetails()
       self.updateCoverArtURLs()
@@ -114,7 +114,7 @@ class SqueezePlayer:
 
       coverURLs = []
 
-      print "Playlist is" + str(self.playlist)
+      #print "Playlist is" + str(self.playlist)
 
       #start at this song , end at + 3
       index = int(self.sb.request("playlist index ?"))
@@ -126,17 +126,17 @@ class SqueezePlayer:
       for count in range(upcomer,end):
         if(count<len(self.playlist)):
           try:
-            print self.playlist[count]
+            #print self.playlist[count]
             currentID = self.playlist[count]['id']
-            print "id " + str(currentID)
+            #print "id " + str(currentID)
             #if the id is negative, it's probably a radio station
-            if currentID > 0:
-              coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
-              Logger.log ("Appending future cover: " + str(count) + " from " + coverURL)
-              coverURLs.append(coverURL)
-            else:
-             Logger.log ("Negative ID, probably a radio station, skip ID based URL")
-             coverURLs.append("http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC)
+            #if currentID > 0:
+            coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
+            #Logger.log ("Appending future cover: " + str(count) + " from " + coverURL)
+            coverURLs.append(coverURL)
+##          else:
+##             Logger.log ("Negative ID, probably a radio station, skip ID based URL")
+##             coverURLs.append("http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC)
           except Exception as inst:
             Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
             coverURLs.append("")

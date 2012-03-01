@@ -121,8 +121,8 @@
 
 
       <control type="multiimage">
-      	<posx>800</posx>
-      	<posy>100</posy>
+      	<posx>850</posx>
+      	<posy>250</posy>
       	<width>300</width>
       	<height>300</height>
         <imagepath fallback="DefaultFanart.jpg" background="true">$INFO[Window.Property(ArtistSlideshow)]</imagepath>
