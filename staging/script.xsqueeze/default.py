@@ -16,16 +16,7 @@ import Logger
 from ReadMeViewer import *
 #the window class
 from NowPlayingWindow import *
-
-
-################################################################################
-# send a JSON command to XBMC and log the human description, json string, and
-#the result returned
-
-def sendXBMCJSON (humanDescription, jsonstr):
-     Logger.log(humanDescription + " [" + jsonstr +"]")
-     result = xbmc.executeJSONRPC(jsonstr)
-     Logger.log("JSON result: "  + str(result))
+from utils import *
 
 
 ################################################################################
@@ -44,7 +35,7 @@ if ( __name__ == "__main__" ):
     if len(sys.argv) > 1:
 
       ##########################################################################
-      # SERVER DISCOVERY
+      ### SERVER DISCOVERY
 
       if sys.argv[1].startswith('ServerDiscovery'):
         Logger.log("Doing server discovery...")
@@ -91,7 +82,7 @@ if ( __name__ == "__main__" ):
             dialog.ok(constants.__addonname__, constants.__language__(19602))
 
       ##########################################################################
-      # AUDIO OUTPUTS
+      ### AUDIO OUTPUTS
 
       elif sys.argv[1].startswith('AudioOutputs'):
         Logger.log("Doing audio output discovery...")
@@ -131,7 +122,7 @@ if ( __name__ == "__main__" ):
 
 
     ############################################################################
-    # MAIN
+    ### MAIN
 
     else:
 

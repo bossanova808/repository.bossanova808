@@ -7,6 +7,7 @@ import os
 
 from pysqueezecenter.server import Server
 from pysqueezecenter.player import Player
+from utils import *
 
 ################################################################################
 ### CLASS SQUEEZEPLAYER
@@ -55,31 +56,6 @@ class SqueezePlayer:
 
 
   ##############################################################################
-  #unquote text coming back from LMS
-  def unquote(self, text):
-      try:
-          import urllib.parse
-          return urllib.parse.unquote(text, encoding=self.charset)
-      except ImportError:
-          #import urllib
-          #return urllib.unquote(text)
-          _hexdig = '0123456789ABCDEFabcdef'
-          _hextochr = dict((a+b, chr(int(a+b,16))) for a in _hexdig for b in _hexdig)
-          if isinstance(text, unicode):
-              text = text.encode('utf-8')
-          res = text.split('%')
-          for i in xrange(1, len(res)):
-              item = res[i]
-              try:
-                  res[i] = _hextochr[item[:2]] + item[2:]
-              except KeyError:
-                  res[i] = '%' + item
-              except UnicodeDecodeError:
-                  res[i] = unichr(int(item[:2], 16)) + item[2:]
-          return "".join(res)
-
-
-  ##############################################################################
   #get the current squeezebox two line display text and return it
 
   def getDisplay(self):
@@ -90,8 +66,8 @@ class SqueezePlayer:
     if lines[3] == "":
       lines[3] = "."
     cleanedLines=[]
-    cleanedLines.append(self.unquote(lines[2]))
-    cleanedLines.append(self.unquote(lines[3]))
+    cleanedLines.append(unquoteUni(lines[2]))
+    cleanedLines.append(unquoteUni(lines[3]))
 
     #print(cleanedLines)
 
@@ -113,15 +89,17 @@ class SqueezePlayer:
     return newLines[0], newLines[1]
 
   ##############################################################################
-  #check if song changed and update local reference if so
+  # check if song changed and update local reference if so
   # returns boolean - but of course only once on each change
+  # called every window update to see if the song has changed and only if it has
+  # do we update the playlist and cover arts...reduces traffic a lot!
 
   def songChanged(self):
     oldSong = self.currentTrack
     newSong = self.sb.get_track_title()
     #Logger.log("New Song [" + newSong +"], Old song [" + oldSong + "]")
     if newSong != oldSong:
-      Logger.log("### Song change to: " + newSong)
+      Logger.log("### Song change ") #to: " + unquoteUni(newSong))
       self.currentTrack = newSong
       self.updatePlaylistDetails()
       self.updateCoverArtURLs()
@@ -136,6 +114,8 @@ class SqueezePlayer:
 
       coverURLs = []
 
+      print "Playlist is" + str(self.playlist)
+
       #start at this song , end at + 3
       index = int(self.sb.request("playlist index ?"))
       upcomer = index
@@ -144,27 +124,24 @@ class SqueezePlayer:
       #currently uses the track_id in the url - works well
       #supposed to use the cover_id number but this doesn't work so well...
       for count in range(upcomer,end):
-        try:
-          print self.playlist[count]
-          currentID = self.playlist[count]['id']
-          print "id " + str(currentID)
-          coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
-          Logger.log (" Appending future cover: " + str(count) + " from " + coverURL)
-          coverURLs.append(coverURL)
-        except Exception as inst:
-          Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
-          coverURLs.append("")
+        if(count<len(self.playlist)):
+          try:
+            print self.playlist[count]
+            currentID = self.playlist[count]['id']
+            print "id " + str(currentID)
+            #if the id is negative, it's probably a radio station
+            if currentID > 0:
+              coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
+              Logger.log ("Appending future cover: " + str(count) + " from " + coverURL)
+              coverURLs.append(coverURL)
+            else:
+             Logger.log ("Negative ID, probably a radio station, skip ID based URL")
+             coverURLs.append("http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC)
+          except Exception as inst:
+            Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
+            coverURLs.append("")
 
       self.coverURLs = coverURLs
-
-
-##  def getCoverArtURLs(self):
-##    return self.coverURLs
-
-
-  ##############################################################################
-  #functions to map buttons to squeezebox actions
-  #called in ActionHandler...
 
 
   ##############################################################################
@@ -183,7 +160,7 @@ class SqueezePlayer:
 
     decodedList = []
     for item in list:
-      cleanItem = self.unquote(item)
+      cleanItem = unquoteUni(item)
       decodedList.append(cleanItem)
 
     #print("DecodedList: " +str(decodedList))
@@ -228,10 +205,8 @@ class SqueezePlayer:
     #print "item is now " + str(item)
     return item
 
-
   ##############################################################################
-  #functions to map buttons to squeezebox actions
-  #called in ActionHandler...
+  # Send a button command text, e.g. 'pause' - to the player
 
   def button(self, text):
     self.sb.ir_button(text)
@@ -240,9 +215,6 @@ class SqueezePlayer:
 
   ##############################################################################
   # returns all the details of up to 10 tracks...
-
-##  def getPlaylistDetails(self):
-##    return self.playlistDetails
 
   def updatePlaylistDetails(self):
     self.playlist = self.sb.playlist_get_info()
@@ -261,18 +233,56 @@ class SqueezePlayer:
     self.playlistDetails = playlistDetails
 
   ##############################################################################
-  # returns the consolidated details of the next three tracks after the current
+  # returns current track length if available (check for 0 etc. at other end)
 
-  def getPlaylist(self):
-    self.playlist = self.sb.playlist_get_info()
-    currentIndex = int(self.sb.request("playlist index ?"))
-    #Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
-    #the text list of upcoming tracks
-    upcoming1 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+1)
-    upcoming2 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+2)
-    upcoming3 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+3)
-    return upcoming1, upcoming2, upcoming3
+  def getTrackLength(self):
+    return self.sb.get_track_duration()
 
+  ##############################################################################
+  # returns current mode ('play' 'pause' or 'stop')
+
+  def getMode(self):
+      return self.sb.get_mode()
+
+  ##############################################################################
+  # returns length of time in seconds the current track has played for
+
+  def getTrackElapsed(self):
+    return self.sb.get_time_elapsed()
+
+  ##############################################################################
+  # given a track number return a consolidated string of track details
+
+  def getConsolidatedTrackDetailsFromPlaylist(self, trackNum):
+    #if we are near the end of the playlist, don't return tracks...
+    returnText = ""
+    if trackNum < len(self.playlist):
+      songTitle = self.playlist[trackNum]['title']
+      songIndex = str(self.playlist[trackNum]['position']+1)
+      songArtist = self.playlist[trackNum]['artist']
+      songAlbum = self.playlist[trackNum]['album']
+      returnText = songIndex + ". " + songTitle + " (by " + songArtist + ", from " + songAlbum +")"
+    return returnText
+
+
+
+
+
+
+
+
+##  ##############################################################################
+##  # returns the consolidated details of the next three tracks after the current
+##
+##  def getPlaylist(self):
+##    self.playlist = self.sb.playlist_get_info()
+##    currentIndex = int(self.sb.request("playlist index ?"))
+##    #Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
+##    #the text list of upcoming tracks
+##    upcoming1 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+1)
+##    upcoming2 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+2)
+##    upcoming3 = self.getConsolidatedTrackDetailsFromPlaylist(currentIndex+3)
+##    return upcoming1, upcoming2, upcoming3
 ##  ##############################################################################
 ##  # retruns the details of the current track (title, artist, album)
 ##  # or "" if not avialble
@@ -300,36 +310,3 @@ class SqueezePlayer:
 ##    #print repr(artist)
 ##
 ##    return title, artist, album
-
-  ##############################################################################
-  # returns current track length if available (check for 0 etc. at other end)
-
-  def getTrackLength(self):
-    return self.sb.get_track_duration()
-
-  ##############################################################################
-  # returns current mode ('play' 'pause' or 'stop'
-
-  def getMode(self):
-      return self.sb.get_mode()
-
-  ##############################################################################
-  # returns length of time in seconds the current track has played for
-
-  def getTrackElapsed(self):
-    return self.sb.get_time_elapsed()
-
-  ##############################################################################
-  # given a track number return a consolidated string of track details
-
-  def getConsolidatedTrackDetailsFromPlaylist(self, trackNum):
-    #if we are near the end of the playlist, don't return tracks...
-    returnText = ""
-    if trackNum < len(self.playlist):
-      songTitle = self.playlist[trackNum]['title']
-      songIndex = str(self.playlist[trackNum]['position']+1)
-      songArtist = self.playlist[trackNum]['artist']
-      songAlbum = self.playlist[trackNum]['album']
-      returnText = songIndex + ". " + songTitle + " (by " + songArtist + ", from " + songAlbum +")"
-    return returnText
-

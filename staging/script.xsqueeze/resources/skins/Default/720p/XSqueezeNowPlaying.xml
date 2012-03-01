@@ -1,5 +1,6 @@
-<!-- WARNING - DO NOT CHANGE LABEL ID OF PROGRESS BAR OR YOU WILL BREAK IT!!-->
+<!-- WARNING - DO NOT CHANGE ID OF PROGRESS BAR OR YOU WILL BREAK IT!!-->
 <!-- WARNING - DO NOT REMOVE PROGRESS BAR OR YOU WILL BREAK IT!!            -->
+<!-- WARNING - DO NOT CHANGE ID OF HIDDEN BUTTON OR YOU WILL BREAK THE ARTIST SLIDESHOW!!-->
 <!--  - Player: $INFO[Window.Property(PLAYER)] Server: $INFO[Window.Property(SERVER)] -->
 
 <window>
@@ -12,9 +13,8 @@
     	<posy>-10</posy>
     	<width>1</width>
     	<height>1</height>
-    	<onfocus>RunScript(script.artistslideshow,artist=$INFO[Window.Property(UNIARTIST)]&windowid=$INFO[Window.Property(WINDOWID)])</onfocus>
+    	<onfocus>RunScript(script.artistslideshow,artistfield=XSQUEEZE_TRACK_0_UNIARTIST&windowid=$INFO[Window.Property(WINDOWID)])</onfocus>
     </control>
-
 
     <!-- BACKGROUND -->
     <!--
