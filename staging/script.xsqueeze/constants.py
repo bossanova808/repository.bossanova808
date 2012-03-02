@@ -107,9 +107,10 @@ if CONTROLLERONLY:
   PLAYERMAC   = str.lower(__addon__.getSetting('controllerMAC'))
 
 # have they manually specified an audio output
-if __addon__.getSetting('manualAudioOutput')=="true":
+AUDIOOUTPUT = __addon__.getSetting('audioOutput')
+
+if AUDIOOUTPUT != "Auto" and AUDIOOUTPUT !="":
   MANUALAUDIOOUTPUT = True
-  AUDIOOUTPUT = __addon__.getSetting('outputsAuto')
 else:
   MANUALAUDIOOUTPUT = False
 
@@ -182,6 +183,7 @@ MAINCOVERART          = 100
 UPCOMING1COVERART     = 101
 UPCOMING2COVERART     = 102
 UPCOMING3COVERART     = 103
+PLAYSTATE             = 104
 CURRENTTITLE          = 200
 CURRENTARTIST         = 201
 CURRENTALBUM          = 202

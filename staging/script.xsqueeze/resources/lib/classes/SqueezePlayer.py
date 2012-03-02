@@ -66,27 +66,30 @@ class SqueezePlayer:
     if lines[3] == "":
       lines[3] = "."
     cleanedLines=[]
-    cleanedLines.append(unquoteUni(lines[2]))
-    cleanedLines.append(unquoteUni(lines[3]))
+    cleanedLines.append((lines[2]))
+    cleanedLines.append((lines[3]))
 
     #print(cleanedLines)
 
     #clean out the wierd characters used to represent volume...
     newLines=[]
     for line in cleanedLines:
-      line = line.replace('solidblock', '*')
-      line = line.replace('leftprogress4', '*')
-      line = line.replace('leftprogress2', '*')
-      line = line.replace('leftprogress0', '(Mute)')
-      line = line.replace('rightprogress0', ' ')
-      line = line.replace('rightprogress4', '(Max)')
-      line = line.replace('middleprogress0', ' ')
-      line = line.replace('\x1f',"")
+      line = line.replace(u'cursorpos', u"\u2334")
+      line = line.replace(u'rightarrow', u"\u2192")
+      line = line.replace(u'solidblock', u'*')
+      line = line.replace(u'leftprogress4', u'*')
+      line = line.replace(u'leftprogress2', u'*')
+      line = line.replace(u'leftprogress0', u'(Mute)')
+      line = line.replace(u'rightprogress0', u' ')
+      line = line.replace(u'rightprogress4', u'(Max)')
+      line = line.replace(u'middleprogress0', u' ')
+      line = line.replace(u'%1E',u"")
+      line = line.replace(u'%1F',u"")
       newLines.append(line)
 
     #print(newLines)
 
-    return newLines[0], newLines[1]
+    return unquoteUni(newLines[0]), unquoteUni(newLines[1])
 
   ##############################################################################
   # check if song changed and update local reference if so
@@ -99,7 +102,7 @@ class SqueezePlayer:
     newSong = self.sb.get_track_title()
     #Logger.log("New Song [" + newSong +"], Old song [" + oldSong + "]")
     if newSong != oldSong:
-      Logger.log("### Song change to: " + repr(newSong))
+      Logger.log("### Detected song change to: " + repr(newSong) + " - triggering playlist and cover art updates...")
       self.currentTrack = newSong
       self.updatePlaylistDetails()
       self.updateCoverArtURLs()
@@ -128,15 +131,9 @@ class SqueezePlayer:
           try:
             #print self.playlist[count]
             currentID = self.playlist[count]['id']
-            #print "id " + str(currentID)
-            #if the id is negative, it's probably a radio station
-            #if currentID > 0:
             coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
             #Logger.log ("Appending future cover: " + str(count) + " from " + coverURL)
             coverURLs.append(coverURL)
-##          else:
-##             Logger.log ("Negative ID, probably a radio station, skip ID based URL")
-##             coverURLs.append("http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC)
           except Exception as inst:
             Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
             coverURLs.append("")
@@ -219,14 +216,14 @@ class SqueezePlayer:
   def updatePlaylistDetails(self):
     self.playlist = self.sb.playlist_get_info()
     currentIndex = int(self.sb.request("playlist index ?"))
-    Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
+    #Logger.log ("Current index: " + str(currentIndex) + " len(playlist): " + str(len(self.playlist)) + " Playlist is: " + str(self.playlist))
     playlistDetails = []
     #retrieve a maxiumum of 10 tracks details
     for trackOffset in range(currentIndex,currentIndex+10):
       #don't go off the end of the playlist
       if trackOffset < len(self.playlist):
         trackID = self.playlist[trackOffset]['id']
-        Logger.log("Getting full details for id: " + str(trackID))
+        #Logger.log("Getting full details for id: " + str(trackID))
         playlistDetails.append(self.getSongInfo(trackID))
 
     #the caller should check the length of the playlist and process all entries...
@@ -250,19 +247,6 @@ class SqueezePlayer:
   def getTrackElapsed(self):
     return self.sb.get_time_elapsed()
 
-  ##############################################################################
-  # given a track number return a consolidated string of track details
-
-  def getConsolidatedTrackDetailsFromPlaylist(self, trackNum):
-    #if we are near the end of the playlist, don't return tracks...
-    returnText = ""
-    if trackNum < len(self.playlist):
-      songTitle = self.playlist[trackNum]['title']
-      songIndex = str(self.playlist[trackNum]['position']+1)
-      songArtist = self.playlist[trackNum]['artist']
-      songAlbum = self.playlist[trackNum]['album']
-      returnText = songIndex + ". " + songTitle + " (by " + songArtist + ", from " + songAlbum +")"
-    return returnText
 
 
 
@@ -270,6 +254,24 @@ class SqueezePlayer:
 
 
 
+
+
+
+
+
+##  ##############################################################################
+##  # given a track number return a consolidated string of track details
+##
+##  def getConsolidatedTrackDetailsFromPlaylist(self, trackNum):
+##    #if we are near the end of the playlist, don't return tracks...
+##    returnText = ""
+##    if trackNum < len(self.playlist):
+##      songTitle = self.playlist[trackNum]['title']
+##      songIndex = str(self.playlist[trackNum]['position']+1)
+##      songArtist = self.playlist[trackNum]['artist']
+##      songAlbum = self.playlist[trackNum]['album']
+##      returnText = songIndex + ". " + songTitle + " (by " + songArtist + ", from " + songAlbum +")"
+##    return returnText
 
 ##  ##############################################################################
 ##  # returns the consolidated details of the next three tracks after the current

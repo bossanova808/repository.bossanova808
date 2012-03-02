@@ -101,8 +101,8 @@ if ( __name__ == "__main__" ):
         Logger.log("Lines returned is " + str(output))
         lines = output.split("\n")
         #Each line is: * 3: (Windows DirectSound) Primary Sound Driver (0/0)
-        outputNumbers = []
-        outputNames = []
+        outputNumbers = ["Auto"]
+        outputNames = ["Auto"]
         for line in lines:
           outputNumber = re.findall( r'[0-9]+', line )
           if len(outputNumber)>1:
