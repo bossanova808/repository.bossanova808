@@ -11,7 +11,7 @@
      <setting id="controlSlave" type="bool" label="19906" default="true"/>
      <setting id="slaveMAC" type="text" label="19907" default="00:00:00:00:00:01"/>
      <setting id="slaveArgs" type="text" label="19908" default="" enable="!eq( -2,false)" />
-	   <setting id="outputsAuto" label="19910" type="action" action="RunScript($ID,AudioOutputs)" default="Auto"/>
+	   <setting id="audioOutput" label="19910" type="action" action="RunScript($ID,AudioOutputs)" default="Auto"/>
      <setting id="NOTE2" type="text" label="19917" default="" enable="false" />
      <setting id="NOTE3" type="text" label="19918" default="" enable="false" />
    </category>
