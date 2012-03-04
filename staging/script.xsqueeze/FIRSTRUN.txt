@@ -1,15 +1,18 @@
 
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
-[COLOR red][B]NOTE: XSqueeze addon settings have changed significantly with V0.4![/B][/COLOR]
+[COLOR red][B]NOTE: XSqueeze addon settings have (again) changed significantly with V0.4![/B][/COLOR]
 
 * Most are the same but if you have used the audio output chooser, please return to settings and run this again as I have found a bug in the way XBMC handles settings and worked around it with a new, simpler approach
 * Make sure you click 'ok' at the bottom (and NOT exit/back!) once all the settings are as you want, so that your new settings are properly re-saved over the old ones.
+* A solution has been found for audio droputs on Openelec (thanks HKShia!) - add '-y200' as an extra argument in the addon settings and they should go away.
+
 
 What's new in this version:
-* A lot of fixes at the character level - for example, search now works...
+* New info rich UI (Confluence)
+* A lot of fixes at the unicode/character level - for example, search now works...
 * Much more efficient internally and puts a lot less load on your server, only pulling larger chunks of data when a change event is detected
-* Well on our way for use of script.artistslideshow with this...
+* (Well on our way for use of script.artistslideshow with this...coming soon!)
 * Player state icon support (play, pause, or stop)
 * Support for more details of the current track + basics of the next 9 more...
 * Cleaner GUI when playing radio streams.

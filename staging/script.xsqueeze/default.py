@@ -231,6 +231,7 @@ if ( __name__ == "__main__" ):
             Logger.log("Error killing Squeezeslave", inst)
 
         # after the window is closed, Destroy it.
+        window.deInit()
         del window
 
         #sys.modules.clear()

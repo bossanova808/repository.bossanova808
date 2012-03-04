@@ -5,7 +5,7 @@ See http://forum.xbmc.org/showthread.php?t=122199 for discussion/release notific
 ********************************************************************************
 * INTRODUCTIONS:
 
-XSqueeze is Squeezebox player/controller for XBMC.   
+XSqueeze is Squeezebox player/controller for XBMC.
 
 It was built by me (bossanova808@gmail.com) using some python and building on the hard work of two handy projects: SqueezeSlave and Pysqueezecenter.
 
@@ -13,7 +13,7 @@ XSqueeze can be used in two main ways:
 
 1. As simply a big-screen visualiser/controller for an existing Squeezebox player installation (all squeezebox models can be visualised, all but Touch and Radio controlled at this stage)
 
-or 
+or
 
 2. As a player with local playback, and a visualiser - meaning you can have an XBMC/XSqueeze setup in your media room that syncs with other squeezebox installations around your house, without needing to install a squeezebox in your media room!
 
@@ -36,7 +36,7 @@ Wait a minute or two (or force-refresh the repo) - then in the repo you will see
 ********************************************************************************
 2. Configure XSqueeze
 
-Go to the add on settings (go to the add on and use the context menu to get to 'configure').  
+Go to the add on settings (go to the add on and use the context menu to get to 'configure').
 
 There are 4 tabs:
 
@@ -57,6 +57,7 @@ If local playback is enabled you can:
 - Change the dummy MAC address squeezeslave uses (if you have multiple installations of XSqueeze for example)
 - Add a list of extra Squeezeslave arguments that will be passed on
   (see http://wiki.slimdevices.com/index.php/SqueezeSlave#Command_Line_Switches)
+  **** NOTE IF USING OPENELEC, I RECOMMEND adding '-y200' (without the quotes) as an argument to avoid audio dropouts
 - Most of the time squeezeslave will discover and use the default audio output for your system, however you can manually choose an output if you want to as well.
 
 ** Note audio output discovery does not yet work on OSX
@@ -78,9 +79,9 @@ You can choose to disable your screensaver during XSqueeze sessions (off by defa
 ********************************************************************************
 3. Run XSqueeze
 
-In XBMC->Add Ons->Programs, run XSqueeze 
+In XBMC->Add Ons->Programs, run XSqueeze
 
-(Note - it doesn't live in the music section as it's not a typical XBMC music plugin, as the playback itself is external to XBMC's playback systems).  
+(Note - it doesn't live in the music section as it's not a typical XBMC music plugin, as the playback itself is external to XBMC's playback systems).
 
 In most skins, you can use the skin settings to add the addon to your home page for easy access of course.
 
@@ -101,27 +102,27 @@ You may see a few as-yet-unsolved glitches:
 ********************************************************************************
 4. Please experiment and report back!
 
-Obviously I have a lot of plans for this, this is just a simple beginning.  All the fancy will come later, like playlist building and management etc.  
+Obviously I have a lot of plans for this, this is just a simple beginning.  All the fancy will come later, like playlist building and management etc.
 
 The thread for discussion/issues etc. is here:
 http://forum.xbmc.org/showthread.php?t=122199
- 
-********************************************************************************
-5. AUDIO ISSUES (dropouts, no audio etc) 
 
-**** FIRST, ON UNIX TYPE SYSTEMS (Linux, Openelec, OSX) TRY TURNING OFF XBMC MENU SOUNDS!!  If you have these on, XBMC greedily grabs the audio device and won't share.  
+********************************************************************************
+5. AUDIO ISSUES (dropouts, no audio etc)
+
+**** FIRST, ON UNIX TYPE SYSTEMS (Linux, Openelec, OSX) TRY TURNING OFF XBMC MENU SOUNDS!!  If you have these on, XBMC greedily grabs the audio device and won't share.
 
 If you're not getting audio full stop from the addon then you will probably need to set your output for Squeezeslave up.  This is done in XSqueeze settings -> Local Playback
 
 (You can test all of this from the command line quite easily using the -D switch for squeezeslave, so in full:
 squeezeslave -o12 -D yourserveraddress
-   
+
 ..this will give you a text based Squeezeslave player right on your command line so you can quickly trigger audio to test etc.
 
 ********************************************************************************
-6. GENERAL ISSUES (can't start server/player errors) 
+6. GENERAL ISSUES (can't start server/player errors)
 
-If you're experiencing general issues, the best thing is to simplify things and make sure squeezeslave outside of XBMC works ok. 
+If you're experiencing general issues, the best thing is to simplify things and make sure squeezeslave outside of XBMC works ok.
 
 Go to the addon folder/resources/bin/squeezeslave-XXXXX/squeezeslave-SYSTEM directory (where X is the version number, and SYSTEM is win, Linux or OSX)
 
@@ -133,14 +134,14 @@ http://wiki.slimdevices.com/index.php/SqueezeSlave#Command_Line_Switches
 
 ..for instructions.
 
-If you are stuck - post a message to the forum thread 
-( http://forum.xbmc.org/showthread.php?t=122199 ) 
+If you are stuck - post a message to the forum thread
+( http://forum.xbmc.org/showthread.php?t=122199 )
 and remember to always ***INCLUDE YOUR FULL LOGFILE****
 
 ********************************************************************************
-6. SYNC ISSUES - please experiment with sync between your players.  
+6. SYNC ISSUES - please experiment with sync between your players.
 
-Squeezeslave is a software player and like all software players, does not 100% support really precise sync like the hardware ones do - this is due to all sorts of factors (network latency, buffering, soundcard drift etc) 
+Squeezeslave is a software player and like all software players, does not 100% support really precise sync like the hardware ones do - this is due to all sorts of factors (network latency, buffering, soundcard drift etc)
 
 That being said, there are some tweaks available in your LMS Settings->Player->Synchronize ... this can improve things and I have so far found sync to be good enough to walk from room to room ok.  Probably not good enough for two players in one room, though, although very close.  It's really pretty good.
 
@@ -153,18 +154,18 @@ Feedback and ideas appreciated!
 
 ********************************************************************************
 
- 
- 
- 
+
+
+
 
 ********************************************************************************
 * APPENDIX
-* 
+*
 *
 
 1. Manual Install of Squeezeslave on your XBMC system.
 
-Generally it's best to just use the included SqueezeSlave, but if you have special needs you might want to use a manual install.  
+Generally it's best to just use the included SqueezeSlave, but if you have special needs you might want to use a manual install.
 
 Binaries are available here (use latest version):
 http://sourceforge.net/projects/softsqueeze/files/squeezeslave/
