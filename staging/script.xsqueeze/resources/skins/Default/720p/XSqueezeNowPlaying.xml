@@ -512,7 +512,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
       <!-- END GROUP UPCOMING TRACKS -->
 
       <!-- The artist slideshow -->
-      <control type="multiimage">
+      <control type="multiimage" id ="105">
       	<posx>740</posx>
       	<posy>60</posy>
       	<width>400</width>

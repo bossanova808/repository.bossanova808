@@ -1,4 +1,4 @@
-import xbmcgui
+import xbmc, xbmcgui
 import constants
 import Logger
 import sys
@@ -70,9 +70,27 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     self.thread.setDaemon(True)
     self.thread.start()
 
-  #the reverse of init - need to remove any controls we added
+  ##############################################################################
+  # Essentially the reverse of init - need to remove any controls we added and blank out the properties
+  # for a cleaner exit
+
   def deInit(self):
-    self.removeControl(self.background)
+
+      Logger.log("deInit() called - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
+      self.cleanupPlaylist(0)
+      self.cleanupCovers()
+      self.removeControl(self.background)
+      xbmcgui.Window(self.windowID).clearProperty("XSQUEEZE_WINDOWID")
+      #hold here for up to 5 seconds while we wait for artist slideshow to exit...
+      count = 0
+
+      while xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")!= 'True':
+        Logger.log("Sleeping 0.5s waiting for artist.slideshow to finish (max 5 seconds)")
+        xbmc.sleep(500)
+        count+=1
+        if count > 100:
+          break
+      Logger.log("deInit() complete. AS = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
 
   ##############################################################################
   # Handle window acitions
@@ -103,13 +121,26 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #intercept special XBMC ones first
     if action == ACTION_CODES['ACTION_PREVIOUS_MENU']:
       Logger.log("XBMC Action: Close")
+      #prevent the GUI update thread from updating...
+      self.running = False
+
       #we're controlling a local squeezeslave - best to stop the music before we kill it
       #otherwise it oddly resumes automatically on restart
       if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
         Logger.notify(constants.__language__(19612),constants.__language__(19609))
         with self.lock:
           self.player.button("stop")
-      self.running = False
+
+      #tidy up before the window closes...
+      self.deInit()
+
+      #force artist.slideshow to get the message that the artist has been clear...
+      try:
+        self.setFocus(self.hiddenButton)
+      except:
+        pass
+
+      #now close the window before we kill it
       self.close()
 
     #elif etc
@@ -126,7 +157,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def cleanupCovers (self):
 
-    Logger.log("### Clearing window properties.....")
+    Logger.log("### Clearing cover images.....")
     self.getControl( constants.MAINCOVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING1COVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING2COVERART  ).setImage( "" )
@@ -138,16 +169,18 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def cleanupPlaylist (self, start=0):
 
+    Logger.log("Clearing playlist properties....")
+
     for trackOffset in range(start,10):
       stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
-      xbmcgui.Window(self.windowID).setProperty(stub + "TITLE", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "ARTIST", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "UNIARTIST", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "ALBUM", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "TRACKNUM", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "TRACKLENGTH", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "ALBUMYEAR", "")
-      xbmcgui.Window(self.windowID).setProperty(stub + "INPLAYLIST", "false")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "TITLE")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "ARTIST")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "UNIARTIST")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUM")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKNUM")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKLENGTH")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUMYEAR")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "INPLAYLIST")
 
 
 
@@ -164,10 +197,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           self.cleanupCovers()
           self.cleanupPlaylist()
           #kick of the artist slideshow if it's in the skin file...
-          try:
-            self.setFocus(self.hiddenButton)
-          except:
-            pass
+##          try:
+##            self.setFocus(self.hiddenButton)
+##          except:
+##            pass
         #is the player on play, pause or stop?
         mode = self.player.getMode()
         if not mode=="stop":
@@ -177,7 +210,6 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.getControl( constants.PLAYSTATE  ).setImage( mode + '.png' )
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
-
 
 
 
