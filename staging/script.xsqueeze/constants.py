@@ -7,7 +7,7 @@ import platform
 
 
 ################################################################################
-# CONSTANTS FOR XSQUEEZE
+# CONSTANTS & SETTINGS STUFF FOR XSQUEEZE
 
 ################################################################################
 #create an add on instation and store the reference
@@ -192,9 +192,9 @@ CURRENTPROGRESS       = 203
 CURRENTELAPSED        = 204
 CURRENTREMAINING      = 205
 CURRENTLENGTH         = 206
+DISPLAYLINE1          = 1000
+DISPLAYLINE2          = 1001
 UPCOMING1             = 2001
 UPCOMING2             = 2002
 UPCOMING3             = 2003
-DISPLAYLINE1          = 1000
-DISPLAYLINE2          = 1001
 

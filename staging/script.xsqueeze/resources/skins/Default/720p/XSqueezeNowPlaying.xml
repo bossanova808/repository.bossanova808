@@ -20,19 +20,20 @@ UPCOMING1COVERART     = 101
 UPCOMING2COVERART     = 102
 UPCOMING3COVERART     = 103
 PLAYSTATE             = 104 (the play/pause/stop icon)
+SLIDESHOW             = 105 (the multiimage control for artist.slideshow)
 
 --------------------------------------------------------------------------------
 
 AVAILABLE IN $INFO & example usages:
 
+$INFO[Window.Property(XSQUEEZE_WINDOWID)] - the current window ID
 $INFO[Window.Property(XSQUEEZE_NAME)] - the name + current version for title bars etc.
-
 $INFO[Window.Property(XSQUEEZE_PLAYER)] - the player MAC which is LMS unique ID for the player
 $INFO[Window.Property(XSQUEEZE_SERVER)] - the LMS server name or IP
 
 Test for player playing - this example will show the element if the payer is playing
 <visible>SubString(Window.Property(XSQUEEZE_NOWPLAYING),play)</visible>
-values can be play, pause, stop
+(values can be play, pause, stop)
 
 Test if playing radio stream or a track - this example will hide the element if radio is playing:
 <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
@@ -62,7 +63,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)] - usually title of track/show
 --------------------------------------------------------------------------------
 Track 1 - 9 - up to 9 more upcoming tracks...change the X to 1 to 9....
 
-$INFO[Window.Property(XSQUEEZE_TRACK_X_INPLAYLIST)] - true or false depending on if there is a track 0 in playlist
+$INFO[Window.Property(XSQUEEZE_TRACK_X_INPLAYLIST)] - true or false/unset depending on if there is a track 0 in playlist
 $INFO[Window.Property(XSQUEEZE_TRACK_X_ARTIST)] - Artist of song
 $INFO[Window.Property(XSQUEEZE_TRACK_X_UNIARTIST)] - unicode encoded artist for submission to e.g. script.artistslideshow
 $INFO[Window.Property(XSQUEEZE_TRACK_X_TITLE)] - the title of the track
@@ -72,14 +73,12 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
 
 -->
 
-
-
-
 <window>
 	<defaultcontrol>999</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <controls>
 
+    <!-- HIDDEN BUTTON which calls the artist slideshow script -->
 		<control type="button" id="999">
     	<posx>-10</posx>
     	<posy>-10</posy>
@@ -89,7 +88,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
     </control>
 
     <!-- STATIC BACKGROUND -->
-    <!--
     <control type="image">
       <posx>0</posx>
       <posy>0</posy>
@@ -97,25 +95,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
       <height>720</height>
       <texture>music.jpg</texture>
     </control>
-    -->
-
-    <!-- Large artist slideshow background -->
-   <!--
-    <control type="multiimage">
-    	<posx>0</posx>
-    	<posy>0</posy>
-    	<width>1280</width>
-    	<height>720</height>
-      <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
-      <imagepath fallback="DefaultFanart.jpg" background="true">$INFO[Window.Property(ArtistSlideshow)]</imagepath>
-    	<aspectratio>keep</aspectratio>
-    	<timeperimage>5000</timeperimage>
-    	<fadetime>2000</fadetime>
-    	<randomize>true</randomize>
-    	<animation effect="fade" start="0" end="100" time="300">Visible</animation>
-    	<animation effect="fade" start="100" end="0" time="300">Hidden</animation>
-    </control>
-  -->
 
     <!-- ANIMATIONS -->
     <control type="image">
@@ -129,7 +108,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
       <animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
     </control>
 
-    <!-- MAIN PANEL AND FLOOR AREA -->
+    <!-- MAIN PANELS AND FLOOR AREA -->
     <control type="group">
       <animation type="WindowOpen" reversible="false">
         <effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300"/>
@@ -187,6 +166,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
           <shadowcolor>black</shadowcolor>
         </control>
 
+        <!-- LMS server and player ID tags -->
         <control type="label">
           <description>server label</description>
           <posx>15</posx>
@@ -213,9 +193,9 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
           <textcolor>FF333333</textcolor>
           <shadowcolor>black</shadowcolor>
         </control>
-
       </control>
 
+      <!-- ***************** LEFT PANEL CONTROLS *************************** -->
 
       <!-- COVER ART FOR CURRENT TRACK -->
       <control type="image" id="100">
@@ -226,100 +206,11 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
         <height>275</height>
       </control>
 
-      <!-- THUMBNAILS FOR UPCOMING TRACKS -->
-
-      <control type="group">
-        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
-        <description>Upcoming Tracks Thumbs</description>
-        <posx>363</posx>
-        <posy>265</posy>
-        <control type="image" id="101">
-          <description>Cover art for track + 1</description>
-          <posx>0</posx>
-          <posy>0</posy>
-          <width>75</width>
-          <height>75</height>
-        </control>
-        <control type="image" id="102">
-          <description>Cover art for track + 2</description>
-          <posx>85</posx>
-          <posy>0</posy>
-          <width>75</width>
-          <height>75</height>
-        </control>
-        <control type="image" id="103">
-          <description>Cover art for track + 3</description>
-          <posx>170</posx>
-          <posy>0</posy>
-          <width>75</width>
-          <height>75</height>
-        </control>
-      </control>
-
-      <!-- END GROUP UPCOMING THUMBS -->
-
-      <control type="progress" id="203">
-        <description>Track Playing Progress</description>
-        <posx>60</posx>
-        <posy>350</posy>
-        <width>560</width>
-        <height>10</height>
-        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
-        <reveal>false</reveal>
-        <info/>
-      </control>
-
-        <control type="label" id="204">
-          <description>Track Elapsed Label</description>
-          <posx>610</posx>
-          <posy>375</posy>
-          <width>500</width>
-          <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false) + [ SubString(Window.Property(XSQUEEZE_NOWPLAYING),play) | SubString(Window.Property(XSQUEEZE_NOWPLAYING),pause) ]</visible>
-          <align>right</align>
-          <aligny>center</aligny>
-          <scroll>true</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_ELAPSED)] / $INFO[Window.Property(XSQUEEZE_TRACK_0_REMAINING)] / $INFO[Window.Property(XSQUEEZE_TRACK_0_DURATION)]</label>
-          <font>font24_title</font>
-          <textcolor>FF777777</textcolor>
-        </control>
-
-
-
-    <control type="label" id="200">
-      <description>Current Track Name Label</description>
-      <posx>60</posx>
-      <posy>420</posy>
-      <width>560</width>
-      <visible>SubString(Window.Property(XSQUEEZE_TRACK_0_INPLAYLIST),true)</visible>
-      <align>left</align>
-      <aligny>center</aligny>
-      <scroll>true</scroll>
-      <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)]</label>
-      <font>font24_title</font>
-      <textcolor>orange</textcolor>
-    </control>
-
-
-      <!-- NOW PLAYING ARTIST, ALBUM, YEAR -->
+      <!-- CURRENT ARTIST, ALBUM, YEAR -->
       <control type="group">
         <description>Current Track Details</description>
         <posx>350</posx>
         <posy>0</posy>
-        <!--
-        <control type="label" id="199">
-          <description>Now Playing Label</description>
-          <posx>0</posx>
-          <posy>0</posy>
-          <width>1280</width>
-          <visible>true</visible>
-          <align>left</align>
-          <aligny>center</aligny>
-          <scroll>true</scroll>
-          <label>Now:</label>
-          <font>font20_title</font>
-          <textcolor>FF999999</textcolor>
-        </control>
-        -->
         <control type="label" id="201">
           <description>Current Artist Label</description>
           <posx>0</posx>
@@ -360,30 +251,81 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
           <textcolor>FF9999FF</textcolor>
         </control>
       </control>
-      <!-- END GROUP CURRENT TRACK LABELS -->
+      <!-- END GROUP CURRENT ALBUM LABELS -->
 
-
-
-
-      <!-- COMING UP LABEL -->
- <!--
-      <control type="label" id="999">
-        <description>Coming Up Label</description>
-        <posx>350</posx>
-        <posy>335</posy>
-        <width>200</width>
+      <!-- THUMBNAILS FOR UPCOMING TRACKS -->
+      <control type="group">
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+        <description>Upcoming Tracks Thumbs</description>
+        <posx>363</posx>
+        <posy>265</posy>
+        <control type="image" id="101">
+          <description>Cover art for track + 1</description>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>75</width>
+          <height>75</height>
+        </control>
+        <control type="image" id="102">
+          <description>Cover art for track + 2</description>
+          <posx>85</posx>
+          <posy>0</posy>
+          <width>75</width>
+          <height>75</height>
+        </control>
+        <control type="image" id="103">
+          <description>Cover art for track + 3</description>
+          <posx>170</posx>
+          <posy>0</posy>
+          <width>75</width>
+          <height>75</height>
+        </control>
+      </control>
+      <!-- END GROUP UPCOMING THUMBS -->
+
+      <!-- TRACK PROGRESS BAR -->
+      <control type="progress" id="203">
+        <description>Track Playing Progress</description>
+        <posx>60</posx>
+        <posy>350</posy>
+        <width>560</width>
+        <height>10</height>
+        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+        <reveal>false</reveal>
+        <info/>
+      </control>
+
+      <!-- TRACK TIME PLAYED / TIME REMAINING / DURATION -->
+      <control type="label" id="204">
+        <description>Track Times Label</description>
+        <posx>610</posx>
+        <posy>375</posy>
+        <width>500</width>
+        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false) + [ SubString(Window.Property(XSQUEEZE_NOWPLAYING),play) | SubString(Window.Property(XSQUEEZE_NOWPLAYING),pause) ]</visible>
+        <align>right</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_ELAPSED)] / $INFO[Window.Property(XSQUEEZE_TRACK_0_REMAINING)] / $INFO[Window.Property(XSQUEEZE_TRACK_0_DURATION)]</label>
+        <font>font24_title</font>
+        <textcolor>FF777777</textcolor>
+      </control>
+
+      <!-- CURRENT TRACK LABEL  -->
+      <control type="label" id="200">
+        <description>Current Track Name Label</description>
+        <posx>60</posx>
+        <posy>420</posy>
+        <width>560</width>
+        <visible>SubString(Window.Property(XSQUEEZE_TRACK_0_INPLAYLIST),true)</visible>
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label>Coming Up:</label>
-        <font>font13_title</font>
-        <textcolor>FF999999</textcolor>
+        <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)]</label>
+        <font>font24_title</font>
+        <textcolor>orange</textcolor>
       </control>
--->
 
-      <!-- UPCOMING TRACK LABELS -->
-
+      <!-- UPCOMING PLAYLIST LABELS -->
       <control type="group">
         <description>Upcoming Tracks Labels</description>
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
@@ -507,11 +449,11 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
           <textcolor>FFBBBBBB</textcolor>
         </control>
       </control>
-
-
       <!-- END GROUP UPCOMING TRACKS -->
 
-      <!-- The artist slideshow -->
+      <!-- **************** RIGHT PANEL CONTROLS *************************** -->
+
+      <!-- THE ARTIST SLIDESHOW -->
       <control type="multiimage" id ="105">
       	<posx>740</posx>
       	<posy>60</posy>
@@ -527,20 +469,22 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
       	<animation effect="fade" start="100" end="0" time="300">Hidden</animation>
       </control>
 
-				<control type="textbox">
-            <description>Extra info from artist slideshow</description>
-            <posx>660</posx>
-            <posy>470</posy>
-            <width>555</width>
-            <height>155</height>
-            <visible>true</visible>
-            <label>$INFO[Window.Property(ArtistSlideshow.ArtistBiography)]</label>
-            <textcolor>FFB2D4F5</textcolor>
- 					  <font>font12</font>
-					  <align>justify</align>
-					  <autoscroll time="3000" delay="6000" repeat="5000"></autoscroll>
-				</control>
+  		<control type="textbox">
+          <description>Bio from artist slideshow</description>
+          <posx>660</posx>
+          <posy>470</posy>
+          <width>555</width>
+          <height>155</height>
+          <visible>true</visible>
+          <label>$INFO[Window.Property(ArtistSlideshow.ArtistBiography)]</label>
+          <textcolor>FFB2D4F5</textcolor>
+  			  <font>font12</font>
+  			  <align>justify</align>
+  			  <autoscroll time="3000" delay="6000" repeat="5000"></autoscroll>
+  		</control>
 
+
+      <!-- **************** BOTTOM PANEL CONTROLS ************************** -->
 
       <!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
       <control type="group">

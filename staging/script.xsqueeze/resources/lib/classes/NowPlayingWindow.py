@@ -181,6 +181,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKLENGTH")
       xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUMYEAR")
       xbmcgui.Window(self.windowID).clearProperty(stub + "INPLAYLIST")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "ELAPSED")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "REMAINING")
+      xbmcgui.Window(self.windowID).clearProperty(stub + "DURATION")
 
 
 
