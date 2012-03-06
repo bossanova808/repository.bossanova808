@@ -93,6 +93,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       self.cleanupPlaylist(0)
       self.cleanupCovers()
       self.removeControl(self.background)
+      del(self.background)
       xbmcgui.Window(self.windowID).clearProperty("XSQUEEZE_WINDOWID")
       #hold here for up to 5 seconds while we wait for artist slideshow to exit...
       count = 0
@@ -304,7 +305,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
             xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYING_RADIO", "true")
             artist = ""
             title = ""
-            tracknum = "Radio"
+            tracknum = "RADIO"
             try:
               title = self.playlist[0]['title']
               artist = self.playlist[0]['artist']

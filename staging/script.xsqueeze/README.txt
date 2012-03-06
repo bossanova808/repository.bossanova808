@@ -1,13 +1,14 @@
-README v0.3 for XSqueeze
+README v0.4 for XSqueeze
 
-See http://forum.xbmc.org/showthread.php?t=122199 for discussion/release notification!
+See http://forum.xbmc.org/showthread.php?t=122199 for discussion/release notification/help!
 
 ********************************************************************************
-* INTRODUCTIONS:
+* INTRODUCTIONS & CREDITS:
 
 XSqueeze is Squeezebox player/controller for XBMC.
 
 It was built by me (bossanova808@gmail.com) using some python and building on the hard work of two handy projects: SqueezeSlave and Pysqueezecenter.
+I have also received generous help from jmarshall, pkscout, mizaki, giftie, HKShai and more!  Many thanks to all the helpers from this great community.
 
 XSqueeze can be used in two main ways:
 
@@ -15,7 +16,7 @@ XSqueeze can be used in two main ways:
 
 or
 
-2. As a player with local playback, and a visualiser - meaning you can have an XBMC/XSqueeze setup in your media room that syncs with other squeezebox installations around your house, without needing to install a squeezebox in your media room!
+2. (Default) As a player with local playback, and a visualiser - meaning you can have an XBMC/XSqueeze setup in your media room that syncs with other squeezebox installations around your house, without needing to install a squeezebox in your media room!
 
 Option 2 - the default - uses SqueezeSlave, either run directly by the add on or manually installed.  (Note that the player functionality only works on Windows, OSX and Linux 2.6+/Openelec - not iOS/other platforms not listed - basically, the squeezeslave binary must be available for your system for local playback to be possible)
 
@@ -68,7 +69,7 @@ If you want to use XSqueeze jut as a visualise for an existing player, enable th
 
 Now, enter the MAC address of the player you want to visualise - you can find this information on your LMS Server->Settings->Information page.
 
-(Tested with SLIMP3, SB2, SB3 and Boom players, I don't have a Radio or Touch to try unfortunately, and I suspect these will not work)
+(Tested with SLIMP3, SB2, SB3, Classic and Boom players, I don't have a Radio or Touch to try unfortunately, and I suspect these will not work completely...)
 
 You can also use Controller Only mode if you wish to manually install & run your own Squeezeslave or SqueezePlayer (see appendix A below!).  Then you just enter the mac address of this software player here just like you would any other player.
 

@@ -28,14 +28,14 @@ class ReadMeViewer():
         #get header, text
         heading, text = self.getText()
         # set heading
-        self.window.getControl( self.CONTROL_LABEL ).setLabel( "%s from %s" % ( heading, constants.__addonname__, ) )
+        self.window.getControl( self.CONTROL_LABEL ).setLabel( "%s - %s" % ( heading, constants.__addonname__ +"-"+ constants.__version__ ) )
         # set text
         self.window.getControl( self.CONTROL_TEXTBOX ).setText( text )
 
     def getText( self ):
         try:
             txt = open( os.path.join( constants.__cwd__, "FIRSTRUN.txt" ) ).read()
-            return "Your First Run Reminder...", txt
+            return constants.__language__(19621), txt
         except:
             print_exc()
         return "", ""

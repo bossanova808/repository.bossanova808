@@ -4,13 +4,13 @@ import constants
 from traceback import print_exc
 
 ################################################################################
-# Log a message to the XBMC Log, and an exception if supplied
+# Log a message to the XBMC Log, and an exception if supplied - if debug logging is on
 
-def log(message, inst=None):
+def log(message, inst=None, level=xbmc.LOGNOTICE):
     if inst is None:
-      xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": " + str(message))
+      xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": " + str(message), level )
     else:
-      xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": Exception!")
+      xbmc.log(constants.__addonname__ + "-" + constants.__version__ +  ": Exception!", level )
       print_exc(inst)
 
 
