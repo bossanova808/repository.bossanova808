@@ -70,6 +70,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     self.thread.setDaemon(True)
     self.thread.start()
 
+    Logger.log("Starting ArtistSlideshow thread")
+    self.thread2 = threading.Thread(target=self.runArtistSlideshow)
+    self.thread2.setDaemon(True)
+    self.thread2.start()
+
   ##############################################################################
   # Essentially the reverse of init - need to remove any controls we added and blank out the properties
   # for a cleaner exit
@@ -77,6 +82,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def deInit(self):
 
       Logger.log("deInit() called - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
+
+      xbmcgui.Window(xbmcgui.getCurrentWindowId()).clearProperty("ArtistSlideshow.ExternalCall")
+      Logger.log("Waiting for artistslideshow to stop")
+      while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
+        Logger.log("Still waiting for artistslideshow to stop")
+        xbmc.sleep(1000)
+
+      Logger.log("Cleaning covers and playlist properties.....")
       self.cleanupPlaylist(0)
       self.cleanupCovers()
       self.removeControl(self.background)
@@ -84,13 +97,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       #hold here for up to 5 seconds while we wait for artist slideshow to exit...
       count = 0
 
-      while xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")!= 'True':
-        Logger.log("Sleeping 0.5s waiting for artist.slideshow to finish (max 5 seconds)")
-        xbmc.sleep(500)
-        count+=1
-        if count > 100:
-          break
-      Logger.log("deInit() complete. AS = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
+##      while xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")!= 'True':
+##        Logger.log("Sleeping 0.5s waiting for artist.slideshow to finish (max 5 seconds)")
+##        xbmc.sleep(500)
+##        count+=1
+##        if count > 100:
+##          break
+
+      Logger.log("deInit() complete. Artist Slideshow Cleanup Property = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
 
   ##############################################################################
   # Handle window acitions
@@ -134,11 +148,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       #tidy up before the window closes...
       self.deInit()
 
-      #force artist.slideshow to get the message that the artist has been clear...
-      try:
-        self.setFocus(self.hiddenButton)
-      except:
-        pass
+##      #force artist.slideshow to get the message that the artist has been clear...
+##      try:
+##        self.setFocus(self.hiddenButton)
+##      except:
+##        pass
 
       #now close the window before we kill it
       self.close()
@@ -157,7 +171,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def cleanupCovers (self):
 
-    Logger.log("### Clearing cover images.....")
+    #Logger.log("Clearing cover images.....")
     self.getControl( constants.MAINCOVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING1COVERART  ).setImage( "" )
     self.getControl( constants.UPCOMING2COVERART  ).setImage( "" )
@@ -169,7 +183,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def cleanupPlaylist (self, start=0):
 
-    Logger.log("Clearing playlist properties....")
+    #Logger.log("Clearing playlist properties....")
 
     for trackOffset in range(start,10):
       stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
@@ -185,7 +199,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       xbmcgui.Window(self.windowID).clearProperty(stub + "REMAINING")
       xbmcgui.Window(self.windowID).clearProperty(stub + "DURATION")
 
+  ##############################################################################
+  # Kick off the artist.slideshow
 
+  def runArtistSlideshow(self):
+     #startup artistslideshow
+     xbmcgui.Window(self.windowID).setProperty("ArtistSlideshow.ExternalCall", "True")
+     artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_UNIARTIST")
+     xbmc.executebuiltin(artistslideshow)
 
   ##############################################################################
   #this is our GUI update thread and is used to update the window's display
@@ -199,11 +220,6 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         if self.player.songChanged():
           self.cleanupCovers()
           self.cleanupPlaylist()
-          #kick of the artist slideshow if it's in the skin file...
-##          try:
-##            self.setFocus(self.hiddenButton)
-##          except:
-##            pass
         #is the player on play, pause or stop?
         mode = self.player.getMode()
         if not mode=="stop":

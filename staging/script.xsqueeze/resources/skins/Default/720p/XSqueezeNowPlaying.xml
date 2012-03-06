@@ -79,13 +79,14 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
   <controls>
 
     <!-- HIDDEN BUTTON which calls the artist slideshow script -->
-		<control type="button" id="999">
+		<!--<control type="button" id="999">
     	<posx>-10</posx>
     	<posy>-10</posy>
     	<width>1</width>
     	<height>1</height>
     	<onfocus>RunScript(script.artistslideshow,artistfield=XSQUEEZE_TRACK_0_UNIARTIST&windowid=$INFO[Window.Property(XSQUEEZE_WINDOWID)])</onfocus>
     </control>
+    -->
 
     <!-- STATIC BACKGROUND -->
     <control type="image">

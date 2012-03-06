@@ -145,7 +145,7 @@ SYSTEM=""
 
 try:
   #will return Windows or Darwin
-  SYSTEM = platform.system()
+  SYSTEM = platform.platform()
 except:
   #otherwise we assume some linux 2.6+ flavour...
   SYSTEM = "Linux"
@@ -154,9 +154,9 @@ except:
 is_64bits = sys.maxsize > 2**32
 
 #choose the right executable
-if SYSTEM=="Windows":
+if SYSTEM.startswith("Windows"):
   EXE = [BINWIN]
-elif SYSTEM=="Darwin":
+elif YSTEM.startswith("Darwin"):
   EXE = [BINOSX]
 else:
   if is_64bits:
