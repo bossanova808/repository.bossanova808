@@ -12,7 +12,7 @@
 	<string id="19606">(Local playback AND controller only are both ON!)</string>
 	<string id="19607">(Local playback AND controller only are both OFF!)</string>
 	<string id="19608">Starting Local Squeezeslave Player</string>
-	<string id="19609">Please wait a moment...(up to 20 seconds)...</string>
+	<string id="19609">Please wait a moment...(up to 10 seconds)...</string>
 	<string id="19610">Failed to create Squeezeslave porcess</string>
 	<string id="19611">On OE/Linux/OSX you probably need to manually chmod +x the binaries</string>
 	<string id="19612">Shutdown - Stopping Local Squeezeslave Player and Slideshow</string>

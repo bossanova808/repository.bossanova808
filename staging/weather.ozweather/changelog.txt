@@ -1,3 +1,6 @@
+V0.3.7
+- Localized, although seems kind of pointless...getting rteady for moving to official repo maybe?
+
 V0.3.6
 - Fixed locations bug with help from scotia, a tricky one as I couldn't raise the bug.... 
 

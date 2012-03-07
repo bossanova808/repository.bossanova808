@@ -1,3 +1,13 @@
+V0.3.9
+- Big internal changes to reduce load on server
+- Up to 10 tracks o fplaylsit displayed
+- Integration of script.artistslideshow
+- Fixed various character things, including searching
+- Localisation
+- Prep for attemp to move to offical repo
+- Added skinning notes to the default skin to make new skin files easy
+- Moved thread info to XBMC wiki
+
 V0.3.2
 - Unicode support
 - Fixed volume display

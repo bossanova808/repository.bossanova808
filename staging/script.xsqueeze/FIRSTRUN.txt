@@ -8,6 +8,7 @@ OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 * A solution has been found for audio droputs on Openelec (thanks HKShia!) - add '-y200' as an extra argument in the addon settings and they should go away.
 * This add on now depends on (and should automatically pull if you don't have it) - the Artist Slideshow script by ronie/pkscout.  Please check your settings for this add on as well before running XSqueeze! (Also found in the programmes section).
 
+
 What's new in this version:
 * New info rich two panel UI (Confluence) with up to 10 tracks in the playlist.  Any skinners out there want to make up some xmls for their skin??
 * A lot of fixes at the unicode/character level - for example, search now works.
