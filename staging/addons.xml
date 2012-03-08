@@ -3,7 +3,7 @@
 <addon
   id="repository.bossanova808"
   name="bossanova808's XBMC Addons"
-  version="0.0.6"
+  version="0.0.7"
   provider-name="bossanova808 [bossanova808@gmail.com]">
 	<extension point="xbmc.addon.repository"
              name="bossanova808's XBMC Addon Repository">
@@ -13,14 +13,14 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Repo for Bossanova808's XBMC Addons</summary>
-		<description>Download and install addons by bossanova80.  These include OzWeather - weather data and radar maps from BOM Australia and XSqueeze - a Squeezebox controller for XBMC (with local playback via Squeezeslave if you want!).</description>
+		<description>Download and install addons by bossanova808.  These include OzWeather - weather data and radar maps from BOM Australia and XSqueeze - a Squeezebox player & controller for XBMC.</description>
 		<platform>all</platform>
 	</extension>
 </addon>
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.4"
+       version="0.4.1"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
