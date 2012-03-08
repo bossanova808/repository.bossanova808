@@ -148,6 +148,7 @@ try:
   SYSTEM = platform.platform()
 except:
   #otherwise we assume some linux 2.6+ flavour...
+  Logger.log("Exception in platform.platform(), defaulting to SYSTEM=Linux")
   SYSTEM = "Linux"
 
 #32 or 64 bit?
