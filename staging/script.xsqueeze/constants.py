@@ -156,7 +156,7 @@ is_64bits = sys.maxsize > 2**32
 #choose the right executable
 if SYSTEM.startswith("Windows"):
   EXE = [BINWIN]
-elif YSTEM.startswith("Darwin"):
+elif SYSTEM.startswith("Darwin"):
   EXE = [BINOSX]
 else:
   if is_64bits:

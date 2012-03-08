@@ -227,7 +227,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           self.updateTrackProgress()
         #set player state icon - play, pause or stop
         xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_NOWPLAYING", mode)
-        self.getControl( constants.PLAYSTATE  ).setImage( mode + '.png' )
+        #this control SHOULD be there but jsut in case it's not...
+        try:
+          self.getControl( constants.PLAYSTATE  ).setImage( mode + '.png' )
+        except:
+          pass
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
 
@@ -247,7 +251,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.coverURLs = newCoverURLs
 
       try:
-       #set the images
+       #set the images if they are available in the skin file
         self.getControl( constants.MAINCOVERART  ).setImage( self.coverURLs[0]  )
         self.getControl( constants.UPCOMING1COVERART  ).setImage( self.coverURLs[1]  )
         self.getControl( constants.UPCOMING2COVERART  ).setImage( self.coverURLs[2]  )
