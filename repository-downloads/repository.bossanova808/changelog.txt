@@ -1,4 +1,4 @@
-[B]Version 0.0.7[/B]
+[B]Version 0.0.8[/B]
 - Added reference to XSqueeze
 
 [B]Version 0.0.3[/B]
