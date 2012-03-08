@@ -135,19 +135,21 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #intercept special XBMC ones first
     if action == ACTION_CODES['ACTION_PREVIOUS_MENU']:
-      Logger.log("XBMC Action: Close")
-      #prevent the GUI update thread from updating...
-      self.running = False
+      #make sure we've only been through here once....
+      if self.running:
+        Logger.log("XBMC Action: Close")
+        #prevent the GUI update thread from updating...
+        self.running = False
 
-      #we're controlling a local squeezeslave - best to stop the music before we kill it
-      #otherwise it oddly resumes automatically on restart
-      if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-        Logger.notify(constants.__language__(19612),constants.__language__(19609))
-        with self.lock:
-          self.player.button("stop")
+        #we're controlling a local squeezeslave - best to stop the music before we kill it
+        #otherwise it oddly resumes automatically on restart
+        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+          Logger.notify(constants.__language__(19612),constants.__language__(19609))
+          with self.lock:
+            self.player.button("stop")
 
-      #tidy up before the window closes...
-      self.deInit()
+        #tidy up before the window closes...
+        self.deInit()
 
 ##      #force artist.slideshow to get the message that the artist has been clear...
 ##      try:
@@ -155,8 +157,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 ##      except:
 ##        pass
 
-      #now close the window before we kill it
-      self.close()
+        #now close the window before we kill it
+        self.close()
+
+      #user has probably hammered the close button...do nothing
+      else:
+        Logger.notify(constants.__language__(19622),constants.__language__(19623))
+        pass
+
 
     #elif etc
 
@@ -206,7 +214,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def runArtistSlideshow(self):
      #startup artistslideshow
      xbmcgui.Window(self.windowID).setProperty("ArtistSlideshow.ExternalCall", "True")
-     artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_UNIARTIST")
+     artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_ARTIST")
      xbmc.executebuiltin(artistslideshow)
 
   ##############################################################################

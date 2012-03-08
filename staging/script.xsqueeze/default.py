@@ -45,7 +45,7 @@ if ( __name__ == "__main__" ):
         #need this to stop windows opening a console window & grab output
         Logger.log("Calling SqueezeSlave for server discovery..." + str(exe))
 
-        if constants.SYSTEM.startswith("Windows"):
+        if constants.SYSTEM.startswith("win"):
           output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
         else:
           output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
@@ -92,7 +92,7 @@ if ( __name__ == "__main__" ):
         #need this to stop windows opening a console window & grab output
         Logger.log("Calling SqueezeSlave for server discovery..." + str(exe))
 
-        if constants.SYSTEM.startswith("Windows"):
+        if constants.SYSTEM.startswith("win"):
           output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
         else:
           output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
@@ -167,7 +167,7 @@ if ( __name__ == "__main__" ):
           Logger.log ("Attempting to start Squeezelave: " + str(exe))
           try:
             #need this to stop windows opening a console window
-            if constants.SYSTEM.startswith("Windows"):
+            if constants.SYSTEM.startswith("win"):
               slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
             else:
               slaveProcess = subprocess.Popen(exe, shell=False)

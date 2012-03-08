@@ -141,23 +141,23 @@ BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION 
 BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64")
 
 #need to work out what system we're on
-SYSTEM=""
+SYSTEM="linux"
 
 try:
   #will return Windows or Darwin
-  SYSTEM = platform.platform()
-except:
+  SYSTEM = sys.platform
+  xbmc.log(__addonname__ + "-" + __version__ + ": sys.platform is " + SYSTEM)
+except Exception as inst:
   #otherwise we assume some linux 2.6+ flavour...
-  Logger.log("Exception in platform.platform(), defaulting to SYSTEM=Linux")
-  SYSTEM = "Linux"
+  xbmc.log(__addonname__ + "-" + __version__ + ": Exception in platform.platform(), defaulting to SYSTEM=Linux :" + str(inst))
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32
 
 #choose the right executable
-if SYSTEM.startswith("Windows"):
+if SYSTEM.startswith("win"):
   EXE = [BINWIN]
-elif SYSTEM.startswith("Darwin"):
+elif SYSTEM.startswith("darwin"):
   EXE = [BINOSX]
 else:
   if is_64bits:
@@ -166,7 +166,7 @@ else:
     EXE = [BINLIN32]
 
 #chmod +X the exe file...
-if SYSTEM=="Darwin" or SYSTEM=="Linux":
+if SYSTEM.startswith("darwin") or SYSTEM.startswith("lin"):
   try:
     #attempt to make the binary executable - this never works really...
     #it's really about triggering the messages in the except clause below...
