@@ -4,7 +4,7 @@ import xbmcvfs
 import os
 import sys
 import platform
-
+import stat
 
 ################################################################################
 # CONSTANTS & SETTINGS STUFF FOR XSQUEEZE
@@ -165,16 +165,23 @@ else:
   else:
     EXE = [BINLIN32]
 
-#chmod +X the exe file...
-if SYSTEM.startswith("darwin") or SYSTEM.startswith("lin"):
+#chmod +X the exe file on linux/osx ...
+
+if SYSTEM.startswith("lin"):
   try:
-    #attempt to make the binary executable - this never works really...
-    #it's really about triggering the messages in the except clause below...
     os.system("chmod a+x " + EXE[0])
-    xbmc.log(__addonname__ + "-" + __version__ +": ### chmod +x the Squeezeslave binaries - success")
+    xbmc.log(__addonname__ + "-" + __version__ +": ### (linux) chmod +x the Squeezeslave binaries - success")
   except:
     xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
-    #Logger.notify("Failed to chmod +x the binaries" "Please do so manually - most likely a user permissions error", 10000)
+elif SYSTEM.startswith("darwin"):
+  try:
+    os.chmod(EXE[0], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
+    xbmc.log(__addonname__ + "-" + __version__ +": ### OSX chmod +x the Squeezeslave binaries - success")
+  except:
+    xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
+else:
+  xbmc.log(__addonname__ + __version__ +": Windows, so no need to chmod the binaries.")
+
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls
