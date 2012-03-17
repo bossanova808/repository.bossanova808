@@ -1,3 +1,6 @@
+V0.4.2
+- Fix for permission on OSX (thanks to pkscout) - unfortunately server and audio discovery is not yet fixed...need some OSX helpers!!
+
 V0.4.1
 - Changed system platform detection, hopefully OSX is ok now??
 - Cleaner exit handling - traps hammering of the exit button which could cause crashes

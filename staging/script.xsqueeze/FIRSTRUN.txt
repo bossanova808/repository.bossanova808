@@ -1,23 +1,8 @@
 
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
-[COLOR red][B]NOTE: XSqueeze addon settings have (again) changed significantly with V0.4+![/B][/COLOR]
-
-* Most are the same but if you have used the audio output chooser, please return to settings and run this again as I have found a bug in the way XBMC handles settings and worked around it with a new, simpler approach
-* Make sure you click 'ok' at the bottom (and NOT exit/back!) once all the settings are as you want, so that your new settings are properly re-saved over the old ones.
-* A solution has been found for audio droputs on Openelec (thanks HKShia!) - add '-y200' as an extra argument in the addon settings and they should go away.
-* This add on now depends on (and should automatically pull if you don't have it) - the Artist Slideshow script by ronie/pkscout.  Please check your settings for this add on as well before running XSqueeze! (Also found in the programmes section).
-
-
 What's new in this version:
-* Better platform detection - fingers crossed we're working on OSX now?!
-* Safer exit handling 
-* New info rich two panel UI (Confluence) with up to 10 tracks in the playlist.  Any skinners out there want to make up some xmls for their skin??
-* A lot of fixes at the unicode/character level - for example, search now works.
-* Much more efficient internally and puts a lot less load on your server, only pulling larger chunks of data when a change event is detected
-* script.artistslideshow integrated - slideshow and artist bio info while playing.
-* Player state icon support (play, pause, or stop)
-* Cleaner GUI when playing radio streams.
+* Should play music on OSX now, but I still need someone to help me fix server and output discovery on OSX
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
