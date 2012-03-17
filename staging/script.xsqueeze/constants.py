@@ -135,10 +135,10 @@ SKIN=__addon__.getSetting('skin')
 ################################################################################
 
 LOCALSQUEEZESLAVEVERSION = 'squeezeslave-1.2-311'
-BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "//squeezeslave.exe")
-BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "//squeezeslave")
-BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave")
-BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "//squeezeslave-i64")
+BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave.exe")
+BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave")
+BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave")
+BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
 
 #need to work out what system we're on
 SYSTEM="linux"
@@ -176,7 +176,7 @@ if SYSTEM.startswith("lin"):
 elif SYSTEM.startswith("darwin"):
   try:
     os.chmod(EXE[0], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
-    xbmc.log(__addonname__ + "-" + __version__ +": ### OSX chmod +x the Squeezeslave binaries - success")
+    xbmc.log(__addonname__ + "-" + __version__ +": ### (OSX) chmod +x the Squeezeslave binaries - success")
   except:
     xbmc.log(__addonname__ + __version__ +": chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
 else:
