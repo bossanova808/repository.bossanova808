@@ -2,6 +2,7 @@
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
 What's new in this version:
+* Tweak dependencies to hopefully avoid incorrect 'damaged' reports
 * Should play music on OSX now, but I still need someone to help me fix server and output discovery on OSX
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]

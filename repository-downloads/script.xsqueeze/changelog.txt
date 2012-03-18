@@ -1,3 +1,6 @@
+V0.4.3
+- Tweak dependencies to try and avoid 'damaged' reports
+
 V0.4.2
 - Fix for permission on OSX (thanks to pkscout) - unfortunately server and audio discovery is not yet fixed...need some OSX helpers!!
 
