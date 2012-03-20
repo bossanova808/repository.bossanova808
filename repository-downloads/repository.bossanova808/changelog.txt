@@ -1,4 +1,8 @@
 [B]Version 0.0.8[/B]
+- OzWeather and XSqueeze move to own googlecode repos for easier inclusion into XBMS master repo
+- this repo is now only for development versions/private use
+
+[B]Version 0.0.8[/B]
 - Added reference to XSqueeze
 
 [B]Version 0.0.3[/B]
