@@ -1,0 +1,421 @@
+<!--
+
+XSQUEEZE SKIN NOTES
+
+WARNING - DO NOT CHANGE ID OF PROGRESS BAR (203) OR YOU WILL BREAK XSQUEEZE!!
+WARNING - DO NOT REMOVE PROGRESS BAR OR YOU WILL BREAK XSQUEEZE!!
+
+Check the media directory for icons you should supply:
+play.png
+pause.png
+stop.png
+black.png
+...using those names!!
+
+IMAGES:
+XSqueeze will supply the textures for 5 images with IDs:
+MAINCOVERART			= 100
+UPCOMING1COVERART		= 101
+UPCOMING2COVERART		= 102
+UPCOMING3COVERART		= 103
+PLAYSTATE				= 104 (the play/pause/stop icon)
+SLIDESHOW				= 105 (the multiimage control for artist.slideshow)
+
+--------------------------------------------------------------------------------
+
+AVAILABLE IN $INFO & example usages:
+
+$INFO[Window.Property(XSQUEEZE_WINDOWID)] - the current window ID
+$INFO[Window.Property(XSQUEEZE_NAME)] - the name + current version for title bars etc.
+$INFO[Window.Property(XSQUEEZE_PLAYER)] - the player MAC which is LMS unique ID for the player
+$INFO[Window.Property(XSQUEEZE_SERVER)] - the LMS server name or IP
+
+Test for player playing - this example will show the element if the payer is playing
+<visible>SubString(Window.Property(XSQUEEZE_NOWPLAYING),play)</visible>
+(values can be play, pause, stop)
+
+Test if playing radio stream or a track - this example will hide the element if radio is playing:
+<visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+
+--------------------------------------------------------------------------------
+Track 0 - the currently playing track
+
+$INFO[Window.Property(XSQUEEZE_TRACK_0_INPLAYLIST)] - true or false depending on if there is a track 0 in playlist
+$INFO[Window.Property(XSQUEEZE_TRACK_0_ARTIST)] - Artist of song
+$INFO[Window.Property(XSQUEEZE_TRACK_0_UNIARTIST)] - unicode encoded artist for submission to e.g. script.artistslideshow
+$INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)] - the title of the track
+$INFO[Window.Property(XSQUEEZE_TRACK_0_ALBUM)] - the album the track comes from
+$INFO[Window.Property(XSQUEEZE_TRACK_0_ALBUMYEAR)] - the year of the album the track comes from
+$INFO[Window.Property(XSQUEEZE_TRACK_0_ELAPSED)] - elapsed time of current track's playback
+$INFO[Window.Property(XSQUEEZE_TRACK_0_REMAINING)] - remaining time of current track's playback
+$INFO[Window.Property(XSQUEEZE_TRACK_0_DURATION)] - duration of current track
+
+**** OR
+
+Track 0 - the current radio station - radio stations are very variable in what they return
+
+$INFO[Window.Property(XSQUEEZE_TRACK_0_ARTIST)] - usually the radio station name
+$INFO[Window.Property(XSQUEEZE_TRACK_0_UNIARTIST)] - unicode encoded of the above
+$INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)] - usually title of track/show
+(others will be blank/unset)
+
+--------------------------------------------------------------------------------
+Track 1 - 9 - up to 9 more upcoming tracks...change the X to 1 to 9....
+
+$INFO[Window.Property(XSQUEEZE_TRACK_X_INPLAYLIST)] - true or false/unset depending on if there is a track 0 in playlist
+$INFO[Window.Property(XSQUEEZE_TRACK_X_ARTIST)] - Artist of song
+$INFO[Window.Property(XSQUEEZE_TRACK_X_UNIARTIST)] - unicode encoded artist for submission to e.g. script.artistslideshow
+$INFO[Window.Property(XSQUEEZE_TRACK_X_TITLE)] - the title of the track
+$INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUM)] - the album the track comes from
+$INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the track comes from
+--------------------------------------------------------------------------------
+
+-->
+
+<window>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+		<!-- BACKGROUND -->
+		<control type="multiimage">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>1280</width>
+			<height>720</height>
+			<imagepath background="true">$INFO[Window.Property(ArtistSlideshow)]</imagepath>
+			<aspectratio>keep</aspectratio>
+			<timeperimage>10000</timeperimage>
+			<fadetime>2000</fadetime>
+			<randomize>true</randomize>
+			<animation effect="fade" start="0" end="100" time="300">Visible</animation>
+			<animation effect="fade" start="100" end="0" time="300">Hidden</animation>
+		</control>
+		<control type="image">
+			<posx>0</posx>
+			<posy>-100</posy>
+			<width>1280</width>
+			<height>256</height>
+			<texture flipy="true">HomeNowPlayingBack.png</texture>
+		</control>
+		<control type="image">
+			<posx>0</posx>
+			<posy>230r</posy>
+			<width>1280</width>
+			<height>230</height>
+			<texture>HomeNowPlayingBack.png</texture>
+		</control>
+		<!-- END BACKGROUND -->
+
+		<!-- MAIN PANEL -->
+		<control type="group">
+			<animation type="WindowOpen" reversible="false">
+				<effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300"/>
+				<effect type="fade" start="0" end="100" time="300"/>
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="300"/>
+				<effect type="fade" start="100" end="0" time="300"/>
+			</animation>
+			<include>VisibleFadeEffect</include>
+
+			<!-- COVER ART FOR CURRENT TRACK -->
+			<control type="image" id="100">
+				<description>Cover art for currently playing track</description>
+				<posx>50</posx>
+				<posy>280r</posy>
+				<width>250</width>
+				<height>250</height>
+			</control>
+
+			<!-- TRACK PROGRESS BAR AND NEXT PLAYING-->
+			<control type="group">
+				<posx>330</posx>
+				<posy>85r</posy>
+				<visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+				<control type="progress" id="203">
+					<description>Track Playing Progress</description>
+					<posx>100</posx>
+					<posy>15</posy>
+					<width>720</width>
+					<height>16</height>
+					<reveal>false</reveal>
+					<info/>
+				</control>
+				<control type="label" id="204">
+					<description>Track Elapsed Label</description>
+					<posx>95</posx>
+					<posy>0</posy>
+					<width>100</width>
+					<height>40</height>
+					<font>font13</font>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>$INFO[Window.Property(XSQUEEZE_TRACK_0_ELAPSED)]</label>
+				</control>
+				<control type="label" id="206">
+					<description>Track Length Label</description>
+					<posx>825</posx>
+					<posy>0</posy>
+					<width>100</width>
+					<height>40</height>
+					<font>font13</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[Window.Property(XSQUEEZE_TRACK_0_DURATION)]</label>
+				</control>
+				<control type="label">
+					<posx>0</posx>
+					<posy>30</posy>
+					<width>910</width>
+					<height>25</height>
+					<label>$LOCALIZE[209]: $INFO[Window.Property(XSQUEEZE_TRACK_1_ARTIST)] - $INFO[Window.Property(XSQUEEZE_TRACK_1_TITLE)]</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<font>font12</font>
+					<textcolor>grey</textcolor>
+					<scroll>true</scroll>
+					<animation effect="fade" time="200">VisibleChange</animation>
+				</control>
+			</control>
+			<!-- END TRACK PROGRESS BAR AND NEXT PLAYING -->
+
+			<!-- CURRENT TRACK LABEL	-->
+			<control type="group">
+				<description>Current Track Details</description>
+				<posx>340</posx>
+				<posy>175r</posy>
+				<control type="label" id="199">
+					<description>Now Playing Label</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>910</width>
+					<height>25</height>
+					<visible>true</visible>
+					<align>left</align>
+					<font>font13</font>
+					<label>$LOCALIZE[31040]</label>
+					<textcolor>white</textcolor>
+				</control>
+				<control type="label" id="201">
+					<description>Current Artist Label</description>
+					<posx>20</posx>
+					<posy>30</posy>
+					<width>910</width>
+					<height>25</height>
+					<align>left</align>
+					<font>font12</font>
+					<label>$INFO[Window.Property(XSQUEEZE_TRACK_0_ARTIST)] - $INFO[Window.Property(XSQUEEZE_TRACK_0_ALBUM)]</label>
+					<textcolor>grey2</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label" id="200">
+					<description>Current Track Name Label</description>
+					<posx>20</posx>
+					<posy>60</posy>
+					<width>910</width>
+					<height>30</height>
+					<font>font30</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)]</label>
+					<textcolor>orange</textcolor>
+					<scroll>true</scroll>
+				</control>
+			</control>
+			<!-- END CURRENT TRACK LABEL -->
+
+			<!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
+			<control type="group">
+				<description>SqueezeBox Display/Controller</description>
+				<posx>10</posx>
+				<posy>10</posy>
+				<control type="label" id="1000">
+					<description>SqueezeBox Display Line 1</description>
+					<posx>0</posx>
+					<posy>5</posy>
+					<width>770</width>
+					<visible>true</visible>
+					<align>left</align>
+					<aligny>center</aligny>
+					<scroll>true</scroll>
+					<label>$INFO[Window.Property(XSQUEEZE_DISPLAYLINE1)]</label>
+					<font>font14</font>
+					<textcolor>FF00FF00</textcolor>
+					<wrapmultiline>false</wrapmultiline>
+					<scrollspeed>50</scrollspeed>
+					<scrollsuffix> - </scrollsuffix>
+				</control>
+				<control type="label" id="1001">
+					<description>SqueezeBox Display Line 2</description>
+					<posx>0</posx>
+					<posy>30</posy>
+					<width>770</width>
+					<visible>true</visible>
+					<align>left</align>
+					<aligny>center</aligny>
+					<scroll>true</scroll>
+					<label>$INFO[Window.Property(XSQUEEZE_DISPLAYLINE2)]</label>
+					<font>font14</font>
+					<textcolor>FF00FF00</textcolor>
+					<wrapmultiline>false</wrapmultiline>
+					<scrollspeed>50</scrollspeed>
+					<scrollsuffix> - </scrollsuffix>
+				</control>
+			</control>			
+			<control type="group">
+				<animation effect="fade" time="200">VisibleChange</animation>
+				<control type="label">
+					<description>Normal Header label</description>
+					<posx>765</posx>
+					<posy>3</posy>
+					<width>800</width>
+					<height>25</height>
+					<align>right</align>
+					<aligny>top</aligny>
+					<font>font10</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<label>Server: $INFO[Window.Property(XSQUEEZE_SERVER)] | Player: $INFO[Window.Property(XSQUEEZE_PLAYERMAC)]</label>
+				</control>
+				<control type="label">
+					<description>header label</description>
+					<posx>765</posx>
+					<posy>15</posy>
+					<width>800</width>
+					<height>25</height>
+					<align>right</align>
+					<aligny>top</aligny>
+					<font>font10</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<label>$INFO[Window.Property(XSQUEEZE_NAME)]</label>
+				</control>
+			</control>
+			<!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
+
+			<!-- STUFF WE DON'T NEED TO SHOW-->
+			<!-- don't want these for this skin, but you have to have them, so they are buried
+					 outside the normal screen -->
+			<control type="group">
+				<visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+				<description>Upcoming Tracks Thumbs</description>
+				<posx>-400</posx>
+				<posy>-400</posy>
+				<control type="label" id="201">
+					<description>Current Artist Label</description>
+					<posx>0</posx>
+					<posy>80</posy>
+					<width>265</width>
+					<visible>true</visible>
+					<align>left</align>
+					<aligny>center</aligny>
+					<scroll>true</scroll>
+					<label>$INFO[Window.Property(XSQUEEZE_TRACK_0_UNIARTIST)]</label>
+					<font>font11_title</font>
+					<textcolor>FF9999FF</textcolor>
+				</control>
+				<control type="image" id="104" >
+					<posx>0</posx>
+					<posy>5</posy>
+					<width>32</width>
+					<height>32</height>
+					<colordiffuse>FFBBBBBB</colordiffuse>
+				</control>
+				<control type="image" id="101">
+					<description>Cover art for track + 1</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>75</width>
+					<height>75</height>
+				</control>
+				<control type="image" id="102">
+					<description>Cover art for track + 2</description>
+					<posx>85</posx>
+					<posy>0</posy>
+					<width>75</width>
+					<height>75</height>
+				</control>
+				<control type="image" id="103">
+					<description>Cover art for track + 3</description>
+					<posx>170</posx>
+					<posy>0</posy>
+					<width>75</width>
+					<height>75</height>
+				</control>
+			</control>
+			<!-- END STUFF WE DON'T NEED TO SHOW-->
+			
+		</control>
+		<!-- END GROUP MAIN PANEL AND FLOOR -->
+
+
+		<!-- FROM HERE DOWN - THE CLOCK & WEATHER -->
+		<control type="group">
+			<posx>520r</posx>
+			<posy>0</posy>
+			<animation effect="slide" start="0,0" end="-60,0" delay="0" time="300" condition="Window.IsVisible(MuteBug)">conditional</animation>
+			<animation effect="slide" start="0,0" end="550,0" delay="0" time="300">WindowClose</animation>
+			<animation effect="slide" start="550,0" end="0,0" delay="0" time="300">WindowOpen</animation>
+			<visible>!Skin.HasSetting(homepageWeatherinfo) + Weather.IsFetched</visible>
+			<control type="image">
+				<description>time background</description>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>180</width>
+				<height>35</height>
+				<texture flipx="true" border="32,0,0,0">header.png</texture>
+			</control>
+			<control type="image">
+				<description>Weather image</description>
+				<posx>30</posx>
+				<posy>1</posy>
+				<width>25</width>
+				<height>25</height>
+				<aspectratio>keep</aspectratio>
+				<texture>$INFO[Window(Weather).Property(Current.ConditionIcon)]</texture>
+			</control>
+			<control type="label">
+				<description>time label</description>
+				<posx>60</posx>
+				<posy>0</posy>
+				<width>100</width>
+				<height>28</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+				<label>[B]$INFO[Weather.Temperature][/B]</label>
+			</control>
+		</control>
+		<control type="group">
+			<posx>390r</posx>
+			<posy>0</posy>
+			<animation effect="slide" start="0,0" end="-60,0" delay="0" time="300" condition="Window.IsVisible(MuteBug)">conditional</animation>
+			<animation effect="slide" start="0,0" end="420,0" delay="0" time="300">WindowClose</animation>
+			<animation effect="slide" start="420,0" end="0,0" delay="0" time="300">WindowOpen</animation>
+			<control type="image">
+				<description>time background</description>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>440</width>
+				<height>35</height>
+				<texture flipx="true" border="32,0,0,0">header.png</texture>
+			</control>
+			<control type="label">
+				<description>time label</description>
+				<posx>30</posx>
+				<posy>0</posy>
+				<width>400</width>
+				<height>28</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+				<label>[COLOR=grey]$INFO[System.Date][/COLOR] | $INFO[System.Time]</label>
+			</control>
+		</control>
+		<!-- END - THE CLOCK & WEATHER -->
+
+	</controls>
+</window>
