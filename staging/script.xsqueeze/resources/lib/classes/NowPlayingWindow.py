@@ -304,9 +304,20 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           #local music
           if 'remote' not in self.playlistDetails[0]:
             xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYING_RADIO", "false")
-            artist = self.playlistDetails[trackOffset]['artist']
-            title = self.playlistDetails[trackOffset]['title']
-            tracknum = str(self.playlistDetails[trackOffset]['tracknum'])
+            #some of this data may not be set if they have stupid untagged files...
+            try:
+              artist = self.playlistDetails[trackOffset]['artist']
+            except KeyError:
+              artist = ""
+            try:
+              title = self.playlistDetails[trackOffset]['title']
+            except KeyError:
+              title = ""
+            try:
+              tracknum = str(self.playlistDetails[trackOffset]['tracknum'])
+            except KeyError:
+              tracknum = ""
+
             xbmcgui.Window(self.windowID).setProperty(stub + "ALBUM", self.playlistDetails[trackOffset]['album'])
             duration = getInHMS(int(self.playlistDetails[trackOffset]['duration']))
             xbmcgui.Window(self.windowID).setProperty(stub + "TRACKLENGTH", duration)

@@ -1,3 +1,6 @@
+V0.4.5
+- Fixes for music files with crappy tags, e.g. missing track numbers
+
 V0.4.4
 - Added some remote codes (action IDs in actionmap.py) for Apple remote support
 
