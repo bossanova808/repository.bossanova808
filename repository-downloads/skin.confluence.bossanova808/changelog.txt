@@ -1,3 +1,7 @@
+[B]0.2.2[/B]
+
+- Merge Eden PVR final
+
 [B]0.2.1[/B]
 
 - Added refresh back to weather
