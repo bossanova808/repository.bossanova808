@@ -140,19 +140,41 @@ BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION 
 BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave")
 BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
 
+#32 or 64 bit?
+is_64bits = sys.maxsize > 2**32
+
+##System.Platform.Linux Returns true if XBMC is running on a linux/unix/osx based computer.
+##System.Platform.Windows Returns true if XBMC is running on a windows based computer.
+##System.Platform.OSX Returns true if XBMC is running on an OSX based computer.
+##System.Platform.IOS Returns true if XBMC is running on an IOS device.
+##System.Platform.ATV2 Returns true if XBMC is running on an atv2.
+
 #need to work out what system we're on
 SYSTEM="linux"
 
-try:
-  #will return Windows or Darwin
-  SYSTEM = sys.platform
-  xbmc.log(__addonname__ + "-" + __version__ + ": sys.platform is " + SYSTEM)
-except Exception as inst:
-  #otherwise we assume some linux 2.6+ flavour...
-  xbmc.log(__addonname__ + "-" + __version__ + ": Exception in platform.platform(), defaulting to SYSTEM=Linux :" + str(inst))
+if xbmc.getCondVisibility( "System.Platform.OSX" ):
+  SYSTEM = "darwin"
+elif xbmc.getCondVisibility( "System.Platform.IOS" ):
+  SYSTEM = "ios"
+elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
+  SYSTEM = "atv2"
+elif xbmc.getCondVisibility( "System.Platform.Windows" ):
+  SYSTEM = "windows"
 
-#32 or 64 bit?
-is_64bits = sys.maxsize > 2**32
+#log the system
+xbmc.log(__addonname__ + "-" + __version__ + ": sys.platform is " + SYSTEM)
+
+#and define the capabilities of each system - systems not in this list are only usable as a controller, no local playback
+LOCALPLAYBACKCAPABLE = ["linux","darwin","windows"]
+
+##try:
+##  #will return Windows or Darwin
+##  SYSTEM = sys.platform
+##  xbmc.log(__addonname__ + "-" + __version__ + ": sys.platform is " + SYSTEM)
+##except Exception as inst:
+##  #otherwise we assume some linux 2.6+ flavour...
+##  xbmc.log(__addonname__ + "-" + __version__ + ": Exception in platform.platform(), defaulting to SYSTEM=Linux :" + str(inst))
+
 
 #choose the right executable
 if SYSTEM.startswith("win"):
@@ -180,7 +202,7 @@ elif SYSTEM.startswith("darwin"):
   except:
     xbmc.log(__addonname__ + "-" + __version__ +": chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
 else:
-  xbmc.log(__addonname__ + "-" + __version__ +": Windows, so no need to chmod the binaries.")
+  xbmc.log(__addonname__ + "-" + __version__ +": Windows or ATV/IOS, so no need to chmod the binaries.")
 
 
 ################################################################################
