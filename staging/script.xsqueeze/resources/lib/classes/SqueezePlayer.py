@@ -113,6 +113,41 @@ class SqueezePlayer:
   ##############################################################################
   # returns the URLs for the current and next three track cover art images
 
+##  def updateCoverArtURLs(self):
+##
+##      coverURLs = []
+##
+##      print "Playlist is" + str(self.playlist)
+##
+##      #start at this song , end at + 3
+##      index = int(self.sb.request("playlist index ?"))
+##      upcomer = index
+##      end = index + 4
+##
+##      #currently uses the track_id in the url - works well
+##      #supposed to use the cover_id number but this doesn't work so well...
+##      for count in range(upcomer,end):
+##        if(count<len(self.playlist)):
+##          try:
+##            #print self.playlist[count]
+##            currentID = self.playlist[count]['id']
+##            #if currentID > 0:
+##            coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
+##            Logger.log ("Appending future cover: " + str(count) + " from " + coverURL)
+##            coverURLs.append(coverURL)
+##            #else:
+##              #need to get the album_art
+##            #  print "#### PD is " + str(self.playlistDetails)
+##            #  temp = self.playlist[count]['artwork_url']
+##            #  print "#### temp is " + temp
+##              #coverURL =
+##          except Exception as inst:
+##            Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
+##            coverURLs.append("")
+##
+##      self.coverURLs = coverURLs
+
+
   def updateCoverArtURLs(self):
 
       coverURLs = []
@@ -129,23 +164,44 @@ class SqueezePlayer:
       for count in range(upcomer,end):
         if(count<len(self.playlist)):
           try:
-            #print self.playlist[count]
-            currentID = self.playlist[count]['id']
-            coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
+            statusInfo = self.sb.request("status " + str(count) + " 1 tags:Kal")
+            if("artwork_url" in statusInfo):
+              statusArtwork = statusInfo.split('artwork_url:')
+              statusArtwork = statusArtwork.pop(1)
+              statusArtwork = statusArtwork.split(' ')
+              statusArtwork = statusArtwork.pop(0)
+              #Logger.log("statusArtwork is " + str(statusArtwork))
+              #check we have a full url....
+              if("http" not in statusArtwork):
+                coverURL = "http://" + constants.SERVERHTTPURL + "/" + statusArtwork
+              else:
+                coverURL = statusArtwork
+            else:
+              statusId = statusInfo.split('id:')
+              statusId = statusId.pop(1)
+              statusId = statusId.split(' ')
+              statusId = statusId.pop(0)
+              #Logger.log("StatusID is " + str(statusId))
+              coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(statusId) + "/cover.jpg"
+
+            #now append the coverURL to our list of URLs
             #Logger.log ("Appending future cover: " + str(count) + " from " + coverURL)
             coverURLs.append(coverURL)
+
+          #Something went wrong, go with null string just to be safe...
           except Exception as inst:
             Logger.log("No cover art so appending null string for playlist index " + str(count), inst)
             coverURLs.append("")
 
       self.coverURLs = coverURLs
 
-
   ##############################################################################
   # Gets more info about a particular song
 
   def getSongInfo(self, id):
-    encoded = self.sb.requestRaw("songinfo 0 100 track_id:" + str(id), True)
+    encoded = self.sb.requestRaw("songinfo 0 1000 track_id:" + str(id), True)
+
+    #print encoded
 
     #find the index of id: - track_id%3A
     start = encoded.find('track_id%3A')
