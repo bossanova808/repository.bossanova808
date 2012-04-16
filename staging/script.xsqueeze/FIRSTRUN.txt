@@ -1,8 +1,11 @@
 
 OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
-What's new in this version:
-* Support for Apple remotes
+[B]What's new in this version:[/B]
+
+* Support for cover art for streaming services, radio etc.
+* Please test and report in the forums as I don't really use streams!
+* Uses XBMC's platform detection instead of Python
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

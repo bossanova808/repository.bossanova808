@@ -1,3 +1,7 @@
+V0.4.6
+- Cover art support for streams and radio stations
+- Uses xbmc's system detection not Python 
+
 V0.4.5
 - Fixes for music files with crappy tags, e.g. missing track numbers
 
