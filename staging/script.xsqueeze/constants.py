@@ -24,7 +24,6 @@ __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Geck
 ################################################################################
 #useful paths
 SOURCEPATH = __cwd__
-#PYLMS_PATH = xbmc.translatePath( os.path.join( __cwd__, 'pylms' ))
 RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ))
 LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
 CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))
@@ -39,7 +38,6 @@ DUMMYAUDIO = xbmc.translatePath(os.path.join( AUDIO_PATH, "XSqueeze.mp3")).repla
 DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).replace( "\\", "/" )
 DUMMYPIC = xbmc.translatePath(os.path.join( IMAGES_PATH, "black.png")).replace( "\\", "/" )
 #extend the python path
-#sys.path.append( PYLMS_PATH )
 sys.path.append( LIB_PATH )
 sys.path.append( CLASS_PATH )
 
