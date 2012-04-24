@@ -49,6 +49,8 @@
 	<string id="19916">(NB - Server discovery does not yet work on OSX/ATV/IOS)</string>
 	<string id="19917">(NB - Audio discovery does not yet work on OSX/ATV/IOS)</string>
 	<string id="19918">(NB - Manually input the arguments in extra arguments above)</string>
+	<string id="19919">Server username</string>
+	<string id="19920">Server password</string>
 
 </strings>
 

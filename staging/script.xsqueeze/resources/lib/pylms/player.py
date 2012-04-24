@@ -1,8 +1,8 @@
 """
-PySqueezeCenter: Python Wrapper for Logitech SqueezeCenter CLI
+PyLMS: Python Wrapper for Logitech Media Server CLI
 (Telnet) Interface
 
-Copyright (C) 2010 JingleManSweep <jinglemansweep [at] gmail [dot] com>
+Copyright (C) 2012 JingleManSweep <jinglemansweep [at] gmail [dot] com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 class Player(object):
 
     """
-    SqueezeCenter Player
+    Player
     """
 
     # internals
@@ -71,7 +71,7 @@ class Player(object):
         return "Player: %s" % (self.ref)
 
     def request(self, command_string, preserve_encoding=False):
-        """Executes Telnet Request via SqueezeCenter"""
+        """Executes Telnet Request via Server"""
         return self.server.request("%s %s" % (self.ref, command_string), preserve_encoding)
 
     def requestRaw(self, command_string, preserve_encoding=True):
@@ -80,7 +80,7 @@ class Player(object):
 
 
     def update(self, index, update=True):
-        """Update Player Properties from SqueezeCenter"""
+        """Update Player Properties from Server"""
         self.index = index
         self.ref = str(self.__unquote(
             self.server.request("player id %i ?" % index)
@@ -266,19 +266,19 @@ class Player(object):
         self.track_genre = str(self.request("genre ?"))
         return self.track_genre
 
-    def get_track_artist(self, preserveEncoding=False):
+    def get_track_artist(self):
         """Get Players Current Track Artist"""
-        self.track_artist = unicode(self.request("artist ?"))
+        self.track_artist = str(self.request("artist ?"))
         return self.track_artist
 
-    def get_track_album(self, preserveEncoding=False):
+    def get_track_album(self):
         """Get Players Current Track Album"""
-        self.track_album = unicode(self.request("album ?"))
+        self.track_album = str(self.request("album ?"))
         return self.track_album
 
-    def get_track_title(self, preserveEncoding=False):
+    def get_track_title(self):
         """Get Players Current Track Title"""
-        self.track_title = unicode(self.request("title ?"))
+        self.track_title = str(self.request("title ?"))
         return self.track_title
 
     def get_track_duration(self):
@@ -602,6 +602,14 @@ class Player(object):
     def randomplay(self, type='tracks'):
         """play random mix"""
         self.request("randomplay %s" % (type))
+
+    def sync_to(self, other_player_ref):
+        """Sync to another player with a given Ref"""
+        self.server.request("%s sync %s" % (other_player_ref, self.ref))
+
+    def unsync(self):
+        """Unsync player"""
+	self.request("sync -")
 
     def __quote(self, text):
         try:

@@ -1,6 +1,10 @@
+V0.4.7
+-  Migrate from pysqueezecentre to new pylms - see https://github.com/jingleman/PyLMS
+-  Support for servers with username/password
+
 V0.4.6
 - Cover art support for streams and radio stations
-- Uses xbmc's system detection not Python 
+- Uses xbmc's system detection not Python
 
 V0.4.5
 - Fixes for music files with crappy tags, e.g. missing track numbers
@@ -33,7 +37,7 @@ V0.3.2
 - Fixed volume display
 
 V0.3.1
-- First run detection now doesn't count autodetect runs 
+- First run detection now doesn't count autodetect runs
 - Confluence skin file, shortened labels so they shouldn't go off edge
 - I tnow attempts to chmod the binaries every run for good measure and so there's always a note in the log file if that is an issue
 - prep work for lots of song info available to skin (not yett exposed)
@@ -54,7 +58,7 @@ V0.2
 
 v0.0.9
 - uses doModal and threading
-- now completely skinnable with all data going into $INFO 
+- now completely skinnable with all data going into $INFO
 - instructions to come...
 - cover art uses direct URLs instead of downloading
 - stability fixes
@@ -64,6 +68,6 @@ v0.0.6
 - Re-Write to skinnable windowXML, pulled in current track art, details, progress etc, plus next three tracks
 - Known issue - foreign chars not right
 - cover art can be temperamental especially if there isn't any for a track...
- 
+
 v0.0.1 (late Jan 2012)
 - Initial alpha test version

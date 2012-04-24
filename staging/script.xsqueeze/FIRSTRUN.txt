@@ -3,9 +3,7 @@ OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
 [B]What's new in this version:[/B]
 
-* Support for cover art for streaming services, radio etc.
-* Please test and report in the forums as I don't really use streams!
-* Uses XBMC's platform detection instead of Python
+* Support for username/password with LMS servers
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

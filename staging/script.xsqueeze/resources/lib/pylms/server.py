@@ -1,8 +1,8 @@
 """
-PySqueezeCenter: Python Wrapper for Logitech SqueezeCenter CLI
+PyLMS: Python Wrapper for Logitech Media Server CLI
 (Telnet) Interface
 
-Copyright (C) 2010 JingleManSweep <jinglemansweep [at] gmail [dot] com>
+Copyright (C) 2012 JingleManSweep <jinglemansweep [at] gmail [dot] com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """
 
 import telnetlib
-from pysqueezecenter.player import Player
+from pylms.player import Player
 
 
 class Server(object):
 
     """
-    SqueezeCenter Server
+    Server
     """
 
     def __init__(self, hostname="localhost",

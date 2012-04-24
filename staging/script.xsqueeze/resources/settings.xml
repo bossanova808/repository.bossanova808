@@ -6,6 +6,8 @@
      <setting id="serverIP" type="text" label="19903" default="" enable="!eq( -1,false)" />
      <setting id="serverPort" type="text" label="19904" default="9090" enable="!eq( -2,false)" />
      <setting id="serverHTTPPort" type="text" label="19905" default="9000" enable="!eq( -3,false)" />
+     <setting id="serverUser" type="text" label="19919" default="" enable="!eq( -4,false)" />
+     <setting id="serverPass" type="text" label="19920" default="" enable="!eq( -5,false)" />
    </category>
    <category label="Local Playback">
      <setting id="controlSlave" type="bool" label="19906" default="true"/>

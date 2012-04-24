@@ -5,8 +5,8 @@ import xbmc
 import sys
 import os
 
-from pysqueezecenter.server import Server
-from pysqueezecenter.player import Player
+from pylms.server import Server
+from pylms.player import Player
 from utils import *
 
 ################################################################################
@@ -22,7 +22,7 @@ class SqueezePlayer:
     #connect to server
     Logger.log("Attempting to connect to LMS named [" + constants.SERVERNAME + "] at IP:  " + constants.SERVERIP + " on CLI port: " + constants.SERVERPORT)
     try:
-      self.sc = Server(hostname=constants.SERVERIP, port=constants.SERVERPORT)
+      self.sc = Server(hostname=constants.SERVERIP, port=constants.SERVERPORT, username=constants.SERVERUSER, password=constants.SERVERPASS)
       self.sc.connect()
       Logger.log( "LMS Logged in: %s" % self.sc.logged_in )
       Logger.log( "LMS Version: %s" % self.sc.get_version() )

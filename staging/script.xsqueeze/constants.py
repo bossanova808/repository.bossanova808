@@ -24,12 +24,13 @@ __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Geck
 ################################################################################
 #useful paths
 SOURCEPATH = __cwd__
+#PYLMS_PATH = xbmc.translatePath( os.path.join( __cwd__, 'pylms' ))
 RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ))
-LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib"))
-CLASS_PATH = xbmc.translatePath(os.path.join (LIB_PATH, "classes"))
-BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin"))
-AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio"))
-VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video"))
+LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
+CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))
+BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin" ))
+AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio" ))
+VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video" ))
 IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ))
 ADDON_DATA_PATH = xbmc.translatePath("special://userdata/addon_data/script.xsqueeze/")
 RUNTOKEN_PATH = xbmc.translatePath("special://userdata/addon_data/script.xsqueeze/runtokens/")
@@ -38,6 +39,7 @@ DUMMYAUDIO = xbmc.translatePath(os.path.join( AUDIO_PATH, "XSqueeze.mp3")).repla
 DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).replace( "\\", "/" )
 DUMMYPIC = xbmc.translatePath(os.path.join( IMAGES_PATH, "black.png")).replace( "\\", "/" )
 #extend the python path
+#sys.path.append( PYLMS_PATH )
 sys.path.append( LIB_PATH )
 sys.path.append( CLASS_PATH )
 
@@ -74,10 +76,14 @@ if MANUALSERVER:
   SERVERIP    = __addon__.getSetting('serverIP')
   SERVERNAME = SERVERIP
   SERVERPORT  = __addon__.getSetting('serverPort')
+  SERVERUSER  = __addon__.getSetting('serverUser')
+  SERVERPASS  = __addon__.getSetting('serverPass')
 else:
   SERVERIP = __addon__.getSetting('autoserverip')
   SERVERNAME = __addon__.getSetting('autoservername')
   SERVERPORT = '9090'
+  SERVERUSER  = ''
+  SERVERPASS  = ''
 
 #shorthand for the full server string, so e.g. 192.168.1.1:9090
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
