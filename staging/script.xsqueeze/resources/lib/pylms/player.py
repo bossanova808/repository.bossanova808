@@ -78,7 +78,6 @@ class Player(object):
         """Executes Telnet Request via SqueezeCenter"""
         return self.server.requestRaw("%s %s" % (self.ref, command_string), preserve_encoding)
 
-
     def update(self, index, update=True):
         """Update Player Properties from Server"""
         self.index = index
@@ -609,7 +608,7 @@ class Player(object):
 
     def unsync(self):
         """Unsync player"""
-	self.request("sync -")
+	      self.request("sync -")
 
     def __quote(self, text):
         try:

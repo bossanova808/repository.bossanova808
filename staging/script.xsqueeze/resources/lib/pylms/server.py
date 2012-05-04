@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import telnetlib
 from pylms.player import Player
-
+from traceback import print_exc
 
 class Server(object):
 
@@ -83,6 +83,64 @@ class Server(object):
             response = self.__unquote(response)
         return response
 
+##    ##############################################################################
+##    #unquote text coming back from LMS
+##    def unquoteUni(self, text):
+##
+##        try:
+##            import urllib.parse
+##            return urllib.parse.unquote(text, encoding=self.charset)
+##        except ImportError:
+##            #import urllib
+##            #return urllib.unquote(text)
+##            _hexdig = '0123456789ABCDEFabcdef'
+##            _hextochr = dict((a+b, chr(int(a+b,16))) for a in _hexdig for b in _hexdig)
+##            if isinstance(text, unicode):
+##                text = text.encode('utf-8')
+##            res = text.split('%')
+##            for i in xrange(1, len(res)):
+##                item = res[i]
+##                try:
+##                    res[i] = _hextochr[item[:2]] + item[2:]
+##                except KeyError:
+##                    res[i] = '%' + item
+##                except UnicodeDecodeError:
+##                    res[i] = unichr(int(item[:2], 16)) + item[2:]
+##            return "".join(res)
+##
+##
+##    def requestDecoded(self, query, preserve_encoding=True):
+##
+##        toChop = len(query) + 3
+##
+##        encoded = self.requestRaw("%s" % (query), preserve_encoding)
+##
+##        print "ENCODED: " + str(encoded)
+##
+##        #strip off the query itself
+##        encoded = encoded[toChop:]
+##
+##        print( "CHOPPED: " +str(encoded))
+##        list = encoded.split(" ")
+##        print("list: " + str(list))
+##
+##        decodedList = []
+##        for item in list:
+##          cleanItem = self.unquoteUni(item)
+##          decodedList.append(cleanItem)
+##
+##        print("DecodedList: " +str(decodedList))
+##
+##        item = {}
+##        for info in decodedList:
+##            info = info.split(':')
+##            key = info.pop(0)
+##            if key:
+##                item[key] = ':'.join(info)
+##
+##        return item
+##
+
     def request(self, command_string, preserve_encoding=False):
         """
         Request
@@ -117,6 +175,8 @@ class Server(object):
         Request with results
         Return tuple (count, results, error_occured)
         """
+
+        import urllib
         quotedColon = self.__quote(':')
         try:
             #init
@@ -155,6 +215,7 @@ class Server(object):
             return count,output,False
         except Exception as e:
             #error parsing results (not correct?)
+            print_exc(e)
             return 0,[],True
 
 
