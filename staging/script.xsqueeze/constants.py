@@ -38,6 +38,7 @@ DUMMYAUDIO = xbmc.translatePath(os.path.join( AUDIO_PATH, "XSqueeze.mp3")).repla
 DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).replace( "\\", "/" )
 DUMMYPIC = xbmc.translatePath(os.path.join( IMAGES_PATH, "black.png")).replace( "\\", "/" )
 #extend the python path
+#sys.path.append( PYLMS_PATH )
 sys.path.append( LIB_PATH )
 sys.path.append( CLASS_PATH )
 

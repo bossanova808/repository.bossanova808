@@ -9,6 +9,7 @@ from actionmap import *
 from traceback import print_exc
 from SqueezePlayer import *
 from utils import *
+from Chooser import *
 
 ################################################################################
 ################################################################################
@@ -45,6 +46,12 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #next one is sent - without this you get race conditions!
     self.lock = threading.Lock()
 
+    #create a hidden chooser window
+    self.chooser = Chooser("XSqueezeChooser.xml",constants.__cwd__,"Default")
+    #and kick this bad boy off....
+    self.chooser.doModal()
+
+
   ##############################################################################
   #the method called when the window is inited
   #starts the GUI update thread...
@@ -74,6 +81,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     self.thread2 = threading.Thread(target=self.runArtistSlideshow)
     self.thread2.setDaemon(True)
     self.thread2.start()
+
 
   ##############################################################################
   # Essentially the reverse of init - need to remove any controls we added and blank out the properties
