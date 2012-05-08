@@ -473,3 +473,25 @@ class SqueezePlayer:
 
   def getTrackElapsed(self):
     return self.sb.get_time_elapsed()
+
+  ##############################################################################
+  # returns the full album info given an ID
+
+  def getAlbumInfo(self, albumID):
+    fullAlbumInfo = self.sc.request_with_results('albums 0 1 album_id:' + albumID + ' tags:yajl')
+    log("Full Album Info: " + str(fullAlbumInfo))
+    return fullAlbumInfo[1][0]
+
+  ##############################################################################
+  # returns the latest 50 albums
+
+  def getNewMusic(self):
+    fullAlbums = []
+    albums = self.sc.request_with_results("albums 0 50 sort:new")
+    for album in albums[1]:
+      fullAlbumInfo = self.getAlbumInfo(album['id'])
+      fullAlbums.append(fullAlbumInfo)
+    return fullAlbums
+
+  def queueAlbum(self):
+    self.sb.

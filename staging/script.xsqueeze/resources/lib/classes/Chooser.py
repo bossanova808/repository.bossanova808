@@ -44,6 +44,9 @@ class Chooser(xbmcgui.WindowXML):
     self.listctrl = self.getControl(50)
     self.listctrl.addItem("hey")
     self.listctrl.addItem("hey2")
+    self.listctrl.addItem("hey2")
+    self.listctrl.addItem("hey2")
+    self.listctrl.addItem("hey2")
 
     Logger.log("Starting GUI update thread")
     self.running = True

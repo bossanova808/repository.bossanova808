@@ -47,9 +47,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     self.lock = threading.Lock()
 
     #create a hidden chooser window
-    self.chooser = Chooser("XSqueezeChooser.xml",constants.__cwd__,"Default")
+    #self.chooser = Chooser("XSqueezeChooser.xml",constants.__cwd__,"Default")
     #and kick this bad boy off....
-    self.chooser.doModal()
+    #self.chooser.doModal()
 
 
   ##############################################################################
@@ -133,8 +133,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
 
-    #if actionNum != 0:
-    #  Logger.log("Handling action id: " + str(actionNum) +  " Name: " + actionName + " SqueezeCode if any: " + actionSqueeze)
+    if actionNum != 0:
+      Logger.log("Handling action id: " + str(actionNum) +  " Name: " + actionName + " SqueezeCode if any: " + actionSqueeze)
 
     #for testing xbmc's internal playlist - pause and display playlist...
     #10500 = music playlist
@@ -159,22 +159,18 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #tidy up before the window closes...
         self.deInit()
 
-##      #force artist.slideshow to get the message that the artist has been clear...
-##      try:
-##        self.setFocus(self.hiddenButton)
-##      except:
-##        pass
-
         #now close the window before we kill it
         self.close()
 
-      #user has probably hammered the close button...do nothing
+      #user has probably hammered the close button...tell them to cool their jets...
       else:
         Logger.notify(constants.__language__(19622),constants.__language__(19623))
         pass
 
-
-    #elif etc
+    #chooser
+    elif action == ACTION_CODES['ACTION_SHOW_INFO']:
+      Logger.log("### Starting Chooser...")
+      xbmc.executebuiltin('XBMC.RunAddon(plugin.program.xsqueezechooser)')
 
     #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
     else:

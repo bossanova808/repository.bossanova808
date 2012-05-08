@@ -54,9 +54,13 @@ def buildRootListing():
 
 
 def buildNewMusic():
+  global squeezeplayer
+  newMusicList = squeezeplayer.getNewMusic()
+  log(str(newMusicList))
 
-  pass
-
+  for album in newMusicList:
+    coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
+    addNode(album['album'] + ' (by ' + album['artist'] + ')',album['id'],999,coverURL)
 
 
 
@@ -96,7 +100,7 @@ if mode==None:
 #Not doing the root menu so need LMS & player connection...
 #create a player instance (is really a player + server combo)
 try:
-  player = SqueezePlayer(basicOnly=True)
+  squeezeplayer = SqueezePlayer(basicOnly=True)
 except:
   log( "### Failed to create SqueezePlayer object " )
   print_exc()
@@ -104,14 +108,18 @@ except:
 
 
 if mode==1:
-    log( "Handling New Music" )
-    try:
-        buildNewMusic()
-    except:
-        print_exc()
+  log( "Handling New Music" )
+  try:
+      buildNewMusic()
+  except:
+      print_exc()
 
 if mode==2:
-    log( "Handling Albums" )
+  log( "Handling Albums" )
+
+if mode==999:
+  log( "Queueing up an album...." )
+  squeezeplayer.queueAlbum(url)
 
 #and tell XBMC we're done...
 xbmcplugin.endOfDirectory(thisPlugin)
