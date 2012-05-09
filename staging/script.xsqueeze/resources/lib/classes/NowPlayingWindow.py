@@ -181,9 +181,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       #artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_ARTIST")
       #xbmc.executebuiltin(artistslideshow)
 
-      chooser = "RunAddon(plugin.program.xsqueezechooser,mode=0)"
+      #chooser = "RunAddon(plugin.program.xsqueezechooser,mode=0)"
       #chooser="RunPlugin(plugin://plugin.program.xsqueezechooser/?mode=0)"
-      xbmc.executebuiltin(chooser)
+      #xbmc.executebuiltin(chooser)
+      xbmc.executebuiltin('ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0)')
 
     #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
     else:
