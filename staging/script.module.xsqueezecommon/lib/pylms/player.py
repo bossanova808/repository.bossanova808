@@ -70,9 +70,9 @@ class Player(object):
     def __repr__(self):
         return "Player: %s" % (self.ref)
 
-    def request(self, command_string, preserve_encoding=False):
+    def request(self, command_string, preserve_encoding=False, debug=False):
         """Executes Telnet Request via Server"""
-        return self.server.request("%s %s" % (self.ref, command_string), preserve_encoding)
+        return self.server.request("%s %s" % (self.ref, command_string), preserve_encoding, debug)
 
     def requestRaw(self, command_string, preserve_encoding=True):
         """Executes Telnet Request via SqueezeCenter"""

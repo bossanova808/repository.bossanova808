@@ -7,7 +7,10 @@ import xbmcgui
 import urllib
 import sys
 import os
+import telnetlib
 from traceback import print_exc
+
+print("Called as: " + str(sys.argv))
 
 ################################################################################
 ### CONSTANTS & SETTINGS STUFF FOR XSQUEEZE
@@ -493,5 +496,42 @@ class SqueezePlayer:
       fullAlbums.append(fullAlbumInfo)
     return fullAlbums
 
-  def queueAlbum(self):
-    self.sb.
+  ##############################################################################
+  # returns all albums
+
+  def getAlbums(self):
+    fullAlbums = []
+    albums = self.sc.request_with_results("albums 0 100000")
+    for album in albums[1]:
+      fullAlbumInfo = self.getAlbumInfo(album['id'])
+      fullAlbums.append(fullAlbumInfo)
+    return fullAlbums
+
+  ##############################################################################
+  # returns all albums
+
+  def getArtists(self):
+    artists = self.sc.request_with_results("artists 0 100000", debug=True)
+    log(str(artists))
+    return artists[1]
+
+  ##############################################################################
+  # returns all albums
+
+  def getAlbumsByArtistID(self,artistID):
+    fullAlbums = []
+    albums = self.sc.request_with_results("albums 0 100000 artist_id:" + str(artistID), debug=True)
+    log(str(albums))
+    for album in albums[1]:
+      fullAlbumInfo = self.getAlbumInfo(album['id'])
+      fullAlbums.append(fullAlbumInfo)
+    return fullAlbums
+
+  ##############################################################################
+  # Clear playlist and queue up an album given an album title
+
+  def queueAlbum(self, title, artist):
+    if artist=="Various Artists":
+      self.sb.request("playlist loadalbum * * " + urllib.quote(title),debug=True)
+    else:
+      self.sb.request("playlist loadalbum * " + urllib.quote(artist) + " " + urllib.quote(title),debug=True)

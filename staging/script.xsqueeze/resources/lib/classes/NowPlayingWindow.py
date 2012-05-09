@@ -25,6 +25,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def __init__( self, *args, **kwargs ):
 
+    #we're not yet running (is set to true the first time we go through init)
+    self.running=False
+
     #blanks the screen - this is crude, and probably wrong, but works
     self.background = xbmcgui.ControlImage(0,0,1280,720, 'black.png')
     self.addControl(self.background)
@@ -59,11 +62,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #get the window ID, and if present, the hidden button for artist slideshow...
     self.windowID = xbmcgui.getCurrentWindowId()
-    try:
-      self.hiddenButton = self.getControl(999)
-    except:
-      pass
-    Logger.log("On Init, window id is "+ str(self.windowID))
+##    try:
+##      self.hiddenButton = self.getControl(999)
+##    except:
+##      pass
+    Logger.log("onInit, window id is "+ str(self.windowID))
 
     #Set some basic properties
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_WINDOWID", str(self.windowID))
@@ -71,16 +74,20 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SERVER", constants.SERVERNAME)
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_NAME", "XSqueeze "+ constants.__version__)
 
-    Logger.log("Starting GUI update thread")
-    self.running = True
-    self.thread = threading.Thread(target=self.update)
-    self.thread.setDaemon(True)
-    self.thread.start()
+    #kick off new threads if this is the first call to init
+    # (as init is called when we drop back from the chooser plugin to XSqueeze)
 
-    Logger.log("Starting ArtistSlideshow thread")
-    self.thread2 = threading.Thread(target=self.runArtistSlideshow)
-    self.thread2.setDaemon(True)
-    self.thread2.start()
+    if not self.running:
+      Logger.log("Starting GUI update thread")
+      self.running = True
+      self.thread = threading.Thread(target=self.update)
+      self.thread.setDaemon(True)
+      self.thread.start()
+
+      Logger.log("Starting ArtistSlideshow thread")
+      self.thread2 = threading.Thread(target=self.runArtistSlideshow)
+      self.thread2.setDaemon(True)
+      self.thread2.start()
 
 
   ##############################################################################
@@ -170,7 +177,13 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #chooser
     elif action == ACTION_CODES['ACTION_SHOW_INFO']:
       Logger.log("### Starting Chooser...")
-      xbmc.executebuiltin('XBMC.RunAddon(plugin.program.xsqueezechooser)')
+
+      #artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_ARTIST")
+      #xbmc.executebuiltin(artistslideshow)
+
+      chooser = "RunAddon(plugin.program.xsqueezechooser,mode=0)"
+      #chooser="RunPlugin(plugin://plugin.program.xsqueezechooser/?mode=0)"
+      xbmc.executebuiltin(chooser)
 
     #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
     else:

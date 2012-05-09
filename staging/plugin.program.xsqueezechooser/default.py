@@ -31,9 +31,9 @@ def get_params():
         return param
 
 
-def addNode(name, url, mode, iconimage):
+def addNode(name, url, mode, iconimage, album="", artist="", artistID=""):
 
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name) +"&album="+urllib.quote_plus(album) +"&artist="+urllib.quote_plus(artist) +"&artistID="+urllib.quote_plus(artistID)
 
         is_ok=True
 
@@ -47,21 +47,53 @@ def addNode(name, url, mode, iconimage):
 
 
 def buildRootListing():
-
-  addNode("New Music","",1,"")
+  addNode("New Music (latest 50 albums)","",1,"")
   addNode("Albums","",2,"")
+  addNode("Artists","",3,"")
+  addNode("Genres","",4,"")
+  addNode("Years","",5,"")
+  addNode("Play Random Album","",6,"")
+  addNode("Play Random Songs","",7,"")
+  addNode("Radio","",8,"")
+  addNode("Plugins e.g. Pandora etc.","",9,"")
 
 
+
+def buildArtistList(listArtists):
+  for artist in listArtists:
+    addNode(artist['artist'] ,"",2001,"",artistID=artist['id'])
+
+def buildAlbumList(listAlbums):
+  for album in listAlbums:
+    try:
+      coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
+    except KeyError:
+      coverURL = ""
+    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",1001,coverURL,album=album['album'],artist=album['artist'])
 
 def buildNewMusic():
   global squeezeplayer
-  newMusicList = squeezeplayer.getNewMusic()
-  log(str(newMusicList))
+  returnedList = squeezeplayer.getNewMusic()
+  log(str(returnedList))
+  buildAlbumList(returnedList)
 
-  for album in newMusicList:
-    coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
-    addNode(album['album'] + ' (by ' + album['artist'] + ')',album['id'],999,coverURL)
+def buildAlbums():
+  global squeezeplayer
+  returnedList = squeezeplayer.getAlbums()
+  log(str(returnedList))
+  buildAlbumList(returnedList)
 
+def buildArtistsRoot():
+  global squeezeplayer
+  returnedList = squeezeplayer.getArtists()
+  log(str(returnedList))
+  buildArtistList(returnedList)
+
+def buildArtistSub(artistID):
+  global squeezeplayer
+  returnedList = squeezeplayer.getAlbumsByArtistID(artistID)
+  log(str(returnedList))
+  buildAlbumList(returnedList)
 
 
 ################################################################################
@@ -69,12 +101,16 @@ def buildNewMusic():
 ################################################################################
 
 footprints()
+print("Called as: " + str(sys.argv))
 
 params=get_params()
+
 url=None
+album=None
+artist=None
 name=None
 mode=None
-
+rangeStart=None
 try:
     url=urllib.unquote_plus(params["url"])
 except:
@@ -87,10 +123,22 @@ try:
     mode=int(params["mode"])
 except:
     pass
+try:
+    album=urllib.unquote_plus(params["album"])
+except:
+    pass
+try:
+    artist=urllib.unquote_plus(params["artist"])
+except:
+    pass
+try:
+    artistID=int(params["artistID"])
+except:
+    pass
 
 
 
-if mode==None:
+if mode==None or mode==0:
     log( "Xsqueeze Chooser Root Menu" )
     try:
         buildRootListing()
@@ -116,10 +164,35 @@ if mode==1:
 
 if mode==2:
   log( "Handling Albums" )
+  try:
+      buildAlbums()
+  except:
+      print_exc()
 
-if mode==999:
+if mode==3:
+  log( "Handling Artists Root" )
+  try:
+      buildArtistsRoot()
+  except:
+      print_exc()
+
+
+#modes over 1000 are not part of the main menue
+#1001+ are action modes
+#2001+ are submenu modes
+
+if mode==1001:
   log( "Queueing up an album...." )
-  squeezeplayer.queueAlbum(url)
+  squeezeplayer.queueAlbum(album,artist)
+  addNode("Album queued.  Now hit escape/exit to return to XSqueeze.","","","")
+
+
+if mode==2001:
+  log( "Handling Submenu of an artist...." )
+  try:
+      buildArtistSub(artistID)
+  except:
+      print_exc()
 
 #and tell XBMC we're done...
 xbmcplugin.endOfDirectory(thisPlugin)

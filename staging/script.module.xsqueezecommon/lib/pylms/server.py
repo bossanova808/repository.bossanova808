@@ -141,13 +141,14 @@ class Server(object):
 ##        return item
 ##
 
-    def request(self, command_string, preserve_encoding=False):
+    def request(self, command_string, preserve_encoding=False, debug=False):
         """
         Request
         """
-        # self.logger.debug("Telnet: %s" % (command_string))
+        if debug: print("*********** Telnet: %s" % (command_string))
         self.telnet.write(self.__encode(command_string + "\n"))
         response = self.__decode(self.telnet.read_until(self.__encode("\n"))[:-1])
+        if debug: print("*********** Response: %s" % (response))
         if not preserve_encoding:
             response = self.__unquote(response)
         else:
@@ -170,7 +171,7 @@ class Server(object):
             result = "<Unicode error - to be fixed!>"
         return result
 
-    def request_with_results(self, command_string, preserve_encoding=False):
+    def request_with_results(self, command_string, preserve_encoding=False, debug=False):
         """
         Request with results
         Return tuple (count, results, error_occured)
@@ -182,7 +183,7 @@ class Server(object):
             #init
             quotedColon = urllib.quote(':')
             #request command string
-            resultStr = ' '+self.request(command_string, True)
+            resultStr = ' '+self.request(command_string, True, debug)
             #get number of results
             count = 0
             if resultStr.rfind('count%s'%quotedColon)>=0:
