@@ -516,7 +516,7 @@ class SqueezePlayer:
     return artists[1]
 
   ##############################################################################
-  # returns all albums
+  # returns all albums by a particuler artist fiven an artist_id
 
   def getAlbumsByArtistID(self,artistID):
     fullAlbums = []
@@ -528,6 +528,54 @@ class SqueezePlayer:
     return fullAlbums
 
   ##############################################################################
+  # returns all albums by a particuler artist fiven an artist_id
+
+  def getAlbumsByGenreID(self,genreID):
+    fullAlbums = []
+    albums = self.sc.request_with_results("albums 0 100000 genre_id:" + str(genreID), debug=True)
+    log(str(albums))
+    for album in albums[1]:
+      fullAlbumInfo = self.getAlbumInfo(album['id'])
+      fullAlbums.append(fullAlbumInfo)
+    return fullAlbums
+
+  ##############################################################################
+  # returns all albums for a given year
+
+  def getAlbumsByYear(self,year):
+    fullAlbums = []
+    albums = self.sc.request_with_results("albums 0 100000 year:" + str(year), debug=True)
+    log(str(albums))
+    for album in albums[1]:
+      fullAlbumInfo = self.getAlbumInfo(album['id'])
+      fullAlbums.append(fullAlbumInfo)
+    return fullAlbums
+
+  ##############################################################################
+  # returns all genres
+
+  def getGenres(self):
+    genres = self.sc.request_with_results("genres 0 100000", debug=True)
+    log(str(genres))
+    return genres[1][1:]
+
+  ##############################################################################
+  # returns all years
+
+  def getYears(self):
+    years = self.sc.request_with_results("years 0 100000", debug=True)
+    log(str(years))
+    return years
+
+  ##############################################################################
+  # returns all radios
+
+  def getRadios(self):
+    radios = self.sc.request_with_results("radios 0 100000", debug=True)
+    log(str(radios))
+    return radios
+
+  ##############################################################################
   # Clear playlist and queue up an album given an album title
 
   def queueAlbum(self, title, artist):
@@ -535,3 +583,9 @@ class SqueezePlayer:
       self.sb.request("playlist loadalbum * * " + urllib.quote(title),debug=True)
     else:
       self.sb.request("playlist loadalbum * " + urllib.quote(artist) + " " + urllib.quote(title),debug=True)
+
+  def playRandomAlbums(self):
+    self.sb.request("randomplay albums")
+
+  def playRandomTracks(self):
+    self.sb.request("randomplay tracks")
