@@ -1,3 +1,7 @@
+### XSqueeze Common Code for XSqueeze & XSqueeze Chooser
+### by bossanova808 2012
+### Free in all senses....
+
 import xbmc
 import xbmcaddon
 import xbmcplugin
@@ -10,39 +14,41 @@ import os
 import telnetlib
 from traceback import print_exc
 
-print("Called as: " + str(sys.argv))
-
 ################################################################################
-### CONSTANTS & SETTINGS STUFF FOR XSQUEEZE
-
 ################################################################################
+### CONSTANTS & SETTINGS
+
 #create an add on instation and store the reference
 __addon__       = xbmcaddon.Addon()
-thisPlugin = int(sys.argv[1])
 
+#if we've been imported from the plugin we need the magic ID
+if 'plugin' in sys.argv[0]:
+  thisPlugin = int(sys.argv[1])
+
+#used to get settings from the main addon
 refToXSqueeze = xbmcaddon.Addon(id='script.xsqueeze')
 
 #store some handy constants
 __addonname__   = __addon__.getAddonInfo('name')
 __addonid__     = __addon__.getAddonInfo('id')
 __author__      = __addon__.getAddonInfo('author')
-__version__     = __addon__.getAddonInfo('version')
+VERSION     = __addon__.getAddonInfo('version')
 __cwd__         = __addon__.getAddonInfo('path')
 __language__    = __addon__.getLocalizedString
 __useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
 
-
+# Set up the paths
 RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ))
 LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
 sys.path.append( LIB_PATH )
 
-
+# Import PYLMS
 from pylms.server import Server
 from pylms.player import Player
 
 # LMS SERVER SETTINGS
-#The LMS Server and port - either discovered in the add on settings
-# or manually set
+# The LMS Server and port - either discovered in the add on settings
+#  or manually set
 if refToXSqueeze.getSetting('serverManual')=="true":
   MANUALSERVER = True
 else:
@@ -91,10 +97,7 @@ if CONTROLLERONLY:
 
 ################################################################################
 ################################################################################
-################################################################################
-################################################################################
-###LOGGING
-
+### LOGGING
 
 ################################################################################
 # Log a message to the XBMC Log, and an exception if supplied - if debug logging is on
@@ -125,9 +128,6 @@ def footprints():
     log( "### Author: %s" % __author__ )
     log( "### Version: %s" % __version__ )
 
-
-################################################################################
-################################################################################
 ################################################################################
 ################################################################################
 ###UTILS
@@ -154,7 +154,8 @@ def getInHMS(seconds):
     return "%02d:%02d:%02d" % (hours, minutes, seconds)
 
 ##############################################################################
-#unquote text coming back from LMS
+# properly unquote text coming back from LMS
+
 def unquoteUni(text):
 
     try:
@@ -179,7 +180,6 @@ def unquoteUni(text):
         return "".join(res)
 
 
-################################################################################
 ################################################################################
 ################################################################################
 ################################################################################
@@ -220,7 +220,7 @@ class SqueezePlayer:
       notify(constants.__language__(19615),constants.__language__(19616))
       sys.exit()
 
-    #initialise
+    #initialise if we're called from XSqueeze as opposed to the chooser
     if not basicOnly:
       self.currentTrack = None
       self.coverURLs = None
@@ -286,41 +286,6 @@ class SqueezePlayer:
 
   ##############################################################################
   # returns the URLs for the current and next three track cover art images
-
-##  def updateCoverArtURLs(self):
-##
-##      coverURLs = []
-##
-##      print "Playlist is" + str(self.playlist)
-##
-##      #start at this song , end at + 3
-##      index = int(self.sb.request("playlist index ?"))
-##      upcomer = index
-##      end = index + 4
-##
-##      #currently uses the track_id in the url - works well
-##      #supposed to use the cover_id number but this doesn't work so well...
-##      for count in range(upcomer,end):
-##        if(count<len(self.playlist)):
-##          try:
-##            #print self.playlist[count]
-##            currentID = self.playlist[count]['id']
-##            #if currentID > 0:
-##            coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(currentID) + "/cover.jpg"
-##            log ("Appending future cover: " + str(count) + " from " + coverURL)
-##            coverURLs.append(coverURL)
-##            #else:
-##              #need to get the album_art
-##            #  print "#### PD is " + str(self.playlistDetails)
-##            #  temp = self.playlist[count]['artwork_url']
-##            #  print "#### temp is " + temp
-##              #coverURL =
-##          except Exception as inst:
-##            log("No cover art so appending null string for playlist index " + str(count), inst)
-##            coverURLs.append("")
-##
-##      self.coverURLs = coverURLs
-
 
   def updateCoverArtURLs(self):
 
@@ -399,6 +364,7 @@ class SqueezePlayer:
         if key:
             item[key] = ':'.join(info)
 
+    # example...
     # 9 id:39 title:I'm Not The Man artist:10000 Maniacs coverid:94339a48 duration:226.36 album_id:4 filesize:22796274 genre:Pop coverart:1 artwork_track_id:94339a48
     # album:MTV Unplugged modificationTime:Thursday, November 27, 2008, 5:24 PM type:flc genre_id:4 bitrate:805kbps VBR artist_id:11 tracknum:4 year:1993 compilation:0
     # addedTime:Thursday, December 8, 2011, 11:15 PM channels:2 samplesize:16 samplerate:44100 lastUpdated:Thursday, December 8, 2011, 11:15 PM album_replay_gain:-6.46 replay_gain:-3.46
@@ -508,7 +474,7 @@ class SqueezePlayer:
     return fullAlbums
 
   ##############################################################################
-  # returns all albums
+  # returns all artists
 
   def getArtists(self):
     artists = self.sc.request_with_results("artists 0 100000", debug=True)
@@ -516,7 +482,7 @@ class SqueezePlayer:
     return artists[1]
 
   ##############################################################################
-  # returns all albums by a particuler artist fiven an artist_id
+  # returns all albums by a particular artist given an artist_id
 
   def getAlbumsByArtistID(self,artistID):
     fullAlbums = []
@@ -528,7 +494,7 @@ class SqueezePlayer:
     return fullAlbums
 
   ##############################################################################
-  # returns all albums by a particuler artist fiven an artist_id
+  # returns all albums in a particular genre given a genre_id
 
   def getAlbumsByGenreID(self,genreID):
     fullAlbums = []
@@ -576,7 +542,7 @@ class SqueezePlayer:
     return radios
 
   ##############################################################################
-  # Clear playlist and queue up an album given an album title
+  # Clear playlist and queue up an album given an album title and artist
 
   def queueAlbum(self, title, artist):
     if artist=="Various Artists":
@@ -584,8 +550,15 @@ class SqueezePlayer:
     else:
       self.sb.request("playlist loadalbum * " + urllib.quote(artist) + " " + urllib.quote(title),debug=True)
 
+  ##############################################################################
+  # Clear playlist and queue up random albums
+
   def playRandomAlbums(self):
     self.sb.request("randomplay albums")
 
+  ##############################################################################
+  # Clear playlist and queue up random songs
+
   def playRandomTracks(self):
     self.sb.request("randomplay tracks")
+

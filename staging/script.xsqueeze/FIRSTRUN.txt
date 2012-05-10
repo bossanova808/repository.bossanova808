@@ -3,7 +3,8 @@ OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
 [B]What's new in this version:[/B]
 
-* Support for username/password with LMS servers
+[B]* MAJOR NEW VERSION - NOW WITH EASY MUSIC CHOOSER! *[/B]
+* Hit 'i' or info on your remote to start the new chooser...
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

@@ -179,6 +179,7 @@ class Server(object):
 
         import urllib
         quotedColon = self.__quote(':')
+
         try:
             #init
             quotedColon = urllib.quote(':')
@@ -219,6 +220,57 @@ class Server(object):
             print_exc(e)
             return 0,[],True
 
+##    def request_with_results(self, command_string, preserve_encoding=False, debug=False, delimiter=""):
+##        """
+##        Request with results
+##        Return tuple (count, results, error_occured)
+##        """
+##
+##        import urllib
+##        quotedColon = self.__quote(':')
+##
+##        if delimiter == "":
+##          delimiter = ' id%s'%quotedColon
+##
+##        try:
+##            #init
+##            quotedColon = urllib.quote(':')
+##            #request command string
+##            resultStr = ' '+self.request(command_string, True, debug)
+##            #get number of results
+##            count = 0
+##            if resultStr.rfind('count%s'%quotedColon)>=0:
+##                count = int(resultStr[resultStr.rfind('count%s'%quotedColon):].replace('count%s'%quotedColon,''))
+##            #remove number of results from result string and cut result string by "id:"
+##            idIsSep = True
+##            if resultStr.find(delimiter)<0:
+##                idIsSep = False
+##            if resultStr.find('count')>=0:
+##                resultStr = resultStr[:resultStr.rfind('count')-1]
+##            results = resultStr.split(delimiter)
+##
+##            output = []
+##            for result in results:
+##                result = result.strip()
+##                if len(result)>0:
+##                    if idIsSep:
+##                        #fix missing 'id:' at beginning
+##                        result = 'id%s%s' % (quotedColon, result)
+##                    subResults = result.split(' ')
+##                    item = {}
+##                    for subResult in subResults:
+##                        #save item
+##                        key,value = subResult.split(quotedColon,1)
+##                        if not preserve_encoding:
+##                            item[urllib.unquote(key)] = self.__unquote(value)
+##                        else:
+##                            item[key] = value
+##                    output.append(item)
+##            return count,output,False
+##        except Exception as e:
+##            #error parsing results (not correct?)
+##            print_exc(e)
+##            return 0,[],True
 
     def get_players(self, update=True):
         """

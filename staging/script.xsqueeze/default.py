@@ -8,10 +8,15 @@ import time
 import sys
 import platform
 import subprocess
+
+#Import the common code - basically the SqueezePlayer class
+#which connects to the server and a player
+from XSqueezeCommon import *
+
 #an orderly place to keep constants
 import constants
 #the logging class
-import Logger
+#import Logger
 #the window for the README
 from ReadMeViewer import *
 #the window class
