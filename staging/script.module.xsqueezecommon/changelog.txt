@@ -1,2 +1,2 @@
 [B]Version 0.0.1[/B]
-- Code moved into module accessible by both XSqueeze add on and XSqueeze Chooser plugin
+- Initial release of common code module.

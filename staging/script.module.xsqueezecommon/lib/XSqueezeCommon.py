@@ -19,26 +19,26 @@ from traceback import print_exc
 ### CONSTANTS & SETTINGS
 
 #create an add on instation and store the reference
-__addon__       = xbmcaddon.Addon()
+ADDON       = xbmcaddon.Addon()
 
 #if we've been imported from the plugin we need the magic ID
 if 'plugin' in sys.argv[0]:
-  thisPlugin = int(sys.argv[1])
+  THIS_PLUGIN = int(sys.argv[1])
 
 #used to get settings from the main addon
-refToXSqueeze = xbmcaddon.Addon(id='script.xsqueeze')
+REF_TO_XSQUEEZE = xbmcaddon.Addon(id='script.xsqueeze')
 
 #store some handy constants
-__addonname__   = __addon__.getAddonInfo('name')
-__addonid__     = __addon__.getAddonInfo('id')
-__author__      = __addon__.getAddonInfo('author')
-VERSION     = __addon__.getAddonInfo('version')
-__cwd__         = __addon__.getAddonInfo('path')
-__language__    = __addon__.getLocalizedString
-__useragent__   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
+ADDONNAME   = ADDON.getAddonInfo('name')
+ADDONID     = ADDON.getAddonInfo('id')
+AUTHOR      = ADDON.getAddonInfo('author')
+VERSION     = ADDON.getAddonInfo('version')
+CWD         = ADDON.getAddonInfo('path')
+LANGUAGE    = ADDON.getLocalizedString
+USERAGENT   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
 
 # Set up the paths
-RESOURCES_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources' ))
+RESOURCES_PATH = xbmc.translatePath( os.path.join( CWD, 'resources' ))
 LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
 sys.path.append( LIB_PATH )
 
@@ -49,20 +49,20 @@ from pylms.player import Player
 # LMS SERVER SETTINGS
 # The LMS Server and port - either discovered in the add on settings
 #  or manually set
-if refToXSqueeze.getSetting('serverManual')=="true":
+if REF_TO_XSQUEEZE.getSetting('serverManual')=="true":
   MANUALSERVER = True
 else:
   MANUALSERVER = False
 
 if MANUALSERVER:
-  SERVERIP    = refToXSqueeze.getSetting('serverIP')
+  SERVERIP    = REF_TO_XSQUEEZE.getSetting('serverIP')
   SERVERNAME = SERVERIP
-  SERVERPORT  = refToXSqueeze.getSetting('serverPort')
-  SERVERUSER  = refToXSqueeze.getSetting('serverUser')
-  SERVERPASS  = refToXSqueeze.getSetting('serverPass')
+  SERVERPORT  = REF_TO_XSQUEEZE.getSetting('serverPort')
+  SERVERUSER  = REF_TO_XSQUEEZE.getSetting('serverUser')
+  SERVERPASS  = REF_TO_XSQUEEZE.getSetting('serverPass')
 else:
-  SERVERIP = refToXSqueeze.getSetting('autoserverip')
-  SERVERNAME = refToXSqueeze.getSetting('autoservername')
+  SERVERIP = REF_TO_XSQUEEZE.getSetting('autoserverip')
+  SERVERNAME = REF_TO_XSQUEEZE.getSetting('autoservername')
   SERVERPORT = '9090'
   SERVERUSER  = ''
   SERVERPASS  = ''
@@ -70,18 +70,18 @@ else:
 #shorthand for the full server string, so e.g. 192.168.1.1:9090
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
 #url of the http interface for LMS
-SERVERHTTPURL   = SERVERIP + ":" + refToXSqueeze.getSetting('serverHTTPPort')
+SERVERHTTPURL   = SERVERIP + ":" + REF_TO_XSQUEEZE.getSetting('serverHTTPPort')
 
 #LOCAL PLAYBACK SETTINGS
 #LMS is case sensitive and all MACs need to be lower case!!
 
 #are we controlling the local slave or another external player?
-if refToXSqueeze.getSetting('controlSlave')=="true":
+if REF_TO_XSQUEEZE.getSetting('controlSlave')=="true":
   CONTROLSLAVE = True
 else:
   CONTROLSLAVE = False
 
-if refToXSqueeze.getSetting('controllerOnly')=="true":
+if REF_TO_XSQUEEZE.getSetting('controllerOnly')=="true":
   CONTROLLERONLY = True
 else:
   CONTROLLERONLY = False
@@ -90,9 +90,9 @@ else:
 # we either get the MAC from the local player setup, or from the controller setup
 
 if CONTROLSLAVE:
-  PLAYERMAC   = str.lower(refToXSqueeze.getSetting('slaveMAC'))
+  PLAYERMAC   = str.lower(REF_TO_XSQUEEZE.getSetting('slaveMAC'))
 if CONTROLLERONLY:
-  PLAYERMAC   = str.lower(refToXSqueeze.getSetting('controllerMAC'))
+  PLAYERMAC   = str.lower(REF_TO_XSQUEEZE.getSetting('controllerMAC'))
 
 
 ################################################################################
@@ -104,9 +104,9 @@ if CONTROLLERONLY:
 
 def log(message, inst=None, level=xbmc.LOGNOTICE):
     if inst is None:
-      xbmc.log(__addonname__ + "-" + __version__ +  ": " + str(message), level )
+      xbmc.log(ADDONNAME + "-" + VERSION +  ": " + str(message), level )
     else:
-      xbmc.log(__addonname__ + "-" + __version__ +  ": Exception!", level )
+      xbmc.log(ADDONNAME + "-" + VERSION +  ": Exception!", level )
       print_exc(inst)
 
 
@@ -114,8 +114,8 @@ def log(message, inst=None, level=xbmc.LOGNOTICE):
 # Log a message to the XBMC Log, and an exception if supplied
 
 def notify(messageLine1, messageLine2 = "", time = 6000):
-  imagepath = os.path.join(constants.__cwd__ ,"icon.png")
-  notifyString = "XBMC.Notification("+ constants.__addonname__ + ": " + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
+  imagepath = os.path.join(CWD ,"icon.png")
+  notifyString = "XBMC.Notification("+ ADDONNAME + ": " + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
   log("XBMC Notificaton Requested: [" + notifyString +"]")
   xbmc.executebuiltin( notifyString )
 
@@ -124,9 +124,9 @@ def notify(messageLine1, messageLine2 = "", time = 6000):
 
 def footprints():
 
-    log( "### %s Starting ..." % __addonname__ )
-    log( "### Author: %s" % __author__ )
-    log( "### Version: %s" % __version__ )
+    log( "### %s Starting ..." % ADDONNAME )
+    log( "### Author: %s" % AUTHOR )
+    log( "### Version: %s" % VERSION )
 
 ################################################################################
 ################################################################################
@@ -201,7 +201,7 @@ class SqueezePlayer:
       log( "LMS Version: %s" % self.sc.get_version() )
     except:
       log(" Couldn't connect to server!")
-      notify(constants.__language__(19613),constants.__language__(19614))
+      notify(LANGUAGE(19613),LANGUAGE(19614))
       raise
 
     #connect to player
@@ -217,7 +217,7 @@ class SqueezePlayer:
         raise Exception
     except Exception as inst:
       log(" Couldn't connect to player: " + PLAYERMAC , inst)
-      notify(constants.__language__(19615),constants.__language__(19616))
+      notify(LANGUAGE(19615),LANGUAGE(19616))
       sys.exit()
 
     #initialise if we're called from XSqueeze as opposed to the chooser
@@ -312,7 +312,7 @@ class SqueezePlayer:
               #log("statusArtwork is " + str(statusArtwork))
               #check we have a full url....
               if("http" not in statusArtwork):
-                coverURL = "http://" + constants.SERVERHTTPURL + "/" + statusArtwork
+                coverURL = "http://" + SERVERHTTPURL + "/" + statusArtwork
               else:
                 coverURL = statusArtwork
             else:
@@ -321,7 +321,7 @@ class SqueezePlayer:
               statusId = statusId.split(' ')
               statusId = statusId.pop(0)
               #log("StatusID is " + str(statusId))
-              coverURL = "http://" + constants.SERVERHTTPURL + "/music/" + str(statusId) + "/cover.jpg"
+              coverURL = "http://" + SERVERHTTPURL + "/music/" + str(statusId) + "/cover.jpg"
 
             #now append the coverURL to our list of URLs
             #log ("Appending future cover: " + str(count) + " from " + coverURL)

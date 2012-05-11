@@ -45,7 +45,7 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
         listItem=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         listItem.setInfo( type="Video", infoLabels={ "Title": name } )
 
-        is_ok=xbmcplugin.addDirectoryItem(thisPlugin,url=u,listitem=listItem,isFolder=True)
+        is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=True)
         return is_ok
 
 
@@ -59,7 +59,7 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
         listItem=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         listItem.setInfo( type="Video", infoLabels={ "Title": name } )
 
-        is_ok=xbmcplugin.addDirectoryItem(thisPlugin,url=u,listitem=listItem,isFolder=False)
+        is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=False)
         return is_ok
 
 
@@ -71,11 +71,11 @@ def buildRootListing():
   addNode("Albums","",2,"")
   addNode("Artists","",3,"")
   addNode("Genres","",4,"")
-  addNode("  NOT YET WORKING : Years","",5,"")
+  #addNode("  NOT YET WORKING : Years","",5,"")
   addNode("Play Random Albums","",6,"")
   addNode("Play Random Songs","",7,"")
-  addNode("  NOT YET WORKING : Internet Radio","",8,"")
-  addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
+  #addNode("  NOT YET WORKING : Internet Radio","",8,"")
+  #addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
 
 ### NEW MUSIC
 
@@ -378,6 +378,6 @@ if albumview:
   albumview=False
 
 #and tell XBMC we're done...
-xbmcplugin.endOfDirectory(thisPlugin)
+xbmcplugin.endOfDirectory(THIS_PLUGIN)
 
 

@@ -7,6 +7,7 @@ import xbmcgui
 from xbmcaddon import Addon
 import constants
 from traceback import print_exc
+from XSqueezeCommon import *
 
 class ReadMeViewer():
     # constants
@@ -28,14 +29,14 @@ class ReadMeViewer():
         #get header, text
         heading, text = self.getText()
         # set heading
-        self.window.getControl( self.CONTROL_LABEL ).setLabel( "%s - %s" % ( heading, constants.__addonname__ +"-"+ constants.__version__ ) )
+        self.window.getControl( self.CONTROL_LABEL ).setLabel( "%s - %s" % ( heading, ADDONNAME +"-"+ VERSION ) )
         # set text
         self.window.getControl( self.CONTROL_TEXTBOX ).setText( text )
 
     def getText( self ):
         try:
-            txt = open( os.path.join( constants.__cwd__, "FIRSTRUN.txt" ) ).read()
-            return constants.__language__(19621), txt
+            txt = open( os.path.join( CWD, "FIRSTRUN.txt" ) ).read()
+            return LANGUAGE(19621), txt
         except:
             print_exc()
         return "", ""

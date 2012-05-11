@@ -1,2 +1,4 @@
-v0.01
-- Initial test
+v0.0.1
+- Initial release
+- TO Do: add choosing by years, radios, plugins if possible
+
