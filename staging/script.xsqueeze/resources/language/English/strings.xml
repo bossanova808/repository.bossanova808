@@ -51,6 +51,7 @@
 	<string id="19918">(NB - Manually input the arguments in extra arguments above)</string>
 	<string id="19919">Server username</string>
 	<string id="19920">Server password</string>
+	<string id="19921">Resume playback immediately on startup?</string>
 
 </strings>
 

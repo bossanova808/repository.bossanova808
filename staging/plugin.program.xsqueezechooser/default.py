@@ -102,7 +102,7 @@ def buildRootListing():
   #addNode("  NOT YET WORKING : Years","",5,"")
   addNode("Play Random Albums","",6,"")
   addNode("Play Random Songs","",7,"")
-  addNode("  NOT YET WORKING : Internet Radio","",8,"")
+  #addNode("  NOT YET WORKING : Internet Radio","",8,"")
   #addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
 
 ### NEW MUSIC
@@ -188,16 +188,20 @@ def buildYearList(listYears):
 def playRandomAlbums():
   global squeezeplayer
   squeezeplayer.playRandomAlbums()
-  addNode("Random albums mix queued.","","","")
-  addNode("Now hit escape/exit to return to XSqueeze.","","","")
+  notify("Random Albums" , "", 10000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+  #addNode("Random albums mix queued.","","","")
+  #addNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 ### RANDOM TRACKSS
 
 def playRandomTracks():
   global squeezeplayer
   squeezeplayer.playRandomTracks()
-  addNode("Random tracks mix queued.","","","")
-  addNode("Now hit escape/exit to return to XSqueeze.","","","")
+  notify("Random Tracks", "", 10000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+  #addNode("Random tracks mix queued.","","","")
+  #addNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 ### RADIOS
 
@@ -244,6 +248,9 @@ log("Called as: " + str(sys.argv))
 #parse the paramters
 params=get_params()
 log("Parameters parsed: " + str(params))
+if params==[]:
+  notify("Please do not run XSqueeze Chooser directly!","In Xsqueeze use info on your remote (or key i) to open!", 15000)
+  sys.exit()
 
 
 #By default we use a list view unless we're displaying actual albums with art
@@ -438,8 +445,10 @@ elif mode==PLAY_ALBUM:
 elif mode==PLAY_RADIO:
   log( "Queueing up a radio station...." )
   squeezeplayer.queueRadio(cmd, itemid)
-  addEndNode("Radio queued.","","","")
-  addEndNode("Now hit escape/exit to return to XSqueeze.","","","")
+  notify("Play Radio" , cmd, 12000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+  #addEndNode("Radio queued.","","","")
+  #addEndNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 
 elif mode==SUBMENU_ARTISTS:
@@ -491,4 +500,6 @@ else:
 
 #and tell XBMC we're done...
 xbmcplugin.endOfDirectory(THIS_PLUGIN)
+
+footprints(startup=False)
 

@@ -5,7 +5,7 @@
   </requires>
   <extension point='xbmc.addon.metadata'>
     <platform>all</platform>
-    <summary lang='en'>Common code for XSqueeze and XSqueeze Chooser</summary>
+    <summary lang='en'>Installed automatically with XSqueeze - common code for XSqueeze and XSqueeze Chooser</summary>
   </extension>
   <extension point='xbmc.python.module' library='lib' />
 </addon>

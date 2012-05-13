@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.program.xsqueezechooser" name="XSqueeze Chooser"
+       version="0.0.1" provider-name="bossanova808">
+  <requires>
+    <import addon="xbmc.python" version="2.0"/>
+    <import addon="script.module.xsqueezecommon" version="0.0.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Installed automatically with XSqueeze, this Chooser allows you to select music to play on your XSqueeze player.</summary>
+    <description>Installed automatically with XSqueeze, this Chooser allows you to select music to play on your XSqueeze player.</description>
+    <platform>all</platform>
+    <license>GPL V2</license>
+  </extension>
+</addon>
+
 <addon
   id="repository.bossanova808"
   name="bossanova808's XBMC Addons"
@@ -18,6 +35,17 @@
 	</extension>
 </addon>
 
+<addon id="script.module.xsqueezecommon" version="0.0.1" name="XSqueeze Common Code" provider-name="bossanova808">
+  <requires>
+    <import addon='xbmc.python' version='2.0'/>
+  </requires>
+  <extension point='xbmc.addon.metadata'>
+    <platform>all</platform>
+    <summary lang='en'>Installed automatically with XSqueeze - common code for XSqueeze and XSqueeze Chooser</summary>
+  </extension>
+  <extension point='xbmc.python.module' library='lib' />
+</addon>
+
 <addon id="script.xsqueeze"
        name="XSqueeze"
        version="0.4.7"
@@ -25,6 +53,8 @@
   <requires>
     <import addon="xbmc.python" version="2.0"/>
     <import addon="script.artistslideshow" version="1.3.1"/>
+    <import addon="script.module.xsqueezecommon" version="0.0.1"/>
+    <import addon="plugin.program.xsqueezechooser" version="0.0.1"/>
   </requires>
   <extension point="xbmc.python.script"
              library="default.py">
@@ -35,6 +65,28 @@
     <summary lang="en">Squeezebox player/controller for XBMC.</summary>
     <description lang="en">Turn your XBMC into a Squeeze player or control an external Squeezebox.</description>
     <disclaimer lang="en"></disclaimer>
+  </extension>
+</addon>
+
+<addon id="service.squeezeslave"
+       name="SqueezeSlave"
+       version="1.1.305"
+       provider-name="alcoheca@gmail.com">
+  <requires>
+    <import addon="os.openelec.tv" version="1.0"/>
+    <import addon="xbmc.python" version="1.0"/>
+
+  </requires>
+  <extension point="xbmc.service"
+             library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>SqueezeSlave is a software music player that allows you to play music streamed from Squeezebox Server</summary>
+    <description>
+        SqueezeSlave is an alternative to SqueezePlay and SoftSqueeze. The main difference is that SqueezeSlave has no graphical interface (GUI), but rather is run from a command line. SqueezeSlave is currently maintained by Ralph Irving
+    </description>
+    <platform>all</platform>
   </extension>
 </addon>
 

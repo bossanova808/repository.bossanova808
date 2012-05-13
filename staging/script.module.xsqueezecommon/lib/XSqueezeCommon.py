@@ -94,6 +94,12 @@ if CONTROLSLAVE:
 if CONTROLLERONLY:
   PLAYERMAC   = str.lower(REF_TO_XSQUEEZE.getSetting('controllerMAC'))
 
+#does the user want music to start immediately?
+if ADDON.getSetting('sendPlayOnStart')=="true":
+  SENDPLAYONSTART = True
+else:
+  SENDPLAYONSTART = False
+
 
 ################################################################################
 ################################################################################
@@ -115,18 +121,22 @@ def log(message, inst=None, level=xbmc.LOGNOTICE):
 
 def notify(messageLine1, messageLine2 = "", time = 6000):
   imagepath = os.path.join(CWD ,"icon.png")
-  notifyString = "XBMC.Notification(XSqueeze: " + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
+  notifyString = "XBMC.Notification(" + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
   log("XBMC Notificaton Requested: [" + notifyString +"]")
   xbmc.executebuiltin( notifyString )
 
 ################################################################################
 # Log a startup message to the XBMC log
 
-def footprints():
+def footprints(startup=True):
 
+  if startup:
     log( "### %s Starting ..." % ADDONNAME )
-    log( "### Author: %s" % AUTHOR )
-    log( "### Version: %s" % VERSION )
+  else:
+    log( "### %s Exiting ..." % ADDONNAME )
+
+  log( "### Author: %s" % AUTHOR )
+  log( "### Version: %s" % VERSION )
 
 ################################################################################
 ################################################################################
@@ -227,7 +237,9 @@ class SqueezePlayer:
       self.playlistDetails = None
       self.updatePlaylistDetails()
       self.updateCoverArtURLs()
-
+      #if the user wants music to start straight away...
+      if SENDPLAYONSTART:
+        self.sb.request("play")
 
   ##############################################################################
   #get the current squeezebox two line display text and return it
@@ -551,22 +563,22 @@ class SqueezePlayer:
       results = self.sb.requestRaw(cmdString, True)
     else:
       results = self.sc.requestRaw(cmdString, True)
-    log(str(results))
+    #log(str(results))
     #strip off the request stuff at the start
     resultStr = results[results.find(splitOn):]
-    log(str(resultStr))
+    #log(str(resultStr))
     #ok now split the string on 'icon' to get each radio station
     chunks = resultStr.split(splitOn + "%3A")[1:]
-    log(str(chunks))
+    #log(str(chunks))
     output=[]
     for chunk in chunks:
       chunk = chunk.strip()
       subResults = chunk.split(" ")
-      log("SUB: " + str(subResults))
+      #log("SUB: " + str(subResults))
 
-      #fix missing icon post split
+      #fix missing splitOn post split
       subResults[0] = splitOn + "%3A" + subResults[0]
-      log("SUB + splitOn: " + str(subResults))
+      #log("SUB + splitOn: " + str(subResults))
 
       item={}
       for subResult in subResults:
