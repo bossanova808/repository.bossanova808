@@ -237,4 +237,4 @@ if ( __name__ == "__main__" ):
         del window
 
         #sys.modules.clear()
-        log( "### Exiting XSqueeze..." )
+        footprints(startup=False)

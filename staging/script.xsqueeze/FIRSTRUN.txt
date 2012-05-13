@@ -5,6 +5,9 @@ OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
 [B]* MAJOR NEW VERSION - NOW WITH EASY MUSIC CHOOSER! *[/B]
 * Hit 'i' or info on your remote to start the new chooser...
+* New setting to resume playback immediately on startup (default: on)
+
+* (The new Chooser generates quite a few spurious log messages due to a bug in XBMC...sorry about that!)
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
