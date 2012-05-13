@@ -115,7 +115,7 @@ def log(message, inst=None, level=xbmc.LOGNOTICE):
 
 def notify(messageLine1, messageLine2 = "", time = 6000):
   imagepath = os.path.join(CWD ,"icon.png")
-  notifyString = "XBMC.Notification("+ ADDONNAME + ": " + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
+  notifyString = "XBMC.Notification(XSqueeze: " + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
   log("XBMC Notificaton Requested: [" + notifyString +"]")
   xbmc.executebuiltin( notifyString )
 
@@ -334,8 +334,8 @@ class SqueezePlayer:
 
       self.coverURLs = coverURLs
 
-  ##############################################################################
-  # Gets more info about a particular song
+##  ##############################################################################
+##  # Gets more info about a particular song
 
   def getSongInfo(self, id):
     encoded = self.sb.requestRaw("songinfo 0 1000 track_id:" + str(id), True)
@@ -395,8 +395,17 @@ class SqueezePlayer:
     except Exception as inst:
       log("****** Other songinfo issue: ", inst)
 
-    #print "item is now " + str(item)
+    #replace with request with results?
+    #results = self.sc.request_with_results("songinfo 0 1000 track_id:" + str(id), True)
+    #log(results)
+    #log( "item is now " + str(item))
+
     return item
+
+##  def getSongInfo(self, id):
+##    results = self.sc.request_with_results("songinfo 0 1000 track_id:" + str(id), True)
+##    log(results)
+##    return results[1]
 
   ##############################################################################
   # Send a button command text, e.g. 'pause' - to the player
@@ -448,7 +457,7 @@ class SqueezePlayer:
 
   def getAlbumInfo(self, albumID):
     fullAlbumInfo = self.sc.request_with_results('albums 0 1 album_id:' + albumID + ' tags:yajl')
-    log("Full Album Info: " + str(fullAlbumInfo))
+    #log("Full Album Info: " + str(fullAlbumInfo))
     return fullAlbumInfo[1][0]
 
   ##############################################################################
@@ -478,7 +487,7 @@ class SqueezePlayer:
 
   def getArtists(self):
     artists = self.sc.request_with_results("artists 0 100000", debug=True)
-    log(str(artists))
+    #log(str(artists))
     return artists[1]
 
   ##############################################################################
@@ -487,7 +496,7 @@ class SqueezePlayer:
   def getAlbumsByArtistID(self,artistID):
     fullAlbums = []
     albums = self.sc.request_with_results("albums 0 100000 artist_id:" + str(artistID), debug=True)
-    log(str(albums))
+    #log(str(albums))
     for album in albums[1]:
       fullAlbumInfo = self.getAlbumInfo(album['id'])
       fullAlbums.append(fullAlbumInfo)
@@ -499,7 +508,7 @@ class SqueezePlayer:
   def getAlbumsByGenreID(self,genreID):
     fullAlbums = []
     albums = self.sc.request_with_results("albums 0 100000 genre_id:" + str(genreID), debug=True)
-    log(str(albums))
+    #log(str(albums))
     for album in albums[1]:
       fullAlbumInfo = self.getAlbumInfo(album['id'])
       fullAlbums.append(fullAlbumInfo)
@@ -511,7 +520,7 @@ class SqueezePlayer:
   def getAlbumsByYear(self,year):
     fullAlbums = []
     albums = self.sc.request_with_results("albums 0 100000 year:" + str(year), debug=True)
-    log(str(albums))
+    #log(str(albums))
     for album in albums[1]:
       fullAlbumInfo = self.getAlbumInfo(album['id'])
       fullAlbums.append(fullAlbumInfo)
@@ -522,7 +531,7 @@ class SqueezePlayer:
 
   def getGenres(self):
     genres = self.sc.request_with_results("genres 0 100000", debug=True)
-    log(str(genres))
+    #log(str(genres))
     return genres[1][1:]
 
   ##############################################################################
@@ -530,16 +539,84 @@ class SqueezePlayer:
 
   def getYears(self):
     years = self.sc.request_with_results("years 0 100000", debug=True)
-    log(str(years))
+    #log(str(years))
     return years
 
   ##############################################################################
-  # returns all radios
+  # returns radios root menu
+
+  def parseSpecial(self, cmdString, splitOn, playerRequest=False):
+    quotedColon = urllib.quote(':')
+    if playerRequest:
+      results = self.sb.requestRaw(cmdString, True)
+    else:
+      results = self.sc.requestRaw(cmdString, True)
+    log(str(results))
+    #strip off the request stuff at the start
+    resultStr = results[results.find(splitOn):]
+    log(str(resultStr))
+    #ok now split the string on 'icon' to get each radio station
+    chunks = resultStr.split(splitOn + "%3A")[1:]
+    log(str(chunks))
+    output=[]
+    for chunk in chunks:
+      chunk = chunk.strip()
+      subResults = chunk.split(" ")
+      log("SUB: " + str(subResults))
+
+      #fix missing icon post split
+      subResults[0] = splitOn + "%3A" + subResults[0]
+      log("SUB + splitOn: " + str(subResults))
+
+      item={}
+      for subResult in subResults:
+          #save item
+          key,value = subResult.split(quotedColon,1)
+          item[unquoteUni(key)] = unquoteUni(value)
+      output.append(item)
+
+    return output
+
+
 
   def getRadios(self):
-    radios = self.sc.request_with_results("radios 0 100000", debug=True)
-    log(str(radios))
-    return radios
+
+    return self.parseSpecial("radios 0 100000", "icon")
+
+
+##    quotedColon = urllib.quote(':')
+##    radioResults = self.sc.requestRaw("radios 0 100000", True)
+##    log(str(radioResults))
+##    #strip off the request stuff at the start
+##    resultStr = radioResults[radioResults.find('icon'):]
+##    log(str(resultStr))
+##    #ok now split the string on 'icon' to get each radio station
+##    chunks = resultStr.split("icon%3A")[1:]
+##    log(str(chunks))
+##    output=[]
+##    for chunk in chunks:
+##      chunk = chunk.strip()
+##      subResults = chunk.split(" ")
+##      log("SUB: " + str(subResults))
+##
+##      #fix missing icon post split
+##      subResults[0] = "icon%3A" + subResults[0]
+##      log("SUB + icon: " + str(subResults))
+##
+##      item={}
+##      for subResult in subResults:
+##          #save item
+##          key,value = subResult.split(quotedColon,1)
+##          item[unquoteUni(key)] = unquoteUni(value)
+##      output.append(item)
+##
+##    return output
+
+  def getRadioStations(self, cmd):
+    return self.parseSpecial(cmd + " items 0 100000","name",playerRequest=True)
+
+  def queueRadio(self, radio, itemid):
+      self.sb.request(urllib.quote(radio) + " playlist play",debug=True)
 
   ##############################################################################
   # Clear playlist and queue up an album given an album title and artist

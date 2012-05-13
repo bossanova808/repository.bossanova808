@@ -14,6 +14,7 @@ from traceback import print_exc
 #which connects to the server and a player
 from XSqueezeCommon import *
 
+
 #Borrow from somewhere....parses the parameter stings (arrives in sys.argv[2])
 #into a dict
 def get_params():
@@ -36,9 +37,22 @@ def get_params():
 
 #Add a node to the plugin tree - a 'directory' node, so something we
 #can click on to either get more choices or trigger an action
-def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year=""):
+def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid=""):
 
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&album="+urllib.quote_plus(album)+"&artist="+urllib.quote_plus(artist)+"&artistID="+urllib.quote_plus(artistID)+"&genreID="+urllib.quote_plus(genreID)+"&year="+urllib.quote_plus(year)
+        global callerid
+
+        u=sys.argv[0]+\
+        "?url="+urllib.quote_plus(url)+\
+        "&mode="+str(mode)+\
+        "&name="+urllib.quote_plus(name)+\
+        "&album="+urllib.quote_plus(album)+\
+        "&artist="+urllib.quote_plus(artist)+\
+        "&artistID="+urllib.quote_plus(artistID)+\
+        "&genreID="+urllib.quote_plus(genreID)+\
+        "&year="+urllib.quote_plus(year)+\
+        "&itemid="+urllib.quote_plus(itemid)+\
+        "&callerid="+urllib.quote_plus(callerid)+\
+        "&cmd="+urllib.quote_plus(cmd)
 
         is_ok=True
 
@@ -51,8 +65,22 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
 
 #Add a node at the end of the chain - not clickable
 #Used for messages after an album is queued or whatever
-def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year=""):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&album="+urllib.quote_plus(album)+"&artist="+urllib.quote_plus(artist)+"&artistID="+urllib.quote_plus(artistID)+"&genreID="+urllib.quote_plus(genreID)+"&year="+urllib.quote_plus(year)
+def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid=""):
+
+        global callerid
+
+        u=sys.argv[0]+\
+        "?url="+urllib.quote_plus(url)+\
+        "&mode="+str(mode)+\
+        "&name="+urllib.quote_plus(name)+\
+        "&album="+urllib.quote_plus(album)+\
+        "&artist="+urllib.quote_plus(artist)+\
+        "&artistID="+urllib.quote_plus(artistID)+\
+        "&genreID="+urllib.quote_plus(genreID)+\
+        "&year="+urllib.quote_plus(year)+\
+        "&itemid="+urllib.quote_plus(itemid)+\
+        "&callerid="+urllib.quote_plus(callerid)+\
+        "&cmd="+urllib.quote_plus(cmd)
 
         is_ok=True
 
@@ -74,7 +102,7 @@ def buildRootListing():
   #addNode("  NOT YET WORKING : Years","",5,"")
   addNode("Play Random Albums","",6,"")
   addNode("Play Random Songs","",7,"")
-  #addNode("  NOT YET WORKING : Internet Radio","",8,"")
+  addNode("  NOT YET WORKING : Internet Radio","",8,"")
   #addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
 
 ### NEW MUSIC
@@ -179,10 +207,31 @@ def buildRadioRoot():
   log(str(returnedList))
   buildRadioList(returnedList)
 
+def buildRadioSub(cmd):
+  global squeezeplayer
+  returnedList = squeezeplayer.getRadioStations(cmd)
+  log(str(returnedList))
+  buildRadioStationList(returnedList)
+
 def buildRadioList(listRadios):
   for radio in listRadios:
-    addNode(radio['radio'],"",2002,"","")
+    if radio['cmd']=="search" : continue
+    coverURL = "http://" + SERVERHTTPURL + "/" + radio['icon']
+    addNode(radio['cmd'],"",2004,coverURL,cmd=radio['cmd'])
 
+def buildRadioStationList(listRadios):
+  for radio in listRadios:
+    addNode(radio['name'],"",1002,radio['image'],cmd=radio['name'],itemid=radio['id'])
+
+
+##
+##
+##  for album in listAlbums:
+##    try:
+##      coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
+##    except KeyError:
+##      coverURL = ""
+##    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",1001,coverURL,album=album['album'],artist=album['artist'])
 
 
 ################################################################################
@@ -192,17 +241,35 @@ def buildRadioList(listRadios):
 #Log that we've started, and how we were called....
 footprints()
 log("Called as: " + str(sys.argv))
+#parse the paramters
+params=get_params()
+log("Parameters parsed: " + str(params))
 
-#Set the view mode to list by default..
-log("Set basic list mode (id 50)")
-xbmc.executebuiltin('Container.SetViewMode(50)')
 
 #By default we use a list view unless we're displaying actual albums with art
 #then we use thumbnails
 albumview=False
 
-#parse the paramters
-params=get_params()
+#MODES
+ROOT = 0
+NEW_MUSIC = 1
+ALBUMS = 2
+ARTISTS = 3
+GENRES = 4
+YEARS = 5
+RANDOM_ALBUMS = 6
+RANDOM_TRACKS = 7
+RADIO = 8
+
+PLAY_ALBUM = 1001
+PLAY_RADIO = 1002
+
+SUBMENU_ARTISTS = 2001
+SUBMENU_GENRES = 2002
+SUBMENU_YEARS = 2003
+SUBMENU_RADIOS = 2004
+
+
 
 #zero out all the things we pass between runs before we check
 #if they are in the parameters
@@ -214,6 +281,10 @@ mode=None
 artistID=None
 genreID=None
 year=None
+cmd=None
+itemid=None
+#default is 13000
+callerid=None
 
 #if the params have data in them, store it in a variable
 try:
@@ -256,9 +327,29 @@ try:
 except:
     pass
 
+try:
+    cmd=urllib.unquote_plus(params["cmd"])
+except:
+    pass
+
+try:
+    itemid=urllib.unquote_plus(params["itemid"])
+except:
+    pass
+
+try:
+    callerid=urllib.unquote_plus(params["callerid"])
+except:
+    pass
+
+
+#MODES WITH SUBMENUS use list view
+thumbModes = [None,PLAY_ALBUM, PLAY_RADIO, NEW_MUSIC, ALBUMS, SUBMENU_ARTISTS, SUBMENU_GENRES, SUBMENU_YEARS, SUBMENU_RADIOS]
+
+
 
 #OK the mode variable controls what we're actually doing...
-if mode==None or mode==0:
+if mode==None or mode==ROOT:
   log( "Xsqueeze Chooser Root Menu" )
   try:
       buildRootListing()
@@ -274,7 +365,7 @@ else:
     print_exc()
     sys.exit()
 
-if mode==1:
+if mode==NEW_MUSIC:
   log( "Handling New Music" )
   try:
       albumview=True
@@ -282,7 +373,7 @@ if mode==1:
   except:
       print_exc()
 
-elif mode==2:
+elif mode==ALBUMS:
   log( "Handling Albums" )
   try:
       albumview=True
@@ -290,42 +381,42 @@ elif mode==2:
   except:
       print_exc()
 
-elif mode==3:
+elif mode==ARTISTS:
   log( "Handling Artists Root" )
   try:
       buildArtistsRoot()
   except:
       print_exc()
 
-elif mode==4:
+elif mode==GENRES:
   log( "Handling Genres Root" )
   try:
       buildGenresRoot()
   except:
       print_exc()
 
-elif mode==5:
+elif mode==YEARS:
   log( "Handling Years Root" )
   try:
       buildYearsRoot()
   except:
       print_exc()
 
-elif mode==6:
+elif mode==RANDOM_ALBUMS:
   log( "Handling Random Albums" )
   try:
       playRandomAlbums()
   except:
       print_exc()
 
-elif mode==7:
+elif mode==RANDOM_TRACKS:
   log( "Handling Random Tracks" )
   try:
       playRandomTracks()
   except:
       print_exc()
 
-elif mode==8:
+elif mode==RADIO:
   log( "Handling Internet Radio" )
   try:
       buildRadioRoot()
@@ -336,14 +427,22 @@ elif mode==8:
 #1001+ are action modes
 #2001+ are submenu modes
 
-elif mode==1001:
-  log( "Queueing up an album...." )
+elif mode==PLAY_ALBUM:
+  log( "Queueing up " + album + " by "+ artist + "...." )
   squeezeplayer.queueAlbum(album,artist)
-  addEndNode("Album queued.","","","")
+  notify(artist , album, 12000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+  #addEndNode("Album queued.","","","")
+  #addEndNode("Now hit escape/exit to return to XSqueeze.","","","")
+
+elif mode==PLAY_RADIO:
+  log( "Queueing up a radio station...." )
+  squeezeplayer.queueRadio(cmd, itemid)
+  addEndNode("Radio queued.","","","")
   addEndNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 
-elif mode==2001:
+elif mode==SUBMENU_ARTISTS:
   log( "Handling submenu of an artist...." )
   try:
       albumview=True
@@ -351,7 +450,7 @@ elif mode==2001:
   except:
       print_exc()
 
-elif mode==2002:
+elif mode==SUBMENU_GENRES:
   log( "Handling submenu of a genre...." )
   try:
       albumview=True
@@ -359,25 +458,37 @@ elif mode==2002:
   except:
       print_exc()
 
-elif mode==2003:
+elif mode==SUBMENU_YEARS:
   log( "Handling submenu of a year...." )
   try:
       buildYearSub(year)
   except:
       print_exc()
 
+elif mode==SUBMENU_RADIOS:
+  log( "Handling submenu of a radio...." )
+  try:
+      albumview=True
+      buildRadioSub(cmd)
+  except:
+      print_exc()
+
+
 
 ################################################################################
 # FALL THROUGH to here after the list building above....
 
 #if we've just built a list of albums, force thumbnail mode
-if albumview:
-  log("### Album View -> Trying to set thumnbnail mode ###")
+if mode in thumbModes:
+  log("Playable Items -> Trying to set thumnbnail mode...")
   xbmc.executebuiltin('Container.SetViewMode(500)')
   #set this variable back jsut in case
   albumview=False
+else:
+  log("List Items -> Trying to set list mode...")
+  xbmc.executebuiltin('Container.SetViewMode(50)')
+
 
 #and tell XBMC we're done...
 xbmcplugin.endOfDirectory(THIS_PLUGIN)
-
 

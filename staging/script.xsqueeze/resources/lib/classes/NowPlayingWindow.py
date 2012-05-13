@@ -264,7 +264,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #Start the music chooser
     elif action == ACTION_CODES['ACTION_SHOW_INFO']:
       log("### Starting Chooser...")
-      xbmc.executebuiltin('ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0)')
+      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
 
     #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
     else:
