@@ -4,10 +4,14 @@ OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 [B]What's new in this version:[/B]
 
 [B]* MAJOR NEW VERSION - NOW WITH EASY MUSIC CHOOSER! *[/B]
-* Hit 'i' or info on your remote to start the new chooser...
+* In XSqueeze, hit 'i' or info on your remote to start the new chooser...
+* You can choose new music, albums, artists, random etc
+* Apps/Radios not implemented yet...
+
 * New setting to resume playback immediately on startup (default: on)
 
 * (The new Chooser generates quite a few spurious log messages due to a bug in XBMC...sorry about that!)
+* STILL THOROUGHLY A BETA - PLEASE TEST AND REPORT!
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
