@@ -563,13 +563,13 @@ class SqueezePlayer:
       results = self.sb.requestRaw(cmdString, True)
     else:
       results = self.sc.requestRaw(cmdString, True)
-    #log(str(results))
+    log(str(results))
     #strip off the request stuff at the start
     resultStr = results[results.find(splitOn):]
-    #log(str(resultStr))
-    #ok now split the string on 'icon' to get each radio station
+    log(str(resultStr))
+    #ok now split the string on 'splitOn' to get each radio station
     chunks = resultStr.split(splitOn + "%3A")[1:]
-    #log(str(chunks))
+    log(str(chunks))
     output=[]
     for chunk in chunks:
       chunk = chunk.strip()
@@ -589,46 +589,17 @@ class SqueezePlayer:
 
     return output
 
-
-
   def getRadios(self):
-
     return self.parseSpecial("radios 0 100000", "icon")
 
+  def getRadioStations(self, cmd, itemid):
+    if(itemid)!="":
+      return self.parseSpecial(urllib.quote(cmd) + " items 0 100000 item_id:" + itemid,"id",playerRequest=True)
+    else:
+      return self.parseSpecial(urllib.quote(cmd) + " items 0 100000","id",playerRequest=True)
 
-##    quotedColon = urllib.quote(':')
-##    radioResults = self.sc.requestRaw("radios 0 100000", True)
-##    log(str(radioResults))
-##    #strip off the request stuff at the start
-##    resultStr = radioResults[radioResults.find('icon'):]
-##    log(str(resultStr))
-##    #ok now split the string on 'icon' to get each radio station
-##    chunks = resultStr.split("icon%3A")[1:]
-##    log(str(chunks))
-##    output=[]
-##    for chunk in chunks:
-##      chunk = chunk.strip()
-##      subResults = chunk.split(" ")
-##      log("SUB: " + str(subResults))
-##
-##      #fix missing icon post split
-##      subResults[0] = "icon%3A" + subResults[0]
-##      log("SUB + icon: " + str(subResults))
-##
-##      item={}
-##      for subResult in subResults:
-##          #save item
-##          key,value = subResult.split(quotedColon,1)
-##          item[unquoteUni(key)] = unquoteUni(value)
-##      output.append(item)
-##
-##    return output
-
-  def getRadioStations(self, cmd):
-    return self.parseSpecial(cmd + " items 0 100000","name",playerRequest=True)
-
-  def queueRadio(self, radio, itemid):
-      self.sb.request(urllib.quote(radio) + " playlist play",debug=True)
+  def queueRadio(self, cmd, itemid):
+      self.sb.request(urllib.quote(cmd) + " playlist play item_id:" + itemid,debug=True)
 
   ##############################################################################
   # Clear playlist and queue up an album given an album title and artist

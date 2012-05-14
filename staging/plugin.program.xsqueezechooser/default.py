@@ -96,14 +96,14 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
 
 def buildRootListing():
   addNode("New Music (latest 50 albums)","",1,"")
-  addNode("Albums (Slow with large collections!)","",2,"")
+  addNode("Albums (Warning: can be slow with large collections!)","",2,"")
   addNode("Artists","",3,"")
   addNode("Genres","",4,"")
-  #addNode("  NOT YET WORKING : Years","",5,"")
+  addNode("  NOT YET WORKING : Years","",5,"")
   addNode("Play Random Albums","",6,"")
   addNode("Play Random Songs","",7,"")
-  #addNode("  NOT YET WORKING : Internet Radio","",8,"")
-  #addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
+  addNode("Internet Radio","",8,"")
+  addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
 
 ### NEW MUSIC
 
@@ -191,8 +191,6 @@ def playRandomAlbums():
   squeezeplayer.playRandomAlbums()
   notify("Random Albums" , "", 10000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
-  #addNode("Random albums mix queued.","","","")
-  #addNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 ### RANDOM TRACKSS
 
@@ -201,8 +199,6 @@ def playRandomTracks():
   squeezeplayer.playRandomTracks()
   notify("Random Tracks", "", 10000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
-  #addNode("Random tracks mix queued.","","","")
-  #addNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 ### RADIOS
 
@@ -212,11 +208,11 @@ def buildRadioRoot():
   log(str(returnedList))
   buildRadioList(returnedList)
 
-def buildRadioSub(cmd):
+def buildRadioSub(cmd, itemid=""):
   global squeezeplayer
-  returnedList = squeezeplayer.getRadioStations(cmd)
+  returnedList = squeezeplayer.getRadioStations(cmd,itemid)
   log(str(returnedList))
-  buildRadioStationList(returnedList)
+  buildRadioStationList(returnedList, cmd)
 
 def buildRadioList(listRadios):
   for radio in listRadios:
@@ -224,19 +220,32 @@ def buildRadioList(listRadios):
     coverURL = "http://" + SERVERHTTPURL + "/" + radio['icon']
     addNode(radio['cmd'],"",2004,coverURL,cmd=radio['cmd'])
 
-def buildRadioStationList(listRadios):
+def buildRadioStationList(listRadios, cmd):
+  log(str(listRadios))
+  log(cmd)
   for radio in listRadios:
-    addNode(radio['name'],"",1002,radio['image'],cmd=radio['name'],itemid=radio['id'])
+    try:
+      coverURL = radio['image']
+    except:
+      coverURL = ""
 
+    #submenu - might lead to more menus...
+    if 'hasitems' in radio:
+      #item has a submenu...
+      if radio['hasitems']!='0':
+        addNode(radio['name'],"",2004,coverURL,cmd=cmd,itemid=radio['id'])
+      #item is a playable station
+      else:
+        try:
+          addNode(radio['name'],"",1002,coverURL,cmd=cmd,itemid=radio['id'])
+        except Exception as inst:
+          log(str(radio))
+          print_exc(inst)
+    #subsubmenu
+    else:
+      if 'name' not in radio: continue
+      else: addNode(radio['name'],"",1002,coverURL,cmd=cmd,itemid=radio['id'])
 
-##
-##
-##  for album in listAlbums:
-##    try:
-##      coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
-##    except KeyError:
-##      coverURL = ""
-##    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",1001,coverURL,album=album['album'],artist=album['artist'])
 
 
 ################################################################################
@@ -276,7 +285,6 @@ SUBMENU_ARTISTS = 2001
 SUBMENU_GENRES = 2002
 SUBMENU_YEARS = 2003
 SUBMENU_RADIOS = 2004
-
 
 
 #zero out all the things we pass between runs before we check
@@ -351,9 +359,8 @@ except:
     pass
 
 
-#MODES WITH SUBMENUS use list view
-thumbModes = [None,PLAY_ALBUM, PLAY_RADIO, NEW_MUSIC, ALBUMS, SUBMENU_ARTISTS, SUBMENU_GENRES, SUBMENU_YEARS, SUBMENU_RADIOS]
-
+#these modes use the thumbnail view (for playable items)
+thumbModes = [None,PLAY_ALBUM, PLAY_RADIO, NEW_MUSIC, ALBUMS, RADIO, SUBMENU_ARTISTS, SUBMENU_GENRES, SUBMENU_YEARS, SUBMENU_RADIOS]
 
 
 #OK the mode variable controls what we're actually doing...
@@ -440,22 +447,16 @@ elif mode==PLAY_ALBUM:
   squeezeplayer.queueAlbum(album,artist)
   notify(artist , album, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
-  #addEndNode("Album queued.","","","")
-  #addEndNode("Now hit escape/exit to return to XSqueeze.","","","")
 
 elif mode==PLAY_RADIO:
-  log( "Queueing up a radio station...." )
+  log( "Queueing up a radio station...." + cmd + "itemid " +itemid )
   squeezeplayer.queueRadio(cmd, itemid)
-  notify("Play Radio" , cmd, 12000)
+  notify("Radio" , name, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
-  #addEndNode("Radio queued.","","","")
-  #addEndNode("Now hit escape/exit to return to XSqueeze.","","","")
-
 
 elif mode==SUBMENU_ARTISTS:
   log( "Handling submenu of an artist...." )
   try:
-      albumview=True
       buildArtistSub(artistID)
   except:
       print_exc()
@@ -463,7 +464,6 @@ elif mode==SUBMENU_ARTISTS:
 elif mode==SUBMENU_GENRES:
   log( "Handling submenu of a genre...." )
   try:
-      albumview=True
       buildGenreSub(genreID)
   except:
       print_exc()
@@ -478,11 +478,9 @@ elif mode==SUBMENU_YEARS:
 elif mode==SUBMENU_RADIOS:
   log( "Handling submenu of a radio...." )
   try:
-      albumview=True
-      buildRadioSub(cmd)
+      buildRadioSub(cmd,itemid)
   except:
       print_exc()
-
 
 
 ################################################################################
@@ -492,8 +490,6 @@ elif mode==SUBMENU_RADIOS:
 if mode in thumbModes:
   log("Playable Items -> Trying to set thumnbnail mode...")
   xbmc.executebuiltin('Container.SetViewMode(500)')
-  #set this variable back jsut in case
-  albumview=False
 else:
   log("List Items -> Trying to set list mode...")
   xbmc.executebuiltin('Container.SetViewMode(50)')
