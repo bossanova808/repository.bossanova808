@@ -37,7 +37,7 @@ def get_params():
 
 #Add a node to the plugin tree - a 'directory' node, so something we
 #can click on to either get more choices or trigger an action
-def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid=""):
+def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="",itemCount=0):
 
         global callerid
 
@@ -59,13 +59,13 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
         listItem=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         listItem.setInfo( type="Video", infoLabels={ "Title": name } )
 
-        is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=True)
+        is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=True, totalItems=itemCount)
         return is_ok
 
 
 #Add a node at the end of the chain - not clickable
 #Used for messages after an album is queued or whatever
-def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid=""):
+def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="",itemCount=0):
 
         global callerid
 
@@ -87,7 +87,7 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
         listItem=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         listItem.setInfo( type="Video", infoLabels={ "Title": name } )
 
-        is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=False)
+        is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=False, totalItems=itemCount)
         return is_ok
 
 
@@ -96,7 +96,7 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
 
 def buildRootListing():
   addNode("New Music (latest 50 albums)","",1,"")
-  addNode("Albums","",2,"")
+  addNode("Albums (Slow with large collections!)","",2,"")
   addNode("Artists","",3,"")
   addNode("Genres","",4,"")
   #addNode("  NOT YET WORKING : Years","",5,"")
@@ -116,12 +116,13 @@ def buildNewMusic():
 ### ALBUMS
 
 def buildAlbumList(listAlbums):
+  itemCount = len(listAlbums)
   for album in listAlbums:
     try:
       coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
     except KeyError:
       coverURL = ""
-    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",1001,coverURL,album=album['album'],artist=album['artist'])
+    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",1001,coverURL,album=album['album'],artist=album['artist'],itemCount=itemCount)
 
 def buildAlbums():
   global squeezeplayer
