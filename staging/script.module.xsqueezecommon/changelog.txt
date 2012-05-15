@@ -1,2 +1,5 @@
+[B]Version 0.0.2[/B]
+- Support for new chooser modes favourites, radios etc.
+
 [B]Version 0.0.1[/B]
 - Initial release of common code module.

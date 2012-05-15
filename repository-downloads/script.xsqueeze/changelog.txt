@@ -1,3 +1,6 @@
+V0.5.2
+- Support for the new XSqueeze music chooser
+
 V0.4.7
 -  Migrate from pysqueezecentre to new pylms - see https://github.com/jingleman/PyLMS
 -  Support for servers with username/password

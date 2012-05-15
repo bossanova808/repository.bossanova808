@@ -5,8 +5,8 @@ OK SO SINCE THIS IF YOUR FIRST RUN OF THIS VERSION....
 
 [B]* MAJOR NEW VERSION - NOW WITH EASY MUSIC CHOOSER! *[/B]
 * In XSqueeze, hit 'i' or info on your remote to start the new chooser...
-* You can choose new music, albums, artists, random etc
-* Apps/Radios not implemented yet...
+* 0.5.1 You can choose new music, albums, artists, random etc
+* 0.5.2 adds support for favourites, years, radios, and apps
 
 * New setting to resume playback immediately on startup (default: on)
 
