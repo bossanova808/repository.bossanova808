@@ -94,23 +94,34 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
 ################################################################################
 ### THESE FUNCTIONS BUILD THE MENUS
 
+
+##def buildMenu(squeezeplayerFunc, *squeezeplayerFuncArgs):
+##
+##, listFunc, *listFuncArgs):
+##  global squeezeplayer
+##  returnedList = squeezeplayerFunc(*squeezeplayerFuncArgs)
+##  log(str(returnedList))
+##  buildAlbumList(returnedList)
+
+
 def buildRootListing():
-  addNode("New Music (latest 50 albums)","",1,"")
-  addNode("Albums (Warning: can be slow with large collections!)","",2,"")
-  addNode("Artists","",3,"")
-  addNode("Genres","",4,"")
-  addNode("  NOT YET WORKING : Years","",5,"")
-  addNode("Play Random Albums","",6,"")
-  addNode("Play Random Songs","",7,"")
-  addNode("Internet Radio","",8,"")
-  addNode("  NOT YET WORKING : Plugins e.g. Pandora etc.","",9,"")
+  addNode("New Music (latest 50 albums)","",NEW_MUSIC,"")
+  addNode("Albums (Warning: can be slow with large collections!)","",ALBUMS,"")
+  addNode("Artists","",ARTISTS,"")
+  addNode("Genres","",GENRES,"")
+  addNode("Years","",YEARS,"")
+  addNode("Favourites","",FAVOURITES,"")
+  addNode("Play Random Albums","",RANDOM_ALBUMS,"")
+  addNode("Play Random Songs","",RANDOM_TRACKS,"")
+  addNode("Internet Radio","",RADIOS,"")
+  addNode("Apps (local playback only if Squeezeslave supports them)","",APPS,"")
 
 ### NEW MUSIC
 
 def buildNewMusic():
   global squeezeplayer
   returnedList = squeezeplayer.getNewMusic()
-  log(str(returnedList))
+  #log(str(returnedList))
   buildAlbumList(returnedList)
 
 ### ALBUMS
@@ -122,12 +133,12 @@ def buildAlbumList(listAlbums):
       coverURL = "http://" + SERVERHTTPURL + "/music/" + album['artwork_track_id'] + "/cover.jpg"
     except KeyError:
       coverURL = ""
-    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",1001,coverURL,album=album['album'],artist=album['artist'],itemCount=itemCount)
+    addNode(album['album'] + ' (by ' + album['artist'] + ')',"",PLAY_ALBUM,coverURL,album=album['album'],artist=album['artist'],itemCount=itemCount)
 
 def buildAlbums():
   global squeezeplayer
   returnedList = squeezeplayer.getAlbums()
-  log(str(returnedList))
+  #log(str(returnedList))
   buildAlbumList(returnedList)
 
 ### ARTISTS
@@ -135,54 +146,93 @@ def buildAlbums():
 def buildArtistsRoot():
   global squeezeplayer
   returnedList = squeezeplayer.getArtists()
-  log(str(returnedList))
+  #log(str(returnedList))
   buildArtistList(returnedList)
 
 def buildArtistSub(artistID):
   global squeezeplayer
   returnedList = squeezeplayer.getAlbumsByArtistID(artistID)
-  log(str(returnedList))
+  #log(str(returnedList))
   buildAlbumList(returnedList)
 
 def buildArtistList(listArtists):
   for artist in listArtists:
-    addNode(artist['artist'] ,"",2001,"",artistID=artist['id'])
+    addNode(artist['artist'] ,"",SUBMENU_ARTISTS,"",artistID=artist['id'])
 
 ### GENRES
 
 def buildGenresRoot():
   global squeezeplayer
   returnedList = squeezeplayer.getGenres()
-  log(str(returnedList))
+  #log(str(returnedList))
   buildGenreList(returnedList)
 
 def buildGenreSub(genreID):
   global squeezeplayer
   returnedList = squeezeplayer.getAlbumsByGenreID(genreID)
-  log(str(returnedList))
+  #log(str(returnedList))
   buildAlbumList(returnedList)
 
 def buildGenreList(listGenres):
   for genre in listGenres:
-    addNode(genre['genre'] ,"",2002,"",genreID=genre['id'])
+    addNode(genre['genre'] ,"",SUBMENU_GENRES,"",genreID=genre['id'])
 
 ### YEARS
 
 def buildYearsRoot():
   global squeezeplayer
   returnedList = squeezeplayer.getYears()
-  log(str(returnedList))
+  #log(str(returnedList))
   buildYearList(returnedList)
 
 def buildYearSub(year):
   global squeezeplayer
   returnedList = squeezeplayer.getAlbumsByYear(year)
-  log(str(returnedList))
+  #log(str(returnedList))
   buildAlbumList(returnedList)
 
 def buildYearList(listYears):
   for year in listYears:
-    addNode(year['year'] ,"",2005,"",year=year['year'])
+    addNode(year['year'] ,"",SUBMENU_YEARS,"",year=year['year'])
+
+### Favourites
+
+def buildFavouritesRoot():
+  global squeezeplayer
+  returnedList = squeezeplayer.getFavourites()
+  #log(str(returnedList))
+  buildFavouritesList(returnedList)
+
+def buildFavouritesList(listFavourites):
+  for fave in listFavourites:
+    try:
+      coverURL = "http://" + SERVERHTTPURL + "/" + fave['icon']
+    except:
+      coverURL = ""
+
+    #submenu - might lead to more menus...
+    if 'hasitems' in fave:
+      #item has a submenu...
+      if fave['hasitems']!='0':
+        addNode(fave['name'],"",SUBMENU_FAVOURITES,coverURL,cmd=cmd,itemid=fave['id'])
+      #item is a playable station
+      else:
+        try:
+          addNode(fave['name'],"",PLAY_FAVOURITE,coverURL,cmd=cmd,itemid=fave['id'])
+        except Exception as inst:
+          #log(str(fave))
+          print_exc(inst)
+    #subsubmenu
+    else:
+      if 'name' not in fave: continue
+      else: addNode(fave['name'],"",PLAY_FAVOURITE,coverURL,cmd=cmd,itemid=fave['id'])
+
+
+def buildFavouriteSub(cmd, itemid=""):
+  global squeezeplayer
+  returnedList = squeezeplayer.getFavouritesSub(itemid)
+  #log(str(returnedList))
+  buildFavouritesList(returnedList)
 
 ### RANDOM ALBUMS
 
@@ -205,24 +255,24 @@ def playRandomTracks():
 def buildRadioRoot():
   global squeezeplayer
   returnedList = squeezeplayer.getRadios()
-  log(str(returnedList))
+  #log(str(returnedList))
   buildRadioList(returnedList)
-
-def buildRadioSub(cmd, itemid=""):
-  global squeezeplayer
-  returnedList = squeezeplayer.getRadioStations(cmd,itemid)
-  log(str(returnedList))
-  buildRadioStationList(returnedList, cmd)
 
 def buildRadioList(listRadios):
   for radio in listRadios:
     if radio['cmd']=="search" : continue
     coverURL = "http://" + SERVERHTTPURL + "/" + radio['icon']
-    addNode(radio['cmd'],"",2004,coverURL,cmd=radio['cmd'])
+    addNode(radio['cmd'],"",SUBMENU_RADIOS,coverURL,cmd=radio['cmd'])
+
+def buildRadioSub(cmd, itemid=""):
+  global squeezeplayer
+  returnedList = squeezeplayer.getRadioStations(cmd,itemid)
+  #log(str(returnedList))
+  buildRadioStationList(returnedList, cmd)
 
 def buildRadioStationList(listRadios, cmd):
-  log(str(listRadios))
-  log(cmd)
+  #log(str(listRadios))
+  #log(cmd)
   for radio in listRadios:
     try:
       coverURL = radio['image']
@@ -233,19 +283,33 @@ def buildRadioStationList(listRadios, cmd):
     if 'hasitems' in radio:
       #item has a submenu...
       if radio['hasitems']!='0':
-        addNode(radio['name'],"",2004,coverURL,cmd=cmd,itemid=radio['id'])
+        addNode(radio['name'],"",SUBMENU_RADIOS,coverURL,cmd=cmd,itemid=radio['id'])
       #item is a playable station
       else:
         try:
-          addNode(radio['name'],"",1002,coverURL,cmd=cmd,itemid=radio['id'])
+          addNode(radio['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=radio['id'])
         except Exception as inst:
-          log(str(radio))
+          #log(str(radio))
           print_exc(inst)
     #subsubmenu
     else:
       if 'name' not in radio: continue
-      else: addNode(radio['name'],"",1002,coverURL,cmd=cmd,itemid=radio['id'])
+      else: addNode(radio['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=radio['id'])
 
+
+### RADIOS
+
+def buildAppsRoot():
+  global squeezeplayer
+  returnedList = squeezeplayer.getApps()
+  #log(str(returnedList))
+  buildAppsList(returnedList)
+
+def buildAppsList(listApps):
+  for app in listApps:
+    if app['cmd']=="search" : continue
+    coverURL = "http://" + SERVERHTTPURL + "/" + app['icon']
+    addNode(app['cmd'],"",SUBMENU_RADIOS,coverURL,cmd=app['cmd'])
 
 
 ################################################################################
@@ -263,28 +327,31 @@ if params==[]:
   sys.exit()
 
 
-#By default we use a list view unless we're displaying actual albums with art
-#then we use thumbnails
-albumview=False
-
-#MODES
+#MENU MODES
 ROOT = 0
 NEW_MUSIC = 1
 ALBUMS = 2
 ARTISTS = 3
 GENRES = 4
 YEARS = 5
-RANDOM_ALBUMS = 6
-RANDOM_TRACKS = 7
-RADIO = 8
+FAVOURITES = 6
+RANDOM_ALBUMS = 7
+RANDOM_TRACKS = 8
+RADIOS = 9
+APPS = 10
 
+#PLAYING MODES
 PLAY_ALBUM = 1001
 PLAY_RADIO = 1002
+PLAY_FAVOURITE = 1003
 
+#SUBMENU MODES
 SUBMENU_ARTISTS = 2001
 SUBMENU_GENRES = 2002
 SUBMENU_YEARS = 2003
 SUBMENU_RADIOS = 2004
+SUBMENU_APPS = 2005
+SUBMENU_FAVOURITES = 2006
 
 
 #zero out all the things we pass between runs before we check
@@ -360,7 +427,19 @@ except:
 
 
 #these modes use the thumbnail view (for playable items)
-thumbModes = [None,PLAY_ALBUM, PLAY_RADIO, NEW_MUSIC, ALBUMS, RADIO, SUBMENU_ARTISTS, SUBMENU_GENRES, SUBMENU_YEARS, SUBMENU_RADIOS]
+thumbModes = [\
+              None, \
+              PLAY_ALBUM,\
+              PLAY_RADIO,\
+              NEW_MUSIC,\
+              ALBUMS,\
+              RADIOS,\
+              SUBMENU_ARTISTS,\
+              SUBMENU_GENRES,\
+              SUBMENU_YEARS,\
+              SUBMENU_RADIOS,\
+              SUBMENU_APPS\
+              ]
 
 
 #OK the mode variable controls what we're actually doing...
@@ -417,6 +496,14 @@ elif mode==YEARS:
   except:
       print_exc()
 
+elif mode==FAVOURITES:
+  log( "Handling Favourites Root" )
+  try:
+      buildFavouritesRoot()
+  except:
+      print_exc()
+
+
 elif mode==RANDOM_ALBUMS:
   log( "Handling Random Albums" )
   try:
@@ -431,12 +518,20 @@ elif mode==RANDOM_TRACKS:
   except:
       print_exc()
 
-elif mode==RADIO:
+elif mode==RADIOS:
   log( "Handling Internet Radio" )
   try:
       buildRadioRoot()
   except:
       print_exc()
+
+elif mode==APPS:
+  log( "Handling Apps" )
+  try:
+      buildAppsRoot()
+  except:
+      print_exc()
+
 
 #modes over 1000 are not part of the main menu
 #1001+ are action modes
@@ -453,6 +548,13 @@ elif mode==PLAY_RADIO:
   squeezeplayer.queueRadio(cmd, itemid)
   notify("Radio" , name, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+
+elif mode==PLAY_FAVOURITE:
+  log( "Queueing up a favourite...." + name + "itemid " +itemid )
+  squeezeplayer.queueFavourite(itemid)
+  notify("Favourite" , name, 12000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+
 
 elif mode==SUBMENU_ARTISTS:
   log( "Handling submenu of an artist...." )
@@ -472,6 +574,13 @@ elif mode==SUBMENU_YEARS:
   log( "Handling submenu of a year...." )
   try:
       buildYearSub(year)
+  except:
+      print_exc()
+
+elif mode==SUBMENU_FAVOURITES:
+  log( "Handling submenu of a favourite...." )
+  try:
+      buildFavouriteSub(cmd,itemid)
   except:
       print_exc()
 

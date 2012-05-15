@@ -498,7 +498,7 @@ class SqueezePlayer:
   # returns all artists
 
   def getArtists(self):
-    artists = self.sc.request_with_results("artists 0 100000", debug=True)
+    artists = self.sc.request_with_results("artists 0 100000")
     #log(str(artists))
     return artists[1]
 
@@ -507,7 +507,7 @@ class SqueezePlayer:
 
   def getAlbumsByArtistID(self,artistID):
     fullAlbums = []
-    albums = self.sc.request_with_results("albums 0 100000 artist_id:" + str(artistID), debug=True)
+    albums = self.sc.request_with_results("albums 0 100000 artist_id:" + str(artistID))
     #log(str(albums))
     for album in albums[1]:
       fullAlbumInfo = self.getAlbumInfo(album['id'])
@@ -519,7 +519,7 @@ class SqueezePlayer:
 
   def getAlbumsByGenreID(self,genreID):
     fullAlbums = []
-    albums = self.sc.request_with_results("albums 0 100000 genre_id:" + str(genreID), debug=True)
+    albums = self.sc.request_with_results("albums 0 100000 genre_id:" + str(genreID))
     #log(str(albums))
     for album in albums[1]:
       fullAlbumInfo = self.getAlbumInfo(album['id'])
@@ -531,7 +531,7 @@ class SqueezePlayer:
 
   def getAlbumsByYear(self,year):
     fullAlbums = []
-    albums = self.sc.request_with_results("albums 0 100000 year:" + str(year), debug=True)
+    albums = self.sc.request_with_results("albums 0 100000 year:" + str(year))
     #log(str(albums))
     for album in albums[1]:
       fullAlbumInfo = self.getAlbumInfo(album['id'])
@@ -542,7 +542,7 @@ class SqueezePlayer:
   # returns all genres
 
   def getGenres(self):
-    genres = self.sc.request_with_results("genres 0 100000", debug=True)
+    genres = self.sc.request_with_results("genres 0 100000")
     #log(str(genres))
     return genres[1][1:]
 
@@ -550,8 +550,9 @@ class SqueezePlayer:
   # returns all years
 
   def getYears(self):
-    years = self.sc.request_with_results("years 0 100000", debug=True)
+    years = self.parseSpecial("years 0 100000", "year", True)
     #log(str(years))
+    years.reverse()
     return years
 
   ##############################################################################
@@ -560,9 +561,9 @@ class SqueezePlayer:
   def parseSpecial(self, cmdString, splitOn, playerRequest=False):
     quotedColon = urllib.quote(':')
     if playerRequest:
-      results = self.sb.requestRaw(cmdString, True)
+      results = self.sb.requestRaw(cmdString)
     else:
-      results = self.sc.requestRaw(cmdString, True)
+      results = self.sc.requestRaw(cmdString)
     log(str(results))
     #strip off the request stuff at the start
     resultStr = results[results.find(splitOn):]
@@ -590,7 +591,7 @@ class SqueezePlayer:
     return output
 
   def getRadios(self):
-    return self.parseSpecial("radios 0 100000", "icon")
+    return self.parseSpecial("radios 0 100000", "icon", playerRequest=True)
 
   def getRadioStations(self, cmd, itemid):
     if(itemid)!="":
@@ -598,17 +599,32 @@ class SqueezePlayer:
     else:
       return self.parseSpecial(urllib.quote(cmd) + " items 0 100000","id",playerRequest=True)
 
+  def getFavouritesSub(self, itemid):
+    return self.parseSpecial("favorites items 0 100000 item_id:" + itemid,"id",playerRequest=True)
+
   def queueRadio(self, cmd, itemid):
-      self.sb.request(urllib.quote(cmd) + " playlist play item_id:" + itemid,debug=True)
+      self.sb.request(urllib.quote(cmd) + " playlist play item_id:" + itemid)
+
+  def getApps(self):
+    return self.parseSpecial("apps 0 100000","icon", playerRequest=True)
+
+  def getFavourites(self):
+    return self.parseSpecial("favorites items 0 100000","id", playerRequest=True)
+
+  ##############################################################################
+  # Clear playlist and queue up a favourite item given
+
+  def queueFavourite(self, item_id):
+     self.sb.request("favorites playlist play item_id:" + item_id)
 
   ##############################################################################
   # Clear playlist and queue up an album given an album title and artist
 
   def queueAlbum(self, title, artist):
     if artist=="Various Artists":
-      self.sb.request("playlist loadalbum * * " + urllib.quote(title),debug=True)
+      self.sb.request("playlist loadalbum * * " + urllib.quote(title))
     else:
-      self.sb.request("playlist loadalbum * " + urllib.quote(artist) + " " + urllib.quote(title),debug=True)
+      self.sb.request("playlist loadalbum * " + urllib.quote(artist) + " " + urllib.quote(title))
 
   ##############################################################################
   # Clear playlist and queue up random albums
