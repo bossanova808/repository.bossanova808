@@ -119,7 +119,7 @@ if ( __name__ == "__main__" ):
         if outputNumbers != []:
             selected = dialog.select(LANGUAGE(19603), outputNames)
             if selected != -1:
-               ADDON.setSetting('outputsAuto', outputNumbers[selected])
+               ADDON.setSetting('audioOutput', outputNumbers[selected])
         else:
             dialog.ok(ADDONNAME, LANGUAGE(19604))
 
