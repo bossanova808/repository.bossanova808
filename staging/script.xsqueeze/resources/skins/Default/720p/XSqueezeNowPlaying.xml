@@ -525,6 +525,25 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
       </control>
       <!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
 
+        <!-- Little note to tell people how to start the chooser -->
+        <control type="label">
+          <description>Hit i to start chooser label</description>
+          <posx>900</posx>
+          <posy>710</posy>
+          <width>1080</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>(Hit i (info on your remote) to open music chooser)</label>
+          <font>font11</font>
+          <textcolor>FF222222</textcolor>
+          <wrapmultiline>false</wrapmultiline>
+          <scrollspeed>50</scrollspeed>
+          <scrollsuffix> - </scrollsuffix>
+        </control>
+
+
     </control>
     <!-- END GROUP MAIN PANEL AND FLOOR -->
 
