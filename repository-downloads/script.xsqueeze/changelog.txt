@@ -1,5 +1,8 @@
-V0.5.2
-- Support for the new XSqueeze music chooser
+V0.5.4
+- Bug fixes and forces addon configuration is the user hasn't done this yet
+
+V0.5.1
+- New XSqueeze music chooser component
 
 V0.4.7
 -  Migrate from pysqueezecentre to new pylms - see https://github.com/jingleman/PyLMS
