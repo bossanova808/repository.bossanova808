@@ -34,6 +34,9 @@
  	<string id="19628">Server auto configured</string>
  	<string id="19629">Please re-run XSqueeze now...</string>
  	<string id="19630">LMS Auto discovery appears to have succeeded</string>
+ 	<string id="19631">Configure XSqueeze before use</string>
+ 	<string id="19632">OK!</string>
+ 	<string id="19633">You should be good to re-run XSqueeze now</string>
 
 
   <!-- For the settings -->

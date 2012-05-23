@@ -85,31 +85,16 @@ if ( __name__ == "__main__" ):
 
         log("List of servers is " + str(names) + str(ips))
 
-        #are we being run from settings as normal?
-        if not defaultFirstServer:
-
-            #now get them to choose an actual location
-            #present the server names for user choice
-            dialog = xbmcgui.Dialog()
-            if names != []:
-                selected = dialog.select(LANGUAGE(19601), names)
-                if selected != -1:
-                    ADDON.setSetting('autoserverip', ips[selected])
-                    ADDON.setSetting('autoservername', names[selected])
-            else:
-                dialog.ok(ADDONNAME, LANGUAGE(19602))
-
-        #being run from main (user has not configured add on) so default to the first server found...
+        #now get them to choose an actual location
+        #present the server names for user choice
+        dialog = xbmcgui.Dialog()
+        if names != []:
+            selected = dialog.select(LANGUAGE(19601), names)
+            if selected != -1:
+                ADDON.setSetting('autoserverip', ips[selected])
+                ADDON.setSetting('autoservername', names[selected])
         else:
-          notify("Auto discovering your LMS server","Found: " + names[0] + " IP: " + ips[0])
-          ADDON.setSetting('autoserverip', ips[0])
-          ADDON.setSetting('autoservername', names[0])
-          constants.SERVERIP = ips[0]
-          constants.SERVERNAME = names[0]
-          constants.SERVERPORT = '9090'
-          constants.SERVERUSER  = ''
-          constants.SERVERPASS  = ''
-
+            dialog.ok(ADDONNAME, LANGUAGE(19602))
 
       ##########################################################################
       ### AUDIO OUTPUTS
@@ -161,8 +146,9 @@ if ( __name__ == "__main__" ):
       if constants.SERVERIP=="":
 
         #open the settings dialogue
-        notify("No LMS server set in XSqueeze settings...", "Please configure XSqueeze before use")
+        notify(LANGUAGE(19626), LANGUAGE(19631))
         constants.ADDON.openSettings()
+        notify(LANGUAGE(19632),LANGUAGE(19633))
         sys.exit()
 
       #sanity checks
@@ -180,20 +166,6 @@ if ( __name__ == "__main__" ):
         viewer=ReadMeViewer()
 
       else:
-
-
-##          log("SERVERIP is null, doing auto server discovery and defaulting to first server found")
-##          #no serverIP, user has run XSqueeze without configuring add on
-##          #so call server discovery and default to first server found,
-##          #display message about this
-##          notify(LANGUAGE(19626),LANGUAGE(19627))
-##          foundServer=serverDiscovery(True)
-##          if foundServer:
-##            notify(LANGUAGE(19628),LANGUAGE(19629))
-##          else:
-##            notify(LANGUAGE(19630),LANGUAGE(19629))
-##          #and exit, user must re-run XSqueeze
-##          sys.exit()
 
         #serverIP still null, something went wrong...
         if constants.SERVERIP=="":
@@ -213,14 +185,11 @@ if ( __name__ == "__main__" ):
 
           #builds the list ['/path/exefile','-arg1','-arg2',...]
           exe = constants.EXE
-
           args = constants.SLAVEARGS
 
           #if they have used the audio output selector
           if constants.MANUALAUDIOOUTPUT:
             args.append(constants.AUDIOOUTPUT)
-
-
 
           args.append(constants.SERVERIP)
           exe.extend(args)

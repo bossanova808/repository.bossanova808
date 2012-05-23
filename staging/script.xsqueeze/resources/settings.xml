@@ -1,6 +1,6 @@
 <settings>
    <category label="19900">
-	   <setting id="autoservername" label="19901" type="action" action="RunScript($ID,ServerDiscovery)" default="Auto-discover" enable="!eq( 2,true)"/>
+	   <setting id="autoservername" label="19901" type="action" action="RunScript($ID,ServerDiscovery)" default="" enable="!eq( 2,true)"/>
      <setting id="NOTE1" type="text" label="19916" default="" enable="false" />
      <setting id="serverManual" type="bool" label="19902" default="false"/>
      <setting id="serverIP" type="text" label="19903" default="" enable="!eq( -1,false)" />
