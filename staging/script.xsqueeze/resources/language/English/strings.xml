@@ -11,7 +11,7 @@
 	<string id="19605">MODE ERROR: Fix your Settings!</string>
 	<string id="19606">(Local playback AND controller only are both ON!)</string>
 	<string id="19607">(Local playback AND controller only are both OFF!)</string>
-	<string id="19608">Starting Local Squeezeslave Player</string>
+	<string id="19608">Starting XSqueeze and Connecting to LMS</string>
 	<string id="19609">Please wait a moment...(up to 10 seconds)...</string>
 	<string id="19610">Failed to create Squeezeslave porcess</string>
 	<string id="19611">On OE/Linux/OSX you probably need to manually chmod +x the binaries</string>
@@ -27,6 +27,14 @@
  	<string id="19621">Your first run reminder...</string>
  	<string id="19622">Patience...</string>
  	<string id="19623">(Still waiting on artist.slideshow to cleanly exit)...</string>
+ 	<string id="19624">Can't find LMS Server.</string>
+ 	<string id="19625">Try manually configuring one in XSqueeze settings...</string>
+ 	<string id="19626">No server found in XSqueeze settings</string>
+ 	<string id="19627">Attempting to auto discover LMS...</string>
+ 	<string id="19628">Server auto configured</string>
+ 	<string id="19629">Please re-run XSqueeze now...</string>
+ 	<string id="19630">LMS Auto discovery appears to have succeeded</string>
+
 
   <!-- For the settings -->
 

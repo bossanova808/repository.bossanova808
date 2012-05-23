@@ -22,6 +22,19 @@ from ReadMeViewer import *
 #the window class
 from NowPlayingWindow import *
 
+
+################################################################################
+# Server Discovery function - can be called from add on settings, or can just auto-default to
+# first server found if callede from main() as the user had not configured a server
+
+def serverDiscovery(defaultFirstServer=False):
+
+    foundServer = False
+
+
+    #return a boolen of success or failure
+    return foundServer
+
 ################################################################################
 ### MAIN
 
@@ -41,6 +54,7 @@ if ( __name__ == "__main__" ):
       ### SERVER DISCOVERY
 
       if sys.argv[1].startswith('ServerDiscovery'):
+
         log("Doing server discovery...")
         exe = constants.EXE
         exe.append("-I")
@@ -71,23 +85,37 @@ if ( __name__ == "__main__" ):
 
         log("List of servers is " + str(names) + str(ips))
 
-        #now get them to choose an actual location
+        #are we being run from settings as normal?
+        if not defaultFirstServer:
 
-        #present the server names for user choice
-        dialog = xbmcgui.Dialog()
-        if names != []:
-            selected = dialog.select(LANGUAGE(19601), names)
-            if selected != -1:
-                ADDON.setSetting('autoserverip', ips[selected])
-                ADDON.setSetting('autoservername', names[selected])
-                ADDON.setSetting('serverAuto', names[selected])
+            #now get them to choose an actual location
+            #present the server names for user choice
+            dialog = xbmcgui.Dialog()
+            if names != []:
+                selected = dialog.select(LANGUAGE(19601), names)
+                if selected != -1:
+                    ADDON.setSetting('autoserverip', ips[selected])
+                    ADDON.setSetting('autoservername', names[selected])
+            else:
+                dialog.ok(ADDONNAME, LANGUAGE(19602))
+
+        #being run from main (user has not configured add on) so default to the first server found...
         else:
-            dialog.ok(ADDONNAME, LANGUAGE(19602))
+          notify("Auto discovering your LMS server","Found: " + names[0] + " IP: " + ips[0])
+          ADDON.setSetting('autoserverip', ips[0])
+          ADDON.setSetting('autoservername', names[0])
+          constants.SERVERIP = ips[0]
+          constants.SERVERNAME = names[0]
+          constants.SERVERPORT = '9090'
+          constants.SERVERUSER  = ''
+          constants.SERVERPASS  = ''
+
 
       ##########################################################################
       ### AUDIO OUTPUTS
 
       elif sys.argv[1].startswith('AudioOutputs'):
+
         log("Doing audio output discovery...")
         exe = constants.EXE
         exe.append("-L")
@@ -129,6 +157,14 @@ if ( __name__ == "__main__" ):
 
     else:
 
+      #is the add on configured yet?
+      if constants.SERVERIP=="":
+
+        #open the settings dialogue
+        notify("No LMS server set in XSqueeze settings...", "Please configure XSqueeze before use")
+        constants.ADDON.openSettings()
+        sys.exit()
+
       #sanity checks
       if constants.CONTROLLERONLY and constants.CONTROLSLAVE:
         notify(LANGUAGE(19605), LANGUAGE(19606), 10000)
@@ -144,6 +180,26 @@ if ( __name__ == "__main__" ):
         viewer=ReadMeViewer()
 
       else:
+
+
+##          log("SERVERIP is null, doing auto server discovery and defaulting to first server found")
+##          #no serverIP, user has run XSqueeze without configuring add on
+##          #so call server discovery and default to first server found,
+##          #display message about this
+##          notify(LANGUAGE(19626),LANGUAGE(19627))
+##          foundServer=serverDiscovery(True)
+##          if foundServer:
+##            notify(LANGUAGE(19628),LANGUAGE(19629))
+##          else:
+##            notify(LANGUAGE(19630),LANGUAGE(19629))
+##          #and exit, user must re-run XSqueeze
+##          sys.exit()
+
+        #serverIP still null, something went wrong...
+        if constants.SERVERIP=="":
+          notify(LANGUAGE(19624),LANGUAGE(19625))
+          sys.exit()
+
         #disable the screensaver if the user has this on
         if constants.DISABLESCREENSAVER:
           log("Disabling screensaver")
@@ -163,6 +219,8 @@ if ( __name__ == "__main__" ):
           #if they have used the audio output selector
           if constants.MANUALAUDIOOUTPUT:
             args.append(constants.AUDIOOUTPUT)
+
+
 
           args.append(constants.SERVERIP)
           exe.extend(args)

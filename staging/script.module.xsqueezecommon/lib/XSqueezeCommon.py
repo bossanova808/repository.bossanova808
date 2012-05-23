@@ -202,7 +202,11 @@ class SqueezePlayer:
   #other handy start up stuff
   def __init__(self,basicOnly=False):
 
-    #connect to server
+    #serverIP still null, something went wrong...
+    if SERVERIP=="":
+      notify("Can't find LMS server","Try manually configuring one in XSqueeze settings")
+      sys.exit()
+
     log("Attempting to connect to LMS named [" + SERVERNAME + "] at IP:  " + SERVERIP + " on CLI port: " + SERVERPORT)
     try:
       self.sc = Server(hostname=SERVERIP, port=SERVERPORT, username=SERVERUSER, password=SERVERPASS)
@@ -240,6 +244,7 @@ class SqueezePlayer:
       #if the user wants music to start straight away...
       if SENDPLAYONSTART:
         self.sb.request("play")
+
 
   ##############################################################################
   #get the current squeezebox two line display text and return it
