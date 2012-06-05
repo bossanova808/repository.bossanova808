@@ -6,17 +6,11 @@ XSQUEEZE NEW VERSION CHANGELOG....
 [B]* 0.5 was a MAJOR new release - NOW WITH EASY MUSIC CHOOSER! *[/B]
 
 * In XSqueeze, hit 'i' or info on your remote to start the new easy music chooser...
-
-* 0.5.4 Now opens the addon settings if you haven't configured an LMS server
-* 0.5.3 Audio output chooser in settings should work again
-* 0.5.2 Adds support for favourites, genres, years, radios, and limited app support
-* 0.5.1 You can choose new music, albums, artists, random etc
-
-* (The new Chooser generates quite a few spurious log messages due to a bug in XBMC...sorry about that!)
+* 0.5.5 - fixed bug in progress bar.
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
-[B]Now you can re-run XSqueeze - you won't get this message again[/B]
+[B]Now hit exit and re-run XSqueeze - you won't get this message again[/B]
 
 
 
