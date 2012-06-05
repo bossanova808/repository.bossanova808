@@ -2,7 +2,7 @@
 
 XSQUEEZE SKIN NOTES
 
-WARNING - DO NOT CHANGE ID OF PROGRESS BAR (203) OR YOU WILL BREAK XSQUEEZE!!
+WARNING - DO NOT CHANGE ID OF PROGRESS BAR (998) OR YOU WILL BREAK XSQUEEZE!!
 WARNING - DO NOT REMOVE PROGRESS BAR OR YOU WILL BREAK XSQUEEZE!!
 WARNING - DO NOT CHANGE THE HIDDEN BUTTON (999) OR YOU WILL BREAK THE ARTIST SLIDESHOW!!
 
@@ -274,7 +274,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
       <!-- END GROUP UPCOMING THUMBS -->
 
       <!-- TRACK PROGRESS BAR -->
-      <control type="progress" id="203">
+      <control type="progress" id="998">
         <description>Track Playing Progress</description>
         <posx>60</posx>
         <posy>350</posy>
