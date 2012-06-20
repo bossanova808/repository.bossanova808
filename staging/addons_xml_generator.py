@@ -1,7 +1,8 @@
+
 """ addons.xml generator """
 
 import os
-import md5
+import hashlib
 
 
 class Generator:
@@ -19,7 +20,7 @@ class Generator:
 
     def _generate_addons_file( self ):
         # addon list
-        addons = os.listdir( "." )
+        addons = sorted(os.listdir( "." ))
         # final addons text
         addons_xml = u"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<addons>\n"
         # loop thru and add each addons addon.xml file
@@ -52,9 +53,13 @@ class Generator:
     def _generate_md5_file( self ):
         try:
             # create a new md5 hash
-            m = md5.new( open( "addons.xml" ).read() ).hexdigest()
+            hash = hashlib.md5()
+            md5v = open( "addons.xml", 'rb' ).read()
+            hash.update(md5v)
+            md5v = hash.hexdigest()
+            md5v = md5v + ' addons.xml'
             # save file
-            self._save_file( m, file="addons.xml.md5" )
+            self._save_file( md5v, file="addons.xml.md5" )
         except Exception, e:
             # oops
             print "An error occurred creating addons.xml.md5 file!\n%s" % ( e, )
