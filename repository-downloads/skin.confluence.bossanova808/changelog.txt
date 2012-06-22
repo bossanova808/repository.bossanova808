@@ -1,3 +1,7 @@
+[B]0.2.3[/B]
+
+- New paths for direct NFS DB kids stuff etc
+
 [B]0.2.2[/B]
 
 - Merge Eden PVR final
