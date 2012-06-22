@@ -143,6 +143,8 @@ elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
   SYSTEM = "atv2"
 elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
+elif xbmc.getCondVisibility( "System.Platform.Arm" ):
+  SYSTEM = "arm"
 
 #log the system
 xbmc.log(ADDONNAME + "-" + VERSION + ": ### sys.platform is " + SYSTEM)
