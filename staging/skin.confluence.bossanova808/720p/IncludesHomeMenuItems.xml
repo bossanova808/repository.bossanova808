@@ -292,7 +292,7 @@
 			<onclick>Setfocus(33)</onclick>
 			<onclick>Setfocus(12)</onclick>
 		</control>
-		<!--
+		
     <control type="button" id="90144">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>19163</label>
@@ -300,13 +300,15 @@
 			<onclick>Setfocus(34)</onclick>
 			<onclick>Setfocus(13)</onclick>
 		</control>
-		-->
+		
     <!--Bossanova808 -->
+    <!--
     <control type="button" id="90144">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>19163</label>
 			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/Store06/XBMC/FTR_PVR/Recordings/&quot;)</onclick>
 		</control>
+    -->
     <control type="button" id="90145">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>19040</label>
