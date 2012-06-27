@@ -122,6 +122,7 @@ BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION 
 BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave")
 BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave")
 BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
+BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-armel-lnx26") + "/squeezeslave")
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32
@@ -134,6 +135,7 @@ is_64bits = sys.maxsize > 2**32
 
 #need to work out what system we're on
 SYSTEM="linux"
+uname = os.uname()
 
 if xbmc.getCondVisibility( "System.Platform.OSX" ):
   SYSTEM = "darwin"
@@ -143,11 +145,14 @@ elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
   SYSTEM = "atv2"
 elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
-elif xbmc.getCondVisibility( "System.Platform.Arm" ):
+#hack for Raspberry Pi until System.Platform.Arm comes along...
+elif "raspbmc" in uname or "armv61" in uname:
   SYSTEM = "arm"
 
+
 #log the system
-xbmc.log(ADDONNAME + "-" + VERSION + ": ### sys.platform is " + SYSTEM)
+xbmc.log("os.uname is: " + str(uname))
+xbmc.log(ADDONNAME + "-" + VERSION + ": ### system is " + SYSTEM)
 
 #and define the capabilities of each system - systems not in this list are only usable as a controller, no local playback
 LOCALPLAYBACKCAPABLE = ["linux","darwin","windows"]
@@ -157,6 +162,8 @@ if SYSTEM.startswith("win"):
   EXE = [BINWIN]
 elif SYSTEM.startswith("darwin"):
   EXE = [BINOSX]
+elif SYSTEM.startswith("arm"):
+  EXE = [BINARM]
 else:
   if is_64bits:
     EXE = [BINLIN64]
@@ -165,10 +172,10 @@ else:
 
 #chmod +X the exe file on linux/osx ...
 
-if SYSTEM.startswith("lin"):
+if SYSTEM.startswith("lin") or SYSTEM.startswith("arm"):
   try:
     os.system("chmod a+x " + EXE[0])
-    xbmc.log(ADDONNAME + "-" + VERSION + ": ### (linux) chmod +x the Squeezeslave binaries - success")
+    xbmc.log(ADDONNAME + "-" + VERSION + ": ### (linux/arm) chmod +x the Squeezeslave binaries - success")
   except:
     xbmc.log(ADDONNAME + "-" + VERSION + ": ### chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
 elif SYSTEM.startswith("darwin"):

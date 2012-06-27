@@ -13,7 +13,7 @@
 	<string id="19607">(Local playback AND controller only are both OFF!)</string>
 	<string id="19608">Starting XSqueeze and Connecting to LMS</string>
 	<string id="19609">Please wait a moment...(up to 10 seconds)...</string>
-	<string id="19610">Failed to create Squeezeslave porcess</string>
+	<string id="19610">Failed to create Squeezeslave process</string>
 	<string id="19611">On OE/Linux/OSX you probably need to manually chmod +x the binaries</string>
 	<string id="19612">Shutdown - Stopping Local Squeezeslave Player and Slideshow</string>
  	<string id="19613">Couldn't connect to server!</string>
@@ -57,8 +57,8 @@
 	<string id="19913">Skin file to use</string>
 	<string id="19914">Disable screensaver while playing?</string>
 	<string id="19915">(NB - EXPERIMENTAL - Can cause XSqueeze to hang on exit)</string>
-	<string id="19916">(NB - Server discovery does not yet work on OSX/ATV/IOS)</string>
-	<string id="19917">(NB - Audio discovery does not yet work on OSX/ATV/IOS)</string>
+	<string id="19916">(NB - Server discovery does not yet work on OSX/ATV/IOS/Pi)</string>
+	<string id="19917">(NB - Audio discovery does not yet work on OSX/ATV/IOS/Pi)</string>
 	<string id="19918">(NB - Manually input the arguments in extra arguments above)</string>
 	<string id="19919">Server username</string>
 	<string id="19920">Server password</string>
