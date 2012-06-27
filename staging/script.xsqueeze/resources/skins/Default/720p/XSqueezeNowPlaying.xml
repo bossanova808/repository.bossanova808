@@ -536,7 +536,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the t
           <aligny>center</aligny>
           <scroll>true</scroll>
           <label>(Hit i (info on your remote) to open music chooser)</label>
-          <font>font11</font>
+          <font>font10</font>
           <textcolor>FF222222</textcolor>
           <wrapmultiline>false</wrapmultiline>
           <scrollspeed>50</scrollspeed>
