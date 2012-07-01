@@ -1,3 +1,9 @@
+V0.5.6
+- Try to detect ARM systems, & use arm binary for squeezeslave.  Only tested with Raspbmc so far
+
+V0.5.5
+- Fix bug in progress bar, woops
+
 V0.5.4
 - Bug fixes and forces addon configuration is the user hasn't done this yet
 

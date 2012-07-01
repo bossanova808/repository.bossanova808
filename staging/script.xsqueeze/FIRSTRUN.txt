@@ -6,6 +6,7 @@ XSQUEEZE NEW VERSION CHANGELOG....
 [B]* 0.5 was a MAJOR new release - NOW WITH EASY MUSIC CHOOSER! *[/B]
 
 * In XSqueeze, hit 'i' or info on your remote to start the new easy music chooser...
+* 0.5.6 - Preliminary ARM support - only tested with Raspbmc so far
 * 0.5.5 - fixed bug in progress bar.
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
