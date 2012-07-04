@@ -135,7 +135,7 @@ is_64bits = sys.maxsize > 2**32
 
 #need to work out what system we're on
 SYSTEM="linux"
-uname = os.uname()
+uname = platform.uname()
 
 if xbmc.getCondVisibility( "System.Platform.OSX" ):
   SYSTEM = "darwin"
@@ -152,7 +152,7 @@ elif "raspbmc" in uname or "armv61" in uname:
 
 #log the system
 xbmc.log("os.uname is: " + str(uname))
-xbmc.log(ADDONNAME + "-" + VERSION + ": ### system is " + SYSTEM)
+xbmc.log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
 
 #and define the capabilities of each system - systems not in this list are only usable as a controller, no local playback
 LOCALPLAYBACKCAPABLE = ["linux","darwin","windows"]
