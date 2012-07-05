@@ -114,6 +114,7 @@ else:
 #work out what skin xml to load
 SKIN=ADDON.getSetting('skin')
 
+
 ################################################################################
 # Deal with the squeezeslave executeables...
 
@@ -135,7 +136,15 @@ is_64bits = sys.maxsize > 2**32
 
 #need to work out what system we're on
 SYSTEM="linux"
-uname = platform.uname()
+
+#ok try and get uname info - this is a bit tetchy - platform.uname() fails on Pi 
+#but os.uname() fails on Windows....platform is the better one to use if possible,
+#so try that first, otherwise fall back to os.uname()
+
+try:
+  uname = platform.uname()
+except:
+  uname = os.uname()
 
 if xbmc.getCondVisibility( "System.Platform.OSX" ):
   SYSTEM = "darwin"
@@ -150,12 +159,12 @@ elif "raspbmc" in uname or "armv61" in uname:
   SYSTEM = "arm"
 
 
-#log the system
-xbmc.log("os.uname is: " + str(uname))
+#log the detemined system type
+xbmc.log("uname is: " + str(uname))
 xbmc.log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
 
 #and define the capabilities of each system - systems not in this list are only usable as a controller, no local playback
-LOCALPLAYBACKCAPABLE = ["linux","darwin","windows"]
+LOCALPLAYBACKCAPABLE = ["linux","darwin","windows","arm"]
 
 #choose the right executable
 if SYSTEM.startswith("win"):
