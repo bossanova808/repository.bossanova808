@@ -137,7 +137,7 @@ is_64bits = sys.maxsize > 2**32
 #need to work out what system we're on
 SYSTEM="linux"
 
-#ok try and get uname info - this is a bit tetchy - platform.uname() fails on Pi 
+#ok try and get uname info - this is a bit tetchy - platform.uname() fails on Raspbmc
 #but os.uname() fails on Windows....platform is the better one to use if possible,
 #so try that first, otherwise fall back to os.uname()
 
@@ -155,7 +155,7 @@ elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
 elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
 #hack for Raspberry Pi until System.Platform.Arm comes along...
-elif "raspbmc" in uname or "armv61" in uname:
+elif "raspbmc" in uname or "armv6l" in uname:
   SYSTEM = "arm"
 
 

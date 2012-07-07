@@ -159,12 +159,12 @@ if ( __name__ == "__main__" ):
         notify(LANGUAGE(19605), LANGUAGE(19607), 10000)
         sys.exit()
 
-      #display the readme file if this is the users' first run of this version
+      #possibly display the readme file if this is the users' first run of this version
       #not localized!
       #then exit so they have a chance to re-visit their settings.
       if constants.ISFIRSTRUN:
-        viewer=ReadMeViewer()
-
+        #viewer=ReadMeViewer()
+        pass
       else:
 
         #serverIP still null, something went wrong...
