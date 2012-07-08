@@ -8,6 +8,7 @@ import time
 import sys
 import platform
 import subprocess
+import shutil
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
@@ -178,6 +179,19 @@ if ( __name__ == "__main__" ):
           screensaver = xbmc.executehttpapi( "GetGUISetting(3;screensaver.mode)" ).replace( "<li>", "" )
           xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,None)" )
 
+        #load our custom keymap to make sure that volume/skip track keys don't raise annoying xbmc messages
+        #needed because xbmc addons can't swallow events
+        #Each run we copy our keymap over, force xbmc to relaoad the keymaps, then at the end
+        #we do the reverse - delete our custom one and reload the original setup
+        try:
+          keymapSource = os.path.join(constants.KEYMAP_PATH, "xsqueeze.xml")
+          keymapDestination = os.path.join(xbmc.translatePath('special://userdata/keymaps'), "xsqueeze.xml")
+          shutil.copy(keymapSource, keymapDestination)
+          xbmc.executebuiltin('Action(reloadkeymaps)')
+          log("Installed custom keymap")
+        except Exception as inst:
+          log("Error - couldn't copy & load custom keymap: " + str(inst))
+
         #are we running the locally installed Squeezeslave?
         if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
           notify(LANGUAGE(19608),LANGUAGE(19609))
@@ -259,6 +273,14 @@ if ( __name__ == "__main__" ):
             slaveProcess.terminate()
           except Exception as inst:
             log("Error killing Squeezeslave", inst)
+
+        #remove our custom keymap and force a re-load
+        try:
+          os.remove(keymapDestination)
+          xbmc.executebuiltin('Action(reloadkeymaps)')
+          log("Removed custom keymap")
+        except Exception as inst:
+          log("Couldn't remove custom keymap: " + str(inst))
 
         # after the window is closed, Destroy it.
         del window

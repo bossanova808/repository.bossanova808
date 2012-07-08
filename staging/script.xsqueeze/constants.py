@@ -37,6 +37,7 @@ UPCOMING3             = 2003
 #useful paths
 CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))
 BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin" ))
+KEYMAP_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "keymaps" ))
 AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio" ))
 VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video" ))
 IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ))

@@ -46,6 +46,8 @@ ACTION_CODES = {
                 'REMOTE_7'                :65,
                 'REMOTE_8'                :66,
                 'REMOTE_9'                :67,
+                'ACTION_PLAYER_FORWARD'   :77,
+                'ACTION_PLAYER_REWIND'    :78,
                 'ACTION_PLAYER_PLAY'      :79,
                 'ACTION_VOLUME_UP'        :88,
                 'ACTION_VOLUME_DOWN'      :89,
@@ -60,6 +62,8 @@ ACTION_CODES = {
                 'ACTION_JUMP_SMS7'        :147,
                 'ACTION_JUMP_SMS8'        :148,
                 'ACTION_JUMP_SMS9'        :149,
+                'ACTION_FIRST_PAGE'       :159,
+                'ACTION_LAST_PAGE'        :160,
 
 }
 
@@ -69,8 +73,8 @@ SQUEEZE_CODES = {
                 'ACTION_MOVE_RIGHT'       :'arrow_right',
                 'ACTION_MOVE_UP'          :'arrow_up',
                 'ACTION_MOVE_DOWN'        :'arrow_down',
-                'ACTION_PAGE_UP'          :'',
-                'ACTION_PAGE_DOWN'        :'',
+                'ACTION_PAGE_UP'          :'volup',
+                'ACTION_PAGE_DOWN'        :'voldown',
                 'ACTION_SELECT_ITEM'      :'play.single',
                 'ACTION_PLAYER_PLAY'      :'play.single',
                 'ACTION_HIGHLIGHT_ITEM'   :'',
@@ -93,6 +97,8 @@ SQUEEZE_CODES = {
                 'REMOTE_7'                :'7',
                 'REMOTE_8'                :'8',
                 'REMOTE_9'                :'9',
+                'ACTION_PLAYER_FORWARD'   :'fwd.hold',
+                'ACTION_PLAYER_REWIND'    :'rew.hold',
                 'ACTION_VOLUME_UP'        :'volup',
                 'ACTION_VOLUME_DOWN'      :'voldown',
                 'ACTION_MUTE'             :'muting',
@@ -104,6 +110,8 @@ SQUEEZE_CODES = {
                 'ACTION_JUMP_SMS7'        :'7',
                 'ACTION_JUMP_SMS8'        :'8',
                 'ACTION_JUMP_SMS9'        :'9',
+                'ACTION_FIRST_PAGE'       :'fwd.single',
+                'ACTION_LAST_PAGE'        :'rew.single',
 
 }
 
@@ -156,10 +164,6 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #get the window ID, and if present, the hidden button for artist slideshow...
     self.windowID = xbmcgui.getCurrentWindowId()
-##    try:
-##      self.hiddenButton = self.getControl(999)
-##    except:
-##      pass
     log("onInit, window id is "+ str(self.windowID))
 
     #Set some basic properties
@@ -222,7 +226,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionSqueeze = SQUEEZE_CODES[actionName]
     except KeyError:
       #action is not in our handled list (see actionmap.py)
-      #log("Not handling eventid " + str(action.getId()))
+      log("Not handling eventid " + str(action.getId()))
       actionNum = 0
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]

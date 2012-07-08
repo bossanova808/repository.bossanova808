@@ -1,14 +1,15 @@
-<!-- 
-SHOULD ONLY BE PRESENT WHEN XSQUEEZE IS RUNNING !! 
+<!--
+SHOULD ONLY BE PRESENT WHEN XSQUEEZE IS RUNNING !!
 Created when XSqueeze starts, deleted when it finishes
-If XSqueeze crashes...this will have been left behing, so just delete this file 
+If XSqueeze crashes...this will have been left behind, so just delete this file
 & restart XBMC and your keymap should go back to normal...
+(or just start XSqueeze and exit it)
 -->
 <keymap>
   <global>
     <keyboard>
       <minus>PageDown</minus>
-      <plus>PageUp</plus>      
+      <plus>PageUp</plus>
       <equals>PageUp</equals>
       <volume_down>PageDown</volume_down>
       <volume_up>PageUp</volume_up>
@@ -16,8 +17,16 @@ If XSqueeze crashes...this will have been left behing, so just delete this file
       <prev_track>LastPage</prev_track>
       <period>FirstPage</period>
       <comma>LastPage</comma>
+      <f mod="ctrl">FirstPage</f> <!-- Skip -->
+      <b mod="ctrl">LastPage</b> <!-- Replay -->
     </keyboard>
-    <remote>    
+    <remote>
+      <volumeplus>PageUp</volumeplus>
+      <volumeminus>PageDown</volumeminus>
+      <pageplus>FirstPage</pageplus>
+      <pageminus>LastPage</pageminus>
+      <skipplus>FirstPage</skipplus>
+      <skipminus>LastPage</skipminus>
     </remote>
   </global>
 </keymap>
