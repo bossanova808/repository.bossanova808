@@ -164,8 +164,8 @@ if ( __name__ == "__main__" ):
       #not localized!
       #then exit so they have a chance to re-visit their settings.
       if constants.ISFIRSTRUN:
-        #viewer=ReadMeViewer()
-        pass
+        viewer=ReadMeViewer()
+        #pass
       else:
 
         #serverIP still null, something went wrong...

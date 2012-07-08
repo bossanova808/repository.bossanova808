@@ -1,3 +1,7 @@
+V0.6.2
+- More Arm fixes
+- Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and cahnging volume
+
 V0.5.8
 - Fixes for platform detection, made skin note about chooser smaller for Frodo compatibility.
 

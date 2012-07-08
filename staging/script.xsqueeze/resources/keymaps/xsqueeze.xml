@@ -17,8 +17,8 @@ If XSqueeze crashes...this will have been left behind, so just delete this file
       <prev_track>LastPage</prev_track>
       <period>FirstPage</period>
       <comma>LastPage</comma>
-      <f mod="ctrl">FirstPage</f> <!-- Skip -->
-      <b mod="ctrl">LastPage</b> <!-- Replay -->
+      <f mod="ctrl">FirstPage</f>
+      <b mod="ctrl">LastPage</b>
     </keyboard>
     <remote>
       <volumeplus>PageUp</volumeplus>
