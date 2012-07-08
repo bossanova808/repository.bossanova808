@@ -1,0 +1,23 @@
+<!-- 
+SHOULD ONLY BE PRESENT WHEN XSQUEEZE IS RUNNING !! 
+Created when XSqueeze starts, deleted when it finishes
+If XSqueeze crashes...this will have been left behing, so just delete this file 
+& restart XBMC and your keymap should go back to normal...
+-->
+<keymap>
+  <global>
+    <keyboard>
+      <minus>PageDown</minus>
+      <plus>PageUp</plus>      
+      <equals>PageUp</equals>
+      <volume_down>PageDown</volume_down>
+      <volume_up>PageUp</volume_up>
+      <next_track>FirstPage</next_track>
+      <prev_track>LastPage</prev_track>
+      <period>FirstPage</period>
+      <comma>LastPage</comma>
+    </keyboard>
+    <remote>    
+    </remote>
+  </global>
+</keymap>
