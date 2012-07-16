@@ -20,13 +20,13 @@
 <addon
   id="repository.bossanova808"
   name="bossanova808's XBMC Addons"
-  version="0.1"
+  version="0.1.1"
   provider-name="bossanova808 [bossanova808@gmail.com]">
 	<extension point="xbmc.addon.repository"
              name="bossanova808's XBMC Addon Repository">
     <info compressed="true">http://bossanova808-xbmc-addons.googlecode.com/git/staging/addons.xml</info>
     <checksum>http://bossanova808-xbmc-addons.googlecode.com/git/staging/addons.xml.md5</checksum>
-    <datadir zip="true">http://bossanova808-xbmc-addons.googlecode.com/git/repository-downloads/</datadir>
+    <datadir zip="true">http://bossanova808-xbmc-addons.googlecode.com/git/repository-downloads</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Repo for Bossanova808's XBMC Addons</summary>
