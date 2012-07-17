@@ -2,7 +2,7 @@
 <addon 
   id="repository.bossanova808" 
   name="bossanova808's XBMC Addons" 
-  version="0.1.2" 
+  version="0.1.3" 
   provider-name="bossanova808 [bossanova808@gmail.com]">
 	<extension point="xbmc.addon.repository" 
              name="bossanova808's XBMC Addon Repository">
