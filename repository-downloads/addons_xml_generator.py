@@ -68,7 +68,7 @@ class Generator:
             return False
         else:
             # save file
-            return self._save_file( data=md5, file="addons.xml.md5" )
+            return self._save_file( data=md5 + " \n", file="addons.xml.md5" )
 
     def _save_file( self, data, file ):
         try:
