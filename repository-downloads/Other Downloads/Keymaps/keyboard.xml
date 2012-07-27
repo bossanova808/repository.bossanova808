@@ -261,8 +261,8 @@
       <i>Info</i>
       <o>CodecInfo</o>
       <z>AspectRatio</z>
-      <pageup>ZoomIn</pageup>     <!-- Added for MCE Remotes for extra zooming  -->
-      <Pagedown>ZoomOut</Pagedown>    <!-- Added for MCE Remotes for extra zooming -->
+      <pageup>SubtitleDelayPlus</pageup>     <!-- Added for MCE Remotes for extra zooming  -->
+      <Pagedown>SubtitleDelayMinus</Pagedown>    <!-- Added for MCE Remotes for extra zooming -->
       <t>ShowSubtitles</t>
       <t mod="ctrl">SubtitleAlign</t>
       <l>NextSubtitle</l>
