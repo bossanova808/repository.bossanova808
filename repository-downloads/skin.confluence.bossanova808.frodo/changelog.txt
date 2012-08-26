@@ -1,0 +1,5 @@
+[B]0.0.1[/B]
+
+- First Frodo release with same features as Eden version
+-  except: No weather fanart on Home
+
