@@ -15,7 +15,7 @@
 			<animation effect="fade" time="250" condition="Window.Previous(Home)">WindowOpen</animation>
 			<animation effect="fade" time="250" condition="Window.Next(Home)">WindowClose</animation>
 		</control>
-    <control type="image">
+        <control type="image">
 			<description>LOGO</description>
 			<posx>0</posx>
 			<posy>5</posy>
@@ -27,7 +27,7 @@
 			<include>Window_OpenClose_Animation</include>
 			<visible>!Skin.HasSetting(homepageWeatherinfo)</visible>
 		</control>
-    -->
+    END BOSSANOVA808 -->
 		<!-- Music Info -->
 		<control type="group">
 			<posx>0</posx>
@@ -920,7 +920,8 @@
 					</item>
 					<item id="1">
 						<label>0</label>
-						<onclick>ActivateWindow(Programs,Addons,return)</onclick>
+						<onclick condition="!System.Platform.Android">ActivateWindow(Programs,Addons,return)</onclick>
+						<onclick condition="System.Platform.Android">ActivateWindow(Programs)</onclick>
 						<icon>-</icon>
 						<thumb>-</thumb>
 						<visible>!Skin.HasSetting(HomeMenuNoProgramsButton)</visible>
