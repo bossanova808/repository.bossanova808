@@ -1,6 +1,11 @@
+V0.6.6
+- Suspend and resume XBMC's new AE to make sure we have access to the audio device in Frodo XBMC
+- Changes for Artist Slideshow's new multi artist track features
+-
+
 V0.6.2
 - More Arm fixes
-- Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and cahnging volume
+- Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and changing volume
 
 V0.5.8
 - Fixes for platform detection, made skin note about chooser smaller for Frodo compatibility.

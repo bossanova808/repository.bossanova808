@@ -26,7 +26,7 @@ from NowPlayingWindow import *
 
 ################################################################################
 # Server Discovery function - can be called from add on settings, or can just auto-default to
-# first server found if callede from main() as the user had not configured a server
+# first server found if called from main() as the user had not configured a server
 
 def serverDiscovery(defaultFirstServer=False):
 
@@ -43,6 +43,12 @@ if ( __name__ == "__main__" ):
 
     #log some tracks...
     footprints()
+
+    #suspend XBMC's AudioEngine so we can be sure we have access to the audio device
+    try:
+      xbmc.AudioSuspend()
+    except:
+      pass
 
     #the script is being called with an argument - we're either
     # auto discovering servers and choosing them
@@ -284,6 +290,12 @@ if ( __name__ == "__main__" ):
 
         # after the window is closed, Destroy it.
         del window
+
+        #unsuspend XBMC's AudioEngine
+        try:
+          xbmc.AudioResume()
+        except:
+          pass
 
         #sys.modules.clear()
         footprints(startup=False)

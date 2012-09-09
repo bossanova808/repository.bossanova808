@@ -316,7 +316,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def runArtistSlideshow(self):
      #startup artistslideshow
      xbmcgui.Window(self.windowID).setProperty("ArtistSlideshow.ExternalCall", "True")
-     artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_ARTIST")
+     artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s&titlefield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_ARTIST", "XSQUEEZE_TRACK_0_TITLE")
      xbmc.executebuiltin(artistslideshow)
 
   ##############################################################################
