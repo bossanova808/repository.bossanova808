@@ -279,7 +279,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #cope with play/pause on one button
         with self.lock:
           mode = self.player.getMode()
-        if mode=="play" and actionSqueeze == "play.single":
+        if mode == "play" and actionSqueeze == "play.single":
           actionSqueeze="pause.single"
         #send the command through
         with self.lock:
