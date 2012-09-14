@@ -3,9 +3,7 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.6.2 New custom keymap system means no more annoying xbmc popups when changing tracks or volume
-* (NOTE if XSqueeze crashes then you have to re-start and re-exit XSqueeze to tidy up the XSqueeze keymap)
-* 0.5.8 - Preliminary ARM support - only tested with Raspbmc so far
+* 0.6.6 test version for ReducedToZero
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

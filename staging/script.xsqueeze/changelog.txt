@@ -1,3 +1,12 @@
+V0.6.6
+- 'ReducedToZero' requests:
+  - Stopped XSqueeze crashing if controls aren't present in the skin file (needs testing!)
+  - Play button now acts as play/pause
+  - Exposed GENRE, BITRATE and FILFORMAT to skin.
+
+V0.6.5
+- version bumps to diagnose issue with googlecode addon repos not working - ticket lodged, fix now in mainline XBMC for Frodo
+
 V0.6.2
 - More Arm fixes
 - Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and cahnging volume

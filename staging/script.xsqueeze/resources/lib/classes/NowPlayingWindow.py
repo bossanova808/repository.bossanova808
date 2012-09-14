@@ -225,8 +225,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
     except KeyError:
-      #action is not in our handled list (see actionmap.py)
-      log("Not handling eventid " + str(action.getId()))
+      #action is not in our handled list (see top of this file)
+      #do not log mouse movements, way too much log spew...
+      if action.getId() != 107:
+        log("Not handling eventid " + str(action.getId()))
       actionNum = 0
       actionName = ACTION_NAMES[actionNum]
       actionSqueeze = SQUEEZE_CODES[actionName]
@@ -274,6 +276,12 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     else:
        if actionSqueeze:
         log("SqueezePlayer Action: " + actionSqueeze)
+        #cope with play/pause on one button
+        with self.lock:
+          mode = self.player.getMode()
+        if mode=="play" and actionSqueeze == "play.single":
+          actionSqueeze="pause.single"
+        #send the command through
         with self.lock:
           self.player.button(actionSqueeze)
 
@@ -283,10 +291,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def cleanupCovers (self):
 
     #log("Clearing cover images.....")
-    self.getControl( constants.MAINCOVERART  ).setImage( "" )
-    self.getControl( constants.UPCOMING1COVERART  ).setImage( "" )
-    self.getControl( constants.UPCOMING2COVERART  ).setImage( "" )
-    self.getControl( constants.UPCOMING3COVERART  ).setImage( "" )
+    try:
+      self.getControl( constants.MAINCOVERART  ).setImage( "" )
+      self.getControl( constants.UPCOMING1COVERART  ).setImage( "" )
+      self.getControl( constants.UPCOMING2COVERART  ).setImage( "" )
+      self.getControl( constants.UPCOMING3COVERART  ).setImage( "" )
+      #since we're just tidying, doesn't matter if the above fails
+    except:
+       pass
 
   ##############################################################################
   # Cleanup the window labels, by default for all track 0 to 10
@@ -298,17 +310,21 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     for trackOffset in range(start,10):
       stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
-      xbmcgui.Window(self.windowID).clearProperty(stub + "TITLE")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "ARTIST")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "UNIARTIST")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUM")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKNUM")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKLENGTH")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUMYEAR")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "INPLAYLIST")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "ELAPSED")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "REMAINING")
-      xbmcgui.Window(self.windowID).clearProperty(stub + "DURATION")
+      try:
+        xbmcgui.Window(self.windowID).clearProperty(stub + "TITLE")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "ARTIST")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "UNIARTIST")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUM")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKNUM")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "TRACKLENGTH")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "ALBUMYEAR")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "INPLAYLIST")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "ELAPSED")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "REMAINING")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "DURATION")
+      #since we're just tidying, doesn't matter if the above fails
+      except:
+        pass
 
   ##############################################################################
   # Kick off the artist.slideshow
@@ -368,6 +384,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.getControl( constants.UPCOMING3COVERART  ).setImage( self.coverURLs[3]  )
       except IndexError:
         pass
+      except Exception as inst:
+        log("Exception trying to set cover art - perhaps controls don't exist? " + str(inst))
     else:
       self.getControl( constants.MAINCOVERART  ).setImage( "http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC  )
 
@@ -419,6 +437,18 @@ class NowPlayingWindow(xbmcgui.WindowXML):
               tracknum = str(self.playlistDetails[trackOffset]['tracknum'])
             except KeyError:
               tracknum = ""
+            try:
+              fileformat = str(self.playlistDetails[trackOffset]['type'])
+            except KeyError:
+              fileformat = ""
+            try:
+              bitrate = str(self.playlistDetails[trackOffset]['bitrate'])
+            except KeyError:
+              bitrate = ""
+            try:
+              genre = str(self.playlistDetails[trackOffset]['genre'])
+            except KeyError:
+              genre = ""
 
             xbmcgui.Window(self.windowID).setProperty(stub + "ALBUM", self.playlistDetails[trackOffset]['album'])
             duration = getInHMS(int(self.playlistDetails[trackOffset]['duration']))
@@ -443,6 +473,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           xbmcgui.Window(self.windowID).setProperty(stub + "TITLE", title)
           xbmcgui.Window(self.windowID).setProperty(stub + "ARTIST", artist)
           xbmcgui.Window(self.windowID).setProperty(stub + "UNIARTIST", uniartist)
+          xbmcgui.Window(self.windowID).setProperty(stub + "FILEFORMAT", fileformat)
+          xbmcgui.Window(self.windowID).setProperty(stub + "BITRATE", bitrate)
+          xbmcgui.Window(self.windowID).setProperty(stub + "GENRE", genre)
 
         except IndexError:
           log("Index error in updatePlaylistDetails")
@@ -477,6 +510,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       percent = int((trackElapsed / trackLength) * 100.0)
       try:
         self.getControl( constants.CURRENTPROGRESS ).setPercent ( percent )
+      #if the control doesn't exist, do nothing
       except:
         pass
     else:
