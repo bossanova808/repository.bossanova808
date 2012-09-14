@@ -44,10 +44,14 @@ if ( __name__ == "__main__" ):
     #log some tracks...
     footprints()
 
-    #suspend XBMC's AudioEngine so we can be sure we have access to the audio device
+    xbmcAudioSuspended = False
+    #Try and suspend XBMC's AudioEngine if it is present and has exclusive access to the audio device
     try:
-      xbmc.AudioSuspend()
-    except:
+      xbmc.AudioSuspend();
+      log("Suspended XBMC AE")
+      xbmcAudioSuspended = True
+    except Exception as inst:
+      log("Unable to suspend XBMC AE: " + str(inst))
       pass
 
     #the script is being called with an argument - we're either
@@ -278,7 +282,7 @@ if ( __name__ == "__main__" ):
           try:
             slaveProcess.terminate()
           except Exception as inst:
-            log("Error killing Squeezeslave", inst)
+            log("Error killing Squeezeslave: ", str(inst))
 
         #remove our custom keymap and force a re-load
         try:
@@ -291,11 +295,13 @@ if ( __name__ == "__main__" ):
         # after the window is closed, Destroy it.
         del window
 
-        #unsuspend XBMC's AudioEngine
-        try:
-          xbmc.AudioResume()
-        except:
-          pass
+        #Try and resume XBMC's AudioEngine if we suspended it
+        if xbmcAudioSuspended:
+          try:
+            xbmc.AudioResume();
+            log("Resumed XBMC AE")
+          except:
+            pass
 
         #sys.modules.clear()
         footprints(startup=False)

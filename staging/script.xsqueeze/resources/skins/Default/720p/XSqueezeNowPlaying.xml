@@ -69,6 +69,10 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_UNIARTIST)] - unicode encoded artist for 
 $INFO[Window.Property(XSQUEEZE_TRACK_X_TITLE)] - the title of the track
 $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUM)] - the album the track comes from
 $INFO[Window.Property(XSQUEEZE_TRACK_X_ALBUMYEAR)] - the year of the album the track comes from
+$INFO[Window.Property(XSQUEEZE_TRACK_X_FILEFORMAT)] - fileformat of current track (e.g. flc, mp3 - see LMS singinfo)
+$INFO[Window.Property(XSQUEEZE_TRACK_X_BITRATE)] - string containing bitrate of current track
+$INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
+
 --------------------------------------------------------------------------------
 
 -->
