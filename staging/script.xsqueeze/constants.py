@@ -124,7 +124,7 @@ LOCALSQUEEZESTUB="squeezeslave-"
 ARMHFVERSION="1.2-367"
 BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION +".exe")
 BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
-BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
+BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-lnx26-" + LOCALSQUEEZESLAVEVERSION)
 #BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
 BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx31") + "/squeezeslave-" + ARMHFVERSION)
 
