@@ -13,8 +13,8 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/opt/local/bin/squeezeslave</string>
-		<string>-nSennheiser USB Headset</string>
-		<string>-r15</string>
+		<string>-nBuilt-in Output</string>
+		<string>-r30</string>
 		<string>-Y/var/tmp/squeezeslave.log</string>
 		<string>-F</string>
 	</array>

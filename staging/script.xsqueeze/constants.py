@@ -119,12 +119,14 @@ SKIN=ADDON.getSetting('skin')
 ################################################################################
 # Deal with the squeezeslave executeables...
 
-LOCALSQUEEZESLAVEVERSION = 'squeezeslave-1.2-311'
-BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave.exe")
-BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave")
-BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave")
-BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
-BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-armel-lnx26") + "/squeezeslave")
+LOCALSQUEEZESLAVEVERSION = '1.2-376'
+LOCALSQUEEZESTUB="squeezeslave-"
+ARMHFVERSION="1.2-367"
+BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION +".exe")
+BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
+BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
+#BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
+BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx31") + "/squeezeslave-" + ARMHFVERSION)
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32
@@ -175,10 +177,10 @@ elif SYSTEM.startswith("darwin"):
 elif SYSTEM.startswith("arm"):
   EXE = [BINARM]
 else:
-  if is_64bits:
-    EXE = [BINLIN64]
-  else:
-    EXE = [BINLIN32]
+#  if is_64bits:
+#    EXE = [BINLIN64]
+#  else:
+  EXE = [BINLIN32]
 
 #chmod +X the exe file on linux/osx ...
 

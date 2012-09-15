@@ -2,9 +2,8 @@
 
 XSQUEEZE SKIN NOTES
 
-WARNING - DO NOT CHANGE ID OF PROGRESS BAR (998) OR YOU WILL BREAK XSQUEEZE!!
-WARNING - DO NOT REMOVE PROGRESS BAR OR YOU WILL BREAK XSQUEEZE!!
-WARNING - DO NOT CHANGE THE HIDDEN BUTTON (999) OR YOU WILL BREAK THE ARTIST SLIDESHOW!!
+WARNING - DO NOT CHANGE ID OF PROGRESS BAR (998) OR YOU MAY BREAK XSQUEEZE!!
+WARNING - DO NOT REMOVE PROGRESS BAR OR YOU MAY BREAK XSQUEEZE!!
 
 Check the media directory for icons you should supply:
 play.png
@@ -15,12 +14,12 @@ black.png
 
 IMAGES:
 XSqueeze will supply the textures for 5 images with IDs:
-MAINCOVERART          = 100
-UPCOMING1COVERART     = 101
-UPCOMING2COVERART     = 102
-UPCOMING3COVERART     = 103
-PLAYSTATE             = 104 (the play/pause/stop icon)
-SLIDESHOW             = 105 (the multiimage control for artist.slideshow)
+XSQUEEZE_MAINCOVER             = 100
+XSQUEEZE_UPCOMING1COVERART     = 101
+XSQUEEZE_UPCOMING2COVERART     = 102
+XSQUEEZE_UPCOMING3COVERART     = 103
+XSQUEEZE_PLAYSTATE             = 104 (the play/pause/stop icon)
+SLIDESHOW                      = 105 (the multiimage control handled by artist.slideshow)
 
 --------------------------------------------------------------------------------
 
@@ -198,6 +197,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <posy>65</posy>
         <width>275</width>
         <height>275</height>
+        <texture>$INFO[Window.Property(XSQUEEZE_MAINCOVER)]</texture>
       </control>
 
       <!-- CURRENT ARTIST, ALBUM, YEAR -->
@@ -259,6 +259,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <posy>0</posy>
           <width>75</width>
           <height>75</height>
+          <texture>$INFO[Window.Property(XSQUEEZE_UPCOMING1COVERART)]</texture>
         </control>
         <control type="image" id="102">
           <description>Cover art for track + 2</description>
@@ -266,6 +267,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <posy>0</posy>
           <width>75</width>
           <height>75</height>
+          <texture>$INFO[Window.Property(XSQUEEZE_UPCOMING2COVERART)]</texture>
         </control>
         <control type="image" id="103">
           <description>Cover art for track + 3</description>
@@ -273,6 +275,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <posy>0</posy>
           <width>75</width>
           <height>75</height>
+          <texture>$INFO[Window.Property(XSQUEEZE_UPCOMING3COVERART)]</texture>
         </control>
       </control>
       <!-- END GROUP UPCOMING THUMBS -->
@@ -492,6 +495,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <width>32</width>
           <height>32</height>
           <colordiffuse>FFBBBBBB</colordiffuse>
+          <texture>$INFO[Window.Property(XSQUEEZE_PLAYSTATE)]</texture>
         </control>
 
         <control type="label" id="1000">

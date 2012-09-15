@@ -279,7 +279,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #cope with play/pause on one button
         with self.lock:
           mode = self.player.getMode()
-        if mode == "play" and actionSqueeze == "play.single":
+        if mode == "play" and actionSqueeze == "play.single" and "Now Playing" in xbmcgui.Window(self.windowID).getProperty("XSQUEEZE_DISPLAYLINE1"):
           actionSqueeze="pause.single"
         #send the command through
         with self.lock:
@@ -354,10 +354,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #set player state icon - play, pause or stop
         xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_NOWPLAYING", mode)
         #this control SHOULD be there but jsut in case it's not...
-        try:
-          self.getControl( constants.PLAYSTATE  ).setImage( mode + '.png' )
-        except:
-          pass
+        xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYSTATE", mode + '.png')
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
 
@@ -376,18 +373,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       if newCoverURLs[0] != self.coverURLs[0]:
         self.coverURLs = newCoverURLs
 
-      try:
-       #set the images if they are available in the skin file
-        self.getControl( constants.MAINCOVERART  ).setImage( self.coverURLs[0]  )
-        self.getControl( constants.UPCOMING1COVERART  ).setImage( self.coverURLs[1]  )
-        self.getControl( constants.UPCOMING2COVERART  ).setImage( self.coverURLs[2]  )
-        self.getControl( constants.UPCOMING3COVERART  ).setImage( self.coverURLs[3]  )
-      except IndexError:
-        pass
-      except Exception as inst:
-        log("Exception trying to set cover art - perhaps controls don't exist? " + str(inst))
+      stub="XSQUEEZE_"
+      xbmcgui.Window(self.windowID).setProperty(stub+"MAINCOVER", self.coverURLs[0])
+      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING1COVERART", self.coverURLs[1])
+      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING2COVERART", self.coverURLs[2])
+      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING3COVERART", self.coverURLs[3])
+
     else:
-      self.getControl( constants.MAINCOVERART  ).setImage( "http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC  )
+      xbmcgui.Window(self.windowID).setProperty(stub+"MAINCOVER", "http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC)
 
 
   ##############################################################################
