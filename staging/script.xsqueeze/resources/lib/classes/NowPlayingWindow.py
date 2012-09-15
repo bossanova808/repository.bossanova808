@@ -290,15 +290,12 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def cleanupCovers (self):
 
-    #log("Clearing cover images.....")
-    try:
-      self.getControl( constants.MAINCOVERART  ).setImage( "" )
-      self.getControl( constants.UPCOMING1COVERART  ).setImage( "" )
-      self.getControl( constants.UPCOMING2COVERART  ).setImage( "" )
-      self.getControl( constants.UPCOMING3COVERART  ).setImage( "" )
-      #since we're just tidying, doesn't matter if the above fails
-    except:
-       pass
+      stub="XSQUEEZE_"
+      xbmcgui.Window(self.windowID).setProperty(stub+"MAINCOVER", "")
+      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING1COVERART", "")
+      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING2COVERART", "")
+      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING3COVERART", "")
+
 
   ##############################################################################
   # Cleanup the window labels, by default for all track 0 to 10

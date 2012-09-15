@@ -3,7 +3,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.6.6 test version for ReducedToZero
+* 0.6.9 This version has minor changes but an updated squeezeslave version so
+* please report any issues to the forum thread!
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
