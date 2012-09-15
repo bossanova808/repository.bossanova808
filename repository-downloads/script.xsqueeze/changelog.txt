@@ -1,6 +1,22 @@
+V0.6.7
+- Moved from python setting the images to using window properties
+- Improve play/pause logic (thanks to ReducedToZero)
+- Updated squeezeslave to latest including hardfloat for rasp pi
+
+V0.6.6
+- Suspend and resume XBMC's new AE to make sure we have access to the audio device in Frodo XBMC
+- Changes for Artist Slideshow's new multi artist track features
+- 'ReducedToZero' requests:
+  - Stopped XSqueeze crashing if controls aren't present in the skin file (needs testing!)
+  - Play button now acts as play/pause
+  - Exposed GENRE, BITRATE and FILFORMAT to skin.
+
+V0.6.5
+- version bumps to diagnose issue with googlecode addon repos not working - ticket lodged, fix now in mainline XBMC for Frodo
+
 V0.6.2
 - More Arm fixes
-- Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and cahnging volume
+- Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and changing volume
 
 V0.5.8
 - Fixes for platform detection, made skin note about chooser smaller for Frodo compatibility.

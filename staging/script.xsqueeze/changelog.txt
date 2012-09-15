@@ -1,3 +1,8 @@
+V0.6.7
+- Moved from python setting the images to using window properties
+- Improve play/pause logic (thanks to ReducedToZero)
+- Updated squeezeslave to latest including hardfloat for rasp pi
+
 V0.6.6
 - Suspend and resume XBMC's new AE to make sure we have access to the audio device in Frodo XBMC
 - Changes for Artist Slideshow's new multi artist track features
