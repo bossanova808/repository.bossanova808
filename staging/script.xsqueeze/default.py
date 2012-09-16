@@ -9,6 +9,7 @@ import sys
 import platform
 import subprocess
 import shutil
+#import atexit
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
@@ -24,6 +25,7 @@ from ReadMeViewer import *
 from NowPlayingWindow import *
 
 
+
 ################################################################################
 # Server Discovery function - can be called from add on settings, or can just auto-default to
 # first server found if called from main() as the user had not configured a server
@@ -32,17 +34,44 @@ def serverDiscovery(defaultFirstServer=False):
 
     foundServer = False
 
-
-    #return a boolen of success or failure
+    #return a boolean of success or failure
     return foundServer
 
 ################################################################################
-### MAIN
+# Do some cleanup (even if we are exiting early)
 
-if ( __name__ == "__main__" ):
+def cleanup(andexit=False):
 
-    #log some tracks...
-    footprints()
+    global xbmcAudioSuspended
+
+    log("### Doing Cleanup")
+
+    #Try and resume XBMC's AudioEngine if we suspended it
+    if xbmcAudioSuspended:
+      try:
+        xbmc.AudioResume();
+        log("### Resumed XBMC AE")
+      except:
+        pass
+
+    #remove our custom keymap and force a re-load
+    try:
+      os.remove(constants.KEYMAPDESTFILE)
+      xbmc.executebuiltin('Action(reloadkeymaps)')
+      log("### Removed custom keymap")
+    except Exception as inst:
+      pass
+
+    #and exit if requested
+    if andexit:
+      footprints(startup=False)
+      sys.exit()
+
+
+#called if we are running a playing instance...
+def playInit():
+
+    global xbmcAudioSuspended
 
     xbmcAudioSuspended = False
     #Try and suspend XBMC's AudioEngine if it is present and has exclusive access to the audio device
@@ -53,6 +82,20 @@ if ( __name__ == "__main__" ):
     except Exception as inst:
       log("Unable to suspend XBMC AE: " + str(inst))
       pass
+
+
+################################################################################
+### MAIN
+
+if ( __name__ == "__main__" ):
+
+    #THIS DOES NOT SEEM TO WORK WITH XBMC
+    #make sure we clean up on the way out..
+    #log("### Registering cleanup function")
+    #atexit.register(cleanup)
+
+    #log some tracks...
+    footprints()
 
     #the script is being called with an argument - we're either
     # auto discovering servers and choosing them
@@ -153,6 +196,10 @@ if ( __name__ == "__main__" ):
 
     else:
 
+      #set up for actual playback
+      xbmcAudioSuspended = False
+      playInit()
+
       #is the add on configured yet?
       if constants.SERVERIP=="":
 
@@ -160,15 +207,15 @@ if ( __name__ == "__main__" ):
         notify(LANGUAGE(19626), LANGUAGE(19631))
         constants.ADDON.openSettings()
         notify(LANGUAGE(19632),LANGUAGE(19633))
-        sys.exit()
+        cleanup(andexit=True)
 
       #sanity checks
       if constants.CONTROLLERONLY and constants.CONTROLSLAVE:
         notify(LANGUAGE(19605), LANGUAGE(19606), 10000)
-        sys.exit()
+        cleanup(andexit=True)
       if not constants.CONTROLLERONLY and not constants.CONTROLSLAVE:
         notify(LANGUAGE(19605), LANGUAGE(19607), 10000)
-        sys.exit()
+        cleanup(andexit=True)
 
       #possibly display the readme file if this is the users' first run of this version
       #not localized!
@@ -181,7 +228,7 @@ if ( __name__ == "__main__" ):
         #serverIP still null, something went wrong...
         if constants.SERVERIP=="":
           notify(LANGUAGE(19624),LANGUAGE(19625))
-          sys.exit()
+          cleanup(andexit=True)
 
         #disable the screensaver if the user has this on
         if constants.DISABLESCREENSAVER:
@@ -194,9 +241,7 @@ if ( __name__ == "__main__" ):
         #Each run we copy our keymap over, force xbmc to relaoad the keymaps, then at the end
         #we do the reverse - delete our custom one and reload the original setup
         try:
-          keymapSource = os.path.join(constants.KEYMAP_PATH, "xsqueeze.xml")
-          keymapDestination = os.path.join(xbmc.translatePath('special://userdata/keymaps'), "xsqueeze.xml")
-          shutil.copy(keymapSource, keymapDestination)
+          shutil.copy(constants.KEYMAPSOURCEFILE, constants.KEYMAPDESTFILE)
           xbmc.executebuiltin('Action(reloadkeymaps)')
           log("Installed custom keymap")
         except Exception as inst:
@@ -228,7 +273,7 @@ if ( __name__ == "__main__" ):
           except Exception as inst:
             log("Failed creating squeezeslave process", inst)
             notify(LANGUAGE(19610),LANGUAGE(19611))
-            sys.exit()
+            cleanup(andexit=True)
 
           pid = slaveProcess.pid
           log("Process ID for Squeezeslave is "+ str(pid))
@@ -284,24 +329,9 @@ if ( __name__ == "__main__" ):
           except Exception as inst:
             log("Error killing Squeezeslave: ", str(inst))
 
-        #remove our custom keymap and force a re-load
-        try:
-          os.remove(keymapDestination)
-          xbmc.executebuiltin('Action(reloadkeymaps)')
-          log("Removed custom keymap")
-        except Exception as inst:
-          log("Couldn't remove custom keymap: " + str(inst))
 
         # after the window is closed, Destroy it.
         del window
 
-        #Try and resume XBMC's AudioEngine if we suspended it
-        if xbmcAudioSuspended:
-          try:
-            xbmc.AudioResume();
-            log("Resumed XBMC AE")
-          except:
-            pass
+        cleanup(andexit=True)
 
-        #sys.modules.clear()
-        footprints(startup=False)

@@ -38,6 +38,8 @@ UPCOMING3             = 2003
 CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))
 BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin" ))
 KEYMAP_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "keymaps" ))
+KEYMAPSOURCEFILE = os.path.join(KEYMAP_PATH, "xsqueeze.xml")
+KEYMAPDESTFILE = os.path.join(xbmc.translatePath('special://userdata/keymaps'), "xsqueeze.xml")
 AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio" ))
 VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video" ))
 IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ))
@@ -49,6 +51,8 @@ DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).repla
 DUMMYPIC = xbmc.translatePath(os.path.join( IMAGES_PATH, "black.png")).replace( "\\", "/" )
 #extend the python path
 sys.path.append( CLASS_PATH )
+
+
 
 ################################################################################
 # first run stuff - set once here, then a constant
