@@ -123,13 +123,18 @@ SKIN=ADDON.getSetting('skin')
 ################################################################################
 # Deal with the squeezeslave executeables...
 
+#versions
+#NOTE 0.7.0 - the i64 binary is actually the older 311 binary as I haven't found a newer one
+#and can't be bothered creating a VM jsut to compile one...
+
 LOCALSQUEEZESLAVEVERSION = '1.2-376'
-LOCALSQUEEZESTUB="squeezeslave-"
 ARMHFVERSION="1.2-367"
+LOCALSQUEEZESTUB="squeezeslave-"
+
 BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION +".exe")
 BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
 BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-lnx26-" + LOCALSQUEEZESLAVEVERSION)
-#BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
+BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
 BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx31") + "/squeezeslave-" + ARMHFVERSION)
 
 #32 or 64 bit?
@@ -181,10 +186,10 @@ elif SYSTEM.startswith("darwin"):
 elif SYSTEM.startswith("arm"):
   EXE = [BINARM]
 else:
-#  if is_64bits:
-#    EXE = [BINLIN64]
-#  else:
-  EXE = [BINLIN32]
+  if is_64bits:
+    EXE = [BINLIN64]
+  else:
+    EXE = [BINLIN32]
 
 #chmod +X the exe file on linux/osx ...
 
