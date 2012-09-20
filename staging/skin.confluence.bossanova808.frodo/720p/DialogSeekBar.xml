@@ -4,8 +4,8 @@
 	<animation effect="fade" start="0" end="100" time="200">WindowOpen</animation>
 	<animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
 	<controls>
-  
-  <!-- BOSSANOVA808 - OzWeather Radar and Short Forecast -->	
+
+  <!-- BOSSANOVA808 - OzWeather Radar and Short Forecast -->
 	   <control type="group" id="10121">
 	      <visible>[Player.Paused]</visible>
         <posx>15</posx>
@@ -44,7 +44,7 @@
 					<label>$INFO[Window(2600).Property(Current.Temperature)]</label>
 					<textcolor>white</textcolor>
 					<shadowcolor>black</shadowcolor>
-				</control>				
+				</control>
 				<control type="label" id="19547">
 					<description>current temp Value Units</description>
 					<posx>90</posx>
@@ -100,7 +100,11 @@
 					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
-  			<!--
+
+        <control type="group">
+  				<posx>140</posx>
+  				<posy>15</posy>
+
         <control type="image" id="19547">
   				<posx>0</posx>
   				<posy>0</posy>
@@ -152,13 +156,14 @@
 				  <bordertexture border="8">ThumbShadow.png</bordertexture>
 				  <bordersize>8</bordersize>
   			</control>
-  			-->
+      </control>
+
     </control>
-    
-	  <!-- JD Section -->
-  
-  
-  
+
+	  <!-- BOSSANOVA808 Section -->
+
+
+
 		<control type="group">
 			<visible>player.chaptercount + Window.IsVisible(FullScreenVideo)</visible>
 			<posx>665r</posx>
