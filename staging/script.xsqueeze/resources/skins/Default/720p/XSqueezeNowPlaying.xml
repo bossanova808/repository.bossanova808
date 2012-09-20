@@ -101,6 +101,18 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
     </control>
 
+      <!-- CLOSE Button -- >
+  		<control type="button" id="2599">
+  			<description>Close Window button</description>
+  			<posx>84r</posx>
+  			<posy>0</posy>
+  			<width>64</width>
+  			<height>32</height>
+  			<texturefocus>DialogCloseButton-focus.png</texturefocus>
+  			<texturenofocus>DialogCloseButton.png</texturenofocus>
+   		</control>
+
+
     <!-- MAIN PANELS AND FLOOR AREA -->
     <control type="group">
       <animation type="WindowOpen" reversible="false">
@@ -187,6 +199,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <shadowcolor>black</shadowcolor>
         </control>
       </control>
+
 
       <!-- ***************** LEFT PANEL CONTROLS *************************** -->
 
@@ -530,6 +543,96 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <scrollspeed>50</scrollspeed>
           <scrollsuffix> - </scrollsuffix>
         </control>
+
+      <!-- TEST AREA -->
+
+
+    <!-- TOUCH SCREEN CONTROLS -->
+		<control type="group" id="2000">
+			<posx>500</posx>
+			<posy>10</posy>
+			<animation effect="fade" time="200">VisibleChange</animation>
+			<control type="button" id="2600">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<label>210</label>
+				<font>-</font>
+				<texturefocus>OSDPrevTrackFO.png</texturefocus>
+				<texturenofocus>OSDPrevTrackNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2601">
+				<posx>45</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<label>31354</label>
+				<font>-</font>
+				<texturefocus>OSDRewindFO.png</texturefocus>
+				<texturenofocus>OSDRewindNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2602">
+				<posx>90</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<label>31351</label>
+				<altlabel>208</altlabel>
+				<font>-</font>
+				<texturefocus>OSDPlayFO.png</texturefocus>
+				<texturenofocus>OSDPlayNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2603">
+				<posx>135</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<label>31352</label>
+				<font>-</font>
+				<texturefocus>OSDStopFO.png</texturefocus>
+				<texturenofocus>OSDStopNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2604">
+				<posx>180</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<label>31353</label>
+				<font>-</font>
+				<texturefocus>OSDForwardFO.png</texturefocus>
+				<texturenofocus>OSDForwardNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2605">
+				<posx>225</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<label>209</label>
+				<font>-</font>
+				<texturefocus>OSDNextTrackFO.png</texturefocus>
+				<texturenofocus>OSDNextTrackNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2606">
+				<posx>270</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<font>-</font>
+				<texturefocus>OSDRandomOffFO.png</texturefocus>
+				<texturenofocus>OSDRandomOffNF.png</texturenofocus>
+			</control>
+			<control type="button" id="2607">
+				<posx>315</posx>
+				<posy>0</posy>
+				<width>45</width>
+				<height>45</height>
+				<font>-</font>
+				<texturefocus>OSDRepeatFO.png</texturefocus>
+				<texturenofocus>OSDRepeatNF.png</texturenofocus>
+			</control>
+		</control>
+
       </control>
       <!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
 
@@ -624,6 +727,8 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       </control>
     </control>
     <!-- END - THE CLOCK & WEATHER -->
+
+
 
   </controls>
 </window>

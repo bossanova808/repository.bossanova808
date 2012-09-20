@@ -197,6 +197,15 @@ class Player(object):
         else:
             return 0
 
+    def shuffle(self):
+        state = int(self.request("playlist shuffle ?"))
+        if state < 2:
+          state = state + 1
+        else:
+          state = 0
+        self.request("playlist shuffle "+ str(state))
+        self.show("Shuffle", "")
+
     def get_power_state(self):
         """Get Player Power State"""
         state = int(self.request("power ?"))

@@ -643,3 +643,8 @@ class SqueezePlayer:
   def playRandomTracks(self):
     self.sb.request("randomplay tracks")
 
+  ##############################################################################
+  # Clear playlist and queue up random songs
+
+  def shuffle(self):
+    self.sb.shuffle()

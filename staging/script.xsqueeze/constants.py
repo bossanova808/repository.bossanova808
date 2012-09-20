@@ -33,6 +33,17 @@ UPCOMING1             = 2001
 UPCOMING2             = 2002
 UPCOMING3             = 2003
 
+BUTTONEXIT            = 2599
+BUTTONSKIPBACK        = 2600
+BUTTONREWIND          = 2601
+BUTTONPLAYPAUSE       = 2602
+BUTTONSTOP            = 2603
+BUTTONFASTFORWARD     = 2604
+BUTTONSKIPFORWARD     = 2605
+BUTTONSHUFFLE         = 2606
+BUTTONREPEAT          = 2607
+BUTTONCHOOSER         = 2608
+
 ################################################################################
 #useful paths
 CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))

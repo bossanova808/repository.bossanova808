@@ -64,7 +64,6 @@ ACTION_CODES = {
                 'ACTION_JUMP_SMS9'        :149,
                 'ACTION_FIRST_PAGE'       :159,
                 'ACTION_LAST_PAGE'        :160,
-
 }
 
 SQUEEZE_CODES = {
@@ -112,11 +111,32 @@ SQUEEZE_CODES = {
                 'ACTION_JUMP_SMS9'        :'9',
                 'ACTION_FIRST_PAGE'       :'fwd.single',
                 'ACTION_LAST_PAGE'        :'rew.single',
-
+                'BUTTON_SKIPBACK'         : 'rew.single',
+                'BUTTON_REWIND'           : 'rew.hold',
+                'BUTTON_PLAYPAUSE'        : 'play.single',
+                'BUTTON_STOP'             : 'stop',
+                'BUTTON_FASTFORWARD'      : 'fwd.hold',
+                'BUTTON_SKIPFORWARD'      : 'fwd.single',
+                'BUTTON_SHUFFLE'          : 'shuffle.single',
+                'BUTTON_REPEAT'           : 'repeat'
 }
 
 ACTION_NAMES = swap_dictionary(ACTION_CODES)
 
+BUTTON_CODES ={
+                'BUTTON_EXIT'             : constants.BUTTONEXIT,
+                'BUTTON_SKIPBACK'         : constants.BUTTONSKIPBACK,
+                'BUTTON_REWIND'           : constants.BUTTONREWIND,
+                'BUTTON_PLAYPAUSE'        : constants.BUTTONPLAYPAUSE,
+                'BUTTON_STOP'             : constants.BUTTONSTOP,
+                'BUTTON_FASTFORWARD'      : constants.BUTTONFASTFORWARD,
+                'BUTTON_SKIPFORWARD'      : constants.BUTTONSKIPFORWARD,
+                'BUTTON_SHUFFLE'          : constants.BUTTONSHUFFLE,
+                'BUTTON_REPEAT'           : constants.BUTTONREPEAT,
+                'BUTTON_CHOOSER'          : constants.BUTTONCHOOSER
+}
+
+BUTTON_NAMES = swap_dictionary(BUTTON_CODES)
 
 ################################################################################
 ################################################################################
@@ -212,6 +232,54 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       xbmcgui.Window(self.windowID).clearProperty("XSQUEEZE_WINDOWID")
 
       log("deInit() complete. Artist Slideshow Cleanup Property = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
+
+  ##############################################################################
+  # Handle button events
+
+  def onClick( self, control ):
+
+    actionSqueeze = ''
+    #directCommand is set to true if we're not sending it as a button
+    directCommand = False
+
+    try:
+      buttonName = BUTTON_NAMES[control]
+      actionSqueeze = SQUEEZE_CODES[buttonName]
+    except:
+      pass
+
+    log("***********************************************************************")
+    log ("Control is: " + str(control) +", actionSqueeze is: " + str(actionSqueeze))
+    log("***********************************************************************")
+
+    #define handlers for each of the controls to determine the correct
+    #squeezebox code to seend
+    if (control == constants.BUTTONEXIT):
+      log("Button event: EXIT")
+    if (control == constants.BUTTONSKIPBACK):
+      log("Button event: SKIPBACK")
+    if (control == constants.BUTTONREWIND):
+      log("Button event: REWIND")
+    if (control == constants.BUTTONPLAYPAUSE):
+      log("Button event: PLAYPAUSE")
+    if (control == constants.BUTTONSTOP):
+      log("Button event: STOP")
+    if (control == constants.BUTTONFASTFORWARD):
+      log("Button event: FASTFORWARD")
+    if (control == constants.BUTTONSKIPFORWARD):
+      log("Button event: SKIPFORWARD")
+    if (control == constants.BUTTONSHUFFLE):
+      log("Button event: SHUFFLE")
+      directCommand = True
+      self.player.shuffle()
+    if (control == constants.BUTTONREPEAT):
+      log("Button event: REPEAT")
+
+    #ok now actually send the command through if it is a squeeze command
+    if (actionSqueeze != '') and not directCommand:
+      with self.lock:
+        self.player.button(actionSqueeze)
+        self.updateLineDisplay()
 
   ##############################################################################
   # Handle window acitions
@@ -361,6 +429,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   # get the cover URLS and pass them into window properties
 
   def updateCoverArtFromURLs(self):
+
+    stub="XSQUEEZE_"
     #grab the current URLs from the player
     newCoverURLs = self.player.coverURLs
 
@@ -370,11 +440,13 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       if newCoverURLs[0] != self.coverURLs[0]:
         self.coverURLs = newCoverURLs
 
-      stub="XSQUEEZE_"
-      xbmcgui.Window(self.windowID).setProperty(stub+"MAINCOVER", self.coverURLs[0])
-      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING1COVERART", self.coverURLs[1])
-      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING2COVERART", self.coverURLs[2])
-      xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING3COVERART", self.coverURLs[3])
+      try:
+        xbmcgui.Window(self.windowID).setProperty(stub+"MAINCOVER", self.coverURLs[0])
+        xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING1COVERART", self.coverURLs[1])
+        xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING2COVERART", self.coverURLs[2])
+        xbmcgui.Window(self.windowID).setProperty(stub+"UPCOMING3COVERART", self.coverURLs[3])
+      except:
+        pass
 
     else:
       xbmcgui.Window(self.windowID).setProperty(stub+"MAINCOVER", "http://" + constants.SERVERHTTPURL + "/music/current/cover.jpg?player=" + constants.PLAYERMAC)
