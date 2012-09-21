@@ -109,6 +109,9 @@ else:
 # Log a message to the XBMC Log, and an exception if supplied - if debug logging is on
 
 def log(message, inst=None, level=xbmc.LOGNOTICE):
+
+    xbmc.log("**********************************************************")
+
     if inst is None:
       xbmc.log(ADDONNAME + "-" + VERSION +  ": " + str(message), level )
     else:
@@ -252,10 +255,19 @@ class SqueezePlayer:
   def getDisplay(self):
     displayText = self.sb.requestRaw("display ? ?", True)
     lines = displayText.split(" ")
-    if lines[2] == "":
+
+    try:
+      if lines[2] == "":
+        lines[2] = "."
+    except:
       lines[2] = "."
-    if lines[3] == "":
-      lines[3] = "."
+
+    try:
+     if lines[3] == "":
+        lines[3] = "."
+    except:
+      lines[3]="."
+
     cleanedLines=[]
     cleanedLines.append((lines[2]))
     cleanedLines.append((lines[3]))
@@ -648,3 +660,10 @@ class SqueezePlayer:
 
   def shuffle(self):
     self.sb.shuffle()
+
+  def rewind(self):
+    self.sb.rewind()
+
+  def forward(self):
+    self.sb.forward()
+

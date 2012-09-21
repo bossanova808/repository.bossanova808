@@ -76,9 +76,11 @@ class Server(object):
         """
         RequestRaw - just return the LMS results in full
         """
+        print("### XSqueeze Telnet: %s" % (command_string))
         # self.logger.debug("Telnet: %s" % (command_string))
         self.telnet.write(self.__encode(command_string + "\n"))
         response = self.__decode(self.telnet.read_until(self.__encode("\n"))[:-1])
+        print("### LMS Response: %s" % (response))
         if not preserve_encoding:
             response = self.__unquote(response)
         return response
@@ -87,10 +89,10 @@ class Server(object):
         """
         Request
         """
-        if debug: print("*********** Telnet: %s" % (command_string))
+        print("### XSqueeze Telnet: %s" % (command_string))
         self.telnet.write(self.__encode(command_string + "\n"))
         response = self.__decode(self.telnet.read_until(self.__encode("\n"))[:-1])
-        if debug: print("*********** Response: %s" % (response))
+        print("### LMS Response: %s" % (response))
         if not preserve_encoding:
             response = self.__unquote(response)
         else:
@@ -110,7 +112,7 @@ class Server(object):
         try:
             result = result.decode('utf8')
         except Exception as inst:
-            result = "<Unicode error - to be fixed!>"
+            result = "<Unicode decode error - to be fixed!>"
         return result
 
     def request_with_results(self, command_string, preserve_encoding=False, debug=False):

@@ -197,15 +197,6 @@ class Player(object):
         else:
             return 0
 
-    def shuffle(self):
-        state = int(self.request("playlist shuffle ?"))
-        if state < 2:
-          state = state + 1
-        else:
-          state = 0
-        self.request("playlist shuffle "+ str(state))
-        self.show("Shuffle", "")
-
     def get_power_state(self):
         """Get Player Power State"""
         state = int(self.request("power ?"))
@@ -617,7 +608,7 @@ class Player(object):
 
     def unsync(self):
         """Unsync player"""
-	self.request("sync -")
+        self.request("sync -")
 
     def __quote(self, text):
         try:
@@ -626,6 +617,9 @@ class Player(object):
         except ImportError:
             import urllib
             return urllib.quote(text)
+
+################################################################################
+# BOSSANOVA808 ADDITIONS
 
     def __unquote(self, text):
         try:
@@ -648,3 +642,19 @@ class Player(object):
                 except UnicodeDecodeError:
                     res[i] = unichr(int(item[:2], 16)) + item[2:]
             return "".join(res)
+
+    def shuffle(self):
+        state = int(self.request("playlist shuffle ?"))
+        if state < 2:
+          state = state + 1
+        else:
+          state = 0
+        self.request("playlist shuffle "+ str(state), debug=True)
+
+    def repeat(self):
+        state = int(self.request("playlist repeat ?"))
+        if state < 2:
+          state = state + 1
+        else:
+          state = 0
+        self.request("playlist repeat "+ str(state), debug=True)
