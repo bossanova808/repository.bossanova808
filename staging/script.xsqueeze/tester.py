@@ -16,7 +16,7 @@ print "Name: %s | Mode: %s | Time: %s | Connected: %s | WiFi: %s" % (sq.get_name
 #print sc.request("radios 0 100000")
 #print sq.request("local items 0 100000")
 #print sq.request("local playlist play item_id:7cec804f.15")
-print sq.request("playlist shuffle ?")
+print sq.request("show line1:Shuffle line2:Changed duration:3 brightness:4 font:standard centered:0")
 
 
 

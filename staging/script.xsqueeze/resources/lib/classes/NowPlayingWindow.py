@@ -260,26 +260,35 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       log("Button event: SKIPBACK")
     if (control == constants.BUTTONREWIND):
       log("Button event: REWIND")
+      with self.lock:
+        directCommand = True
+        self.player.rewind()
     if (control == constants.BUTTONPLAYPAUSE):
       log("Button event: PLAYPAUSE")
     if (control == constants.BUTTONSTOP):
       log("Button event: STOP")
     if (control == constants.BUTTONFASTFORWARD):
       log("Button event: FASTFORWARD")
+      with self.lock:
+        directCommand = True
+        self.player.forward()
     if (control == constants.BUTTONSKIPFORWARD):
       log("Button event: SKIPFORWARD")
     if (control == constants.BUTTONSHUFFLE):
       log("Button event: SHUFFLE")
-      directCommand = True
-      self.player.shuffle()
+      with self.lock:
+        directCommand = True
+        self.player.shuffle()
     if (control == constants.BUTTONREPEAT):
       log("Button event: REPEAT")
+      with self.lock:
+        directCommand = True
+        self.player.repeat()
 
     #ok now actually send the command through if it is a squeeze command
     if (actionSqueeze != '') and not directCommand:
       with self.lock:
         self.player.button(actionSqueeze)
-        self.updateLineDisplay()
 
   ##############################################################################
   # Handle window acitions
@@ -468,8 +477,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     newPlaylist = self.player.playlist
 
     #make sure the playlist is not empty...
-    if not len(newPlaylistDetails)==0:
-      if newPlaylistDetails[0] != self.playlistDetails[0]:
+    if not len(newPlaylistDetails)<=1:
+      if newPlaylistDetails != self.playlistDetails:
+
         self.playlistDetails = newPlaylistDetails
         self.playlist = newPlaylist
 
