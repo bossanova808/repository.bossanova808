@@ -666,8 +666,26 @@ class SqueezePlayer:
     else: return True
 
   def setShuffle(self):
-    self.sb.shuffle()
+    state = int(self.sb.request("playlist shuffle ?"))
+    if state==0:
+      state = 1
+    else:
+      state = 0
+    self.sb.request("playlist shuffle "+ str(state), debug=True)
     self.updatePlaylistDetails()
+
+  def getRepeat(self):
+    state = int(self.sb.request("playlist repeat ?"))
+    if state==0: return False
+    else: return True
+
+  def setRepeat(self):
+    state = int(self.sb.request("playlist repeat ?"))
+    if state==0:
+      state = 2
+    else:
+      state = 0
+    self.sb.request("playlist repeat "+ str(state), debug=True)
 
   def rewind(self):
     self.sb.rewind()

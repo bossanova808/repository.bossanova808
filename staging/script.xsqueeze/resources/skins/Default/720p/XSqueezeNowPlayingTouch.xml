@@ -516,7 +516,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <posy>5</posy>
           <width>32</width>
           <height>32</height>
-          <colordiffuse>FFBBBBBB</colordiffuse>
           <texture>$INFO[Window.Property(XSQUEEZE_PLAYSTATE)]</texture>
         </control>
 
@@ -626,18 +625,28 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<width>60</width>
     				<height>60</height>
     				<font>-</font>
-    				<texturefocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE_FO)]</texturefocus>
-    				<texturenofocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE_NF)]</texturenofocus>
+    				<texture>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]</texture>
+    				<!--<texturenofocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE_NF)]</texturenofocus>-->
     			</control>
-    			<control type="button" id="2607">
+
+          <control type="label" id="2699">
+    				<posx>450</posx>
+    				<posy>0</posy>
+    				<width>400</width>
+    				<height>60</height>
+    				<font>font14</font>
+    				<label>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]</label>
+    			</control>
+
+          <control type="button" id="2607">
     				<posx>525</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<font>-</font>
-    				<texturefocus>OSDRepeatFO.png</texturefocus>
-    				<texturenofocus>OSDRepeatNF.png</texturenofocus>
+    				<texture>$INFO[Window.Property(XSQUEEZE_REPEATSTATE)]</texture>
     			</control>
+
     			<control type="button" id="2608">
     				<posx>600</posx>
     				<posy>0</posy>

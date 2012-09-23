@@ -151,6 +151,13 @@ SHUFFLESTATEICONS = {
                 'shuffleoff_nf'                   :"OSDRandomOffNF.png"
 }
 
+REPEATSTATEICONS = {
+                'repeaton_fo'                    :"OSDRepeatOnFO.png",
+                'repeaton_nf'                    :"OSDRepeatOnNF.png",
+                'repeatoff_fo'                   :"OSDRepeatOffFO.png",
+                'repeatoff_nf'                   :"OSDRepeatOffNF.png"
+}
+
 ################################################################################
 ################################################################################
 ### Class ActionHandler (i.e. a window)
@@ -185,6 +192,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #and playlist details too
     self.playlistDetails = [""]
     self.playlist = [""]
+
     #a thread lock to use so that each SB related action is finished before the
     #next one is sent - without this you get race conditions!
     self.lock = threading.Lock()
@@ -204,6 +212,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYERMAC", constants.PLAYERMAC)
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SERVER", constants.SERVERNAME)
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_NAME", "XSqueeze "+ VERSION)
+    xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleoff_fo'])
 
     #kick off new threads if this is the first call to init
     # (as init is called when we drop back from the chooser plugin to XSqueeze)
@@ -327,7 +336,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       log("Button event: REPEAT")
       with self.lock:
         directCommand = True
-        self.player.repeat()
+        self.player.setRepeat()
+
     if (control == constants.BUTTONCHOOSER):
       log("Button event: CHOOSER")
       directCommand = True
@@ -475,11 +485,18 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #update the shuffle state icon
         shuffle = self.player.getShuffle()
         if shuffle:
-          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_FO", SHUFFLESTATEICONS['shuffleon_fo'])
-          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_NF", SHUFFLESTATEICONS['shuffleon_nf'])
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleon_fo'])
+          #xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleon_nf'])
+          #self.getControl( constants.BUTTONSHUFFLE  ).setImage( SHUFFLESTATEICONS['shuffleon_fo'] )
         else:
-          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_FO", SHUFFLESTATEICONS['shuffleoff_fo'])
-          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_NF", SHUFFLESTATEICONS['shuffleoff_nf'])
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleoff_fo'])
+          #xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleoff_nf'])
+          #self.getControl( constants.BUTTONSHUFFLE  ).setImage( SHUFFLESTATEICONS['shuffleoff_fo'] )
+        repeat = self.player.getRepeat()
+        if repeat:
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_REPEATSTATE", REPEATSTATEICONS['repeaton_fo'])
+        else:
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_REPEATSTATE", REPEATSTATEICONS['repeatoff_fo'])
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
 
