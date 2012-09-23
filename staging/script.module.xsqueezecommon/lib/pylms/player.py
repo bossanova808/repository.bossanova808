@@ -643,10 +643,12 @@ class Player(object):
                     res[i] = unichr(int(item[:2], 16)) + item[2:]
             return "".join(res)
 
+    #shuffle by song or don't shuffle
+    #ignore the shuffle by album option
     def shuffle(self):
         state = int(self.request("playlist shuffle ?"))
-        if state < 2:
-          state = state + 1
+        if state==0:
+          state = 1
         else:
           state = 0
         self.request("playlist shuffle "+ str(state), debug=True)

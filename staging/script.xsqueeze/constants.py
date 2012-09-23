@@ -130,6 +130,11 @@ else:
 #work out what skin xml to load
 SKIN=ADDON.getSetting('skin')
 
+if ADDON.getSetting('enableTouch')=="true":
+  TOUCHENABLED = True
+else:
+  TOUCHENABLED = False
+
 
 ################################################################################
 # Deal with the squeezeslave executeables...

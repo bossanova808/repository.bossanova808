@@ -22,6 +22,7 @@
      <setting id="controllerMAC" type="text" label="19912" default="" enable="!eq( -1,false)"/>
    </category>
    <category label="Other Settings">
+     <setting id="enableTouch" type="bool" label="19922" default="false"/>
      <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
      <setting id="disableScreensaver" type="bool" label="19914" default="false"/>
      <setting id="NOTE3" type="text" label="19915" default="" enable="false" />

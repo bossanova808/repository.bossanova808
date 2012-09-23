@@ -138,6 +138,19 @@ BUTTON_CODES ={
 
 BUTTON_NAMES = swap_dictionary(BUTTON_CODES)
 
+PLAYSTATEICONS = {
+                'play'                    :"OSDPlayFO.png",
+                'pause'                   :"OSDPauseFO.png",
+                'stop'                    :"OSDStopFO.png"
+}
+
+SHUFFLESTATEICONS = {
+                'shuffleon_fo'                    :"OSDRandomOnFO.png",
+                'shuffleon_nf'                    :"OSDRandomOnNF.png",
+                'shuffleoff_fo'                   :"OSDRandomOffFO.png",
+                'shuffleoff_nf'                   :"OSDRandomOffNF.png"
+}
+
 ################################################################################
 ################################################################################
 ### Class ActionHandler (i.e. a window)
@@ -209,6 +222,35 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
 
   ##############################################################################
+  # Call this to exit XSqueeze...
+
+  def exitXSqueeze(self):
+    #make sure we've only been through here once....
+    if self.running:
+      log("XBMC Action: Close")
+      #prevent the GUI update thread from updating...
+      self.running = False
+
+      #we're controlling a local squeezeslave - best to stop the music before we kill it
+      #otherwise it oddly resumes automatically on restart
+      if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+        notify(LANGUAGE(19612),LANGUAGE(19609))
+        with self.lock:
+          self.player.button("stop")
+
+      #tidy up before the window closes...
+      self.deInit()
+
+      #now close the window before we kill it
+      self.close()
+
+      #user has probably hammered the close button...tell them to cool their jets...
+    else:
+      notify(LANGUAGE(19622),LANGUAGE(19623))
+      pass
+
+
+  ##############################################################################
   # Essentially the reverse of init - need to remove any controls we added and blank out the properties
   # for a cleaner exit
 
@@ -220,9 +262,13 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       log("Waiting for artistslideshow to stop")
 
       #wait here for Artist slideshow to finish, can occasionally take several seconds
+      #give it 20 seconds max
+      count = 0
       while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
         log("Still waiting for artistslideshow to stop")
         xbmc.sleep(1000)
+        count = count + 1
+        if count==10: break
 
       log("Cleaning covers and playlist properties.....")
       self.cleanupPlaylist(0)
@@ -248,14 +294,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     except:
       pass
 
-    log("***********************************************************************")
     log ("Control is: " + str(control) +", actionSqueeze is: " + str(actionSqueeze))
-    log("***********************************************************************")
 
     #define handlers for each of the controls to determine the correct
     #squeezebox code to seend
-    if (control == constants.BUTTONEXIT):
-      log("Button event: EXIT")
     if (control == constants.BUTTONSKIPBACK):
       log("Button event: SKIPBACK")
     if (control == constants.BUTTONREWIND):
@@ -274,21 +316,47 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.player.forward()
     if (control == constants.BUTTONSKIPFORWARD):
       log("Button event: SKIPFORWARD")
+
     if (control == constants.BUTTONSHUFFLE):
       log("Button event: SHUFFLE")
       with self.lock:
         directCommand = True
-        self.player.shuffle()
+        self.player.setShuffle()
+
     if (control == constants.BUTTONREPEAT):
       log("Button event: REPEAT")
       with self.lock:
         directCommand = True
         self.player.repeat()
+    if (control == constants.BUTTONCHOOSER):
+      log("Button event: CHOOSER")
+      directCommand = True
+      log("### Starting Chooser...")
+      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
+    if (control == constants.BUTTONEXIT):
+      log("Button event: EXIT")
+      self.exitXSqueeze()
 
     #ok now actually send the command through if it is a squeeze command
     if (actionSqueeze != '') and not directCommand:
+      actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
       with self.lock:
         self.player.button(actionSqueeze)
+
+  ##############################################################################
+  # used when we need to use logic to change what button to send the player
+
+  def modifyActionSqueeze(self,actionSqueeze):
+      #so far only used for play/pause
+      with self.lock:
+        mode = self.player.getMode()
+      log("mode " + mode +" actionSqueeze " + actionSqueeze)
+      if mode == "play" and actionSqueeze == "play.single": # and "Now Playing" in xbmcgui.Window(self.windowID).getProperty("XSQUEEZE_DISPLAYLINE1"):
+        actionSqueeze="pause.single"
+        log("SqueezePlayer Action Changed To: " + actionSqueeze)
+
+      return actionSqueeze
+
 
   ##############################################################################
   # Handle window acitions
@@ -320,29 +388,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #intercept special XBMC ones first
     if action == ACTION_CODES['ACTION_PREVIOUS_MENU'] or action == ACTION_CODES['ACTION_NAV_BACK']:
-      #make sure we've only been through here once....
-      if self.running:
-        log("XBMC Action: Close")
-        #prevent the GUI update thread from updating...
-        self.running = False
-
-        #we're controlling a local squeezeslave - best to stop the music before we kill it
-        #otherwise it oddly resumes automatically on restart
-        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-          notify(LANGUAGE(19612),LANGUAGE(19609))
-          with self.lock:
-            self.player.button("stop")
-
-        #tidy up before the window closes...
-        self.deInit()
-
-        #now close the window before we kill it
-        self.close()
-
-      #user has probably hammered the close button...tell them to cool their jets...
-      else:
-        notify(LANGUAGE(19622),LANGUAGE(19623))
-        pass
+      self.exitXSqueeze()
 
     #Start the music chooser
     elif action == ACTION_CODES['ACTION_SHOW_INFO']:
@@ -354,10 +400,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
        if actionSqueeze:
         log("SqueezePlayer Action: " + actionSqueeze)
         #cope with play/pause on one button
-        with self.lock:
-          mode = self.player.getMode()
-        if mode == "play" and actionSqueeze == "play.single" and "Now Playing" in xbmcgui.Window(self.windowID).getProperty("XSQUEEZE_DISPLAYLINE1"):
-          actionSqueeze="pause.single"
+        actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
         #send the command through
         with self.lock:
           self.player.button(actionSqueeze)
@@ -427,8 +470,16 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           self.updateTrackProgress()
         #set player state icon - play, pause or stop
         xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_NOWPLAYING", mode)
-        #this control SHOULD be there but jsut in case it's not...
-        xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYSTATE", mode + '.png')
+        #update the play state icon...
+        xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYSTATE", PLAYSTATEICONS[mode])
+        #update the shuffle state icon
+        shuffle = self.player.getShuffle()
+        if shuffle:
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_FO", SHUFFLESTATEICONS['shuffleon_fo'])
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_NF", SHUFFLESTATEICONS['shuffleon_nf'])
+        else:
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_FO", SHUFFLESTATEICONS['shuffleoff_fo'])
+          xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE_NF", SHUFFLESTATEICONS['shuffleoff_nf'])
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
 
@@ -478,13 +529,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #make sure the playlist is not empty...
     if not len(newPlaylistDetails)<=1:
+
       if newPlaylistDetails != self.playlistDetails:
 
         self.playlistDetails = newPlaylistDetails
         self.playlist = newPlaylist
 
-      #print("NPW playlistDetails is " + str(self.playlistDetails))
-      #print("NPW playlist is " + str(self.playlist))
+      #print("********** NPW playlistDetails is " + str(self.playlistDetails))
+      #print("********** NPW playlist is " + str(self.playlist))
 
       for trackOffset in range(0,len(self.playlistDetails)):
         #print("Settings window INFOs with " + str(self.playlistDetails[trackOffset]))

@@ -110,13 +110,15 @@ else:
 
 def log(message, inst=None, level=xbmc.LOGNOTICE):
 
-    xbmc.log("**********************************************************")
+    xbmc.log("****************************************************************")
 
     if inst is None:
       xbmc.log(ADDONNAME + "-" + VERSION +  ": " + str(message), level )
     else:
       xbmc.log(ADDONNAME + "-" + VERSION +  ": Exception!", level )
       print_exc(inst)
+
+    xbmc.log("****************************************************************")
 
 
 ################################################################################
@@ -658,8 +660,14 @@ class SqueezePlayer:
   ##############################################################################
   # Clear playlist and queue up random songs
 
-  def shuffle(self):
+  def getShuffle(self):
+    state = int(self.sb.request("playlist shuffle ?"))
+    if state==0: return False
+    else: return True
+
+  def setShuffle(self):
     self.sb.shuffle()
+    self.updatePlaylistDetails()
 
   def rewind(self):
     self.sb.rewind()

@@ -285,7 +285,10 @@ if ( __name__ == "__main__" ):
 
         #now let's make a window and see if we can send some commands...
         #check what skin to use
-        window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+        if constants.TOUCHENABLED:
+          window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
+        else:
+          window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
 
   ##      #add a dummy track to the playlist - thanks to Mizaki for the examples!!
   ##      #need to convert any stupid windows \\ paths to / paths
