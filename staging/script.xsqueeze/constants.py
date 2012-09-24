@@ -188,7 +188,7 @@ elif "raspbmc" in uname or "armv6l" in uname:
 
 
 #log the detemined system type
-xbmc.log("uname is: " + str(uname))
+xbmc.log(ADDONNAME + "-" + VERSION + ": ### uname is: " + str(uname))
 xbmc.log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
 
 #and define the capabilities of each system - systems not in this list are only usable as a controller, no local playback

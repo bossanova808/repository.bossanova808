@@ -118,7 +118,8 @@ SQUEEZE_CODES = {
                 'BUTTON_FASTFORWARD'      : 'fwd.hold',
                 'BUTTON_SKIPFORWARD'      : 'fwd.single',
                 'BUTTON_SHUFFLE'          : 'shuffle.single',
-                'BUTTON_REPEAT'           : 'repeat'
+                'BUTTON_REPEAT'           : 'repeat',
+                'SLIDER_TRACKPROGRESS'    : 'seek'
 }
 
 ACTION_NAMES = swap_dictionary(ACTION_CODES)
@@ -133,7 +134,8 @@ BUTTON_CODES ={
                 'BUTTON_SKIPFORWARD'      : constants.BUTTONSKIPFORWARD,
                 'BUTTON_SHUFFLE'          : constants.BUTTONSHUFFLE,
                 'BUTTON_REPEAT'           : constants.BUTTONREPEAT,
-                'BUTTON_CHOOSER'          : constants.BUTTONCHOOSER
+                'BUTTON_CHOOSER'          : constants.BUTTONCHOOSER,
+                'SLIDER_TRACKPROGRESS'    : constants.CURRENTPROGRESS
 }
 
 BUTTON_NAMES = swap_dictionary(BUTTON_CODES)
@@ -234,9 +236,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   # Call this to exit XSqueeze...
 
   def exitXSqueeze(self):
-    #make sure we've only been through here once....
-    if self.running:
-      log("XBMC Action: Close")
+
+      log("### XSqueeze XBMC Action: Close")
       #prevent the GUI update thread from updating...
       self.running = False
 
@@ -244,40 +245,18 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       #otherwise it oddly resumes automatically on restart
       if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
         notify(LANGUAGE(19612),LANGUAGE(19609))
-        with self.lock:
-          self.player.button("stop")
+        self.player.button("stop")
 
       #tidy up before the window closes...
-      self.deInit()
-
-      #now close the window before we kill it
-      self.close()
-
-      #user has probably hammered the close button...tell them to cool their jets...
-    else:
-      notify(LANGUAGE(19622),LANGUAGE(19623))
-      pass
-
-
-  ##############################################################################
-  # Essentially the reverse of init - need to remove any controls we added and blank out the properties
-  # for a cleaner exit
-
-  def deInit(self):
-
-      log("deInit() called - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
+      log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
 
       xbmcgui.Window(xbmcgui.getCurrentWindowId()).clearProperty("ArtistSlideshow.ExternalCall")
       log("Waiting for artistslideshow to stop")
 
       #wait here for Artist slideshow to finish, can occasionally take several seconds
-      #give it 20 seconds max
-      count = 0
-      while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
-        log("Still waiting for artistslideshow to stop")
-        xbmc.sleep(1000)
-        count = count + 1
-        if count==10: break
+      #while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
+      #  log("Still waiting for artistslideshow to stop")
+      #  xbmc.sleep(1000)
 
       log("Cleaning covers and playlist properties.....")
       self.cleanupPlaylist(0)
@@ -288,78 +267,112 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
       log("deInit() complete. Artist Slideshow Cleanup Property = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
 
+      #now close the window before we kill it
+      self.close()
+
+      #user has probably hammered the close button...tell them to cool their jets...
+##    else:
+##      notify(LANGUAGE(19622),LANGUAGE(19623))
+##      pass
+
+
   ##############################################################################
   # Handle button events
 
   def onClick( self, control ):
 
-    actionSqueeze = ''
-    #directCommand is set to true if we're not sending it as a button
-    directCommand = False
+    #get the thread lock so we're only communicating one thing at a time to the player
+    with self.lock:
 
-    try:
-      buttonName = BUTTON_NAMES[control]
-      actionSqueeze = SQUEEZE_CODES[buttonName]
-    except:
-      pass
+      actionSqueeze = ''
+      buttonName = ''
+      #directCommand is set to true if we're not sending it as a button
+      directCommand = False
 
-    log ("Control is: " + str(control) +", actionSqueeze is: " + str(actionSqueeze))
+      try:
+        buttonName = BUTTON_NAMES[control]
+        actionSqueeze = SQUEEZE_CODES[buttonName]
+      except:
+        pass
 
-    #define handlers for each of the controls to determine the correct
-    #squeezebox code to seend
-    if (control == constants.BUTTONSKIPBACK):
-      log("Button event: SKIPBACK")
-    if (control == constants.BUTTONREWIND):
-      log("Button event: REWIND")
-      with self.lock:
-        directCommand = True
-        self.player.rewind()
-    if (control == constants.BUTTONPLAYPAUSE):
-      log("Button event: PLAYPAUSE")
-    if (control == constants.BUTTONSTOP):
-      log("Button event: STOP")
-    if (control == constants.BUTTONFASTFORWARD):
-      log("Button event: FASTFORWARD")
-      with self.lock:
-        directCommand = True
-        self.player.forward()
-    if (control == constants.BUTTONSKIPFORWARD):
-      log("Button event: SKIPFORWARD")
+      log ("Control is: [" + str(control) +"], buttonName is [" + buttonName + "] actionSqueeze is: [" + str(actionSqueeze) + "]")
 
-    if (control == constants.BUTTONSHUFFLE):
-      log("Button event: SHUFFLE")
-      with self.lock:
-        directCommand = True
-        self.player.setShuffle()
 
-    if (control == constants.BUTTONREPEAT):
-      log("Button event: REPEAT")
-      with self.lock:
-        directCommand = True
-        self.player.setRepeat()
+      ####Sliding the progress bar to seek in a track
+      if control == constants.CURRENTPROGRESS:
+           #protect this block in case the control is missing...
+          try:
+            trackElapsed, trackRemaining, trackLength, percent = self.calculateTrackPostionandPercent()
+            newPercent = self.getControl( constants.CURRENTPROGRESS ).getPercent()
+            newPosition = trackLength * (newPercent / 100.0)
+            log("Slider event: CURRENTPROGRESS, track length [" +str(trackLength) +"] percent [" + str(newPercent) + "] new position [" + str(newPosition) + "]")
+            self.player.seek(newPosition)
+            self.getControl( constants.CURRENTPROGRESS ).setPercent(newPercent)
+          except:
+             pass
 
-    if (control == constants.BUTTONCHOOSER):
-      log("Button event: CHOOSER")
-      directCommand = True
-      log("### Starting Chooser...")
-      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
-    if (control == constants.BUTTONEXIT):
-      log("Button event: EXIT")
-      self.exitXSqueeze()
 
-    #ok now actually send the command through if it is a squeeze command
-    if (actionSqueeze != '') and not directCommand:
-      actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
-      with self.lock:
-        self.player.button(actionSqueeze)
+      ####DEFAULT - the playback controls
+      else:
+
+        #define handlers for each of the controls to determine the correct
+        #squeezebox code to seend
+
+        if (control == constants.BUTTONSKIPBACK):
+          log("Button event: SKIPBACK")
+
+        if (control == constants.BUTTONREWIND):
+          log("Button event: REWIND")
+          directCommand = True
+          self.player.rewind()
+
+        if (control == constants.BUTTONPLAYPAUSE):
+          log("Button event: PLAYPAUSE")
+
+        if (control == constants.BUTTONSTOP):
+          log("Button event: STOP")
+
+        if (control == constants.BUTTONFASTFORWARD):
+          log("Button event: FASTFORWARD")
+          directCommand = True
+          self.player.forward()
+
+        if (control == constants.BUTTONSKIPFORWARD):
+          log("Button event: SKIPFORWARD")
+
+        if (control == constants.BUTTONSHUFFLE):
+          log("Button event: SHUFFLE")
+          directCommand = True
+          self.player.setShuffle()
+
+        if (control == constants.BUTTONREPEAT):
+          log("Button event: REPEAT")
+          directCommand = True
+          self.player.setRepeat()
+
+        if (control == constants.BUTTONCHOOSER):
+          log("Button event: CHOOSER")
+          directCommand = True
+          log("### Starting Chooser...")
+          xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
+
+        if (control == constants.BUTTONEXIT):
+          log("Button event: EXIT")
+          self.exitXSqueeze()
+
+        #ok now actually send the command through if it is a squeeze command
+        if (actionSqueeze != '') and not directCommand:
+          actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
+          log("Sending button to LMS: " + actionSqueeze)
+          self.player.button(actionSqueeze)
+
 
   ##############################################################################
   # used when we need to use logic to change what button to send the player
 
   def modifyActionSqueeze(self,actionSqueeze):
       #so far only used for play/pause
-      with self.lock:
-        mode = self.player.getMode()
+      mode = self.player.getMode()
       log("mode " + mode +" actionSqueeze " + actionSqueeze)
       if mode == "play" and actionSqueeze == "play.single": # and "Now Playing" in xbmcgui.Window(self.windowID).getProperty("XSQUEEZE_DISPLAYLINE1"):
         actionSqueeze="pause.single"
@@ -374,45 +387,48 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def onAction( self, action ):
 
-  #if we handle this action, do it, otherwise null it out
-    try:
-      actionNum = action.getId()
-      actionName = ACTION_NAMES[actionNum]
-      actionSqueeze = SQUEEZE_CODES[actionName]
-    except KeyError:
-      #action is not in our handled list (see top of this file)
-      #do not log mouse movements, way too much log spew...
-      if action.getId() != 107:
-        log("Not handling eventid " + str(action.getId()))
-      actionNum = 0
-      actionName = ACTION_NAMES[actionNum]
-      actionSqueeze = SQUEEZE_CODES[actionName]
+    #get the thread lock so we're only communicating one thing at a time to the player
+    with self.lock:
 
-    if actionNum != 0:
-      log("Handling action id: " + str(actionNum) +  " Name: " + actionName + " SqueezeCode if any: " + actionSqueeze)
+    #if we handle this action, do it, otherwise null it out
+      try:
+        actionNum = action.getId()
+        actionName = ACTION_NAMES[actionNum]
+        actionSqueeze = SQUEEZE_CODES[actionName]
+      except KeyError:
+        #action is not in our handled list (see top of this file)
+        #do not log mouse movements, way too much log spew...
+        if action.getId() != 107:
+          log("Not handling eventid " + str(action.getId()))
+        actionNum = 0
+        actionName = ACTION_NAMES[actionNum]
+        actionSqueeze = SQUEEZE_CODES[actionName]
 
-    #for testing xbmc's internal playlist - pause and display playlist...
-    #10500 = music playlist
-    #if action == ACTION_CODES['ACTION_PAUSE']:
-    #    xbmc.executebuiltin("XBMC.ActivateWindow(10500)")
+      if actionNum != 0:
+        log("Handling action id: " + str(actionNum) +  " Name: " + actionName + " SqueezeCode if any: " + actionSqueeze)
 
-    #intercept special XBMC ones first
-    if action == ACTION_CODES['ACTION_PREVIOUS_MENU'] or action == ACTION_CODES['ACTION_NAV_BACK']:
-      self.exitXSqueeze()
+      #for testing xbmc's internal playlist - pause and display playlist...
+      #10500 = music playlist
+      #if action == ACTION_CODES['ACTION_PAUSE']:
+      #    xbmc.executebuiltin("XBMC.ActivateWindow(10500)")
 
-    #Start the music chooser
-    elif action == ACTION_CODES['ACTION_SHOW_INFO']:
-      log("### Starting Chooser...")
-      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
+      #intercept special XBMC ones first
+      if action == ACTION_CODES['ACTION_PREVIOUS_MENU'] or action == ACTION_CODES['ACTION_NAV_BACK']:
+        self.exitXSqueeze()
 
-    #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
-    else:
-       if actionSqueeze:
-        log("SqueezePlayer Action: " + actionSqueeze)
-        #cope with play/pause on one button
-        actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
-        #send the command through
-        with self.lock:
+      #Start the music chooser
+      elif action == ACTION_CODES['ACTION_SHOW_INFO']:
+        log("### Starting Chooser...")
+        xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
+
+      #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
+      else:
+         if actionSqueeze:
+          log("SqueezePlayer Action: " + actionSqueeze)
+          #cope with play/pause on one button
+          actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
+          #send the command through
+          #with self.lock:
           self.player.button(actionSqueeze)
 
   ##############################################################################
@@ -461,6 +477,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
      xbmcgui.Window(self.windowID).setProperty("ArtistSlideshow.ExternalCall", "True")
      artistslideshow = "RunScript(script.artistslideshow,windowid=%s&artistfield=%s&titlefield=%s)" % (self.windowID, "XSQUEEZE_TRACK_0_ARTIST", "XSQUEEZE_TRACK_0_TITLE")
      xbmc.executebuiltin(artistslideshow)
+     #pass
 
   ##############################################################################
   #this is our GUI update thread and is used to update the window's display
@@ -637,18 +654,30 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       xbmcgui.Window(self.windowID).setProperty(stub + "ARTIST", LANGUAGE(19620))
 
   ##############################################################################
-  # updates the track progress dialog
+  # returns a tuple of [trackElapsed, trackRemaining, trackLength, percent]
 
-  def updateTrackProgress(self):
+  def calculateTrackPostionandPercent(self):
+
     trackLength = float(self.player.getTrackLength())
     trackElapsed = float(self.player.getTrackElapsed())
     trackRemaining = trackLength - trackElapsed
+    if trackLength != 0.0:
+      percent = int((trackElapsed / trackLength) * 100.0)
+    else:
+      percent = 0
+    return [trackElapsed, trackRemaining, trackLength, percent]
+
+  ##############################################################################
+  # updates the track progress dialog
+
+  def updateTrackProgress(self):
+
+    trackElapsed, trackRemaining, trackLength, percent = self.calculateTrackPostionandPercent()
 
     if trackLength != 0.0:
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_ELAPSED", getInHMS(int(trackElapsed)))
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_REMAINING", "-" + getInHMS(int(trackRemaining)))
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_DURATION", getInHMS(int(trackLength)))
-      percent = int((trackElapsed / trackLength) * 100.0)
       try:
         self.getControl( constants.CURRENTPROGRESS ).setPercent ( percent )
       #if the control doesn't exist, do nothing

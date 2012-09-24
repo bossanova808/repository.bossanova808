@@ -303,29 +303,30 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <!-- END GROUP UPCOMING THUMBS -->
 
       <!-- TRACK PROGRESS BAR -->
-      <control type="progress" id="998">
+      <control type="slider" id="998">
         <description>Track Playing Progress</description>
         <posx>60</posx>
         <posy>350</posy>
         <width>560</width>
-        <height>10</height>
+        <height>16</height>
+  			<texturesliderbar>seekslider2.png</texturesliderbar>
+  			<textureslidernib>osd_slider_nibNF.png</textureslidernib>
+  			<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
-        <reveal>false</reveal>
-        <info/>
       </control>
 
       <!-- TRACK TIME PLAYED / TIME REMAINING / DURATION -->
       <control type="label" id="204">
         <description>Track Times Label</description>
         <posx>610</posx>
-        <posy>375</posy>
+        <posy>385</posy>
         <width>500</width>
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false) + [ SubString(Window.Property(XSQUEEZE_NOWPLAYING),play) | SubString(Window.Property(XSQUEEZE_NOWPLAYING),pause) ]</visible>
         <align>right</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
         <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_ELAPSED)] / $INFO[Window.Property(XSQUEEZE_TRACK_0_REMAINING)] / $INFO[Window.Property(XSQUEEZE_TRACK_0_DURATION)]</label>
-        <font>font24_title</font>
+        <font>font16_title</font>
         <textcolor>FF777777</textcolor>
       </control>
 
