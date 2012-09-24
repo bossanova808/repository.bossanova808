@@ -68,6 +68,28 @@
   </extension>
 </addon>
 
+<addon id="service.squeezeslave"
+       name="SqueezeSlave"
+       version="1.1.4"
+       provider-name="alcoheca">
+  <requires>
+    <import addon="os.openelec.tv" version="1.0"/>
+    <import addon="xbmc.python" version="1.0"/>
+
+  </requires>
+  <extension point="xbmc.service"
+             library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>OPENELEC only! - NOT BY BOSSANOVA808 - Just added here as a convenience.   SqueezeSlave is a software music player that allows you to play music streamed from Squeezebox Server</summary>
+    <description>
+        OPENELEC only! - NOT BY BOSSANOVA808 - Just added here as a convenience.  SqueezeSlave is an alternative to SqueezePlay and SoftSqueeze. The main difference is that SqueezeSlave has no graphical interface (GUI), but rather is run from a command line. SqueezeSlave is currently maintained by Ralph Irving
+    </description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon
   id="skin.confluence.bossanova808"
   version="0.2.6"
@@ -92,8 +114,8 @@
 </addon>
 
 <addon
-  id="skin.bossanova808.frodo"
-  version="0.0.2"
+  id="skin.confluence.bossanova808.frodo"
+  version="0.0.3"
   name="Confluence Bossanova808 Frodo PVR"
   provider-name="Jezz_X, Team XBMC, bossanova808">
   <requires>

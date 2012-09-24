@@ -1,3 +1,7 @@
+[B]0.0.3[/B]
+- Minor Tweaks
+
+
 [B]0.0.1[/B]
 
 - First Frodo release with same features as Eden version
