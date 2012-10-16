@@ -1,3 +1,9 @@
+v 0.7.5
+- Touch screen controls - EXPERIMENTAL AND PRELIMINARY!!
+- Removed disable screensaver option (causes crashes, will re-add if an official method for this becomes available)
+- Did a pull request to script.artistslideshow to fix up slow/messy exit - now exits immediately & cleanly
+- Sundry other minor cleanups to make it more stable/quicker
+
 V0.6.7
 - Moved from python setting the images to using window properties
 - Improve play/pause logic (thanks to ReducedToZero)

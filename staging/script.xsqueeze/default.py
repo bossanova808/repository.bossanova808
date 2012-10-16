@@ -230,11 +230,11 @@ if ( __name__ == "__main__" ):
           notify(LANGUAGE(19624),LANGUAGE(19625))
           cleanup(andexit=True)
 
-        #disable the screensaver if the user has this on
-        if constants.DISABLESCREENSAVER:
-          log("Disabling screensaver")
-          screensaver = xbmc.executehttpapi( "GetGUISetting(3;screensaver.mode)" ).replace( "<li>", "" )
-          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,None)" )
+##        #disable the screensaver if the user has this on
+##        if constants.DISABLESCREENSAVER:
+##          log("Disabling screensaver")
+##          screensaver = xbmc.executehttpapi( "GetGUISetting(3;screensaver.mode)" ).replace( "<li>", "" )
+##          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,None)" )
 
         #load our custom keymap to make sure that volume/skip track keys don't raise annoying xbmc messages
         #needed because xbmc addons can't swallow events
@@ -314,11 +314,11 @@ if ( __name__ == "__main__" ):
         # FINISHED - CLEAN UP!
 
 
-        #re-enable the screensaver as it was
-        #this tends to cause hangs...
-        if constants.DISABLESCREENSAVER:
-          log("Re-enabling screensaver")
-          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
+##        #re-enable the screensaver as it was
+##        #this tends to cause hangs...
+##        if constants.DISABLESCREENSAVER:
+##          log("Re-enabling screensaver")
+##          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
 
   ##      #clear the playlist
   ##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 100}'

@@ -122,10 +122,10 @@ if tempargs[0] != '':
 ################################################################################
 #OTHER SETTINGS
 
-if ADDON.getSetting('disablescreensaver')=="true":
-  DISABLESCREENSAVER = True
-else:
-  DISABLESCREENSAVER = False
+##if ADDON.getSetting('disablescreensaver')=="true":
+##  DISABLESCREENSAVER = True
+##else:
+##  DISABLESCREENSAVER = False
 
 #work out what skin xml to load
 SKIN=ADDON.getSetting('skin')
