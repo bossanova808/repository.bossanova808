@@ -1,3 +1,6 @@
+[B]Version 0.0.3[/B]
+- Support for new touch screen controls
+
 [B]Version 0.0.2[/B]
 - Support for new chooser modes favourites, radios etc.
 

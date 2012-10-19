@@ -1,3 +1,6 @@
+v0.7.6
+- Dependencies bump to force new common code
+
 v 0.7.5
 - Touch screen controls - EXPERIMENTAL AND PRELIMINARY!!
 - Removed disable screensaver option (causes crashes, will re-add if an official method for this becomes available)
