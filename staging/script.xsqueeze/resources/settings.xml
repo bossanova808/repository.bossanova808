@@ -25,6 +25,6 @@
      <setting id="enableTouch" type="bool" label="19922" default="false"/>
      <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
      <!--<setting id="disableScreensaver" type="bool" label="19914" default="false"/>-->
-     <setting id="NOTE3" type="text" label="19915" default="" enable="false" />
+     <!--<setting id="NOTE3" type="text" label="19915" default="" enable="false" />-->
    </category>
 </settings>
