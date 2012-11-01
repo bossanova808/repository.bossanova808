@@ -144,14 +144,14 @@ else:
 #and can't be bothered creating a VM jsut to compile one...
 
 LOCALSQUEEZESLAVEVERSION = '1.2-376'
-ARMHFVERSION="1.2-367"
+ARMHFVERSION="1.2-381"
 LOCALSQUEEZESTUB="squeezeslave-"
 
 BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION +".exe")
 BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
 BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-lnx26-" + LOCALSQUEEZESLAVEVERSION)
 BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
-BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx31") + "/squeezeslave-" + ARMHFVERSION)
+BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx32") + "/squeezeslave-" + ARMHFVERSION)
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32
