@@ -1,3 +1,6 @@
+v0.7.8
+- Update to new Rasp Pi binary
+
 v0.7.6
 - Dependencies bump to force new common code
 
