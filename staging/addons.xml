@@ -48,7 +48,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.7.6"
+       version="0.7.7"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
@@ -115,7 +115,7 @@
 
 <addon
   id="skin.confluence.bossanova808.frodo"
-  version="0.0.4"
+  version="0.0.5"
   name="Confluence Bossanova808 Frodo PVR"
   provider-name="Jezz_X, Team XBMC, bossanova808">
   <requires>

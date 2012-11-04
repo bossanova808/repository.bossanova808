@@ -1,5 +1,7 @@
-[B]0.0.4[/B]
+[B]0.0.5[/B]
+- Sync with Nov. 4 XBMC Nightly
 
+[B]0.0.4[/B]
 - Sync with October 3rd 2012 XBMC Nightly
 
 [B]0.0.1[/B]
