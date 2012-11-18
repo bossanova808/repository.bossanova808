@@ -3,17 +3,13 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-***VERY PRELIMINARY TOUCH SCREEN SUPPORT***
 
-Disabled by default, you can turn it on in settings to experiment.  Defi
-The random/repeat icons are broken as is the slider for seeking
-No volume control via touch yet either
+* 0.8.0 - Now compatible with exclusive audio devices that the new AudioEngine in
+          XBMC locks for exclusive use.  When XSqueeze starts, it suspends AE,
+          then it resumes AE on exit.
 
-Also:
 
-* 0.7.5 - Clean & fast exit - no longer waits on script.artistslideshow
-* 0.7.5 - Removed diable screensaver option - gross hack that it was, caused crashes
-* 0.7.5 - Much prettier play/pause/stop icon
+***TOUCH SCREEN SUPPORT IS STILL VERY PRELIMINARY & BUGGY ***
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

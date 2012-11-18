@@ -564,8 +564,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<label>210</label>
-    				<font>-</font>
     				<texturefocus>OSDPrevTrackFO.png</texturefocus>
     				<texturenofocus>OSDPrevTrackNF.png</texturenofocus>
     			</control>
@@ -574,8 +572,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<label>31354</label>
-    				<font>-</font>
     				<texturefocus>OSDRewindFO.png</texturefocus>
     				<texturenofocus>OSDRewindNF.png</texturenofocus>
     			</control>
@@ -584,39 +580,30 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<label>31351</label>
-    				<altlabel>208</altlabel>
-    				<font>-</font>
     				<texturefocus>OSDPlayFO.png</texturefocus>
     				<texturenofocus>OSDPlayNF.png</texturenofocus>
     			</control>
     			<control type="button" id="2603">
-    				<posx>225</posx>
-    				<posy>0</posy>
-    				<width>60</width>
-    				<height>60</height>
-    				<label>31352</label>
-    				<font>-</font>
-    				<texturefocus>OSDStopFO.png</texturefocus>
-    				<texturenofocus>OSDStopNF.png</texturenofocus>
-    			</control>
-    			<control type="button" id="2604">
-    				<posx>300</posx>
-    				<posy>0</posy>
-    				<width>60</width>
-    				<height>60</height>
-    				<label>31353</label>
-    				<font>-</font>
-    				<texturefocus>OSDForwardFO.png</texturefocus>
-    				<texturenofocus>OSDForwardNF.png</texturenofocus>
-    			</control>
-    			<control type="button" id="2605">
     				<posx>375</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<label>209</label>
-    				<font>-</font>
+    				<texturefocus>OSDStopFO.png</texturefocus>
+    				<texturenofocus>OSDStopNF.png</texturenofocus>
+    			</control>
+    			<control type="button" id="2604">
+    				<posx>225</posx>
+    				<posy>0</posy>
+    				<width>60</width>
+    				<height>60</height>
+    				<texturefocus>OSDForwardFO.png</texturefocus>
+    				<texturenofocus>OSDForwardNF.png</texturenofocus>
+    			</control>
+    			<control type="button" id="2605">
+    				<posx>300</posx>
+    				<posy>0</posy>
+    				<width>60</width>
+    				<height>60</height>
     				<texturefocus>OSDNextTrackFO.png</texturefocus>
     				<texturenofocus>OSDNextTrackNF.png</texturenofocus>
     			</control>
@@ -625,28 +612,30 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<font>-</font>
-    				<texture>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]</texture>
+    				<texturefocus>OSDRandomOffFO.png</texturefocus>
+    				<texturenofocus>OSDRandomOffNF.png</texturenofocus>
+   				  <!--<texturefocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]</texturefocus>-->
     				<!--<texturenofocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE_NF)]</texturenofocus>-->
     			</control>
 
+          <!-- tester to show state of shuffle
           <control type="label" id="2699">
     				<posx>450</posx>
-    				<posy>0</posy>
+    				<posy>-40</posy>
     				<width>400</width>
     				<height>60</height>
     				<font>font14</font>
-    				<label>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]</label>
-    			</control>
+    				<label>-$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]-</label>
+    			</control>-->
 
           <control type="button" id="2607">
     				<posx>525</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<font>-</font>
-    				<texture>$INFO[Window.Property(XSQUEEZE_REPEATSTATE)]</texture>
-    			</control>
+    				<texturefocus>OSDRepeatOffFO.png</texturefocus>
+    				<texturenofocus>OSDRepeatOffNF.png</texturenofocus>
+     			</control>
 
     			<control type="button" id="2608">
     				<posx>600</posx>

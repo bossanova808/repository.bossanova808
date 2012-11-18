@@ -49,7 +49,7 @@ def cleanup(andexit=False):
     #Try and resume XBMC's AudioEngine if we suspended it
     if xbmcAudioSuspended:
       try:
-        xbmc.AudioResume();
+        xbmc.audioResume();
         log("### Resumed XBMC AE")
       except:
         pass
@@ -76,7 +76,7 @@ def playInit():
     xbmcAudioSuspended = False
     #Try and suspend XBMC's AudioEngine if it is present and has exclusive access to the audio device
     try:
-      xbmc.AudioSuspend();
+      xbmc.audioSuspend();
       log("Suspended XBMC AE")
       xbmcAudioSuspended = True
     except Exception as inst:

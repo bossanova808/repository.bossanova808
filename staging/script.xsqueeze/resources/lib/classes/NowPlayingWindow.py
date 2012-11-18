@@ -251,9 +251,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
 
       xbmcgui.Window(xbmcgui.getCurrentWindowId()).clearProperty("ArtistSlideshow.ExternalCall")
-      log("Waiting for artistslideshow to stop")
 
       #wait here for Artist slideshow to finish, can occasionally take several seconds
+      #log("Waiting for artistslideshow to stop")
       #while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
       #  log("Still waiting for artistslideshow to stop")
       #  xbmc.sleep(1000)
