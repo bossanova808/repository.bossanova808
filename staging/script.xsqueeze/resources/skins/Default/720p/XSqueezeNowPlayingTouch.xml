@@ -302,7 +302,8 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       </control>
       <!-- END GROUP UPCOMING THUMBS -->
 
-      <!-- TRACK PROGRESS BAR -->
+      <!-- TRACK SLIDER BAR (not working!) -->
+      <!--
       <control type="slider" id="998">
         <description>Track Playing Progress</description>
         <posx>60</posx>
@@ -313,6 +314,19 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
   			<textureslidernib>osd_slider_nibNF.png</textureslidernib>
   			<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+      </control>
+      -->
+
+      <!-- TRACK PROGRESS BAR -->
+      <control type="progress" id="998">
+        <description>Track Playing Progress</description>
+        <posx>60</posx>
+        <posy>350</posy>
+        <width>560</width>
+        <height>10</height>
+        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
+        <reveal>false</reveal>
+        <info/>
       </control>
 
       <!-- TRACK TIME PLAYED / TIME REMAINING / DURATION -->
@@ -556,7 +570,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
 
         <!-- TOUCH SCREEN CONTROLS -->
     		<control type="group" id="2000">
-    			<posx>500</posx>
+    			<posx>480</posx>
     			<posy>0</posy>
     			<animation effect="fade" time="200">VisibleChange</animation>
     			<control type="button" id="2600">
@@ -568,7 +582,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<texturenofocus>OSDPrevTrackNF.png</texturenofocus>
     			</control>
     			<control type="button" id="2601">
-    				<posx>75</posx>
+    				<posx>70</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
@@ -576,23 +590,15 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<texturenofocus>OSDRewindNF.png</texturenofocus>
     			</control>
     			<control type="button" id="2602">
-    				<posx>150</posx>
+    				<posx>140</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<texturefocus>OSDPlayFO.png</texturefocus>
     				<texturenofocus>OSDPlayNF.png</texturenofocus>
     			</control>
-    			<control type="button" id="2603">
-    				<posx>375</posx>
-    				<posy>0</posy>
-    				<width>60</width>
-    				<height>60</height>
-    				<texturefocus>OSDStopFO.png</texturefocus>
-    				<texturenofocus>OSDStopNF.png</texturenofocus>
-    			</control>
     			<control type="button" id="2604">
-    				<posx>225</posx>
+    				<posx>210</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
@@ -600,15 +606,24 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<texturenofocus>OSDForwardNF.png</texturenofocus>
     			</control>
     			<control type="button" id="2605">
-    				<posx>300</posx>
+    				<posx>280</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<texturefocus>OSDNextTrackFO.png</texturefocus>
     				<texturenofocus>OSDNextTrackNF.png</texturenofocus>
     			</control>
+    			<control type="button" id="2603">
+    				<posx>350</posx>
+    				<posy>0</posy>
+    				<width>60</width>
+    				<height>60</height>
+    				<texturefocus>OSDStopFO.png</texturefocus>
+    				<texturenofocus>OSDStopNF.png</texturenofocus>
+    			</control>
+
     			<control type="button" id="2606">
-    				<posx>450</posx>
+    				<posx>420</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
@@ -628,24 +643,48 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<label>-$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]-</label>
     			</control>-->
 
+          <!-- REPEAT (not active)
           <control type="button" id="2607">
     				<posx>525</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
-    				<texturefocus>OSDRepeatOffFO.png</texturefocus>
-    				<texturenofocus>OSDRepeatOffNF.png</texturenofocus>
+    				<texturefocus>OSDRepeatFO.png</texturefocus>
+    				<texturenofocus>OSDRepeatNF.png</texturenofocus>
      			</control>
+          -->
 
     			<control type="button" id="2608">
-    				<posx>600</posx>
+    				<posx>630</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<font>-</font>
     				<texturefocus>OSDLyricsFO.png</texturefocus>
     				<texturenofocus>OSDLyricsNF.png</texturenofocus>
-   			</control>
+   		  	</control>
+
+
+    			<control type="button" id="2609">
+    				<posx>490</posx>
+    				<posy>0</posy>
+    				<width>60</width>
+    				<height>60</height>
+    				<font>-</font>
+    				<texturefocus>OSDChannelUPFO.png</texturefocus>
+    				<texturenofocus>OSDChannelUPNF.png</texturenofocus>
+   		  	</control>
+
+    			<control type="button" id="2610">
+    				<posx>560</posx>
+    				<posy>0</posy>
+    				<width>60</width>
+    				<height>60</height>
+    				<font>-</font>
+    				<texturefocus>OSDChannelDownFO.png</texturefocus>
+    				<texturenofocus>OSDChannelDownNF.png</texturenofocus>
+   		  	</control>
+
     		</control>
         <!-- END GROUP TOUCH CONTROLS -->
 

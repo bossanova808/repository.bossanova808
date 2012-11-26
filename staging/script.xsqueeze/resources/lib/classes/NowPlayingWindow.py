@@ -119,6 +119,8 @@ SQUEEZE_CODES = {
                 'BUTTON_SKIPFORWARD'      : 'fwd.single',
                 'BUTTON_SHUFFLE'          : 'shuffle.single',
                 'BUTTON_REPEAT'           : 'repeat',
+                'BUTTON_VOLUP'            : 'volup',
+                'BUTTON_VOLDN'            : 'voldown',
                 'SLIDER_TRACKPROGRESS'    : 'seek'
 }
 
@@ -135,6 +137,8 @@ BUTTON_CODES ={
                 'BUTTON_SHUFFLE'          : constants.BUTTONSHUFFLE,
                 'BUTTON_REPEAT'           : constants.BUTTONREPEAT,
                 'BUTTON_CHOOSER'          : constants.BUTTONCHOOSER,
+                'BUTTON_VOLUP'            : constants.BUTTONVOLUP,
+                'BUTTON_VOLDN'            : constants.BUTTONVOLDN,
                 'SLIDER_TRACKPROGRESS'    : constants.CURRENTPROGRESS
 }
 
@@ -238,42 +242,45 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def exitXSqueeze(self):
 
       log("### XSqueeze XBMC Action: Close")
-      #prevent the GUI update thread from updating...
-      self.running = False
 
-      #we're controlling a local squeezeslave - best to stop the music before we kill it
-      #otherwise it oddly resumes automatically on restart
-      if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-        notify(LANGUAGE(19612),LANGUAGE(19609))
-        self.player.button("stop")
+      #if this the first time through....
+      if self.running:
+        #prevent the GUI update thread from updating...
+        self.running = False
 
-      #tidy up before the window closes...
-      log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
+        #we're controlling a local squeezeslave - best to stop the music before we kill it
+        #otherwise it oddly resumes automatically on restart
+        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+          notify(LANGUAGE(19612),LANGUAGE(19609))
+          self.player.button("stop")
 
-      xbmcgui.Window(xbmcgui.getCurrentWindowId()).clearProperty("ArtistSlideshow.ExternalCall")
+        #tidy up before the window closes...
+        log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
 
-      #wait here for Artist slideshow to finish, can occasionally take several seconds
-      #log("Waiting for artistslideshow to stop")
-      #while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
-      #  log("Still waiting for artistslideshow to stop")
-      #  xbmc.sleep(1000)
+        xbmcgui.Window(xbmcgui.getCurrentWindowId()).clearProperty("ArtistSlideshow.ExternalCall")
 
-      log("Cleaning covers and playlist properties.....")
-      self.cleanupPlaylist(0)
-      self.cleanupCovers()
-      self.removeControl(self.background)
-      del(self.background)
-      xbmcgui.Window(self.windowID).clearProperty("XSQUEEZE_WINDOWID")
+        #wait here for Artist slideshow to finish, can occasionally take several seconds
+        log("Waiting for artistslideshow to stop")
+        while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
+          log("Still waiting for artistslideshow to stop")
+          xbmc.sleep(1000)
 
-      log("deInit() complete. Artist Slideshow Cleanup Property = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
+        log("Cleaning covers and playlist properties.....")
+        self.cleanupPlaylist(0)
+        self.cleanupCovers()
+        self.removeControl(self.background)
+        del(self.background)
+        xbmcgui.Window(self.windowID).clearProperty("XSQUEEZE_WINDOWID")
 
-      #now close the window before we kill it
-      self.close()
+        log("deInit() complete. Artist Slideshow Cleanup Property = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))
 
-      #user has probably hammered the close button...tell them to cool their jets...
-##    else:
-##      notify(LANGUAGE(19622),LANGUAGE(19623))
-##      pass
+        #now close the window before we kill it
+        self.close()
+
+      #...else user has probably hammered the close button...tell them to cool their jets...
+      else:
+        notify(LANGUAGE(19622),LANGUAGE(19623))
+        pass
 
 
   ##############################################################################

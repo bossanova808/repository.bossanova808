@@ -43,6 +43,9 @@ BUTTONSKIPFORWARD     = 2605
 BUTTONSHUFFLE         = 2606
 BUTTONREPEAT          = 2607
 BUTTONCHOOSER         = 2608
+BUTTONVOLUP           = 2609
+BUTTONVOLDN           = 2610
+
 
 ################################################################################
 #useful paths
