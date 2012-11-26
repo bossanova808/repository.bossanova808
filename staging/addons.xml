@@ -4,7 +4,7 @@
        version="0.0.2" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.0.2"/>
+    <import addon="script.module.xsqueezecommon" version="0.0.3"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>executable</provides>
@@ -35,7 +35,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.xsqueezecommon" version="0.0.3" name="XSqueeze Common Code" provider-name="bossanova808">
+<addon id="script.module.xsqueezecommon" version="0.0.4" name="XSqueeze Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.0'/>
   </requires>
@@ -48,7 +48,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.8.0"
+       version="0.8.1"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>

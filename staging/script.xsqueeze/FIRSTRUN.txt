@@ -3,13 +3,18 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
+* 0.8.1 - Touch screen support cleaned up, simple up/dn volume control added
+          Sliders aren't working very well so far, so I have left them out
+
+        - Restored previous exit behaviour (waits for artist slideshow to 
+          cleanly exit - it's slow, but it prevents artist slideshow crashing
+          xbmc, so that's unfortunately the better option!) 
 
 * 0.8.0 - Now compatible with exclusive audio devices that the new AudioEngine in
           XBMC locks for exclusive use.  When XSqueeze starts, it suspends AE,
           then it resumes AE on exit.
 
-
-***TOUCH SCREEN SUPPORT IS STILL VERY PRELIMINARY & BUGGY ***
+***TOUCH SCREEN SUPPORT IS STILL VERY PRELIMINARY ***
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
