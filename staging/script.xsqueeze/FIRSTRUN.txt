@@ -3,7 +3,7 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.8.1 - Touch screen support cleaned up, simple up/dn volume control added
+* 0.8.2 - Touch screen support cleaned up, simple up/dn volume control added
           Sliders aren't working very well so far, so I have left them out
 
         - Restored previous exit behaviour (waits for artist slideshow to 
