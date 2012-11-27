@@ -1,3 +1,6 @@
+[B]0.0.7[/B]
+- Move time remaining to better spot
+
 [B]0.0.5[/B]
 - Sync with Nov. 4 XBMC Nightly
 
