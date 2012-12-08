@@ -1,4 +1,4 @@
-<window id="4">
+<window>
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<controls>
@@ -169,6 +169,14 @@
 						<onclick>ActivateWindow(SystemSettings)</onclick>
 						<icon>-</icon>
 					</item>
+					<!--
+          <item id="10">
+						<label>B808 Settings</label>
+						<label2>Bossanova808 Settings</label2>
+						<onclick>ActivateWindow(10282)</onclick>
+						<icon>-</icon>
+					</item>
+          -->
 				</content>
 			</control>
 			<control type="image">
