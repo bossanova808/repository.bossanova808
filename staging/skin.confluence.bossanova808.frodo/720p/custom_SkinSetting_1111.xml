@@ -1070,48 +1070,11 @@
 					<visible>Container(9000).Hasfocus(4)</visible>
 				</control>
 			</control>
-
-
-      <!--BOSSANOVA808 - Extra Skin Settings -->      
-			<control type="group" id="9010">
-				<control type="grouplist" id="9005">
-					<visible>Container(9000).Hasfocus(5)</visible>
-					<posx>290</posx>
-					<posy>60</posy>
-					<width>750</width>
-					<height>530</height>
-					<itemgap>-1</itemgap>
-					<pagecontrol>60</pagecontrol>
-					<onleft>9000</onleft>
-					<onright>60</onright>
-					<onup>9001</onup>
-					<ondown>9001</ondown>
-					<control type="label" id="100">
-						<width>750</width>
-						<height>45</height>
-						<font>font13_title</font>
-						<label>Bossanova808 Specific Settings - FOR B808 ONLY!!</label>
-						<textcolor>blue</textcolor>
-						<shadowcolor>black</shadowcolor>
-						<align>left</align>
-						<aligny>center</aligny>
-					</control>
-					<control type="radiobutton" id="101">
-						<width>750</width>
-						<height>40</height>
-						<font>font13</font>
-						<label>Enable Kids TV and Kids Movies on home menu</label>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>Skin.ToggleSetting(B808Kids)</onclick>
-						<selected>Skin.HasSetting(B808Kids)</selected>
-					</control>
-        </control>
-      </control>
-
 		</control>
+    
+ 
+   
+    
 		<include>CommonNowPlaying</include>
 		<include>MainWindowMouseButtons</include>
 		<include>BehindDialogFadeOut</include>
