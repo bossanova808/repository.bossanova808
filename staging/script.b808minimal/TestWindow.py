@@ -67,7 +67,7 @@ class TestWindow(xbmcgui.WindowXML):
 
   ##############################################################################
   #constructor - create controls & add them to the window
- 
+
   def __init__( self, *args, **kwargs ):
 
 
@@ -97,7 +97,8 @@ class TestWindow(xbmcgui.WindowXML):
       self.close()
     #Start the music chooser
     elif action == ACTION_CODES['ACTION_SHOW_INFO']:
-      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.b808minimal/?mode=0")
+      print("**************** EXECUTING PLUGIN")
+      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.b808minimal/")
 
 
 

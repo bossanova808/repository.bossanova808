@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.b808minimla" name="Bossanova808 Minimal Plugin"
+<addon id="plugin.program.b808minimal" name="Bossanova808 Minimal Plugin"
        version="0.0.1" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>

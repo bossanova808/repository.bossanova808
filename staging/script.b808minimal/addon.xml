@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.b808minimal"
-       name="B808 Minimal Testing Addon"
+       name="Bossanova808 Minimal Testing Addon"
        version="0.0.1"
        provider-name="bossanova808">
   <requires>
