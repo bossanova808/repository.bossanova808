@@ -98,7 +98,11 @@ class TestWindow(xbmcgui.WindowXML):
     #Start the music chooser
     elif action == ACTION_CODES['ACTION_SHOW_INFO']:
       print("**************** EXECUTING PLUGIN")
-      xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.b808minimal/")
+      #pluggie="RunPlugin(plugin://plugin.program.b808minimal/?mode=0)"
+      pluggie = "ActivateWindow(Programs,plugin://plugin.program.b808minimal"
+      xbmc.executebuiltin(pluggie)
+
+      #xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.b808minimal")
 
 
 
