@@ -1,3 +1,7 @@
+[B]0.1.1[/B]
+- Sync with Frodo RC2
+- Updated Artist Slideshow skin files
+
 [B]0.0.7[/B]
 - Sync with Frodo Beta3
 

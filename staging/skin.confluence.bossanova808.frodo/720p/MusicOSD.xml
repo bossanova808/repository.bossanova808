@@ -175,7 +175,6 @@
 				</control>
 			</control>
 		</control>
-
 		<control type="slider" id="87">
 			<description>Seek Slider</description>
 			<posx>430</posx>
