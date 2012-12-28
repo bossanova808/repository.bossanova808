@@ -1,16 +1,45 @@
-from xbmcswift2 import Plugin
+import xbmc
+import xbmcaddon
+import xbmcplugin
+import xbmcvfs
+import xbmcgui
+import urllib
+from traceback import print_exc
 
-plugin = Plugin()
+# magic; id of this plugin - cast to integer
+if 'plugin' in sys.argv[0]:
+  THIS_PLUGIN = int(sys.argv[1])
 
-@plugin.route('/')
-def index():
-    item = {
-        'label': 'Hello XBMC!',
-        'path': 'http://s3.amazonaws.com/KA-youtube-converted/JwO_25S_eWE.mp4/JwO_25S_eWE.mp4',
-        'is_playable': True
-    }
-    return [item]
+print(str(sys.argv))
 
+# Step 2 - create the support functions (or classes)
+def createListing():
+    """
+    Creates a listing that XBMC can display as a directory listing
+    @return list
+    """
+    listing = []
+    listing.append('The first item')
+    listing.append('The second item')
+    listing.append('The third item')
+    listing.append('The fourth item')
+    return listing
 
-if __name__ == '__main__':
-    plugin.run()
+def sendToXbmc(listing):
+    """
+    Sends a listing to XBMC for display as a directory listing
+    Plugins always result in a listing
+    @param list listing
+    @return void
+    """
+    #access global plugin id
+    global THIS_PLUGIN
+    # send each item to xbmc
+    for item in listing:
+        listItem = xbmcgui.ListItem(item)
+        xbmcplugin.addDirectoryItem(THIS_PLUGIN,'',listItem)
+    # tell xbmc we have finished creating the directory listing
+    xbmcplugin.endOfDirectory(THIS_PLUGIN)
+
+# Step 3 - run the program
+sendToXbmc(createListing())
