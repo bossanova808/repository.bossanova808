@@ -13,6 +13,7 @@ import shutil
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
+from b808common import *
 from XSqueezeCommon import *
 
 #an orderly place to keep XSqueeze specific constants

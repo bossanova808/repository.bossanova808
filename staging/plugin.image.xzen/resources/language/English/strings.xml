@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+  <!--
+   * Main
+   -->
+  <string id="30001">Zenfolio</string>
+  
+  <!-- 
+   * Settings labels 
+   -->
+  <string id="30100">Username</string>
+  <string id="30101">Password</string>  
+  
+  <string id="30200">Thumbnail size</string>
+  <string id="30201">Full image size</string>  
+
+</strings>

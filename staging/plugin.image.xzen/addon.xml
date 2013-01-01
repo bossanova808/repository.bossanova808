@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="plugin.image.xzen"
+  version="0.0.1"
+  name="XZen"
+  provider-name="bossanova808 (bossanova808@gmail.com)">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.b808common" version="0.0.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>image</provides>
+  </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <minversion>31632</minversion>
+        <summary>View your Zenfolio photo portfolios in XBMC</summary>
+        <description>...</description>
+        <disclaimer>...</disclaimer>
+    </extension>
+</addon>
