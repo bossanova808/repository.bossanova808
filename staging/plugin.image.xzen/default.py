@@ -44,6 +44,10 @@ def buildGallery(zen,galleryid):
     ps = zen.LoadPhotoSet(galleryid, includePhotos=True)
     for photo in ps.Photos:
       log(photo.Id)
+      u = photo.getUrl(6)
+      item=xbmcgui.ListItem(photo.Title,u,'','','')
+      xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,False)
+
 
 #ok we're firing up
 footprints()
@@ -80,28 +84,30 @@ try:
 except:
     pass
 
+
+#connect to ZenFolio
+zen = ZenConnection(username = username, password = password)
+zen.Authenticate()
+
+if zen is None:
+  notify("Couldn't connect to ZenFolio!!")
+  sys.exit()
+
+#save the connection
+#zen.save(DATA_PATH + "/zenconnection")
+
+
 #OK the mode variable controls what we're actually doing...
 if mode==None or mode==ROOT:
   log( "XZen Root Menu" )
-
-  #connect to ZenFolio
-  zen = ZenConnection(username = username, password = password)
-  zen.Authenticate()
-
-  if zen is None:
-    notify("Couldn't connect to ZenFolio!!")
-    sys.exit()
-
-  #save the connection
-  zen.save(DATA_PATH + "/zenconnection")
-
   try:
-      buildRootMenu(zen)
+      #buildRootMenu(zen)
+      buildGallery(zen,"325672173")
   except:
       print_exc()
 
 elif mode==GALLERY:
-  zen = ZenConnection(DATA_PATH + "/zenconnection")
+  #zen = ZenConnection(DATA_PATH + "/zenconnection")
   log( "XZen Gallery" )
   try:
       buildGallery(zen,galleryid)
