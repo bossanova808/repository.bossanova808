@@ -185,6 +185,8 @@ elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
   SYSTEM = "atv2"
 elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
+elif xbmc.getCondVisibility( "System.Platform.Android" ):
+  SYSTEM = "android"
 #hack for Raspberry Pi until System.Platform.Arm comes along...
 elif "raspbmc" in uname or "armv6l" in uname:
   SYSTEM = "arm"
