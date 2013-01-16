@@ -9,7 +9,6 @@ import sys
 import platform
 import subprocess
 import shutil
-#import atexit
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
@@ -231,12 +230,6 @@ if ( __name__ == "__main__" ):
           notify(LANGUAGE(19624),LANGUAGE(19625))
           cleanup(andexit=True)
 
-##        #disable the screensaver if the user has this on
-##        if constants.DISABLESCREENSAVER:
-##          log("Disabling screensaver")
-##          screensaver = xbmc.executehttpapi( "GetGUISetting(3;screensaver.mode)" ).replace( "<li>", "" )
-##          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,None)" )
-
         #load our custom keymap to make sure that volume/skip track keys don't raise annoying xbmc messages
         #needed because xbmc addons can't swallow events
         #Each run we copy our keymap over, force xbmc to relaoad the keymaps, then at the end
@@ -251,7 +244,7 @@ if ( __name__ == "__main__" ):
         #are we running the locally installed Squeezeslave?
         if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
           notify(LANGUAGE(19608),LANGUAGE(19609))
-          log("Starting local Squeezeslave, system is " + constants.SYSTEM)
+          log("Starting local player [" + constants.PLAYERTYPE +"], system is [" + constants.SYSTEM + "]")
 
           #builds the list ['/path/exefile','-arg1','-arg2',...]
           exe = constants.EXE
@@ -264,7 +257,7 @@ if ( __name__ == "__main__" ):
           args.append(constants.SERVERIP)
           exe.extend(args)
 
-          log ("Attempting to start Squeezelave: " + str(exe))
+          log ("Attempting to start player: " + str(exe))
           try:
             #need this to stop windows opening a console window
             if constants.SYSTEM.startswith("win"):
@@ -272,13 +265,13 @@ if ( __name__ == "__main__" ):
             else:
               slaveProcess = subprocess.Popen(exe, shell=False)
           except Exception as inst:
-            log("Failed creating squeezeslave process", inst)
+            log("Failed creating player process", inst)
             notify(LANGUAGE(19610),LANGUAGE(19611))
             cleanup(andexit=True)
 
           pid = slaveProcess.pid
-          log("Process ID for Squeezeslave is "+ str(pid))
-          #little pause to give squeezeslave time to run & connect
+          log("Process ID for player is "+ str(pid))
+          #little pause to give player time to run & connect
           time.sleep(5)
 
         ##########################################################################
@@ -314,24 +307,17 @@ if ( __name__ == "__main__" ):
         ############################################################################
         # FINISHED - CLEAN UP!
 
-
-##        #re-enable the screensaver as it was
-##        #this tends to cause hangs...
-##        if constants.DISABLESCREENSAVER:
-##          log("Re-enabling screensaver")
-##          xbmc.executehttpapi( "SetGUISetting(3,screensaver.mode,%s)" % screensaver )
-
   ##      #clear the playlist
   ##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 100}'
   ##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
 
         #are we running the locally installed Squeezeslave? KILL IT!
         if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-          log("Killing Squeezeslave process...")
+          log("Killing player process...")
           try:
             slaveProcess.terminate()
           except Exception as inst:
-            log("Error killing Squeezeslave: ", str(inst))
+            log("Error killing player: ", str(inst))
 
 
         # after the window is closed, Destroy it.

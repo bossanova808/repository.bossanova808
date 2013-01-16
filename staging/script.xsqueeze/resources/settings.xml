@@ -1,7 +1,7 @@
 <settings>
    <category label="19900">
 	   <setting id="autoservername" label="19901" type="action" action="RunScript($ID,ServerDiscovery)" default="" enable="!eq( 2,true)"/>
-     <setting id="NOTE1" type="text" label="19916" default="" enable="false" />
+     <setting id="NOTE1" type="lsep" label="19916" />
      <setting id="serverManual" type="bool" label="19902" default="false"/>
      <setting id="serverIP" type="text" label="19903" default="" enable="!eq( -1,false)" />
      <setting id="serverPort" type="text" label="19904" default="9090" enable="!eq( -2,false)" />
@@ -10,14 +10,16 @@
      <setting id="serverPass" type="text" label="19920" default="" enable="!eq( -5,false)" />
    </category>
    <category label="Local Playback">
+     <setting label="Enable if you want XSqueeze to act as a player, not just as a controller." type="lsep"/>
      <setting id="controlSlave" type="bool" label="19906" default="true"/>
-     <setting id="slaveMAC" type="text" label="19907" default="00:00:00:00:00:01"/>
-     <setting id="slaveArgs" type="text" label="19908" default="" enable="!eq( -2,false)" />
-	   <setting id="audioOutput" label="19910" type="action" action="RunScript($ID,AudioOutputs)" default="Auto" enable="!eq( -3,false)"/>
-     <setting id="NOTE2" type="text" label="19917" default="" enable="false" />
-     <setting id="NOTE3" type="text" label="19918" default="" enable="false" />
+     <setting label="Use..." type="labelenum" id="player" values="Squeezeslave|Squeezelite" enable="!eq( -1,false)" />
+     <setting id="slaveMAC" type="text" label="19907" default="00:00:00:00:00:01" enable="!eq( -2,false)" />
+     <setting id="slaveArgs" type="text" label="19908" default="" enable="!eq( -3,false)" />
+	   <!-- <setting id="audioOutput" label="19910" type="action" action="RunScript($ID,AudioOutputs)" default="Auto" enable="!eq( -4,false)"/> -->
+     <!--<setting id="NOTE2" type="lsep" label="19917" />-->
    </category>
    <category label="Controller Only">
+     <setting label="Enable if you want XSqueeze to act only as a controller for an external player." type="lsep"/>
      <setting id="controllerOnly" type="bool" label="19911" default="false" enable="!eq( -5,false)"/>
      <setting id="controllerMAC" type="text" label="19912" default="" enable="!eq( -1,false)"/>
    </category>

@@ -103,6 +103,7 @@ else:
 
 # we either get the MAC from the local player setup, or from the controller setup
 if CONTROLSLAVE:
+  PLAYERTYPE = str.lower(ADDON.getSetting('player'))
   PLAYERMAC   = str.lower(ADDON.getSetting('slaveMAC'))
 if CONTROLLERONLY:
   PLAYERMAC   = str.lower(ADDON.getSetting('controllerMAC'))
@@ -117,7 +118,11 @@ else:
 
 #any extra squeezeslave arguments supplied for special needs?
 SLAVEARGS = []
-SLAVEARGS.append("-m" + PLAYERMAC)
+if PLAYERTYPE=="squeezeslave":
+  SLAVEARGS.append("-m" + PLAYERMAC)
+else:
+  SLAVEARGS.append("-m " + PLAYERMAC)
+
 tempargs = ADDON.getSetting('slaveArgs').split(" ")
 if tempargs[0] != '':
   SLAVEARGS.extend(tempargs)
@@ -146,15 +151,22 @@ else:
 #NOTE 0.7.0 - the i64 binary is actually the older 311 binary as I haven't found a newer one
 #and can't be bothered creating a VM jsut to compile one...
 
-LOCALSQUEEZESLAVEVERSION = '1.2-376'
-ARMHFVERSION="1.2-381"
-LOCALSQUEEZESTUB="squeezeslave-"
+if PLAYERTYPE=="squeezeslave":
+  LOCALSQUEEZESLAVEVERSION = '1.2-376'
+  ARMHFVERSION="1.2-381"
+  LOCALSQUEEZESTUB="squeezeslave-"
+else:
+  #player is squeezlite
+  LOCALSQUEEZESLAVEVERSION = '0.9b7'
+  ARMHFVERSION="0.9b7"
+  LOCALSQUEEZESTUB="squeezelite-"
 
-BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION +".exe")
-BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "/squeezeslave-" + LOCALSQUEEZESLAVEVERSION)
-BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-lnx26-" + LOCALSQUEEZESLAVEVERSION)
-BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "/squeezeslave-i64")
-BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx32") + "/squeezeslave-" + ARMHFVERSION)
+
+BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "\\" + LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION +".exe")
+BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "\\" + LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION)
+BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "\\" + LOCALSQUEEZESTUB + "-lnx26-" + LOCALSQUEEZESLAVEVERSION)
+BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "\\" + LOCALSQUEEZESTUB + "-i64")
+BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx32") + "\\" + LOCALSQUEEZESTUB + ARMHFVERSION)
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32
@@ -185,8 +197,6 @@ elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
   SYSTEM = "atv2"
 elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
-elif xbmc.getCondVisibility( "System.Platform.Android" ):
-  SYSTEM = "android"
 #hack for Raspberry Pi until System.Platform.Arm comes along...
 elif "raspbmc" in uname or "armv6l" in uname:
   SYSTEM = "arm"

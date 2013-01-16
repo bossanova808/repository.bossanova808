@@ -13,9 +13,9 @@
 	<string id="19607">(Local playback AND controller only are both OFF!)</string>
 	<string id="19608">Starting XSqueeze and Connecting to LMS</string>
 	<string id="19609">Please wait a moment...(up to 10 seconds)...</string>
-	<string id="19610">Failed to create Squeezeslave process</string>
+	<string id="19610">Failed to create player process</string>
 	<string id="19611">On OE/Linux/OSX you probably need to manually chmod +x the binaries</string>
-	<string id="19612">Shutdown - Stopping Local Squeezeslave Player and Slideshow</string>
+	<string id="19612">Shutdown - Stopping Local Player and Slideshow</string>
  	<string id="19613">Couldn't connect to server!</string>
  	<string id="19614">Check your server settings</string>
  	<string id="19615">Couldn't connect to player!</string>
@@ -42,14 +42,14 @@
   <!-- For the settings -->
 
 	<string id="19900">LMS Server</string>
-	<string id="19901">Discover your LMS server...</string>
+	<string id="19901">Automatically discover your LMS server...</string>
 	<string id="19902">Manually specify server (e.g. if you have changed default ports)</string>
-	<string id="19903">Server IP or hostname</string>
+	<string id="19903">Server IP</string>
 	<string id="19904">Server CLI Port (9090 unless you have changed it)</string>
 	<string id="19905">Server HTTP Port (9000 unless you have changed it)</string>
 	<string id="19906">Act as a SqueezePlayer?</string>
 	<string id="19907">Local Player MAC</string>
-	<string id="19908">Extra SqueezeSlave arguments</string>
+	<string id="19908">Extra player arguments (see their documentation for these)</string>
 	<string id="19909">Enable this if you want to manually choose an audio output</string>
 	<string id="19910">Choose an audio output here (only if no sound/special needs)...</string>
 	<string id="19911">Use as controller for external Squeezebox only?</string>
@@ -57,13 +57,14 @@
 	<string id="19913">Skin file to use</string>
 	<string id="19914">Disable screensaver while playing?</string>
 	<string id="19915">(NB - EXPERIMENTAL - Can cause XSqueeze to hang on exit)</string>
-	<string id="19916">(NB - Server discovery does not yet work on OSX/ATV/IOS/Pi)</string>
-	<string id="19917">(NB - Audio discovery does not yet work on OSX/ATV/IOS/Pi)</string>
+	<string id="19916">(NB - If server discovery fails, use settings below...)</string>
+	<string id="19917">(NB - if audio discovery fails, manually input args above.)</string>
 	<string id="19918">(NB - Manually input the arguments in extra arguments above)</string>
-	<string id="19919">Server username</string>
-	<string id="19920">Server password</string>
+	<string id="19919">Server username (usually blank)</string>
+	<string id="19920">Server password (usually blank)</string>
 	<string id="19921">Resume playback immediately on startup?</string>
 	<string id="19922">Enable Mouse/Touch Screen Controls?</string>
+	<string id="19923">Choose player:</string>
 
 </strings>
 
