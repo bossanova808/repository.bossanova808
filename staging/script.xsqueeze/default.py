@@ -24,19 +24,6 @@ from ReadMeViewer import *
 #the window class
 from NowPlayingWindow import *
 
-
-
-################################################################################
-# Server Discovery function - can be called from add on settings, or can just auto-default to
-# first server found if called from main() as the user had not configured a server
-
-def serverDiscovery(defaultFirstServer=False):
-
-    foundServer = False
-
-    #return a boolean of success or failure
-    return foundServer
-
 ################################################################################
 # Do some cleanup (even if we are exiting early)
 
@@ -83,245 +70,113 @@ def playInit():
       log("Unable to suspend XBMC AE: " + str(inst))
       pass
 
-
 ################################################################################
 ### MAIN
 
 if ( __name__ == "__main__" ):
 
-    #THIS DOES NOT SEEM TO WORK WITH XBMC
-    #make sure we clean up on the way out..
-    #log("### Registering cleanup function")
-    #atexit.register(cleanup)
-
     #log some tracks...
     footprints()
 
-    #the script is being called with an argument - we're either
-    # auto discovering servers and choosing them
-    #or
-    # choosing an audio output
+    #set up for actual playback - suspend AE as it an hog the audio device
+    xbmcAudioSuspended = False
+    playInit()
 
-    if len(sys.argv) > 1:
+    #is the add on configured yet?
+    if constants.SERVERIP=="":
 
-      ##########################################################################
-      ### SERVER DISCOVERY
+      #open the settings dialogue
+      notify(LANGUAGE(19626), LANGUAGE(19631))
+      constants.ADDON.openSettings()
+      notify(LANGUAGE(19632),LANGUAGE(19633))
+      cleanup(andexit=True)
 
-      if sys.argv[1].startswith('ServerDiscovery'):
-
-        log("Doing server discovery...")
-        exe = constants.EXE
-        exe.append("-I")
-
-        #need this to stop windows opening a console window & grab output
-        log("Calling SqueezeSlave for server discovery..." + str(exe))
-
-        if constants.SYSTEM.startswith("win"):
-          output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
-        else:
-          output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
-
-        log("Error, if any: " + str(result))
-        log("Lines returned is " + str(output))
-        lines = output.split("\n")
-        #Each line is: My Music Library Name:9000 (192.168.1.1)
-
-        names = []
-        ips = []
-
-        for line in lines:
-          ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
-          if len(ip) > 0:
-            log("Parsing line " + line)
-            #this will fail if they have a colon in their name - fuck 'em for using a stupid name
-            names.append(line.split(":")[0])
-            ips.append(ip[0])
-
-        log("List of servers is " + str(names) + str(ips))
-
-        #now get them to choose an actual location
-        #present the server names for user choice
-        dialog = xbmcgui.Dialog()
-        if names != []:
-            selected = dialog.select(LANGUAGE(19601), names)
-            if selected != -1:
-                ADDON.setSetting('autoserverip', ips[selected])
-                ADDON.setSetting('autoservername', names[selected])
-        else:
-            dialog.ok(ADDONNAME, LANGUAGE(19602))
-
-      ##########################################################################
-      ### AUDIO OUTPUTS
-
-      elif sys.argv[1].startswith('AudioOutputs'):
-
-        log("Doing audio output discovery...")
-        exe = constants.EXE
-        exe.append("-L")
-
-        #need this to stop windows opening a console window & grab output
-        log("Calling SqueezeSlave for server discovery..." + str(exe))
-
-        if constants.SYSTEM.startswith("win"):
-          output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
-        else:
-          output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
-
-        log("Error, if any: " + str(result))
-        log("Lines returned is " + str(output))
-        lines = output.split("\n")
-        #Each line is: * 3: (Windows DirectSound) Primary Sound Driver (0/0)
-        outputNumbers = ["Auto"]
-        outputNames = ["Auto"]
-        for line in lines:
-          outputNumber = re.findall( r'[0-9]+', line )
-          if len(outputNumber)>1:
-            outputNumbers.append("-o" + outputNumber[0])
-            outputNames.append(line)
-
-        log("List of outputs is: " + str(outputNumbers) + str(outputNames))
-
-        #present the audio output for user choice
-        dialog = xbmcgui.Dialog()
-        if outputNumbers != []:
-            selected = dialog.select(LANGUAGE(19603), outputNames)
-            if selected != -1:
-               ADDON.setSetting('audioOutput', outputNumbers[selected])
-        else:
-            dialog.ok(ADDONNAME, LANGUAGE(19604))
-
-
-    ############################################################################
-    ### MAIN
-
+    #possibly display the readme file if this is the users' first run of this version
+    #not localized!
+    #then exit so they have a chance to re-visit their settings.
+    if constants.ISFIRSTRUN:
+      viewer=ReadMeViewer()
+      #pass
     else:
 
-      #set up for actual playback
-      xbmcAudioSuspended = False
-      playInit()
-
-      #is the add on configured yet?
+      #serverIP still null, something went wrong...
       if constants.SERVERIP=="":
-
-        #open the settings dialogue
-        notify(LANGUAGE(19626), LANGUAGE(19631))
-        constants.ADDON.openSettings()
-        notify(LANGUAGE(19632),LANGUAGE(19633))
+        notify(LANGUAGE(19624),LANGUAGE(19625))
         cleanup(andexit=True)
 
-      #sanity checks
-      if constants.CONTROLLERONLY and constants.CONTROLSLAVE:
-        notify(LANGUAGE(19605), LANGUAGE(19606), 10000)
-        cleanup(andexit=True)
-      if not constants.CONTROLLERONLY and not constants.CONTROLSLAVE:
-        notify(LANGUAGE(19605), LANGUAGE(19607), 10000)
-        cleanup(andexit=True)
+      #load our custom keymap to make sure that volume/skip track keys don't raise annoying xbmc messages
+      #needed because xbmc addons can't swallow events
+      #Each run we copy our keymap over, force xbmc to relaoad the keymaps, then at the end
+      #we do the reverse - delete our custom one and reload the original setup
+      try:
+        shutil.copy(constants.KEYMAPSOURCEFILE, constants.KEYMAPDESTFILE)
+        xbmc.executebuiltin('Action(reloadkeymaps)')
+        log("Installed custom keymap")
+      except Exception as inst:
+        log("Error - couldn't copy & load custom keymap: " + str(inst))
 
-      #possibly display the readme file if this is the users' first run of this version
-      #not localized!
-      #then exit so they have a chance to re-visit their settings.
-      if constants.ISFIRSTRUN:
-        viewer=ReadMeViewer()
-        #pass
-      else:
+      #are we running the locally installed Squeezeslave?
+      if constants.PLAYBACK:
+        notify(LANGUAGE(19608),LANGUAGE(19609))
+        log("Starting local player [" + constants.PLAYERTYPE +"], system is [" + constants.SYSTEM + "]")
 
-        #serverIP still null, something went wrong...
-        if constants.SERVERIP=="":
-          notify(LANGUAGE(19624),LANGUAGE(19625))
+        #builds the list ['/path/exefile','-arg1','-arg2',...]
+        exe = constants.EXE
+        args = constants.PLAYERARGS
+
+        args.append(constants.SERVERIP)
+        exe.extend(args)
+
+        log ("Attempting to start player: " + str(exe))
+        log ("Path is: " + str(sys.path))
+
+        try:
+          #need this to stop windows opening a console window
+          if constants.SYSTEM.startswith("win"):
+            #for debugging, grab the process output....
+            #output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+            #log("$$$$$$$$$$$$$$$ " + str(output))
+            #log("$$$$$$$$$$$$$$$ " + str(result))
+            slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
+          else:
+            slaveProcess = subprocess.Popen(exe, shell=False)
+        except Exception as inst:
+          log("Failed creating player process", inst)
+          notify(LANGUAGE(19610),LANGUAGE(19611))
           cleanup(andexit=True)
 
-        #load our custom keymap to make sure that volume/skip track keys don't raise annoying xbmc messages
-        #needed because xbmc addons can't swallow events
-        #Each run we copy our keymap over, force xbmc to relaoad the keymaps, then at the end
-        #we do the reverse - delete our custom one and reload the original setup
+        pid = slaveProcess.pid
+        log("Process ID for player is "+ str(pid))
+        #little pause to give player time to run & connect
+        time.sleep(2)
+
+      ##########################################################################
+      # SETUP DONE > ON WITH THE SHOW
+
+      #now let's make a window and see if we can send some commands...
+      #check what skin to use
+      if constants.TOUCHENABLED:
+        window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
+      else:
+        window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+
+       #and kick this bad boy off....
+      window.doModal()
+
+      ############################################################################
+      # FINISHED - CLEAN UP!
+
+      #are we running the locally installed Squeezeslave? KILL IT!
+      if constants.PLAYBACK:
+        log("Killing player process...")
         try:
-          shutil.copy(constants.KEYMAPSOURCEFILE, constants.KEYMAPDESTFILE)
-          xbmc.executebuiltin('Action(reloadkeymaps)')
-          log("Installed custom keymap")
+          slaveProcess.terminate()
         except Exception as inst:
-          log("Error - couldn't copy & load custom keymap: " + str(inst))
-
-        #are we running the locally installed Squeezeslave?
-        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-          notify(LANGUAGE(19608),LANGUAGE(19609))
-          log("Starting local player [" + constants.PLAYERTYPE +"], system is [" + constants.SYSTEM + "]")
-
-          #builds the list ['/path/exefile','-arg1','-arg2',...]
-          exe = constants.EXE
-          args = constants.SLAVEARGS
-
-          #if they have used the audio output selector
-          if constants.MANUALAUDIOOUTPUT:
-            args.append(constants.AUDIOOUTPUT)
-
-          args.append(constants.SERVERIP)
-          exe.extend(args)
-
-          log ("Attempting to start player: " + str(exe))
-          try:
-            #need this to stop windows opening a console window
-            if constants.SYSTEM.startswith("win"):
-              slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
-            else:
-              slaveProcess = subprocess.Popen(exe, shell=False)
-          except Exception as inst:
-            log("Failed creating player process", inst)
-            notify(LANGUAGE(19610),LANGUAGE(19611))
-            cleanup(andexit=True)
-
-          pid = slaveProcess.pid
-          log("Process ID for player is "+ str(pid))
-          #little pause to give player time to run & connect
-          time.sleep(5)
-
-        ##########################################################################
-        # SETUP DONE > ON WITH THE SHOW
-
-        #now let's make a window and see if we can send some commands...
-        #check what skin to use
-        if constants.TOUCHENABLED:
-          window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
-        else:
-          window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
-
-  ##      #add a dummy track to the playlist - thanks to Mizaki for the examples!!
-  ##      #need to convert any stupid windows \\ paths to / paths
-  ##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 1}'
-  ##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
-  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 2}'
-  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 3}'
-  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC + '"}, "playlistid": 2 }, "id": 4}'
-  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "Playlist.Add", "params": { "item": {"file": "' + constants.DUMMYPIC  + '"}, "playlistid": 2 }, "id": 5}'
-  ##      sendXBMCJSON("Add Dummy XSqueeze Track To Playlist", jsonstr)
-  ##      jsonstr = '{"jsonrpc": "2.0", "method": "Player.Repeat", "params": { "playerid": 0, "state": "one" }, "id": 6}'
-  ##      sendXBMCJSON("Set Playlist To Plalist", jsonstr)
-  ##      jsonstr = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Playlist.Add", "type": "method" } }, "id": 7 }'
-  ##      sendXBMCJSON("Introspect", jsonstr)
-
-         #and kick this bad boy off....
-        window.doModal()
-
-        ############################################################################
-        # FINISHED - CLEAN UP!
-
-  ##      #clear the playlist
-  ##      jsonstr = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params": { "playlistid": 2 }, "id": 100}'
-  ##      sendXBMCJSON("Clear Audio Playlist", jsonstr)
-
-        #are we running the locally installed Squeezeslave? KILL IT!
-        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
-          log("Killing player process...")
-          try:
-            slaveProcess.terminate()
-          except Exception as inst:
-            log("Error killing player: ", str(inst))
+          log("Error killing player: ", str(inst))
 
 
-        # after the window is closed, Destroy it.
-        del window
+      # after the window is closed, Destroy it.
+      del window
 
-        cleanup(andexit=True)
+      cleanup(andexit=True)
 

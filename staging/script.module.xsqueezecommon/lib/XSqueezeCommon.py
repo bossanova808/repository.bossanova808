@@ -20,14 +20,8 @@ from b808common import *
 ################################################################################
 ### CONSTANTS & SETTINGS
 
-
 #used to get settings from the main addon
 REF_TO_XSQUEEZE = xbmcaddon.Addon(id='script.xsqueeze')
-
-# Set up the paths
-RESOURCES_PATH = xbmc.translatePath( os.path.join( CWD, 'resources' ))
-LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
-sys.path.append( LIB_PATH )
 
 # Import PYLMS
 from pylms.server import Server
@@ -36,23 +30,11 @@ from pylms.player import Player
 # LMS SERVER SETTINGS
 # The LMS Server and port - either discovered in the add on settings
 #  or manually set
-if REF_TO_XSQUEEZE.getSetting('serverManual')=="true":
-  MANUALSERVER = True
-else:
-  MANUALSERVER = False
-
-if MANUALSERVER:
-  SERVERIP    = REF_TO_XSQUEEZE.getSetting('serverIP')
-  SERVERNAME = SERVERIP
-  SERVERPORT  = REF_TO_XSQUEEZE.getSetting('serverPort')
-  SERVERUSER  = REF_TO_XSQUEEZE.getSetting('serverUser')
-  SERVERPASS  = REF_TO_XSQUEEZE.getSetting('serverPass')
-else:
-  SERVERIP = REF_TO_XSQUEEZE.getSetting('autoserverip')
-  SERVERNAME = REF_TO_XSQUEEZE.getSetting('autoservername')
-  SERVERPORT = '9090'
-  SERVERUSER  = ''
-  SERVERPASS  = ''
+SERVERIP    = REF_TO_XSQUEEZE.getSetting('serverIP')
+SERVERNAME = SERVERIP
+SERVERPORT  = REF_TO_XSQUEEZE.getSetting('serverPort')
+SERVERUSER  = REF_TO_XSQUEEZE.getSetting('serverUser')
+SERVERPASS  = REF_TO_XSQUEEZE.getSetting('serverPass')
 
 #shorthand for the full server string, so e.g. 192.168.1.1:9090
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
@@ -63,31 +45,18 @@ SERVERHTTPURL   = SERVERIP + ":" + REF_TO_XSQUEEZE.getSetting('serverHTTPPort')
 #LMS is case sensitive and all MACs need to be lower case!!
 
 #are we controlling the local slave or another external player?
-if REF_TO_XSQUEEZE.getSetting('controlSlave')=="true":
-  CONTROLSLAVE = True
+if REF_TO_XSQUEEZE.getSetting('playback')=="true":
+  PLAYBACK = True
 else:
-  CONTROLSLAVE = False
-
-if REF_TO_XSQUEEZE.getSetting('controllerOnly')=="true":
-  CONTROLLERONLY = True
-else:
-  CONTROLLERONLY = False
-
+  PLAYBACK = False
 
 # we either get the MAC from the local player setup, or from the controller setup
-
-if CONTROLSLAVE:
-  PLAYERMAC   = str.lower(REF_TO_XSQUEEZE.getSetting('slaveMAC'))
-if CONTROLLERONLY:
-  PLAYERMAC   = str.lower(REF_TO_XSQUEEZE.getSetting('controllerMAC'))
-
-#does the user want music to start immediately?
+PLAYERTYPE = str.lower(REF_TO_XSQUEEZE.getSetting('player'))
+PLAYERMAC  = str.lower(REF_TO_XSQUEEZE.getSetting('MAC'))
 if ADDON.getSetting('sendPlayOnStart')=="true":
   SENDPLAYONSTART = True
 else:
   SENDPLAYONSTART = False
-
-
 
 ################################################################################
 ################################################################################

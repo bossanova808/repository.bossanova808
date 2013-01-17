@@ -8,6 +8,7 @@ import stat
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
+from b808common import *
 from XSqueezeCommon import *
 
 ################################################################################
@@ -49,135 +50,87 @@ BUTTONVOLDN           = 2610
 
 ################################################################################
 #useful paths
+
 CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))
+#extend the python path
+sys.path.append( CLASS_PATH )
+
 BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin" ))
 KEYMAP_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "keymaps" ))
 KEYMAPSOURCEFILE = os.path.join(KEYMAP_PATH, "xsqueeze.xml")
 KEYMAPDESTFILE = os.path.join(xbmc.translatePath('special://userdata/keymaps'), "xsqueeze.xml")
-AUDIO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "audio" ))
-VIDEO_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "video" ))
-IMAGES_PATH = xbmc.translatePath( os.path.join( RESOURCES_PATH, 'images' ))
-ADDON_DATA_PATH = xbmc.translatePath("special://userdata/addon_data/script.xsqueeze/")
 RUNTOKEN_PATH = xbmc.translatePath("special://userdata/addon_data/script.xsqueeze/runtokens/")
-#need to make sure this doesn't have \\ in it, in the case of windows
-DUMMYAUDIO = xbmc.translatePath(os.path.join( AUDIO_PATH, "XSqueeze.mp3")).replace( "\\", "/" )
-DUMMYVIDEO = xbmc.translatePath(os.path.join( VIDEO_PATH, "XSqueeze.mp4")).replace( "\\", "/" )
-DUMMYPIC = xbmc.translatePath(os.path.join( IMAGES_PATH, "black.png")).replace( "\\", "/" )
-#extend the python path
-sys.path.append( CLASS_PATH )
-
-
 
 ################################################################################
 # first run stuff - set once here, then a constant
 
 ISFIRSTRUN=True
 #set a runtoken only if we are running the __main__ not the server discovery etc.
-if len(sys.argv) == 1:
-  runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + VERSION)
-  if not xbmcvfs.exists(runtoken):
-    if not xbmcvfs.exists(ADDON_DATA_PATH):
-      xbmcvfs.mkdir(ADDON_DATA_PATH)
-    if not xbmcvfs.exists(RUNTOKEN_PATH):
-      xbmcvfs.mkdir(RUNTOKEN_PATH)
-    ISFIRSTRUN=True
-    token = open(runtoken, 'w')
-    token.close()
-  else:
-    ISFIRSTRUN=False
+runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + VERSION)
+if not xbmcvfs.exists(runtoken):
+  if not xbmcvfs.exists(ADDON_DATA_PATH):
+    xbmcvfs.mkdir(ADDON_DATA_PATH)
+  if not xbmcvfs.exists(RUNTOKEN_PATH):
+    xbmcvfs.mkdir(RUNTOKEN_PATH)
+  ISFIRSTRUN=True
+  token = open(runtoken, 'w')
+  token.close()
+else:
+  ISFIRSTRUN=False
 
 ################################################################################
 # LOCAL PLAYBACK SETTINGS
 # LMS is case sensitive and all MACs need to be lower case!!
 
 #are we controlling the local slave or another external player?
-if ADDON.getSetting('controlSlave')=="true":
-  CONTROLSLAVE = True
+if ADDON.getSetting('playback')=="true":
+  PLAYBACK = True
 else:
-  CONTROLSLAVE = False
-
-if ADDON.getSetting('controllerOnly')=="true":
-  CONTROLLERONLY = True
-else:
-  CONTROLLERONLY = False
+  PLAYBACK = False
 
 # we either get the MAC from the local player setup, or from the controller setup
-if CONTROLSLAVE:
-  PLAYERTYPE = str.lower(ADDON.getSetting('player'))
-  PLAYERMAC   = str.lower(ADDON.getSetting('slaveMAC'))
-if CONTROLLERONLY:
-  PLAYERMAC   = str.lower(ADDON.getSetting('controllerMAC'))
+PLAYERTYPE = str.lower(ADDON.getSetting('player'))
+PLAYERMAC  = str.lower(ADDON.getSetting('MAC'))
 
-# have they manually specified an audio output
-AUDIOOUTPUT = ADDON.getSetting('audioOutput')
-
-if AUDIOOUTPUT != "Auto" and AUDIOOUTPUT !="":
-  MANUALAUDIOOUTPUT = True
-else:
-  MANUALAUDIOOUTPUT = False
-
-#any extra squeezeslave arguments supplied for special needs?
-SLAVEARGS = []
+#always add the MAC adress as an argument
+PLAYERARGS = []
 if PLAYERTYPE=="squeezeslave":
-  SLAVEARGS.append("-m" + PLAYERMAC)
+  PLAYERARGS.append("-m" + PLAYERMAC)
 else:
-  SLAVEARGS.append("-m " + PLAYERMAC)
+  PLAYERARGS.append("-m")
+  PLAYERARGS.append(PLAYERMAC)
 
-tempargs = ADDON.getSetting('slaveArgs').split(" ")
+#any extra player arguments supplied for special needs?
+tempargs = ADDON.getSetting('args').split(" ")
 if tempargs[0] != '':
-  SLAVEARGS.extend(tempargs)
+  PLAYERARGS.extend(tempargs)
 
 ################################################################################
-#OTHER SETTINGS
-
-##if ADDON.getSetting('disablescreensaver')=="true":
-##  DISABLESCREENSAVER = True
-##else:
-##  DISABLESCREENSAVER = False
-
-#work out what skin xml to load
-SKIN=ADDON.getSetting('skin')
+# GET OTHER SETTINGS
 
 if ADDON.getSetting('enableTouch')=="true":
   TOUCHENABLED = True
 else:
   TOUCHENABLED = False
+if ADDON.getSetting('sendPlayOnStart')=="true":
+  PLAYONSTART = True
+else:
+  PLAYONSTART = False
 
 
 ################################################################################
 # Deal with the squeezeslave executeables...
 
-#versions
-#NOTE 0.7.0 - the i64 binary is actually the older 311 binary as I haven't found a newer one
-#and can't be bothered creating a VM jsut to compile one...
-
-if PLAYERTYPE=="squeezeslave":
-  LOCALSQUEEZESLAVEVERSION = '1.2-376'
-  ARMHFVERSION="1.2-381"
-  LOCALSQUEEZESTUB="squeezeslave-"
-else:
-  #player is squeezlite
-  LOCALSQUEEZESLAVEVERSION = '0.9b7'
-  ARMHFVERSION="0.9b7"
-  LOCALSQUEEZESTUB="squeezelite-"
-
-
-BINWIN    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-win") + "\\" + LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION +".exe")
-BINOSX    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-osx") + "\\" + LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION)
-BINLIN32  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "\\" + LOCALSQUEEZESTUB + "-lnx26-" + LOCALSQUEEZESLAVEVERSION)
-BINLIN64  = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + LOCALSQUEEZESLAVEVERSION + "-lnx26") + "\\" + LOCALSQUEEZESTUB + "-i64")
-BINARM    = xbmc.translatePath(os.path.join( BIN_PATH, LOCALSQUEEZESTUB + ARMHFVERSION + "-armhf-lnx32") + "\\" + LOCALSQUEEZESTUB + ARMHFVERSION)
+BINWIN    = xbmc.translatePath(BIN_PATH + "\\windows\\" + PLAYERTYPE + ".exe" )
+BINOSX    = xbmc.translatePath(BIN_PATH + "\\osx\\" + PLAYERTYPE )
+BINLIN32  = xbmc.translatePath(BIN_PATH + "\\linux\\" + PLAYERTYPE + "-i386" )
+BINLIN64  = xbmc.translatePath(BIN_PATH + "\\linux\\" + PLAYERTYPE + "-i64" )
+BINARM    = xbmc.translatePath(BIN_PATH + "\\arm\\" + PLAYERTYPE )
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32
 
-##System.Platform.Linux Returns true if XBMC is running on a linux/unix/osx based computer.
-##System.Platform.Windows Returns true if XBMC is running on a windows based computer.
-##System.Platform.OSX Returns true if XBMC is running on an OSX based computer.
-##System.Platform.IOS Returns true if XBMC is running on an IOS device.
-##System.Platform.ATV2 Returns true if XBMC is running on an atv2.
-
-#need to work out what system we're on
+#need to work out what system we're on, default to linux
 SYSTEM="linux"
 
 #ok try and get uname info - this is a bit tetchy - platform.uname() fails on Raspbmc
@@ -190,7 +143,7 @@ except:
   uname = os.uname()
 
 if xbmc.getCondVisibility( "System.Platform.OSX" ):
-  SYSTEM = "darwin"
+  SYSTEM = "osx"
 elif xbmc.getCondVisibility( "System.Platform.IOS" ):
   SYSTEM = "ios"
 elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
@@ -201,18 +154,14 @@ elif xbmc.getCondVisibility( "System.Platform.Windows" ):
 elif "raspbmc" in uname or "armv6l" in uname:
   SYSTEM = "arm"
 
-
 #log the detemined system type
-xbmc.log(ADDONNAME + "-" + VERSION + ": ### uname is: " + str(uname))
-xbmc.log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
-
-#and define the capabilities of each system - systems not in this list are only usable as a controller, no local playback
-LOCALPLAYBACKCAPABLE = ["linux","darwin","windows","arm"]
+log(ADDONNAME + "-" + VERSION + ": ### uname is: " + str(uname))
+log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
 
 #choose the right executable
 if SYSTEM.startswith("win"):
   EXE = [BINWIN]
-elif SYSTEM.startswith("darwin"):
+elif SYSTEM.startswith("osx"):
   EXE = [BINOSX]
 elif SYSTEM.startswith("arm"):
   EXE = [BINARM]
@@ -227,16 +176,16 @@ else:
 if SYSTEM.startswith("lin") or SYSTEM.startswith("arm"):
   try:
     os.system("chmod a+x " + EXE[0])
-    xbmc.log(ADDONNAME + "-" + VERSION + ": ### (linux/arm) chmod +x the Squeezeslave binaries - success")
+    log("(linux/arm) chmod +x the Squeezeslave binaries - success")
   except:
-    xbmc.log(ADDONNAME + "-" + VERSION + ": ### chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
+    log("chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
 elif SYSTEM.startswith("darwin"):
   try:
     os.chmod(EXE[0], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
-    xbmc.log(ADDONNAME + "-" + VERSION + ": ### (OSX) chmod +x the Squeezeslave binaries - success")
+    log("chmod +x the Squeezeslave binaries - success")
   except:
-    xbmc.log(ADDONNAME + "-" + VERSION + ": ### chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
+    log("chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
 else:
-  xbmc.log(ADDONNAME + "-" + VERSION + ": ### Windows or ATV/IOS, so no need to chmod the binaries.")
+  log("Windows or ATV/IOS, so no need to chmod the binaries.")
 
 

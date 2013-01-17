@@ -665,7 +665,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
     #nothing in the playlist yet....
     else:
-      log("Empty PlaylistDetails, setting current track to message about adding music...")
+      #log("Empty PlaylistDetails, setting current track to message about adding music...")
       stub = "XSQUEEZE_TRACK_0_"
       xbmcgui.Window(self.windowID).setProperty(stub + "INPLAYLIST", "false")
       xbmcgui.Window(self.windowID).setProperty(stub + "TITLE", LANGUAGE(19619))
