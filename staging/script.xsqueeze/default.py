@@ -31,13 +31,13 @@ def cleanup(andexit=False):
 
     global xbmcAudioSuspended
 
-    log("### Doing Cleanup")
+    log("Doing Cleanup")
 
     #Try and resume XBMC's AudioEngine if we suspended it
     if xbmcAudioSuspended:
       try:
         xbmc.audioResume();
-        log("### Resumed XBMC AE")
+        log("Resumed XBMC AE")
       except:
         pass
 
@@ -45,14 +45,13 @@ def cleanup(andexit=False):
     try:
       os.remove(constants.KEYMAPDESTFILE)
       xbmc.executebuiltin('Action(reloadkeymaps)')
-      log("### Removed custom keymap")
+      log("Removed custom keymap")
     except Exception as inst:
       pass
 
     #and exit if requested
     if andexit:
       footprints(startup=False)
-      sys.exit()
 
 
 #called if we are running a playing instance...
@@ -155,7 +154,9 @@ if ( __name__ == "__main__" ):
 
       #now let's make a window and see if we can send some commands...
       #check what skin to use
-      if constants.TOUCHENABLED:
+      if constants.PLAYERTYPE=="squeezelite":
+        window = NowPlayingWindow("XSqueezeNowPlayingSqueezeLite.xml",CWD,"Default")
+      elif constants.TOUCHENABLED:
         window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
       else:
         window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")

@@ -78,6 +78,7 @@ if not xbmcvfs.exists(runtoken):
 else:
   ISFIRSTRUN=False
 
+
 ################################################################################
 # LOCAL PLAYBACK SETTINGS
 # LMS is case sensitive and all MACs need to be lower case!!
@@ -87,10 +88,6 @@ if ADDON.getSetting('playback')=="true":
   PLAYBACK = True
 else:
   PLAYBACK = False
-
-# we either get the MAC from the local player setup, or from the controller setup
-PLAYERTYPE = str.lower(ADDON.getSetting('player'))
-PLAYERMAC  = str.lower(ADDON.getSetting('MAC'))
 
 #always add the MAC adress as an argument
 PLAYERARGS = []

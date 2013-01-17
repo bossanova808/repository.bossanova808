@@ -250,7 +250,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
         #we're controlling a local squeezeslave - best to stop the music before we kill it
         #otherwise it oddly resumes automatically on restart
-        if constants.CONTROLSLAVE and not constants.CONTROLLERONLY:
+        if constants.PLAYBACK:
           notify(LANGUAGE(19612),LANGUAGE(19609))
           self.player.button("stop")
 
@@ -699,8 +699,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       try:
         self.getControl( constants.CURRENTPROGRESS ).setPercent ( percent )
       #if the control doesn't exist, do nothing
-      except:
-        pass
+      except Exception as inst:
+        log("Progress bar update exception: " + str(inst))
     else:
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_ELAPSED", "")
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_REMAINING", "")
