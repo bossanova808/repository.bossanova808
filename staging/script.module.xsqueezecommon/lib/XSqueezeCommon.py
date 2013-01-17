@@ -556,3 +556,5 @@ class SqueezePlayer:
   def forward(self):
     self.sb.forward()
 
+  def getVolume(self):
+    return self.sb.get_volume()

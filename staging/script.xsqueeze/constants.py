@@ -13,7 +13,7 @@ from XSqueezeCommon import *
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls
-# only progress bar is referred to directly, the rest is put into $INFO
+# only progress bar and volume bar referred to directly, the rest is put into $INFO
 
 MAINCOVERART          = 100
 UPCOMING1COVERART     = 101
@@ -24,7 +24,8 @@ SLIDESHOW             = 105
 CURRENTTITLE          = 200
 CURRENTARTIST         = 201
 CURRENTALBUM          = 202
-CURRENTPROGRESS       = 998
+CURRENTPROGRESS       = 998 # ***** IMPORTANT!
+VOLUMEBAR             = 997 # ***** IMPORTANT!
 CURRENTELAPSED        = 204
 CURRENTREMAINING      = 205
 CURRENTLENGTH         = 206

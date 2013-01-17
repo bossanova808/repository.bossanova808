@@ -370,6 +370,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
             actionSqueeze = self.modifyActionSqueeze(actionSqueeze)
             log("Sending button to LMS: " + actionSqueeze)
             self.player.button(actionSqueeze)
+            #make volume a bit quikcer...
+            if actionSqueeze=="volup" or actionSqueeze =="voldown":
+              self.player.button(actionSqueeze)
+
 
     #...else user has probably hammered the close button...tell them to cool their jets...
     else:
@@ -534,7 +538,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_REPEATSTATE", REPEATSTATEICONS['repeatoff_fo'])
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
-
+        self.updateVolume()
 
 
   ##############################################################################
@@ -686,7 +690,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     return [trackElapsed, trackRemaining, trackLength, percent]
 
   ##############################################################################
-  # updates the track progress dialog
+  # updates the track progress bar
 
   def updateTrackProgress(self):
 
@@ -706,8 +710,15 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_REMAINING", "")
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_DURATION", "")
 
+  ##############################################################################
+  # updates the volume bar
 
-
-
+  def updateVolume(self):
+    volume = self.player.getVolume()
+    xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_VOLUME", str(volume))
+    try:
+      self.getControl ( constants.VOLUMEBAR ).setPercent ( volume )
+    except Exception as inst:
+        log("Volume bar update exception: " + str(inst))
 
 

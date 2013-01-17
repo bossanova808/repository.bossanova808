@@ -3,6 +3,7 @@
 XSQUEEZE SKIN NOTES
 
 WARNING - DO NOT CHANGE ID OF PROGRESS BAR (998) OR YOU MAY BREAK XSQUEEZE!!
+WARNING - DO NOT CHANGE ID OF VOLUME BAR (997) OR YOU MAY BREAK XSQUEEZE!!
 WARNING - DO NOT REMOVE PROGRESS BAR OR YOU MAY BREAK XSQUEEZE!!
 
 Check the media directory for icons you should supply:
@@ -329,9 +330,33 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <info/>
       </control>
 
+      <!-- VOLUME BAR -->
+      <control type="progress" id="997">
+        <description>Volume Bar</description>
+        <posx>60</posx>
+        <posy>380</posy>
+        <width>220</width>
+        <height>10</height>
+        <reveal>false</reveal>
+        <info/>
+      </control>
+      <control type="label" id="205">
+        <description>Volume Label</description>
+        <posx>287</posx>
+        <posy>385</posy>
+        <width>85</width>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+        <label>(Vol: $INFO[Window.Property(XSQUEEZE_VOLUME)])</label>
+        <font>font16_title</font>
+        <textcolor>FF777777</textcolor>
+      </control>
+
+
     <!-- THE PLAYSTATE ICON -->
      <control type="image" id="104" >
-        <posx>370</posx>
+        <posx>375</posx>
         <posy>370</posy>
         <width>32</width>
         <height>32</height>
