@@ -8,8 +8,8 @@ import stat
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
-from b808common import *
 from XSqueezeCommon import *
+from b808common import *
 
 ################################################################################
 #window control IDS - see XSqueezeNowPlaying.xml for matching controls

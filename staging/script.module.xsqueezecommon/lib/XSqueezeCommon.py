@@ -234,8 +234,6 @@ class SqueezePlayer:
   def getSongInfo(self, id):
     encoded = self.sb.requestRaw("songinfo 0 1000 track_id:" + str(id), True)
 
-    #print encoded
-
     #find the index of id: - track_id%3A
     start = encoded.find('track_id%3A')
     encoded = encoded[start:]
@@ -265,48 +263,77 @@ class SqueezePlayer:
 
     #print "Item" + str(item)
 
-    #convert all the data to the right types
+    #convert all the data to the right types - there is a much more pythomnesque way to right this I am sure...
+
     try:
       item['id'] = int(item['id'])
-      item['duration'] = float(item['duration'])
-      item['album_id'] = int(item['album_id'])
-      item['filesize'] = int(item['filesize'])
-      item['coverart'] = int(item['coverart'])
-      item['genre_id'] = int(item['genre_id'])
-      item['artist_id'] = int(item['artist_id'])
-      item['tracknum'] = int(item['tracknum'])
-      item['year'] = int(item['year'])
-      item['compilation'] = int(item['compilation'])
-      item['channels'] = int(item['channels'])
-      item['samplesize'] = int(item['samplesize'])
-      item['samplerate'] = int(item['samplerate'])
-      item['album_replay_gain'] = float(item['album_replay_gain'])
-      item['replay_gain'] = float(item['replay_gain'])
-    except KeyError as inst:
-      #not all data is always returned, so we can just skip that but
+    except KeyError:
       pass
-      #log("Issue with missing data in songinfo", inst)
-    except Exception as inst:
-      log("****** Other songinfo issue: ", inst)
-
-    #replace with request with results?
-    #results = self.sc.request_with_results("songinfo 0 1000 track_id:" + str(id), True)
-    #log(results)
-    #log( "item is now " + str(item))
+    try:
+       item['duration'] = float(item['duration'])
+    except KeyError:
+      pass
+    try:
+        item['album_id'] = int(item['album_id'])
+    except KeyError:
+      pass
+    try:
+        item['filesize'] = int(item['filesize'])
+    except KeyError:
+        pass
+    try:
+      item['coverart'] = int(item['coverart'])
+    except KeyError:
+      pass
+    try:
+        item['genre_id'] = int(item['genre_id'])
+    except KeyError:
+      pass
+    try:
+        item['artist_id'] = int(item['artist_id'])
+    except KeyError:
+      pass
+    try:
+        item['tracknum'] = int(item['tracknum'])
+    except KeyError:
+      pass
+    try:
+        item['year'] = int(item['year'])
+    except KeyError:
+      pass
+    try:
+        item['compilation'] = int(item['compilation'])
+    except KeyError:
+      pass
+    try:
+        item['channels'] = int(item['channels'])
+    except KeyError:
+      pass
+    try:
+      item['samplesize'] = int(item['samplesize'])
+    except KeyError:
+      pass
+    try:
+        item['samplerate'] = int(item['samplerate'])
+    except KeyError:
+      pass
+    try:
+        item['album_replay_gain'] = float(item['album_replay_gain'])
+    except KeyError:
+      pass
+    try:
+        item['replay_gain'] = float(item['replay_gain'])
+    except KeyError:
+      pass
 
     return item
-
-##  def getSongInfo(self, id):
-##    results = self.sc.request_with_results("songinfo 0 1000 track_id:" + str(id), True)
-##    log(results)
-##    return results[1]
 
   ##############################################################################
   # Send a button command text, e.g. 'pause' - to the player
 
   def button(self, text):
     self.sb.ir_button(text)
-    #song may have changed, trigger an update test
+    #something probably changed, trigger an update test
     self.songChanged()
 
   ##############################################################################
