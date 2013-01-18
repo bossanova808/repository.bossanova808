@@ -13,27 +13,7 @@ from traceback import print_exc
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
 from XSqueezeCommon import *
-
-
-#Borrow from somewhere....parses the parameter stings (arrives in sys.argv[2])
-#into a dict
-def get_params():
-        param=[]
-        paramstring=sys.argv[2]
-        if len(paramstring)>=2:
-            params=sys.argv[2]
-            cleanedparams=params.replace('?','')
-            if (params[len(params)-1]=='/'):
-                params=params[0:len(params)-2]
-            pairsofparams=cleanedparams.split('&')
-            param={}
-            for i in range(len(pairsofparams)):
-                splitparams={}
-                splitparams=pairsofparams[i].split('=')
-                if (len(splitparams))==2:
-                    param[splitparams[0]]=splitparams[1]
-        return param
-
+from b808common import *
 
 #Add a node to the plugin tree - a 'directory' node, so something we
 #can click on to either get more choices or trigger an action
@@ -59,6 +39,7 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
         listItem=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         listItem.setInfo( type="Video", infoLabels={ "Title": name } )
 
+        log("AddNode: url:[" + u +"] (isFolder=True), listitem:[" + str(listItem) + "] totalItems=" + str(itemCount))
         is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=True, totalItems=itemCount)
         return is_ok
 
@@ -87,6 +68,7 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
         listItem=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         listItem.setInfo( type="Video", infoLabels={ "Title": name } )
 
+        log("AddENDNode: url:[" + u +"] (isFolder=False), listitem:[" + str(listItem) + "] totalItems=" + str(itemCount))
         is_ok=xbmcplugin.addDirectoryItem(THIS_PLUGIN,url=u,listitem=listItem,isFolder=False, totalItems=itemCount)
         return is_ok
 
@@ -318,10 +300,8 @@ def buildAppsList(listApps):
 
 #Log that we've started, and how we were called....
 footprints()
-log("Called as: " + str(sys.argv))
 #parse the paramters
 params=get_params()
-log("Parameters parsed: " + str(params))
 if params==[]:
   notify("Please do not run XSqueeze Chooser directly!","In Xsqueeze use info on your remote (or key i) to open!", 15000)
   sys.exit()
@@ -585,7 +565,7 @@ elif mode==SUBMENU_FAVOURITES:
       print_exc()
 
 elif mode==SUBMENU_RADIOS:
-  log( "Handling submenu of a radio...." )
+  log( "Handling submenu of a radio/app...." )
   try:
       buildRadioSub(cmd,itemid)
   except:

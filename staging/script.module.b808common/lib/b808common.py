@@ -65,7 +65,7 @@ def logNotice(message, inst=None):
 # Trigger a toast pop up on screen
 # & kog the message to the XBMC Log, and an exception if supplied
 
-def notify(messageLine1, messageLine2 = "", time = 6000):
+def notify(messageLine1, messageLine2 = "", time = 4000):
   imagepath = os.path.join(CWD ,"icon.png")
   notifyString = "XBMC.Notification(" + messageLine1 +"," + messageLine2+","+str(time)+","+imagepath+")"
   log("XBMC Notificaton Requested: [" + notifyString +"]")
@@ -151,11 +151,8 @@ def get_params():
                 splitparams=pairsofparams[i].split('=')
                 if (len(splitparams))==2:
                     param[splitparams[0]]=splitparams[1]
-        return param
 
-#def addNode(name, url, mode, iconimage, *args):
-#        u=sys.argv[0]+\
-#        "?url="+urllib.quote_plus(url)+\
-#        "&mode="+str(mode)+\
+        log("Parameters parsed: " + str(param))
+        return param
 
 
