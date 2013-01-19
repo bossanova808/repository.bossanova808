@@ -32,6 +32,8 @@ import random
 import httplib
 import operator
 from datetime import datetime
+import time
+
 from b808common import *
 
 USE_TLS = False # If getting errors on https connectivity, specify as True
@@ -262,9 +264,20 @@ class DateTime(ResponseObject):
 
     @classmethod
     def str2d(cls, s):
+        #this was commented out - leave it commented
         #groups = DateTime.datematch.match(s).groups()
         #return datetime.datetime(*[int(ss) for ss in groups])
-        return datetime.strptime(s, cls.FORMAT)
+
+        #this is the original code
+        #return datetime.strptime(s, cls.FORMAT)
+
+        #workaround code! From http://forum.xbmc.org/showthread.php?tid=112916
+        try:
+            datetime.strptime(s, cls.FORMAT)
+        except TypeError:
+            datetime(*(time.strptime(s, cls.FORMAT)[0:6]))
+
+
 
     @classmethod
     def d2str(cls, d):

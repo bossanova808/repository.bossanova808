@@ -14,17 +14,14 @@
 # *  http://www.gnu.org/copyleft/gpl.html
 # *
 
+#imports
 import xbmc
 import xbmcplugin
 import xbmcgui
-
-#imports
 from time import time
 from pprint import pprint
-
 #some handy stuff
 from b808common import *
-
 #uses zenapi by Scott Gorling (http://www.scottgorlin.com)
 from zenapi import ZenConnection
 from zenapi.snapshots import Group, PhotoSet
@@ -35,8 +32,12 @@ def buildRootMenu(zen):
     h = zen.LoadGroupHierarchy()
     for element in h.Elements:
       if isinstance(element,PhotoSet):
+        log(str(element.AccessDescriptor))
+        idTitle = element.TitlePhoto
+        titlePhoto = zen.LoadPhoto(idTitle)
+        uTitle = titlePhoto.getUrl(2)
         u=sys.argv[0]+"?mode=1&galleryid=" + str(element.Id)
-        item=xbmcgui.ListItem(element.Title,u,'','','')
+        item=xbmcgui.ListItem(element.Title,u,'',uTitle,'')
         xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,True)
 
 def buildGallery(zen,galleryid):
@@ -45,7 +46,8 @@ def buildGallery(zen,galleryid):
     for photo in ps.Photos:
       log(photo.Id)
       u = photo.getUrl(6)
-      item=xbmcgui.ListItem(photo.Title,u,'','','')
+      uThumb = photo.getUrl(10)
+      item=xbmcgui.ListItem(photo.Title,u,'',uThumb,'')
       xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,False)
 
 
@@ -87,28 +89,21 @@ except:
 
 #connect to ZenFolio
 zen = ZenConnection(username = username, password = password)
-zen.Authenticate()
-
 if zen is None:
-  notify("Couldn't connect to ZenFolio!!")
+  notify("Couldn't connect to Zenfolio!!")
   sys.exit()
-
-#save the connection
-#zen.save(DATA_PATH + "/zenconnection")
-
+zen.Authenticate()
 
 #OK the mode variable controls what we're actually doing...
 if mode==None or mode==ROOT:
   log( "XZen Root Menu" )
   try:
-      #buildRootMenu(zen)
-      buildGallery(zen,"325672173")
+      buildRootMenu(zen)
   except:
       print_exc()
 
 elif mode==GALLERY:
-  #zen = ZenConnection(DATA_PATH + "/zenconnection")
-  log( "XZen Gallery" )
+  log( "XZen Gallery id: " + str (galleryid) )
   try:
       buildGallery(zen,galleryid)
   except:
