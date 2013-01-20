@@ -38,13 +38,13 @@ def buildRootMenu(zen):
         uTitle = titlePhoto.getUrl(2)
         u=sys.argv[0]+"?mode=1&galleryid=" + str(element.Id)
         item=xbmcgui.ListItem(element.Title,u,'',uTitle,'')
-        xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,True)
+        xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,True,len(h.Elements))
 
 def buildGallery(zen,galleryid):
 
     ps = zen.LoadPhotoSet(galleryid, includePhotos=True)
     for photo in ps.Photos:
-      log(photo.Id)
+      #log(photo.Id)
       u = photo.getUrl(6)
       uThumb = photo.getUrl(10)
       item=xbmcgui.ListItem(photo.Title,u,'',uThumb,'')

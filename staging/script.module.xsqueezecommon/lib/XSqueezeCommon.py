@@ -503,7 +503,12 @@ class SqueezePlayer:
     return self.parseSpecial("radios 0 100000", "icon", playerRequest=True)
 
   def getRadioStations(self, cmd, itemid):
-    log("$$$$$$$$ " + str(cmd) + " $$$ " + str(itemid))
+    if(itemid)!="" and itemid is not None:
+      return self.parseSpecial(urllib.quote(cmd) + " items 0 100000 item_id:" + itemid,"id",playerRequest=True)
+    else:
+      return self.parseSpecial(urllib.quote(cmd) + " items 0 100000","id",playerRequest=True)
+
+  def getAppItemsList(self, cmd, itemid):
     if(itemid)!="" and itemid is not None:
       return self.parseSpecial(urllib.quote(cmd) + " items 0 100000 item_id:" + itemid,"id",playerRequest=True)
     else:

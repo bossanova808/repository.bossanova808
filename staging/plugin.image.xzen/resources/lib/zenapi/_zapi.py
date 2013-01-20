@@ -277,8 +277,6 @@ class DateTime(ResponseObject):
         except TypeError:
             datetime(*(time.strptime(s, cls.FORMAT)[0:6]))
 
-
-
     @classmethod
     def d2str(cls, d):
         #return '%04i-%02i-%02i %02i:%02i:%02i'%(d.year,

@@ -134,13 +134,17 @@ if ( __name__ == "__main__" ):
           if constants.SYSTEM.startswith("win"):
             #for debugging, grab the process output....
             #output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+            #log("Process Output is: " + str(output))
+            #log("Process Result is: " + str(result))
+            slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False)
+          else:
+            #for debugging, grab the process output....
+            #output, result = subprocess.Popen(exe, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
             #log("$$$$$$$$$$$$$$$ " + str(output))
             #log("$$$$$$$$$$$$$$$ " + str(result))
-            slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, shell=False)
-          else:
             slaveProcess = subprocess.Popen(exe, shell=False)
         except Exception as inst:
-          log("Failed creating player process", inst)
+          log("Failed creating player process! ", inst)
           notify(LANGUAGE(19610),LANGUAGE(19611))
           cleanup(andexit=True)
 
@@ -155,7 +159,7 @@ if ( __name__ == "__main__" ):
       #now let's make a window and see if we can send some commands...
       #check what skin to use
       if constants.PLAYERTYPE=="squeezelite":
-        window = NowPlayingWindow("XSqueezeNowPlayingSqueezeLite.xml",CWD,"Default")
+        window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
       elif constants.TOUCHENABLED:
         window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
       else:

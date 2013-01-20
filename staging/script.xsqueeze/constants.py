@@ -69,8 +69,8 @@ ISFIRSTRUN=True
 #set a runtoken only if we are running the __main__ not the server discovery etc.
 runtoken = os.path.join(RUNTOKEN_PATH, "runtoken" + VERSION)
 if not xbmcvfs.exists(runtoken):
-  if not xbmcvfs.exists(ADDON_DATA_PATH):
-    xbmcvfs.mkdir(ADDON_DATA_PATH)
+  if not xbmcvfs.exists(DATA_PATH):
+    xbmcvfs.mkdir(DATA_PATH)
   if not xbmcvfs.exists(RUNTOKEN_PATH):
     xbmcvfs.mkdir(RUNTOKEN_PATH)
   ISFIRSTRUN=True
@@ -120,10 +120,10 @@ else:
 # Deal with the squeezeslave executeables...
 
 BINWIN    = xbmc.translatePath(BIN_PATH + "\\windows\\" + PLAYERTYPE + ".exe" )
-BINOSX    = xbmc.translatePath(BIN_PATH + "\\osx\\" + PLAYERTYPE )
-BINLIN32  = xbmc.translatePath(BIN_PATH + "\\linux\\" + PLAYERTYPE + "-i386" )
-BINLIN64  = xbmc.translatePath(BIN_PATH + "\\linux\\" + PLAYERTYPE + "-i64" )
-BINARM    = xbmc.translatePath(BIN_PATH + "\\arm\\" + PLAYERTYPE )
+BINOSX    = xbmc.translatePath(BIN_PATH + "/osx/" + PLAYERTYPE )
+BINLIN32  = xbmc.translatePath(BIN_PATH + "/linux/" + PLAYERTYPE + "-i386" )
+BINLIN64  = xbmc.translatePath(BIN_PATH + "/linux/" + PLAYERTYPE + "-i64" )
+BINARM    = xbmc.translatePath(BIN_PATH + "/arm/" + PLAYERTYPE )
 
 #32 or 64 bit?
 is_64bits = sys.maxsize > 2**32

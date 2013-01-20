@@ -279,7 +279,7 @@ def buildRadioStationList(listRadios, cmd):
       else: addNode(radio['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=radio['id'])
 
 
-### RADIOS
+### APPS
 
 def buildAppsRoot():
   global squeezeplayer
@@ -291,7 +291,40 @@ def buildAppsList(listApps):
   for app in listApps:
     if app['cmd']=="search" : continue
     coverURL = "http://" + SERVERHTTPURL + "/" + app['icon']
-    addNode(app['cmd'],"",SUBMENU_RADIOS,coverURL,cmd=app['cmd'])
+    addNode(app['cmd'],"",SUBMENU_APPS,coverURL,cmd=app['cmd'])
+
+def buildAppSub(cmd, itemid=""):
+  global squeezeplayer
+  returnedList = squeezeplayer.getAppItemsList(cmd,itemid)
+  #log(str(returnedList))
+  buildAppItemsList(returnedList, cmd)
+
+def buildAppItemsList(listApps, cmd):
+  #log(str(listRadios))
+  #log(cmd)
+  for appItem in listApps:
+    try:
+      coverURL = appItem['image']
+    except:
+      coverURL = ""
+
+    #submenu - might lead to more menus...
+    if 'hasitems' in appItem:
+      #item has a submenu...
+      if appItem['hasitems']!='0':
+        addNode(appItem['name'],"",SUBMENU_APPS,coverURL,cmd=cmd,itemid=appItem['id'])
+      #item is a playable station
+      else:
+        try:
+          addEndNode(appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
+        except Exception as inst:
+          #log(str(radio))
+          print_exc(inst)
+    #subsubmenu
+    else:
+      if 'name' not in appItem: continue
+      else: addEndNode(appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
+
 
 
 ################################################################################
@@ -524,9 +557,9 @@ elif mode==PLAY_ALBUM:
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
 
 elif mode==PLAY_RADIO:
-  log( "Queueing up a radio station...." + cmd + "itemid " +itemid )
+  log( "Queueing up a radio station or app...." + cmd + "itemid " +itemid )
   squeezeplayer.queueRadio(cmd, itemid)
-  notify("Radio" , name, 12000)
+  notify("Radio/App (" + str(cmd).title() +")", name, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
 
 elif mode==PLAY_FAVOURITE:
@@ -534,7 +567,6 @@ elif mode==PLAY_FAVOURITE:
   squeezeplayer.queueFavourite(itemid)
   notify("Favourite" , name, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
-
 
 elif mode==SUBMENU_ARTISTS:
   log( "Handling submenu of an artist...." )
@@ -565,12 +597,18 @@ elif mode==SUBMENU_FAVOURITES:
       print_exc()
 
 elif mode==SUBMENU_RADIOS:
-  log( "Handling submenu of a radio/app...." )
+  log( "Handling submenu of a radio...." )
   try:
       buildRadioSub(cmd,itemid)
   except:
       print_exc()
 
+elif mode==SUBMENU_APPS:
+  log( "Handling submenu of an app...." )
+  try:
+      buildAppSub(cmd,itemid)
+  except:
+      print_exc()
 
 ################################################################################
 # FALL THROUGH to here after the list building above....
