@@ -21,7 +21,8 @@ ADDON       = xbmcaddon.Addon()
 
 #if we've been imported from the plugin we need the magic ID
 if 'plugin' in sys.argv[0]:
-  THIS_PLUGIN = int(sys.argv[1])
+    THIS_PLUGIN = int(sys.argv[1])
+    PLUGINSTUB = sys.argv[0]+"?"
 
 #store some handy constants
 ADDONNAME   = ADDON.getAddonInfo('name')
@@ -79,6 +80,7 @@ def footprints(startup=True):
   if startup:
     logNotice( ADDONNAME + " (Author: " + AUTHOR + ") ********************* Starting ...")
     logNotice( "Called as: " + str(sys.argv))
+    logNotice( "With handle: " +str(THIS_PLUGIN))
   else:
     logNotice( ADDONNAME + " (Author: " + AUTHOR + ") ********************* Exiting ....")
 
@@ -156,3 +158,5 @@ def get_params():
         return param
 
 
+def buildPluginURL(params):
+    return PLUGINSTUB + urllib.urlencode(params)
