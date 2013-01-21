@@ -26,29 +26,56 @@ from b808common import *
 from zenapi import ZenConnection
 from zenapi.snapshots import Group, PhotoSet
 
-def buildRootMenu(zen):
+def BuildMenuRootItem(mode, label):
+    url = PLUGINSTUB + mode
+    item=xbmcgui.ListItem(label,url,'','')
+    xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
 
+def BuildMenuRoot(zen):
+    BuildMenuRootItem(MENU_USERGALLERIES            ,"User Galleries")
+    BuildMenuRootItem(POPPHOTOS                     ,"Popular Photos")
+    BuildMenuRootItem(POPSETS                       ,"Popular Sets")
+
+
+def BuildMenuUserGallery(zen):
     #load the album hierchy for the user
     h = zen.LoadGroupHierarchy()
     for element in h.Elements:
       if isinstance(element,PhotoSet):
-        log(str(element.AccessDescriptor))
+        #log(str(element.AccessDescriptor))
         idTitle = element.TitlePhoto
         titlePhoto = zen.LoadPhoto(idTitle)
-        uTitle = titlePhoto.getUrl(2)
-        u=sys.argv[0]+"?mode=1&galleryid=" + str(element.Id)
-        item=xbmcgui.ListItem(element.Title,u,'',uTitle,'')
-        xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,True,len(h.Elements))
+        urlTitlePhoto = titlePhoto.getUrl(2)
+        url = PLUGINSTUB + DISPLAY_GALLERY + "&galleryid=" + str(element.Id)
+        item=xbmcgui.ListItem(element.Title,url,urlTitlePhoto,urlTitlePhoto)
+        xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,len(h.Elements))
 
-def buildGallery(zen,galleryid):
+def BuildMenuPopPhotos(zen):
+    pass
 
+def BuildMenuPopSets(zen):
+    pass
+
+
+def AddPhotoThumb(photo, numberOfItems):
+    url = photo.getUrl(6)
+    urlThumb = photo.getUrl(2)
+    title = photo.Title
+    if title is None:
+        title="Untitled"
+    log("AddPhotoThumb: [" + str(photo.Id) + "] title: [" + str(title) + "] url: [" +str(url) + "] urlThumb: [" + str(urlThumb) +"]")
+    item=xbmcgui.ListItem(title,str(url),'',str(urlThumb),'')
+    xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,False,numberOfItems)
+
+def ShowPopularPhotos(zen,offset=0, limit=13):
+    photos = zen.GetPopularPhotos(offset,limit)
+    for photo in photos:
+        AddPhotoThumb(photo,len(photos))
+
+def ShowGallery(zen,galleryid):
     ps = zen.LoadPhotoSet(galleryid, includePhotos=True)
     for photo in ps.Photos:
-      #log(photo.Id)
-      u = photo.getUrl(6)
-      uThumb = photo.getUrl(10)
-      item=xbmcgui.ListItem(photo.Title,u,'',uThumb,'')
-      xbmcplugin.addDirectoryItem(THIS_PLUGIN,u,item,False)
+        AddPhotoThumb(photo)
 
 
 #ok we're firing up
@@ -62,8 +89,13 @@ log("Parameters parsed: " + str(params))
 
 
 #MENU MODES
-ROOT = 0
-GALLERY = 1
+MENU_ROOT = "MENU_ROOT"
+MENU_USERGALLERIES = "MENU_USERGALLERIES"
+POPPHOTOS = "POPPHOTOS"
+POPSETS = "POPSETS"
+
+#GALLERY MODES
+DISPLAY_GALLERY = "DISPLAY_GALLERY"
 
 #zero out data between passes
 mode = None
@@ -82,7 +114,7 @@ except:
     pass
 
 try:
-    mode=int(params["mode"])
+    mode=params["mode"]
 except:
     pass
 
@@ -90,27 +122,53 @@ except:
 #connect to ZenFolio
 zen = ZenConnection(username = username, password = password)
 if zen is None:
-  notify("Couldn't connect to Zenfolio!!")
-  sys.exit()
-zen.Authenticate()
+    notify("Couldn't connect to Zenfolio!!")
+    sys.exit()
+
+#try and authenticate, although we can do a lot without this
+try:
+    zen.Authenticate()
+except:
+    notify("Zenfolio Authentication not completed","(Can still browse public galleries etc.)")
 
 #OK the mode variable controls what we're actually doing...
-if mode==None or mode==ROOT:
-  log( "XZen Root Menu" )
+if mode==None or mode==MENU_ROOT:
+  log( "Display XZen Root Menu" )
   try:
-      buildRootMenu(zen)
+      BuildMenuRoot(zen)
   except:
       print_exc()
 
-elif mode==GALLERY:
-  log( "XZen Gallery id: " + str (galleryid) )
+elif mode==MENU_USERGALLERIES:
+  log( "Display XZen User Galleries" )
   try:
-      buildGallery(zen,galleryid)
+      BuildMenuUserGallery(zen)
+  except:
+      print_exc()
+
+elif mode==POPPHOTOS:
+  log( "Display XZen Popular Photos")
+  try:
+      ShowPopularPhotos(zen)
+  except:
+      print_exc()
+
+elif mode==POPSETS:
+  log( "Display XZen Popular Sets")
+  try:
+      BuildMenuPopSets(zen)
+  except:
+      print_exc()
+
+elif mode==DISPLAY_GALLERY:
+  log( "Display XZen Gallery id: " + str (galleryid) )
+  try:
+      ShowGallery(zen,galleryid)
   except:
       print_exc()
 
 else:
-  notify("Something went wrong - which mode??")
+  notify("Shouldn't have got here - a mode was passed, without a matching action!")
   sys.exit()
 
 #and tell XBMC we're done...
@@ -118,5 +176,7 @@ xbmcplugin.endOfDirectory(THIS_PLUGIN)
 
 #and power this puppy down....
 footprints(startup=False)
+
+
 
 
