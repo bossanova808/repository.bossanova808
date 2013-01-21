@@ -27,7 +27,7 @@ from zenapi import ZenConnection
 from zenapi.snapshots import Group, PhotoSet
 
 def BuildMenuRootItem(mode, label):
-    url = PLUGINSTUB + mode
+    url = buildPluginURL({"mode":mode})
     item=xbmcgui.ListItem(label,url,'','')
     xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
 
@@ -46,7 +46,7 @@ def BuildMenuUserGallery(zen):
         idTitle = element.TitlePhoto
         titlePhoto = zen.LoadPhoto(idTitle)
         urlTitlePhoto = titlePhoto.getUrl(2)
-        url = PLUGINSTUB + DISPLAY_GALLERY + "&galleryid=" + str(element.Id)
+        url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(element.Id)})
         item=xbmcgui.ListItem(element.Title,url,urlTitlePhoto,urlTitlePhoto)
         xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,len(h.Elements))
 
@@ -57,17 +57,24 @@ def BuildMenuPopSets(zen):
     pass
 
 
-def AddPhotoThumb(photo, numberOfItems):
+def AddPhotoThumb(photo, numberOfItems=0):
     url = photo.getUrl(6)
     urlThumb = photo.getUrl(2)
-    title = photo.Title
-    if title is None:
+    if photo.Title is None:
         title="Untitled"
+    else:
+        title = unquoteUni(photo.Title)
     log("AddPhotoThumb: [" + str(photo.Id) + "] title: [" + str(title) + "] url: [" +str(url) + "] urlThumb: [" + str(urlThumb) +"]")
     item=xbmcgui.ListItem(title,str(url),'',str(urlThumb),'')
     xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,False,numberOfItems)
 
-def ShowPopularPhotos(zen,offset=0, limit=13):
+def ShowPopularPhotos(zen,offset=0, limit=14):
+    #first add a next page link for quick browsing
+    urlNextPage=buildPluginURL({"mode":POPPHOTOS,"offset":offset+limit})
+    item=xbmcgui.ListItem("Next Page",urlNextPage,"","")
+    xbmcplugin.addDirectoryItem(THIS_PLUGIN,urlNextPage,item,True)
+
+    #now add the photos of this page
     photos = zen.GetPopularPhotos(offset,limit)
     for photo in photos:
         AddPhotoThumb(photo,len(photos))
@@ -91,11 +98,17 @@ log("Parameters parsed: " + str(params))
 #MENU MODES
 MENU_ROOT = "MENU_ROOT"
 MENU_USERGALLERIES = "MENU_USERGALLERIES"
-POPPHOTOS = "POPPHOTOS"
 POPSETS = "POPSETS"
 
 #GALLERY MODES
+POPPHOTOS = "POPPHOTOS"
 DISPLAY_GALLERY = "DISPLAY_GALLERY"
+#these modes use the thumbnail view (for playable items)
+galleryModes = [\
+              DISPLAY_GALLERY,\
+              POPPHOTOS,\
+              ]
+
 
 #zero out data between passes
 mode = None
@@ -115,6 +128,13 @@ except:
 
 try:
     mode=params["mode"]
+except:
+    pass
+
+#if we're paging groups of photos, what is the starting offset?
+offset=0
+try:
+    offset=int(params["offset"])
 except:
     pass
 
@@ -149,7 +169,7 @@ elif mode==MENU_USERGALLERIES:
 elif mode==POPPHOTOS:
   log( "Display XZen Popular Photos")
   try:
-      ShowPopularPhotos(zen)
+      ShowPopularPhotos(zen,offset)
   except:
       print_exc()
 
@@ -170,6 +190,15 @@ elif mode==DISPLAY_GALLERY:
 else:
   notify("Shouldn't have got here - a mode was passed, without a matching action!")
   sys.exit()
+
+
+#if we've just built a list of albums, force thumbnail mode
+if mode in galleryModes:
+  log("Playable Items -> Trying to set thumnbnail mode...")
+  xbmc.executebuiltin('Container.SetViewMode(500)')
+else:
+  log("List Items -> Trying to set list mode...")
+  xbmc.executebuiltin('Container.SetViewMode(50)')
 
 #and tell XBMC we're done...
 xbmcplugin.endOfDirectory(THIS_PLUGIN)
