@@ -106,9 +106,9 @@ def MakeRequest(method, params, auth=None, use_ssl=True):
     ver='1.6'
     #ver='1.2'
     if use_ssl is False and auth is None:
-        url = 'http://www.zenfolio.com/api/%s/zfapi.asmx'%ver
+        url = 'http://api.zenfolio.com/api/%s/zfapi.asmx'%ver
     else:
-        url = 'https://www.zenfolio.com/api/%s/zfapi.asmx'%ver
+        url = 'https://api.zenfolio.com/api/%s/zfapi.asmx'%ver
 
     body = {
         'method':method,
