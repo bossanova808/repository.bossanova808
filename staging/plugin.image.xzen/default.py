@@ -50,7 +50,7 @@ def AddGroupThumb(group, numberOfItems=0):
 def AddPhotoSetThumb(photoSet, numberOfItems=0):
     try:
         titlePhoto = zen.LoadPhoto(photoSet.TitlePhoto,'Level1')
-        urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Medium thumbnail'])
+        urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'])
 
         if photoSet.Title is None:
             title="(Untitled Folder)"
@@ -65,17 +65,17 @@ def AddPhotoSetThumb(photoSet, numberOfItems=0):
         log("AddPhotoSetThumb - Exception!", inst)
 
 #Add thumb that links to an individual photo
-def AddPhotoThumb(photo, numberOfItems=0):
-    try:
 
+def AddPhotoThumb(photo, numberOfItems=0,downloadKey=""):
+    try:
         #get the highest quality url available
         for key, value in ZEN_DOWNLOAD_QUALITY.iteritems():
             if key not in photo.AccessDescriptor['AccessMask']:
-                url = photo.getUrl(value)
+                url = photo.getUrl(value, downloadKey)
                 #log("Added url quality: " + key)
                 break;
 
-        urlThumb = photo.getUrl(10)
+        urlThumb = photo.getUrl(ZEN_URL_QUALITY['Large thumbnail'],downloadKey)
 
         if photo.Title is None:
             title="Untitled"
@@ -92,9 +92,16 @@ def AddPhotoThumb(photo, numberOfItems=0):
 
 #Given a gallery ID, add all the thumbs
 def AddGallery(zen,galleryid):
+
     ps = zen.LoadPhotoSet(galleryid, 'Level1',includePhotos=True)
+
+    #is this a password protected gallery?
+    if ps.AccessDescriptor['AccessType'] == 'Password':
+        downloadKey = zen.GetDownloadOriginalKey(ps.Photos,"jessie")
+        log("Download Key is: " + downloadKey)
+
     for photo in ps.Photos:
-        AddPhotoThumb(photo,len(ps.Photos))
+        AddPhotoThumb(photo,len(ps.Photos),downloadKey)
 
 #Add a next page link for the correct mode, and where to start
 def AddNextPageLink(mode,startNumber):
@@ -133,11 +140,11 @@ def BuildUserGallery(zen,group=None):
         #load the cover photos
         #add the links
         h = zen.LoadGroupHierarchy()
-        log("$$$ H Access is " + str(h.AccessDescriptor))
-        if KEYRINGED == False and h.AccessDescriptor['AccessType'] == 'Password':
-            log("Global User Keyring")
-            zen.KeyringAddKeyPlain(realmId= h.AccessDescriptor['RealmId'],password="jessie")
-            KEYRINGED=True
+##        log("$$$ H Access is " + str(h.AccessDescriptor))
+##        if KEYRINGED == False and h.AccessDescriptor['AccessType'] == 'Password':
+##            log("Global User Keyring")
+##            zen.KeyringAddKeyPlain(realmId= h.AccessDescriptor['RealmId'],password="jessie")
+##            KEYRINGED=True
 
     else:
         #loading a specific group

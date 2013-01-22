@@ -104,7 +104,7 @@ def MakeHeaders(auth=None, keyring=None):
 def MakeRequest(method, params, auth=None, use_ssl=True, keyring = None):
     headers=MakeHeaders(auth=auth, keyring=keyring)
     headers['Content-Type'] = 'application/json'
-    log("Make Request with headers: " + str(headers))
+    #log("Make Request with headers: " + str(headers))
     global _opener
     ver='1.6'
     #ver='1.2'
@@ -542,15 +542,17 @@ class Photo(Snapshot):
     ProfileSmall = 51
     ProfileRegular = 52
 
-    def getUrl(self, size=Original):
+    def getUrl(self, size=Original, key=None):
         """Calculates the url to any of the resized versions
         See: http://www.zenfolio.com/zf/help/api/guide/download
         Could add port and seq # here, ignoring for now
         """
         if size is None:
             return self.OriginalUrl
-
-        return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}'.format(p=self, Size=size)
+        if key==None:
+            return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}'.format(p=self, Size=size)
+        else:
+            return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}&key={Key}'.format(p=self, Size=size, Key=key)
 
     def download(self, fn=None, path=None, size=Original, auth=None, skip_existing=False, set_mtime=False):
         """Downloads the photo to disk
