@@ -18,27 +18,44 @@
 import xbmc
 import xbmcplugin
 import xbmcgui
-from time import time
-from pprint import pprint
-#some handy stuff
 from b808common import *
+
 #uses zenapi by Scott Gorling (http://www.scottgorlin.com)
 from zenapi import ZenConnection
-from zenapi.snapshots import Group, PhotoSet
+from zenapi.snapshots import Photo, Group, PhotoSet
 
 ################################################################################
 # Photo/Set Loaders
+
+#add a thumb for a group
+def AddGroupThumb(group, numberOfItems=0):
+    try:
+        titlePhoto = zen.LoadPhoto(group.TitlePhoto,'Level1')
+        urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'])
+
+        if group.Title is None:
+            title="Untitled"
+        else:
+            title = "Group: " +  unquoteUni(group.Title)
+
+        url = buildPluginURL({'mode':MENU_USERGALLERIES,'group':str(group.Id)})
+        item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
+        xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
+
+    except Exception as inst:
+        log("AddPhotoSetThumb - Exception!", inst)
+
 
 #add thumb that links to a set of photos
 def AddPhotoSetThumb(photoSet, numberOfItems=0):
     try:
         titlePhoto = zen.LoadPhoto(photoSet.TitlePhoto,'Level1')
-        urlTitlePhoto = titlePhoto.getUrl(10)
+        urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Medium thumbnail'])
 
         if photoSet.Title is None:
-            title="Untitled"
+            title="(Untitled Folder)"
         else:
-            title = unquoteUni(photoSet.Title)
+            title = "Set: " + unquoteUni(photoSet.Title)
 
         url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(photoSet.Id)})
         item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
@@ -51,17 +68,12 @@ def AddPhotoSetThumb(photoSet, numberOfItems=0):
 def AddPhotoThumb(photo, numberOfItems=0):
     try:
 
-        #be optimistic....
-        url = photo.getUrl(6)
-        #temper it with realism....
-        if 'ProtectMedium' not in photo.AccessDescriptor['AccessMask']:
-            url = photo.getUrl(3)
-        if 'ProtectLarge' not in photo.AccessDescriptor['AccessMask']:
-            url = photo.getUrl(4)
-        if 'ProtectExtraLarge' not in photo.AccessDescriptor['AccessMask']:
-            url = photo.getUrl(5)
-        if 'ProtectXXLarge' not in photo.AccessDescriptor['AccessMask']:
-            url = photo.getUrl(6)
+        #get the highest quality url available
+        for key, value in ZEN_DOWNLOAD_QUALITY.iteritems():
+            if key not in photo.AccessDescriptor['AccessMask']:
+                url = photo.getUrl(value)
+                #log("Added url quality: " + key)
+                break;
 
         urlThumb = photo.getUrl(10)
 
@@ -72,7 +84,7 @@ def AddPhotoThumb(photo, numberOfItems=0):
 
         log("AddPhotoThumb: [" + str(photo.Id) + "] title: [" + str(title) + "] url: [" +str(url) + "] urlThumb: [" + str(urlThumb) +"]")
 
-        item=xbmcgui.ListItem(title,str(url),'',str(urlThumb),'')
+        item=xbmcgui.ListItem(title,str(url),str(urlThumb),str(urlThumb))
         xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,False,numberOfItems)
 
     except Exception as inst:
@@ -100,21 +112,52 @@ def BuildMenuRootItem(mode, label):
     xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
 
 def BuildMenuRoot(zen):
-    BuildMenuRootItem(MENU_USERGALLERIES            ,"User Galleries")
+    if AUTHENTICATED:
+        BuildMenuRootItem(MENU_USERGALLERIES        ,"User Galleries")
     BuildMenuRootItem(RECENTPHOTOS                  ,"Recent Photos")
     BuildMenuRootItem(RECENTGALLERIES               ,"Recent Galleries")
     BuildMenuRootItem(RECENTCOLLECTIONS             ,"Recent Collections")
     BuildMenuRootItem(POPPHOTOS                     ,"Popular Photos")
     BuildMenuRootItem(POPGALLERIES                  ,"Popular Galleries")
     BuildMenuRootItem(POPCOLLECTIONS                ,"Popular Collections")
+    if not AUTHENTICATED:
+        BuildMenuRootItem("",                       "(No credentials found in XZen settings, user galleries disabled)")
 
-def BuildMenuUserGallery(zen):
-    #load the album hierchy for the user
-    #load the cover photos
-    #add the links
-    h = zen.LoadGroupHierarchy()
+
+def BuildUserGallery(zen,group=None):
+
+    global KEYRINGED
+
+    if group is None:
+        #load the album hierchy for the user
+        #load the cover photos
+        #add the links
+        h = zen.LoadGroupHierarchy()
+        log("$$$ H Access is " + str(h.AccessDescriptor))
+        if KEYRINGED == False and h.AccessDescriptor['AccessType'] == 'Password':
+            log("Global User Keyring")
+            zen.KeyringAddKeyPlain(realmId= h.AccessDescriptor['RealmId'],password="jessie")
+            KEYRINGED=True
+
+    else:
+        #loading a specific group
+        h = zen.LoadGroup(group, includeChildren=True)
+
+
     for element in h.Elements:
-      AddPhotoSetThumb(element,len(h.Elements))
+        log("Access is: " + str(element.AccessDescriptor))
+        if isinstance(element,PhotoSet):
+            log("Add PhotoSet Thumb: " + str(element.Id))
+            AddPhotoSetThumb(element,len(h.Elements))
+        elif isinstance(element,Group):
+            log("Add Group Thumb: " + str(element.Id))
+            AddGroupThumb(element)
+        elif isinstance(element,Photo):
+            log("Add Photo Thumb: " + str(element.Id))
+            AddPhotoThumb(element)
+        else:
+            log("Did not add, not sure what this is: " + element.__name__)
+
 
 def BuildMenuPopSets(zen,type="Gallery",offset=0,limit=14):
     if type=="Gallery": AddNextPageLink(POPGALLERIES,offset+limit)
@@ -149,6 +192,13 @@ def ShowRecentPhotos(zen,offset=0, limit=14):
         AddPhotoThumb(photo,len(photos))
 
 
+
+################################################################################
+################################################################################
+# MAIN
+################################################################################
+################################################################################
+
 #ok we're firing up
 footprints()
 
@@ -172,6 +222,25 @@ RECENTPHOTOS = "RECENTPHOTOS"
 RECENTGALLERIES = "RECENTGALLERIES"
 RECENTCOLLECTIONS = "RECENTCOLLECTIONS"
 
+#Zenfolio Quality Levels for Images
+ZEN_DOWNLOAD_QUALITY = {
+                    "ProtectXXLarge" : 6,
+                    "ProtectExtraLarge" :5 ,
+                    "ProtectLarge" :4,
+                    "ProtectMedium" :3
+}
+
+ZEN_URL_QUALITY ={
+                    "Small thumbnail" : 0,      #Small thumbnail (up to 80 x 80)
+                    "Square thumbnail": 1,      #Square thumbnail (60 x 60, cropped square)
+                    "Small": 2,                 #Small (up to 400 x 400)
+                    "Medium": 3,                #Medium (up to 580 x 450)
+                    "Large" : 4,                #Large (up to 800 x 630)
+                    "X-Large" : 5,              #X-Large (up to 1100 x 850)
+                    "XX-Large" : 6,             #XX-Large (up to 1550 x 960)
+                    "Medium thumbnail" : 10,    #Medium thumbnail (up to 120 x 120)
+                    "Large thumbnail" : 11      #Large thumbnail (up to 120 x 120)
+}
 
 #these modes use the thumbnail view (for playable items)
 galleryModes = [\
@@ -190,6 +259,8 @@ galleryModes = [\
 mode = None
 url = None
 galleryid=None
+group=None
+collection=None
 
 #try and get data from the paramters
 try:
@@ -207,6 +278,17 @@ try:
 except:
     pass
 
+try:
+    group=int(params["group"])
+except:
+    pass
+
+try:
+    collection=int(params["collection"])
+except:
+    pass
+
+
 #if we're paging groups of photos, what is the starting offset?
 offset=0
 try:
@@ -215,7 +297,12 @@ except:
     pass
 
 
+
+
 #connect to ZenFolio
+AUTHENTICATED=False
+KEYRINGED=False
+
 zen = ZenConnection(username = username, password = password)
 if zen is None:
     notify("Couldn't connect to Zenfolio!!")
@@ -224,8 +311,11 @@ if zen is None:
 #try and authenticate, although we can do a lot without this
 try:
     zen.Authenticate()
+    AUTHENTICATED=True
 except:
-    notify("Zenfolio Authentication not completed","(Can still browse public galleries etc.)")
+    #if in the root menu the first time, let them know this is just a public browsing session....
+    if mode==None:
+        notify("Zenfolio Authentication not completed","(Can still browse public galleries etc.)")
 
 #OK the mode variable controls what we're actually doing...
 if mode==None or mode==MENU_ROOT:
@@ -236,11 +326,16 @@ if mode==None or mode==MENU_ROOT:
       print_exc()
 
 elif mode==MENU_USERGALLERIES:
-  log( "Display XZen User Galleries" )
-  try:
-      BuildMenuUserGallery(zen)
-  except:
-      print_exc()
+    #loading the root menu
+    try:
+        if group is None:
+            log( "Display XZen User Gallery Root" )
+            BuildUserGallery(zen)
+        else:
+            log( "Display XZen User Gallery Group/Collection: " + str(group) )
+            BuildUserGallery(zen,group)
+    except:
+          print_exc()
 
 elif mode==POPPHOTOS:
   log( "Display XZen Popular Photos")

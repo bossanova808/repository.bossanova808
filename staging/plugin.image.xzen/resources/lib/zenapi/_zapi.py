@@ -89,19 +89,22 @@ class InformationLevel:
     Level2 = 'Level2'
     Full = 'Full'
 
-def MakeHeaders(auth=None):
+def MakeHeaders(auth=None, keyring=None):
     headers = {
         'User-Agent': 'Zenapi (Python) Library',
         'X-Zenfolio-User-Agent': 'Zenapi (Python) Library',
     }
     if auth is not None:
         headers['X-Zenfolio-Token'] = auth
+    if keyring is not None:
+        headers['X-Zenfolio-Keyring'] = keyring
 
     return headers
 
-def MakeRequest(method, params, auth=None, use_ssl=True):
-    headers=MakeHeaders(auth=auth)
+def MakeRequest(method, params, auth=None, use_ssl=True, keyring = None):
+    headers=MakeHeaders(auth=auth, keyring=keyring)
     headers['Content-Type'] = 'application/json'
+    log("Make Request with headers: " + str(headers))
     global _opener
     ver='1.6'
     #ver='1.2'
@@ -330,12 +333,12 @@ class PhotoUpdater(CommonUpdater):
     __fields__ = ['Keywords', 'Categories', 'Copyright', 'FileName']
 
 
-def Call(method, auth=None, use_ssl=False, params=None):
+def Call(method, auth=None, use_ssl=False, params=None, keyring = None):
     if params is None:
         params = []
 
     try:
-        resp = MakeRequest(method, params, auth, use_ssl)
+        resp = MakeRequest(method, params, auth, use_ssl, keyring)
     except HttpError, e:
         log('ZenFolio API Call for %s failed with params: %s\n'
                         'response code %d with body:\n %s', method, params,
@@ -348,10 +351,12 @@ def Call(method, auth=None, use_ssl=False, params=None):
         return rpc_obj['result']
     else:
         if 'code' in rpc_obj['error']:
+            log("RPC Error: " + rpc_obj['error']['message'] + " - [CODE] (" + rpc_obj['error']['code']+ ")")
             raise RpcError(
                 message=rpc_obj['error']['message'],
                 code=rpc_obj['error']['code'])
         else:
+            log("RPC Error: " + rpc_obj['error']['message'])
             raise RpcError(message=rpc_obj['error']['message'])
 """
 Snapshots
@@ -531,6 +536,7 @@ class Photo(Snapshot):
     ImMed = 3
     ImLarge = 4
     ImXLarge = 5
+    ImXXLarge = 6
 
     ProfileLarge = 50
     ProfileSmall = 51
@@ -580,7 +586,7 @@ class Photo(Snapshot):
 
         data = urllib2.urlopen(
             urllib2.Request(
-                self.getUrl(size=size), headers=MakeHeaders(auth=auth))).read()
+                self.getUrl(size=size), headers=MakeHeaders(auth=auth,keyring=keyring))).read()
 
         with open(fp, 'wb') as f:
             f.write(data)
@@ -599,6 +605,7 @@ Formal API
 class ZenConnection(object):
     def __init__(self, username=None, password=None, filename=None):
         self.auth = None
+        self.keyring=None
         if filename:
             z = ZenConnection.load(filename)
             username = z.__username
@@ -609,11 +616,13 @@ class ZenConnection(object):
     def save(self, filename):
         import cPickle
         tmpauth = self.auth
+        tmpkeyring = self.keyring
         self.auth = None
         f = file(filename, mode='w')
         cPickle.dump(self, f, cPickle.HIGHEST_PROTOCOL)
         f.close()
         self.auth = tmpauth
+        self.keyring = tmpkeyring
 
     @staticmethod
     def load(filename):
@@ -626,6 +635,8 @@ class ZenConnection(object):
     def call(self, method, useMyAuthentication=True, **kwargs):
         if useMyAuthentication:
             kwargs['auth']=self.auth
+        if self.keyring is not None:
+            kwargs['keyring']=self.keyring
         return ResponseObject.build(Call(method, **kwargs))
 
     """
@@ -662,6 +673,8 @@ class ZenConnection(object):
 
         else:
             self.auth = resp
+
+
 
     """
     Loaders
@@ -751,10 +764,11 @@ class ZenConnection(object):
 
 
     def KeyringAddKeyPlain(self, keyring=None, realmId=None, password=None):
-        return self.call('KeyringAddKeyPlain',
+        self.keyring = self.call('KeyringAddKeyPlain',
                          use_ssl=True,
                          params=PackParams(keyring, realmId, password))
-
+        log("self.keyring " + self.keyring)
+        return self.keyring
 
     def LoadGroup(self, group, level=InformationLevel.Level1, includeChildren=False):
         return self.call('LoadGroup',
