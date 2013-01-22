@@ -127,6 +127,7 @@ def BuildMenuRoot(zen):
     BuildMenuRootItem(POPPHOTOS                     ,"Popular Photos")
     BuildMenuRootItem(POPGALLERIES                  ,"Popular Galleries")
     BuildMenuRootItem(POPCOLLECTIONS                ,"Popular Collections")
+    BuildMenuRootItem(CATEGORIES                    ,"Categories")
     if not AUTHENTICATED:
         BuildMenuRootItem("",                       "(No credentials found in XZen settings, user galleries disabled)")
 
@@ -189,6 +190,36 @@ def BuildMenuRecentSets(zen,type="Gallery",offset=0,limit=14):
     for photoset in photosets:
         AddPhotoSetThumb(photoset,len(photosets))
 
+
+def AddCategory(category,numberOfItems=0):
+    url = buildPluginURL({'mode':CATEGORY_OPTIONS,'category':category['Code']})
+    item=xbmcgui.ListItem(category['DisplayName'],url,'','')
+    xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
+
+
+def BuildMenuCategoryOptions():
+    pass
+
+def BuildMenuCategories(zen):
+    categoriesList = zen.GetCategories()
+    log(str(categoriesList))
+
+##    #build the categories lists
+##    stub = '100'
+##    for category in categoriesList:
+##        #Each category is {u'$type': u'Category', u'Code': 1000000, u'DisplayName': u'Animals'}
+##        code = str(category['Code'])
+##        if code.startswith(stub):
+##           log("Category Group " + category['DisplayName'])
+##        #move to the next stub
+##        else:
+##            log("**** Found new group")
+##            stub = code[:3]
+
+
+    for category in categoriesList:
+        AddCategory(category,len(categoriesList))
+
 def ShowRecentPhotos(zen,offset=0, limit=14):
     #first add a next page link for quick browsing
     AddNextPageLink(RECENTPHOTOS,offset+limit)
@@ -216,8 +247,10 @@ params=get_params()
 log("Parameters parsed: " + str(params))
 
 
-#MENU MODES
+#LIST MODES
 MENU_ROOT = "MENU_ROOT"
+CATEGORIES = "CATEGORIES"
+CATEGORY_OPTIONS = "CATEGORY_OPTIONS"
 
 #GALLERY MODES
 MENU_USERGALLERIES = "MENU_USERGALLERIES"
@@ -267,7 +300,7 @@ mode = None
 url = None
 galleryid=None
 group=None
-collection=None
+category=None
 
 #try and get data from the paramters
 try:
@@ -291,7 +324,7 @@ except:
     pass
 
 try:
-    collection=int(params["collection"])
+    category=int(params["category"])
 except:
     pass
 
@@ -302,8 +335,6 @@ try:
     offset=int(params["offset"])
 except:
     pass
-
-
 
 
 #connect to ZenFolio
@@ -383,6 +414,13 @@ elif mode==RECENTCOLLECTIONS:
   log( "Display XZen Recent Collections")
   try:
       BuildMenuRecentSets(zen,"Collection", offset)
+  except:
+      print_exc()
+
+elif mode==CATEGORIES:
+  log( "Display XZen Categories")
+  try:
+      BuildMenuCategories(zen)
   except:
       print_exc()
 
