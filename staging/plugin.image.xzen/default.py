@@ -203,8 +203,10 @@ def AddCategory(category,code,numberOfItems=0):
     xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
 
 
-def BuildMenuCategoryOptions():
-    pass
+def frontPadTo9Chars(shortStr):
+    while len(shortStr)<9:
+        shortStr = "0" + shortStr
+    return shortStr
 
 def BuildMenuCategories(zen,parentCode=None):
     categoriesList = zen.GetCategories()
@@ -212,6 +214,7 @@ def BuildMenuCategories(zen,parentCode=None):
     if parentCode is None:
         log("Parent Code None")
     else:
+        parentCode = frontPadTo9Chars(parentCode)
         log("Parent Code incoming is: " + parentCode)
 
     #category = X000000
@@ -219,16 +222,26 @@ def BuildMenuCategories(zen,parentCode=None):
     #   subsubcategory = XXXXXXXXX
 
     for category in categoriesList:
+
+        #get the code as a string and pad it to the orignal 12 characters
         strCode = str(category['Code'])
-        log("Seeing if we're adding " + category['DisplayName'] + " code is " + strCode)
+        strCode = frontPadTo9Chars(strCode)
+
+        if parentCode is not None:
+            log("Seeing if we're adding " + category['DisplayName'] + " code is " + strCode + " and parentCode is: "+ parentCode)
+            log("PC " + parentCode[:3] + " SC " + strCode[:3] + " SCL3 " + strCode[-3:])
+        else:
+            log("Seeing if we're adding " + category['DisplayName'] + " code is " + strCode + " and parentCode is: None")
 
         if parentCode is None and strCode[-6:]=="000000":
             #this is a parent category as it ends  in 000000
-            AddCategory(category,strCode,len(categoriesList))
-        elif parentCode is not None and parentCode[-6:]=="000000":
+            AddCategory(category,strCode)
+        elif parentCode is not None and parentCode!=strCode and parentCode[:3] == strCode[:3] and strCode[-3:]=="000":
             #we have a parent code and it is a category, so we are dealing with sub categories - check if all but the last three chars match
-            if parentCode[-3:] == strCode[-3:]:
-              AddCategory(category,strCode,len(categoriesList))
+            AddCategory(category,strCode)
+        elif parentCode is not None and parentCode!=strCode and parentCode[:6]==strCode[:6] and strCode[-3:]!="000":
+            #ok we have a sub-sub category
+            AddCategory(category,strCode)
         else:
             pass
 
