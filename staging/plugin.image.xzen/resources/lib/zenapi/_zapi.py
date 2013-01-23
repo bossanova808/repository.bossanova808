@@ -542,17 +542,24 @@ class Photo(Snapshot):
     ProfileSmall = 51
     ProfileRegular = 52
 
-    def getUrl(self, size=Original, key=None):
+    def getUrl(self, size=Original, keyring=None, auth=None):
         """Calculates the url to any of the resized versions
         See: http://www.zenfolio.com/zf/help/api/guide/download
         Could add port and seq # here, ignoring for now
+        Added key paramater for a keyring
+        Added auth paramater to submit auth via url
         """
+
+        if keyring is None:
+            keyring = ""
+        if auth is None:
+            auth = ""
         if size is None:
-            return self.OriginalUrl
-        if key==None:
-            return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}'.format(p=self, Size=size)
+            return self.OriginalUrl + "?keyring=" + keyring + "&token=" + auth
+        #if keyring==None:
+        #    return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}'.format(p=self, Size=size)
         else:
-            return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}&key={Key}'.format(p=self, Size=size, Key=key)
+            return 'http://{p.UrlHost}/{p.UrlCore}-{Size}.jpg?sn={p.Sequence}&tk={p.UrlToken}&keyring={Key}&token={Token}'.format(p=self, Size=size, Key=keyring,Token=auth)
 
     def download(self, fn=None, path=None, size=Original, auth=None, skip_existing=False, set_mtime=False):
         """Downloads the photo to disk
@@ -676,7 +683,7 @@ class ZenConnection(object):
         else:
             self.auth = resp
 
-
+        return self.auth
 
     """
     Loaders

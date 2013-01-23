@@ -48,6 +48,9 @@ def AddGroupThumb(group, numberOfItems=0):
 
 #add thumb that links to a set of photos
 def AddPhotoSetThumb(photoSet, numberOfItems=0):
+
+    global AUTH
+
     try:
         titlePhoto = zen.LoadPhoto(photoSet.TitlePhoto,'Level1')
         urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'])
@@ -67,15 +70,18 @@ def AddPhotoSetThumb(photoSet, numberOfItems=0):
 #Add thumb that links to an individual photo
 
 def AddPhotoThumb(photo, numberOfItems=0,downloadKey=""):
+
+    global AUTH
+
     try:
         #get the highest quality url available
         for key, value in ZEN_DOWNLOAD_QUALITY.iteritems():
             if key not in photo.AccessDescriptor['AccessMask']:
-                url = photo.getUrl(value, downloadKey)
+                url = photo.getUrl(value, downloadKey, AUTH)
                 #log("Added url quality: " + key)
                 break;
 
-        urlThumb = photo.getUrl(ZEN_URL_QUALITY['Large thumbnail'],downloadKey)
+        urlThumb = photo.getUrl(ZEN_URL_QUALITY['Large thumbnail'],downloadKey, AUTH)
 
         if photo.Title is None:
             title="Untitled"
@@ -191,8 +197,8 @@ def BuildMenuRecentSets(zen,type="Gallery",offset=0,limit=14):
         AddPhotoSetThumb(photoset,len(photosets))
 
 
-def AddCategory(category,numberOfItems=0):
-    url = buildPluginURL({'mode':CATEGORY_OPTIONS,'category':category['Code']})
+def AddCategory(category,code,numberOfItems=0):
+    url = buildPluginURL({'mode':CATEGORIES,'category':code})
     item=xbmcgui.ListItem(category['DisplayName'],url,'','')
     xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True,numberOfItems)
 
@@ -200,9 +206,32 @@ def AddCategory(category,numberOfItems=0):
 def BuildMenuCategoryOptions():
     pass
 
-def BuildMenuCategories(zen):
+def BuildMenuCategories(zen,parentCode=None):
     categoriesList = zen.GetCategories()
     log(str(categoriesList))
+    if parentCode is None:
+        log("Parent Code None")
+    else:
+        log("Parent Code incoming is: " + parentCode)
+
+    #category = X000000
+    # subcategory = XXXX000
+    #   subsubcategory = XXXXXXXXX
+
+    for category in categoriesList:
+        strCode = str(category['Code'])
+        log("Seeing if we're adding " + category['DisplayName'] + " code is " + strCode)
+
+        if parentCode is None and strCode[-6:]=="000000":
+            #this is a parent category as it ends  in 000000
+            AddCategory(category,strCode,len(categoriesList))
+        elif parentCode is not None and parentCode[-6:]=="000000":
+            #we have a parent code and it is a category, so we are dealing with sub categories - check if all but the last three chars match
+            if parentCode[-3:] == strCode[-3:]:
+              AddCategory(category,strCode,len(categoriesList))
+        else:
+            pass
+
 
 ##    #build the categories lists
 ##    stub = '100'
@@ -216,9 +245,8 @@ def BuildMenuCategories(zen):
 ##            log("**** Found new group")
 ##            stub = code[:3]
 
-
-    for category in categoriesList:
-        AddCategory(category,len(categoriesList))
+#    for category in categoriesList:
+#        AddCategory(category,len(categoriesList))
 
 def ShowRecentPhotos(zen,offset=0, limit=14):
     #first add a next page link for quick browsing
@@ -324,7 +352,7 @@ except:
     pass
 
 try:
-    category=int(params["category"])
+    category=params["category"]
 except:
     pass
 
@@ -348,7 +376,7 @@ if zen is None:
 
 #try and authenticate, although we can do a lot without this
 try:
-    zen.Authenticate()
+    AUTH=zen.Authenticate()
     AUTHENTICATED=True
 except:
     #if in the root menu the first time, let them know this is just a public browsing session....
@@ -420,7 +448,7 @@ elif mode==RECENTCOLLECTIONS:
 elif mode==CATEGORIES:
   log( "Display XZen Categories")
   try:
-      BuildMenuCategories(zen)
+      BuildMenuCategories(zen,category)
   except:
       print_exc()
 
