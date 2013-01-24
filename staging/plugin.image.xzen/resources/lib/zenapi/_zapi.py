@@ -36,7 +36,7 @@ import time
 
 from b808common import *
 
-USE_TLS = False # If getting errors on https connectivity, specify as True
+USE_TLS = True # If getting errors on https connectivity, specify as True
 
 # Need to override default openers for SSL incompatability issue
 class TLSConnection(httplib.HTTPSConnection):

@@ -80,7 +80,6 @@ def footprints(startup=True):
   if startup:
     logNotice( ADDONNAME + " (Author: " + AUTHOR + ") ********************* Starting ...")
     logNotice( "Called as: " + str(sys.argv))
-    logNotice( "With handle: " +str(THIS_PLUGIN))
   else:
     logNotice( ADDONNAME + " (Author: " + AUTHOR + ") ********************* Exiting ....")
 
