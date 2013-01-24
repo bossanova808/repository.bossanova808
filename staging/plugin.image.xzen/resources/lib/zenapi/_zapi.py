@@ -33,10 +33,16 @@ import httplib
 import operator
 from datetime import datetime
 import time
+import xbmc
+import xbmcplugin
 
 from b808common import *
 
-USE_TLS = True # If getting errors on https connectivity, specify as True
+USE_TLS=ADDON.getSetting('TLSworkaround')
+if USE_TLS=="true":
+    USE_TLS=True
+else:
+    USE_TLS=False
 
 # Need to override default openers for SSL incompatability issue
 class TLSConnection(httplib.HTTPSConnection):

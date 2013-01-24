@@ -160,7 +160,6 @@ def ConnectZen(mode):
     global AUTHENTICATED, AUTH, KEYRINGED, USERNAME, PADDSSWORD
 
     #connect to ZenFolio
-
     zen = ZenConnection(username = USERNAME, password = PASSWORD)
 
     #try and authenticate, although we can do a lot without this
@@ -168,6 +167,7 @@ def ConnectZen(mode):
         AUTH=zen.Authenticate()
         AUTHENTICATED=True
     except:
+        print_exc()
         #if in the root menu the first time, let them know this is just a public browsing session....
         if mode==None:
             notify("Zenfolio Authentication not completed","(Can still browse public galleries etc.)")
@@ -331,8 +331,6 @@ def BuildMenuRoot():
     BuildMenuRootItem(POPPHOTOS                     ,"Popular Photos")
     BuildMenuRootItem(POPGALLERIES                  ,"Popular Galleries")
     BuildMenuRootItem(POPCOLLECTIONS                ,"Popular Collections")
-    if not AUTHENTICATED:
-        BuildMenuRootItem("",                       "(No credentials found in XZen settings, user galleries disabled)")
 
 
 def BuildUserGallery(group=None):

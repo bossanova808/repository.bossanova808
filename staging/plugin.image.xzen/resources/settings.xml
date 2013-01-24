@@ -7,4 +7,6 @@
     <setting id="label2"  type="lsep" label="If you have password protected your originals at ZenFolio, enter your" default="" />
     <setting id="label3"  type="lsep" label="password below (only supports one global password at this stage)" default="" />
 	<setting id="passwordOriginals"  type="text" option="hidden" label="Password for user gallery access" default=""  />
+    <setting id="label4"  type="lsep" label="If you have issues getting user authentication to work, try enabling this:" default="" />
+    <setting id="TLSworkaround" type="bool" label="TLS Work Around" default="false"/>
 </settings>
