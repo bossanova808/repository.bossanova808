@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon
+  id="plugin.image.xzen"
+  version="0.0.2"
+  name="XZen"
+  provider-name="bossanova808 (bossanova808@gmail.com)">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.b808common" version="0.0.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>image</provides>
+  </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <minversion>31632</minversion>
+        <summary>Zenfolio Browser for XBMC</summary>
+        <description>Browse the public Zenfolio galleries, and view your Zenfolio photo portfolios in XBMC</description>
+        <disclaimer></disclaimer>
+    </extension>
+</addon>
+
 <addon id="plugin.program.b808minimal" name="Bossanova808 Minimal Plugin"
        version="0.0.1" provider-name="bossanova808">
   <requires>
@@ -18,10 +39,10 @@
 </addon>
 
 <addon id="plugin.program.xsqueezechooser" name="XSqueeze Chooser"
-       version="0.0.3" provider-name="bossanova808">
+       version="0.0.4" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.0.4"/>
+    <import addon="script.module.xsqueezecommon" version="0.0.5"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>executable</provides>
@@ -71,9 +92,21 @@
   </extension>
 </addon>
 
-<addon id="script.module.xsqueezecommon" version="0.0.4" name="XSqueeze Common Code" provider-name="bossanova808">
+<addon id="script.module.b808common" version="0.0.1" name="Bossanova808 Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.0'/>
+  </requires>
+  <extension point='xbmc.addon.metadata'>
+    <platform>all</platform>
+    <summary lang='en'>Installed automatically with Bossanova808 addons - common code for OzWeather, XZen, XSqueeze etc.</summary>
+  </extension>
+  <extension point='xbmc.python.module' library='lib' />
+</addon>
+
+<addon id="script.module.xsqueezecommon" version="0.0.5" name="XSqueeze Common Code" provider-name="bossanova808">
+  <requires>
+    <import addon='xbmc.python' version='2.0'/>
+    <import addon="script.module.b808common" version="0.0.1"/>
   </requires>
   <extension point='xbmc.addon.metadata'>
     <platform>all</platform>
@@ -84,12 +117,13 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.8.2"
+       version="0.8.5"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
     <import addon="script.artistslideshow" version="1.4.5"/>
     <import addon="script.module.xsqueezecommon" version="0.0.4"/>
+    <import addon="script.module.b808common" version="0.0.1"/>
     <import addon="plugin.program.xsqueezechooser" version="0.0.3"/>
   </requires>
   <extension point="xbmc.python.script"

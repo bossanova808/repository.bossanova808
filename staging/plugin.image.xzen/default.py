@@ -315,7 +315,7 @@ def AddNextPageLink(mode,startNumber=0,categoryid="",choice=""):
 
 def BuildMenuRootItem(mode, label):
     url = buildPluginURL({"mode":mode})
-    item=xbmcgui.ListItem(label,url,'','')
+    item=xbmcgui.ListItem(label,url,'','',)
     xbmcplugin.addDirectoryItem(THIS_PLUGIN,url,item,True)
 
 def BuildMenuRoot():

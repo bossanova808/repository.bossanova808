@@ -3,9 +3,9 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.8.5  Fairly big re-factor, simplification & cleanuo
+* 0.8.5  BIG CHANGES
 * 
-* YOU MUST RECONFIGURE XSQUEEZE BEFORE RUNNING!!!
+* ***** YOU MUST RECONFIGURE XSQUEEZE BEFORE RUNNING!!!
 * 
 * IDEALLY, DELETE YOUR SETTINGS FILE in userdata/addon_data FIRST
 * 

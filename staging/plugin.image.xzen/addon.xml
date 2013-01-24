@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.image.xzen"
-  version="0.0.1"
+  version="0.0.2"
   name="XZen"
   provider-name="bossanova808 (bossanova808@gmail.com)">
   <requires>
@@ -14,8 +14,8 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <minversion>31632</minversion>
-        <summary>View your Zenfolio photo portfolios in XBMC</summary>
-        <description>...</description>
-        <disclaimer>...</disclaimer>
+        <summary>Zenfolio Browser for XBMC</summary>
+        <description>Browse the public Zenfolio galleries, and view your Zenfolio photo portfolios in XBMC</description>
+        <disclaimer></disclaimer>
     </extension>
 </addon>
