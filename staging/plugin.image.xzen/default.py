@@ -347,7 +347,7 @@ def BuildUserGallery(group=None):
 ##        log("$$$ H Access is " + str(h.AccessDescriptor))
 ##        if KEYRINGED == False and h.AccessDescriptor['AccessType'] == 'Password':
 ##            log("Global User Keyring")
-##            zen.KeyringAddKeyPlain(realmId= h.AccessDescriptor['RealmId'],password="jessie")
+##            zen.KeyringAddKeyPlain(realmId= h.AccessDescriptor['RealmId'],password="")
 ##            KEYRINGED=True
 
     else:

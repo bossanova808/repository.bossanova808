@@ -2,7 +2,7 @@
 <addons>
 <addon
   id="plugin.image.xzen"
-  version="0.0.2"
+  version="0.0.3"
   name="XZen"
   provider-name="bossanova808 (bossanova808@gmail.com)">
   <requires>
