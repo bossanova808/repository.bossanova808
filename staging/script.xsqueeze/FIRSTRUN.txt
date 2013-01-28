@@ -3,11 +3,12 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.8.5  BIG CHANGES
+* 0.8.8  BIG CHANGES
 * 
-* ***** YOU MUST RECONFIGURE XSQUEEZE BEFORE RUNNING!!!
-* 
-* IDEALLY, DELETE YOUR SETTINGS FILE in userdata/addon_data FIRST
+* ***** YOU MUST (ONCE)
+*       RECONFIGURE XSQUEEZE 
+*       BEFORE RUNNING ANY VERSION POST 0.8.2!!!
+*       IDEALLY, DELETE YOUR SETTINGS FILE in userdata/addon_data FIRST
 * 
 * Integration of new squeezelite headless player (allows for high def audio, spotify etc)
 * Expanded mouse/touch controls - use these if you choose squeezelite as your player
@@ -19,6 +20,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 * Simplified the configuration fields
 * 
 * Startup is quicker
+* 
+* (0.8.8) Reverted Artist slideshow dependency to 1.4.7 for Eden compatibility
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
