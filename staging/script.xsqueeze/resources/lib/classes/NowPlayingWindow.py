@@ -204,7 +204,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     except:
       log( "### Failed to create SqueezePlayer object " )
       print_exc()
-      sys.exit()
+      raise
 
     #Initialise musi details
     self.coverURLs = [""]
@@ -237,17 +237,21 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     #kick off new threads if this is the first call to init
     # (as init is called when we drop back from the chooser plugin to XSqueeze)
 
-    if not self.running:
-      log("Starting GUI update thread")
-      self.running = True
-      self.thread = threading.Thread(target=self.update)
-      self.thread.setDaemon(True)
-      self.thread.start()
+    try:
+        if not self.running:
+          log("Starting GUI update thread")
+          self.running = True
+          self.thread = threading.Thread(target=self.update)
+          self.thread.setDaemon(True)
+          self.thread.start()
 
-      log("Starting ArtistSlideshow thread")
-      self.thread2 = threading.Thread(target=self.runArtistSlideshow)
-      self.thread2.setDaemon(True)
-      self.thread2.start()
+          log("Starting ArtistSlideshow thread")
+          self.thread2 = threading.Thread(target=self.runArtistSlideshow)
+          self.thread2.setDaemon(True)
+          self.thread2.start()
+    except Exception as inst:
+        log("Exception in NowPlayingWindow main loop: ", inst)
+        raise
 
   ##############################################################################
   #this is our GUI update thread and is used to update the window's display

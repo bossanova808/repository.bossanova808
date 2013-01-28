@@ -100,18 +100,22 @@ class SqueezePlayer:
     except Exception as inst:
       log(" Couldn't connect to player: " + PLAYERMAC , inst)
       notify(LANGUAGE(19615),LANGUAGE(19616))
-      sys.exit()
+      raise
 
     #initialise if we're called from XSqueeze as opposed to the chooser
-    if not basicOnly:
-      self.currentTrack = None
-      self.coverURLs = None
-      self.playlistDetails = None
-      self.updatePlaylistDetails()
-      self.updateCoverArtURLs()
-      #if the user wants music to start straight away...
-      if SENDPLAYONSTART:
-        self.sb.request("play")
+    try:
+        if not basicOnly:
+          self.currentTrack = None
+          self.coverURLs = None
+          self.playlistDetails = None
+          self.updatePlaylistDetails()
+          self.updateCoverArtURLs()
+          #if the user wants music to start straight away...
+          if SENDPLAYONSTART:
+            self.sb.request("play")
+    except Exception as inst:
+      log(" Error in initialisation of XSqueeze after connection to: " + PLAYERMAC , inst)
+      raise
 
 
   ##############################################################################

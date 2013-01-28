@@ -158,18 +158,21 @@ if ( __name__ == "__main__" ):
 
       #now let's make a window and see if we can send some commands...
       #check what skin to use
-      if constants.PLAYERTYPE=="squeezelite":
-        window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
-      elif constants.TOUCHENABLED:
-        window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
-      else:
-        window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+      try:
+          if constants.PLAYERTYPE=="squeezelite":
+            window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
+          elif constants.TOUCHENABLED:
+            window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
+          else:
+            window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
 
-       #and kick this bad boy off....
-      window.doModal()
+           #and kick this bad boy off....
+          window.doModal()
+      except:
+        print_exc()
 
       ############################################################################
-      # FINISHED - CLEAN UP!
+      # FINISHED (ONE WAY OR ANOTHER) - CLEAN UP!
 
       #are we running the locally installed Squeezeslave? KILL IT!
       if constants.PLAYBACK:
@@ -181,7 +184,10 @@ if ( __name__ == "__main__" ):
 
 
       # after the window is closed, Destroy it.
-      del window
+      try:
+        del window
+      except:
+        pass
 
       cleanup(andexit=True)
 
