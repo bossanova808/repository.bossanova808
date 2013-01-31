@@ -11,10 +11,15 @@
      <setting id="playback" type="bool" label="19906" default="true"/>
      <setting id="MAC" type="text" label="MAC for local player / MAC of device to control" default="00:00:00:00:00:01" />
      <setting label="Use..." type="labelenum" id="player" values="Squeezeslave|Squeezelite" enable="!eq( -2,false)" />
-     <setting id="args" type="text" label="Extra Player Arguments" default="" enable="!eq( -3,false)" />
+     <setting id="slaveargs" type="text" label="Extra Squeezeslave Arguments" default="" enable="!eq( -3,false)" />
+     <setting id="liteargs" type="text" label="Extra Squeezelite Arguments" default="" enable="!eq( -4,false)" />
    </category>
    <category label="Other Settings">
      <setting id="enableTouch" type="bool" label="19922" default="false"/>
      <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
+     <setting label="If you have issues with GUI sounds as startup...." type="lsep"/>
+     <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds..." default="0"/>
+     <setting label="On slow systems, if you have player connection issues..." type="lsep"/>
+     <setting id="connectpause" type="number" label="Delay after player startup for how many seconds..." default="0"/>
     </category>
 </settings>

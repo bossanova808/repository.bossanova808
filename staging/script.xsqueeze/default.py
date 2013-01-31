@@ -77,9 +77,11 @@ if ( __name__ == "__main__" ):
     #log some tracks...
     footprints()
 
-    #set up for actual playback - suspend AE as it an hog the audio device
-    xbmcAudioSuspended = False
-    playInit()
+    #pause
+    if constants.SECONDS_TO_PAUSE_STARTUP!=0:
+        log("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + ", per request in XSqueeze settings.")
+        notify("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + " seconds.", "(per request in XSqueeze settings.)")
+        time.sleep(constants.SECONDS_TO_PAUSE_STARTUP)
 
     #is the add on configured yet?
     if constants.SERVERIP=="":
@@ -116,8 +118,13 @@ if ( __name__ == "__main__" ):
 
       #are we running the locally installed Squeezeslave?
       if constants.PLAYBACK:
-        notify(LANGUAGE(19608),LANGUAGE(19609))
+
+        #set up for actual playback - suspend AE as it can hog the audio device
+        xbmcAudioSuspended = False
+        playInit()
+
         log("Starting local player [" + constants.PLAYERTYPE +"], system is [" + constants.SYSTEM + "]")
+        notify(LANGUAGE(19608),LANGUAGE(19609))
 
         #builds the list ['/path/exefile','-arg1','-arg2',...]
         exe = constants.EXE
@@ -151,7 +158,8 @@ if ( __name__ == "__main__" ):
         pid = slaveProcess.pid
         log("Process ID for player is "+ str(pid))
         #little pause to give player time to run & connect
-        time.sleep(2)
+        log("Brief pause for dust to settle: Default 2 seconds plus user requested seconds: " + str(constants.SECONDS_TO_PAUSE_CONNECT))
+        time.sleep(2 + constants.SECONDS_TO_PAUSE_CONNECT)
 
       ##########################################################################
       # SETUP DONE > ON WITH THE SHOW

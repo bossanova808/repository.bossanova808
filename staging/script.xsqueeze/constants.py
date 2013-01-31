@@ -99,7 +99,11 @@ else:
   PLAYERARGS.append(PLAYERMAC)
 
 #any extra player arguments supplied for special needs?
-tempargs = ADDON.getSetting('args').split(" ")
+if PLAYERTYPE=="squeezeslave":
+    tempargs = ADDON.getSetting('slaveargs').split(" ")
+else:
+    tempargs = ADDON.getSetting('liteargs').split(" ")
+
 if tempargs[0] != '':
   PLAYERARGS.extend(tempargs)
 
@@ -115,6 +119,8 @@ if ADDON.getSetting('sendPlayOnStart')=="true":
 else:
   PLAYONSTART = False
 
+SECONDS_TO_PAUSE_STARTUP = int(ADDON.getSetting('startuppause'))
+SECONDS_TO_PAUSE_CONNECT = int(ADDON.getSetting('connectpause'))
 
 ################################################################################
 # Deal with the squeezeslave executeables...

@@ -3,24 +3,32 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.8.8  BIG CHANGES
-* 
+* 0.8.9  Separate settings for player arguments for the two types of players
+*          RENCONFIGURE your extra player arguments if you use these!
+*          (You can now save arguments for both players if you switch between
+*          them, save re-typing!)
+*        Added configurable pause at startup to workaround gui sounds wierdness
+*        Added setting for configurable pause for slow systems/networks - pauses
+*          after creating the player so that it has time to connect
+
+* 0.8.8  BIG CHANGES - SQUEEZELITE SUPPORT!
+*
 * ***** YOU MUST (ONCE)
-*       RECONFIGURE XSQUEEZE 
+*       RECONFIGURE XSQUEEZE
 *       BEFORE RUNNING ANY VERSION POST 0.8.2!!!
 *       IDEALLY, DELETE YOUR SETTINGS FILE in userdata/addon_data FIRST
-* 
+*
 * Integration of new squeezelite headless player (allows for high def audio, spotify etc)
 * Expanded mouse/touch controls - use these if you choose squeezelite as your player
 * (as squeezelite is headless and offers no display/controller)
-* 
+*
 * Removed auto detection of server/audio outputs - better to do this just
 * manually, it's less error prone anway.
-* 
+*
 * Simplified the configuration fields
-* 
+*
 * Startup is quicker
-* 
+*
 * (0.8.8) Reverted Artist slideshow dependency to 1.4.7 for Eden compatibility
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
