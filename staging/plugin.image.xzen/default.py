@@ -18,6 +18,17 @@
 import xbmc
 import xbmcplugin
 import xbmcgui
+import xbmcaddon
+import os
+
+# Minimal code to import bossanova808 common code
+#create an add on instation and store the reference
+ADDON           = xbmcaddon.Addon()
+CWD             = ADDON.getAddonInfo('path')
+RESOURCES_PATH  = xbmc.translatePath( os.path.join( CWD, 'resources' ))
+LIB_PATH        = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
+
+sys.path.append( LIB_PATH )
 from b808common import *
 
 #uses zenapi by Scott Gorling (http://www.scottgorlin.com)
@@ -170,7 +181,7 @@ def ConnectZen(mode):
         print_exc()
         #if in the root menu the first time, let them know this is just a public browsing session....
         if mode==None:
-            notify("Zenfolio Authentication not completed","(Can still browse public galleries etc.)")
+            notify(LANGUAGE(30002),LANGUAGE(30003))
 
     return zen
 
@@ -188,9 +199,9 @@ def AddGroupThumb(group, numberOfItems=0):
         urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
 
         if group.Title is None:
-            title="Untitled"
+            title = LANGUAGE(30004)
         else:
-            title = "Group: " +  unquoteUni(group.Title)
+            title = LANGUAGE(30005) + ": " + unquoteUni(group.Title)
 
         url = buildPluginURL({'mode':MENU_USERGALLERIES,'group':str(group.Id)})
         item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
@@ -210,9 +221,9 @@ def AddPhotoSetThumb(photoSet, numberOfItems=0):
         urlTitlePhoto = titlePhoto.getUrl(ZEN_URL_QUALITY['Large thumbnail'],auth=AUTH)
 
         if photoSet.Title is None:
-            title="(Untitled Folder)"
+            title="(" + LANGUAGE(30006) + ")"
         else:
-            title = "Set: " + unquoteUni(photoSet.Title)
+            title = LANGUAGE(30007) + ": " + unquoteUni(photoSet.Title)
 
         url = buildPluginURL({"mode":DISPLAY_GALLERY, "galleryid":str(photoSet.Id)})
         item=xbmcgui.ListItem(title,url,urlTitlePhoto,urlTitlePhoto)
@@ -238,7 +249,7 @@ def AddPhotoThumb(photo, numberOfItems=0,downloadKey=""):
         urlThumb = photo.getUrl(ZEN_URL_QUALITY['Large thumbnail'],keyring=downloadKey, auth=AUTH)
 
         if photo.Title is None:
-            title="Untitled"
+            title= LANGUAGE(30004)
         else:
             title = unquoteUni(photo.Title)
 
@@ -323,14 +334,14 @@ def BuildMenuRoot():
     global zen
 
     if AUTHENTICATED:
-        BuildMenuRootItem(MENU_USERGALLERIES        ,"User Galleries")
-    BuildMenuRootItem(CATEGORIES                    ,"Categories")
-    BuildMenuRootItem(RECENTPHOTOS                  ,"Recent Photos")
-    BuildMenuRootItem(RECENTGALLERIES               ,"Recent Galleries")
-    BuildMenuRootItem(RECENTCOLLECTIONS             ,"Recent Collections")
-    BuildMenuRootItem(POPPHOTOS                     ,"Popular Photos")
-    BuildMenuRootItem(POPGALLERIES                  ,"Popular Galleries")
-    BuildMenuRootItem(POPCOLLECTIONS                ,"Popular Collections")
+        BuildMenuRootItem(MENU_USERGALLERIES        ,LANGUAGE(30008)) #"User Galleries"
+    BuildMenuRootItem(CATEGORIES                    ,LANGUAGE(30009)) #"Categories"
+    BuildMenuRootItem(RECENTPHOTOS                  ,LANGUAGE(30010)) #"Recent Photos"
+    BuildMenuRootItem(RECENTGALLERIES               ,LANGUAGE(30011)) #"Recent Galleries"
+    BuildMenuRootItem(RECENTCOLLECTIONS             ,LANGUAGE(30012)) #"Recent Collections"
+    BuildMenuRootItem(POPPHOTOS                     ,LANGUAGE(30013)) #"Popular Photos"
+    BuildMenuRootItem(POPGALLERIES                  ,LANGUAGE(30014)) #"Popular Galleries"
+    BuildMenuRootItem(POPCOLLECTIONS                ,LANGUAGE(30015)) #"Popular Collections"
 
 
 def BuildUserGallery(group=None):
@@ -502,7 +513,7 @@ def ShowRecentPhotos(offset=0):
 
 zen = ConnectZen(mode)
 if zen is None:
-    notify("Couldn't connect to Zenfolio!!")
+    notify(LANGUAGE(30016))
     sys.exit()
 
 ################################################################################
@@ -558,7 +569,7 @@ try:
         AddGallery(galleryid)
 
     else:
-        notify("Shouldn't have got here - a mode was passed, without a matching action!")
+        notify(LANGUAGE(30017))
         sys.exit()
 
 
