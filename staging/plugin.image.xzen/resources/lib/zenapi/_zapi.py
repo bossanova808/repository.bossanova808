@@ -27,6 +27,7 @@ import struct
 import urllib
 import urllib2
 import os
+import sys
 import re
 import random
 import httplib
@@ -35,6 +36,8 @@ from datetime import datetime
 import time
 import xbmc
 import xbmcplugin
+import xbmcaddon
+
 
 from b808common import *
 

@@ -22,13 +22,13 @@ import xbmcaddon
 import os
 
 # Minimal code to import bossanova808 common code
-#create an add on instation and store the reference
 ADDON           = xbmcaddon.Addon()
 CWD             = ADDON.getAddonInfo('path')
 RESOURCES_PATH  = xbmc.translatePath( os.path.join( CWD, 'resources' ))
 LIB_PATH        = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
 
 sys.path.append( LIB_PATH )
+
 from b808common import *
 
 #uses zenapi by Scott Gorling (http://www.scottgorlin.com)

@@ -1,6 +1,7 @@
 ### Common Code for bossanova808 addons
 ### By bossanova808 2013
 ### Free in all senses....
+### Version corresponds to 0.0.4 from the b808 repo
 
 import xbmc
 import xbmcaddon
@@ -39,8 +40,6 @@ LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
 DATA_PATH = xbmc.translatePath("special://profile/addon_data/" + ADDONID )
 
 sys.path.append( LIB_PATH )
-
-
 
 ################################################################################
 ################################################################################
