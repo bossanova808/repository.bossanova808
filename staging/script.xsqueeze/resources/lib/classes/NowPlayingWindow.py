@@ -531,6 +531,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     newPlaylistDetails = self.player.playlistDetails
     newPlaylist = self.player.playlist
 
+    #log("NPD " + str(len(newPlaylistDetails)) + "  " + str(newPlaylistDetails))
+    #log("NP " + str(len(newPlaylist)) + "  " + str(newPlaylist))
+
     #playlist is empty....
     if len(newPlaylistDetails)==0:
       log("Empty PlaylistDetails, setting current track to message about adding music...")
@@ -589,6 +592,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         except KeyError:
           album = ""
         try:
+          type = str(self.playlistDetails[trackOffset]['type'])
+        except KeyError:
+          type = ""
+        try:
           duration = getInHMS(int(self.playlistDetails[trackOffset]['duration']))
         except KeyError:
           duration = ""
@@ -606,12 +613,12 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #playing Radio/App
         if 'remote' in self.playlistDetails[0]:
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYING_RADIO", "true")
-          tracknum = "RADIO"
+          tracknum = ""
         else:
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_PLAYING_RADIO", "false")
-          #some of this data may not be set if they have stupid untagged files...
 
 
+        #some of this data may not be set if they have stupid untagged files...
         xbmcgui.Window(self.windowID).setProperty(stub + "ALBUM", album)
         xbmcgui.Window(self.windowID).setProperty(stub + "TRACKLENGTH", duration)
         xbmcgui.Window(self.windowID).setProperty(stub + "ALBUMYEAR", year)
@@ -623,6 +630,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         xbmcgui.Window(self.windowID).setProperty(stub + "FILEFORMAT", fileformat)
         xbmcgui.Window(self.windowID).setProperty(stub + "BITRATE", bitrate)
         xbmcgui.Window(self.windowID).setProperty(stub + "GENRE", genre)
+        xbmcgui.Window(self.windowID).setProperty(stub + "TYPE", type)
 
 
 
@@ -666,7 +674,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   # updates the volume bar & digits
 
   def updateVolume(self):
-    volume = self.player.getVolume()
+    volume = int(self.player.getVolume())
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_VOLUME", str(volume))
     try:
       self.getControl ( constants.VOLUMEBAR ).setPercent ( volume )
@@ -707,8 +715,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
         self.cleanupPlaylist(0)
         self.cleanupCovers()
-        self.removeControl(self.background)
-        del(self.background)
+        try:
+            self.removeControl(self.background)
+            del(self.background)
+        except:
+            log("Error removing background control")
 
         #wait here for Artist slideshow to finish, can occasionally take several seconds
         log("Waiting for artistslideshow to stop")

@@ -300,30 +300,45 @@ def buildAppSub(cmd, itemid=""):
   buildAppItemsList(returnedList, cmd)
 
 def buildAppItemsList(listApps, cmd):
-  #log(str(listRadios))
-  #log(cmd)
+  log(str(listApps))
+  log(cmd)
   for appItem in listApps:
+    log("AppItem is: "+ str(appItem))
     try:
       coverURL = appItem['image']
+      if 'spotify' in coverURL:
+        coverURL="http://" + SERVERHTTPURL + "/" + coverURL
     except:
       coverURL = ""
 
-    #submenu - might lead to more menus...
-    if 'hasitems' in appItem:
-      #item has a submenu...
-      if appItem['hasitems']!='0':
-        addNode(appItem['name'],"",SUBMENU_APPS,coverURL,cmd=cmd,itemid=appItem['id'])
-      #item is a playable station
-      else:
-        try:
-          addEndNode(appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
-        except Exception as inst:
-          #log(str(radio))
-          print_exc(inst)
-    #subsubmenu
-    else:
-      if 'name' not in appItem: continue
-      else: addEndNode(appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
+    try:
+        if appItem['isaudio']=='1':
+            addEndNode("Play: " + appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
+
+        if appItem['hasitems']!='0':
+            addNode("Explore: " + appItem['name'],"",SUBMENU_APPS,coverURL,cmd=cmd,itemid=appItem['id'])
+    except:
+        pass
+
+##    #submenu - might lead to more menus...
+##    if 'hasitems' in appItem:
+##      #item has a submenu...
+##      if appItem['hasitems']!='0':
+##        if appItem['isaudio']!=1:
+##            addNode("List: " + appItem['name'],"",SUBMENU_APPS,coverURL,cmd=cmd,itemid=appItem['id'])
+##        else:
+##            addEndNode("Play: " + appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
+##     #item is a playable station
+##      else:
+##        try:
+##          addEndNode(appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
+##        except Exception as inst:
+##          #log(str(radio))
+##          print_exc(inst)
+##    #subsubmenu
+##    else:
+##      if 'name' not in appItem: continue
+##      else: addEndNode(appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
 
 
 

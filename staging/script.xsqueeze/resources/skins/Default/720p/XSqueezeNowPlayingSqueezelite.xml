@@ -267,12 +267,37 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <font>font11_title</font>
           <textcolor>FF9999FF</textcolor>
         </control>
+        <control type="label" id="204">
+          <description>Current Bitrate</description>
+          <posx>0</posx>
+          <posy>140</posy>
+          <width>200</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_BITRATE)]</label>
+          <font>font11_title</font>
+          <textcolor>FF9999FF</textcolor>
+        </control>
+        <control type="label" id="205">
+          <description>Current Bitrate</description>
+          <posx>0</posx>
+          <posy>160</posy>
+          <width>200</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TYPE)]</label>
+          <font>font11_title</font>
+          <textcolor>FF9999FF</textcolor>
+        </control>
       </control>
       <!-- END GROUP CURRENT ALBUM LABELS -->
 
       <!-- THUMBNAILS FOR UPCOMING TRACKS -->
       <control type="group">
-        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
         <description>Upcoming Tracks Thumbs</description>
         <posx>363</posx>
         <posy>265</posy>
@@ -325,7 +350,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <posy>350</posy>
         <width>560</width>
         <height>10</height>
-        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
         <reveal>false</reveal>
         <info/>
       </control>
@@ -369,7 +393,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <posx>610</posx>
         <posy>385</posy>
         <width>500</width>
-        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false) + [ SubString(Window.Property(XSQUEEZE_NOWPLAYING),play) | SubString(Window.Property(XSQUEEZE_NOWPLAYING),pause) ]</visible>
         <align>right</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
@@ -388,7 +411,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <align>left</align>
         <aligny>center</aligny>
         <scroll>true</scroll>
-        <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)]</label>
+        <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)]</label>
         <font>font24_title</font>
         <textcolor>orange</textcolor>
       </control>
@@ -396,7 +419,6 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <!-- UPCOMING PLAYLIST LABELS -->
       <control type="group">
         <description>Upcoming Tracks Labels</description>
-        <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
         <posx>60</posx>
         <posy>450</posy>
         <control type="label" id="2001">
@@ -408,7 +430,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_1_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_1_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_1_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_1_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_1_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_1_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_1_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -421,7 +443,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_2_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_2_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_2_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_2_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_2_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_2_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_2_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -434,7 +456,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_3_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_3_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_3_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_3_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_3_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_3_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_3_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -447,7 +469,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_4_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_4_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_4_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_4_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_4_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_4_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_4_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -460,7 +482,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_5_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_5_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_5_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_5_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_5_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_5_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_5_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -473,7 +495,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_6_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_6_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_6_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_6_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_6_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_6_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_6_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -486,7 +508,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_7_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_7_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_7_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_7_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_7_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_7_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_7_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -499,7 +521,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_8_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_8_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_8_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_8_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_8_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_8_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_8_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
@@ -512,7 +534,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
           <align>left</align>
           <aligny>center</aligny>
           <scroll>false</scroll>
-          <label>$INFO[Window.Property(XSQUEEZE_TRACK_9_TRACKNUM)]. $INFO[Window.Property(XSQUEEZE_TRACK_9_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_9_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_9_ARTIST)]</label>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_9_TITLE)] / $INFO[Window.Property(XSQUEEZE_TRACK_9_ALBUM)] / $INFO[Window.Property(XSQUEEZE_TRACK_9_ARTIST)]</label>
           <font>font12</font>
           <textcolor>FFBBBBBB</textcolor>
         </control>
