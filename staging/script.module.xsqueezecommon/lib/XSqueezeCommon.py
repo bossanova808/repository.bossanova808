@@ -202,6 +202,7 @@ class SqueezePlayer:
         if(count<len(self.playlist)):
           try:
             statusInfo = self.sb.request("status " + str(count) + " 1 tags:Kal")
+            log("Status info is " + str(statusInfo))
             if("artwork_url" in statusInfo):
               statusArtwork = statusInfo.split('artwork_url:')
               statusArtwork = statusArtwork.pop(1)

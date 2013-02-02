@@ -466,6 +466,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           log("### Starting Chooser...")
           xbmc.executebuiltin("ActivateWindow(Programs,plugin://plugin.program.xsqueezechooser/?mode=0&callerid=" + str(self.windowID) + ")")
 
+
         #otherwise pass the button code to the squeezeplayer & trigger a matching player action if we have one
         else:
            if actionSqueeze:
@@ -561,7 +562,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         #each element in this list looks like:
         #songinfo[{'album_id': 10, 'channels': 2, 'samplesize': 16, 'year': 2004, 'duration': 276.72000000000003, 'samplerate': 44100, 'id': 122, 'album': 'Gold - Greatest Hits', 'title': 'Lay All Your Love on Me', 'tracknum': 5, 'filesize': 34201960, 'artist_id': 17, 'type': 'flc', 'coverart': 1, 'compilation': 0, 'artwork_track_id': 'ed1047ba', 'lastUpdated': 'Thursday, December 8, 2011, 11:15 PM', 'modificationTime': 'Saturday, October 27, 2007, 5:14 PM', 'album_replay_gain': -7.7699999999999996, 'coverid': 'ed1047ba', 'genre': 'Pop', 'bitrate': '988kbps VBR', 'artist': 'Abba', 'addedTime': 'Thursday, December 8, 2011, 11:15 PM', 'replay_gain': -6.5199999999999996, 'genre_id': 4}]
 
-        #NOW GRAGAS MUCH DATA FROM THE STREAM DETAILS AS WE CAN
+        #NOW GRAB AS MUCH DATA FROM THE STREAM DETAILS AS WE CAN
         #VERY HIT AND MISS
         try:
           artist = self.playlistDetails[trackOffset]['artist']

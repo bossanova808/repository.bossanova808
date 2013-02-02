@@ -228,10 +228,23 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <description>Current Track Details</description>
         <posx>350</posx>
         <posy>0</posy>
+        <control type="label" id="200">
+          <description>Current Track Label</description>
+          <posx>0</posx>
+          <posy>75</posy>
+          <width>265</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>$INFO[Window.Property(XSQUEEZE_TRACK_0_TITLE)]</label>
+          <font>font24_title</font>
+          <textcolor>orange</textcolor>
+        </control>
         <control type="label" id="201">
           <description>Current Artist Label</description>
           <posx>0</posx>
-          <posy>80</posy>
+          <posy>100</posy>
           <width>265</width>
           <visible>true</visible>
           <align>left</align>
@@ -244,7 +257,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <control type="label" id="202">
           <description>Current Album Label</description>
           <posx>0</posx>
-          <posy>100</posy>
+          <posy>120</posy>
           <width>265</width>
           <visible>true</visible>
           <align>left</align>
@@ -257,7 +270,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <control type="label" id="203">
           <description>Current Album Year Label</description>
           <posx>0</posx>
-          <posy>120</posy>
+          <posy>140</posy>
           <width>200</width>
           <visible>true</visible>
           <align>left</align>
@@ -270,7 +283,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <control type="label" id="204">
           <description>Current Bitrate</description>
           <posx>0</posx>
-          <posy>140</posy>
+          <posy>160</posy>
           <width>200</width>
           <visible>true</visible>
           <align>left</align>
@@ -283,7 +296,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <control type="label" id="205">
           <description>Current Bitrate</description>
           <posx>0</posx>
-          <posy>160</posy>
+          <posy>180</posy>
           <width>200</width>
           <visible>true</visible>
           <align>left</align>
@@ -402,7 +415,8 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       </control>
 
       <!-- CURRENT TRACK LABEL  -->
-      <control type="label" id="200">
+      <!--
+      <control type="label" id="240">
         <description>Current Track Name Label</description>
         <posx>60</posx>
         <posy>420</posy>
@@ -415,6 +429,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <font>font24_title</font>
         <textcolor>orange</textcolor>
       </control>
+      -->
 
       <!-- UPCOMING PLAYLIST LABELS -->
       <control type="group">

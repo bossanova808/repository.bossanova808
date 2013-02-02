@@ -96,7 +96,7 @@ def buildRootListing():
   addNode("Play Random Albums","",RANDOM_ALBUMS,"")
   addNode("Play Random Songs","",RANDOM_TRACKS,"")
   addNode("Internet Radio","",RADIOS,"")
-  addNode("Apps (local playback only if Squeezeslave supports them)","",APPS,"")
+  addNode("Apps (local playback only if your player supports this)","",APPS,"")
 
 ### NEW MUSIC
 
@@ -306,17 +306,23 @@ def buildAppItemsList(listApps, cmd):
     log("AppItem is: "+ str(appItem))
     try:
       coverURL = appItem['image']
-      if 'spotify' in coverURL:
+      if not coverURL.startswith("http"):
         coverURL="http://" + SERVERHTTPURL + "/" + coverURL
     except:
-      coverURL = ""
+        try:
+            if appItem['isaudio']=='1':
+                coverURL="DefaultAudio.png"
+            else:
+                coverURL="DefaultFolder.png"
+        except:
+            coverURL=""
 
     try:
         if appItem['isaudio']=='1':
             addEndNode("Play: " + appItem['name'],"",PLAY_RADIO,coverURL,cmd=cmd,itemid=appItem['id'])
 
         if appItem['hasitems']!='0':
-            addNode("Explore: " + appItem['name'],"",SUBMENU_APPS,coverURL,cmd=cmd,itemid=appItem['id'])
+            addNode("Explore: " + appItem['name'],"",SUBMENU_APPS,"DefaultFolder.png",cmd=cmd,itemid=appItem['id'])
     except:
         pass
 
