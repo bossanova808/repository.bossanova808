@@ -1,5 +1,5 @@
 SQUEEZELITE
-Version integrated: 0.97b
+Version integrated: 1.0rc2
 http://code.google.com/p/squeezelite/
 GNU GLP V3
 Copyright 2012, 2013 Adrian Smith. See -t for license terms

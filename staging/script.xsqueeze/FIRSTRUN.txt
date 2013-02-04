@@ -3,6 +3,11 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
+* 0.9.0  Improved Spotify browsing support (you must use squeezelite as your 
+*          player for Spotify support, and have a Spotify account, and have 
+*           Triode's third party Spotify Plugin installed! See Wiki!)
+*        Updated Squeezelite to 1l.0RC2   
+*        
 * 0.8.9  Separate settings for player arguments for the two types of players
 *          RENCONFIGURE your extra player arguments if you use these!
 *          (You can now save arguments for both players if you switch between
@@ -29,7 +34,6 @@ XSQUEEZE NEW VERSION CHANGELOG....
 *
 * Startup is quicker
 *
-* (0.8.8) Reverted Artist slideshow dependency to 1.4.7 for Eden compatibility
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
