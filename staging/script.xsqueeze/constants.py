@@ -180,15 +180,15 @@ else:
 if SYSTEM.startswith("lin") or SYSTEM.startswith("arm"):
   try:
     os.system("chmod a+x " + EXE[0])
-    log("(linux/arm) chmod +x the Squeezeslave binaries - success")
+    log("(linux/arm) chmod +x the player binary - success")
   except:
-    log("chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
+    log("chmod +x the player binary - failure -> You must do this manually!!")
 elif SYSTEM.startswith("osx"):
   try:
     os.chmod(EXE[0], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
-    log("chmod +x the Squeezeslave binaries - success")
+    log("chmod +x the player binary - success")
   except:
-    log("chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
+    log("chmod +x the player binary - failure -> You must do this manually!!")
 else:
   log("Windows or ATV/IOS, so no need to chmod the binaries.")
 

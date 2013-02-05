@@ -31,28 +31,28 @@ def cleanup(andexit=True):
 
     global xbmcAudioSuspended, slaveProcess
 
-    logNotify("Doing Cleanup")
+    logNotice("Doing Cleanup")
 
     #are we running the locally installed Squeezeslave? KILL IT!
     if constants.PLAYBACK and slaveProcess is not None:
-        logNotify("Killing player process...")
+        logNotice("Killing player process...")
         try:
             slaveProcess.terminate()
         except Exception as inst:
-            logNotify("Error killing player: ", str(inst))
+            logNotice("Error killing player: ", str(inst))
 
     #Try and resume XBMC's AudioEngine if we suspended it
     if xbmcAudioSuspended:
         try:
             xbmc.audioResume();
-            logNotify("Resumed XBMC AE")
+            logNotice("Resumed XBMC AE")
         except:
             pass
 
     #remove our custom keymap
     try:
         os.remove(constants.KEYMAPDESTFILE)
-        logNotify("Removed custom keymap")
+        logNotice("Removed custom keymap")
     except Exception as inst:
         pass
 
@@ -72,10 +72,10 @@ def playInit():
     #Try and suspend XBMC's AudioEngine if it is present and has exclusive access to the audio device
     try:
         xbmc.audioSuspend();
-        logNotify("Suspended XBMC AE")
+        logNotice("Suspended XBMC AE")
         xbmcAudioSuspended = True
     except Exception as inst:
-        logNotify("Unable to suspend XBMC AE: " + str(inst))
+        logNotice("Unable to suspend XBMC AE: " + str(inst))
         pass
 
 ################################################################################
@@ -91,7 +91,7 @@ if ( __name__ == "__main__" ):
 
     #pause
     if constants.SECONDS_TO_PAUSE_STARTUP!=0:
-        logNotify("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + ", per request in XSqueeze settings.")
+        logNotice("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + ", per request in XSqueeze settings.")
         notify("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + " seconds.", "(per request in XSqueeze settings.)")
         time.sleep(constants.SECONDS_TO_PAUSE_STARTUP)
 
@@ -126,9 +126,9 @@ if ( __name__ == "__main__" ):
         try:
             shutil.copy(constants.KEYMAPSOURCEFILE, constants.KEYMAPDESTFILE)
             xbmc.executebuiltin('Action(reloadkeymaps)')
-            logNotify("Installed custom keymap")
+            logNotice("Installed custom keymap")
         except Exception as inst:
-            logNotify("Error - couldn't copy & load custom keymap: " + str(inst))
+            logNotice("Error - couldn't copy & load custom keymap: " + str(inst))
 
         #are we running the locally installed Squeezeslave?
         if constants.PLAYBACK:
@@ -137,7 +137,7 @@ if ( __name__ == "__main__" ):
             xbmcAudioSuspended = False
             playInit()
 
-            logNotify("Starting local player [" + constants.PLAYERTYPE +"], system is [" + constants.SYSTEM + "]")
+            logNotice("Starting local player [" + constants.PLAYERTYPE +"], system is [" + constants.SYSTEM + "]")
             notify(LANGUAGE(19608),LANGUAGE(19609))
 
             #builds the list ['/path/exefile','-arg1','-arg2',...]
@@ -147,8 +147,8 @@ if ( __name__ == "__main__" ):
             args.append(constants.SERVERIP)
             exe.extend(args)
 
-            logNotify ("Attempting to start player: " + str(exe))
-            logNotify ("Path is: " + str(sys.path))
+            logNotice ("Attempting to start player: " + str(exe))
+            logNotice ("Path is: " + str(sys.path))
 
             try:
                 #need this to stop windows opening a console window
@@ -166,24 +166,24 @@ if ( __name__ == "__main__" ):
                     slaveProcess = subprocess.Popen(exe, shell=False)
             except Exception as inst:
                 #Summat went wrong creating the player process...let's see if we can work out what!
-                logNotify("Failed creating player process! ", inst)
+                logNotice("Failed creating player process! ", inst)
                 notify(LANGUAGE(19610),LANGUAGE(19611))
                 #now let's try to start it again so we can log the output message for clues...
                 if constants.SYSTEM.startswith("win"):
                     output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
                 else:
                     output, result = subprocess.Popen(exe, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
-                logNotify("ERROR RESULT: " + str(result))
-                logNotify("ERROR OUTPUT: " + str(output))
+                logNotice("ERROR RESULT: " + str(result))
+                logNotice("ERROR OUTPUT: " + str(output))
 
                 #...and bail out
                 cleanup()
 
             pid = slaveProcess.pid
-            logNotify("Process ID for player is "+ str(pid))
+            logNotice("Process ID for player is "+ str(pid))
 
             #little pause to give player time to run & connect
-            logNotify("Brief pause for dust to settle: Default 2 seconds plus user requested seconds: " + str(constants.SECONDS_TO_PAUSE_CONNECT))
+            logNotice("Brief pause for dust to settle: Default 2 seconds plus user requested seconds: " + str(constants.SECONDS_TO_PAUSE_CONNECT))
             time.sleep(2 + constants.SECONDS_TO_PAUSE_CONNECT)
 
         ##########################################################################
