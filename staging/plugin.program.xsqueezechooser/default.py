@@ -355,7 +355,7 @@ def buildAppItemsList(listApps, cmd):
 #Log that we've started, and how we were called....
 footprints()
 #parse the paramters
-params=get_params()
+params=getParams()
 if params==[]:
   notify("Please do not run XSqueeze Chooser directly!","In Xsqueeze use info on your remote (or key i) to open!", 15000)
   sys.exit()

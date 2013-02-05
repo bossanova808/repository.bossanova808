@@ -165,8 +165,18 @@ if ( __name__ == "__main__" ):
                     #log("$$$$$$$$$$$$$$$ " + str(result))
                     slaveProcess = subprocess.Popen(exe, shell=False)
             except Exception as inst:
+                #Summat went wrong creating the player process...let's see if we can work out what!
                 log("Failed creating player process! ", inst)
                 notify(LANGUAGE(19610),LANGUAGE(19611))
+                #now let's try to start it again so we can log the output message for clues...
+                if constants.SYSTEM.startswith("win"):
+                    output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+                else:
+                    output, result = subprocess.Popen(exe, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+                log("ERROR RESULT: " + str(result))
+                log("ERROR OUTPUT: " + str(output))
+
+                #...and bail out
                 cleanup()
 
             pid = slaveProcess.pid

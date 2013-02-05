@@ -2,6 +2,8 @@
 ### By bossanova808 2012
 ### Free in all senses....
 
+### VERSION 0.5.0
+
 import xbmc
 import xbmcaddon
 import xbmcplugin
@@ -44,11 +46,12 @@ sys.path.append( LIB_PATH )
 
 ################################################################################
 ################################################################################
-### LOGGING
+### LOGGING FUNCTIONS
 
 ################################################################################
 # Log a message to the XBMC Log, and an exception if supplied
-# call log() to log only if degbu logging is on
+#
+# call log() to log only if degbug logging is on
 # call logNotice() is you want print out regardless of debug settings
 
 def log(message, inst=None, level=xbmc.LOGDEBUG):
@@ -59,12 +62,14 @@ def log(message, inst=None, level=xbmc.LOGDEBUG):
       xbmc.log("### " + ADDONNAME + "-" + VERSION +  " ### Exception!", level )
       print_exc(inst)
 
+#log something even if debug logging is off - for important stuff!
+
 def logNotice(message, inst=None):
     log(message, inst, level = xbmc.LOGNOTICE)
 
 ################################################################################
 # Trigger a toast pop up on screen
-# & kog the message to the XBMC Log, and an exception if supplied
+# & log the message to the XBMC Log about the popup if debugging
 
 def notify(messageLine1, messageLine2 = "", time = 4000):
   imagepath = os.path.join(CWD ,"icon.png")
@@ -73,7 +78,7 @@ def notify(messageLine1, messageLine2 = "", time = 4000):
   xbmc.executebuiltin( notifyString )
 
 ################################################################################
-# Log a startup message to the XBMC log
+# Log an addon startup message to the XBMC log
 
 def footprints(startup=True):
 
@@ -86,7 +91,7 @@ def footprints(startup=True):
 
 ################################################################################
 ################################################################################
-###UTILS
+### MIXED UTILITY FUNCTIONS
 
 ################################################################################
 # send a JSON command to XBMC and log the human description, json string, and
@@ -98,7 +103,7 @@ def sendXBMCJSON (humanDescription, jsonstr):
      log("JSON result: "  + str(result))
 
 ##############################################################################
-# helper function - convert player seconds to summat nice for screen 00:00 etc
+# helper function - convert number of seconds to summat nice for screen 00:00 etc
 
 def getInHMS(seconds):
     hours = seconds / 3600
@@ -135,9 +140,11 @@ def unquoteUni(text):
                 res[i] = unichr(int(item[:2], 16)) + item[2:]
         return "".join(res)
 
-#Borrow from somewhere....parses the parameter stings (arrives in sys.argv[2])
-#into a dict
-def get_params():
+##############################################################################
+# Parses the parameter stings (arrives in sys.argv[2])
+# into a dict
+
+def getParams():
         param=[]
         paramstring=sys.argv[2]
         if len(paramstring)>=2:
@@ -156,6 +163,23 @@ def get_params():
         log("Parameters parsed: " + str(param))
         return param
 
+##############################################################################
+# Build a plugin URL with urlencoded parameters
 
 def buildPluginURL(params):
     return PLUGINSTUB + urllib.urlencode(params)
+
+################################################################################
+# strip given chararacters from all members of a given list
+
+def stripList(l, chars):
+    return([x.strip(chars) for x in l])
+
+################################################################################
+# Just sets window properties we can refer to later in the MyWeather.xml skin file
+# to clear a property, leave the value blank
+
+def setProperty(window, name, value = ""):
+    log("Setting property - Name: [" + name + "] - Value:[" + value +"]")
+    window.setProperty(name, value)
+
