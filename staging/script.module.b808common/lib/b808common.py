@@ -2,7 +2,7 @@
 ### By bossanova808 2012
 ### Free in all senses....
 
-### VERSION 0.5.0
+### VERSION 0.0.5
 
 import xbmc
 import xbmcaddon
