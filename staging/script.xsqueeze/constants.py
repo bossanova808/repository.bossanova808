@@ -183,7 +183,7 @@ if SYSTEM.startswith("lin") or SYSTEM.startswith("arm"):
     log("(linux/arm) chmod +x the Squeezeslave binaries - success")
   except:
     log("chmod +x the Squeezeslave binaries - failure -> You must do this manually!!")
-elif SYSTEM.startswith("darwin"):
+elif SYSTEM.startswith("osx"):
   try:
     os.chmod(EXE[0], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH | stat.S_IXOTH)
     log("chmod +x the Squeezeslave binaries - success")
