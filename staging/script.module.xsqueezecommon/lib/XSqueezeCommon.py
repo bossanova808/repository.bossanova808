@@ -13,6 +13,7 @@ import sys
 import os
 import telnetlib
 from traceback import print_exc
+import subprocess
 
 from b808common import *
 
@@ -95,12 +96,12 @@ class SqueezePlayer:
         state = self.sb.get_power_state()
         log ( "Power state is: " + str (state) )
       else:
-        log( "Player is NoneType: %s" % PLAYERMAC )
+        log( "Player is None! %s" % PLAYERMAC )
         raise Exception
     except Exception as inst:
-      log(" Couldn't connect to player: " + PLAYERMAC , inst)
-      notify(LANGUAGE(19615),LANGUAGE(19616))
-      raise
+        log(" Couldn't connect to player: " + PLAYERMAC , inst)
+        notify(LANGUAGE(19615),LANGUAGE(19616))
+        raise
 
     #initialise if we're called from XSqueeze as opposed to the chooser
     try:

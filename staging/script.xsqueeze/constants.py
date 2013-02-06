@@ -52,9 +52,6 @@ BUTTONVOLDN           = 2610
 ################################################################################
 #useful paths
 
-CLASS_PATH = xbmc.translatePath(os.path.join ( LIB_PATH, "classes" ))
-#extend the python path
-sys.path.append( CLASS_PATH )
 
 BIN_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "bin" ))
 KEYMAP_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "keymaps" ))
@@ -131,36 +128,6 @@ BINLIN32  = xbmc.translatePath(BIN_PATH + "/linux/" + PLAYERTYPE + "-i386" )
 BINLIN64  = xbmc.translatePath(BIN_PATH + "/linux/" + PLAYERTYPE + "-i64" )
 BINARM    = xbmc.translatePath(BIN_PATH + "/arm/" + PLAYERTYPE )
 
-#32 or 64 bit?
-is_64bits = sys.maxsize > 2**32
-
-#need to work out what system we're on, default to linux
-SYSTEM="linux"
-
-#ok try and get uname info - this is a bit tetchy - platform.uname() fails on Raspbmc
-#but os.uname() fails on Windows....platform is the better one to use if possible,
-#so try that first, otherwise fall back to os.uname()
-
-try:
-  uname = platform.uname()
-except:
-  uname = os.uname()
-
-if xbmc.getCondVisibility( "System.Platform.OSX" ):
-  SYSTEM = "osx"
-elif xbmc.getCondVisibility( "System.Platform.IOS" ):
-  SYSTEM = "ios"
-elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
-  SYSTEM = "atv2"
-elif xbmc.getCondVisibility( "System.Platform.Windows" ):
-  SYSTEM = "windows"
-#hack for Raspberry Pi until System.Platform.Arm comes along...
-elif "raspbmc" in uname or "armv6l" in uname:
-  SYSTEM = "arm"
-
-#log the detemined system type
-log(ADDONNAME + "-" + VERSION + ": ### uname is: " + str(uname))
-log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
 
 #choose the right executable
 if SYSTEM.startswith("win"):

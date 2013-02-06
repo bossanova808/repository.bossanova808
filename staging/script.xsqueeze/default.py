@@ -39,7 +39,14 @@ def cleanup(andexit=True):
         try:
             slaveProcess.terminate()
         except Exception as inst:
-            logNotice("Error killing player: ", str(inst))
+            logNotice("Error killing player, probably the player crashed.  Let's try re-start it so we can grab the output for debugging!")
+            #now let's try to start it again so we can log the output message for clues...
+            if constants.SYSTEM.startswith("win"):
+                output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+            else:
+                output, result = subprocess.Popen(exe, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+            logNotice("ERROR RESULT: " + str(result))
+            logNotice("ERROR OUTPUT: " + str(output))
 
     #Try and resume XBMC's AudioEngine if we suspended it
     if xbmcAudioSuspended:
