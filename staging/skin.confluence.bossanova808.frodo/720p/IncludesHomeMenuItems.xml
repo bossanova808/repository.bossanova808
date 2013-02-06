@@ -9,13 +9,13 @@
 			<include>ButtonHomeSubCommonValues</include>
 			<label>342</label>
 			<onclick>ActivateWindow(Videos,MovieTitles,return)</onclick>
-			<visible>Library.HasContent(Movies) + Skin.HasSetting(HomeMenuNoMoviesButton)</visible>
+			<visible>Library.HasContent(Movies) + Skin.HasSetting(HomeMenuNoMovieButton)</visible>
 		</control>
 		<control type="button" id="90103">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>20343</label>
 			<onclick>ActivateWindow(Videos,TvShowTitles,return)</onclick>
-			<visible>Library.HasContent(TVShows) + Skin.HasSetting(HomeMenuNoTVShowsButton)</visible>
+			<visible>Library.HasContent(TVShows) + Skin.HasSetting(HomeMenuNoTVShowButton)</visible>
 		</control>
 		<control type="button" id="90104">
 			<include>ButtonHomeSubCommonValues</include>
@@ -292,8 +292,7 @@
 			<onclick>Setfocus(33)</onclick>
 			<onclick>Setfocus(12)</onclick>
 		</control>
-		
-    <control type="button" id="90144">
+		<control type="button" id="90144">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>19163</label>
 			<onclick>ActivateWindow(PVR)</onclick>
