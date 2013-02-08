@@ -1,3 +1,8 @@
+v0.9.5
+- Integration of Squeezelite, update all brinaries, fixing of linux/Pi/Mac
+- Spotify support via Squeezelite
+- Onscreen controls now keyboard friendly 
+
 v0.7.8
 - Update to new Rasp Pi binary
 

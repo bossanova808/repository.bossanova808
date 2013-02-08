@@ -18,10 +18,10 @@
 </addon>
 
 <addon id="plugin.program.xsqueezechooser" name="XSqueeze Chooser"
-       version="0.1.0" provider-name="bossanova808">
+       version="0.1.1" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.1.0"/>
+    <import addon="script.module.xsqueezecommon" version="0.1.1"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>executable</provides>
@@ -71,7 +71,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.b808common" version="0.0.6" name="Bossanova808 Common Code" provider-name="bossanova808">
+<addon id="script.module.b808common" version="0.0.7" name="Bossanova808 Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.0'/>
   </requires>
@@ -82,10 +82,10 @@
   <extension point='xbmc.python.module' library='lib' />
 </addon>
 
-<addon id="script.module.xsqueezecommon" version="0.1.0" name="XSqueeze Common Code" provider-name="bossanova808">
+<addon id="script.module.xsqueezecommon" version="0.1.1" name="XSqueeze Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.0'/>
-    <import addon="script.module.b808common" version="0.0.6"/>
+    <import addon="script.module.b808common" version="0.0.7"/>
   </requires>
   <extension point='xbmc.addon.metadata'>
     <platform>all</platform>
@@ -96,14 +96,14 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="0.9.4"
+       version="0.9.5"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
     <import addon="script.artistslideshow" version="1.4.7"/>
-    <import addon="script.module.xsqueezecommon" version="0.1.0"/>
-    <import addon="script.module.b808common" version="0.0.6"/>
-    <import addon="plugin.program.xsqueezechooser" version="0.1.0"/>
+    <import addon="script.module.xsqueezecommon" version="0.1.1"/>
+    <import addon="script.module.b808common" version="0.0.7"/>
+    <import addon="plugin.program.xsqueezechooser" version="0.1.1"/>
   </requires>
   <extension point="xbmc.python.script"
              library="default.py">
