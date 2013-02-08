@@ -79,6 +79,9 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
 
 <window>
   <allowoverlay>no</allowoverlay>
+
+  <defaultcontrol>2610</defaultcontrol>
+
   <controls>
 
 
@@ -592,14 +595,14 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <!-- **************** BOTTOM PANEL CONTROLS ************************** -->
 
       <!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
-      <control type="group">
+      <control type="group" >
         <description>SqueezeBox Display/Controller</description>
         <posx>-200</posx>
         <posy>645</posy>
 
         <!-- TOUCH SCREEN CONTROLS -->
     		<control type="group" id="2000">
-    			<posx>480</posx>
+    			<posx>460</posx>
     			<posy>0</posy>
     			<animation effect="fade" time="200">VisibleChange</animation>
     			<control type="button" id="2600">
@@ -609,6 +612,8 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<height>60</height>
     				<texturefocus>OSDPrevTrackFO.png</texturefocus>
     				<texturenofocus>OSDPrevTrackNF.png</texturenofocus>
+                    <onleft>2610</onleft>
+                    <onright>2601</onright>
     			</control>
     			<control type="button" id="2601">
     				<posx>70</posx>
@@ -617,6 +622,8 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<height>60</height>
     				<texturefocus>OSDRewindFO.png</texturefocus>
     				<texturenofocus>OSDRewindNF.png</texturenofocus>
+                    <onleft>2600</onleft>
+                    <onright>2602</onright>
     			</control>
     			<control type="button" id="2602">
     				<posx>140</posx>
@@ -625,32 +632,39 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<height>60</height>
     				<texturefocus>OSDPlayFO.png</texturefocus>
     				<texturenofocus>OSDPlayNF.png</texturenofocus>
+                    <onleft>2601</onleft>
+                    <onright>2603</onright>
     			</control>
-    			<control type="button" id="2604">
+    			<control type="button" id="2603">
     				<posx>210</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<texturefocus>OSDForwardFO.png</texturefocus>
     				<texturenofocus>OSDForwardNF.png</texturenofocus>
+                    <onleft>2602</onleft>
+                    <onright>2604</onright>
     			</control>
-    			<control type="button" id="2605">
+    			<control type="button" id="2604">
     				<posx>280</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<texturefocus>OSDNextTrackFO.png</texturefocus>
     				<texturenofocus>OSDNextTrackNF.png</texturenofocus>
+                    <onleft>2603</onleft>
+                    <onright>2605</onright>
     			</control>
-    			<control type="button" id="2603">
+    			<control type="button" id="2605">
     				<posx>350</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<texturefocus>OSDStopFO.png</texturefocus>
     				<texturenofocus>OSDStopNF.png</texturenofocus>
+                    <onleft>2604</onleft>
+                    <onright>2606</onright>
     			</control>
-
     			<control type="button" id="2606">
     				<posx>420</posx>
     				<posy>0</posy>
@@ -658,61 +672,52 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
     				<height>60</height>
     				<texturefocus>OSDRandomOffFO.png</texturefocus>
     				<texturenofocus>OSDRandomOffNF.png</texturenofocus>
-   				  <!--<texturefocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]</texturefocus>-->
-    				<!--<texturenofocus>$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE_NF)]</texturenofocus>-->
+                     <onleft>2605</onleft>
+                    <onright>2607</onright>
     			</control>
-
-          <!-- tester to show state of shuffle
-          <control type="label" id="2699">
-    				<posx>450</posx>
-    				<posy>-40</posy>
-    				<width>400</width>
-    				<height>60</height>
-    				<font>font14</font>
-    				<label>-$INFO[Window.Property(XSQUEEZE_SHUFFLESTATE)]-</label>
-    			</control>-->
-
-          <!-- REPEAT (not active)
-          <control type="button" id="2607">
-    				<posx>525</posx>
+    			<control type="button" id="2607">
+    				<posx>490</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<texturefocus>OSDRepeatFO.png</texturefocus>
     				<texturenofocus>OSDRepeatNF.png</texturenofocus>
-     			</control>
-          -->
-
+                     <onleft>2606</onleft>
+                    <onright>2608</onright>
+    			</control>
     			<control type="button" id="2608">
-    				<posx>630</posx>
-    				<posy>0</posy>
-    				<width>60</width>
-    				<height>60</height>
-    				<font>-</font>
-    				<texturefocus>OSDLyricsFO.png</texturefocus>
-    				<texturenofocus>OSDLyricsNF.png</texturenofocus>
-   		  	</control>
-
-
-    			<control type="button" id="2609">
-    				<posx>490</posx>
+    				<posx>560</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<font>-</font>
     				<texturefocus>OSDChannelUPFO.png</texturefocus>
     				<texturenofocus>OSDChannelUPNF.png</texturenofocus>
-   		  	</control>
-
-    			<control type="button" id="2610">
-    				<posx>560</posx>
+                    <onleft>2607</onleft>
+                    <onright>2609</onright>
+   		  	    </control>
+    			<control type="button" id="2609">
+    				<posx>630</posx>
     				<posy>0</posy>
     				<width>60</width>
     				<height>60</height>
     				<font>-</font>
     				<texturefocus>OSDChannelDownFO.png</texturefocus>
     				<texturenofocus>OSDChannelDownNF.png</texturenofocus>
-   		  	</control>
+                    <onleft>2608</onleft>
+                    <onright>2610</onright>
+  		    	</control>
+    			<control type="button" id="2610">
+    				<posx>700</posx>
+    				<posy>0</posy>
+    				<width>60</width>
+    				<height>60</height>
+    				<font>-</font>
+    				<texturefocus>OSDLyricsFO.png</texturefocus>
+    				<texturenofocus>OSDLyricsNF.png</texturenofocus>
+                    <onleft>2609</onleft>
+                    <onright>2600</onright>
+   		  	    </control>
 
     		</control>
         <!-- END GROUP TOUCH CONTROLS -->

@@ -10,7 +10,7 @@
      <setting label="XSqueeze can act as a local player, or as a controller for an external system." type="lsep"/>
      <setting id="playback" type="bool" label="19906" default="true"/>
      <setting id="MAC" type="text" label="MAC for local player / MAC of device to control" default="00:00:00:00:00:01" />
-     <setting label="Use..." type="labelenum" id="player" values="Squeezeslave|Squeezelite" enable="!eq( -2,false)" />
+     <setting label="Use..." type="labelenum" id="player" values="Squeezelite|Squeezeslave" enable="!eq( -2,false)" />
      <setting id="slaveargs" type="text" label="Extra Squeezeslave Arguments" default="" enable="!eq( -3,false)" />
      <setting id="liteargs" type="text" label="Extra Squeezelite Arguments" default="" enable="!eq( -4,false)" />
    </category>

@@ -39,14 +39,14 @@ BUTTONEXIT            = 2599
 BUTTONSKIPBACK        = 2600
 BUTTONREWIND          = 2601
 BUTTONPLAYPAUSE       = 2602
-BUTTONSTOP            = 2603
-BUTTONFASTFORWARD     = 2604
-BUTTONSKIPFORWARD     = 2605
+BUTTONFASTFORWARD     = 2603
+BUTTONSKIPFORWARD     = 2604
+BUTTONSTOP            = 2605
 BUTTONSHUFFLE         = 2606
 BUTTONREPEAT          = 2607
-BUTTONCHOOSER         = 2608
-BUTTONVOLUP           = 2609
-BUTTONVOLDN           = 2610
+BUTTONVOLUP           = 2608
+BUTTONVOLDN           = 2609
+BUTTONCHOOSER         = 2610
 
 
 ################################################################################

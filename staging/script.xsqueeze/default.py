@@ -202,7 +202,7 @@ if ( __name__ == "__main__" ):
             if constants.PLAYERTYPE=="squeezelite":
                 window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
             elif constants.TOUCHENABLED:
-                window = NowPlayingWindow("XSqueezeNowPlayingTouch.xml",CWD,"Default")
+                window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
             else:
                 window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
 

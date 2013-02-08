@@ -79,7 +79,7 @@ SQUEEZE_CODES = {
                 'ACTION_MOVE_DOWN'        :'arrow_down',
                 'ACTION_PAGE_UP'          :'volup',
                 'ACTION_PAGE_DOWN'        :'voldown',
-                'ACTION_SELECT_ITEM'      :'play.single',
+                'ACTION_SELECT_ITEM'      :'',
                 'ACTION_PLAYER_PLAY'      :'play.single',
                 'ACTION_HIGHLIGHT_ITEM'   :'',
                 'ACTION_PARENT_DIR'       :'arrow_left',
@@ -128,6 +128,10 @@ SQUEEZE_CODES = {
                 'BUTTON_VOLDN'            : 'voldown',
                 'SLIDER_TRACKPROGRESS'    : 'seek'
 }
+
+#if using squeezeslave we can get away using ok as play/pause like I do with video..
+if not constants.TOUCHENABLED and not constants.PLAYERTYPE=='squeezelite':
+    SQUEEZE_CODES['ACTION_SELECT_ITEM'] = 'play.single'
 
 ACTION_NAMES = swap_dictionary(ACTION_CODES)
 
@@ -665,7 +669,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.getControl( constants.CURRENTPROGRESS ).setPercent ( percent )
       #if the control doesn't exist, do nothing
       except Exception as inst:
-        log("Progress bar update exception: " + str(inst))
+        #log("Progress bar update exception: " + str(inst))
+        pass
     else:
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_ELAPSED", "")
       xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_TRACK_0_REMAINING", "")
@@ -675,13 +680,14 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   # updates the volume bar & digits
 
   def updateVolume(self):
-    volume = int(self.player.getVolume())
-    xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_VOLUME", str(volume))
-    try:
-      self.getControl ( constants.VOLUMEBAR ).setPercent ( volume )
-    except Exception as inst:
-        log("Volume bar update exception: " + str(inst))
-
+    if constants.TOUCHENABLED or constants.PLAYERTYPE=='squeezelite':
+        volume = int(self.player.getVolume())
+        xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_VOLUME", str(volume))
+        try:
+            self.getControl ( constants.VOLUMEBAR ).setPercent ( volume )
+        except Exception as inst:
+            #log("Volume bar update exception: " + str(inst))
+            pass
 
 ################################################################################
 ################################################################################
