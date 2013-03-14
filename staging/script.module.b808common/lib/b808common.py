@@ -157,6 +157,31 @@ def setProperty(window, name, value = ""):
     window.setProperty(name, value)
 
 
+def getThumbnailModeID():
+    VIEW_MODES = {
+        'thumbnail': {
+            'skin.confluence': 500,
+            'skin.aeon.nox': 551,
+            'skin.confluence-vertical': 500,
+            'skin.jx720': 52,
+            'skin.pm3-hd': 53,
+            'skin.rapier': 50,
+            'skin.simplicity': 500,
+            'skin.slik': 53,
+            'skin.touched': 500,
+            'skin.transparency': 53,
+            'skin.xeebo': 55,
+        }
+    }
+
+
+    skin = xbmc.getSkinDir()
+    try:
+        thumbID = VIEW_MODES['thumbnail'][skin]
+    except:
+        thumbID = VIEW_MODES['thumbnail']['skin.confluence']
+
+    return thumbID
 
 ################################################################################
 ################################################################################
@@ -178,6 +203,8 @@ VERSION     = ADDON.getAddonInfo('version')
 CWD         = ADDON.getAddonInfo('path')
 LANGUAGE    = ADDON.getLocalizedString
 USERAGENT   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
+
+
 
 # Set up the paths
 RESOURCES_PATH = xbmc.translatePath( os.path.join( CWD, 'resources' ))

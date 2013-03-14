@@ -636,10 +636,11 @@ elif mode==SUBMENU_APPS:
 
 #if we've just built a list of albums, force thumbnail mode
 if mode in thumbModes:
-  log("Playable Items -> Trying to set thumnbnail mode...")
-  xbmc.executebuiltin('Container.SetViewMode(500)')
+  thumbID = getThumbnailModeID()
+  log("Playable Items -> Trying to set thumnbnail mode..." + str(thumbID))
+  xbmc.executebuiltin('Container.SetViewMode('+ str(thumbID)+')')
 else:
-  log("List Items -> Trying to set list mode...")
+  log("List Items -> Trying to set list mode...50")
   xbmc.executebuiltin('Container.SetViewMode(50)')
 
 
