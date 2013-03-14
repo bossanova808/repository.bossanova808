@@ -3,7 +3,10 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* 0.9.5   Made on screen controls keyboard friendly
+*0.9.7   Better thumbnail mode support in some skins
+*0.9.6   Updated Squeezelite to final V1.0
+* 
+*0.9.5    Made on screen controls keyboard friendly
 *         Default player is now Squeezelite
 *         Improved Spotify browsing
 
