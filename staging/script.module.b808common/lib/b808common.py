@@ -2,7 +2,7 @@
 ### By bossanova808 2012
 ### Free in all senses....
 
-### VERSION 0.0.8
+### VERSION 0.0.9
 
 import xbmc
 import xbmcaddon
@@ -13,6 +13,7 @@ import urllib
 import sys
 import os
 import platform
+import socket
 
 from traceback import print_exc
 
@@ -246,4 +247,13 @@ elif "raspbmc" in uname or "armv6l" in uname:
 log(ADDONNAME + "-" + VERSION + ": ### uname is: " + str(uname))
 log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
 
+#log the local IP address
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    #connect to google DNS as it's always up...
+    s.connect(('8.8.8.8',80))
+    log(ADDONNAME + "-" + VERSION + ": ### Local IP is " + str(s.getsockname()[0]))
+    s.close()
+except:
+    pass
 
