@@ -95,6 +95,7 @@ if ( __name__ == "__main__" ):
 
     #log some tracks...
     footprints()
+    logLocalIP()
 
     #pause
     if constants.SECONDS_TO_PAUSE_STARTUP!=0:

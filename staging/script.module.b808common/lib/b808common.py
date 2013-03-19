@@ -57,15 +57,27 @@ def notify(messageLine1, messageLine2 = "", time = 4000):
 def footprints(startup=True):
 
   if startup:
-    logNotice( ADDONNAME + " (Author: " + AUTHOR + ") ********************* Starting ...")
+    logNotice( ADDONNAME + " (Author: " + AUTHOR + ") Starting ...")
     logNotice( "Called as: " + str(sys.argv))
   else:
-    logNotice( ADDONNAME + " (Author: " + AUTHOR + ") ********************* Exiting ....")
+    logNotice( ADDONNAME + " (Author: " + AUTHOR + ") Exiting ....")
 
 
 ################################################################################
 ################################################################################
 ### MIXED UTILITY FUNCTIONS
+
+def logLocalIP():
+    #log the local IP address
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #connect to google DNS as it's always up...
+        s.connect(('8.8.8.8',80))
+        log("Local IP is " + str(s.getsockname()[0]))
+        s.close()
+    except:
+        pass
+
 
 ################################################################################
 # send a JSON command to XBMC and log the human description, json string, and
@@ -244,16 +256,7 @@ elif "raspbmc" in uname or "armv6l" in uname:
   SYSTEM = "arm"
 
 #log the detemined system type
-log(ADDONNAME + "-" + VERSION + ": ### uname is: " + str(uname))
-log(ADDONNAME + "-" + VERSION + ": ### System is " + SYSTEM)
+log("uname is: " + str(uname))
+log("System is " + SYSTEM)
 
-#log the local IP address
-try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    #connect to google DNS as it's always up...
-    s.connect(('8.8.8.8',80))
-    log(ADDONNAME + "-" + VERSION + ": ### Local IP is " + str(s.getsockname()[0]))
-    s.close()
-except:
-    pass
 

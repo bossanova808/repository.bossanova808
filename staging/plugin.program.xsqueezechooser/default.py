@@ -196,18 +196,18 @@ def buildFavouritesList(listFavourites):
     if 'hasitems' in fave:
       #item has a submenu...
       if fave['hasitems']!='0':
-        addNode(fave['name'],"",SUBMENU_FAVOURITES,coverURL,cmd=cmd,itemid=fave['id'])
+        addNode(fave['name'],"",SUBMENU_FAVOURITES,coverURL,itemid=fave['id'])
       #item is a playable station
       else:
         try:
-          addNode(fave['name'],"",PLAY_FAVOURITE,coverURL,cmd=cmd,itemid=fave['id'])
+          addNode(fave['name'],"",PLAY_FAVOURITE,coverURL,itemid=fave['id'])
         except Exception as inst:
           #log(str(fave))
           print_exc(inst)
     #subsubmenu
     else:
       if 'name' not in fave: continue
-      else: addNode(fave['name'],"",PLAY_FAVOURITE,coverURL,cmd=cmd,itemid=fave['id'])
+      else: addNode(fave['name'],"",PLAY_FAVOURITE,coverURL,itemid=fave['id'])
 
 
 def buildFavouriteSub(cmd, itemid=""):
