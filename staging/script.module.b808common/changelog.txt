@@ -1,2 +1,5 @@
+[B]Version 0.0.9[/B]
+- Whole lot of re-factoring, log the local IP
+
 [B]Version 0.0.1[/B]
 - Initial module release
