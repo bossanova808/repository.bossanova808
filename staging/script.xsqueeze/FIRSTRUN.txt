@@ -3,6 +3,7 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
+*0.9.9   Playlists support, notify on shuffle/repeat
 *0.9.7   Better thumbnail mode support in some skins
 *0.9.6   Updated Squeezelite to final V1.0
 * 
