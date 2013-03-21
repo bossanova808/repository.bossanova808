@@ -67,6 +67,9 @@ def footprints(startup=True):
 ################################################################################
 ### MIXED UTILITY FUNCTIONS
 
+################################################################################
+# Log the users local IP address
+
 def logLocalIP():
     #log the local IP address
     try:
@@ -77,6 +80,12 @@ def logLocalIP():
         s.close()
     except:
         pass
+
+################################################################################
+# Reverse the key value pairs in a dict
+
+def swap_dictionary(original_dict):
+   return dict([(v, k) for (k, v) in original_dict.iteritems()])
 
 
 ################################################################################

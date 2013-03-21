@@ -18,9 +18,6 @@ import constants
 ################################################################################
 ################################################################################
 
-def swap_dictionary(original_dict):
-   return dict([(v, k) for (k, v) in original_dict.iteritems()])
-
 ACTION_CODES = {
 
                 'ACTION_NONE'             :0,

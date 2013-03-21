@@ -458,7 +458,7 @@ class SqueezePlayer:
 
   def getGenres(self):
     genres = self.sc.request_with_results("genres 0 100000")
-    #log(str(genres))
+    log(str(genres))
     return genres[1][1:]
 
   ##############################################################################
@@ -476,16 +476,18 @@ class SqueezePlayer:
   def parseSpecial(self, cmdString, splitOn, playerRequest=False):
     quotedColon = urllib.quote(':')
     if playerRequest:
+      log("Player Request: " + str(cmdString))
       results = self.sb.requestRaw(cmdString)
     else:
+      log("Server Request: " + str(cmdString))
       results = self.sc.requestRaw(cmdString)
-    log(str(results))
+    log("Result string: "+ str(results))
     #strip off the request stuff at the start
     resultStr = results[results.find(splitOn):]
-    log(str(resultStr))
+    log("Split string: "+ str(resultStr))
     #ok now split the string on 'splitOn' to get each radio station
     chunks = resultStr.split(splitOn + "%3A")[1:]
-    log(str(chunks))
+    log("Processed Chunks: "+ str(chunks))
     output=[]
     for chunk in chunks:
       chunk = chunk.strip()
@@ -532,11 +534,23 @@ class SqueezePlayer:
   def getFavourites(self):
     return self.parseSpecial("favorites items 0 100000","id", playerRequest=True)
 
+  def getPlaylists(self):
+    #return self.parseSpecial("playlists 0 100000","id", playerRequest=True)
+    pls = self.sc.request_with_results("playlists 0 100000 tags:u")
+    log(str(pls))
+    return pls[1][1:]
+
   ##############################################################################
   # Clear playlist and queue up a favourite item given
 
   def queueFavourite(self, item_id):
      self.sb.request("favorites playlist play item_id:" + item_id)
+
+  ##############################################################################
+  # Clear playlist and queue up a playlist item given
+
+  def queuePlaylist(self, item_id, url):
+     self.sb.request("playlist play " + url)
 
   ##############################################################################
   # Clear playlist and queue up an album given an album title and artist
@@ -571,8 +585,10 @@ class SqueezePlayer:
     state = int(self.sb.request("playlist shuffle ?"))
     if state==0:
       state = 1
+      notify("Shuffle Playlist: ON","")
     else:
       state = 0
+      notify("Shuffle Playlist: OFF","")
     self.sb.request("playlist shuffle "+ str(state), debug=True)
     self.updatePlaylistDetails()
 
@@ -585,8 +601,10 @@ class SqueezePlayer:
     state = int(self.sb.request("playlist repeat ?"))
     if state==0:
       state = 2
+      notify("Repeat Playlist: ON")
     else:
       state = 0
+      notify("Repeat Playlist: OFF")
     self.sb.request("playlist repeat "+ str(state), debug=True)
 
   def rewind(self):

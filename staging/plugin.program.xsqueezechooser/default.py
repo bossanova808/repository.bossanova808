@@ -17,7 +17,7 @@ from b808common import *
 
 #Add a node to the plugin tree - a 'directory' node, so something we
 #can click on to either get more choices or trigger an action
-def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="",itemCount=0):
+def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="", playlistURL="",itemCount=0):
 
         global callerid
 
@@ -31,6 +31,7 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
         "&genreID="+urllib.quote_plus(genreID)+\
         "&year="+urllib.quote_plus(year)+\
         "&itemid="+urllib.quote_plus(itemid)+\
+        "&playlistURL="+urllib.quote_plus(playlistURL)+\
         "&callerid="+urllib.quote_plus(callerid)+\
         "&cmd="+urllib.quote_plus(cmd)
 
@@ -46,7 +47,7 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
 
 #Add a node at the end of the chain - not clickable
 #Used for messages after an album is queued or whatever
-def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="",itemCount=0):
+def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="", playlistURL="" ,itemCount=0):
 
         global callerid
 
@@ -60,6 +61,7 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
         "&genreID="+urllib.quote_plus(genreID)+\
         "&year="+urllib.quote_plus(year)+\
         "&itemid="+urllib.quote_plus(itemid)+\
+        "&playlistURL="+urllib.quote_plus(playlistURL)+\
         "&callerid="+urllib.quote_plus(callerid)+\
         "&cmd="+urllib.quote_plus(cmd)
 
@@ -93,6 +95,7 @@ def buildRootListing():
   addNode("Genres","",GENRES,"")
   addNode("Years","",YEARS,"")
   addNode("Favourites","",FAVOURITES,"")
+  addNode("Playlists","",PLAYLISTS,"")
   addNode("Play Random Albums","",RANDOM_ALBUMS,"")
   addNode("Play Random Songs","",RANDOM_TRACKS,"")
   addNode("Internet Radio","",RADIOS,"")
@@ -215,6 +218,19 @@ def buildFavouriteSub(cmd, itemid=""):
   returnedList = squeezeplayer.getFavouritesSub(itemid)
   #log(str(returnedList))
   buildFavouritesList(returnedList)
+
+#### Playlists
+
+def buildPlaylistsRoot():
+  global squeezeplayer
+  returnedList = squeezeplayer.getPlaylists()
+  log(str(returnedList))
+  buildPlaylistsList(returnedList)
+
+def buildPlaylistsList(listPlaylists):
+  for playlist in listPlaylists:
+    addNode(playlist['playlist'] ,"",PLAY_PLAYLIST,"",playlistURL=playlist['url'],itemid=playlist['id'])
+
 
 ### RANDOM ALBUMS
 
@@ -356,9 +372,31 @@ def buildAppItemsList(listApps, cmd):
 footprints()
 #parse the paramters
 params=getParams()
-if params==[]:
-  notify("Please do not run XSqueeze Chooser directly!","In Xsqueeze use info on your remote (or key i) to open!", 15000)
-  sys.exit()
+##if params==[]:
+##  notify("Please do not run XSqueeze Chooser directly!","In Xsqueeze use info on your remote (or key i) to open!", 15000)
+##  sys.exit()
+
+
+
+##set up to handle some window actions to make sure we get back to the right place when exiting Chooser
+##ACTION_CODES = {
+##                'ACTION_PARENT_DIR'       :9,
+##                'ACTION_PREVIOUS_MENU'    :10
+##}
+##ACTION_NAMES = swap_dictionary(ACTION_CODES)
+##
+##def onActionHere( self, action ):
+##    try:
+##        actionNum = action.getId()
+##        actionName = ACTION_NAMES[actionNum]
+##    except KeyError:
+##        actionName = None
+##
+##    if actionName is not None:
+##        xbmc.executebuiltin("ActivateWindow(Programs,plugin://script.xsqueeze")
+##
+##win = xbmcgui.Window(xbmcgui.getCurrentWindowId())
+##win.__del__= onActionHere
 
 
 #MENU MODES
@@ -373,11 +411,13 @@ RANDOM_ALBUMS = 7
 RANDOM_TRACKS = 8
 RADIOS = 9
 APPS = 10
+PLAYLISTS = 11
 
 #PLAYING MODES
 PLAY_ALBUM = 1001
 PLAY_RADIO = 1002
 PLAY_FAVOURITE = 1003
+PLAY_PLAYLIST = 1004
 
 #SUBMENU MODES
 SUBMENU_ARTISTS = 2001
@@ -402,6 +442,7 @@ cmd=None
 itemid=None
 #default is 13000
 callerid=None
+playlistURL=None
 
 #if the params have data in them, store it in a variable
 try:
@@ -456,6 +497,12 @@ except:
 
 try:
     callerid=urllib.unquote_plus(params["callerid"])
+except:
+    pass
+
+
+try:
+    playlistURL=urllib.unquote_plus(params["playlistURL"])
 except:
     pass
 
@@ -537,6 +584,13 @@ elif mode==FAVOURITES:
   except:
       print_exc()
 
+elif mode==PLAYLISTS:
+  log( "Handling Playlists Root" )
+  try:
+      buildPlaylistsRoot()
+  except:
+      print_exc()
+
 
 elif mode==RANDOM_ALBUMS:
   log( "Handling Random Albums" )
@@ -587,6 +641,12 @@ elif mode==PLAY_FAVOURITE:
   log( "Queueing up a favourite...." + name + "itemid " +itemid )
   squeezeplayer.queueFavourite(itemid)
   notify("Favourite" , name, 12000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+
+elif mode==PLAY_PLAYLIST:
+  log( "Queueing up a playlist...." + name + " itemid " +itemid + " playlistURL " + playlistURL)
+  squeezeplayer.queuePlaylist(itemid,playlistURL)
+  notify("Playlist" , name, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
 
 elif mode==SUBMENU_ARTISTS:

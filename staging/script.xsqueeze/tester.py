@@ -9,14 +9,14 @@ sc.connect()
 print "Logged in: %s" % sc.logged_in
 print "Version: %s" % sc.get_version()
 
-sq = sc.get_player("00:00:00:00:12:13")
+sq = sc.get_player("00:00:00:00:00:44")
 
-print "Name: %s | Mode: %s | Time: %s | Connected: %s | WiFi: %s" % (sq.get_name(), sq.get_mode(), sq.get_time_elapsed(), sq.is_connected, sq.get_wifi_signal_strength())
+#print "Name: %s | Mode: %s | Time: %s | Connected: %s | WiFi: %s" % (sq.get_name(), sq.get_mode(), sq.get_time_elapsed(), sq.is_connected, sq.get_wifi_signal_strength())
 
 #print sc.request("radios 0 100000")
 #print sq.request("local items 0 100000")
 #print sq.request("local playlist play item_id:7cec804f.15")
-print sq.request("show line1:Shuffle line2:Changed duration:3 brightness:4 font:standard centered:0")
+print sq.request("playlist play file:///E:/Public%20Shares/Music/Playlists/Test%20JD.m3u")
 
 
 
