@@ -3,13 +3,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-*0.9.9   Playlists support, notify on shuffle/repeat
-*0.9.7   Better thumbnail mode support in some skins
-*0.9.6   Updated Squeezelite to final V1.0
-* 
-*0.9.5    Made on screen controls keyboard friendly
-*         Default player is now Squeezelite
-*         Improved Spotify browsing
+*     Includes new squeezelite 1.1
+*     No big reports for a while, hence the 1.0.0 release
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

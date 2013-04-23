@@ -1,3 +1,7 @@
+v1.0.0
+- No bug reports for a while,so releasing V1
+- Includes Squeezelite 1.1 release
+
 v0.9.5
 - Integration of Squeezelite, update all brinaries, fixing of linux/Pi/Mac
 - Spotify support via Squeezelite
