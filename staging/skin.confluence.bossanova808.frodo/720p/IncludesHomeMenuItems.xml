@@ -45,13 +45,13 @@
 			<label>Home Movies</label>
 			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/HomeMovieLibrary/&quot;)</onclick>
 		</control>
-		<control type="button" id="90109">
+<!-- 		<control type="button" id="90109">
 			<visible>Skin.HasSetting(B808Kids) </visible>
       <include>ButtonHomeSubCommonValues</include>
 			<label>PVR Recordings</label>
-			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/Store06/XBMC/FTR_PVR/Recordings/&quot;)</onclick>
+			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/OtherVideos/Recordings/&quot;)</onclick>
 		</control>
-		<control type="image" id="90110">
+ -->		<control type="image" id="90110">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -115,7 +115,7 @@
 			<visible>Skin.HasSetting(B808Kids) </visible>
       <include>ButtonHomeSubCommonValues</include>
 			<label>Kids</label>
-			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/Store06/Kids Stuff/&quot;)</onclick>
+			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/OtherVideos/Kids Stuff/&quot;)</onclick>
 		</control>
 		<control type="button" id="90174">
 			<include>ButtonHomeSubCommonValues</include>
