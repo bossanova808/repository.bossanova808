@@ -1,3 +1,6 @@
+[B]0.1.6[/B]
+- Add Cinema Experience and Force Install Required Sub-Add-Ons & B808 Addons
+
 [B]0.1.5[/B]
 - Fix artist slideshow bug
 

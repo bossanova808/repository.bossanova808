@@ -951,6 +951,16 @@
 						<altlabel>1024</altlabel>
 						<usealttexture>Container.Content(TVShows)</usealttexture>
 					</control>
+					<!-- **** MARKER BOSSANOVA808 MOD add Cinema Experience button -->
+					<control type="button" id="16">
+						<description>Home Cinema Experience</description>
+						<include>ButtonInfoDialogsCommonValues</include>
+						<label>CinemaPlay</label>
+					    <onclick>Dialog.Close(MovieInformation)</onclick>
+					    <onclick>XBMC.RunScript(script.cinema.experience,movieid=$INFO[ListItem.DBID])</onclick>
+					    <visible>system.hasaddon(script.cinema.experience) + Container.Content(movies)</visible>
+					</control>	
+					<!-- END B808 MOD -->
 					<control type="button" id="5">
 						<description>Cast/Review</description>
 						<include>ButtonInfoDialogsCommonValues</include>
