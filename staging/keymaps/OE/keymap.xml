@@ -1,0 +1,136 @@
+<keymap>
+
+<!-- In this file we map the XBMC keynames from https://github.com/xbmc/xbmc/blob/master/system/keymaps/remote.xml to Harmony Buttons -->
+<!-- Get window names from the first column of http://wiki.xbmc.org/index.php?title=Window_IDs -->
+<!-- <Start> = Exit button, <Title> = Menu, <Menu> = Guide, <Select> = OK -->
+<!-- Yellow is assigned a special window ID which switches between 'show everything' and 'show only unwatched' --> 
+
+<!-- ************* GLOBAL ***************************** -->
+<!-- Red toggles fullscreen view -->
+<!-- Green Toggles the watched status of an item -->
+
+  <global>
+    <remote>
+	<clear>Queue</clear>
+       <Record>Screenshot</Record>
+    	<Red>FullScreen</Red> 
+    	<Green>ToggleWatched</Green>  
+       <myvideo>XBMC.ReloadSkin()</myvideo> <!-- reload skin -->
+       <mymusic>Playlist</mymusic> <!-- current playlist -->
+    </remote>
+  </global>
+
+<!-- ************** HOME ******************************* -->
+<!-- On the home screen, 1 (video) & 4 (music) clean the library, 2 & 5 trigger an update -->  
+<!-- 0 causes the skin to reload and thus refreshes the recently added lists -->
+  <home>
+     <remote>
+       <one>XBMC.CleanLibrary(video)</one>
+       <two>XBMC.UpdateLibrary(video)</two>
+       <four>XBMC.CleanLibrary(music)</four>
+       <five>XBMC.UpdateLibrary(music)</five>
+     </remote>
+  </home>
+
+<!-- ************** VIDEO, TV and MOVIE LIBRARY ******* -->
+<!-- Make Yellow show/hide watched and blue do nothing so the top up/down arrows don't cause issues in the video views -->
+
+  <MyVideoLibrary>
+    <remote>
+    	<Blue>Pause</Blue>
+    	<Yellow>SendClick(25,14)</Yellow>
+       <zero>Delete</zero>
+       <clear>Queue</clear>
+    </remote>
+  </MyVideoLibrary>
+  
+  <MyVideoFiles>
+    <remote>
+    	<Blue>Pause</Blue>
+    	<Yellow>SendClick(25,14)</Yellow>
+       <clear>Queue</clear>
+    </remote>
+  </MyVideoFiles>
+
+  <MyMusicPlaylist>
+    <remote>
+       <zero>Delete</zero>
+       <clear>Queue</clear>
+    </remote>
+  </MyMusicPlaylist>
+  <MyMusicPlaylistEditor>
+    <remote>
+       <zero>Delete</zero>
+       <clear>Queue</clear>
+   </remote>
+  </MyMusicPlaylistEditor>
+  <MyMusicFiles> 
+   <remote>
+        <zero>Delete</zero>
+        <clear>Queue</clear>
+   </remote>
+  </MyMusicFiles>
+  <MyMusicLibrary>
+    <remote>
+       <zero>Delete</zero>
+       <clear>Queue</clear>
+    </remote>
+  </MyMusicLibrary>
+
+
+<!-- ************** WHILE VIDEO IS PLAYING ************ -->
+<!-- Set up Audio Delay Easy Keys and remap some of the Harmony/MCE lost in translation stuff -->
+
+  <FullscreenVideo>
+    <remote>
+    	<Start>Stop</Start>
+    	<Title>OSD</Title>
+    	<Menu>CodecInfo</Menu>
+    	<Back>SmallStepBack</Back>
+    	<Star>AspectRatio</Star>
+    	<Select>Pause</Select>
+    	<Green>SmallStepBack</Green>
+    	<Yellow>AudioDelayMinus</Yellow>
+    	<Blue>AudioDelayPlus</Blue>	
+       <mypictures>RunScript(script.xbmc.subtitles)</mypictures> <!-- download subs -->
+    </remote>
+  </FullscreenVideo>
+
+  <VideoOSD>
+    <remote>
+      <Title>Close</Title>
+    </remote>
+  </VideoOSD>
+  <MusicOSD>
+    <remote>
+      <Title>Close</Title>
+    </remote>
+  </MusicOSD>
+
+
+<!-- ************** WHILE MUSIC IS PLAYING ************ -->
+<!-- Remap remote keys in music visualisation mode -->
+
+  <Visualisation>
+    <remote>
+    	<Start>Stop</Start>
+    	<Title>XBMC.ActivateWindow(MusicOSD)</Title>
+    	<Menu>CodecInfo</Menu>
+    	<Select>Pause</Select>	
+    </remote>
+ </Visualisation>
+
+<!-- ************** WHILE PICTURES ARE PLAYING ******* -->
+
+<!-- Set up zooming in picture slideshows -->
+
+  <Slideshow>
+    <remote>
+    	<Select>Pause</Select>
+    	<Yellow>ZoomOut</Yellow>
+    	<Blue>ZoomIn</Blue>	
+    	<Red>Rotate</Red>
+    </remote>
+  </Slideshow>
+
+</keymap>
