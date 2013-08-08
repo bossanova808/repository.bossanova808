@@ -1,3 +1,6 @@
+[B]0.1.7[/B]
+- Added better title font (Roboto All Caps)
+
 [B]0.1.6[/B]
 - Add Cinema Experience and Force Install Required Sub-Add-Ons & B808 Addons
 
