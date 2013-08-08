@@ -310,11 +310,17 @@
   <!-- these overule FullScreenVideo but anything undefined drops back to there -->
   <FullscreenLiveTV>
     <keyboard>
+      <w>ZoomIn</w>
+      <y mod="ctrl">ZoomOut</y>          	
+      <l>XBMC.Action(reloadkeymaps)</l>
+      <o>XBMC.ActivateWindowAndFocus(10610)</o>
+      <pageup>ChannelUp</pageup>     
+      <Pagedown>ChannelDown</Pagedown>  
       <left>PreviousChannelGroup</left>
       <right>NextChannelGroup</right>
       <up>ChannelUp</up>
       <down>ChannelDown</down>
-      <record>PlayerControl(Record)</record>
+      <q>PlayerControl(Record)</q>
     </keyboard>
   </FullscreenLiveTV> 
   <!-- and basic handling for PVR windows -->
