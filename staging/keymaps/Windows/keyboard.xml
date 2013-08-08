@@ -310,6 +310,7 @@
   <!-- these overule FullScreenVideo but anything undefined drops back to there -->
   <FullscreenLiveTV>
     <keyboard>
+      <i mod="ctrl">CodecInfo</i>     
       <w>ZoomIn</w>
       <y mod="ctrl">ZoomOut</y>          	
       <l>XBMC.Action(reloadkeymaps)</l>
