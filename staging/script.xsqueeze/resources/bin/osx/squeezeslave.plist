@@ -13,8 +13,9 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/opt/local/bin/squeezeslave</string>
-		<string>-nBuilt-in Output</string>
-		<string>-r30</string>
+		<string>-nBuilt-in Outpu</string>
+		<string>-r15</string>
+		<string>-m00:00:00:00:00:02</string>
 		<string>-Y/var/tmp/squeezeslave.log</string>
 		<string>-F</string>
 	</array>

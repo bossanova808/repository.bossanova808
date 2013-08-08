@@ -1,3 +1,6 @@
+V1.0.1
+- Updated Squeezelite to 1.2 (July 6th 2013) & Squeezeslave 1.3.390
+
 v1.0.0
 - No bug reports for a while,so releasing V1
 - Includes Squeezelite 1.1 release

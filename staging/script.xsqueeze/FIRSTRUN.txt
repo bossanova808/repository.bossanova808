@@ -3,8 +3,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-*     Includes new squeezelite 1.1
-*     No big reports for a while, hence the 1.0.0 release
+*	Squeezelite updated to 1.2
+*	Squeezeslave updated to 1.3.390
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

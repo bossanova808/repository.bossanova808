@@ -1,11 +1,11 @@
 SQUEEZELITE
-Version integrated: 1.0rc2
+Version integrated: 2.1 (July 6 2013)
 http://code.google.com/p/squeezelite/
 GNU GLP V3
 Copyright 2012, 2013 Adrian Smith. See -t for license terms
 
 SQUEEZESLAVE
-Version integrated: 1.2-376 (1.2-381 for arm)
+Version integrated: 1.3.390
 http://wiki.slimdevices.com/index.php/SqueezeSlave
 GNU GLP V2
 SqueezeSlave is currently maintained by Ralph Irving http://forums.slimdevices.com/member.php?u=3484
