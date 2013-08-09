@@ -971,12 +971,26 @@
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>184</label>
 					</control>
-					<control type="button" id="10">
+					 <!-- BOSSANOVA808 MOD -->
+
+<!-- 					<control type="button" id="10">
 						<description>Get Thumb</description>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>13511</label>
 					</control>
-					<control type="button" id="11">
+ -->
+					   <control type="button" id="150">
+					       <description>Get Artwork</description>
+							<include>ButtonInfoDialogsCommonValues</include>
+					       <label>Get Artwork</label>
+					       <onclick condition="Container.Content(tvshows)">XBMC.RunScript(script.artwork.downloader, mediatype=tvshow, dbid=$INFO[ListItem.DBID])</onclick>
+					       <onclick condition="Container.Content(movies)">XBMC.RunScript(script.artwork.downloader, mediatype=movie, dbid=$INFO[ListItem.DBID])</onclick>
+					       <onclick condition="Container.Content(musicvideos)">XBMC.RunScript(script.artwork.downloader, mediatype=musicvideos, dbid=$INFO[ListItem.DBID])</onclick>
+					       <visible>[Container.Content(tvshows)|Container.Content(movies)|Container.Content(musicvideos)]+system.hasaddon(script.artwork.downloader)</visible>
+					   </control>
+					<!-- END BOSSANOVA808 MOD -->
+
+ 					<control type="button" id="11">
 						<description>Play Trailer</description>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>20410</label>
