@@ -61,6 +61,82 @@
 				<height>230</height>
 				<texture>HomeNowPlayingBack.png</texture>
 			</control>
+
+			<!--  BOSSANOVA808 CLEARART MOD  -->
+			<!--  SHOWS CLEARART BY DEFAULT, OTHERWISE FALLS BACK TO LOGO or BORING THUMB -->
+
+			<control type="group" id="1">
+				<control type="image" id="1">
+					<description>clearart image</description>
+					<posx>10</posx>
+					<posy>260r</posy>
+					<width>300</width>
+					<height>230</height>
+					<texture>$INFO[Player.Art(clearart)]</texture>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<visible>!IsEmpty(Player.Art(clearart))</visible>
+				</control>
+				<control type="image" id="1">
+					<description>logo image</description>
+					<posx>10</posx>
+					<posy>260r</posy>
+					<width>300</width>
+					<height>230</height>
+					<texture>$INFO[Player.Art(clearlogo)]</texture>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<visible>!IsEmpty(Player.Art(clearlogo)) + IsEmpty(Player.Art(clearart))</visible>
+				</control>
+				<control type="image" id="1">
+					<description>Movie cover image</description>
+					<posx>20</posx>
+					<posy>350r</posy>
+					<width>300</width>
+					<height>330</height>
+					<texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+					<visible>[IsEmpty(Player.Art(clearart)) + IsEmpty(Player.Art(clearlogo))] | [IsEmpty(Player.Art(clearlogo))] </visible>
+				</control>
+				<visible>VideoPlayer.Content(Movies)</visible>
+				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
+			</control>
+			<control type="group" id="1">
+				<control type="image" id="1">
+					<description>clearart image</description>
+					<posx>10</posx>
+					<posy>260r</posy>
+					<width>300</width>
+					<height>230</height>
+					<texture>$INFO[Player.Art(tvshow.clearart)]</texture>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<visible>!IsEmpty(Player.Art(tvshow.clearart))</visible>
+				</control>
+				<control type="image" id="1">
+					<description>logo image</description>
+					<posx>10</posx>
+					<posy>260r</posy>
+					<width>300</width>
+					<height>230</height>
+					<texture>$INFO[Player.Art(tvshow.clearlogo)]</texture>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<visible>!IsEmpty(Player.Art(tvshow.clearlogo)) + IsEmpty(Player.Art(tvshow.clearart))]</visible>
+				</control>
+				<control type="image" id="1">
+					<description>cover image</description>
+					<posx>20</posx>
+					<posy>260r</posy>
+					<width>300</width>
+					<height>230</height>
+					<texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
+					<aspectratio aligny="bottom">keep</aspectratio>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+					<visible>[IsEmpty(Player.Art(tvshow.clearart)) + IsEmpty(Player.Art(tvshow.clearlogo))]| [IsEmpty(Player.Art(tvshow.clearlogo))]</visible>
+				</control>
+				<visible>VideoPlayer.Content(Episodes)</visible>
+				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
+			</control>
 			<control type="image" id="1">
 				<description>cover image</description>
 				<posx>20</posx>
@@ -71,20 +147,13 @@
 				<aspectratio aligny="bottom">keep</aspectratio>
 				<bordertexture border="8">ThumbShadow.png</bordertexture>
 				<bordersize>8</bordersize>
-				<visible>!VideoPlayer.Content(Movies)</visible>
+				<visible>!VideoPlayer.Content(Movies) + !VideoPlayer.Content(Episodes)</visible>
+				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			</control>
-			<control type="image" id="1">
-				<description>Movie cover image</description>
-				<posx>20</posx>
-				<posy>350r</posy>
-				<width>300</width>
-				<height>330</height>
-				<texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
-				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="8">ThumbShadow.png</bordertexture>
-				<bordersize>8</bordersize>
-				<visible>VideoPlayer.Content(Movies)</visible>
-			</control>
+
+			<!-- END BOSSANOVA808 MOD -->
+
+
 			<control type="group" id="1">
 				<posx>330</posx>
 				<posy>185r</posy>
