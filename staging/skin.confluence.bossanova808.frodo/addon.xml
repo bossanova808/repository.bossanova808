@@ -19,6 +19,7 @@
     <import addon="script.cinema.experience" version="3.0.4"/>
     <import addon="plugin.video.the.trailers" version="1.9.5"/>
     <import addon="script.artwork.downloader" version="12.0.15"/>
+    <import addon="service.skin.widgets" version="0.0.25"/>  
   </requires>
   <extension
     point="xbmc.gui.skin"
