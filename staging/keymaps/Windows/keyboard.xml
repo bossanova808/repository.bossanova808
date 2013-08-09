@@ -327,6 +327,7 @@
   <!-- and basic handling for PVR windows -->
   <PVROSDChannels>
     <keyboard>
+      <o>Close</o>
       <backspace>Close</backspace>
       <escape>Close</escape>
       <c>Close</c>
