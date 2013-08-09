@@ -5,6 +5,7 @@
   name="Confluence Bossanova808 Frodo PVR"
   provider-name="Jezz_X, Team XBMC, bossanova808">
   <requires>
+    <!-- FORCE INSTALL THE COOLNESS -->
     <import addon="xbmc.gui" version="4.0.0"/>
     <import addon="script.module.xsqueezecommon" version="0.1.2"/>
     <import addon="script.module.b808common" version="0.1.1"/>
@@ -17,6 +18,8 @@
     <import addon="script.xbmc.unpausejumpback" version="2.2.0"/>
     <import addon="script.cinema.experience" version="3.0.4"/>
     <import addon="plugin.video.the.trailers" version="1.9.5"/>
+    <import addon="script.artwork.downloader" version="12.0.15"/>
+    <import addon="service.skin.widgets" version="0.0.25"/>  
   </requires>
   <extension
     point="xbmc.gui.skin"
