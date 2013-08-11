@@ -92,9 +92,37 @@
     	<Green>SmallStepBack</Green>
     	<Yellow>AudioDelayMinus</Yellow>
     	<Blue>AudioDelayPlus</Blue>	
-       <mypictures>RunScript(script.xbmc.subtitles)</mypictures> <!-- download subs -->
+      <mypictures>RunScript(script.xbmc.subtitles)</mypictures> <!-- download subs -->
     </remote>
   </FullscreenVideo>
+
+  <FullscreenLiveTV>
+    <remote>
+     <Menu>XBMC.ActivateWindowAndFocus(10610)</Menu>
+      <Yellow>ZoomOut</Yellow>
+      <Blue>ZoomIn</Blue> 
+      <mypictures>CodecInfo</mypictures> <!-- download subs -->    
+      <record>PlayerControl(Record)</record>
+    </remote>
+  </FullscreenLiveTV>
+
+
+<!--     <keyboard>
+      <i mod="ctrl">CodecInfo</i>     
+      <w>ZoomIn</w>
+      <y mod="ctrl">ZoomOut</y>           
+      <l>XBMC.Action(reloadkeymaps)</l>
+      <o>XBMC.ActivateWindowAndFocus(10610)</o>
+      <pageup>ChannelUp</pageup>     
+      <Pagedown>ChannelDown</Pagedown>  
+      <left>PreviousChannelGroup</left>
+      <right>NextChannelGroup</right>
+      <up>ChannelUp</up>
+      <down>ChannelDown</down>
+      <q>PlayerControl(Record)</q>
+    </keyboard>
+ -->  
+
 
   <VideoOSD>
     <remote>
