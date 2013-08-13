@@ -2,7 +2,7 @@
 ### By bossanova808 2013
 ### Free in all senses....
 
-### VERSION 0.1.0
+### VERSION 0.1.2
 
 import xbmc
 import xbmcaddon
@@ -84,7 +84,7 @@ def logLocalIP():
 ################################################################################
 # front pad a string with 0s out to 9 chars long
 
-def frontPadTo9Chars(self, shortStr):
+def frontPadTo9Chars(shortStr):
     while len(shortStr)<9:
         shortStr = "0" + shortStr
     return shortStr
