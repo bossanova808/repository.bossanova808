@@ -2,7 +2,7 @@
 ### By bossanova808 2013
 ### Free in all senses....
 
-### VERSION 0.0.9
+### VERSION 0.1.0
 
 import xbmc
 import xbmcaddon
@@ -80,6 +80,14 @@ def logLocalIP():
         s.close()
     except:
         pass
+
+################################################################################
+# front pad a string with 0s out to 9 chars long
+
+def frontPadTo9Chars(self, shortStr):
+    while len(shortStr)<9:
+        shortStr = "0" + shortStr
+    return shortStr
 
 ################################################################################
 # Reverse the key value pairs in a dict
