@@ -96,13 +96,13 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="1.0.1"
+       version="1.0.2"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
     <import addon="script.artistslideshow" version="1.4.7"/>
     <import addon="script.module.xsqueezecommon" version="0.1.2"/>
-    <import addon="script.module.b808common" version="0.1.1"/>
+    <import addon="script.module.b808common" version="0.1.2"/>
     <import addon="plugin.program.xsqueezechooser" version="0.1.4"/>
   </requires>
   <extension point="xbmc.python.script"

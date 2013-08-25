@@ -1,4 +1,5 @@
-import xbmc, xbmcgui
+import xbmc
+import xbmcgui
 import sys
 import threading
 from traceback import print_exc
@@ -545,72 +546,59 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       xbmcgui.Window(self.windowID).setProperty(stub + "ARTIST", "Empty Playlist - add some music to get things going!")
 
     #otherwise try and pgrab as much data as we can
+    # N.B. - some streaming services don't use play-list details, so we may need to use the play-list
     else:
-
       #only do work if something has changed....
-      if newPlaylistDetails != self.playlistDetails:
-        log("Playlist update detected")
+      if newPlaylistDetails != self.playlistDetails or newPlaylist != self.playlist:
+        #log("Playlist update detected")
         self.playlistDetails = newPlaylistDetails
         self.playlist = newPlaylist
 
       #first remove old data from the rest of the playlist in $INFO
       self.cleanupPlaylist(len(self.playlistDetails))
 
+      # store temp map of play-list data
+      playlistMap = {}
+      for entry in self.playlist:
+        playlistMap[entry['id']] = entry
+        #log('temp map is ' + str(playlistMap))
+
       for trackOffset in range(0,len(self.playlistDetails)):
-        #print("Settings window INFOs with " + str(self.playlistDetails[trackOffset]))
+        trackDetails = self.playlistDetails[trackOffset]
+        trackId = int(trackDetails['track_id'])
+        plItem = playlistMap.get(trackId,{})
+        #log("Settings window INFOs with " + str(trackDetails))
+        #log('Alternate info is ' + str(plItem))
         stub = "XSQUEEZE_TRACK_" + str(trackOffset) + "_"
 
         #each element in this list looks like:
         #songinfo[{'album_id': 10, 'channels': 2, 'samplesize': 16, 'year': 2004, 'duration': 276.72000000000003, 'samplerate': 44100, 'id': 122, 'album': 'Gold - Greatest Hits', 'title': 'Lay All Your Love on Me', 'tracknum': 5, 'filesize': 34201960, 'artist_id': 17, 'type': 'flc', 'coverart': 1, 'compilation': 0, 'artwork_track_id': 'ed1047ba', 'lastUpdated': 'Thursday, December 8, 2011, 11:15 PM', 'modificationTime': 'Saturday, October 27, 2007, 5:14 PM', 'album_replay_gain': -7.7699999999999996, 'coverid': 'ed1047ba', 'genre': 'Pop', 'bitrate': '988kbps VBR', 'artist': 'Abba', 'addedTime': 'Thursday, December 8, 2011, 11:15 PM', 'replay_gain': -6.5199999999999996, 'genre_id': 4}]
 
+        # alternate from play-list looks like:
+        # {'album': 'Beautiful Garbage', 'artist': 'Garbage', 'title': 'Cherry Lips (Go Baby Go!)', 'buttons': 'HASH(0xc987e4c)', 'duration': 192.0, 'position': 0, 'id': -209808524}
+
         #NOW GRAB AS MUCH DATA FROM THE STREAM DETAILS AS WE CAN
         #VERY HIT AND MISS
-        try:
-          artist = self.playlistDetails[trackOffset]['artist']
-        except KeyError:
-          artist = ""
-        try:
-          title = self.playlistDetails[trackOffset]['title']
-        except KeyError:
-          title = ""
-        try:
-          tracknum = str(self.playlistDetails[trackOffset]['tracknum'])
-        except KeyError:
-          tracknum = ""
-        try:
-          fileformat = str(self.playlistDetails[trackOffset]['type'])
-        except KeyError:
-          fileformat = ""
-        try:
-          bitrate = str(self.playlistDetails[trackOffset]['bitrate'])
-        except KeyError:
-          bitrate = ""
-        try:
-          genre = str(self.playlistDetails[trackOffset]['genre'])
-        except KeyError:
-          genre = ""
-        try:
-          album = str(self.playlistDetails[trackOffset]['album'])
-        except KeyError:
-          album = ""
-        try:
-          type = str(self.playlistDetails[trackOffset]['type'])
-        except KeyError:
-          type = ""
-        try:
-          duration = getInHMS(int(self.playlistDetails[trackOffset]['duration']))
-        except KeyError:
-          duration = ""
-        try:
-          year = self.playlistDetails[trackOffset]['year']
-          #little hack if we're getting 0 back as the year - put in current year
-          if year==0:
-            now = datetime.datetime.now()
-            year = str(now.year)
-          else:
-            year = str(year)
-        except KeyError:
-          year = ""
+        artist = trackDetails.get('artist',plItem.get('artist',''))
+        title = trackDetails.get('title',plItem.get('title',''))
+        tracknum = str(trackDetails.get('tracknum',0))
+        if tracknum == '0': tracknum = ''
+        fileformat = trackDetails.get('type','')
+        bitrate = str(trackDetails.get('bitrate',0))
+        if bitrate == '0': bitrate = ''
+        genre = trackDetails.get('genre','')
+        album = trackDetails.get('album',plItem.get('album',''))
+        stype = trackDetails.get('type','')
+        duration = int(trackDetails.get('duration',plItem.get('duration',0)))
+        duration = getInHMS(duration)
+
+        year = trackDetails.get('year',0)
+        #little hack if we're getting 0 back as the year - put in current year
+        if year==0:
+          now = datetime.datetime.now()
+          year = str(now.year)
+        else:
+          year = str(year)
 
         #playing Radio/App
         if 'remote' in self.playlistDetails[0]:
@@ -632,7 +620,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         xbmcgui.Window(self.windowID).setProperty(stub + "FILEFORMAT", fileformat)
         xbmcgui.Window(self.windowID).setProperty(stub + "BITRATE", bitrate)
         xbmcgui.Window(self.windowID).setProperty(stub + "GENRE", genre)
-        xbmcgui.Window(self.windowID).setProperty(stub + "TYPE", type)
+        xbmcgui.Window(self.windowID).setProperty(stub + "TYPE", stype)
 
 
 
@@ -772,10 +760,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         xbmcgui.Window(self.windowID).clearProperty(stub + "ELAPSED")
         xbmcgui.Window(self.windowID).clearProperty(stub + "REMAINING")
         xbmcgui.Window(self.windowID).clearProperty(stub + "DURATION")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "BITRATE")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "GENRE")
+        xbmcgui.Window(self.windowID).clearProperty(stub + "TYPE")
       #since we're just tidying, doesn't matter if the above fails
       except:
         pass
-
-
-
-
