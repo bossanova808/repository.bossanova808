@@ -315,6 +315,7 @@
       <y mod="ctrl">ZoomOut</y>          	
       <l>XBMC.Action(reloadkeymaps)</l>
       <o>XBMC.ActivateWindowAndFocus(10610)</o>
+      <i>XBMC.ActivateWindowAndFocus(10611)</i>
       <pageup>ChannelUp</pageup>     
       <Pagedown>ChannelDown</Pagedown>  
       <left>PreviousChannelGroup</left>
@@ -335,6 +336,7 @@
   </PVROSDChannels>
   <PVROSDGuide>
     <keyboard>
+      <i>Close</i>
       <backspace>Close</backspace>
       <escape>Close</escape>
     </keyboard>
