@@ -98,7 +98,8 @@
 
   <FullscreenLiveTV>
     <remote>
-     <Menu>XBMC.ActivateWindowAndFocus(10610)</Menu>
+     <Menu>XBMC.ActivateWindowAndFocus(PVROSDChannels)</Menu>
+     <Info>XBMC.ActivateWindowAndFocus(PVROSDGuide)</Info>
       <Yellow>ZoomOut</Yellow>
       <Blue>ZoomIn</Blue> 
       <mypictures>CodecInfo</mypictures> <!-- download subs -->    
@@ -106,6 +107,18 @@
     </remote>
   </FullscreenLiveTV>
 
+  <PVROSDChannels>
+    <remote>
+     <Menu>Close</Menu>
+     <Info>Close</Info>
+    </remote>
+  </PVROSDChannels>
+  <PVROSDGuide>
+    <remote>
+     <Menu>Close</Menu>
+     <Info>Close</Info>
+    </remote>
+  </PVROSDGuide>
 
 <!--     <keyboard>
       <i mod="ctrl">CodecInfo</i>     

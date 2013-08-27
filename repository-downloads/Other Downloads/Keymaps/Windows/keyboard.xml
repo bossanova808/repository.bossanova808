@@ -314,8 +314,8 @@
       <w>ZoomIn</w>
       <y mod="ctrl">ZoomOut</y>          	
       <l>XBMC.Action(reloadkeymaps)</l>
-      <o>XBMC.ActivateWindowAndFocus(10610)</o>
-      <i>XBMC.ActivateWindowAndFocus(10611)</i>
+      <o>XBMC.ActivateWindowAndFocus(PVROSDChannels)</o>
+      <i>XBMC.ActivateWindowAndFocus(PVROSDGuide)</i>
       <pageup>ChannelUp</pageup>     
       <Pagedown>ChannelDown</Pagedown>  
       <left>PreviousChannelGroup</left>
