@@ -3,9 +3,7 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-*	Better track details for streaming services (thanks crackers!)
-* 	Squeezelite updated to 1.2
-*	Squeezeslave updated to 1.3.390
+*	Squeezselite updated to 1.3
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
