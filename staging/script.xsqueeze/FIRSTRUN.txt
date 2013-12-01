@@ -3,7 +3,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-*	Squeezselite updated to 1.3
+*	Python bump for Gotham
+*	Squeezelite updated to 1.3
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
