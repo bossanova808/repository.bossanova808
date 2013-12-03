@@ -7,7 +7,7 @@
   <requires>
     <!-- FORCE INSTALL THE COOLNESS -->
     <import addon="xbmc.gui" version="5.0.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.1.2"/>
+<!--     <import addon="script.module.xsqueezecommon" version="0.1.2"/>
     <import addon="script.module.b808common" version="0.1.4"/>
     <import addon="plugin.program.xsqueezechooser" version="0.1.4"/>
     <import addon="weather.ozweather" version="0.6.4"/>
@@ -21,7 +21,7 @@
     <import addon="script.artwork.downloader" version="12.0.15"/>
     <import addon="service.skin.widgets" version="0.0.25"/>  
     <import addon="script.service.checkpreviousepisode" version="0.3.0"/>
-  </requires>
+ -->  </requires>
   <extension
     point="xbmc.gui.skin"
     defaultthemename="textures.xbt"
