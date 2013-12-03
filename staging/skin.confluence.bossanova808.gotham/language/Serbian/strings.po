@@ -1,16 +1,15 @@
 # XBMC Media Center language file
 # Addon Name: Confluence
 # Addon id: skin.confluence
-# Addon version: 2.1.3
 # Addon Provider: Jezz_X, Team XBMC
 msgid ""
 msgstr ""
-"Project-Id-Version: XBMC Main Translation Project (Frodo)\n"
+"Project-Id-Version: XBMC Main\n"
 "Report-Msgid-Bugs-To: http://trac.xbmc.org/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: XBMC Translation Team\n"
-"Language-Team: Serbian (http://www.transifex.com/projects/p/XBMC-Main-Frodo/language/sr/)\n"
+"Language-Team: Serbian (http://www.transifex.com/projects/p/xbmc-main/language/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,6 +31,10 @@ msgstr "Obrada..."
 msgctxt "#31005"
 msgid "Hide Information"
 msgstr "Sakrij info."
+
+msgctxt "#31008"
+msgid "Full screen"
+msgstr "Ceo Ekran"
 
 msgctxt "#31022"
 msgid "Music - Files"
@@ -97,10 +100,6 @@ msgctxt "#31045"
 msgid "REWIND"
 msgstr "PREMOTAVANjE"
 
-msgctxt "#31048"
-msgid "Visualization Presets"
-msgstr "Postojeće vizualizacije"
-
 msgctxt "#31049"
 msgid "End Time"
 msgstr "Vreme završetka"
@@ -145,10 +144,6 @@ msgctxt "#31103"
 msgid "Show \"Paused\" in picture slide show"
 msgstr "Prikaži „Pauzirano“ prilikom reprodukcije slika"
 
-msgctxt "#31104"
-msgid "Play Trailers in a window [COLOR=grey3](Video Information Dialog Only)[/COLOR]"
-msgstr "Reprodukuj najave filmova u prozoru [COLOR=grey3](Video Info. Dialog Only)[/COLOR]"
-
 msgctxt "#31106"
 msgid "Miscellaneous options"
 msgstr "Razne opcije"
@@ -169,21 +164,9 @@ msgctxt "#31117"
 msgid "Show Recently added Videos"
 msgstr "Prikaži nedavno dodate filmove"
 
-msgctxt "#31118"
-msgid "Home Page Programs Submenu"
-msgstr "Podmeni početne strane"
-
-msgctxt "#31122"
-msgid "Weather Page"
-msgstr "Strana vremenske prognoze"
-
 msgctxt "#31124"
 msgid "Show Background \"Now Playing\" Video"
 msgstr "Prikaži trenutni film u pozadini"
-
-msgctxt "#31125"
-msgid "Show Background \"Now Playing\" Visualization"
-msgstr "Prikaži trenutnu vizualizaciju u pozadini"
 
 msgctxt "#31128"
 msgid "Lyrics"
@@ -316,6 +299,10 @@ msgstr "Filmski meni"
 msgctxt "#31356"
 msgid "Download Subtitles"
 msgstr "Preuzmi titlove"
+
+msgctxt "#31362"
+msgid "Enabled"
+msgstr "Omogućeno"
 
 msgctxt "#31390"
 msgid "Skin default"

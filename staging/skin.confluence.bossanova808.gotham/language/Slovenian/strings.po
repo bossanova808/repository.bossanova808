@@ -1,16 +1,15 @@
 # XBMC Media Center language file
 # Addon Name: Confluence
 # Addon id: skin.confluence
-# Addon version: 2.1.3
 # Addon Provider: Jezz_X, Team XBMC
 msgid ""
 msgstr ""
-"Project-Id-Version: XBMC Main Translation Project (Frodo)\n"
+"Project-Id-Version: XBMC Main\n"
 "Report-Msgid-Bugs-To: http://trac.xbmc.org/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: XBMC Translation Team\n"
-"Language-Team: Slovenian (http://www.transifex.com/projects/p/XBMC-Main-Frodo/language/sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/projects/p/xbmc-main/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,8 +37,8 @@ msgid "View Options"
 msgstr "Možnosti pogleda"
 
 msgctxt "#31008"
-msgid "Fullscreen"
-msgstr "Celozaslonski način"
+msgid "Full screen"
+msgstr "Celozaslonsko"
 
 msgctxt "#31009"
 msgid "Total Duration"
@@ -89,6 +88,10 @@ msgctxt "#31033"
 msgid "Info"
 msgstr "Informacije"
 
+msgctxt "#31039"
+msgid "Actions"
+msgstr "Dejanja"
+
 msgctxt "#31040"
 msgid "Now Playing"
 msgstr "Trenutno predvajam"
@@ -109,9 +112,13 @@ msgctxt "#31045"
 msgid "REWIND"
 msgstr "NAZAJ"
 
+msgctxt "#31046"
+msgid "SEEKING"
+msgstr "ISKANJE"
+
 msgctxt "#31048"
-msgid "Visualization Presets"
-msgstr "Prednastavitve vizualizacije"
+msgid "Visualisation Presets"
+msgstr "Predloge vizualizacije"
 
 msgctxt "#31049"
 msgid "End Time"
@@ -155,7 +162,7 @@ msgstr "Trenutno izbrano"
 
 msgctxt "#31101"
 msgid "Home screen options"
-msgstr "Nastavitve domačega okna"
+msgstr "Možnosti domačega okna"
 
 msgctxt "#31102"
 msgid "Background"
@@ -166,8 +173,8 @@ msgid "Show \"Paused\" in picture slide show"
 msgstr "Prikaži \"Prekinitev\" v projekciji slik"
 
 msgctxt "#31104"
-msgid "Play Trailers in a window [COLOR=grey3](Video Information Dialog Only)[/COLOR]"
-msgstr "Predvajaj napovednike v oknu [COLOR=grey3](Le okno z informacijami o videu)[/COLOR]"
+msgid "Play Trailers in a window [COLOR=grey3](Video Information Dialogue Only)[/COLOR]"
+msgstr "Predvajaj napovednike v oknu [COLOR=grey3](Samo okno z informacijami o videu)[/COLOR]"
 
 msgctxt "#31106"
 msgid "Miscellaneous options"
@@ -206,23 +213,19 @@ msgid "Show Recently added Videos"
 msgstr "Prikaži nedavno dodane videe"
 
 msgctxt "#31118"
-msgid "Home Page Programs Submenu"
+msgid "Home Page Programs Sub-menu"
 msgstr "Podmeni programov na domačem oknu"
 
 msgctxt "#31119"
 msgid "Hide Background Fanart"
 msgstr "Skrij ozadja"
 
-msgctxt "#31122"
-msgid "Weather Page"
-msgstr "Vreme"
-
 msgctxt "#31124"
 msgid "Show Background \"Now Playing\" Video"
 msgstr "V ozadjnu prikaži video \"Trenutno predvajam\""
 
 msgctxt "#31125"
-msgid "Show Background \"Now Playing\" Visualization"
+msgid "Show Background \"Now Playing\" Visualisation"
 msgstr "V ozadju prikaži vizualizacijo \"Trenutno predvajam\""
 
 msgctxt "#31126"
@@ -237,29 +240,9 @@ msgctxt "#31128"
 msgid "Lyrics"
 msgstr "Besedilo pesmi"
 
-msgctxt "#31129"
-msgid "Hide Fanart in full screen visualization"
-msgstr "Skrij ozadja v celozaslonski vizualizaciji"
-
 msgctxt "#31132"
 msgid "Lyrics Add-on"
 msgstr "Dodatek besedil pesmi"
-
-msgctxt "#31133"
-msgid "Subtitle Add-on"
-msgstr "Dodatek podnapisov"
-
-msgctxt "#31134"
-msgid "Home Page Videos Submenu"
-msgstr "Podmeni videev na domačem oknu"
-
-msgctxt "#31135"
-msgid "Home Page Music Submenu"
-msgstr "Podmeni glasbe na domačem oknu"
-
-msgctxt "#31136"
-msgid "Home Page Pictures Submenu"
-msgstr "Podmeni slik na domačem oknu"
 
 msgctxt "#31140"
 msgid "Music OSD"
@@ -409,6 +392,18 @@ msgctxt "#31356"
 msgid "Download Subtitles"
 msgstr "Prenesi podnapise"
 
+msgctxt "#31360"
+msgid "Watch as 2D"
+msgstr "2D Ogled"
+
+msgctxt "#31361"
+msgid "Change mode"
+msgstr "Spremeni način"
+
+msgctxt "#31362"
+msgid "Enabled"
+msgstr "Vključen"
+
 msgctxt "#31390"
 msgid "Skin default"
 msgstr "Privzeto"
@@ -450,7 +445,7 @@ msgid "[B]CONFIGURE ADD-ONS[/B][CR][CR]Manage your installed Add-ons · Browse f
 msgstr "[B]PRILAGODITE DODATKE[/B][CR][CR]Upravljajte nameščene dodatke · Brskajte in namestite nove dodatke iz xbmc.org[CR]Nastavite dodatke"
 
 msgctxt "#31409"
-msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change fullscreen info · Manage EPG data settings"
+msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change full screen info · Manage EPG data settings"
 msgstr "[B]PRILAGODITVE NASTAVITVE TV[/B][CR][CR]Spremenite informacije v celozaslonskem načinu · Upravljajte z nastavitvami EPG"
 
 msgctxt "#31410"
@@ -462,16 +457,12 @@ msgid "First run help...."
 msgstr "Pomoč ob prvem zagonu..."
 
 msgctxt "#31412"
-msgid "This tab signifies that there is a menu off to the side of this window that contains extra options for this section.  To access the menu, navigate to the left with your remote control or keyboard or place your mouse pointer over the tab. [CR][CR]Click \"Ok\" to close this dialog. It will not appear again."
+msgid "This tab signifies that there is a menu off to the side of this window that contains extra options for this section.  To access the menu, navigate to the left with your remote control or keyboard or place your mouse pointer over the tab. [CR][CR]Click \"Ok\" to close this dialogue. It will not appear again."
 msgstr "Ta zavihek nakazuje, da se tu skriva meni z dodatnimi možnostmi trenutnega pogleda.  Za dostop do menija pritisnite levo na vašem daljinskem upravljalcu ali tipkovnici ali pa postavite miško na zavihek. [CR][CR]Kliknite \"Ok\", da zaprete to okno. Ne bo se več prikazalo."
 
 msgctxt "#31421"
 msgid "Select your XBMC user Profile[CR]to login and continue"
 msgstr "Izberite vaš XBMC uporabniški profil[CR]za prijavo in nadaljujte"
-
-msgctxt "#31500"
-msgid "Recording Timers"
-msgstr "Trenutna snemanja"
 
 msgctxt "#31501"
 msgid "Scheduled Time"
@@ -540,3 +531,43 @@ msgstr "Prenašam vremenske informacije..."
 msgctxt "#31910"
 msgid "Map & Alerts"
 msgstr "Karte & Opozorila"
+
+msgctxt "#31950"
+msgid "WEATHER"
+msgstr "VREME"
+
+msgctxt "#31951"
+msgid "PICTURES"
+msgstr "SLIKE"
+
+msgctxt "#31952"
+msgid "LIVE TV"
+msgstr "TV V ŽIVO"
+
+msgctxt "#31953"
+msgid "VIDEOS"
+msgstr "VIDEO"
+
+msgctxt "#31954"
+msgid "MOVIES"
+msgstr "FILMI"
+
+msgctxt "#31955"
+msgid "TV SHOWS"
+msgstr "TV SERIJE"
+
+msgctxt "#31956"
+msgid "MUSIC"
+msgstr "GLASBA"
+
+msgctxt "#31957"
+msgid "PROGRAMS"
+msgstr "PROGRAMI"
+
+msgctxt "#31958"
+msgid "PLAY DISC"
+msgstr "PREDVAJAJ DISK"
+
+msgctxt "#31959"
+msgid "SYSTEM"
+msgstr "SISTEM"

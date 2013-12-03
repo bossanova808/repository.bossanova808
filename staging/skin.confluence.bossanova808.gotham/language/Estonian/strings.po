@@ -1,16 +1,15 @@
 # XBMC Media Center language file
 # Addon Name: Confluence
 # Addon id: skin.confluence
-# Addon version: 2.1.3
 # Addon Provider: Jezz_X, Team XBMC
 msgid ""
 msgstr ""
-"Project-Id-Version: XBMC Main Translation Project (Frodo)\n"
+"Project-Id-Version: XBMC Main\n"
 "Report-Msgid-Bugs-To: http://trac.xbmc.org/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: XBMC Translation Team\n"
-"Language-Team: Estonian (http://www.transifex.com/projects/p/XBMC-Main-Frodo/language/et/)\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/xbmc-main/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,7 +37,7 @@ msgid "View Options"
 msgstr "Vaate valikud"
 
 msgctxt "#31008"
-msgid "Fullscreen"
+msgid "Full screen"
 msgstr "Täisekraan"
 
 msgctxt "#31009"
@@ -89,6 +88,10 @@ msgctxt "#31033"
 msgid "Info"
 msgstr "Info"
 
+msgctxt "#31039"
+msgid "Actions"
+msgstr "Tegevused"
+
 msgctxt "#31040"
 msgid "Now Playing"
 msgstr "Hetkel mängib"
@@ -109,9 +112,9 @@ msgctxt "#31045"
 msgid "REWIND"
 msgstr "TAGASI"
 
-msgctxt "#31048"
-msgid "Visualization Presets"
-msgstr "Visuaalide häälestused"
+msgctxt "#31046"
+msgid "SEEKING"
+msgstr "OTSIMINE"
 
 msgctxt "#31049"
 msgid "End Time"
@@ -165,10 +168,6 @@ msgctxt "#31103"
 msgid "Show \"Paused\" in picture slide show"
 msgstr "Näita piltide slaidieslitusel teksti \"pausis\""
 
-msgctxt "#31104"
-msgid "Play Trailers in a window [COLOR=grey3](Video Information Dialog Only)[/COLOR]"
-msgstr "Esitja treilereid aknas [COLOR=grey3](ainult Video dialoogiaken)[/COLOR]"
-
 msgctxt "#31106"
 msgid "Miscellaneous options"
 msgstr "Mitmesugused seaded"
@@ -205,25 +204,13 @@ msgctxt "#31117"
 msgid "Show Recently added Videos"
 msgstr "Näita viimati lisatud videosid"
 
-msgctxt "#31118"
-msgid "Home Page Programs Submenu"
-msgstr "Peamenüü Programmide alammenüü"
-
 msgctxt "#31119"
 msgid "Hide Background Fanart"
 msgstr "Peida fännipiltide taust"
 
-msgctxt "#31122"
-msgid "Weather Page"
-msgstr "Ilmaleht"
-
 msgctxt "#31124"
 msgid "Show Background \"Now Playing\" Video"
 msgstr "Näita taustal \"Hetkel mängib\" videot"
-
-msgctxt "#31125"
-msgid "Show Background \"Now Playing\" Visualization"
-msgstr "Näita taustal \"Hetkel mängib\" visuaali"
 
 msgctxt "#31126"
 msgid "Play TV theme songs in video library (TvTunes add-on)"
@@ -237,29 +224,9 @@ msgctxt "#31128"
 msgid "Lyrics"
 msgstr "Laulutekst"
 
-msgctxt "#31129"
-msgid "Hide Fanart in full screen visualization"
-msgstr "Peida fännikunst täisekraanivaates"
-
 msgctxt "#31132"
 msgid "Lyrics Add-on"
 msgstr "Laulutekstide lisamoodulid"
-
-msgctxt "#31133"
-msgid "Subtitle Add-on"
-msgstr "Subtiitrite lisamoodulid"
-
-msgctxt "#31134"
-msgid "Home Page Videos Submenu"
-msgstr "Peamenüü Videode alammenüü"
-
-msgctxt "#31135"
-msgid "Home Page Music Submenu"
-msgstr "Peamenüü Muusika alammenüü"
-
-msgctxt "#31136"
-msgid "Home Page Pictures Submenu"
-msgstr "Peamenüü Pildid alammenüü"
 
 msgctxt "#31140"
 msgid "Music OSD"
@@ -409,6 +376,18 @@ msgctxt "#31356"
 msgid "Download Subtitles"
 msgstr "Lae subtiitrid alla"
 
+msgctxt "#31360"
+msgid "Watch as 2D"
+msgstr "Vaata 2Dna"
+
+msgctxt "#31361"
+msgid "Change mode"
+msgstr "Muuda režiimi"
+
+msgctxt "#31362"
+msgid "Enabled"
+msgstr "Lubatud"
+
 msgctxt "#31390"
 msgid "Skin default"
 msgstr "Rüü vaikeväärtus"
@@ -449,10 +428,6 @@ msgctxt "#31408"
 msgid "[B]CONFIGURE ADD-ONS[/B][CR][CR]Manage your installed Add-ons · Browse for and install Add-ons from xbmc.org[CR]Modify Add-on settings"
 msgstr "[B]KONFIGUREERI LISAMOODULEID[/B][CR][CR]Halda enda lisamooduleid · Sirvi ja paigalda lisamooduleid aadressilt xbmc.org[CR]Muuda lisamoodulite seadeid"
 
-msgctxt "#31409"
-msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change fullscreen info · Manage EPG data settings"
-msgstr "[B]SEADISTA TV SEADEID[/B][CR][CR]Muuda täisekraani infot · Halda elektroolise saatekava andmete seadeid"
-
 msgctxt "#31410"
 msgid "[B]CONFIGURE SERVICE SETTINGS[/B][CR][CR]Setup control of XBMC via UPnP and HTTP · Configure file sharing[CR]Enable Zeroconf · Configure AirPlay"
 msgstr "[B]KONFIGUREERI TEENUSE SEADEID[/B][CR][CR]Seadista XBMC uhtimine UPnP ja HTTP kaudu · Seadista failide ühiskasutus[CR]Luba Zeroconf · Konfigureeri AirPlay"
@@ -461,17 +436,9 @@ msgctxt "#31411"
 msgid "First run help...."
 msgstr "Esimese kasutuse abi...."
 
-msgctxt "#31412"
-msgid "This tab signifies that there is a menu off to the side of this window that contains extra options for this section.  To access the menu, navigate to the left with your remote control or keyboard or place your mouse pointer over the tab. [CR][CR]Click \"Ok\" to close this dialog. It will not appear again."
-msgstr "See märge näitab, et selle akna taga on peidus lisaseadete menüü.  Menüü nägemiseks vajutage puldil või klaviatuuril vasakut noolt või suunake hiir selle märke kohale. [CR][CR]Vajutage dialoogi sulgemiseks \"Ok\". See ei avane uuesti."
-
 msgctxt "#31421"
 msgid "Select your XBMC user Profile[CR]to login and continue"
 msgstr "Vali enda XBMC profiil[CR]ja jätka"
-
-msgctxt "#31500"
-msgid "Recording Timers"
-msgstr "Salvestamise ajastused"
 
 msgctxt "#31501"
 msgid "Scheduled Time"
@@ -540,3 +507,43 @@ msgstr "Ilmateate andmete hankimine..."
 msgctxt "#31910"
 msgid "Map & Alerts"
 msgstr "Kaart ja hoiatused"
+
+msgctxt "#31950"
+msgid "WEATHER"
+msgstr "ILM"
+
+msgctxt "#31951"
+msgid "PICTURES"
+msgstr "PILDID "
+
+msgctxt "#31952"
+msgid "LIVE TV"
+msgstr "OTSE TV"
+
+msgctxt "#31953"
+msgid "VIDEOS"
+msgstr "VIDEOD"
+
+msgctxt "#31954"
+msgid "MOVIES"
+msgstr "FILMID"
+
+msgctxt "#31955"
+msgid "TV SHOWS"
+msgstr "SERIAALID"
+
+msgctxt "#31956"
+msgid "MUSIC"
+msgstr "MUUSIKA"
+
+msgctxt "#31957"
+msgid "PROGRAMS"
+msgstr "PROGRAMMID"
+
+msgctxt "#31958"
+msgid "PLAY DISC"
+msgstr "ESITA PLAAT"
+
+msgctxt "#31959"
+msgid "SYSTEM"
+msgstr "SÜSTEEM"
