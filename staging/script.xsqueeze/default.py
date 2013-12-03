@@ -201,11 +201,11 @@ if ( __name__ == "__main__" ):
         #check what skin to use
         try:
             if constants.PLAYERTYPE=="squeezelite":
-                window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
-            elif constants.TOUCHENABLED:
-                window = NowPlayingWindow("XSqueezeNowPlayingSqueezelite.xml",CWD,"Default")
-            else:
                 window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+            elif constants.TOUCHENABLED:
+                window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+            else:
+                window = NowPlayingWindow("XSqueezeNowPlaying_Slave.xml",CWD,"Default")
 
                #and kick this bad boy off....
             window.doModal()

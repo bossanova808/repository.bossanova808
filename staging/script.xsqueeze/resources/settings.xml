@@ -10,12 +10,12 @@
      <setting label="XSqueeze can act as a local player, or as a controller for an external system." type="lsep"/>
      <setting id="playback" type="bool" label="19906" default="true"/>
      <setting id="MAC" type="text" label="MAC for local player / MAC of device to control" default="00:00:00:00:00:01" />
-     <setting label="Use..." type="labelenum" id="player" values="Squeezelite|Squeezeslave" enable="!eq( -2,false)" />
+     <setting label="Use..." type="labelenum" id="player" values="Squeezelite|Squeezeslave" enable="!eq( -2,false)" default="Squeezelite" />
      <setting id="slaveargs" type="text" label="Extra Squeezeslave Arguments" default="" enable="!eq( -3,false)" />
      <setting id="liteargs" type="text" label="Extra Squeezelite Arguments" default="" enable="!eq( -4,false)" />
    </category>
    <category label="Other Settings">
-     <setting id="enableTouch" type="bool" label="19922" default="false"/>
+     <setting id="enableTouch" type="bool" label="19922" default="true"/>
      <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
      <setting label="If you have issues with GUI sounds as startup...." type="lsep"/>
      <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds..." default="0"/>

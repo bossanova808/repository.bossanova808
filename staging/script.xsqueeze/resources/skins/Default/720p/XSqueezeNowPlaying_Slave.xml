@@ -112,9 +112,9 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
      <height>45</height>
      <label>-</label>
      <font>-</font>
-			<!--
+      <!--
       <onclick>Dialog.Close(all,true)</onclick>
-			<onclick>FullScreen</onclick>
+      <onclick>FullScreen</onclick>
     -->
     <texturefocus>DialogCloseButton-focus.png</texturefocus>
     <texturenofocus>DialogCloseButton.png</texturenofocus>
@@ -347,9 +347,9 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <posy>350</posy>
         <width>560</width>
         <height>16</height>
-  			<texturesliderbar>seekslider2.png</texturesliderbar>
-  			<textureslidernib>osd_slider_nibNF.png</textureslidernib>
-  			<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
+        <texturesliderbar>seekslider2.png</texturesliderbar>
+        <textureslidernib>osd_slider_nibNF.png</textureslidernib>
+        <textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
       </control>
     -->
@@ -587,138 +587,60 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
   </control>
 
 
-  <!-- **************** BOTTOM PANEL CONTROLS ************************** -->
+      <!-- **************** BOTTOM PANEL CONTROLS ************************** -->
 
-  <!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
-  <control type="group" >
-    <description>SqueezeBox Display/Controller</description>
-    <posx>-200</posx>
-    <posy>645</posy>
+      <!-- THE SQUEEZEBOX LIKE DISPLAY/CONTROLLER-->
+      <control type="group">
+        <description>SqueezeBox Display/Controller</description>
+        <posx>55</posx>
+        <posy>655</posy>
 
-    <!-- TOUCH SCREEN CONTROLS -->
-    <control type="group" id="2000">
-     <posx>460</posx>
-     <posy>0</posy>
-     <animation effect="fade" time="200">VisibleChange</animation>
-     <control type="button" id="2600">
-      <posx>0</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDPrevTrackFO.png</texturefocus>
-      <texturenofocus>OSDPrevTrackNF.png</texturenofocus>
-      <onleft>2610</onleft>
-      <onright>2601</onright>
-    </control>
-    <control type="button" id="2601">
-      <posx>70</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDRewindFO.png</texturefocus>
-      <texturenofocus>OSDRewindNF.png</texturenofocus>
-      <onleft>2600</onleft>
-      <onright>2602</onright>
-    </control>
-    <control type="button" id="2602">
-      <posx>140</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDPlayFO.png</texturefocus>
-      <texturenofocus>OSDPlayNF.png</texturenofocus>
-      <onleft>2601</onleft>
-      <onright>2603</onright>
-    </control>
-    <control type="button" id="2603">
-      <posx>210</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDForwardFO.png</texturefocus>
-      <texturenofocus>OSDForwardNF.png</texturenofocus>
-      <onleft>2602</onleft>
-      <onright>2604</onright>
-    </control>
-    <control type="button" id="2604">
-      <posx>280</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDNextTrackFO.png</texturefocus>
-      <texturenofocus>OSDNextTrackNF.png</texturenofocus>
-      <onleft>2603</onleft>
-      <onright>2605</onright>
-    </control>
-    <control type="button" id="2605">
-      <posx>350</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDStopFO.png</texturefocus>
-      <texturenofocus>OSDStopNF.png</texturenofocus>
-      <onleft>2604</onleft>
-      <onright>2606</onright>
-    </control>
-    <control type="button" id="2606">
-      <posx>420</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDRandomOffFO.png</texturefocus>
-      <texturenofocus>OSDRandomOffNF.png</texturenofocus>
-      <onleft>2605</onleft>
-      <onright>2607</onright>
-    </control>
-    <control type="button" id="2607">
-      <posx>490</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <texturefocus>OSDRepeatFO.png</texturefocus>
-      <texturenofocus>OSDRepeatNF.png</texturenofocus>
-      <onleft>2606</onleft>
-      <onright>2608</onright>
-    </control>
-    <control type="button" id="2608">
-      <posx>560</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <font>-</font>
-      <texturefocus>OSDChannelUPFO.png</texturefocus>
-      <texturenofocus>OSDChannelUPNF.png</texturenofocus>
-      <onleft>2607</onleft>
-      <onright>2609</onright>
-    </control>
-    <control type="button" id="2609">
-      <posx>630</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <font>-</font>
-      <texturefocus>OSDChannelDownFO.png</texturefocus>
-      <texturenofocus>OSDChannelDownNF.png</texturenofocus>
-      <onleft>2608</onleft>
-      <onright>2610</onright>
-    </control>
-    <control type="button" id="2610">
-      <posx>700</posx>
-      <posy>0</posy>
-      <width>60</width>
-      <height>60</height>
-      <font>-</font>
-      <texturefocus>OSDLyricsFO.png</texturefocus>
-      <texturenofocus>OSDLyricsNF.png</texturenofocus>
-      <onleft>2609</onleft>
-      <onright>2600</onright>
-    </control>
+        <control type="image" id="104" >
+          <posx>0</posx>
+          <posy>5</posy>
+          <width>32</width>
+          <height>32</height>
+          <colordiffuse>FFBBBBBB</colordiffuse>
+          <texture>$INFO[Window.Property(XSQUEEZE_PLAYSTATE)]</texture>
+        </control>
 
-  </control>
-  <!-- END GROUP TOUCH CONTROLS -->
+        <control type="label" id="1000">
+          <description>SqueezeBox Display Line 1</description>
+          <posx>40</posx>
+          <posy>-50</posy>
+          <width>1080</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>$INFO[Window.Property(XSQUEEZE_DISPLAYLINE1)]</label>
+          <font>font14</font>
+          <textcolor>FF00FF00</textcolor>
+          <wrapmultiline>false</wrapmultiline>
+          <scrollspeed>50</scrollspeed>
+          <scrollsuffix> - </scrollsuffix>
+        </control>
+        <control type="label" id="1001">
+          <description>SqueezeBox Display Line 2</description>
+          <posx>40</posx>
+          <posy>0</posy>
+          <width>1080</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>$INFO[Window.Property(XSQUEEZE_DISPLAYLINE2)]</label>
+          <font>font14</font>
+          <textcolor>FF00FF00</textcolor>
+          <wrapmultiline>false</wrapmultiline>
+          <scrollspeed>50</scrollspeed>
+          <scrollsuffix> - </scrollsuffix>
+        </control>
 
-</control>
-<!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
+      </control>
+      <!-- END GROUP SQUEEZEBOX CONTROLLER/DISPLAY -->
+
+
 
 </control>
 <!-- END GROUP MAIN PANEL AND FLOOR -->
