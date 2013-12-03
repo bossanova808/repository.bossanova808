@@ -199,13 +199,19 @@ if ( __name__ == "__main__" ):
 
         #now let's make a window and see if we can send some commands...
         #check what skin to use
+     
+        #Gotham needs different skin files...
+        version_stub = "_Frodo"
+        if XBMC_VERSION == "Gotham":
+            version_stub = ""
+
         try:
             if constants.PLAYERTYPE=="squeezelite":
-                window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+                window = NowPlayingWindow("XSqueezeNowPlaying" + version_stub + ".xml",CWD,"Default")
             elif constants.TOUCHENABLED:
-                window = NowPlayingWindow("XSqueezeNowPlaying.xml",CWD,"Default")
+                window = NowPlayingWindow("XSqueezeNowPlaying" + version_stub + ".xml",CWD,"Default")
             else:
-                window = NowPlayingWindow("XSqueezeNowPlaying_Slave.xml",CWD,"Default")
+                window = NowPlayingWindow("XSqueezeNowPlaying_Slave" + version_stub + ".xml",CWD,"Default")
 
                #and kick this bad boy off....
             window.doModal()

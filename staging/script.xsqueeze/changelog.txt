@@ -1,3 +1,6 @@
+V1.0.5 
+- Updated skin files for Gotham
+
 V1.0.4
 - Python API bumps for Gotham
 

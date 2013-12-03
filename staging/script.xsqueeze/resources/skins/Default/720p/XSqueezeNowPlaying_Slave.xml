@@ -112,9 +112,9 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
      <height>45</height>
      <label>-</label>
      <font>-</font>
-      <!--
+			<!--
       <onclick>Dialog.Close(all,true)</onclick>
-      <onclick>FullScreen</onclick>
+			<onclick>FullScreen</onclick>
     -->
     <texturefocus>DialogCloseButton-focus.png</texturefocus>
     <texturenofocus>DialogCloseButton.png</texturenofocus>
@@ -242,7 +242,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <control type="label" id="201">
         <description>Current Artist Label</description>
         <posx>0</posx>
-        <posy>120</posy>
+        <posy>130</posy>
         <width>265</width>
         <visible>true</visible>
         <align>left</align>
@@ -255,7 +255,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <control type="label" id="202">
         <description>Current Album Label</description>
         <posx>0</posx>
-        <posy>150</posy>
+        <posy>170</posy>
         <width>265</width>
         <visible>true</visible>
         <align>left</align>
@@ -268,7 +268,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <control type="label" id="203">
         <description>Current Album Year Label</description>
         <posx>0</posx>
-        <posy>180</posy>
+        <posy>210</posy>
         <width>200</width>
         <visible>true</visible>
         <align>left</align>
@@ -281,7 +281,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <control type="label" id="204">
         <description>Current Bitrate</description>
         <posx>0</posx>
-        <posy>210</posy>
+        <posy>250</posy>
         <width>200</width>
         <visible>true</visible>
         <align>left</align>
@@ -294,7 +294,7 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
       <control type="label" id="205">
         <description>Current Bitrate</description>
         <posx>0</posx>
-        <posy>240</posy>
+        <posy>290</posy>
         <width>200</width>
         <visible>true</visible>
         <align>left</align>
@@ -347,9 +347,9 @@ $INFO[Window.Property(XSQUEEZE_TRACK_X_GENRE)] - genre of current track
         <posy>350</posy>
         <width>560</width>
         <height>16</height>
-        <texturesliderbar>seekslider2.png</texturesliderbar>
-        <textureslidernib>osd_slider_nibNF.png</textureslidernib>
-        <textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
+  			<texturesliderbar>seekslider2.png</texturesliderbar>
+  			<textureslidernib>osd_slider_nibNF.png</textureslidernib>
+  			<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
         <visible>SubString(Window.Property(XSQUEEZE_PLAYING_RADIO),false)</visible>
       </control>
     -->

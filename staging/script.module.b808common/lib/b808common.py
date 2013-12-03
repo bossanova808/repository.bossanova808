@@ -276,4 +276,11 @@ elif "raspbmc" in uname or "armv6l" in uname:
 log("uname is: " + str(uname))
 log("System is " + SYSTEM)
 
+XBMC_VERSION = "Frodo"
+log(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
+version_number = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
+if version_number >= 12.9:
+    XBMC_VERSION = "Gotham" 
+log("XBMC Version is " + XBMC_VERSION)
+
 
