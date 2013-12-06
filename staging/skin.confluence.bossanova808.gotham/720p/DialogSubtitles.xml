@@ -52,7 +52,7 @@
 			<control type="group">
 				<control type="label" id="100">
 					<description>header label</description>
-					<right>880</right>
+					<left>330</left>
 					<top>80</top>
 					<width>550</width>
 					<height>30</height>
@@ -64,7 +64,7 @@
 				</control>
 				<control type="label">
 					<description>Video label</description>
-					<right>880</right>
+					<left>330</left>
 					<top>110</top>
 					<width>550</width>
 					<height>30</height>
@@ -133,10 +133,10 @@
 						</control>
 						<control type="image">
 							<left>5</left>
-							<top>11</top>
+							<top>5</top>
 							<width>26</width>
-							<height>17</height>
-							<texture>Subtitles/flags/$INFO[ListItem.Thumb].gif</texture>
+							<height>26</height>
+							<texture>Subtitles/flags/$INFO[ListItem.Thumb].png</texture>
 						</control>
 						<control type="label">
 							<left>40</left>
@@ -204,10 +204,10 @@
 						</control>
 						<control type="image">
 							<left>5</left>
-							<top>11</top>
+							<top>5</top>
 							<width>26</width>
-							<height>17</height>
-							<texture>Subtitles/flags/$INFO[ListItem.Thumb].gif</texture>
+							<height>26</height>
+							<texture>Subtitles/flags/$INFO[ListItem.Thumb].png</texture>
 						</control>
 						<control type="label">
 							<left>40</left>

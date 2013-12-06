@@ -22,7 +22,7 @@
 					<label>[B]$INFO[Container(11).ListItem.Title][/B]</label>
 				</control>
 				<control type="label">
-					<right>80</right>
+					<left>0</left>
 					<top>22</top>
 					<width>80</width>
 					<height>20</height>
@@ -69,7 +69,7 @@
 					<autoscroll time="2000" delay="3000" repeat="5000">true</autoscroll>
 				</control>
 				<control type="label">
-					<right>690</right>
+					<left>0</left>
 					<top>140</top>
 					<width>690</width>
 					<height>20</height>
@@ -293,7 +293,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
@@ -330,7 +330,7 @@
 					<label>[B]$INFO[Container(12).ListItem.Title][/B]</label>
 				</control>
 				<control type="label">
-					<right>80</right>
+					<left>0</left>
 					<top>22</top>
 					<width>80</width>
 					<height>20</height>
@@ -377,7 +377,7 @@
 					<autoscroll time="2000" delay="3000" repeat="5000">true</autoscroll>
 				</control>
 				<control type="label">
-					<right>690</right>
+					<left>0</left>
 					<top>140</top>
 					<width>690</width>
 					<height>20</height>
@@ -601,7 +601,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
@@ -784,7 +784,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
@@ -845,6 +845,15 @@
 			<description>TV Guide Timeline</description>
 			<visible>Control.IsVisible(10)</visible>
 			<include>VisibleFadeEffect</include>
+			<control type="image">
+				<description>separator image</description>
+				<left>80</left>
+				<top>111</top>
+				<width>1100</width>
+				<height>1</height>
+				<colordiffuse>88FFFFFF</colordiffuse>
+				<texture>separator2.png</texture>
+			</control>
 			<control type="epggrid" id="10">
 				<description>EPG Grid</description>
 				<left>80</left>
@@ -855,19 +864,12 @@
 				<scrolltime>350</scrolltime>
 				<timeblocks>40</timeblocks>
 				<rulerunit>6</rulerunit>
-        <progresstexture border="5">PVR-EpgProgressIndicator.png</progresstexture>
+				<progresstexture border="0,48,18,14">PVR-EpgProgressIndicator.png</progresstexture>
 				<onleft>31</onleft>
 				<onright>31</onright>
 				<onup>10</onup>
 				<ondown>10</ondown>
 				<rulerlayout height="35" width="40">
-					<control type="image" id="1">
-						<width>40</width>
-						<height>29</height>
-						<left>0</left>
-						<top>0</top>
-						<texture border="5">button-nofocus.png</texture>
-					</control>
 					<control type="label" id="2">
 						<left>10</left>
 						<top>0</top>
@@ -881,13 +883,13 @@
 					</control>
 				</rulerlayout>
 				<channellayout height="52" width="280">
-					<animation effect="fade" start="110" time="200">UnFocus</animation>
-					<control type="image" id="1">
+					<control type="image">
 						<left>0</left>
 						<top>0</top>
 						<width>270</width>
 						<height>52</height>
-						<texture border="5">button-nofocus.png</texture>
+						<texture border="2">MenuItemNF.png</texture>
+						<include>VisibleFadeEffect</include>
 					</control>
 					<control type="label">
 						<left>5</left>
@@ -921,13 +923,23 @@
 					</control>
 				</channellayout>
 				<focusedchannellayout height="52" width="280">
-					<animation effect="fade" start="110" time="200">OnFocus</animation>
-					<control type="image" id="1">
+					<control type="image">
 						<left>0</left>
 						<top>0</top>
 						<width>270</width>
 						<height>52</height>
-						<texture border="5">button-focus.png</texture>
+						<texture border="2">MenuItemNF.png</texture>
+						<visible>!Control.HasFocus(10)</visible>
+						<include>VisibleFadeEffect</include>
+					</control>
+					<control type="image">
+						<left>0</left>
+						<top>0</top>
+						<width>270</width>
+						<height>52</height>
+						<texture border="2">MenuItemFO.png</texture>
+						<visible>Control.HasFocus(10)</visible>
+						<include>VisibleFadeEffect</include>
 					</control>
 					<control type="label">
 						<left>5</left>
@@ -1342,7 +1354,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
@@ -1393,7 +1405,7 @@
 				</control>
 				<control type="label">
 					<description>Time label</description>
-					<right>920</right>
+					<left>620</left>
 					<top>20</top>
 					<width>300</width>
 					<height>20</height>
@@ -1697,7 +1709,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
@@ -2021,7 +2033,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
@@ -2396,7 +2408,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>Page Count Label</description>
-				<right>40r</right>
+				<right>40</right>
 				<top>53r</top>
 				<width>500</width>
 				<height>20</height>
