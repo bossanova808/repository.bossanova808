@@ -250,7 +250,7 @@
 				<top>10</top>
 				<label>-</label>
 				<align>left</align>
-				<label>$INFO[musicplayer.Codec,$LOCALIZE[21446]: ,]$INFO[musicplayer.Bitrate, · $LOCALIZE[623]: ,kbps]$INFO[musicplayer.bitspersample, · $LOCALIZE[612]: ,]$INFO[musicplayer.Samplerate, · $LOCALIZE[613]: ,kHz]$INFO[musicplayer.Channels, · $LOCALIZE[21444]: ]</label>
+				<label>$INFO[musicplayer.Codec,$LOCALIZE[21446]: ,]$INFO[musicplayer.Bitrate, Â· $LOCALIZE[623]: ,kbps]$INFO[musicplayer.bitspersample, Â· $LOCALIZE[612]: ,]$INFO[musicplayer.Samplerate, Â· $LOCALIZE[613]: ,kHz]$INFO[musicplayer.Channels, Â· $LOCALIZE[21444]: ]</label>
 				<font>font12</font>
 			</control>
 			<control type="label">
@@ -259,7 +259,7 @@
 				<top>40</top>
 				<label>-</label>
 				<align>left</align>
-				<label>$INFO[Visualisation.Name,, [I][COLOR=orange]($LOCALIZE[20166])[/COLOR][/I] · ]fps: $INFO[System.FPS]</label>
+				<label>$INFO[Visualisation.Name,, [I][COLOR=orange]($LOCALIZE[20166])[/COLOR][/I] Â· ]fps: $INFO[System.FPS]</label>
 				<font>font12</font>
 				<visible>Visualisation.Locked</visible>
 			</control>
@@ -269,7 +269,7 @@
 				<top>40</top>
 				<label>-</label>
 				<align>left</align>
-				<label>$INFO[Visualisation.Name,, · ]fps: $INFO[System.FPS]</label>
+				<label>$INFO[Visualisation.Name,, Â· ]fps: $INFO[System.FPS]</label>
 				<font>font12</font>
 				<visible>!Visualisation.Locked</visible>
 			</control>

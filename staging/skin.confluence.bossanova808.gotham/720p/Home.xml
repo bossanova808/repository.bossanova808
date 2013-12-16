@@ -9,18 +9,18 @@
 
 		<!-- Bossanova808 Mod - remove logo and ugly floor
     	<control type="image">
-			<posx>0</posx>
-			<posy>90r</posy>
+			<left>0</left>
+			<top>90r</top>
 			<width>1280</width>
 			<height>90</height>
 			<texture>floor.png</texture>
 			<animation effect="fade" time="250" condition="Window.Previous(Home)">WindowOpen</animation>
 			<animation effect="fade" time="250" condition="Window.Next(Home)">WindowClose</animation>
 		</control>
-        <control type="image">
+		<control type="image">
 			<description>LOGO</description>
-			<posx>0</posx>
-			<posy>5</posy>
+			<left>0</left>
+			<top>5</top>
 			<width>170</width>
 			<height>100</height>
 			<aspectratio aligny="top" align="left">keep</aspectratio>
