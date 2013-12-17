@@ -1,5 +1,5 @@
 [B]0.0.3[/B]
-- OzWeather Changes
+- Re-sync with 15/12 nightly
 
 [B]0.0.1[/B]
 - Initial Gotham Work
