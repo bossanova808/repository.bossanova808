@@ -18,7 +18,7 @@
 			<control type="label">
 				<description>header label</description>
 				<left>20</left>
-				<top>13</top>
+				<top>15</top>
 				<width>610</width>
 				<height>30</height>
 				<font>font13_title</font>
@@ -80,7 +80,7 @@
 						<label>[COLOR=grey2]$INFO[Window.Property(36Hour.1.TemperatureHeading)][CR][/COLOR]$INFO[Window.Property(36Hour.1.Temperature),[B] ,[/B]]</label>
 					</control>
 					<control type="label">
-						<right>590</right>
+						<right>90</right>
 						<top>60</top>
 						<width>390</width>
 						<height>20</height>
@@ -145,7 +145,7 @@
 						<label>[COLOR=grey2]$INFO[Window.Property(36Hour.2.TemperatureHeading)][CR][/COLOR]$INFO[Window.Property(36Hour.2.Temperature),[B] ,[/B]]</label>
 					</control>
 					<control type="label">
-						<right>590</right>
+						<right>90</right>
 						<top>60</top>
 						<width>390</width>
 						<height>20</height>
@@ -210,7 +210,7 @@
 						<label>[COLOR=grey2]$INFO[Window.Property(36Hour.3.TemperatureHeading)][CR][/COLOR]$INFO[Window.Property(36Hour.3.Temperature),[B] ,[/B]]</label>
 					</control>
 					<control type="label">
-						<right>590</right>
+						<right>90</right>
 						<top>60</top>
 						<width>390</width>
 						<height>20</height>

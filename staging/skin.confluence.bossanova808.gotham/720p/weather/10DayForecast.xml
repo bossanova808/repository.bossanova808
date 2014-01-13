@@ -7,7 +7,7 @@
 			<control type="label">
 				<description>header label</description>
 				<left>20</left>
-				<top>13</top>
+				<top>15</top>
 				<width>610</width>
 				<height>30</height>
 				<font>font13_title</font>
@@ -251,7 +251,7 @@
 			<control type="label">
 				<animation effect="slide" start="0,0" end="-90,0" time="0" condition="system.getbool(input.enablemouse)">Conditional</animation>
 				<description>number of files/pages</description>
-				<right>660</right>
+				<right>40</right>
 				<top>627</top>
 				<width>570</width>
 				<font>font12</font>
