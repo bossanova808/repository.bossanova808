@@ -1,3 +1,6 @@
+[B]Version 0.17[/B]
+- Moved rep to github so everything is nicely in one place
+
 [B]Version 0.1[/B]
 - XSqueeze back into this repo as binaries are required so teh xbmc devs won't let into master repo
 - Back to old diretcory structure
