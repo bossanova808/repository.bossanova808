@@ -2,13 +2,13 @@
 <addon 
   id="repository.bossanova808" 
   name="bossanova808's XBMC Addons" 
-  version="0.1.7" 
+  version="0.1.8" 
   provider-name="bossanova808">
 	<extension point="xbmc.addon.repository" 
              name="bossanova808's XBMC Addon Repository">
-    <info compressed="false">https://raw.github.com/bossanova808/repository.bossanova808/master/staging/addons.xml</info>
-    <checksum>https://raw.github.com/bossanova808/repository.bossanova808/master/staging/addons.xml.md5</checksum>
-    <datadir zip="true">https://github.com/bossanova808/repository.bossanova808/raw/master/repository-downloads/</datadir>
+    <info compressed="false">http://github.com/bossanova808/repository.bossanova808/raw/master/staging/addons.xml</info>
+    <checksum>http://github.com/bossanova808/repository.bossanova808/raw/master/staging/addons.xml.md5</checksum>
+    <datadir zip="true">http://github.com/bossanova808/repository.bossanova808/raw/master/repository-downloads/</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Repo for Bossanova808's XBMC Addons</summary>
