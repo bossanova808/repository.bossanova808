@@ -38,7 +38,7 @@
   <!-- Amount to compensate (zoom) images to attempt to reduce black bars. -->
   <!-- Results in cropping of the longer length of the image in order to reduce the black bars on the shorter length of the image.  -->
   <!-- Defaults to 20. -->
-  <blackbarcompensation>20</blackbarcompensation>  
+  <blackbarcompensation>0</blackbarcompensation>  
 </slideshow>
 
 
