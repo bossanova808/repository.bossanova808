@@ -74,7 +74,7 @@
 				<height>230</height>
 				<texture>$INFO[Player.Art(tvshow.clearlogo)]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<visible>!IsEmpty(Player.Art(tvshow.clearlogo)) + IsEmpty(Player.Art(tvshow.clearart))]</visible>
+				<visible>[!IsEmpty(Player.Art(tvshow.clearlogo)) + IsEmpty(Player.Art(tvshow.clearart))]</visible>
 			</control>
 		</control>
 
