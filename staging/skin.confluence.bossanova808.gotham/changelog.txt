@@ -1,3 +1,6 @@
+[B]0.1.0[/B]
+- Re-sync Gotham Beta1
+
 [B]0.0.3[/B]
 - Re-sync with 15/12 nightly
 

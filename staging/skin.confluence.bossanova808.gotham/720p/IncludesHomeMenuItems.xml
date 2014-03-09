@@ -39,19 +39,7 @@
 			<label>24001</label>
 			<onclick>ActivateWindow(Videos,Addons,return)</onclick>
 		</control>
-		<control type="button" id="90108">
-			<visible>Skin.HasSetting(B808Kids) </visible>
-      <include>ButtonHomeSubCommonValues</include>
-			<label>Home Movies</label>
-			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/HomeMovieLibrary/&quot;)</onclick>
-		</control>
-<!-- 		<control type="button" id="90109">
-			<visible>Skin.HasSetting(B808Kids) </visible>
-      <include>ButtonHomeSubCommonValues</include>
-			<label>PVR Recordings</label>
-			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/OtherVideos/Recordings/&quot;)</onclick>
-		</control>
- -->		<control type="image" id="90110">
+		<control type="image" id="90108">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -69,10 +57,10 @@
 			<onclick>ActivateWindow(Videos,RecentlyAddedMovies,return)</onclick>
 		</control>
 		<control type="button" id="90163">
-			<visible>Skin.HasSetting(B808Kids) </visible>
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Kids</label>
-			<onclick>ActivateWindow(10025,&quot;videodb://1/1/1/&quot;)</onclick>
+			<label>20434</label>
+			<onclick>ActivateWindow(Videos,MovieSets,return)</onclick>
+			<visible>Library.HasContent(MovieSets)</visible>
 		</control>
 		<control type="button" id="90164">
 			<include>ButtonHomeSubCommonValues</include>
@@ -112,32 +100,26 @@
 			<onclick>ActivateWindow(Videos,RecentlyAddedEpisodes,return)</onclick>
 		</control>
 		<control type="button" id="90173">
-			<visible>Skin.HasSetting(B808Kids) </visible>
-      <include>ButtonHomeSubCommonValues</include>
-			<label>Kids</label>
-			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/OtherVideos/Kids Stuff/&quot;)</onclick>
-		</control>
-		<control type="button" id="90174">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>369</label>
 			<onclick>ActivateWindow(Videos,TVShowTitles,return)</onclick>
 		</control>
-		<control type="button" id="90175">
+		<control type="button" id="90174">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>135</label>
 			<onclick>ActivateWindow(Videos,TVShowGenres,return)</onclick>
 		</control>
-		<control type="button" id="90176">
+		<control type="button" id="90175">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>652</label>
 			<onclick>ActivateWindow(Videos,TVShowYears,return)</onclick>
 		</control>
-		<control type="button" id="90177">
+		<control type="button" id="90176">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>344</label>
 			<onclick>ActivateWindow(Videos,TVShowActors,return)</onclick>
 		</control>
-		<control type="image" id="90178">
+		<control type="image" id="90177">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -290,28 +272,20 @@
 		</control>
 		<control type="button" id="90144">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>19163</label>
-			<onclick>ActivateWindow(PVR)</onclick>
-			<onclick>Setfocus(34)</onclick>
-			<onclick>Setfocus(13)</onclick>
+			<label>19069</label>
+			<onclick>ActivateWindowAndFocus(MyPVR, 31,0, 10,0)</onclick>
 		</control>
-		
-    <!--Bossanova808 -->
-    <!--
-    <control type="button" id="90144">
+		<control type="button" id="90145">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>19163</label>
-			<onclick>ActivateWindow(10025,&quot;nfs://192.168.1.51/Store06/XBMC/FTR_PVR/Recordings/&quot;)</onclick>
+			<onclick>ActivateWindowAndFocus(MyPVR, 34,0, 13,0)</onclick>
 		</control>
-    -->
-    <control type="button" id="90145">
+		<control type="button" id="90146">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>19040</label>
-			<onclick>ActivateWindow(PVR)</onclick>
-			<onclick>Setfocus(35)</onclick>
-			<onclick>Setfocus(14)</onclick>
+			<onclick>ActivateWindowAndFocus(MyPVR, 35,0, 14,0)</onclick>
 		</control>
-		<control type="image" id="90146">
+		<control type="image" id="90147">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
