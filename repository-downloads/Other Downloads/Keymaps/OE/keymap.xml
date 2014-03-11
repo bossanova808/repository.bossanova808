@@ -92,6 +92,8 @@
     	<Green>SmallStepBack</Green>
     	<Yellow>AudioDelayMinus</Yellow>
     	<Blue>AudioDelayPlus</Blue>	
+      <!-- Gotham -->
+      <!-- <mypictures>ActivateWindow(SubtitleSearch)</mypictures> -->
       <mypictures>RunScript(script.xbmc.subtitles)</mypictures> <!-- download subs -->
     </remote>
   </FullscreenVideo>
