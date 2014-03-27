@@ -21,5 +21,7 @@
      <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds..." default="0"/>
      <setting label="On slow systems, if you have player connection issues..." type="lsep"/>
      <setting id="connectpause" type="number" label="Delay after player startup for how many seconds..." default="0"/>
+     <setting label="If your audio device doesn't come back when XSqueeze exits..." type="lsep"/>
+     <setting id="exitpause" type="number" label="Delay exit for how many seconds..." default="0"/>
     </category>
 </settings>

@@ -117,6 +117,7 @@ else:
   PLAYONSTART = False
 
 SECONDS_TO_PAUSE_STARTUP = int(ADDON.getSetting('startuppause'))
+SECONDS_TO_PAUSE_EXIT = int(ADDON.getSetting('exitpause'))
 SECONDS_TO_PAUSE_CONNECT = int(ADDON.getSetting('connectpause'))
 
 ################################################################################

@@ -1,3 +1,7 @@
+V1.0.7
+- Added option to pause at exit to allow xbmc audio device to resume
+- Updated Squeezelite to 1.5
+
 V1.0.5 
 - Updated skin files for Gotham
 

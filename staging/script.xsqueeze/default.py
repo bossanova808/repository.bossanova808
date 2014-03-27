@@ -51,6 +51,11 @@ def cleanup(andexit=True):
     #Try and resume XBMC's AudioEngine if we suspended it
     if xbmcAudioSuspended:
         try:
+            #pause
+            if constants.SECONDS_TO_PAUSE_EXIT!=0:
+                logNotice("Pausing for " + str(constants.SECONDS_TO_PAUSE_EXIT) + ", per request in XSqueeze settings.")
+                notify("Pausing for " + str(constants.SECONDS_TO_PAUSE_EXIT) + " seconds.", "(per request in XSqueeze settings.)")
+                time.sleep(constants.SECONDS_TO_PAUSE_EXIT)
             xbmc.audioResume();
             logNotice("Resumed XBMC AE")
         except:
@@ -228,4 +233,5 @@ if ( __name__ == "__main__" ):
             pass
 
         cleanup()
+
 
