@@ -94,6 +94,7 @@ if PLAYERTYPE=="squeezeslave":
 else:
   PLAYERARGS.append("-m")
   PLAYERARGS.append(PLAYERMAC)
+  PLAYERARGS.append("-s")
 
 #any extra player arguments supplied for special needs?
 if PLAYERTYPE=="squeezeslave":
