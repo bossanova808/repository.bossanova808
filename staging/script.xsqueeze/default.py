@@ -157,6 +157,10 @@ if ( __name__ == "__main__" ):
             exe = constants.EXE
             args = constants.PLAYERARGS
 
+            #add the new squeezelite -s switch for server if needed
+            if constants.PLAYERTYPE == "squeezelite":
+                args.append("-s")
+
             args.append(constants.SERVERIP)
             exe.extend(args)
 

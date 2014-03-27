@@ -4,7 +4,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 [B]What's new in this version:[/B]
 
 *	Gotham work - added option to pause on exit to allow audio device to be released before XBMC AE resumes
-*	Bumped squeezelite version to 1.5
+*	Bumped squeezelite version again, now to 1.6
+*  	Bugfixes for above
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

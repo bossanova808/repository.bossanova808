@@ -1,3 +1,6 @@
+V1.0.9
+- Attempted bugfix for 1.0.8 squeezelite switches
+
 V1.0.8
 - Added option to pause at exit to allow xbmc audio device to resume
 - Updated Squeezelite to 1.5
