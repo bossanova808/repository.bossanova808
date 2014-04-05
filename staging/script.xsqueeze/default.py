@@ -54,7 +54,7 @@ def cleanup(andexit=True):
             #pause
             if constants.SECONDS_TO_PAUSE_EXIT!=0:
                 logNotice("Pausing for " + str(constants.SECONDS_TO_PAUSE_EXIT) + ", per request in XSqueeze settings.")
-                notify("Pausing for " + str(constants.SECONDS_TO_PAUSE_EXIT) + " seconds.", "(per request in XSqueeze settings.)")
+                notify("Pause & resume AE after " + str(constants.SECONDS_TO_PAUSE_EXIT) + " seconds.", "(per request in XSqueeze settings.)")
                 time.sleep(constants.SECONDS_TO_PAUSE_EXIT)
             xbmc.audioResume();
             logNotice("Resumed XBMC AE")
@@ -200,8 +200,8 @@ if ( __name__ == "__main__" ):
             logNotice("Process ID for player is "+ str(pid))
 
             #little pause to give player time to run & connect
-            logNotice("Brief pause for dust to settle: Default 2 seconds plus user requested seconds: " + str(constants.SECONDS_TO_PAUSE_CONNECT))
-            time.sleep(2 + constants.SECONDS_TO_PAUSE_CONNECT)
+            logNotice("Brief pause for dust to settle - " + str(constants.SECONDS_TO_PAUSE_CONNECT))
+            time.sleep(1 + constants.SECONDS_TO_PAUSE_CONNECT)
 
         ##########################################################################
         # SETUP DONE > ON WITH THE SHOW

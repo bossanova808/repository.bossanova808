@@ -17,11 +17,11 @@
    <category label="Other Settings">
      <setting id="enableTouch" type="bool" label="19922" default="true"/>
      <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
-     <setting label="If you have issues with GUI sounds as startup...." type="lsep"/>
+     <setting label="If you have issues with weird sounds as startup...." type="lsep"/>
      <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds..." default="0"/>
      <setting label="On slow systems, if you have player connection issues..." type="lsep"/>
-     <setting id="connectpause" type="number" label="Delay after player startup for how many seconds..." default="0"/>
+     <setting id="connectpause" type="number" label="Delay after player startup for how many seconds..." default="1"/>
      <setting label="If your audio device doesn't come back when XSqueeze exits..." type="lsep"/>
-     <setting id="exitpause" type="number" label="Delay exit for how many seconds..." default="0"/>
+     <setting id="exitpause" type="number" label="Delay AE Resume for how many seconds..." default="2"/>
     </category>
 </settings>

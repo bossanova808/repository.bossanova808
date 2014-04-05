@@ -3,9 +3,11 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-*	Gotham work - added option to pause on exit to allow audio device to be released before XBMC AE resumes
-*	Bumped squeezelite version again, now to 1.6
-*  	Bugfixes for above
+*   NEW DEFAULTS - I have added 1 second pause at startup and 2 at exit to deal with AE suspend/resume issues
+*   However, if you are upgrading you won't pick up these defaults automatically so please configure these
+*   in the XSqueeze other settings tab and hit 'ok'
+
+*   (Slower systems may need longer delays)
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
