@@ -237,7 +237,7 @@
       <y mod="ctrl">AudioDelayMinus</y>      
       <s mod="ctrl">NextSubtitle</s>
       <m mod="ctrl">audionextlanguage</m>
-      <i mod="ctrl">RunScript(script.xbmc.subtitles)</i>
+      <i mod="ctrl">ActivateWindow(SubtitleSearch)</i>
       <f>FastForward</f>
       <r>Rewind</r>
       <period>StepForward</period>
