@@ -5,9 +5,9 @@
 
 	<string id="19600">IP Address</string>
 	<string id="19601">Select Your LMS Server</string>
-	<string id="19602">No LMS Servers Found!  Check log or squeezeslave -I output manually</string>
+	<string id="19602">Problem!  Check log or squeezeslave -I output manually</string>
 	<string id="19603">Select your audio output</string>
-	<string id="19604">No Audio Outputs Found! Check Log or squeezeslave -L output manually</string>
+	<string id="19604">Problem! Check Log or squeezeslave -L / squeezelite -l output manually</string>
 	<string id="19605">MODE ERROR: Fix your Settings!</string>
 	<string id="19606">(Local playback AND controller only are both ON!)</string>
 	<string id="19607">(Local playback AND controller only are both OFF!)</string>

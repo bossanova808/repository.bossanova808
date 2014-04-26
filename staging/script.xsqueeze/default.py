@@ -9,6 +9,7 @@ import sys
 import platform
 import subprocess
 import shutil
+from traceback import format_exc
 
 #Import the common code - basically the SqueezePlayer class
 #which connects to the server and a player
@@ -74,7 +75,7 @@ def cleanup(andexit=True):
     #and exit if requested
     if andexit:
         footprints(startup=False)
-
+        sys.exit()
 
 #called if we are running a playing instance...
 def playInit():
@@ -90,6 +91,133 @@ def playInit():
         logNotice("Unable to suspend XBMC AE: " + str(inst))
         pass
 
+def serverDiscovery():
+
+    logNotice("Doing server discovery...")
+    exe = constants.SLAVEEXE
+    exe.append("-I")
+
+    #need this to stop windows opening a console window & grab output
+    logNotice("Calling SqueezeSlave for server discovery..." + str(exe))
+
+    if constants.SYSTEM.startswith("win"):
+      output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+    else:
+      output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+
+    logNotice("Error, if any: " + str(result))
+    logNotice("Lines returned is " + str(output))
+    lines = output.split("\n")
+    #Each line is: My Music Library Name:9000 (192.168.1.1)
+
+    names = []
+    ips = []
+
+    for line in lines:
+      ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', line )
+      if len(ip) > 0:
+        logNotice("Parsing line " + line)
+        #this will fail if they have a colon in their name - fuck 'em for using a stupid name
+        names.append(line.split(":")[0])
+        ips.append(ip[0])
+
+    logNotice("List of servers is " + str(names) + str(ips))
+
+    #now get them to choose an actual location
+    #present the server names for user choice
+    dialog = xbmcgui.Dialog()
+    if names != []:
+        selected = dialog.select(LANGUAGE(19601), names)
+        if selected != -1:
+            ADDON.setSetting('serverIP', ips[selected])
+            #not used
+            #ADDON.setSetting('servername', names[selected])
+    else:
+        dialog.ok(ADDONNAME, LANGUAGE(19602))    
+
+
+def audioOutputDiscoverySqueezeslave():
+    logNotice("Doing audio output discovery (squeezeslave)...")
+    exe = constants.SLAVEEXE
+    exe.append("-L")
+
+    #need this to stop windows opening a console window & grab output
+    logNotice("Calling SqueezeSlave for audio output discovery..." + str(exe))
+
+    if constants.SYSTEM.startswith("win"):
+      output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+    else:
+      output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+
+    logNotice("Error, if any: " + str(result))
+    logNotice("Lines returned is:\n" + str(output))
+    lines = output.split("\n")
+    #Each line is: * 3: (Windows DirectSound) Primary Sound Driver (0/0)
+    outputNumbers = []
+    outputNames = []
+    for line in lines:
+      outputNumber = re.findall( r'[0-9]+', line )
+      if len(outputNumber)>1:
+        outputNumbers.append("-o" + outputNumber[0])
+        outputNames.append(line)
+
+    logNotice("List of outputs is: " + str(outputNumbers) + str(outputNames))
+
+    #present the audio output for user choice
+    dialog = xbmcgui.Dialog()
+    if outputNumbers != []:
+        selected = dialog.select(LANGUAGE(19603), outputNames)
+        if selected != -1:
+           ADDON.setSetting('autooutputslave', outputNumbers[selected])
+    else:
+        dialog.ok(ADDONNAME, LANGUAGE(19604))
+
+
+def audioOutputDiscoverySqueezelite():
+    logNotice("Doing audio output discovery (squeezelite)...")
+    exe = constants.LITEEXE
+    exe.append("-l")
+
+    #need this to stop windows opening a console window & grab output
+    logNotice("Calling SqueezeSlave for audio output discovery..." + str(exe))
+
+    if constants.SYSTEM.startswith("win"):
+      output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
+    else:
+      output, result = subprocess.Popen(exe, shell=False, stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+
+    logNotice("Error, if any: " + str(result))
+    logNotice("Lines returned is:\n" + str(output))
+    lines = output.split("\n")
+
+    logNotice("lines returned is:\n" + str(lines))
+    #Each line is: 2 - Microsoft Sound Mapper - Output [MME]
+    outputNumbers = []
+    outputNames = []
+    for line in lines:
+        if constants.SYSTEM.startswith("win"):
+            outputNumber = re.findall( r'[ 0-9]+', line.strip() )
+            if len(outputNumber)>1:
+                outputNumbers.append("-o " + outputNumber[0])
+                outputNames.append(line.strip())
+        else:
+            outputNumber = line.split("-")[0].strip()
+            if len(outputNumber)>1:
+                outputNumbers.append("-o " + outputNumber)
+                outputNames.append(line.strip())
+
+    logNotice("List of outputs is: " + str(outputNumbers) + str(outputNames))
+
+    #present the audio output for user choice
+    dialog = xbmcgui.Dialog()
+    if outputNumbers != []:
+        selected = dialog.select(LANGUAGE(19603), outputNames)
+        if selected != -1:
+           ADDON.setSetting('autooutputlite', outputNumbers[selected].strip())
+    else:
+        dialog.ok(ADDONNAME, LANGUAGE(19604))
+
+
 ################################################################################
 ### MAIN
 
@@ -101,6 +229,22 @@ if ( __name__ == "__main__" ):
     #log some tracks...
     footprints()
     logLocalIP()
+
+    #if we're being called from settings there will be arguments...
+    if len(sys.argv) > 1:
+        try:
+            if sys.argv[1].startswith('ServerDiscovery'):
+                serverDiscovery()
+            if sys.argv[1].startswith('SlaveOutputDiscovery'):
+                audioOutputDiscoverySqueezeslave()
+            if sys.argv[1].startswith('LiteOutputDiscovery'):
+                audioOutputDiscoverySqueezelite()
+
+        #if not, carry on, nothing to see here...
+        except Exception as inst:
+            logNotice("Exception in auto discovery: " + format_exc(inst))
+
+        cleanup(andexit=True)
 
     #pause
     if constants.SECONDS_TO_PAUSE_STARTUP!=0:
@@ -115,13 +259,13 @@ if ( __name__ == "__main__" ):
         notify(LANGUAGE(19626), LANGUAGE(19631))
         constants.ADDON.openSettings()
         notify(LANGUAGE(19632),LANGUAGE(19633))
-        cleanup()
+        cleanup(andexit=True)
 
     #Display the readme file if this is the users' first run of this version
     if constants.ISFIRSTRUN:
         log("First run of this version, so displaying FIRSTRUN.TXT then exiting...")
         viewer=ReadMeViewer()
-        cleanup()
+        cleanup(andexit=True)
         #pass
 
     #not the first run...
@@ -236,6 +380,6 @@ if ( __name__ == "__main__" ):
         except:
             pass
 
-        cleanup()
+        cleanup(andexit=True)
 
 

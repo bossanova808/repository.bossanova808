@@ -1,27 +1,38 @@
 <settings>
-   <category label="19900">
-     <setting id="serverIP" type="text" label="19903" default=""  />
-     <setting id="serverPort" type="text" label="19904" default="9090"  />
-     <setting id="serverHTTPPort" type="text" label="19905" default="9000"  />
-     <setting id="serverUser" type="text" label="19919" default=""  />
-     <setting id="serverPass" type="text" label="19920" default="" />
-   </category>
-   <category label="Mode">
-     <setting label="XSqueeze can act as a local player, or as a controller for an external system." type="lsep"/>
-     <setting id="playback" type="bool" label="19906" default="true"/>
-     <setting id="MAC" type="text" label="MAC for local player / MAC of device to control" default="00:00:00:00:00:01" />
-     <setting label="Use..." type="labelenum" id="player" values="Squeezelite|Squeezeslave" enable="!eq( -2,false)" default="Squeezelite" />
-     <setting id="slaveargs" type="text" label="Extra Squeezeslave Arguments" default="" enable="!eq( -3,false)" />
-     <setting id="liteargs" type="text" label="Extra Squeezelite Arguments" default="" enable="!eq( -4,false)" />
-   </category>
-   <category label="Other Settings">
-     <setting id="enableTouch" type="bool" label="19922" default="true"/>
-     <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
-     <setting label="If you have issues with weird sounds as startup...." type="lsep"/>
-     <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds..." default="0"/>
-     <setting label="On slow systems, if you have player connection issues..." type="lsep"/>
-     <setting id="connectpause" type="number" label="Delay after player startup for how many seconds..." default="1"/>
-     <setting label="If your audio device doesn't come back when XSqueeze exits..." type="lsep"/>
-     <setting id="exitpause" type="number" label="Delay AE Resume for how many seconds..." default="2"/>
+    <category label="19900">
+       <setting label="Use LMS server auto discovery button below" type="lsep"/>    
+       <setting label="(If it fails, manually enter IP below)" type="lsep"/>    
+       <setting id="autoserver" label="Automatic LMS Server Discovery..." type="action" action="RunScript($ID,ServerDiscovery)"/>
+       <setting id="serverIP" type="text" label="19903" default=""  />
+       <setting id="serverPort" type="text" label="19904" default="9090"  />
+       <setting id="serverHTTPPort" type="text" label="19905" default="9000"  />
+       <setting id="serverUser" type="text" label="19919" default=""  />
+       <setting id="serverPass" type="text" label="19920" default="" />
+    </category>
+    <category label="Mode">
+       <setting label="XSqueeze can act as a local player, or as a controller for an external system." type="lsep"/>
+       <setting id="playback" type="bool" label="19906" default="true"/>
+       <setting id="MAC" type="text" label="MAC for local player / MAC of device to control" default="00:00:00:00:00:01" />
+       <setting label="For playback, use..." type="labelenum" id="player" values="Squeezelite|Squeezeslave" enable="!eq( -2,false)" default="Squeezelite" />
+    </category>
+    <category label="Player Arguments">  
+       <setting label="THESE SETTINGS ARE ONLY USED IF PLAYBACK IS ENABLED" type="lsep"/>    
+       <setting label="Generally you do not need to specify an audio output, the players guess." type="lsep"/>    
+       <setting label="But if you get no audio, try these automatic audio output choosers." type="lsep"/>    
+       <setting label="(If they fail, you can still manually enter outputs in the extra arguments below)" type="lsep"/>    
+       <setting id="autooutputslave" label="Automatic Squeezeslave Output Discovery..." type="action" action="RunScript($ID,SlaveOutputDiscovery)" default=""/>   
+       <setting id="autooutputlite" label="Automatic SqueezeLite Output Discovery..." type="action" action="RunScript($ID,LiteOutputDiscovery)" default=""/>
+       <setting id="slaveargs" type="text" label="Extra Squeezeslave Arguments" default="" enable="!eq( -10,false)" />
+       <setting id="liteargs" type="text" label="Extra Squeezelite Arguments" default="" enable="!eq( -11,false)" />
+    </category>
+    <category label="Other Settings">
+       <setting id="enableTouch" type="bool" label="19922" default="true"/>
+       <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
+       <setting label="If you have issues with weird sounds as startup...." type="lsep"/>
+       <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds..." default="0"/>
+       <setting label="On slow systems, if you have player connection issues..." type="lsep"/>
+       <setting id="connectpause" type="number" label="Delay after player startup for how many seconds..." default="1"/>
+       <setting label="If your audio device doesn't come back when XSqueeze exits..." type="lsep"/>
+       <setting id="exitpause" type="number" label="Delay AE Resume for how many seconds..." default="2"/>
     </category>
 </settings>
