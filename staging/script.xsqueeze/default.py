@@ -316,8 +316,8 @@ if ( __name__ == "__main__" ):
                 if constants.SYSTEM.startswith("win"):
                     #for debugging, grab the process output....
                     #output, result = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False).communicate()
-                    #log("Process Output is: " + str(output))
-                    #log("Process Result is: " + str(result))
+                    #log("&&&&&& Process Output is: " + str(output))
+                    #log("&&&&&&& Process Result is: " + str(result))
                     slaveProcess = subprocess.Popen(exe, creationflags=0x08000000, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell=False)
                 else:
                     #for debugging, grab the process output....
@@ -338,7 +338,7 @@ if ( __name__ == "__main__" ):
                 logNotice("ERROR OUTPUT: " + str(output))
 
                 #...and bail out
-                cleanup()
+                cleanup(andexit=True)
 
             pid = slaveProcess.pid
             logNotice("Process ID for player is "+ str(pid))

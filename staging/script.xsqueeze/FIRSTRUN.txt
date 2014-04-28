@@ -3,11 +3,12 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-*   NEW DEFAULTS - I have added 1 second pause at startup and 2 at exit to deal with AE suspend/resume issues
-*   However, if you are upgrading you won't pick up these defaults automatically so please configure these
-*   in the XSqueeze other settings tab and hit 'ok'
+* SETTINGS OVERHAUL:
+* Added auto discovery & setting of LMS Server IP 
+* Added auto discovery & setting of player audio outputs
+* Added some basic help text
 
-*   (Slower systems may need longer delays)
+[B] IF UPGRADING: STRONGLY RECOMMEND YOU RE-CONFIGURE XSQUEEZE USING THE SETTINGS [/B]
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
