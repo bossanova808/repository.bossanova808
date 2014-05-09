@@ -1,4 +1,7 @@
-[B]0.1.0[/B]
+B]0.1.2[/B]
+- Sync with Gotham Final
+[
+B]0.1.0[/B]
 - Re-sync Gotham Beta1
 
 [B]0.0.3[/B]
