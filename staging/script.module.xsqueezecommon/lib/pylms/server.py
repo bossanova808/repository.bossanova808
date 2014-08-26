@@ -112,7 +112,7 @@ class Server(object):
         try:
             result = result.decode('utf8')
         except Exception as inst:
-            result = "<Unicode decode error - to be fixed!>"
+            result = unicodedata.normalize('NFD', result).encode('ascii','ignore')
         return result
 
     def request_with_results(self, command_string, preserve_encoding=False, debug=False):

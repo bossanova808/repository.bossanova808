@@ -33,11 +33,16 @@
     <category label="Other Settings">
        <setting id="enableTouch" type="bool" label="19922" default="true"/>
        <setting id="sendPlayOnStart" type="bool" label="19921" default="true"/>
+    </category>
+    <category label="Troubleshooting">
        <setting label="If you have issues with weird sounds as startup...." type="lsep"/>
        <setting id="startuppause" type="number" label="Delay XSqueeze startup for how many seconds... (default 0)" default="0"/>
-       <setting label="On slow systems, if you have player connection issues..." type="lsep"/>
+       <setting label="On slow systems, if you have player connection issues, try raising this..." type="lsep"/>
        <setting id="connectpause" type="number" label="Delay after player startup for how many seconds... (default 1)" default="1"/>
        <setting label="If your audio device doesn't come back when XSqueeze exits... " type="lsep"/>
        <setting id="exitpause" type="number" label="Delay AE Resume for how many seconds... (default 2)" default="2"/>
+       <setting label="To speed up exiting xsqueeze you can try lowering this.... " type="lsep"/>
+       <setting label="(but if it is too low you may experience crashes crashes)" type="lsep"/>
+       <setting id="waitOnAS" type="number" label="Max wait seconds for artist slideshow to exit cleanly... (default 4)" default="4"/>
     </category>
 </settings>

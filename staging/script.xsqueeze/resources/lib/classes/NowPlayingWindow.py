@@ -208,7 +208,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       print_exc()
       raise
 
-    #Initialise musi details
+    #Initialise music details
     self.coverURLs = [""]
     self.playlistDetails = [""]
     self.playlist = [""]
@@ -262,7 +262,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
   def update(self):
     while self.running:
       with self.lock:
-        self.updateLineDisplay()
+        if constants.PLAYERTYPE=="squeezeslave":
+          self.updateLineDisplay()
         #trigger a song changed update if required
         if self.player.songChanged():
           self.cleanupCovers()
@@ -279,12 +280,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         shuffle = self.player.getShuffle()
         if shuffle:
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleon_fo'])
-          #xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleon_nf'])
-          #self.getControl( constants.BUTTONSHUFFLE  ).setImage( SHUFFLESTATEICONS['shuffleon_fo'] )
         else:
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleoff_fo'])
-          #xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleoff_nf'])
-          #self.getControl( constants.BUTTONSHUFFLE  ).setImage( SHUFFLESTATEICONS['shuffleoff_fo'] )
         repeat = self.player.getRepeat()
         if repeat:
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_REPEATSTATE", REPEATSTATEICONS['repeaton_fo'])
@@ -715,8 +712,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
         #wait here for Artist slideshow to finish, can occasionally take several seconds
         log("Waiting for artistslideshow to stop")
-        while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True"):
+        count = 0
+        while (not xbmcgui.Window(xbmcgui.getCurrentWindowId()).getProperty("ArtistSlideshow.CleanupComplete") == "True" and count < constants.SECONDS_TO_WAIT_FOR_ARTISTSLIDESHOWEXIT):
           log("Still waiting for artistslideshow to stop")
+          count+=1
           xbmc.sleep(1000)
 
         log("exitXSqueeze() complete. Artist Slideshow Cleanup Property = " + str(xbmcgui.Window(self.windowID).getProperty("Artistslideshow.CleanupComplete")))

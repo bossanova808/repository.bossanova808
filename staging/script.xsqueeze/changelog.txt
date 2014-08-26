@@ -1,3 +1,11 @@
+V1.1.2
+- Updated squeezelite to 1.6.3
+- Trapped some dodgy unicode chars that caused crashes
+- Moved various settings to a troubleshooting section that
+  most people should not need to touch
+- Give artist slideshow 4 seconds (by default) to exit cleanly, otherwise exit anyway
+- ...as latest AS seems buggy in this area.
+
 V1.1.1
 - Settings overhaul with better help
 - Auto discover & set IP for LMS

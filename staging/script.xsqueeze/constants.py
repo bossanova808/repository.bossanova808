@@ -125,6 +125,7 @@ else:
 SECONDS_TO_PAUSE_STARTUP = int(ADDON.getSetting('startuppause'))
 SECONDS_TO_PAUSE_EXIT = int(ADDON.getSetting('exitpause'))
 SECONDS_TO_PAUSE_CONNECT = int(ADDON.getSetting('connectpause'))
+SECONDS_TO_WAIT_FOR_ARTISTSLIDESHOWEXIT = int(ADDON.getSetting('waitOnAS'))
 
 ################################################################################
 # Deal with the squeezeslave executeables...

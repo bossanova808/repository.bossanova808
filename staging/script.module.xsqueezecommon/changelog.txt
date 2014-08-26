@@ -1,3 +1,6 @@
+[B]Version 0.1.4[/B]
+- Unicode fixes - if a character causes a choke, strip it out/sub in ascii default
+
 [B]Version 0.0.3[/B]
 - Support for new touch screen controls
 

@@ -3,12 +3,14 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* SETTINGS OVERHAUL:
-* Added auto discovery & setting of LMS Server IP 
-* Added auto discovery & setting of player audio outputs
-* Added some basic help text
+* Updated squeezelite to 1.6.3
+* Trapped some dodgy unicode chars that caused crashes
+* Moved various settings to a troubleshooting section that
+  most people should not need to touch
+* Give artist slideshow 4 seconds (by default) to exit cleanly, otherwise exit anyway
+* ...as latest AS seems buggy in this area.
 
-[B] IF UPGRADING: STRONGLY RECOMMEND YOU RE-CONFIGURE XSQUEEZE USING THE SETTINGS [/B]
+[B] STRONGLY RECOMMEND YOU QUICKLY RE-CONFIGURE XSQUEEZE USING THE NEW SETTINGS [/B]
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

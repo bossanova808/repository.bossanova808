@@ -267,17 +267,17 @@ class Player(object):
 
     def get_track_artist(self):
         """Get Players Current Track Artist"""
-        self.track_artist = str(self.request("artist ?"))
+        self.track_artist = str(self.__unquote(self.request("artist ?")))
         return self.track_artist
 
     def get_track_album(self):
         """Get Players Current Track Album"""
-        self.track_album = str(self.request("album ?"))
+        self.track_album = str(self.__unquote(self.request("album ?")))
         return self.track_album
 
     def get_track_title(self):
         """Get Players Current Track Title"""
-        self.track_title = str(self.request("title ?"))
+        self.track_title = str(self.__unquote(self.request("title ?")))
         return self.track_title
 
     def get_track_duration(self):
@@ -293,12 +293,12 @@ class Player(object):
 
     def get_track_current_title(self):
         """Get Players Current Track Current Title"""
-        self.track_current_title = str(self.request("current_title ?"))
+        self.track_current_title = str(self.__unquote(self.request("current_title ?")))
         return self.track_current_title
 
     def get_track_path(self):
         """Get Players Current Track Path"""
-        self.track_path = str(self.request("path ?"))
+        self.track_path = str(self.__unquote(self.request("path ?")))
         return self.track_path
 
     # playlist
