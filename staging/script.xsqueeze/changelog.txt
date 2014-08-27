@@ -1,3 +1,8 @@
+V1.1.3
+- Add a pause in the GUI thread to stop it thrashing about so much.  Seems to significantly 
+  improve performance on low CPU machines like the Pi, and doesn't seem to adversely affect fast cpu machines
+  Win win!
+  
 V1.1.2
 - Updated squeezelite to 1.6.3
 - Trapped some dodgy unicode chars that caused crashes

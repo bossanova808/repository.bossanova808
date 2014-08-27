@@ -261,6 +261,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
   def update(self):
     while self.running:
+      #we put a little pause in here so we're not thrashing the system polling
+      #all this stuff and holding the lock
+      #this one line makes Pi-s etc perform *much better*!
+      xbmc.sleep(500)
       with self.lock:
         if constants.PLAYERTYPE=="squeezeslave":
           self.updateLineDisplay()
@@ -287,9 +291,9 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_REPEATSTATE", REPEATSTATEICONS['repeaton_fo'])
         else:
           xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_REPEATSTATE", REPEATSTATEICONS['repeatoff_fo'])
+        self.updateVolume()
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
-        self.updateVolume()
 
   ##############################################################################
   # Kick off the artist.slideshow
