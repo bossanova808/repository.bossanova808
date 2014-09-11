@@ -61,11 +61,12 @@
 							<width>160</width>
 							<height>170</height>
 							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<aspectratio>keep</aspectratio>
 							<bordertexture border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 						</control>
 						<control type="label">
-							<left>90</left>
+							<left>15</left>
 							<top>185</top>
 							<width>150</width>
 							<height>20</height>
@@ -93,6 +94,7 @@
 							<width>160</width>
 							<height>170</height>
 							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<aspectratio>keep</aspectratio>
 							<bordertexture border="5">folder-focus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>Control.HasFocus(8000)</visible>
@@ -103,12 +105,13 @@
 							<width>160</width>
 							<height>170</height>
 							<texture>$INFO[ListItem.Icon]</texture>
+							<aspectratio>keep</aspectratio>
 							<bordertexture border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>!Control.HasFocus(8000)</visible>
 						</control>
 						<control type="label">
-							<left>90</left>
+							<left>15</left>
 							<top>185</top>
 							<width>150</width>
 							<height>20</height>
@@ -121,7 +124,7 @@
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="label">
-							<left>90</left>
+							<left>15</left>
 							<top>185</top>
 							<width>150</width>
 							<height>20</height>
@@ -301,7 +304,7 @@
 							<bordersize>5</bordersize>
 						</control>
 						<control type="label">
-							<left>120</left>
+							<left>20</left>
 							<top>168</top>
 							<width>200</width>
 							<height>20</height>
@@ -314,7 +317,7 @@
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 						<control type="label">
-							<left>120</left>
+							<left>20</left>
 							<top>185</top>
 							<width>200</width>
 							<height>20</height>
@@ -359,7 +362,7 @@
 							<visible>!Control.HasFocus(8001)</visible>
 						</control>
 						<control type="label">
-							<left>120</left>
+							<left>20</left>
 							<top>168</top>
 							<width>200</width>
 							<height>20</height>
@@ -372,7 +375,7 @@
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 						<control type="label">
-							<left>120</left>
+							<left>20</left>
 							<top>185</top>
 							<width>200</width>
 							<height>20</height>
@@ -385,7 +388,7 @@
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="label">
-							<left>120</left>
+							<left>20</left>
 							<top>185</top>
 							<width>200</width>
 							<height>20</height>
@@ -562,7 +565,7 @@
 							<bordersize>5</bordersize>
 						</control>
 						<control type="label">
-							<left>100</left>
+							<left>10</left>
 							<top>170</top>
 							<width>180</width>
 							<height>20</height>
@@ -575,7 +578,7 @@
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 						<control type="label">
-							<left>100</left>
+							<left>10</left>
 							<top>190</top>
 							<width>180</width>
 							<height>20</height>
@@ -620,7 +623,7 @@
 							<visible>!Control.HasFocus(8002)</visible>
 						</control>
 						<control type="label">
-							<left>100</left>
+							<left>10</left>
 							<top>170</top>
 							<width>180</width>
 							<height>20</height>
@@ -633,7 +636,7 @@
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 						<control type="label">
-							<left>100</left>
+							<left>10</left>
 							<top>190</top>
 							<width>180</width>
 							<height>20</height>
@@ -646,7 +649,7 @@
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="label">
-							<left>100</left>
+							<left>10</left>
 							<top>190</top>
 							<width>180</width>
 							<height>20</height>

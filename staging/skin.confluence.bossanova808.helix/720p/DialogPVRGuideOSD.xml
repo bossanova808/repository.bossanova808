@@ -116,8 +116,16 @@
 						<texture>PVR-HasTimer.png</texture>
 						<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
 					</control>
+					<control type="image">
+						<left>60</left>
+						<top>7</top>
+						<width>16</width>
+						<height>16</height>
+						<texture>PVR-HasRecording.png</texture>
+						<visible>ListItem.HasRecording + !ListItem.IsRecording + !ListItem.HasTimer</visible>
+					</control>
 					<control type="label">
-						<left>400</left>
+						<left>100</left>
 						<top>0</top>
 						<width>300</width>
 						<height>30</height>
@@ -130,7 +138,7 @@
 						<visible>![ListItem.IsRecording | ListItem.HasTimer]</visible>
 					</control>
 					<control type="label">
-						<left>400</left>
+						<left>150</left>
 						<top>0</top>
 						<width>250</width>
 						<height>30</height>
@@ -190,8 +198,16 @@
 						<texture>PVR-HasTimer.png</texture>
 						<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
 					</control>
+					<control type="image">
+						<left>60</left>
+						<top>7</top>
+						<width>16</width>
+						<height>16</height>
+						<texture>PVR-HasRecording.png</texture>
+						<visible>ListItem.HasRecording + !ListItem.IsRecording + !ListItem.HasTimer</visible>
+					</control>
 					<control type="label">
-						<left>400</left>
+						<left>100</left>
 						<top>0</top>
 						<width>300</width>
 						<height>30</height>
@@ -204,7 +220,7 @@
 						<visible>![ListItem.IsRecording | ListItem.HasTimer]</visible>
 					</control>
 					<control type="label">
-						<left>400</left>
+						<left>150</left>
 						<top>0</top>
 						<width>250</width>
 						<height>30</height>

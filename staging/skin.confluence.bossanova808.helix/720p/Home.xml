@@ -538,7 +538,7 @@
 						<onright>602</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(Previous)</onclick>
+						<onclick>PlayerControl(Previous)</onclick>
 					</control>
 					<control type="button" id="602">
 						<left>40</left>
@@ -552,7 +552,7 @@
 						<onright>603</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(Rewind)</onclick>
+						<onclick>PlayerControl(Rewind)</onclick>
 					</control>
 					<control type="togglebutton" id="603">
 						<left>70</left>
@@ -569,7 +569,7 @@
 						<onright>604</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(Play)</onclick>
+						<onclick>PlayerControl(Play)</onclick>
 					</control>
 					<control type="button" id="604">
 						<left>100</left>
@@ -584,7 +584,7 @@
 						<onup>9003</onup>
 						<ondown>9000</ondown>
 						<onclick>down</onclick>
-						<onclick>XBMC.PlayerControl(Stop)</onclick>
+						<onclick>PlayerControl(Stop)</onclick>
 					</control>
 					<control type="button" id="605">
 						<left>130</left>
@@ -598,7 +598,7 @@
 						<onright>606</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(Forward)</onclick>
+						<onclick>PlayerControl(Forward)</onclick>
 					</control>
 					<control type="button" id="606">
 						<left>160</left>
@@ -612,7 +612,7 @@
 						<onright>607</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(Next)</onclick>
+						<onclick>PlayerControl(Next)</onclick>
 					</control>
 				</control>
 				<control type="group" id="600">
@@ -658,7 +658,7 @@
 						<onup>9003</onup>
 						<ondown>9000</ondown>
 						<onclick>down</onclick>
-						<onclick>XBMC.PlayerControl(Stop)</onclick>
+						<onclick>PlayerControl(Stop)</onclick>
 					</control>
 					<control type="togglebutton" id="604">
 						<left>100</left>
@@ -675,7 +675,7 @@
 						<onright>606</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(Play)</onclick>
+						<onclick>PlayerControl(Play)</onclick>
 						<enable>Player.PauseEnabled</enable>
 						<animation effect="fade" start="100" end="30" time="100" condition="!Player.PauseEnabled">Conditional</animation>
 					</control>
@@ -691,7 +691,7 @@
 						<onright>607</onright>
 						<onup>9003</onup>
 						<ondown>9000</ondown>
-						<onclick>XBMC.PlayerControl(record)</onclick>
+						<onclick>PlayerControl(record)</onclick>
 					</control>
 				</control>
 			</control>
@@ -787,7 +787,7 @@
 					<onleft>9014</onleft>
 					<onright>9014</onright>
 					<visible>Container(9000).HasFocus(12)</visible>
-					<include>HomeSubMenuLiveTV</include> <!-- Buttons for the grouplist -->
+					<include>HomeSubMenuTV</include> <!-- Buttons for the grouplist -->
 				</control>
 				<control type="grouplist" id="9015">
 					<include>HomeSubMenuCommonValues</include>
@@ -795,6 +795,13 @@
 					<onright>9013</onright>
 					<visible>Container(9000).HasFocus(4)</visible>
 					<include>HomeSubMenuPictures</include> <!-- Buttons for the grouplist -->
+				</control>
+				<control type="grouplist" id="9016">
+					<include>HomeSubMenuCommonValues</include>
+					<onleft>9014</onleft>
+					<onright>9014</onright>
+					<visible>Container(9000).HasFocus(13)</visible>
+					<include>HomeSubMenuRadio</include> <!-- Buttons for the grouplist -->
 				</control>
 			</control>
 			<control type="image">
@@ -842,7 +849,7 @@
 						<texture>HomeSeperator.png</texture>
 					</control>
 					<control type="label">
-						<left>150</left>
+						<left>5</left>
 						<top>0</top>
 						<width>290</width>
 						<height>60</height>
@@ -869,7 +876,7 @@
 						<texture>HomeSeperator.png</texture>
 					</control>
 					<control type="label">
-						<left>150</left>
+						<left>5</left>
 						<top>0</top>
 						<width>290</width>
 						<height>60</height>
@@ -880,7 +887,7 @@
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
-						<left>150</left>
+						<left>5</left>
 						<top>0</top>
 						<width>290</width>
 						<height>60</height>
@@ -908,12 +915,19 @@
 						<thumb>-</thumb>
 						<visible>!Skin.HasSetting(HomeMenuNoPicturesButton)</visible>
 					</item>
-					<item id="12">
-						<label>31952</label>
-						<onclick>ActivateWindow(PVR)</onclick>
+					<item id="13">
+						<label>31960</label>
+						<onclick>ActivateWindow(RadioChannels)</onclick>
 						<icon>-</icon>
 						<thumb>-</thumb>
-						<visible>System.GetBool(pvrmanager.enabled)</visible>
+						<visible>PVR.HasRadioChannels</visible>
+					</item>
+					<item id="12">
+						<label>31952</label>
+						<onclick>ActivateWindow(TVChannels)</onclick>
+						<icon>-</icon>
+						<thumb>-</thumb>
+						<visible>PVR.HasTVChannels</visible>
 					</item>
 					<item id="2">
 						<label>31953</label>
@@ -954,7 +968,7 @@
 					</item>
 					<item id="6">
 						<label>31958</label>
-						<onclick>XBMC.PlayDVD()</onclick>
+						<onclick>PlayDVD()</onclick>
 						<icon>-</icon>
 						<thumb>-</thumb>
 						<visible>System.HasMediaDVD</visible>

@@ -350,7 +350,7 @@
 					<top>120</top>
 					<width>910</width>
 					<height>25</height>
-					<label>$INFO[VideoPlayer.NextTitle,$LOCALIZE[209]: ]</label>
+					<label>$INFO[VideoPlayer.NextTitle,$LOCALIZE[19031]: ]</label>
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font12</font>
@@ -437,7 +437,7 @@
 				<left>0</left>
 				<top>0</top>
 				<width>1280</width>
-				<height>140</height>
+				<height>155</height>
 				<texture>black-back.png</texture>
 			</control>
 			<control type="label" id="10">
@@ -467,7 +467,7 @@
 				<left>50</left>
 				<top>100</top>
 				<width>1180</width>
-				<height>30</height>
+				<height>45</height>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
@@ -490,7 +490,7 @@
 		</control>
 		<control type="group">
 			<visible>Player.ShowCodec + VideoPlayer.Content(LiveTV) + system.getbool(pvrplayback.signalquality)</visible>
-			<top>165</top>
+			<top>180</top>
 			<control type="image">
 				<description>media info background image</description>
 				<left>0</left>
