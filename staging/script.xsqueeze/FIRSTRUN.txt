@@ -3,14 +3,9 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-* Made the GUI thread way less demanding - should see vey significant performance
-  improvements on low power machines like the Raspberry Pi etc
-* Updated squeezelite to 1.6.3
-* Trapped some dodgy unicode chars that caused crashes
-* Moved various settings to a troubleshooting section that
-  most people should not need to touch
-* Give artist slideshow 10 seconds (by default) to exit cleanly, otherwise exit anyway
-* ...as latest AS seems buggy in this area.
+V1.1.4
+- Fixed an issue with Kodi paths
+- Add user/pw support to album covers
 
 [B] STRONGLY RECOMMEND YOU QUICKLY RE-CONFIGURE XSQUEEZE USING THE NEW SETTINGS [/B]
 

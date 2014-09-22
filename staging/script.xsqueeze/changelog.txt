@@ -1,3 +1,7 @@
+V1.1.4
+- Fixed an issue with Kodi paths
+- Add user/pw support to album covers
+
 V1.1.3
 - Add a pause in the GUI thread to stop it thrashing about so much.  Seems to significantly 
   improve performance on low CPU machines like the Pi, and doesn't seem to adversely affect fast cpu machines

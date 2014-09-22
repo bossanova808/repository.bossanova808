@@ -39,8 +39,18 @@ SERVERPASS  = REF_TO_XSQUEEZE.getSetting('serverPass')
 
 #shorthand for the full server string, so e.g. 192.168.1.1:9090
 SERVERIPPORT = SERVERIP + ":" + SERVERPORT
+#Login details?
+USERPASS=None
+if SERVERUSER != "" or SERVERPASS !="":
+  USERPASS = SERVERUSER + ":" + SERVERPASS + "@"
+
 #url of the http interface for LMS
-SERVERHTTPURL   = SERVERIP + ":" + REF_TO_XSQUEEZE.getSetting('serverHTTPPort')
+
+SERVERHTTPURL = SERVERIP + ":" + REF_TO_XSQUEEZE.getSetting('serverHTTPPort')
+#prepend login details if needed
+if USERPASS:
+  SERVERHTTPURL = USERPASS + SERVERHTTPURL
+
 
 #LOCAL PLAYBACK SETTINGS
 #LMS is case sensitive and all MACs need to be lower case!!
@@ -222,7 +232,6 @@ class SqueezePlayer:
               statusId = statusId.pop(0)
               #log("StatusID is " + str(statusId))
               coverURL = "http://" + SERVERHTTPURL + "/music/" + str(statusId) + "/cover.jpg"
-
             #now append the coverURL to our list of URLs
             #log ("Appending future cover: " + str(count) + " from " + coverURL)
             coverURLs.append(coverURL)

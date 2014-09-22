@@ -1,3 +1,6 @@
+v0.1.6
+- Fixed missing import issue that shows up only with kodi/helix 
+
 v0.0.2
 - New chooser modes - radios, favourites, years etc. 
 
