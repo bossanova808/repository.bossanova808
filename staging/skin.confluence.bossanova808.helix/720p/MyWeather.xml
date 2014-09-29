@@ -3,7 +3,7 @@
 	<allowoverlay>no</allowoverlay>
 	<onload condition="!Skin.HasSetting(FirstTimeRun)">ActivateWindow(1112)</onload>
 	<controls>
-
+		<include>CommonBackground</include>
 		<!--  Floor image -->
 		<control type="image">
 			<posx>0</posx>
