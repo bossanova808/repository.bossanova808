@@ -1,3 +1,7 @@
+[B]0.0.4[/B]
+
+Updated Universal textures, synced with Helix alpa 20/10/14
+
 [B]0.0.2[/B]
 
 Integrate UNIversal's revamp themes & pick a new default background to freshen things up a bit
