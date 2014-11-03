@@ -1,3 +1,7 @@
+[B]0.0.5[/B]
+
+Sync to Kodi 3/11/14
+
 [B]0.0.4[/B]
 
 Updated Universal textures, synced with Helix alpa 20/10/14
