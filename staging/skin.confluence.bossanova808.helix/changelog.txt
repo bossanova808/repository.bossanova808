@@ -1,3 +1,7 @@
+[B]0.0.6[/B]
+
+Sync to Kodi 13/11/14
+
 [B]0.0.5[/B]
 
 Sync to Kodi 3/11/14
