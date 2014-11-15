@@ -1,3 +1,7 @@
+[B]0.0.7[/B]
+
+A few fotn fix ups
+
 [B]0.0.6[/B]
 
 Sync to Kodi 13/11/14

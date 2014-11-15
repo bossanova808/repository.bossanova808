@@ -117,7 +117,7 @@
 					<posy>42</posy>
 					<width>180</width>
 					<height>40</height>
-					<font>font45caps_title</font>
+					<font>font35_title</font>
 					<align>right</align>
 					<aligny>top</aligny>
 					<label>$INFO[Window(2600).Property(Current.Temperature)]</label>
@@ -517,7 +517,7 @@
 				<top>23</top>
 				<width>240</width>
 				<height>20</height>
-				<font>font11_title</font>
+				<font>font11</font>
 				<textcolor>white</textcolor>
 				<align>left</align>
 				<aligny>center</aligny>
