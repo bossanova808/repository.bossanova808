@@ -1,6 +1,10 @@
+[B]0.0.8[/B]
+
+Latest univeral textures 2.2.7
+
 [B]0.0.7[/B]
 
-A few fotn fix ups
+A few font fix ups
 
 [B]0.0.6[/B]
 
