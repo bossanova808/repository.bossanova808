@@ -1,3 +1,8 @@
+[B]0.1.1[/B]
+
+Weather condition (bit dodgy) - check if weather is fetched otherwise disable weather display in DialogSeekBar
+I currently test for predicted high of 0, as never happens in Melbourne, and Weather.IsFetched is not working as expected.
+
 [B]0.1.0[/B]
 
 Sync with Helix final, uNiversal revamp 2.3.1

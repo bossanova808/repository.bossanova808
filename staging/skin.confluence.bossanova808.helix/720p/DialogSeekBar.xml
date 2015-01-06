@@ -86,8 +86,10 @@
   			<posx>25</posx>
   			<posy>25</posy>
 
-	      	<visible>[Player.Paused]</visible>
-
+  			<!-- Only show weather if it is available - using a predicted high of zero since this never happens where I live, but it's dodgy -->
+  			<!-- Should use Weather.IsFetched but for some reason it doesn't work as expected -->
+			<!-- <visible>!Weather.IsFetched</visible> -->
+	      	<visible>[!StringCompare(Window(2600).Property(Day0.HighTemp),"0") + !StringCompare(Window(2600).Property(Day0.HighTemp),"")]</visible>
 
  			<control type="image" id="19547">
   				<description>media info background image</description>
