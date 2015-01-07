@@ -205,7 +205,7 @@
 				<!-- CURRENT OBSERVATIONS -->
 				<control type="group">
 					<posx>0</posx>
-					<posy>7</posy>       
+					<posy>0</posy>       
 					<control type="image">
 						<description>current weather icon</description>
 						<posx>20</posx>
@@ -311,9 +311,22 @@
 						<shadowcolor>black</shadowcolor>
 					</control>
 					<control type="label">
-						<description>current Wind label</description>
+						<description>Fire Danger Label</description>
 						<posx>390</posx>
 						<posy>100</posy>
+						<width>170</width>
+						<height>35</height>
+						<font>font10</font>
+						<align>right</align>
+						<aligny>center</aligny>
+						<label>Fire Danger :</label>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+					</control>
+					<control type="label">
+						<description>current Wind label</description>
+						<posx>390</posx>
+						<posy>115</posy>
 						<width>170</width>
 						<height>35</height>
 						<font>font10</font>
@@ -376,7 +389,7 @@
 						<shadowcolor>black</shadowcolor>
 					</control>
 					<control type="label">
-						<description>current Wind Value</description>
+						<description>Fire Danger Value</description>
 						<posx>395</posx>
 						<posy>100</posy>
 						<width>300</width>
@@ -384,7 +397,20 @@
 						<font>font10</font>
 						<align>left</align>
 						<aligny>center</aligny>
-						<info>Window.Property(Current.Wind)</info>
+						<label>$INFO[Window.Property(Current.FireDangerText)] ($INFO[Window.Property(Current.FireDanger)])</label>
+						<textcolor>white</textcolor>
+						<shadowcolor>black</shadowcolor>
+					</control>
+					<control type="label">
+						<description>current Wind Value</description>
+						<posx>395</posx>
+						<posy>115</posy>
+						<width>300</width>
+						<height>35</height>
+						<font>font10</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(Current.Wind)], gusts $INFO[Window.Property(Current.WindGust)] km/h</label>
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 					</control>
@@ -441,6 +467,19 @@
 						<visible>Weather.IsFetched</visible>
 					</control>
 					<control type="label">
+						<description>Pressure label</description>
+						<posx>528</posx>
+						<posy>106</posy>
+						<height>20</height>
+						<font>font10</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>Pressure :</label>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>Weather.IsFetched</visible>
+					</control>
+					<control type="label">
 						<description>Rain Since 9</description>
 						<posx>600</posx>
 						<posy>46</posy>
@@ -480,7 +519,7 @@
 						<visible>Weather.IsFetched</visible>
 					</control>
 					<control type="label">
-						<description>Sun  down</description>
+						<description>Sun down</description>
 						<posx>600</posx>
 						<posy>91</posy>
 						<height>20</height>
@@ -488,6 +527,19 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[Window.Property(Current.Sunset)]</label>
+						<textcolor>white</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>Weather.IsFetched</visible>
+					</control>
+					<control type="label">
+						<description>Pressure Value</description>
+						<posx>600</posx>
+						<posy>106</posy>
+						<height>20</height>
+						<font>font10</font>
+						<align>left</align>
+						<aligny>center</aligny>
+						<label>$INFO[Window.Property(Current.Pressure)] hPa</label>
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
@@ -500,7 +552,7 @@
 				<control type="label">
 					<description>extended forecast label</description>
 					<posx>80</posx>
-					<posy>144</posy>
+					<posy>150</posy>
 					<width>510</width>
 					<height>20</height>
 					<font>font12_title</font>
@@ -513,7 +565,7 @@
 				<control type="textbox">
 					<description>Long Weather Forecast</description>
 					<posx>30</posx>
-					<posy>170</posy>
+					<posy>175</posy>
 					<width>620</width>
 					<height>82</height>
 					<font>font10</font>
@@ -646,7 +698,7 @@
 
 				<control type="image">
 					<posx>60</posx>
-					<posy>137</posy>
+					<posy>145</posy>
 					<width>500</width>
 					<height>4</height>
 					<texture>separator.png</texture>
