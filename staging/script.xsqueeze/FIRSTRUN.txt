@@ -3,11 +3,8 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
-V1.1.4
-- Fixed an issue with Kodi paths
-- Add user/pw support to album covers
-
-[B] STRONGLY RECOMMEND YOU QUICKLY RE-CONFIGURE XSQUEEZE USING THE NEW SETTINGS [/B]
+V1.1.6
+- Minor tweaks to logging
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
