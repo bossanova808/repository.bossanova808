@@ -1,3 +1,6 @@
+[B]Version 0.1.6[/B]
+- Unicode logging support
+
 [B]Version 0.0.9[/B]
 - Whole lot of re-factoring, log the local IP
 

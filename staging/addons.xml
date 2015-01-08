@@ -18,11 +18,11 @@
 </addon>
 
 <addon id="plugin.program.xsqueezechooser" name="XSqueeze Chooser"
-       version="0.1.6" provider-name="bossanova808">
+       version="0.1.7" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.1.3"/>
-    <import addon="script.module.b808common" version="0.1.5"/>
+    <import addon="script.module.xsqueezecommon" version="0.1.6"/>
+    <import addon="script.module.b808common" version="0.1.6"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>executable</provides>
@@ -72,7 +72,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.b808common" version="0.1.5" name="Bossanova808 Common Code" provider-name="bossanova808">
+<addon id="script.module.b808common" version="0.1.6" name="Bossanova808 Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.1.0'/>
   </requires>
@@ -83,10 +83,10 @@
   <extension point='xbmc.python.module' library='lib' />
 </addon>
 
-<addon id="script.module.xsqueezecommon" version="0.1.5" name="XSqueeze Common Code" provider-name="bossanova808">
+<addon id="script.module.xsqueezecommon" version="0.1.6" name="XSqueeze Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.1.0'/>
-    <import addon="script.module.b808common" version="0.1.5"/>
+    <import addon="script.module.b808common" version="0.1.6"/>
   </requires>
   <extension point='xbmc.addon.metadata'>
     <platform>all</platform>
@@ -97,14 +97,14 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="1.1.4"
+       version="1.1.5"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.artistslideshow" version="1.4.7"/>
-    <import addon="script.module.xsqueezecommon" version="0.1.5"/>
-    <import addon="script.module.b808common" version="0.1.5"/>
-    <import addon="plugin.program.xsqueezechooser" version="0.1.6"/>
+    <import addon="script.module.xsqueezecommon" version="0.1.6"/>
+    <import addon="script.module.b808common" version="0.1.6"/>
+    <import addon="plugin.program.xsqueezechooser" version="0.1.7"/>
   </requires>
   <extension point="xbmc.python.script"
              library="default.py">
@@ -194,7 +194,7 @@
 
 <addon
   id="skin.confluence.bossanova808.helix"
-  version="0.1.1"
+  version="0.1.2"
   name="Confluence Bossanova808 Helix"
   provider-name="Jezz_X, Team Kodi, bossanova808">
   <requires>

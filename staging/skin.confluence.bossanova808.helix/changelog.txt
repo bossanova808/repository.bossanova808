@@ -1,3 +1,7 @@
+[B]0.1.2[/B]
+
+Updated MyWeather.xml to include pressure, fire danger and wind gust support
+
 [B]0.1.1[/B]
 
 Weather condition (bit dodgy) - check if weather is fetched otherwise disable weather display in DialogSeekBar

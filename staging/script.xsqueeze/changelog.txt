@@ -1,3 +1,6 @@
+V1.1.5
+- Update to b808common 0.1.6
+
 V1.1.4
 - Fixed an issue with Kodi paths
 - Add user/pw support to album covers

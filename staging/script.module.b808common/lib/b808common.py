@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
+
 ### Common Code for bossanova808 addons
 ### By bossanova808 2013
 ### Free in all senses....
 
-### VERSION 0.1.5
+### VERSION 0.1.6
 
 import xbmc
 import xbmcaddon
@@ -28,11 +30,13 @@ from traceback import format_exc
 # call logNotice() is you want print out regardless of debug settings
 
 def log(message, inst=None, level=xbmc.LOGDEBUG):
-
+    if isinstance (message,str):
+        message = message.decode("utf-8")
+        message = u'### %s - %s ### %s' % (ADDONNAME,VERSION, message)
     if inst is None:
-      xbmc.log("### " + ADDONNAME + "-" + VERSION +  " ### " + str(message), level )
+      xbmc.log(message.encode("utf-8"), level )
     else:
-      xbmc.log("### " + ADDONNAME + "-" + VERSION +  " ### " + str(message), level )
+      xbmc.log(message.encode("utf-8"), level )
       xbmc.log("### " + ADDONNAME + "-" + VERSION +  " ### Exception:" + format_exc(inst), level )
 
 #log something even if debug logging is off - for important stuff!
