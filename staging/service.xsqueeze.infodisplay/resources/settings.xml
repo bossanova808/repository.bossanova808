@@ -1,0 +1,23 @@
+<settings>
+ <!--    <category label="19900">
+       <setting label="Use LMS server auto discovery button below" type="lsep"/>    
+       <setting label="(If it fails, manually enter IP below)" type="lsep"/>    
+       <setting id="autoserver" label="Automatic LMS Server Discovery..." type="action" action="RunScript($ID,ServerDiscovery)"/>
+       <setting id="serverIP" type="text" label="19903" default=""  />
+       <setting id="serverPort" type="text" label="19904" default="9090"  />
+       <setting id="serverHTTPPort" type="text" label="19905" default="9000"  />
+       <setting id="serverUser" type="text" label="19919" default=""  />
+       <setting id="serverPass" type="text" label="19920" default="" />
+    </category>
+ -->    
+    <category label="Overrule XSqueeze settings?">
+       <setting label="Only enter a MAC here if you want to overrule the MAC in XSqueeze settings" type="lsep"/>        
+       <setting label="Basically only if you want a real squeezebox info display" type="lsep"/>        
+       <setting label="...but to play music using xsqueeze (unlikely!)" type="lsep"/>        
+       <setting label="LMS registers each player as unique by MAC address" type="lsep"/>        
+       <setting label="Enter the MAC of your actual physical squeezebox" type="lsep"/>    
+       <setting label="MACs have this general form: 01:02:03:ab:cd:ef" type="lsep"/>    
+       <setting id="MAC" type="text" label="MAC for local player / MAC of device to control" default="" />
+    </category>
+
+</settings>

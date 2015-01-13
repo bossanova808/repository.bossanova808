@@ -284,6 +284,8 @@ log(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
 version_number = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
 if version_number >= 12.9:
     XBMC_VERSION = "Gotham" 
+if version_number >= 13.9:
+    XBMC_VERSION = "Helix" 
 log("XBMC Version is " + XBMC_VERSION)
 
 

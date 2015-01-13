@@ -32,7 +32,7 @@ from pylms.player import Player
 # The LMS Server and port - either discovered in the add on settings
 #  or manually set
 SERVERIP    = REF_TO_XSQUEEZE.getSetting('serverIP')
-SERVERNAME = SERVERIP
+SERVERNAME  = SERVERIP
 SERVERPORT  = REF_TO_XSQUEEZE.getSetting('serverPort')
 SERVERUSER  = REF_TO_XSQUEEZE.getSetting('serverUser')
 SERVERPASS  = REF_TO_XSQUEEZE.getSetting('serverPass')
@@ -79,7 +79,12 @@ class SqueezePlayer:
   ##############################################################################
   #constructor - connect to the server and player so we can do stuff
   #other handy start up stuff
-  def __init__(self,basicOnly=False):
+  def __init__(self,basicOnly=False,MAC=None):
+
+    #optionally pass in a player MAC here to connect to a different player for the info display
+    if MAC is not None:
+      log("Using MAC " + MAC)
+      PLAYERMAC = MAC
 
     #serverIP still null, something went wrong...
     if SERVERIP=="":
@@ -375,6 +380,15 @@ class SqueezePlayer:
 
   def getTrackLength(self):
     return self.sb.get_track_duration()
+
+  ##############################################################################
+  # Show some text on the player's screen
+
+  def show(self,line1="", line2=""''"", duration=3, brightness=4, font="standard", centered=False):
+    self.sb.show(line1,line2,duration,brightness,font,centered)
+
+  def display(self, line1="", line2="", duration=1):
+    self.sb.request("display " + line1 + " " + line2 + " " + str(duration))
 
   ##############################################################################
   # returns current mode ('play' 'pause' or 'stop')
