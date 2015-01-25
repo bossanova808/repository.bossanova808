@@ -286,6 +286,8 @@ if version_number >= 12.9:
     XBMC_VERSION = "Gotham" 
 if version_number >= 13.9:
     XBMC_VERSION = "Helix" 
-log("XBMC Version is " + XBMC_VERSION)
+if version_number >= 14.9:
+    XBMC_VERSION = "I*" 
+log("Kodi Version is " + XBMC_VERSION)
 
 
