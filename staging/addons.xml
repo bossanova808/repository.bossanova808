@@ -97,7 +97,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="1.1.6"
+       version="1.1.7"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -115,6 +115,25 @@
     <summary lang="en">Squeezebox player/controller for XBMC.</summary>
     <description lang="en">Turn your XBMC into a Squeeze player or control an external Squeezebox.</description>
     <disclaimer lang="en"></disclaimer>
+  </extension>
+</addon>
+
+<addon id="service.xsqueeze.infodisplay"
+       name="XSqueeze Info Display"
+       version="0.0.1"
+       provider-name="">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.xsqueezecommon" version="0.1.6"/>
+    <import addon="script.module.b808common" version="0.1.6"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py" start="login" />
+  <extension point="xbmc.addon.metadata">
+    <language>en</language>
+    <summary>XSqueeze Info Display</summary>
+    <description>***** IN DEVELOPMENT - DO NOT INSTALL! ***** Use an XSqueeze display in a similar fashion to XBMC LCDProc - display now playing info etc.</description>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <platform>all</platform>
   </extension>
 </addon>
 

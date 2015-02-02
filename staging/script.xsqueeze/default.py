@@ -62,6 +62,9 @@ def cleanup(andexit=True):
         except:
             pass
 
+    #restore auto shutdown timer
+    xbmc.executebuiltin('XBMC.InhibitIdleShutdown(False)', False)
+ 
     #remove our custom keymap
     try:
         os.remove(constants.KEYMAPDESTFILE)
@@ -83,7 +86,9 @@ def playInit():
     global xbmcAudioSuspended
 
     #Try and suspend XBMC's AudioEngine if it is present and has exclusive access to the audio device
+    #also inhibit auto shutdown of XBMC
     try:
+        xbmc.executebuiltin('XBMC.InhibitIdleShutdown(True)', False)
         xbmc.audioSuspend();
         logNotice("Suspended XBMC AE")
         xbmcAudioSuspended = True

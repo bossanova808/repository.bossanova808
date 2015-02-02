@@ -79,12 +79,12 @@ class SqueezePlayer:
   ##############################################################################
   #constructor - connect to the server and player so we can do stuff
   #other handy start up stuff
-  def __init__(self,basicOnly=False,MAC=None):
+  def __init__(self,basicOnly=False):
 
     #optionally pass in a player MAC here to connect to a different player for the info display
-    if MAC is not None:
-      log("Using MAC " + MAC)
-      PLAYERMAC = MAC
+    #if MAC is not None:
+    #  log("Using MAC " + MAC)
+    #  PLAYERMAC = MAC
 
     #serverIP still null, something went wrong...
     if SERVERIP=="":
