@@ -3,6 +3,11 @@ XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
 
+V1..1.8
+- Bugfix for app browsing in the Chooser (Radios still being looked in to)
+- Support for Rasp Pi 2 (not tested - let me know if it breaks!!)
+- I am aware of issue on Openelec 5 and MP3s not playing, hope to have a soluton soon - in the meantime, play FLACS ;)
+
 V1.1.7
 - Inhibit XBMC shutdown when XSqueeze active
 

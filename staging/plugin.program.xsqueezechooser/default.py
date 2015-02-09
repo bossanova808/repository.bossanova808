@@ -258,8 +258,15 @@ def buildRadioRoot():
 
 def buildRadioList(listRadios):
   for radio in listRadios:
-    if radio['cmd']=="search" : continue
-    coverURL = "http://" + SERVERHTTPURL + "/" + radio['icon']
+    if radio['cmd']=="search":
+      continue
+    if 'cmd' not in radio: 
+      continue
+    
+    if 'icon' in radio:
+      coverURL = "http://" + SERVERHTTPURL + "/" + radio['icon']
+    else:
+      coverURL = ""
     addNode(radio['cmd'],"",SUBMENU_RADIOS,coverURL,cmd=radio['cmd'])
 
 def buildRadioSub(cmd, itemid=""):
@@ -306,7 +313,10 @@ def buildAppsRoot():
 def buildAppsList(listApps):
   for app in listApps:
     if app['cmd']=="search" : continue
-    coverURL = "http://" + SERVERHTTPURL + "/" + app['icon']
+    if 'icon' in app:
+      coverURL = "http://" + SERVERHTTPURL + "/" + app['icon']
+    else: 
+      coverURL=""
     addNode(app['cmd'],"",SUBMENU_APPS,coverURL,cmd=app['cmd'])
 
 def buildAppSub(cmd, itemid=""):

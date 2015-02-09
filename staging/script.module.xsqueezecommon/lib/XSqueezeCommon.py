@@ -7,6 +7,7 @@ import xbmcaddon
 import xbmcplugin
 import xbmcvfs
 import xbmcgui
+import pprint
 
 import urllib
 import sys
@@ -504,13 +505,13 @@ class SqueezePlayer:
     else:
       log("Server Request: " + str(cmdString))
       results = self.sc.requestRaw(cmdString)
-    log("Result string: "+ str(results))
+    log("Result string: "+ pprint.pformat(results))
     #strip off the request stuff at the start
     resultStr = results[results.find(splitOn):]
-    log("Split string: "+ str(resultStr))
+    log("Split string: "+ pprint.pformat(resultStr))
     #ok now split the string on 'splitOn' to get each radio station
     chunks = resultStr.split(splitOn + "%3A")[1:]
-    log("Processed Chunks: "+ str(chunks))
+    log("Processed Chunks: " + pprint.pformat(chunks))
     output=[]
     for chunk in chunks:
       chunk = chunk.strip()
@@ -552,7 +553,7 @@ class SqueezePlayer:
       self.sb.request(urllib.quote(cmd) + " playlist play item_id:" + itemid)
 
   def getApps(self):
-    return self.parseSpecial("apps 0 100000","icon", playerRequest=True)
+    return self.parseSpecial("apps 0 100000","cmd", playerRequest=True)
 
   def getFavourites(self):
     return self.parseSpecial("favorites items 0 100000","id", playerRequest=True)

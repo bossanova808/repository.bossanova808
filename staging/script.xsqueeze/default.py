@@ -359,9 +359,9 @@ if ( __name__ == "__main__" ):
         #check what skin to use
      
         #Gotham needs different skin files...
-        version_stub = "_Frodo"
-        if XBMC_VERSION == "Gotham":
-            version_stub = ""
+        version_stub = ""
+        if XBMC_VERSION == "Frodo":
+            version_stub = "_Frodo"
 
         try:
             if constants.PLAYERTYPE=="squeezelite":

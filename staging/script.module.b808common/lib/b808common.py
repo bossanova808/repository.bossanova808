@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 ### Common Code for bossanova808 addons
-### By bossanova808 2013
+### By bossanova808 2015
 ### Free in all senses....
 
-### VERSION 0.1.6
+### VERSION 0.1.8 09/02/2015
 
 import xbmc
 import xbmcaddon
@@ -271,8 +271,7 @@ elif xbmc.getCondVisibility( "System.Platform.ATV2" ):
   SYSTEM = "atv2"
 elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
-#hack for Raspberry Pi until System.Platform.Arm comes along...
-elif "raspbmc" in uname or "armv6l" in uname:
+elif xbmc.getCondVisibility( "System.Platform.Linux.RaspberryPi" ):
   SYSTEM = "arm"
 
 #log the detemined system type
@@ -287,7 +286,8 @@ if version_number >= 12.9:
 if version_number >= 13.9:
     XBMC_VERSION = "Helix" 
 if version_number >= 14.9:
-    XBMC_VERSION = "I*" 
-log("Kodi Version is " + XBMC_VERSION)
+    XBMC_VERSION = "Isengard" 
+log("Kodi Version is " + XBMC_VERSION)    
+
 
 
