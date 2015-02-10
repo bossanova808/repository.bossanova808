@@ -97,7 +97,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="1.1.8"
+       version="1.1.9"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

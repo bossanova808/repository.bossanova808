@@ -1,3 +1,7 @@
+V1.1.9
+- Static linked builds of squeezelite for Pi, Win, OSX - shoudl restore MP3 playback on Pi.
+- Linux builds not yet available to fix mp3 playback issue on OE sorry 
+
 V1.1.8
 - Bugfix for app browsing in the Chooser (Radios still being looked in to)
 - Support for Rasp Pi 2 (not tested - let me know if it breaks!!)
