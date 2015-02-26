@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+
+  <!-- For the add on itself -->
+
+	<string id="19600">IP Address</string>
+	<string id="19601">Select Your LMS Server</string>
+	<string id="19602">Problem!  Check log or squeezeslave -I output manually</string>
+	<string id="19603">Select your audio output</string>
+	<string id="19604">Problem! Check Log or squeezeslave -L / squeezelite -l output manually</string>
+	<string id="19605">MODE ERROR: Fix your Settings!</string>
+	<string id="19606">(Local playback AND controller only are both ON!)</string>
+	<string id="19607">(Local playback AND controller only are both OFF!)</string>
+	<string id="19608">Starting XSqueeze and Connecting to LMS</string>
+	<string id="19609">Please wait a moment...(up to 10 seconds)...</string>
+	<string id="19610">Failed to create player process</string>
+	<string id="19611">On OE/Linux/OSX you probably need to manually chmod +x the binaries</string>
+	<string id="19612">Shutdown - Stopping Local Player and Slideshow</string>
+ 	<string id="19613">Couldn't connect to server!</string>
+ 	<string id="19614">Check your server settings</string>
+ 	<string id="19615">Couldn't connect to player!</string>
+ 	<string id="19616">Check you player settings</string>
+ 	<string id="19617">Error determing OS type</string>
+ 	<string id="19618">Squeezeslave probably won't work...</string>
+ 	<string id="19619">Empty Playlist</string>
+ 	<string id="19620">Add some music and get things going...</string>
+ 	<string id="19621">Your first run reminder...</string>
+ 	<string id="19622">Patience...</string>
+ 	<string id="19623">(Waiting on artist.slideshow exit)...</string>
+ 	<string id="19624">Can't find LMS Server.</string>
+ 	<string id="19625">Try manually configuring one in XSqueeze settings...</string>
+ 	<string id="19626">No server found in XSqueeze settings</string>
+ 	<string id="19627">Attempting to auto discover LMS...</string>
+ 	<string id="19628">Server auto configured</string>
+ 	<string id="19629">Please re-run XSqueeze now...</string>
+ 	<string id="19630">LMS Auto discovery appears to have succeeded</string>
+ 	<string id="19631">Configure XSqueeze before use</string>
+ 	<string id="19632">OK!</string>
+ 	<string id="19633">You should be good to re-run XSqueeze now</string>
+
+
+  <!-- For the settings -->
+
+	<string id="19900">LMS Server</string>
+	<string id="19901">Automatically discover your LMS server...</string>
+	<string id="19902">Manually specify server (e.g. if you have changed default ports)</string>
+	<string id="19903">Server IP</string>
+	<string id="19904">Server CLI Port (9090 unless you have changed it)</string>
+	<string id="19905">Server HTTP Port (9000 unless you have changed it)</string>
+	<string id="19906">Act as a SqueezePlayer?</string>
+	<string id="19907">Local Player MAC</string>
+	<string id="19908">Extra player arguments (see their documentation for these)</string>
+	<string id="19909">Enable this if you want to manually choose an audio output</string>
+	<string id="19910">Choose an audio output here (only if no sound/special needs)...</string>
+	<string id="19911">Use as controller for external Squeezebox only?</string>
+	<string id="19912">Enter player MAC (See LMS Settings->Infomation)</string>
+	<string id="19913">Skin file to use</string>
+	<string id="19914">Disable screensaver while playing?</string>
+
+	<string id="19915">(NB - EXPERIMENTAL - Can cause XSqueeze to hang on exit)</string>
+	<string id="19916">(NB - If server discovery fails, use settings below...)</string>
+	<string id="19917">(NB - if audio discovery fails, manually input args above.)</string>
+	<string id="19918">(NB - Manually input the arguments in extra arguments above)</string>
+	<string id="19919">Server username (usually blank)</string>
+	<string id="19920">Server password (usually blank)</string>
+	<string id="19921">Resume playback immediately on startup?</string>
+	<string id="19922">Enable Mouse/Touch Screen Controls?</string>
+	<string id="19923">Choose player:</string>
+	<string id="19924">Turn on/off AV-Receiver?</string>
+	<string id="19925">AV-Receiver input:</string>
+	<string id="19926">Turn off TV?</string>
+        <string id="19927">Adjust volume of AV-Receiver?</string>
+        <string id="19928">Factor to adjust volume sensitivity of AV-Receiver</string>
+
+</strings>
+

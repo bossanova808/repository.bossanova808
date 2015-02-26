@@ -1,0 +1,14 @@
+
+XSQUEEZE NEW VERSION CHANGELOG....
+
+[B]What's new in this version:[/B]
+
+V1.1.7
+- Inhibit XBMC shutdown when XSqueeze active
+
+If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
+
+[B]Now hit exit and re-run XSqueeze - you won't get this message again[/B]
+
+
+
