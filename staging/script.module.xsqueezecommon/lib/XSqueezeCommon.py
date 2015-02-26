@@ -627,3 +627,4 @@ class SqueezePlayer:
 
   def getpowerstate(self):
     return self.sb.get_power_state()
+  
