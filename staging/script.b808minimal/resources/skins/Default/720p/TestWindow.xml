@@ -1,0 +1,130 @@
+<!--
+
+-->
+
+<window>
+  <allowoverlay>no</allowoverlay>
+  <controls>
+
+    <!-- STATIC BACKGROUND -->
+    <control type="image">
+      <posx>0</posx>
+      <posy>0</posy>
+      <width>1280</width>
+      <height>720</height>
+      <texture>black.jpg</texture>
+    </control>
+
+    <!-- ANIMATIONS -->
+    <control type="image">
+      <posx>0</posx>
+      <posy>100r</posy>
+      <width>1280</width>
+      <height>100</height>
+      <texture>floor.png</texture>
+      <include>VisibleFadeEffect</include>
+      <animation effect="slide" start="0,10" end="0,0" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+      <animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
+    </control>
+
+      <!-- CLOSE Button -->
+  		<control type="button" id="2599">
+  			<description>Close Window button</description>
+  			<posx>84r</posx>
+  			<posy>0</posy>
+  			<width>64</width>
+  			<height>32</height>
+  			<texturefocus>DialogCloseButton-focus.png</texturefocus>
+  			<texturenofocus>DialogCloseButton.png</texturenofocus>
+   		</control>
+
+
+         <control type="label" id="203">
+          <descriptionTest</description>
+          <posx>0</posx>
+          <posy>120</posy>
+          <width>200</width>
+          <visible>true</visible>
+          <align>left</align>
+          <aligny>center</aligny>
+          <scroll>true</scroll>
+          <label>TEST LABEL</label>
+          <font>font11_title</font>
+          <textcolor>FF9999FF</textcolor>
+        </control>
+
+
+
+    <!-- FROM HERE DOWN - THE CLOCK & WEATHER -->
+    <control type="group">
+      <posx>520r</posx>
+      <posy>0</posy>
+      <animation effect="slide" start="0,0" end="-60,0" delay="0" time="300" condition="Window.IsVisible(MuteBug)">conditional</animation>
+      <animation effect="slide" start="0,0" end="550,0" delay="0" time="300">WindowClose</animation>
+      <animation effect="slide" start="550,0" end="0,0" delay="0" time="300">WindowOpen</animation>
+      <visible>!Skin.HasSetting(homepageWeatherinfo) + Weather.IsFetched</visible>
+      <control type="image">
+        <description>time background</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <width>180</width>
+        <height>35</height>
+        <texture flipx="true" border="32,0,0,0">header.png</texture>
+      </control>
+      <control type="image">
+        <description>Weather image</description>
+        <posx>30</posx>
+        <posy>1</posy>
+        <width>25</width>
+        <height>25</height>
+        <aspectratio>keep</aspectratio>
+        <texture>$INFO[Window(Weather).Property(Current.ConditionIcon)]</texture>
+      </control>
+      <control type="label">
+        <description>time label</description>
+        <posx>60</posx>
+        <posy>0</posy>
+        <width>100</width>
+        <height>28</height>
+        <align>left</align>
+        <aligny>center</aligny>
+        <font>font12</font>
+        <textcolor>white</textcolor>
+        <shadowcolor>black</shadowcolor>
+        <label>[B]$INFO[Weather.Temperature][/B]</label>
+      </control>
+    </control>
+    <control type="group">
+      <posx>390r</posx>
+      <posy>0</posy>
+      <animation effect="slide" start="0,0" end="-60,0" delay="0" time="300" condition="Window.IsVisible(MuteBug)">conditional</animation>
+      <animation effect="slide" start="0,0" end="420,0" delay="0" time="300">WindowClose</animation>
+      <animation effect="slide" start="420,0" end="0,0" delay="0" time="300">WindowOpen</animation>
+      <control type="image">
+        <description>time background</description>
+        <posx>0</posx>
+        <posy>0</posy>
+        <width>440</width>
+        <height>35</height>
+        <texture flipx="true" border="32,0,0,0">header.png</texture>
+      </control>
+      <control type="label">
+        <description>time label</description>
+        <posx>30</posx>
+        <posy>0</posy>
+        <width>400</width>
+        <height>28</height>
+        <align>left</align>
+        <aligny>center</aligny>
+        <font>font12</font>
+        <textcolor>white</textcolor>
+        <shadowcolor>black</shadowcolor>
+        <label>[COLOR=grey]$INFO[System.Date][/COLOR] | $INFO[System.Time]</label>
+      </control>
+    </control>
+    <!-- END - THE CLOCK & WEATHER -->
+
+
+
+  </controls>
+</window>

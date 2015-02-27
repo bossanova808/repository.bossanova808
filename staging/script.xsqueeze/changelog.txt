@@ -1,0 +1,188 @@
+V1.1.9
+- Static linked builds of squeezelite for Pi, Win, OSX - shoudl restore MP3 playback on Pi.
+- Linux builds not yet available to fix mp3 playback issue on OE sorry 
+
+V1.1.8
+- Bugfix for app browsing in the Chooser (Radios still being looked in to)
+- Support for Rasp Pi 2 (not tested - let me know if it breaks!!)
+- I am aware of issue on Openelec 5 and MP3s not playing, hope to have a soluton soon - in the meantime, play FLACS ;)
+
+V1.1.7
+- Inhibit xbmc shutdown when xbmc active
+
+V1.1.6
+- Update to b808common 0.1.6
+
+V1.1.4
+- Fixed an issue with Kodi paths
+- Add user/pw support to album covers
+
+V1.1.3
+- Add a pause in the GUI thread to stop it thrashing about so much.  Seems to significantly 
+  improve performance on low CPU machines like the Pi, and doesn't seem to adversely affect fast cpu machines
+  Win win!
+  
+V1.1.2
+- Updated squeezelite to 1.6.3
+- Trapped some dodgy unicode chars that caused crashes
+- Moved various settings to a troubleshooting section that
+  most people should not need to touch
+- Give artist slideshow 4 seconds (by default) to exit cleanly, otherwise exit anyway
+- ...as latest AS seems buggy in this area.
+
+V1.1.1
+- Settings overhaul with better help
+- Auto discover & set IP for LMS
+- Auto discover & set audio outputs
+
+V1.0.9
+- Attempted bugfix for 1.0.8 squeezelite switches
+
+V1.0.8
+- Added option to pause at exit to allow xbmc audio device to resume
+- Updated Squeezelite to 1.5
+
+V1.0.5 
+- Updated skin files for Gotham
+
+V1.0.4
+- Python API bumps for Gotham
+
+V1.0.3
+- Updated Squeezelite
+
+V1.0.2
+- Better track details for streaming services (thanks crackers)
+
+V1.0.1
+- Updated Squeezelite to 1.2 (July 6th 2013) & Squeezeslave 1.3.390
+
+v1.0.0
+- No bug reports for a while,so releasing V1
+- Includes Squeezelite 1.1 release
+
+v0.9.5
+- Integration of Squeezelite, update all brinaries, fixing of linux/Pi/Mac
+- Spotify support via Squeezelite
+- Onscreen controls now keyboard friendly 
+
+v0.7.8
+- Update to new Rasp Pi binary
+
+v0.7.6
+- Dependencies bump to force new common code
+
+v 0.7.5
+- Touch screen controls - EXPERIMENTAL AND PRELIMINARY!!
+- Removed disable screensaver option (causes crashes, will re-add if an official method for this becomes available)
+- Did a pull request to script.artistslideshow to fix up slow/messy exit - now exits immediately & cleanly
+- Sundry other minor cleanups to make it more stable/quicker
+
+V0.6.7
+- Moved from python setting the images to using window properties
+- Improve play/pause logic (thanks to ReducedToZero)
+- Updated squeezeslave to latest including hardfloat for rasp pi
+
+V0.6.6
+- Suspend and resume XBMC's new AE to make sure we have access to the audio device in Frodo XBMC
+- Changes for Artist Slideshow's new multi artist track features
+- 'ReducedToZero' requests:
+  - Stopped XSqueeze crashing if controls aren't present in the skin file (needs testing!)
+  - Play button now acts as play/pause
+  - Exposed GENRE, BITRATE and FILFORMAT to skin.
+
+V0.6.5
+- version bumps to diagnose issue with googlecode addon repos not working - ticket lodged, fix now in mainline XBMC for Frodo
+
+V0.6.2
+- More Arm fixes
+- Custom keymap used to get rid of annoying xbmc pop ups when skipping tracks and changing volume
+
+V0.5.8
+- Fixes for platform detection, made skin note about chooser smaller for Frodo compatibility.
+
+V0.5.6
+- Try to detect ARM systems, & use arm binary for squeezeslave.  Only tested with Raspbmc so far
+
+V0.5.5
+- Fix bug in progress bar, woops
+
+V0.5.4
+- Bug fixes and forces addon configuration is the user hasn't done this yet
+
+V0.5.1
+- New XSqueeze music chooser component
+
+V0.4.7
+-  Migrate from pysqueezecentre to new pylms - see https://github.com/jingleman/PyLMS
+-  Support for servers with username/password
+
+V0.4.6
+- Cover art support for streams and radio stations
+- Uses xbmc's system detection not Python
+
+V0.4.5
+- Fixes for music files with crappy tags, e.g. missing track numbers
+
+V0.4.4
+- Added some remote codes (action IDs in actionmap.py) for Apple remote support
+
+V0.4.3
+- Tweak dependencies to try and avoid 'damaged' reports
+
+V0.4.2
+- Fix for permission on OSX (thanks to pkscout) - unfortunately server and audio discovery is not yet fixed...need some OSX helpers!!
+
+V0.4.1
+- Changed system platform detection, hopefully OSX is ok now??
+- Cleaner exit handling - traps hammering of the exit button which could cause crashes
+
+V0.3.9
+- Big internal changes to reduce load on server
+- Up to 10 tracks o fplaylsit displayed
+- Integration of script.artistslideshow
+- Fixed various character things, including searching
+- Localisation
+- Prep for attemp to move to offical repo
+- Added skinning notes to the default skin to make new skin files easy
+- Moved thread info to XBMC wiki
+
+V0.3.2
+- Unicode support
+- Fixed volume display
+
+V0.3.1
+- First run detection now doesn't count autodetect runs
+- Confluence skin file, shortened labels so they shouldn't go off edge
+- I tnow attempts to chmod the binaries every run for good measure and so there's always a note in the log file if that is an issue
+- prep work for lots of song info available to skin (not yett exposed)
+
+V0.3
+-Bug fixes for player macs
+
+V0.2.9 (late Feb 2012)
+- Server and audio output discovery, localisation, clean up and bug fixes
+- New icon
+
+V0.2.3
+- Bug fixes
+
+V0.2
+- Local playback now comes with the add on - i.e. Squeezeslave binaries, and control of these are now integrated into the add on
+- (Confluence) skin file much prettier
+
+v0.0.9
+- uses doModal and threading
+- now completely skinnable with all data going into $INFO
+- instructions to come...
+- cover art uses direct URLs instead of downloading
+- stability fixes
+- first semi-decent version!
+
+v0.0.6
+- Re-Write to skinnable windowXML, pulled in current track art, details, progress etc, plus next three tracks
+- Known issue - foreign chars not right
+- cover art can be temperamental especially if there isn't any for a track...
+
+v0.0.1 (late Jan 2012)
+- Initial alpha test version
