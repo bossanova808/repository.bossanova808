@@ -757,8 +757,6 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           notify(LANGUAGE(19612),LANGUAGE(19609))
           self.player.button("stop")
 
-        #tunn off hdmi av-receiver
-        #avr.standby()
 
         #tidy up before the window closes...
         log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")
