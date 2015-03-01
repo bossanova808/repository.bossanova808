@@ -1,0 +1,18 @@
+[B]Version 0.17[/B]
+- Moved rep to github so everything is nicely in one place
+
+[B]Version 0.1[/B]
+- XSqueeze back into this repo as binaries are required so teh xbmc devs won't let into master repo
+- Back to old diretcory structure
+
+[B]Version 0.0.8[/B]
+- OzWeather and XSqueeze move to own googlecode repos for easier inclusion into XBMS master repo
+
+[B]Version 0.0.8[/B]
+- Added reference to XSqueeze
+
+[B]Version 0.0.3[/B]
+- Moved to GoogleCode
+
+[B]Version 0.0.1[/B]
+- Initial version

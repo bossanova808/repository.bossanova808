@@ -1,0 +1,4 @@
+v0.0.1 
+- Initial alpha test version to trace winow strack issue
+- XBMC trac #13719
+
