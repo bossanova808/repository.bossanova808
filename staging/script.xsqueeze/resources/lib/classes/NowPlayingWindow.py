@@ -10,7 +10,7 @@ import constants
 import cec
 
 #hdmi support
-if constants.turnonavr == 'true': 
+if constants.TURNONAVR == 'true'and constants.CECSUPPORT == 'true': 
   cec.init()
   tv   = cec.Device(0)
   avr  = cec.Device(5)
@@ -303,28 +303,28 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.updateCoverArtFromURLs()
 
         #trigger a hdmi command, if a controller has changed the power status or the volume
-        if constants.turnonavr == 'true':  
+        if constants.TURNONAVR == 'true' and constants.CECSUPPORT == 'true':  
           powerstate = self.player.getpowerstate()
-          if powerstate == 0 and constants.hdmipower == "true":
-            if constants.turnofftv == "true":
+          if powerstate == 0 and constants.HDMIPOWER == "true":
+            if constants.TURNOFFTV == "true":
                tv.standby()
                pass
-            if constants.turnonavr == "true":
+            if constants.TURNONAVR == "true":
                avr.standby()
-            constants.hdmipower = "false"
-          elif powerstate != 0 and constants.hdmipower == "false":
-            if constants.turnonavr == "true":
+            constants.HDMIPOWER = "false"
+          elif powerstate != 0 and constants.HDMIPOWER == "false":
+            if constants.TURNONAVR == "true":
                avr.power_on()
-               avr.set_av_input(int(constants.avrinput))
-            constants.hdmipower = "true"
+               avr.set_av_input(int(constants.AVRINPUT))
+            constants.HDMIPOWER = "true"
           else:
             pass
 
-        if constants.adjustvol == "true":
+        if constants.ADJUSTVOL == "true" and constants.CECSUPPORT == 'true':
           vol1 = self.player.getVolume()
           xbmc.sleep(1000)
           vol2 = self.player.getVolume()
-          counter = 0 - int(constants.volfactor)
+          counter = 0 - int(constants.VOLFACTOR)
           if vol2 > vol1:
             while counter <= abs(vol1 -vol2):
               cec.volume_up()
@@ -441,13 +441,13 @@ class NowPlayingWindow(xbmcgui.WindowXML):
             self.exitXSqueeze()
           
           #hdmi support not working yet
-	  if (control == constants.BUTTONVOLUP):
+	  if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true':
             cec.volume_up()
             cec.volume_up()
             cec.volume_up()
             cec.volume_up()
 
-          if (control == constants.BUTTONVOLDN): 
+          if (control == constants.BUTTONVOLDN)and constants.CECSUPPORT == 'true': 
             cec.volume_down()
             cec.volume_down()
             cec.volume_down()

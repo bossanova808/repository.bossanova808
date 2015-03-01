@@ -46,10 +46,11 @@
        <setting id="waitOnAS" type="number" label="Max wait seconds for artist slideshow to exit cleanly... (default 10)" default="10"/>
     </category>
     <category label="HDMI CEC">
-       <setting id="turnonavr" type="bool" label="19924" default="true"/>
+       <setting id="cecsupport" type="bool" label="19929" default="false"/>
+       <setting id="turnonavr" type="bool" label="19924" default="false"/>
        <setting id="avrinput" type="number" label="19925" default="3"/>
        <setting id="turnofftv" type="bool" label="19926" default="false"/>
-       <setting id="adjustvol" type="bool" label="19927" default="true"/>
-       <setting id="volfactor" type="slider" label="19928" default="15" range="0,30" option="int"/>
+       <setting id="adjustvol" type="bool" label="19927" default="false"/>
+       <setting id="volfactor" type="slider" label="19928" default="25" range="0,50" option="int"/>
     </category>
 </settings>
