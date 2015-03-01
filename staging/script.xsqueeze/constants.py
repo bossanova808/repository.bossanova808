@@ -129,14 +129,15 @@ SECONDS_TO_WAIT_FOR_ARTISTSLIDESHOWEXIT = int(ADDON.getSetting('waitOnAS'))
 ###############################################################################
 #GET HDMI CEC SETTINGS
 
-turnonavr = ADDON.getSetting('turnonavr')
-avrinput  = ADDON.getSetting('avrinput')
-turnofftv  = ADDON.getSetting('turnofftv')
-adjustvol = ADDON.getSetting('adjustvol')
-volfactor = ADDON.getSetting('volfactor')
+CECSUPPORT = ADDON.getSetting('cecsupport')
+TURNONAVR  = ADDON.getSetting('turnonavr')
+AVRINPUT   = ADDON.getSetting('avrinput')
+TURNOFFTV  = ADDON.getSetting('turnofftv')
+ADJUSTVOL  = ADDON.getSetting('adjustvol')
+VOLFACTOR  = ADDON.getSetting('volfactor')
 
 #variable to ensure that hdmipower commands are only send once and not all the time
-hdmipower = "false"
+HDMIPOWER = "false"
 
 ################################################################################
 # Deal with the squeezeslave executeables...

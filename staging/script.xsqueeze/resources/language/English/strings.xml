@@ -71,6 +71,7 @@
 	<string id="19926">Turn off TV?</string>
         <string id="19927">Adjust volume of AV-Receiver?</string>
         <string id="19928">Factor to adjust volume sensitivity of AV-Receiver</string>
+        <string id="19929">HDMI CEC Support</string>
 
 </strings>
 
