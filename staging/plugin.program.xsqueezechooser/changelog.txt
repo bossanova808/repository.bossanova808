@@ -1,0 +1,18 @@
+v0.1.8
+- Updated to b808common 0.1.8
+- Bugfixes to App browsing
+- Radios still not ok 
+
+v0.1.7
+- Updated to b808common 0.1.6 
+
+v0.1.6
+- Fixed missing import issue that shows up only with kodi/helix 
+
+v0.0.2
+- New chooser modes - radios, favourites, years etc. 
+
+v0.0.1
+- Initial release
+- TO Do: add choosing by years, radios, plugins if possible
+
