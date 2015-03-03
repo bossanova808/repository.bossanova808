@@ -2,6 +2,8 @@
 XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
+V1.2.0
+- Test static binaries for linux 32/64 bit
 
 V1.1.9
 - Static squeezelite builds for Rasp Pi/2 - should solve mp3 playback issues on those platforms with lucl
