@@ -7,10 +7,10 @@ from XSqueezeCommon import *
 from b808common import *
 import datetime
 import constants
-import cec
 
 #hdmi support
-if constants.TURNONAVR == 'true'and constants.CECSUPPORT == 'true': 
+if constants.CECSUPPORT == 'true':
+  import cec
   cec.init()
   tv   = cec.Device(0)
   avr  = cec.Device(5)
@@ -120,7 +120,7 @@ SQUEEZE_CODES = {
                 'ACTION_JUMP_SMS8'        :'8',
                 'ACTION_JUMP_SMS9'        :'9',
                 'ACTION_FIRST_PAGE'       :'fwd.single',
-		'ACTION_LAST_PAGE'        :'rew.single',
+                'ACTION_LAST_PAGE'        :'rew.single',
                 'BUTTON_SKIPBACK'         : 'rew.single',
                 'BUTTON_REWIND'           : 'rew.hold',
                 'BUTTON_PLAYPAUSE'        : 'play.single',
@@ -220,11 +220,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     self.playlistDetails = [""]
     self.playlist = [""]
 
-
     #a thread lock to use so that each SB related action is finished before the
     #next one is sent - without this you get race conditions over the telnet
     #interface!
     self.lock = threading.Lock()
+
 
   ##############################################################################
   #the method called when the window is inited
@@ -261,7 +261,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     except Exception as inst:
         log("Exception in NowPlayingWindow main loop: ", inst)
         raise
-   
+
   ##############################################################################
   #this is our GUI update thread and is used to update the window's display
   #must lock other threads
@@ -303,7 +303,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.updateCoverArtFromURLs()
 
         #trigger a hdmi command, if a controller has changed the power status or the volume
-        if constants.TURNONAVR == 'true' and constants.CECSUPPORT == 'true':  
+        if constants.TURNONAVR == 'true' and constants.CECSUPPORT == 'true':
           powerstate = self.player.getpowerstate()
           if powerstate == 0 and constants.HDMIPOWER == "true":
             if constants.TURNOFFTV == "true":
@@ -332,11 +332,11 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           elif vol2 < vol1:
             while counter <= abs(vol1 -vol2) :
               cec.volume_down()
-              counter = counter + 1 
+              counter = counter + 1
           elif vol2 == vol1:
             pass
 
-  ##############################################################################
+##############################################################################
   # Kick off the artist.slideshow
 
   def runArtistSlideshow(self):
@@ -396,7 +396,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         else:
 
           #define handlers for each of the controls to determine the correct
-          #squeezebox code to send
+          #squeezebox code to seend
 
           if (control == constants.BUTTONSKIPBACK):
             log("Button event: SKIPBACK")
@@ -439,19 +439,19 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           if (control == constants.BUTTONEXIT):
             log("Button event: EXIT")
             self.exitXSqueeze()
-          
-          #hdmi support not working yet
-	  if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true':
+
+         #hdmi support
+          if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true':
             cec.volume_up()
             cec.volume_up()
             cec.volume_up()
             cec.volume_up()
 
-          if (control == constants.BUTTONVOLDN)and constants.CECSUPPORT == 'true': 
+          if (control == constants.BUTTONVOLDN)and constants.CECSUPPORT == 'true':
             cec.volume_down()
             cec.volume_down()
             cec.volume_down()
-            cec.volume_down()          
+            cec.volume_down()
 
           #ok now actually send the command through if it is a squeeze command
           if (actionSqueeze != '') and not directCommand:
@@ -461,7 +461,8 @@ class NowPlayingWindow(xbmcgui.WindowXML):
             #make volume a bit quickcer...send the signal twice..
             if actionSqueeze=="volup" or actionSqueeze =="voldown":
               self.player.button(actionSqueeze)
-          
+
+
     #...else user has probably hammered the close button...tell them to cool their jets...
     else:
       notify("Cool your jets.","I'm cleaning up before exiting...")
@@ -481,7 +482,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
       return actionSqueeze
 
   ##############################################################################
-  # Handle window actions
+  # Handle window acitions
   # generally by mapping XBMC window actions to squeezeslave methods
 
   def onAction( self, action ):
@@ -756,7 +757,6 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         if constants.PLAYBACK:
           notify(LANGUAGE(19612),LANGUAGE(19609))
           self.player.button("stop")
-
 
         #tidy up before the window closes...
         log("Cleanup - cleaning covers, playlist and waiting on artist.slideshow to signal finish...")

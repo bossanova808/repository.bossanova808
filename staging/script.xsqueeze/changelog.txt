@@ -1,3 +1,6 @@
+V1.2.0
+- Static binaries for linux, squeezelite
+
 V1.1.9
 - Static linked builds of squeezelite for Pi, Win, OSX - shoudl restore MP3 playback on Pi.
 - Linux builds not yet available to fix mp3 playback issue on OE sorry 

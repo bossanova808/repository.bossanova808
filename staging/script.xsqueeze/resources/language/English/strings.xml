@@ -56,7 +56,6 @@
 	<string id="19912">Enter player MAC (See LMS Settings->Infomation)</string>
 	<string id="19913">Skin file to use</string>
 	<string id="19914">Disable screensaver while playing?</string>
-
 	<string id="19915">(NB - EXPERIMENTAL - Can cause XSqueeze to hang on exit)</string>
 	<string id="19916">(NB - If server discovery fails, use settings below...)</string>
 	<string id="19917">(NB - if audio discovery fails, manually input args above.)</string>
@@ -66,9 +65,9 @@
 	<string id="19921">Resume playback immediately on startup?</string>
 	<string id="19922">Enable Mouse/Touch Screen Controls?</string>
 	<string id="19923">Choose player:</string>
-	<string id="19924">Turn on/off AV-Receiver?</string>
-	<string id="19925">AV-Receiver input:</string>
-	<string id="19926">Turn off TV?</string>
+        <string id="19924">Turn on/off AV-Receiver?</string>
+        <string id="19925">AV-Receiver input:</string>
+        <string id="19926">Turn off TV?</string>
         <string id="19927">Adjust volume of AV-Receiver?</string>
         <string id="19928">Factor to adjust volume sensitivity of AV-Receiver</string>
         <string id="19929">HDMI CEC Support</string>

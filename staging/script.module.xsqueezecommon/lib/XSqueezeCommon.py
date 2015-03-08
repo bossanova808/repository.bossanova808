@@ -7,6 +7,7 @@ import xbmcaddon
 import xbmcplugin
 import xbmcvfs
 import xbmcgui
+import pprint
 
 import urllib
 import sys
@@ -32,7 +33,7 @@ from pylms.player import Player
 # The LMS Server and port - either discovered in the add on settings
 #  or manually set
 SERVERIP    = REF_TO_XSQUEEZE.getSetting('serverIP')
-SERVERNAME = SERVERIP
+SERVERNAME  = SERVERIP
 SERVERPORT  = REF_TO_XSQUEEZE.getSetting('serverPort')
 SERVERUSER  = REF_TO_XSQUEEZE.getSetting('serverUser')
 SERVERPASS  = REF_TO_XSQUEEZE.getSetting('serverPass')
@@ -80,6 +81,11 @@ class SqueezePlayer:
   #constructor - connect to the server and player so we can do stuff
   #other handy start up stuff
   def __init__(self,basicOnly=False):
+
+    #optionally pass in a player MAC here to connect to a different player for the info display
+    #if MAC is not None:
+    #  log("Using MAC " + MAC)
+    #  PLAYERMAC = MAC
 
     #serverIP still null, something went wrong...
     if SERVERIP=="":
@@ -377,6 +383,15 @@ class SqueezePlayer:
     return self.sb.get_track_duration()
 
   ##############################################################################
+  # Show some text on the player's screen
+
+  def show(self,line1="", line2=""''"", duration=3, brightness=4, font="standard", centered=False):
+    self.sb.show(line1,line2,duration,brightness,font,centered)
+
+  def display(self, line1="", line2="", duration=1):
+    self.sb.request("display " + line1 + " " + line2 + " " + str(duration))
+
+  ##############################################################################
   # returns current mode ('play' 'pause' or 'stop')
 
   def getMode(self):
@@ -490,13 +505,13 @@ class SqueezePlayer:
     else:
       log("Server Request: " + str(cmdString))
       results = self.sc.requestRaw(cmdString)
-    log("Result string: "+ str(results))
+    log("Result string: "+ pprint.pformat(results))
     #strip off the request stuff at the start
     resultStr = results[results.find(splitOn):]
-    log("Split string: "+ str(resultStr))
+    log("Split string: "+ pprint.pformat(resultStr))
     #ok now split the string on 'splitOn' to get each radio station
     chunks = resultStr.split(splitOn + "%3A")[1:]
-    log("Processed Chunks: "+ str(chunks))
+    log("Processed Chunks: " + pprint.pformat(chunks))
     output=[]
     for chunk in chunks:
       chunk = chunk.strip()
@@ -538,7 +553,7 @@ class SqueezePlayer:
       self.sb.request(urllib.quote(cmd) + " playlist play item_id:" + itemid)
 
   def getApps(self):
-    return self.parseSpecial("apps 0 100000","icon", playerRequest=True)
+    return self.parseSpecial("apps 0 100000","cmd", playerRequest=True)
 
   def getFavourites(self):
     return self.parseSpecial("favorites items 0 100000","id", playerRequest=True)
