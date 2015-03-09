@@ -639,3 +639,6 @@ class SqueezePlayer:
 
   def getVolume(self):
     return self.sb.get_volume()
+
+  def getpowerstate(self):
+    return self.sb.get_power_state()

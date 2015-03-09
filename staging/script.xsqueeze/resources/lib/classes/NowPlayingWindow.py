@@ -8,6 +8,13 @@ from b808common import *
 import datetime
 import constants
 
+#hdmi support
+if constants.CECSUPPORT == 'true':
+  import cec
+  cec.init()
+  tv   = cec.Device(0)
+  avr  = cec.Device(5)
+
 ################################################################################
 ################################################################################
 ################################################################################
@@ -295,7 +302,41 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.updatePlaylistDetails()
         self.updateCoverArtFromURLs()
 
-  ##############################################################################
+        #trigger a hdmi command, if a controller has changed the power status or the volume
+        if constants.TURNONAVR == 'true' and constants.CECSUPPORT == 'true':
+          powerstate = self.player.getpowerstate()
+          if powerstate == 0 and constants.HDMIPOWER == "true":
+            if constants.TURNOFFTV == "true":
+               tv.standby()
+               pass
+            if constants.TURNONAVR == "true":
+               avr.standby()
+            constants.HDMIPOWER = "false"
+          elif powerstate != 0 and constants.HDMIPOWER == "false":
+            if constants.TURNONAVR == "true":
+               avr.power_on()
+               avr.set_av_input(int(constants.AVRINPUT))
+            constants.HDMIPOWER = "true"
+          else:
+            pass
+
+        if constants.ADJUSTVOL == "true" and constants.CECSUPPORT == 'true':
+          vol1 = self.player.getVolume()
+          xbmc.sleep(1000)
+          vol2 = self.player.getVolume()
+          counter = 0 - int(constants.VOLFACTOR)
+          if vol2 > vol1:
+            while counter <= abs(vol1 -vol2):
+              cec.volume_up()
+              counter = counter + 1
+          elif vol2 < vol1:
+            while counter <= abs(vol1 -vol2) :
+              cec.volume_down()
+              counter = counter + 1
+          elif vol2 == vol1:
+            pass
+
+##############################################################################
   # Kick off the artist.slideshow
 
   def runArtistSlideshow(self):
@@ -398,6 +439,19 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           if (control == constants.BUTTONEXIT):
             log("Button event: EXIT")
             self.exitXSqueeze()
+
+         #hdmi support
+          if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true':
+            cec.volume_up()
+            cec.volume_up()
+            cec.volume_up()
+            cec.volume_up()
+
+          if (control == constants.BUTTONVOLDN)and constants.CECSUPPORT == 'true':
+            cec.volume_down()
+            cec.volume_down()
+            cec.volume_down()
+            cec.volume_down()
 
           #ok now actually send the command through if it is a squeeze command
           if (actionSqueeze != '') and not directCommand:
