@@ -52,10 +52,12 @@
        <setting id="turnonavr" type="bool" label="19924" default="false"/>
        <setting label="Enter the hdmi input of your av-receiver which this device is connected to..." type="lsep"/>
        <setting id="avrinput" type="number" label="19925" default="3"/>
-       <setting label="Enable this if you want to turn off your TV..." type="lsep"/>
+       <setting label="Enable this if you want to turn on/off your TV..." type="lsep"/>
        <setting id="turnofftv" type="bool" label="19926" default="false"/>
-       <setting label="Allow XSqueeze to adjust the volume of your external hdmi amp ..." type="lsep"/>
+       <setting label="If you allow XSqueeze to adjust the volume of your external hdmi amp, it is" type="lsep"/>
+       <setting label="recommended to modify your player settings. You should set the volume of the" type="lsep"/>
+       <setting label="player permanently to 100% ..." type="lsep"/>
        <setting id="adjustvol" type="bool" label="19927" default="false"/>
-       <setting id="volfactor" type="slider" label="19928" default="25" range="0,50" option="int"/>
+       <setting id="volfactor" type="slider" label="19928" default="2" range="0,10" option="int"/>
     </category>
 </settings>
