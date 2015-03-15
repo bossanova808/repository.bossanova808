@@ -243,6 +243,12 @@ class NowPlayingWindow(xbmcgui.WindowXML):
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_NAME", "XSqueeze "+ VERSION)
     xbmcgui.Window(self.windowID).setProperty("XSQUEEZE_SHUFFLESTATE", SHUFFLESTATEICONS['shuffleoff_fo'])
 
+    #variable to ensure that hdmipower commands are only send once and not all the time
+    self.hdmipower = "false"
+
+    #variable for hdmi support
+    self.hdmivol ="false"
+
     #kick off new threads if this is the first call to init
     # (as init is called when we drop back from the chooser plugin to XSqueeze)
 
@@ -303,39 +309,28 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         self.updateCoverArtFromURLs()
 
         #trigger a hdmi command, if a controller has changed the power status or the volume
-        if constants.TURNONAVR == 'true' and constants.CECSUPPORT == 'true':
+        if constants.CECSUPPORT == 'true':
           powerstate = self.player.getpowerstate()
-          if powerstate == 0 and constants.HDMIPOWER == "true":
+          if powerstate == 0 and self.hdmipower == "true":
             if constants.TURNOFFTV == "true":
                tv.standby()
-               pass
             if constants.TURNONAVR == "true":
                avr.standby()
-            constants.HDMIPOWER = "false"
-          elif powerstate != 0 and constants.HDMIPOWER == "false":
+            self.hdmipower = "false"
+          elif powerstate != 0 and self.hdmipower == "false":
+            if constants.TURNOFFTV == "true":
+               tv.power_on()
             if constants.TURNONAVR == "true":
                avr.power_on()
                avr.set_av_input(int(constants.AVRINPUT))
-            constants.HDMIPOWER = "true"
+            self.hdmipower = "true"
           else:
             pass
 
         if constants.ADJUSTVOL == "true" and constants.CECSUPPORT == 'true':
-          vol1 = self.player.getVolume()
-          xbmc.sleep(1000)
-          vol2 = self.player.getVolume()
-          counter = 0 - int(constants.VOLFACTOR)
-          if vol2 > vol1:
-            while counter <= abs(vol1 -vol2):
-              cec.volume_up()
-              counter = counter + 1
-          elif vol2 < vol1:
-            while counter <= abs(vol1 -vol2) :
-              cec.volume_down()
-              counter = counter + 1
-          elif vol2 == vol1:
-            pass
+         self.updatehdmivol()
 
+     
 ##############################################################################
   # Kick off the artist.slideshow
 
@@ -441,17 +436,21 @@ class NowPlayingWindow(xbmcgui.WindowXML):
             self.exitXSqueeze()
 
          #hdmi support
-          if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true':
-            counter = 1
-            while counter <= int(constants.VOLFACTOR):
-             cec.volume_up()
-             counter = counter + 3
+          if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true' and constants.ADJUSTVOL == "true":
+           if self.vol1 < 100:
+             i = 0
+             for i in range(int(constants.VOLFACTOR)*2):
+               cec.volume_up()
+               self.hdmivol = "false"
+               i=i+2
 
-          if (control == constants.BUTTONVOLDN)and constants.CECSUPPORT == 'true':
-            counter = 1
-            while counter <= int(constants.VOLFACTOR):
-             cec.volume_down()
-             counter = counter + 3
+          if (control == constants.BUTTONVOLDN) and constants.CECSUPPORT == 'true' and constants.ADJUSTVOL == "true" :
+           if self.vol1 > 0:  
+             i = 0
+             for i in range(int(constants.VOLFACTOR)*2):
+               cec.volume_down()
+               self.hdmivol = "false"
+               i=i+2
 
           #ok now actually send the command through if it is a squeeze command
           if (actionSqueeze != '') and not directCommand:
@@ -728,6 +727,25 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         except Exception as inst:
             #log("Volume bar update exception: " + str(inst))
             pass
+
+  def updatehdmivol(self):
+     self.vol2 = self.player.getVolume()
+     if self.hdmivol == "false":
+       self.vol1 = self.player.getVolume()
+       self.hdmivol = "true"
+     counter = 0
+     if self.vol2 > self.vol1:
+       while counter <= (abs(self.vol1 -self.vol2) * int(constants.VOLFACTOR)):
+         cec.volume_up()
+         self.hdmivol = "false"
+         counter = counter + 1
+     elif self.vol2 < self.vol1:
+       while counter <= (abs(self.vol1 -self.vol2) * int(constants.VOLFACTOR)):
+         cec.volume_down()
+         self.hdmivol = "false"
+         counter = counter + 1
+     elif self.vol2 == self.vol1:
+       pass
 
 ################################################################################
 ################################################################################
