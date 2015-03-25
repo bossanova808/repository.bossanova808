@@ -1,0 +1,11 @@
+[% PROCESS settings/header.html %]
+
+	[% WRAPPER setting title="PLUGIN_FILEVIEWER_FILENAME" desc="" %]
+		<input type="text" class="stdedit selectFile" name="plugin_fileviewer_filename" id="plugin_fileviewer_filename" value="[% prefs.plugin_fileviewer_filename %]" size="40">
+	[% END %]
+
+	[% WRAPPER setting title="PLUGIN_FILEVIEWER_UPDATEINTERVAL" desc="PLUGIN_FILEVIEWER_UPDATEINTERVAL_DESC" %]
+		<input type="text" class="stdedit" name="plugin_fileviewer_updateinterval" id="plugin_fileviewer_updateinterval" value="[% prefs.plugin_fileviewer_updateinterval %]" size="5">
+	[% END %]
+
+[% PROCESS settings/footer.html %]

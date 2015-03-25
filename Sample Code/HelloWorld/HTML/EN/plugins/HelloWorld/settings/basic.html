@@ -1,0 +1,14 @@
+[% PROCESS settings/header.html %]
+
+	[% WRAPPER setting title="PLUGIN_HELLOWORLD" desc="" %]
+		<div class="prefDesc">[% "PLUGIN_HELLOWORLD_DESC" | string %]</div>
+	[% END %]
+
+	[% WRAPPER settingSection %]
+		[% WRAPPER settingGroup title="PLUGIN_HELLOWORLD_NAME" desc="" %]
+			<input type="text" class="stdedit" name="helloname" id="helloname" value="[% prefs.helloname %]" size="20" />
+		[% END %]
+
+	[% END %]
+
+[% PROCESS settings/footer.html %]

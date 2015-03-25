@@ -1,0 +1,20 @@
+[% PROCESS settings/header.html %]
+	[% WRAPPER setting title="PLUGIN_XSQUEEZEDISPLAY" desc="PLUGIN_XSQUEEZEDISPLAY_DESC" %]
+	[% END %]
+
+	[% WRAPPER settingSection %]
+		[% WRAPPER settingGroup title="PLUGIN_XSQUEEZEDISPLAY_XBMCIP" desc="PLUGIN_XSQUEEZEDISPLAY_XBMCIP_DESC" %]
+			<input type="text" class="stdedit" name="xbmcip" id="xbmcip" value="[% prefs.xbmcip %]" size="16" />
+		[% END %]
+		[% WRAPPER settingGroup title="PLUGIN_XSQUEEZEDISPLAY_XBMJSONPORT" desc="PLUGIN_XSQUEEZEDISPLAY_XBMJSONPORT_DESC" %]
+			<input type="text" class="stdedit" name="xbmcport" id="xbmcport" value="[% prefs.xbmcport %]" size="8" />
+		[% END %]
+		[% WRAPPER settingGroup title="PLUGIN_XSQUEEZEDISPLAY_XBMCJSONUSER" desc="PLUGIN_XSQUEEZEDISPLAY_XBMCJSONUSER_DESC" %]
+			<input type="text" class="stdedit" name="xbmcjsonuser" id="xbmcjsonuser" value="[% prefs.xbmcjsonuser %]" size="30" />
+		[% END %]
+		[% WRAPPER settingGroup title="PLUGIN_XSQUEEZEDISPLAY_XBMCJSONPASSWORD" desc="PLUGIN_XSQUEEZEDISPLAY_XBMCJSONPASSWORD" %]
+			<input type="text" class="stdedit" name="xbmcjsonpassword" id="xbmcjsonpassword" value="[% prefs.xbmcjsonpassword %]" size="30" />
+		[% END %]
+
+	[% END %]
+[% PROCESS settings/footer.html %]
