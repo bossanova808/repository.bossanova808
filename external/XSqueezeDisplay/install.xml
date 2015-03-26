@@ -3,15 +3,16 @@
   <name>PLUGIN_XSQUEEZEDISPLAY</name>
   <creator>bossanova808</creator>
   <defaultState>enabled</defaultState>
-  <description>PLUGIN_XSQUEEZE_DISPLAY</description>
+  <description>PLUGIN_XSQUEEZEDISPLAY</description>
   <email>bossanova808@gmail.com</email>
   <homepageURL></homepageURL>
-  <module>Plugins::XSQUEEZEDISPLAY::Plugin</module>
+  <optionsURL>plugins/XSqueezeDisplay/settings.html</optionsURL>
+  <module>Plugins::XSqueezeDisplay::Plugin</module>
   <targetApplication>
-    <id>SlimServer</id>
+    <id>SqueezeCenter</id>
     <maxVersion>*</maxVersion>
-    <minVersion>7.0a</minVersion>
+    <minVersion>7.5</minVersion>
   </targetApplication>
   <type>2</type>
-  <version>1.1</version>
+  <version>0.2</version>
 </extension>
