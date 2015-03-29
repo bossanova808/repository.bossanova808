@@ -34,6 +34,10 @@
 <!--                                                                                          -->
 <!--  Axis Ids / Analog Controls                                                              -->
 <!--   Coming soon.                                                                           -->
+
+<!--   Modified by Elitegamer360 for Xbmccustomregis to work with xbmc v.13 and Kodi v.14 and above -->
+<!--   keyboard map v2.48 -->
+
 <keymap>
   <global>
     <keyboard>
@@ -158,10 +162,10 @@
   <Home>
     <keyboard>
       <i>info</i>
-       <one>XBMC.CleanLibrary(video)</one>
-       <two>XBMC.UpdateLibrary(video)</two>
-       <four>XBMC.CleanLibrary(music)</four>
-       <five>XBMC.UpdateLibrary(music)</five>
+       <one>XBMC.CleanLibrary(video,true)</one>
+       <two>XBMC.UpdateLibrary(video,"",true)</two>
+       <four>XBMC.CleanLibrary(music,true)</four>
+       <five>XBMC.UpdateLibrary(music,"",true)</five>
        <seven>XBMC.Action(reloadkeymaps)</seven>
       <end>XBMC.ShutDown()</end>
     </keyboard>
@@ -181,6 +185,42 @@
       <backspace>Backspace</backspace>
     </keyboard>
   </VirtualKeyboard>
+  <MyTVChannels>
+    <keyboard>
+      <delete>Delete</delete>
+      <m>Move</m>
+      <r>Rename</r>
+    </keyboard>
+  </MyTVChannels>
+  <MyTVRecordings>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyTVRecordings>
+  <MyTVTimers>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyTVTimers>
+  <MyRadioChannels>
+    <keyboard>
+      <m>Move</m>
+    </keyboard>
+  </MyRadioChannels>
+  <MyRadioRecordings>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyRadioRecordings>
+  <MyRadioTimers>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyRadioTimers>
   <MyFiles>
     <keyboard>
       <space>Highlight</space>
@@ -316,13 +356,23 @@
       <l>XBMC.Action(reloadkeymaps)</l>
       <o>XBMC.ActivateWindowAndFocus(PVROSDChannels)</o>
       <i>XBMC.ActivateWindowAndFocus(PVROSDGuide)</i>
-      <pageup>ChannelUp</pageup>     
+
+<!-- trial on adding skip fw/rev in live tv -->
+      <period>StepForward</period>
+      <comma>StepBack</comma>
+      <backspace>SmallStepBack</backspace>
+      <quote>SmallStepBack</quote>
+      <opensquarebracket>BigStepForward</opensquarebracket>
+      <closesquarebracket>BigStepBack</closesquarebracket>
+
+<!--       <pageup>ChannelUp</pageup>     
       <Pagedown>ChannelDown</Pagedown>  
       <left>PreviousChannelGroup</left>
       <right>NextChannelGroup</right>
       <up>ChannelUp</up>
       <down>ChannelDown</down>
-      <q>PlayerControl(Record)</q>
+ -->      
+ 	  <q>PlayerControl(Record)</q>
     </keyboard>
   </FullscreenLiveTV> 
   <!-- and basic handling for PVR windows -->
@@ -406,6 +456,8 @@
       <o>CodecInfo</o>
       <l>LockPreset</l>
       <escape>FullScreen</escape>
+      <g>XBMC.ActivateWindow(PVROSDGuide)</g>
+      <c>XBMC.ActivateWindow(PVROSDChannels)</c>
     </keyboard>
   </Visualisation>
   <MusicOSD>
@@ -476,6 +528,7 @@
       <return>Pause</return>
       <enter>Pause</enter>
       <r>Rotate</r>
+ 	  <q>Rotate</q>
       <backspace>PreviousMenu</backspace>
     </keyboard>
   </SlideShow>
@@ -618,6 +671,54 @@
       <v>Back</v>
     </keyboard>
   </Teletext>
+ <Favourites>
+    <keyboard>
+      <backspace>Close</backspace>
+    </keyboard>
+  </Favourites>
+  <NumericInput>
+    <keyboard>
+      <backspace>Close</backspace>
+    </keyboard>
+  </NumericInput>
+  <FullscreenLiveTV>
+    <keyboard>
+      <left>PreviousChannelGroup</left>
+      <right>NextChannelGroup</right>
+      <up>ChannelUp</up>
+      <down>ChannelDown</down>
+    </keyboard>
+  </FullscreenLiveTV>
+  <PVROSDChannels>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+      <c>Close</c>
+    </keyboard>
+  </PVROSDChannels>
+  <PVROSDGuide>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDGuide>
+  <PVROSDDirector>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDDirector>
+  <PVROSDCutter>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDCutter>
+  <MyTVSettings>
+    <keyboard>
+      <backspace>PreviousMenu</backspace>
+    </keyboard>
+  </MyTVSettings>
   <FileBrowser>
     <keyboard>
       <space>Highlight</space>
@@ -638,4 +739,12 @@
       <delete>Delete</delete>
     </keyboard>
   </AddonSettings>
+  <Addon>
+    <keyboard>
+      <f1>Red</f1>
+      <f2>Green</f2>
+      <f3>Yellow</f3>
+      <f4>Blue</f4>
+    </keyboard>
+  </Addon>
 </keymap>
