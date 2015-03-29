@@ -11,10 +11,10 @@
 
   <global>
     <remote>
-	<clear>Queue</clear>
+  <clear>Queue</clear>
        <Record>Screenshot</Record>
-    	<Red>FullScreen</Red> 
-    	<Green>ToggleWatched</Green>  
+      <Red>FullScreen</Red> 
+      <Green>ToggleWatched</Green>  
        <myvideo>XBMC.ReloadSkin()</myvideo> <!-- reload skin -->
        <mymusic>Playlist</mymusic> <!-- current playlist -->
     </remote>
@@ -37,8 +37,8 @@
 
   <MyVideoLibrary>
     <remote>
-    	<Blue>Pause</Blue>
-    	<Yellow>SendClick(25,14)</Yellow>
+      <Blue>Pause</Blue>
+      <Yellow>SendClick(25,14)</Yellow>
        <zero>Delete</zero>
        <clear>Queue</clear>
     </remote>
@@ -46,8 +46,8 @@
   
   <MyVideoFiles>
     <remote>
-    	<Blue>Pause</Blue>
-    	<Yellow>SendClick(25,14)</Yellow>
+      <Blue>Pause</Blue>
+      <Yellow>SendClick(25,14)</Yellow>
        <clear>Queue</clear>
     </remote>
   </MyVideoFiles>
@@ -83,18 +83,16 @@
 
   <FullscreenVideo>
     <remote>
-    	<Start>Stop</Start>
-    	<Title>OSD</Title>
-    	<Menu>CodecInfo</Menu>
-    	<Back>SmallStepBack</Back>
-    	<Star>AspectRatio</Star>
-    	<Select>Pause</Select>
-    	<Green>SmallStepBack</Green>
-    	<Yellow>AudioDelayMinus</Yellow>
-    	<Blue>AudioDelayPlus</Blue>	
-      <!-- Gotham -->
-      <!-- <mypictures>ActivateWindow(SubtitleSearch)</mypictures> -->
-      <mypictures>RunScript(script.xbmc.subtitles)</mypictures> <!-- download subs -->
+      <Start>Stop</Start>
+      <Title>OSD</Title>
+      <Menu>CodecInfo</Menu>
+      <Back>SmallStepBack</Back>
+      <Star>AspectRatio</Star>
+      <Select>Pause</Select>
+      <Green>SmallStepBack</Green>
+      <Yellow>AudioDelayMinus</Yellow>
+      <Blue>AudioDelayPlus</Blue> 
+        <mypictures>ActivateWindow(SubtitleSearch)</mypictures> <!-- download subs -->
     </remote>
   </FullscreenVideo>
 
@@ -156,10 +154,10 @@
 
   <Visualisation>
     <remote>
-    	<Start>Stop</Start>
-    	<Title>XBMC.ActivateWindow(MusicOSD)</Title>
-    	<Menu>CodecInfo</Menu>
-    	<Select>Pause</Select>	
+      <Start>Stop</Start>
+      <Title>XBMC.ActivateWindow(MusicOSD)</Title>
+      <Menu>CodecInfo</Menu>
+      <Select>Pause</Select>  
     </remote>
  </Visualisation>
 
@@ -169,10 +167,10 @@
 
   <Slideshow>
     <remote>
-    	<Select>Pause</Select>
-    	<Yellow>ZoomOut</Yellow>
-    	<Blue>ZoomIn</Blue>	
-    	<Red>Rotate</Red>
+      <Select>Pause</Select>
+      <Yellow>ZoomOut</Yellow>
+      <Blue>ZoomIn</Blue> 
+      <Red>Rotate</Red>
     </remote>
   </Slideshow>
 
