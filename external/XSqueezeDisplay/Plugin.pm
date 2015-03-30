@@ -1,4 +1,3 @@
-# FileViewer::Plugin.pm by mh 2005-2007
 #
 # This code is derived from code with the following copyright message:
 #
@@ -7,15 +6,11 @@
 # modify it under the terms of the GNU General Public License,
 # version 2.
 #
-# Changelog
-# 1.5 - SqueezeCenter 7.0 compatibility
-# 1.0 - initial release
-
 use strict;
 
 package Plugins::XSqueezeDisplay::Plugin;
-use base qw(Slim::Plugin::Base);
 
+use base qw(Slim::Plugin::Base);
 use vars qw($VERSION);
 use Plugins::XSqueezeDisplay::Settings;
 use Slim::Utils::Strings qw (string);
@@ -24,7 +19,6 @@ use Slim::Utils::Log;
 use Time::Seconds;
 use LWP::UserAgent;
 use POSIX qw(strftime);
-
 use JSON;
 
 my $ua = LWP::UserAgent->new;
@@ -40,6 +34,28 @@ my $prefs = preferences('plugin.xsqueezedisplay');
 
 my ($delay, $lines, $server_endpoint, $state, $timeRemaining);
 
+# Video properties
+my ($duration,
+	$totaltime, 
+	$time, 
+	$time_remaining, 
+	$percentage, 
+	$title, 
+	$album, 
+	$artist, 
+	$season, 
+	$episode, 
+	$showtitle, 
+	$tvshowid, 
+	$thumbnail, 
+	$file, 
+	$fanart, 
+	$streamdetails, 
+	$resume);
+
+# Audio properties
+# Pictures properties
+
 sub getDisplayName { return 'PLUGIN_XSQUEEZEDISPLAY'; }
 
 sub myDebug {
@@ -51,8 +67,6 @@ sub myDebug {
 	}
 	$log->$lvl("*** XSqueezeDisplay *** $msg");
 }
-
-
 
 sub initPlugin {
 	my $class = shift;
@@ -136,9 +150,8 @@ sub kodiJSON {
 		my $resp = $ua->request($req);
 
 		#  YAY! 
-		if ($resp->is_success) {
-		    my $message = $resp->decoded_content;
-		    myDebug("JSON Request Success: $message\n");
+		if ($resp->is_success) {		    
+	   	 	myDebug("JSON Request Success: " . $resp->decoded_content ."\n");
 		    return $resp;
 		}
 		#oh dear....
@@ -160,7 +173,7 @@ sub screensaverXSqueezeDisplayLines {
 	my $line2 = "";
 
 	#debug - introspect test the kodi json API here
-	# my $post_data = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Player.GetItem", "type": "method" } }, "id": 1 }';
+	#my $post_data = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Player.GetItem", "type": "method" } }, "id": 1 }';
 
 	# Get the active players
 	my $post_data = '{
@@ -170,7 +183,6 @@ sub screensaverXSqueezeDisplayLines {
 		}';
 
 	my $resp = kodiJSON($post_data);
-
 	
 	if ($resp->is_success) {
 		my $message = decode_json $resp->decoded_content;
@@ -178,7 +190,7 @@ sub screensaverXSqueezeDisplayLines {
 		#A PLAYER IS ACTIVE
 		if (@{$message->{result}}){
 
-	    	myDebug("Detected player activity - " . $message);
+	    	#myDebug("Detected player activity - " . $resp->decoded_content);
 	    	$state = "Playing";
 
 	    	foreach my $player (@{$message->{result}}){
@@ -206,12 +218,17 @@ sub screensaverXSqueezeDisplayLines {
 					my $duration = ($message->{'result'}{'totaltime'}{'minutes'} * 60) + $message->{'result'}{'totaltime'}{'seconds'};
 					my $elapsed = ($message->{'result'}{'time'}{'minutes'} * 60) + $message->{'result'}{'time'}{'seconds'};
 					my $difference = $duration - $elapsed;
-					my $hours = ($difference/(60*60))%24;
-					my $minutes = ($difference/60)%60;
-					my $seconds = $difference%60;
-					myDebug("Hours " . $hours . " Minutes " . $minutes . " Seconds " . $seconds);
-					if ($hours!="0"){$timeRemaining = "-" . join(":",$hours,$minutes,$seconds);}
-					else {$timeRemaining = "-" . join(":",$minutes,$seconds);}
+					my $difference_hours = ($difference/(60*60))%24;
+					my $difference_minutes = ($difference/60)%60;
+					my $difference_seconds = $difference%60;
+					#myDebug("Hours " . $hours . " Minutes " . $minutes . " Seconds " . $seconds);
+					if ($difference_hours!="0"){
+						$timeRemaining = sprintf("-%02d:%02d:%02d", $difference_hours, $difference_minutes, $difference_seconds)
+					}
+					else {
+						$timeRemaining = sprintf("-%02d:%02d", $difference_minutes, $difference_seconds);
+					}
+
 					$line1 = $state;
 					$line2 = $timeRemaining;
 			    } #player == video	
@@ -223,6 +240,7 @@ sub screensaverXSqueezeDisplayLines {
 			$state = "Inactive";
 			$line1 = strftime "%A, %B %e, %Y", localtime;
 			$line2 = strftime "%I:%M %p", localtime;
+			$line2 =~ s/^0+//;
 	    }
 	} 
 
@@ -234,39 +252,6 @@ sub screensaverXSqueezeDisplayLines {
 	return $hash;
 
 }
-
-
-
-
-
-				# Get the data about the now playing item
-				# my $post_data = '{
-				#     "jsonrpc": "2.0",
-				#     "method": "Player.GetItem",
-				#     "params": {
-				#         "properties": [
-				#             "title",
-				#             "album",
-				#             "artist",
-				#             "season",
-				#             "episode",
-				#             "duration",
-				#             "showtitle",
-				#             "tvshowid",
-				#             "thumbnail",
-				#             "file",
-				#             "fanart",
-				#             "streamdetails",
-				#             "resume"
-				#         ],
-				#         "playerid": 1
-				#     },
-				#     "id": "VideoGetItem"
-				# }';
-
-				# my $resp = kodiJSON($post_data);
-
-
 
 
 1;
