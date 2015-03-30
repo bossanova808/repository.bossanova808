@@ -23,6 +23,8 @@ use Slim::Utils::Prefs;
 use Slim::Utils::Log;
 use Time::Seconds;
 use LWP::UserAgent;
+use POSIX qw(strftime);
+
 use JSON;
 
 my $ua = LWP::UserAgent->new;
@@ -40,6 +42,18 @@ my ($delay, $lines, $server_endpoint, $state, $timeRemaining);
 
 sub getDisplayName { return 'PLUGIN_XSQUEEZEDISPLAY'; }
 
+sub myDebug {
+	my $msg = shift;
+	my $lvl = shift;	
+	if ($lvl eq "")
+	{
+		$lvl = "debug";
+	}
+	$log->$lvl("*** XSqueezeDisplay *** $msg");
+}
+
+
+
 sub initPlugin {
 	my $class = shift;
 	$class->SUPER::initPlugin(shift);
@@ -55,7 +69,7 @@ sub initPlugin {
 	# $delay = $prefs->get('plugin_fileviewer_updateinterval') + 1;
 	$delay = 1;
 	$server_endpoint = join('', 'http://', $prefs->get('plugin_xsqueezedisplay_kodiip'),':',$prefs->get('plugin_xsqueezedisplay_kodijsonport'), '/jsonrpc');
-	myDebug(join("","Server endpoint is ", $server_endpoint));
+	myDebug(join("","Kodi endpoint is ", $server_endpoint));
 	$state = "Stopped";
 	$timeRemaining = "";
 }
@@ -106,14 +120,6 @@ sub setScreenSaverMode {
 	$client->lines(\&screensaverXSqueezeDisplayLines);
 }
 
-sub sec2human {
-    my $secs = shift;
-    if    ($secs >= 365*24*60*60) { return sprintf '%.1fy', $secs/(365*24*60*60) }
-    elsif ($secs >=     24*60*60) { return sprintf '%.1fd', $secs/(    24*60*60) }
-    elsif ($secs >=        60*60) { return sprintf '%.1fh', $secs/(       60*60) }
-    elsif ($secs >=           60) { return sprintf '%.1fm', $secs/(          60) }
-    else                          { return sprintf '%.1fs', $secs                }
-}
 
 sub kodiJSON {
 		my $post_data = shift;
@@ -131,8 +137,8 @@ sub kodiJSON {
 
 		#  YAY! 
 		if ($resp->is_success) {
-		    #my $message = $resp->decoded_content;
-		    #myDebug("JSON Request Success: $message\n");
+		    my $message = $resp->decoded_content;
+		    myDebug("JSON Request Success: $message\n");
 		    return $resp;
 		}
 		#oh dear....
@@ -149,17 +155,14 @@ sub screensaverXSqueezeDisplayLines {
 
 	my $client = shift;
 
-	$lines = join(' ', @{_readFile($client)});
-
-	# initial hack in of JSON request to XBMC
-	my $req = HTTP::Request->new(POST => $server_endpoint);
-	$req->header('content-type' => 'application/json');
+	#holds the lines to be resturned.
+	my $line1 = "";
+	my $line2 = "";
 
 	#debug - introspect test the kodi json API here
 	# my $post_data = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Player.GetItem", "type": "method" } }, "id": 1 }';
 
 	# Get the active players
-
 	my $post_data = '{
 		"jsonrpc": "2.0", 
 		"method": "Player.GetActivePlayers", 
@@ -168,81 +171,71 @@ sub screensaverXSqueezeDisplayLines {
 
 	my $resp = kodiJSON($post_data);
 
+	
 	if ($resp->is_success) {
 		my $message = decode_json $resp->decoded_content;
+		
+		#A PLAYER IS ACTIVE
 		if (@{$message->{result}}){
-	    	myDebug(join("|","Player(s) Active...",@{$message->{result}},"]"));
+
+	    	myDebug("Detected player activity - " . $message);
 	    	$state = "Playing";
 
+	    	foreach my $player (@{$message->{result}}){
+	    		myDebug("Player ". $player->{'playerid'} . " is type " . $player->{'type'});
 
-			# Get the play progress time
-			my $post_data = '{
-			    "jsonrpc": "2.0",
-			    "method": "Player.GetProperties",
-			    "params": {
-			        "properties": [
-			            "percentage",
-			            "time",
-			            "totaltime"
-			        ],
-			        "playerid": 1
-			    },
-			    "id": 1
-			}';
+	    		if ($player->{'type'} == "video"){
+		    		# Get the play progress time
+					my $post_data = '{
+					    "jsonrpc": "2.0",
+					    "method": "Player.GetProperties",
+					    "params": {
+					        "properties": [
+					            "percentage",
+					            "time",
+					            "totaltime"
+					        ],
+					        "playerid": 1
+					    },
+					    "id": 1
+					}';
 
-			$resp = kodiJSON($post_data);
-			$message = decode_json $resp->decoded_content;
+					$resp = kodiJSON($post_data);
+					$message = decode_json $resp->decoded_content;
 
-			my $duration = ($message->{'result'}{'totaltime'}{'minutes'} * 60) + $message->{'result'}{'totaltime'}{'seconds'};
-			my $elapsed = ($message->{'result'}{'time'}{'minutes'} * 60) + $message->{'result'}{'time'}{'seconds'};
-			my $difference = $duration - $elapsed;
-			my $hours = ($difference/(60*60))%24;
-			my $minutes = ($difference/60)%60;
-			my $seconds = $difference%60;
-			myDebug("Hours " . $hours . " Minutes " . $minutes . " Seconds " . $seconds);
-			$timeRemaining = "-" . join(":",$hours,$minutes,$seconds)
-
+					my $duration = ($message->{'result'}{'totaltime'}{'minutes'} * 60) + $message->{'result'}{'totaltime'}{'seconds'};
+					my $elapsed = ($message->{'result'}{'time'}{'minutes'} * 60) + $message->{'result'}{'time'}{'seconds'};
+					my $difference = $duration - $elapsed;
+					my $hours = ($difference/(60*60))%24;
+					my $minutes = ($difference/60)%60;
+					my $seconds = $difference%60;
+					myDebug("Hours " . $hours . " Minutes " . $minutes . " Seconds " . $seconds);
+					if ($hours!="0"){$timeRemaining = "-" . join(":",$hours,$minutes,$seconds);}
+					else {$timeRemaining = "-" . join(":",$minutes,$seconds);}
+					$line1 = $state;
+					$line2 = $timeRemaining;
+			    } #player == video	
+			} # foreach $player
 		}
+		#INACTIVE - DISPLAY TIME/DATE
 	    else {
-			myDebug("Players NOT Active...");
-			$state = "Inactive"
+			#myDebug("Players NOT Active...");
+			$state = "Inactive";
+			$line1 = strftime "%A, %B %e, %Y", localtime;
+			$line2 = strftime "%I:%M %p", localtime;
 	    }
 	} 
 
-
-
-	return {
-		'line1' => $state,
-		'line2' => $timeRemaining
+	my $hash = {
+	   'center' => [ $line1,
+	                 $line2 ],
 	};
+
+	return $hash;
+
 }
 
-sub _readFile {
-	my $client = shift;
-	my @lines;
 
-	if (open MYFILE, $prefs->get('plugin_fileviewer_filename')) {
-		@lines = <MYFILE>;
-		close MYFILE;
-	}
-	else {
-		push @lines, 'TEST2';
-	}	
-
-	return \@lines;
-}
-
-sub myDebug {
-	my $msg = shift;
-	my $lvl = shift;
-	
-	if ($lvl eq "")
-	{
-		$lvl = "debug";
-	}
-	
-	$log->$lvl("*** XSqueezeDisplay *** $msg");
-}
 
 
 
