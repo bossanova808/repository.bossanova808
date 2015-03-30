@@ -82,7 +82,12 @@ sub initPlugin {
 
 	# $delay = $prefs->get('plugin_fileviewer_updateinterval') + 1;
 	$delay = 1;
-	$server_endpoint = join('', 'http://', $prefs->get('plugin_xsqueezedisplay_kodiip'),':',$prefs->get('plugin_xsqueezedisplay_kodijsonport'), '/jsonrpc');
+	if ($prefs->get('plugin_xsqueezedisplay_kodijsonuser') eq ""){
+		$server_endpoint = join('', 'http://', $prefs->get('plugin_xsqueezedisplay_kodiip'),':',$prefs->get('plugin_xsqueezedisplay_kodijsonport'), '/jsonrpc');
+	}
+	else{
+		$server_endpoint = 'http://' . $prefs->get('plugin_xsqueezedisplay_kodijsonuser') . ':' . $prefs->get('plugin_xsqueezedisplay_kodijsonpassword') . '@' . $prefs->get('plugin_xsqueezedisplay_kodiip') . ':' . $prefs->get('plugin_xsqueezedisplay_kodijsonport') . '/jsonrpc';
+	}
 	myDebug(join("","Kodi endpoint is ", $server_endpoint));
 	$state = "Stopped";
 	$timeRemaining = "";
@@ -97,8 +102,6 @@ sub setMode {
 		Slim::Buttons::Common::popMode($client);
 		return;
 	}
-
-	my $lines = _readFile($client);
 
 	my %params = (
 		stringHeader => 1,
@@ -138,6 +141,9 @@ sub setScreenSaverMode {
 sub kodiJSON {
 		my $post_data = shift;
 
+		#set a very short timeout
+		$ua->timeout(0.5);
+
 		#assemble the JSON POST request
 		my $req = HTTP::Request->new(POST => $server_endpoint);
 		$req->header('content-type' => 'application/json');
@@ -151,7 +157,7 @@ sub kodiJSON {
 
 		#  YAY! 
 		if ($resp->is_success) {		    
-	   	 	myDebug("JSON Request Success: " . $resp->decoded_content ."\n");
+	   	 	#myDebug("JSON Request Success: " . $resp->decoded_content ."\n");
 		    return $resp;
 		}
 		#oh dear....
@@ -173,17 +179,6 @@ sub screensaverXSqueezeDisplayLines {
 	$line1 = strftime "%A, %B %e, %Y", localtime;
 	$line2 = strftime "%I:%M %p", localtime;
 	$line2 =~ s/^0+//;
-
-	#check the kodi box is up, if not don't waste time, just return the time right here
- 	my $p = Net::Ping->new();
-	if (!$p->ping($prefs->get('plugin_xsqueezedisplay_kodiip'))){
-		$p->close();
-		my $hash = {
-		   'center' => [ $line1,
-		                 $line2 ],
-		};
-		return $hash;	
-	}
 
 	#debug - introspect test the kodi json API here
 	#my $post_data = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Player.GetItem", "type": "method" } }, "id": 1 }';
@@ -207,7 +202,7 @@ sub screensaverXSqueezeDisplayLines {
 	    	$state = "Playing";
 
 	    	foreach my $player (@{$message->{result}}){
-	    		myDebug("Player ". $player->{'playerid'} . " is type " . $player->{'type'});
+	    		#myDebug("Player ". $player->{'playerid'} . " is type " . $player->{'type'});
 
 	    		if ($player->{'type'} == "video"){
 		    		# Get the play progress time
@@ -235,7 +230,7 @@ sub screensaverXSqueezeDisplayLines {
 					my $difference_minutes = ($difference/60)%60;
 					my $difference_seconds = $difference%60;
 					#myDebug("Hours " . $hours . " Minutes " . $minutes . " Seconds " . $seconds);
-					if ($difference_hours!="0"){
+					if ($difference_hours ne "0"){
 						$timeRemaining = sprintf("-%02d:%02d:%02d", $difference_hours, $difference_minutes, $difference_seconds)
 					}
 					else {
@@ -243,7 +238,7 @@ sub screensaverXSqueezeDisplayLines {
 					}
 
 					$line1 = $state;
-					$line2 = $timeRemaining;
+					$line2 = $line2 . "   [" . $timeRemaining . "]";
 			    } #player == video	
 			} # foreach $player
 		}
