@@ -162,8 +162,11 @@ sub kodiJSON {
 		}
 		#oh dear....
 		else {
-		    myDebug(join("JSON Request error code: 		", $resp->code, "\n"));
-		    myDebug(join("JSON Request error message: 	", $resp->message, "\n"));
+			#only log errors other than can't connect...
+			if ($resp->code != "500"){
+			    myDebug(join("JSON Request error code: 		", $resp->code, "\n"));
+			    myDebug(join("JSON Request error message: 	", $resp->message, "\n"));
+			}
 			return $resp;
 		}	
 	    
