@@ -16,8 +16,8 @@ use Plugins::XSqueezeDisplay::Settings;
 use Slim::Utils::Strings qw (string);
 use Slim::Utils::Prefs;
 use Slim::Utils::Log;
-use Time::Seconds;
 use LWP::UserAgent;
+use Net::Ping;
 use POSIX qw(strftime);
 use JSON;
 
@@ -32,7 +32,7 @@ my $log = Slim::Utils::Log->addLogCategory({
 
 my $prefs = preferences('plugin.xsqueezedisplay');
 
-my ($delay, $lines, $server_endpoint, $state, $timeRemaining);
+my ($delay, $lines, $line1, $line2, $server_endpoint, $state, $timeRemaining);
 
 # Video properties
 my ($duration,
@@ -74,7 +74,7 @@ sub initPlugin {
 
 	$VERSION = $class->_pluginDataFor('version');
 
-	Plugins::FileViewer::Settings->new;
+	Plugins::XSqueezeDisplay::Settings->new;
 
 	Slim::Buttons::Common::addSaver( 'SCREENSAVER.xsqueezedisplay',
 		getFunctions(), \&setScreenSaverMode,
@@ -168,9 +168,22 @@ sub screensaverXSqueezeDisplayLines {
 
 	my $client = shift;
 
-	#holds the lines to be resturned.
-	my $line1 = "";
-	my $line2 = "";
+	#holds the lines to be resturned - default is to return the time
+	my $state = "Inactive";
+	$line1 = strftime "%A, %B %e, %Y", localtime;
+	$line2 = strftime "%I:%M %p", localtime;
+	$line2 =~ s/^0+//;
+
+	#check the kodi box is up, if not don't waste time, just return the time right here
+ 	my $p = Net::Ping->new();
+	if (!$p->ping($prefs->get('plugin_xsqueezedisplay_kodiip'))){
+		$p->close();
+		my $hash = {
+		   'center' => [ $line1,
+		                 $line2 ],
+		};
+		return $hash;	
+	}
 
 	#debug - introspect test the kodi json API here
 	#my $post_data = '{ "jsonrpc": "2.0", "method": "JSONRPC.Introspect", "params": { "filter": { "id": "Player.GetItem", "type": "method" } }, "id": 1 }';
@@ -235,15 +248,9 @@ sub screensaverXSqueezeDisplayLines {
 			} # foreach $player
 		}
 		#INACTIVE - DISPLAY TIME/DATE
-	    else {
-			#myDebug("Players NOT Active...");
-			$state = "Inactive";
-			$line1 = strftime "%A, %B %e, %Y", localtime;
-			$line2 = strftime "%I:%M %p", localtime;
-			$line2 =~ s/^0+//;
-	    }
 	} 
 
+	#we've got here - package up the data and return it
 	my $hash = {
 	   'center' => [ $line1,
 	                 $line2 ],
