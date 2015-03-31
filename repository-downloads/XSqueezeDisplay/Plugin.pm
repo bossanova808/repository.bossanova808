@@ -17,7 +17,6 @@ use Slim::Utils::Strings qw (string);
 use Slim::Utils::Prefs;
 use Slim::Utils::Log;
 use LWP::UserAgent;
-use Net::Ping;
 use POSIX qw(strftime);
 use JSON;
 
