@@ -1,6 +1,7 @@
-[B]0.1.3[/B]
+[B]0.1.4[/B]
 
-Updated to 4.0.1 of Universal Revamped theme
+uNiversal 4.0.1 Revamped Textures
+made it all default so theme is auto selected
 
 [B]0.1.2[/B]
 
