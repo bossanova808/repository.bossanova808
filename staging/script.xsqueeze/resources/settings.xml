@@ -46,14 +46,14 @@
        <setting id="waitOnAS" type="number" label="Max wait seconds for artist slideshow to exit cleanly... (default 10)" default="10"/>
     </category>
     <category label="HDMI CEC">
+       <setting label="Please go to http://kodi.wiki/view/Add-on:XSqueeze and read about how to" type="lsep"/>
+       <setting label="install the required dependencies." type="lsep"/>
        <setting label="HDMI CEC support needs to be enabled to init your hdmi devices..." type="lsep"/>
        <setting id="cecsupport" type="bool" label="19929" default="false"/>
        <setting label="Allow XSqueeze to turn on/off your receiver..." type="lsep"/>
        <setting id="turnonavr" type="bool" label="19924" default="false"/>
        <setting label="Enter the hdmi input of your av-receiver which this device is connected to..." type="lsep"/>
        <setting id="avrinput" type="number" label="19925" default="3"/>
-       <setting label="Enable this if you want to turn on/off your TV..." type="lsep"/>
-       <setting id="turnofftv" type="bool" label="19926" default="false"/>
        <setting label="If you allow XSqueeze to adjust the volume of your external hdmi amp, it is" type="lsep"/>
        <setting label="recommended to modify your player settings. You should set the volume of the" type="lsep"/>
        <setting label="player permanently to 100% ..." type="lsep"/>

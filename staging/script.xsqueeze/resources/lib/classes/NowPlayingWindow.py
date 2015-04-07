@@ -12,7 +12,6 @@ import constants
 if constants.CECSUPPORT == 'true':
   import cec
   cec.init()
-  tv   = cec.Device(0)
   avr  = cec.Device(5)
 
 ################################################################################
@@ -312,14 +311,10 @@ class NowPlayingWindow(xbmcgui.WindowXML):
         if constants.CECSUPPORT == 'true':
           powerstate = self.player.getpowerstate()
           if powerstate == 0 and self.hdmipower == "true":
-            if constants.TURNOFFTV == "true":
-               tv.standby()
             if constants.TURNONAVR == "true":
                avr.standby()
             self.hdmipower = "false"
           elif powerstate != 0 and self.hdmipower == "false":
-            if constants.TURNOFFTV == "true":
-               tv.power_on()
             if constants.TURNONAVR == "true":
                avr.power_on()
                avr.set_av_input(int(constants.AVRINPUT))
@@ -439,18 +434,16 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           if (control == constants.BUTTONVOLUP) and constants.CECSUPPORT == 'true' and constants.ADJUSTVOL == "true":
            if self.vol1 < 100:
              i = 0
-             for i in range(int(constants.VOLFACTOR)*2):
+             for i in range(int(constants.VOLFACTOR)):
                cec.volume_up()
-               self.hdmivol = "false"
-               i=i+2
+             self.hdmivol = "false"
 
           if (control == constants.BUTTONVOLDN) and constants.CECSUPPORT == 'true' and constants.ADJUSTVOL == "true" :
            if self.vol1 > 0:  
              i = 0
-             for i in range(int(constants.VOLFACTOR)*2):
+             for i in range(int(constants.VOLFACTOR)):
                cec.volume_down()
-               self.hdmivol = "false"
-               i=i+2
+             self.hdmivol = "false"
 
           #ok now actually send the command through if it is a squeeze command
           if (actionSqueeze != '') and not directCommand:
