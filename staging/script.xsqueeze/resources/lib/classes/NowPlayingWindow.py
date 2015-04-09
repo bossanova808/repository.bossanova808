@@ -309,7 +309,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
 
         #trigger a hdmi command, if a controller has changed the power status or the volume
         if constants.CECSUPPORT == 'true':
-          powerstate = self.player.getpowerstate()
+          powerstate = self.player.getPowerState()
           if powerstate == 0 and self.hdmipower == "true":
             if constants.TURNONAVR == "true":
                avr.standby()
@@ -317,7 +317,7 @@ class NowPlayingWindow(xbmcgui.WindowXML):
           elif powerstate != 0 and self.hdmipower == "false":
             if constants.TURNONAVR == "true":
                avr.power_on()
-               avr.set_av_input(int(constants.AVRINPUT))
+               avr.set_av_input(constants.AVRINPUT)
             self.hdmipower = "true"
           else:
             pass

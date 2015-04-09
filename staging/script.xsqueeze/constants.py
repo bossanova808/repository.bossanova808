@@ -132,7 +132,7 @@ SECONDS_TO_WAIT_FOR_ARTISTSLIDESHOWEXIT = int(ADDON.getSetting('waitOnAS'))
 
 CECSUPPORT = ADDON.getSetting('cecsupport')
 TURNONAVR  = ADDON.getSetting('turnonavr')
-AVRINPUT   = ADDON.getSetting('avrinput')
+AVRINPUT   = int(ADDON.getSetting('avrinput'))
 ADJUSTVOL  = ADDON.getSetting('adjustvol')
 VOLFACTOR  = ADDON.getSetting('volfactor')
 

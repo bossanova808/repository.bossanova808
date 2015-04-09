@@ -46,8 +46,10 @@
        <setting id="waitOnAS" type="number" label="Max wait seconds for artist slideshow to exit cleanly... (default 10)" default="10"/>
     </category>
     <category label="HDMI CEC">
-       <setting label="Please go to http://kodi.wiki/view/Add-on:XSqueeze and read about how to" type="lsep"/>
-       <setting label="install the required dependencies." type="lsep"/>
+       <setting label="Please go to https://github.com/trainman419/python-cec and read about" type="lsep"/>
+       <setting label="how to install the dependencies. Follow the instructions to install" type="lsep"/>
+       <setting label="the python-cec-binding." type="lsep"/>
+       <setting label=" " type="lsep"/>
        <setting label="HDMI CEC support needs to be enabled to init your hdmi devices..." type="lsep"/>
        <setting id="cecsupport" type="bool" label="19929" default="false"/>
        <setting label="Allow XSqueeze to turn on/off your receiver..." type="lsep"/>
