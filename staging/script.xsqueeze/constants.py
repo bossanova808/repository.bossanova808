@@ -127,6 +127,15 @@ SECONDS_TO_PAUSE_EXIT = int(ADDON.getSetting('exitpause'))
 SECONDS_TO_PAUSE_CONNECT = int(ADDON.getSetting('connectpause'))
 SECONDS_TO_WAIT_FOR_ARTISTSLIDESHOWEXIT = int(ADDON.getSetting('waitOnAS'))
 
+###############################################################################
+#GET HDMI CEC SETTINGS
+
+CECSUPPORT = ADDON.getSetting('cecsupport')
+TURNONAVR  = ADDON.getSetting('turnonavr')
+AVRINPUT   = int(ADDON.getSetting('avrinput'))
+ADJUSTVOL  = ADDON.getSetting('adjustvol')
+VOLFACTOR  = ADDON.getSetting('volfactor')
+
 ################################################################################
 # Deal with the squeezeslave executeables...
 

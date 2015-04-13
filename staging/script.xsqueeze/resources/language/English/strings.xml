@@ -65,6 +65,11 @@
 	<string id="19921">Resume playback immediately on startup?</string>
 	<string id="19922">Enable Mouse/Touch Screen Controls?</string>
 	<string id="19923">Choose player:</string>
+        <string id="19924">Turn on/off AV-Receiver?</string>
+        <string id="19925">AV-Receiver input:</string>
+        <string id="19927">Adjust volume of AV-Receiver?</string>
+        <string id="19928">Factor to adjust volume sensitivity of AV-Receiver</string>
+        <string id="19929">HDMI CEC Support</string>
 
 </strings>
 

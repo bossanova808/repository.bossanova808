@@ -45,4 +45,22 @@
        <setting label="(but if it is too low you may experience crashes crashes)" type="lsep"/>
        <setting id="waitOnAS" type="number" label="Max wait seconds for artist slideshow to exit cleanly... (default 10)" default="10"/>
     </category>
+    <category label="HDMI CEC">
+       <setting label="LibCEC is included in many linux distributions e.g. Rasbian or OpenElec." type="lsep"/>
+       <setting label="Additionally a python-cec-binding must be installed." type="lsep"/>
+       <setting label="Please go to https://github.com/trainman419/python-cec and read about" type="lsep"/>
+       <setting label="how to install the dependencies." type="lsep"/>
+       <setting label=" " type="lsep"/>
+       <setting label="HDMI CEC support needs to be enabled to init your hdmi devices..." type="lsep"/>
+       <setting id="cecsupport" type="bool" label="19929" default="false"/>
+       <setting label="Allow XSqueeze to turn on/off your receiver..." type="lsep"/>
+       <setting id="turnonavr" type="bool" label="19924" default="false"/>
+       <setting label="Enter the hdmi input of your av-receiver which this device is connected to..." type="lsep"/>
+       <setting id="avrinput" type="number" label="19925" default="3"/>
+       <setting label="If you allow XSqueeze to adjust the volume of your external hdmi amp, it is" type="lsep"/>
+       <setting label="recommended to modify your player settings. You should set the volume of the" type="lsep"/>
+       <setting label="player permanently to 100% ..." type="lsep"/>
+       <setting id="adjustvol" type="bool" label="19927" default="false"/>
+       <setting id="volfactor" type="slider" label="19928" default="2" range="0,10" option="int"/>
+    </category>
 </settings>
