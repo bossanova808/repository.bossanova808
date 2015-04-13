@@ -1,3 +1,6 @@
+V1.2.1
+- HDMI CEC support with thanks to Snyder1977
+
 V1.2.0
 - Static binaries for linux, squeezelite
 

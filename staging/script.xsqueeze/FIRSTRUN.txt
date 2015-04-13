@@ -2,20 +2,12 @@
 XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
-V1.2.0
-- Test static binaries for linux 32/64 bit
 
-V1.1.9
-- Static squeezelite builds for Rasp Pi/2 - should solve mp3 playback issues on those platforms with lucl
-- OE linux version (i.e. not Pi/Arm) still broken mp3 playback, sorry
-
-V1..1.8
-- Bugfix for app browsing in the Chooser (Radios still being looked in to)
-- Support for Rasp Pi 2 (not tested - let me know if it breaks!!)
-- I am aware of issue on Openelec 5 and MP3s not playing, hope to have a soluton soon - in the meantime, play FLACS ;)
-
-V1.1.7
-- Inhibit XBMC shutdown when XSqueeze active
+V1.2.1
+- HDMI CEC support by Snyder1977 (Thanks!)
+- Enable in settings! Needs python-cec!
+- Not tested by me as I don't have CEC stuff
+- Let us know about any bugs in the forum thread
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 

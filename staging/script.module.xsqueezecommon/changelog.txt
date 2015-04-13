@@ -1,3 +1,9 @@
+[B]Version 0.1.9[/B]
+- CEC support thank to Synder1977
+
+[B]Version 0.1.8[/B]
+- Update to b808 common 0.1.8
+
 [B]Version 0.1.6[/B]
 - Update to b808 common 0.1.6
 
