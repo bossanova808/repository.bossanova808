@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="skin.confluence.bossanova808.isengard"
+  version="0.0.1"
+  name="Confluence Bossanova808 Isengard"
+  provider-name="Jezz_X, Team Kodi, bossanova808">
+  <requires>
+    <!-- FORCE INSTALL THE COOLNESS -->
+    <import addon="xbmc.gui" version="5.3.0"/>
+<!--     <import addon="script.module.xsqueezecommon" version="0.1.2"/>
+    <import addon="script.module.b808common" version="0.1.4"/>
+    <import addon="plugin.program.xsqueezechooser" version="0.1.4"/>
+    <import addon="weather.ozweather" version="0.6.4"/>
+    <import addon="script.cu.lyrics" version="3.0.1"/>
+    <import addon="script.artistslideshow" version="0.5.2"/>
+    <import addon="script.xbmc.subtitles" version="3.9.10"/>
+    <import addon="plugin.image.xzen" version="0.0.8"/>
+    <import addon="script.xbmc.unpausejumpback" version="2.2.0"/>
+    <import addon="script.cinema.experience" version="3.0.4"/>
+    <import addon="plugin.video.the.trailers" version="1.9.5"/>
+    <import addon="script.artwork.downloader" version="12.0.15"/>
+    <import addon="service.skin.widgets" version="0.0.25"/>  
+    <import addon="script.service.checkpreviousepisode" version="0.3.0"/>
+ -->  
+  </requires>
+  <extension
+    point="xbmc.gui.skin"
+    defaultthemename="textures.xbt"
+    debugging="false"
+    effectslowdown="0.75">
+    <res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Confluence skin by Jezz_X modded by Bossanova808.</summary>
+    <description lang="en">Bossanova808 personal mod of Confluence - just basic Confluence with a few extra nice bits and some hard coded paths - only for use by bossanova808 and friends!</description>
+    <platform>all</platform>
+  </extension>
+</addon>
