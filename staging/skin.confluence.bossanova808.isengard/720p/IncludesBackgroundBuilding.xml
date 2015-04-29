@@ -50,7 +50,7 @@
 			<top>0</top>
 			<width>1280</width>
 			<height>720</height>
-			<visible>Player.HasAudio + !Skin.HasSetting(ShowBackgroundVis) + !Window.IsVisible(TVChannels) + !Window.IsVisible(RadioChannels)</visible>
+			<visible>Player.HasAudio + !Skin.HasSetting(ShowBackgroundVis)</visible>
 			<visible>!SubString(Window(videolibrary).Property(TvTunesIsAlive),True)</visible>
 		</control>
 		<control type="videowindow">
@@ -77,8 +77,8 @@
 			<width>1280</width>
 			<height>100</height>
 			<texture>floor.png</texture>
-			<animation effect="slide" start="0,10" end="0,0" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
-			<animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
+			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>
 		</control>
 		<control type="group">
 			<include>Window_OpenClose_Animation</include>
