@@ -86,10 +86,10 @@
       <Start>Stop</Start>
       <Title>OSD</Title>
       <Menu>CodecInfo</Menu>
-      <Back>SmallStepBack</Back>
+      <Back>Seek(-7)</Back>
       <Star>AspectRatio</Star>
       <Select>Pause</Select>
-      <Green>SmallStepBack</Green>
+      <Green>Seek(-7)</Green>
       <Yellow>AudioDelayMinus</Yellow>
       <Blue>AudioDelayPlus</Blue> 
         <mypictures>ActivateWindow(SubtitleSearch)</mypictures> <!-- download subs -->

@@ -1,6 +1,10 @@
+[B]0.0.2[/B]
+
+Fixed seekbar for new seek handling
+
 [B]0.0.1[/B]
 
-Initial sync with Isengard 29/04/15
+Initial sync with Isengard 28/04/15
 
 
 

@@ -439,11 +439,11 @@
 				<top>23</top>
 				<width>240</width>
 				<height>20</height>
-				<font>font11</font>
+				<font>font10</font>
 				<textcolor>white</textcolor>
 				<align>left</align>
 				<aligny>center</aligny>
-				<label>$INFO[Player.Time] / -$INFO[Player.TimeRemaining] / $INFO[Player.Duration]</label>
+				<label>$INFO[Player.Time] / $INFO[Player.Duration] [-$INFO[Player.TimeRemaining]]</label>
 				<visible>!Player.Seeking</visible>
 			</control>
 			<control type="label">
@@ -452,11 +452,11 @@
 				<top>23</top>
 				<width>240</width>
 				<height>20</height>
-				<font>font13_title</font>
+				<font>font10</font>
 				<textcolor>white</textcolor>
 				<align>left</align>
 				<aligny>center</aligny>
-				<label>$INFO[Player.SeekTime] - $INFO[Player.Duration]</label>
+				<label>$INFO[Player.SeekTime] / $INFO[Player.Duration]</label>
 				<visible>Player.Seeking</visible>
 			</control>
 			<control type="progress">

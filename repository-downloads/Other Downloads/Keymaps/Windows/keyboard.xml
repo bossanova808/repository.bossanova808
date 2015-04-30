@@ -282,8 +282,8 @@
       <r>Rewind</r>
       <period>StepForward</period>
       <comma>StepBack</comma>
-      <backspace>SmallStepBack</backspace>
-      <quote>SmallStepBack</quote>
+      <backspace>Seek(-7)</backspace>
+      <quote>Seek(-7)</quote>
       <opensquarebracket>BigStepForward</opensquarebracket>
       <closesquarebracket>BigStepBack</closesquarebracket>
       <return>Pause</return>
@@ -360,8 +360,8 @@
 <!-- trial on adding skip fw/rev in live tv -->
       <period>StepForward</period>
       <comma>StepBack</comma>
-      <backspace>SmallStepBack</backspace>
-      <quote>SmallStepBack</quote>
+      <backspace>Seek(-7)</backspace>
+      <quote>Seek(-7)</quote>
       <opensquarebracket>BigStepForward</opensquarebracket>
       <closesquarebracket>BigStepBack</closesquarebracket>
 
