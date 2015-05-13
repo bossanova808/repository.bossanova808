@@ -1,3 +1,7 @@
+[B]0.0.3[/B]
+
+Sync with 12/05/2015 nightly
+
 [B]0.0.2[/B]
 
 Fixed seekbar for new seek handling
