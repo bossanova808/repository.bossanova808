@@ -1,3 +1,7 @@
+[B]0.0.5[/B]
+
+Revamped textures 5.0.1
+
 [B]0.0.4[/B]
 
 Sync with Isengard Beta2
