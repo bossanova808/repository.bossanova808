@@ -1,3 +1,8 @@
+[B]0.0.6[/B]
+
+Sync with Kodi Isengard Release
+Revamped textures 5.0.3
+
 [B]0.0.5[/B]
 
 Revamped textures 5.0.1
