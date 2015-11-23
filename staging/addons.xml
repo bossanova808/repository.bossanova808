@@ -160,8 +160,8 @@
 
 <addon
   id="skin.confluence.bossanova808.jarvis"
-  version="0.0.2"
-  name="Confluence Bossanova808 Isengard"
+  version="0.0.3"
+  name="Confluence Bossanova808 Jarvis"
   provider-name="Jezz_X, Team Kodi, bossanova808">
   <requires>
     <!-- FORCE INSTALL THE COOLNESS -->
