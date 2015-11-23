@@ -1,0 +1,43 @@
+[B]0.2.0[/B]
+- Updates for new Oz Weather features
+
+[B]0.1.9[/B]
+- Fixed weather with profiles
+- Font tweaks
+
+[B]0.1.8[/B]
+- Clearart support, recently add hides watched
+
+[B]0.1.7[/B]
+- Added better title font (Roboto All Caps)
+
+[B]0.1.6[/B]
+- Add Cinema Experience and Force Install Required Sub-Add-Ons & B808 Addons
+
+[B]0.1.5[/B]
+- Fix artist slideshow bug
+
+[B]0.1.3[/B]
+- Sync Frodo 12.2, Changed Kids paths after HD failure
+
+[B]0.1.2[/B]
+- Sync with Frodo Final
+
+[B]0.1.1[/B]
+- Sync with Frodo RC2
+- Updated Artist Slideshow skin files
+
+[B]0.0.7[/B]
+- Sync with Frodo Beta3
+
+[B]0.0.5[/B]
+- Sync with Nov. 4 XBMC Nightly
+
+[B]0.0.4[/B]
+- Sync with October 3rd 2012 XBMC Nightly
+
+[B]0.0.1[/B]
+
+- First Frodo release with same features as Eden version
+-  except: No weather fanart on Home
+
