@@ -1035,6 +1035,7 @@
 						<description>Set my rating</description>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>38023</label>
+						<visible>Control.IsEnabled(7)</visible>
 					</control>
 				</control>
 			</control>
