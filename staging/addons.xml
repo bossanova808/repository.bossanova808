@@ -160,11 +160,11 @@
 
 <addon
   id="skin.confluence.bossanova808.jarvis"
-  version="0.0.7"
+  version="0.0.8"
   name="Confluence Bossanova808 Jarvis"
   provider-name="Jezz_X, Team Kodi, bossanova808">
   <requires>
-    <import addon="xbmc.gui" version="5.10.0"/>
+    <import addon="xbmc.gui" version="5.3.0"/>
   </requires>
   <extension
     point="xbmc.gui.skin"
