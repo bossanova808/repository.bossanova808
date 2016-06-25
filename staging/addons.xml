@@ -61,7 +61,7 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="1.2.1"
+       version="1.2.2"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>

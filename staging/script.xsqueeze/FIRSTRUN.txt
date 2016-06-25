@@ -2,6 +2,8 @@
 XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
+V1.2.2
+- Slightly refactor when the (optional) startup pause occurs, thank to newan for the feedback/testing
 
 V1.2.1
 - HDMI CEC support by Snyder1977 (Thanks!)

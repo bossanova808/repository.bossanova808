@@ -251,11 +251,6 @@ if ( __name__ == "__main__" ):
 
         cleanup(andexit=True)
 
-    #pause
-    if constants.SECONDS_TO_PAUSE_STARTUP!=0:
-        logNotice("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + ", per request in XSqueeze settings.")
-        notify("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + " seconds.", "(per request in XSqueeze settings.)")
-        time.sleep(constants.SECONDS_TO_PAUSE_STARTUP)
 
     #is the add on configured yet?
     if constants.SERVERIP=="":
@@ -280,6 +275,12 @@ if ( __name__ == "__main__" ):
         if constants.SERVERIP=="":
             notify(LANGUAGE(19624),LANGUAGE(19625))
             cleanup()
+            
+        #pause
+        if constants.SECONDS_TO_PAUSE_STARTUP!=0:
+            logNotice("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + ", per request in XSqueeze settings.")
+            notify("Pausing for " + str(constants.SECONDS_TO_PAUSE_STARTUP) + " seconds.", "(per request in XSqueeze settings.)")
+            time.sleep(constants.SECONDS_TO_PAUSE_STARTUP)
 
         #load our custom keymap to make sure that volume/skip track keys don't raise annoying xbmc messages
         #needed because xbmc addons can't swallow events
