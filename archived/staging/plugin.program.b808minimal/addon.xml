@@ -2,7 +2,7 @@
 <addon id="plugin.program.b808minimal" name="Bossanova808 Minimal Plugin"
        version="0.0.2" provider-name="bossanova808">
   <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.xbmcswift2" version="1.3" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
