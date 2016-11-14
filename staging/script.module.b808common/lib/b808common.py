@@ -4,7 +4,7 @@
 ### By bossanova808 2015
 ### Free in all senses....
 
-### VERSION 0.1.8 09/02/2015
+### VERSION 0.2.0 14/11/2016
 
 import xbmc
 import xbmcaddon
@@ -186,7 +186,7 @@ def stripList(l, chars):
 # to clear a property, leave the value blank
 
 def setProperty(window, name, value = ""):
-    log("Setting property - Name: [" + name + "] - Value:[" + value +"]")
+    log("Set property on " + window + " - Name: [" + name + "] - Value:[" + value +"]")
     window.setProperty(name, value)
 
 
@@ -273,20 +273,38 @@ elif xbmc.getCondVisibility( "System.Platform.Windows" ):
   SYSTEM = "windows"
 elif xbmc.getCondVisibility( "System.Platform.Linux.RaspberryPi" ):
   SYSTEM = "arm"
+elif xbmc.getCondVisibility( "System.Platform.Android" ):
+  SYSTEM = "android"
 
 #log the detemined system type
 log("uname is: " + str(uname))
 log("System is " + SYSTEM)
 
-XBMC_VERSION = "Frodo"
+XBMC_VERSION = ""
 log(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
 version_number = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
 if version_number >= 12.9:
-    XBMC_VERSION = "Gotham" 
+    XBMC_VERSION = "G*" 
 if version_number >= 13.9:
-    XBMC_VERSION = "Helix" 
+    XBMC_VERSION = "H*" 
 if version_number >= 14.9:
-    XBMC_VERSION = "Isengard" 
+    XBMC_VERSION = "I*" 
+if version_number >= 15.9:
+    XBMC_VERSION = "J*"
+if version_number >= 16.9:
+    XBMC_VERSION = "K*" 
+if version_number >= 17.9:
+    XBMC_VERSION = "L*"     
+if version_number >= 18.9:
+    XBMC_VERSION = "M*"
+if version_number >= 19.9:
+    XBMC_VERSION = "N*"
+if version_number >= 20.9:
+    XBMC_VERSION = "O*"
+if version_number >= 21.9:
+    XBMC_VERSION = "P*"        
+if version_number >= 22.9:
+    XBMC_VERSION = ">P"    
 log("Kodi Version is " + XBMC_VERSION)    
 
 
