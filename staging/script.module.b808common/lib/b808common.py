@@ -4,7 +4,7 @@
 ### By bossanova808 2015
 ### Free in all senses....
 
-### VERSION 0.2.0 14/11/2016
+### VERSION 0.2.1 17/11/2016
 
 import xbmc
 import xbmcaddon
@@ -30,9 +30,13 @@ from traceback import format_exc
 # call logNotice() is you want print out regardless of debug settings
 
 def log(message, inst=None, level=xbmc.LOGDEBUG):
+    
     if isinstance (message,str):
         message = message.decode("utf-8")
         message = u'### %s - %s ### %s' % (ADDONNAME,VERSION, message)
+    else:
+        message = u'### %s - %s ### %s' % (ADDONNAME,VERSION, message)
+
     if inst is None:
       xbmc.log(message.encode("utf-8"), level )
     else:
@@ -43,6 +47,7 @@ def log(message, inst=None, level=xbmc.LOGDEBUG):
 
 def logNotice(message, inst=None):
     log(message, inst, level = xbmc.LOGNOTICE)
+
 
 ################################################################################
 # Trigger a toast pop up on screen
@@ -186,9 +191,8 @@ def stripList(l, chars):
 # to clear a property, leave the value blank
 
 def setProperty(window, name, value = ""):
-    log("Set property on " + window + " - Name: [" + name + "] - Value:[" + value +"]")
     window.setProperty(name, value)
-
+    log("Set property name: [%s] - value:[%s]" % (name,value))
 
 def getThumbnailModeID():
     VIEW_MODES = {
@@ -238,7 +242,6 @@ LANGUAGE    = ADDON.getLocalizedString
 USERAGENT   = "Mozilla/5.0 (Windows; U; Windows NT 5.1; fr; rv:1.9.0.1) Gecko/2008070208 Firefox/3.6"
 
 
-
 # Set up the paths
 RESOURCES_PATH = xbmc.translatePath( os.path.join( CWD, 'resources' ))
 LIB_PATH = xbmc.translatePath(os.path.join( RESOURCES_PATH, "lib" ))
@@ -280,32 +283,36 @@ elif xbmc.getCondVisibility( "System.Platform.Android" ):
 log("uname is: " + str(uname))
 log("System is " + SYSTEM)
 
-XBMC_VERSION = ""
+XBMC_VERSION = None
+VERSION_NUMBER = None
+
 log(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
-version_number = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
-if version_number >= 12.9:
+VERSION_NUMBER = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
+if VERSION_NUMBER >= 12.9:
     XBMC_VERSION = "G*" 
-if version_number >= 13.9:
+if VERSION_NUMBER >= 13.9:
     XBMC_VERSION = "H*" 
-if version_number >= 14.9:
+if VERSION_NUMBER >= 14.9:
     XBMC_VERSION = "I*" 
-if version_number >= 15.9:
+if VERSION_NUMBER >= 15.9:
     XBMC_VERSION = "J*"
-if version_number >= 16.9:
+if VERSION_NUMBER >= 16.9:
     XBMC_VERSION = "K*" 
-if version_number >= 17.9:
+if VERSION_NUMBER >= 17.9:
     XBMC_VERSION = "L*"     
-if version_number >= 18.9:
+if VERSION_NUMBER >= 18.9:
     XBMC_VERSION = "M*"
-if version_number >= 19.9:
+if VERSION_NUMBER >= 19.9:
     XBMC_VERSION = "N*"
-if version_number >= 20.9:
+if VERSION_NUMBER >= 20.9:
     XBMC_VERSION = "O*"
-if version_number >= 21.9:
+if VERSION_NUMBER >= 21.9:
     XBMC_VERSION = "P*"        
-if version_number >= 22.9:
-    XBMC_VERSION = ">P"    
-log("Kodi Version is " + XBMC_VERSION)    
+if VERSION_NUMBER >= 22.9:
+    XBMC_VERSION = ">P" 
+
+log("Kodi Version #: " + str(VERSION_NUMBER))      
+log("Kodi Version  : " + XBMC_VERSION)    
 
 
 

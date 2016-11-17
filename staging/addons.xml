@@ -36,7 +36,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.b808common" version="0.1.9" name="Bossanova808 Common Code" provider-name="bossanova808">
+<addon id="script.module.b808common" version="0.2.1" name="Bossanova808 Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.24.0'/>
   </requires>
