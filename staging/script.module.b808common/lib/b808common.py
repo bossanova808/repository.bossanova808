@@ -4,7 +4,7 @@
 ### By bossanova808 2015
 ### Free in all senses....
 
-### VERSION 0.2.1 17/11/2016
+### VERSION 0.2.2
 
 import xbmc
 import xbmcaddon
@@ -43,7 +43,7 @@ def log(message, inst=None, level=xbmc.LOGDEBUG):
       xbmc.log(message.encode("utf-8"), level )
       xbmc.log("### " + ADDONNAME + "-" + VERSION +  " ### Exception:" + format_exc(inst), level )
 
-#log something even if debug logging is off - for important stuff!
+#log something even if debug logging is off - for important stuff only!
 
 def logNotice(message, inst=None):
     log(message, inst, level = xbmc.LOGNOTICE)
@@ -66,7 +66,12 @@ def footprints(startup=True):
 
   if startup:
     logNotice( ADDONNAME + " (Author: " + AUTHOR + ") Starting ...")
-    logNotice( "Called as: " + str(sys.argv))
+    #log the detemined system type
+    logNotice("uname is: " + str(uname))
+    logNotice("System is " + SYSTEM)
+    logNotice("Kodi Version #: " + str(VERSION_NUMBER))      
+    logNotice("Kodi Version  : " + XBMC_VERSION)    
+    logNotice( "Addon arguments as: " + str(sys.argv))
   else:
     logNotice( ADDONNAME + " (Author: " + AUTHOR + ") Exiting ....")
 
@@ -76,7 +81,7 @@ def footprints(startup=True):
 ### MIXED UTILITY FUNCTIONS
 
 ################################################################################
-# Log the users local IP address
+# Log the users local IP address if possible
 
 def logLocalIP():
     #log the local IP address
@@ -84,13 +89,13 @@ def logLocalIP():
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         #connect to google DNS as it's always up...
         s.connect(('8.8.8.8',80))
-        log("Local IP is " + str(s.getsockname()[0]))
+        logNotice("Local IP is " + str(s.getsockname()[0]))
         s.close()
     except:
         pass
 
 ################################################################################
-# front pad a string with 0s out to 9 chars long
+# Front pad a string with 0s out to 9 chars long
 
 def frontPadTo9Chars(shortStr):
     while len(shortStr)<9:
@@ -114,7 +119,7 @@ def sendXBMCJSON (humanDescription, jsonstr):
      log("JSON result: "  + str(result))
 
 ##############################################################################
-# helper function - convert number of seconds to summat nice for screen 00:00 etc
+# Convert number of seconds to summat nice for screen 00:00 etc
 
 def getInHMS(seconds):
     hours = seconds / 3600
@@ -181,18 +186,22 @@ def buildPluginURL(params):
     return PLUGINSTUB + urllib.urlencode(params)
 
 ################################################################################
-# strip given chararacters from all members of a given list
+# Strip given chararacters from all members of a given list
 
 def stripList(l, chars):
     return([x.strip(chars) for x in l])
 
 ################################################################################
-# Just sets window properties we can refer to later in the MyWeather.xml skin file
-# to clear a property, leave the value blank
+# Set a property on a window.
+# To clear a property, provide a blank value ""
 
 def setProperty(window, name, value = ""):
     window.setProperty(name, value)
     log("Set property name: [%s] - value:[%s]" % (name,value))
+
+################################################################################
+# Try and sett the window mode to thumbnail mode....
+# This is increasing less useful....
 
 def getThumbnailModeID():
     VIEW_MODES = {
@@ -279,14 +288,10 @@ elif xbmc.getCondVisibility( "System.Platform.Linux.RaspberryPi" ):
 elif xbmc.getCondVisibility( "System.Platform.Android" ):
   SYSTEM = "android"
 
-#log the detemined system type
-log("uname is: " + str(uname))
-log("System is " + SYSTEM)
 
 XBMC_VERSION = None
 VERSION_NUMBER = None
 
-log(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
 VERSION_NUMBER = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[0:4])
 if VERSION_NUMBER >= 12.9:
     XBMC_VERSION = "G*" 
@@ -310,9 +315,6 @@ if VERSION_NUMBER >= 21.9:
     XBMC_VERSION = "P*"        
 if VERSION_NUMBER >= 22.9:
     XBMC_VERSION = ">P" 
-
-log("Kodi Version #: " + str(VERSION_NUMBER))      
-log("Kodi Version  : " + XBMC_VERSION)    
 
 
 
