@@ -357,9 +357,18 @@ class Player(object):
                 key = info.pop(0)
                 if key:
                     item[key] = ':'.join(info)
-            item['position'] = int(item['position'])
-            item['id'] = int(item['id'])
-            item['duration'] = float(item['duration'])
+            try:
+                item['position'] = int(item['position'])
+            except:
+                item['postion'] = 0
+            try:
+                item['id'] = int(item['id'])
+            except:
+                item['id'] = 0
+            try:
+                item['duration'] = float(item['duration'])
+            except:
+                item['duration'] = 0.0
             playlist.append(item)
         return playlist
 

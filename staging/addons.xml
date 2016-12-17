@@ -47,7 +47,7 @@
   <extension point='xbmc.python.module' library='lib' />
 </addon>
 
-<addon id="script.module.xsqueezecommon" version="0.2.1" name="XSqueeze Common Code" provider-name="bossanova808">
+<addon id="script.module.xsqueezecommon" version="0.2.2" name="XSqueeze Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.14.0'/>
     <import addon="script.module.b808common" version="0.2.1"/>

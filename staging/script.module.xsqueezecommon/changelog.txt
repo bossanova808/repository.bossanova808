@@ -1,3 +1,6 @@
+[B]Version 0.2.2[/B]
+- Deal better with some weird LMS responses
+
 [B]Version 0.1.9[/B]
 - CEC support thank to Synder1977
 
