@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="32100">
+        <setting label="32101" id="brightness" type="slider"  option="int" default="40" range="0,100"/>
+        <setting label="32103" type="bool" id="led" default="false"/>
+        <setting label="32200" type="lsep"/>
+    </category>
+    
+</settings>
