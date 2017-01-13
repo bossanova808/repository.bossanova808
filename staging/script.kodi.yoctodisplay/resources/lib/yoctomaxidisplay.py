@@ -91,7 +91,7 @@ def initialiseLayers():
     display.resetAll()
 
     # Which way is up?
-    # display.set_orientation(YDisplay.ORIENTATION_RIGHT)
+    display.set_orientation(YDisplay.ORIENTATION_RIGHT)
     # First get the layers
     displayLayer = display.get_displayLayer(0)
     drawingLayer = display.get_displayLayer(1)
