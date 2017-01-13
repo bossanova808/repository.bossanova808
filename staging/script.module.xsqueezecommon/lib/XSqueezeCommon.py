@@ -495,6 +495,21 @@ class SqueezePlayer:
     return years
 
   ##############################################################################
+  # returns all folders or a folder by id
+
+  def getFolders(self):
+    folders= self.sc.request_with_results("musicfolder 0 100000 tags:cu")
+    log(str(folders))
+    return folders[1][1:]
+
+  def getFolderByID(self,folderID):
+    
+    folders = self.sc.request_with_results("musicfolder 0 100000 folder_id:" + str(folderID) + ' tags:cu')
+    log(str(folders))
+    return folders[1][1:]
+
+
+  ##############################################################################
   # returns radios root menu
 
   def parseSpecial(self, cmdString, splitOn, playerRequest=False):
@@ -564,6 +579,7 @@ class SqueezePlayer:
     log(str(pls))
     return pls[1][1:]
 
+
   ##############################################################################
   # Clear playlist and queue up a favourite item given
 
@@ -575,6 +591,13 @@ class SqueezePlayer:
 
   def queuePlaylist(self, item_id, url):
      self.sb.request("playlist play " + url)
+
+  ##############################################################################
+  # Clear playlist and queue up a playlist item given
+
+  def queueItemID(self, item):
+     self.sb.request("playlist play " + item)
+
 
   ##############################################################################
   # Clear playlist and queue up an album given an album title and artist

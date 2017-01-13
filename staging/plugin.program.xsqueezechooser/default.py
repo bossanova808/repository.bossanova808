@@ -17,7 +17,7 @@ from b808common import *
 
 #Add a node to the plugin tree - a 'directory' node, so something we
 #can click on to either get more choices or trigger an action
-def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="", playlistURL="",itemCount=0):
+def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="", playlistURL="", folderid="",itemCount=0):
 
         global callerid
 
@@ -31,6 +31,7 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
         "&genreID="+urllib.quote_plus(genreID)+\
         "&year="+urllib.quote_plus(year)+\
         "&itemid="+urllib.quote_plus(itemid)+\
+        "&folderid="+urllib.quote_plus(folderid)+\
         "&playlistURL="+urllib.quote_plus(playlistURL)+\
         "&callerid="+urllib.quote_plus(callerid)+\
         "&cmd="+urllib.quote_plus(cmd)
@@ -47,7 +48,7 @@ def addNode(name, url, mode, iconimage, album="", artist="", artistID="", genreI
 
 #Add a node at the end of the chain - not clickable
 #Used for messages after an album is queued or whatever
-def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="", playlistURL="" ,itemCount=0):
+def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", genreID="", year="", cmd="", itemid="", folderid="", playlistURL="" ,itemCount=0):
 
         global callerid
 
@@ -61,6 +62,7 @@ def addEndNode(name, url, mode, iconimage, album="", artist="", artistID="", gen
         "&genreID="+urllib.quote_plus(genreID)+\
         "&year="+urllib.quote_plus(year)+\
         "&itemid="+urllib.quote_plus(itemid)+\
+        "&folderid="+urllib.quote_plus(folderid)+\
         "&playlistURL="+urllib.quote_plus(playlistURL)+\
         "&callerid="+urllib.quote_plus(callerid)+\
         "&cmd="+urllib.quote_plus(cmd)
@@ -96,6 +98,7 @@ def buildRootListing():
   addNode("Years","",YEARS,"")
   addNode("Favourites","",FAVOURITES,"")
   addNode("Playlists","",PLAYLISTS,"")
+  addNode("Folders","",FOLDERS,"")
   addNode("Play Random Albums","",RANDOM_ALBUMS,"")
   addNode("Play Random Songs","",RANDOM_TRACKS,"")
   addNode("Internet Radio","",RADIOS,"")
@@ -143,6 +146,31 @@ def buildArtistSub(artistID):
 def buildArtistList(listArtists):
   for artist in listArtists:
     addNode(artist['artist'] ,"",SUBMENU_ARTISTS,"",artistID=artist['id'])
+
+### FOLDERS
+
+def buildFoldersRoot():
+  global squeezeplayer
+  returnedList = squeezeplayer.getFolders()
+  log(str(returnedList))
+  buildFoldersList(returnedList)
+
+def buildFolderSub(folderID):
+  global squeezeplayer
+  returnedList = squeezeplayer.getFolderByID(folderID)
+  log(str(returnedList))
+  buildFoldersList(returnedList)
+
+def buildFoldersList(listFolders):
+  for folder in listFolders:
+    log("***** FOLDER " + str(folder))
+
+    if folder['type'] == "track" or folder['type'] == "playlist":
+      addEndNode("Play: " + folder['filename'],"",PLAY_ITEMID,"","",itemid=folder['url'])
+    elif folder['type'] == "folder":
+      addNode("Browse: " + folder['filename'] ,"",SUBMENU_FOLDERS,"",folderid=folder['id'])
+      addEndNode("Play: " + folder['filename'],"",PLAY_ITEMID,"","",itemid=folder['url'])
+
 
 ### GENRES
 
@@ -422,12 +450,14 @@ RANDOM_TRACKS = 8
 RADIOS = 9
 APPS = 10
 PLAYLISTS = 11
+FOLDERS = 12
 
 #PLAYING MODES
 PLAY_ALBUM = 1001
 PLAY_RADIO = 1002
 PLAY_FAVOURITE = 1003
 PLAY_PLAYLIST = 1004
+PLAY_ITEMID = 1005
 
 #SUBMENU MODES
 SUBMENU_ARTISTS = 2001
@@ -436,6 +466,7 @@ SUBMENU_YEARS = 2003
 SUBMENU_RADIOS = 2004
 SUBMENU_APPS = 2005
 SUBMENU_FAVOURITES = 2006
+SUBMENU_FOLDERS = 2007
 
 
 #zero out all the things we pass between runs before we check
@@ -450,6 +481,7 @@ genreID=None
 year=None
 cmd=None
 itemid=None
+folderid=None
 #default is 13000
 callerid=None
 playlistURL=None
@@ -502,6 +534,11 @@ except:
 
 try:
     itemid=urllib.unquote_plus(params["itemid"])
+except:
+    pass
+
+try:
+    folderid=urllib.unquote_plus(params["folderid"])
 except:
     pass
 
@@ -594,6 +631,13 @@ elif mode==FAVOURITES:
   except:
       print_exc()
 
+elif mode==FOLDERS:
+  log( "Handling FOLDERS Root" )
+  try:
+      buildFoldersRoot()
+  except:
+      print_exc()
+
 elif mode==PLAYLISTS:
   log( "Handling Playlists Root" )
   try:
@@ -659,6 +703,13 @@ elif mode==PLAY_PLAYLIST:
   notify("Playlist" , name, 12000)
   xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
 
+elif mode==PLAY_ITEMID:
+  log( "Queueing up " + itemid + "...." )
+  squeezeplayer.queueItemID(itemid)
+  notify("Item" , itemid, 12000)
+  xbmc.executebuiltin("ActivateWindow(" + callerid + ")")
+
+
 elif mode==SUBMENU_ARTISTS:
   log( "Handling submenu of an artist...." )
   try:
@@ -677,6 +728,13 @@ elif mode==SUBMENU_YEARS:
   log( "Handling submenu of a year...." )
   try:
       buildYearSub(year)
+  except:
+      print_exc()
+
+elif mode==SUBMENU_FOLDERS:
+  log( "Handling submenu of a folder...." )
+  try:
+      buildFolderSub(folderid)
   except:
       print_exc()
 

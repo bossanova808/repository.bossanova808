@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <addon id="plugin.program.xsqueezechooser" name="XSqueeze Chooser"
-       version="0.2.1" provider-name="bossanova808">
+       version="0.2.2" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.2.1"/>
+    <import addon="script.module.xsqueezecommon" version="0.2.3"/>
     <import addon="script.module.b808common" version="0.2.1"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -68,7 +68,7 @@
   <extension point='xbmc.python.module' library='lib' />
 </addon>
 
-<addon id="script.module.xsqueezecommon" version="0.2.2" name="XSqueeze Common Code" provider-name="bossanova808">
+<addon id="script.module.xsqueezecommon" version="0.2.3" name="XSqueeze Common Code" provider-name="bossanova808">
   <requires>
     <import addon='xbmc.python' version='2.14.0'/>
     <import addon="script.module.b808common" version="0.2.1"/>
@@ -82,14 +82,14 @@
 
 <addon id="script.xsqueeze"
        name="XSqueeze"
-       version="1.2.5"
+       version="1.2.6"
        provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
     <import addon="script.artistslideshow" version="1.4.7"/>
-    <import addon="script.module.xsqueezecommon" version="0.2.2"/>
+    <import addon="script.module.xsqueezecommon" version="0.2.3"/>
     <import addon="script.module.b808common" version="0.2.1"/>
-    <import addon="plugin.program.xsqueezechooser" version="0.2.1"/>
+    <import addon="plugin.program.xsqueezechooser" version="0.2.2"/>
   </requires>
   <extension point="xbmc.python.script"
              library="default.py">

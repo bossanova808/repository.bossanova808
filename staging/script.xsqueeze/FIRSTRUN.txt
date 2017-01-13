@@ -2,8 +2,8 @@
 XSQUEEZE NEW VERSION CHANGELOG....
 
 [B]What's new in this version:[/B]
-V1.2.4
-Restore compatibility back to Gotham
+V1.2.6
+Add browse/play by folder
 
 If you need help, post on the forum thread AND [B]PLEASE INCLUDE YOUR FULL XBMC DEBUG LOG FILE![/B]
 
