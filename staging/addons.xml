@@ -127,11 +127,11 @@
 
 <addon
   id="skin.confluence.bossanova808.krypton"
-  version="0.0.1"
-  name="Confluence Bossanova808 Jarvis"
+  version="0.0.2"
+  name="Confluence Bossanova808 Krypton"
   provider-name="Jezz_X, Team Kodi, bossanova808">
   <requires>
-    <import addon="xbmc.gui" version="5.10.0"/>
+    <import addon="xbmc.gui" version="5.12.0"/>
   </requires>
   <extension
     point="xbmc.gui.skin"
