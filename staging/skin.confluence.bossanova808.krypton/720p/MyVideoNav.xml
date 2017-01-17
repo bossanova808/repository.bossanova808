@@ -44,7 +44,7 @@
 		<include>MainWindowMouseButtons</include>
 		<include>BehindDialogFadeOut</include>
 		<include>ScrollOffsetLabel</include>
-		<include name="CommonWindowHeader">
+		<include content="CommonWindowHeader">
 			<param name="Icon" value="icon_video" />
 			<param name="Label" value="$LOCALIZE[3]" />
 		</include>
@@ -169,6 +169,14 @@
 					<alttexturefocus border="5">button-focus.png</alttexturefocus>
 					<alttexturenofocus>-</alttexturenofocus>
 					<usealttexture>library.isscanningvideo</usealttexture>
+				</control>
+				<control type="button" id="204">
+					<description>Get more</description>
+					<textwidth>235</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>21452</label>
+					<onclick>ActivateWindow(addonbrowser,addons://more/video/,return)</onclick>
+					<visible>Container.Content(addons)</visible>
 				</control>
 				<include>CommonNowPlaying_Controls</include>
 			</control>

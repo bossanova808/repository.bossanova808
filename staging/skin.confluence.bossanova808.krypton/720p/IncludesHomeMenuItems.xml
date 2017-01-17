@@ -54,34 +54,38 @@
 		</control>
 		<control type="button" id="90162">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>31328</label>
-			<onclick>ActivateWindow(Videos,RecentlyAddedMovies,return)</onclick>
+			<label>Recent</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(0).FileNameAndPath],return)</onclick>
 		</control>
 		<control type="button" id="90163">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>20434</label>
-			<onclick>ActivateWindow(Videos,MovieSets,return)</onclick>
-			<visible>Library.HasContent(MovieSets)</visible>
+			<label>$INFO[Container(90160).ListItemNoWrap(1).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(1).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(1).Label)</visible>
 		</control>
 		<control type="button" id="90164">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>369</label>
-			<onclick>ActivateWindow(Videos,MovieTitles,return)</onclick>
+			<label>$INFO[Container(90160).ListItemNoWrap(2).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(2).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(2).Label)</visible>
 		</control>
 		<control type="button" id="90165">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>135</label>
-			<onclick>ActivateWindow(Videos,MovieGenres,return)</onclick>
+			<label>$INFO[Container(90160).ListItemNoWrap(3).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(3).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(3).Label)</visible>
 		</control>
 		<control type="button" id="90166">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>652</label>
-			<onclick>ActivateWindow(Videos,MovieYears,return)</onclick>
+			<label>$INFO[Container(90160).ListItemNoWrap(4).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(4).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(4).Label)</visible>
 		</control>
 		<control type="button" id="90167">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>344</label>
-			<onclick>ActivateWindow(Videos,MovieActors,return)</onclick>
+			<label>$INFO[Container(90160).ListItemNoWrap(5).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(5).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(5).Label)</visible>
 		</control>
 		<control type="image" id="90168">
 			<width>35</width>
@@ -97,30 +101,40 @@
 		</control>
 		<control type="button" id="90172">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>31328</label>
-			<onclick>ActivateWindow(Videos,RecentlyAddedEpisodes,return)</onclick>
+			<label>$INFO[Container(90170).ListItemNoWrap(0).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(0).FileNameAndPath],return)</onclick>
 		</control>
 		<control type="button" id="90173">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>369</label>
-			<onclick>ActivateWindow(Videos,TVShowTitles,return)</onclick>
+			<label>$INFO[Container(90170).ListItemNoWrap(1).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(1).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90170).ListItemNoWrap(1).Label)</visible>
 		</control>
 		<control type="button" id="90174">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>135</label>
-			<onclick>ActivateWindow(Videos,TVShowGenres,return)</onclick>
+			<label>$INFO[Container(90170).ListItemNoWrap(2).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(2).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90170).ListItemNoWrap(2).Label)</visible>
 		</control>
 		<control type="button" id="90175">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>652</label>
-			<onclick>ActivateWindow(Videos,TVShowYears,return)</onclick>
+			<label>$INFO[Container(90170).ListItemNoWrap(3).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(3).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90170).ListItemNoWrap(3).Label)</visible>
 		</control>
 		<control type="button" id="90176">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>344</label>
-			<onclick>ActivateWindow(Videos,TVShowActors,return)</onclick>
+			<label>In Progress</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(4).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90170).ListItemNoWrap(4).Label)</visible>
 		</control>
-		<control type="image" id="90177">
+		<control type="button" id="90177">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>$INFO[Container(90170).ListItemNoWrap(5).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(5).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90170).ListItemNoWrap(5).Label)</visible>
+		</control>
+		<control type="image" id="90178">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -132,55 +146,40 @@
 			<height>35</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
-		<!--BOSSANOVA808 - Add Recently Added Albums to Music submenu -->
 		<control type="button" id="90112">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Recent Albums</label>
-			<onclick>ActivateWindow(MusicLibrary,musicdb://6,return)</onclick>
+			<label>$INFO[Container(90110).ListItemNoWrap(0).Label]</label>
+			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(0).FileNameAndPath],return)</onclick>
 		</control>
 		<control type="button" id="90113">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>133</label>
-			<onclick>ActivateWindow(MusicLibrary,Artists,return)</onclick>
-			<visible>Library.HasContent(Music)</visible>
+			<label>$INFO[Container(90110).ListItemNoWrap(1).Label]</label>
+			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(1).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(1).Label)</visible>
 		</control>
 		<control type="button" id="90114">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>132</label>
-			<onclick>ActivateWindow(MusicLibrary,Albums,return)</onclick>
-			<visible>Library.HasContent(Music)</visible>
+			<label>$INFO[Container(90110).ListItemNoWrap(2).Label]</label>
+			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(2).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(2).Label)</visible>
 		</control>
 		<control type="button" id="90115">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>134</label>
-			<onclick>ActivateWindow(MusicLibrary,Songs,return)</onclick>
-			<visible>Library.HasContent(Music)</visible>
+			<label>$INFO[Container(90110).ListItemNoWrap(3).Label]</label>
+			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(3).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(3).Label)</visible>
 		</control>
 		<control type="button" id="90116">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>744</label>
-			<onclick>ActivateWindow(MusicFiles)</onclick>
+			<label>$INFO[Container(90110).ListItemNoWrap(4).Label]</label>
+			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(4).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(4).Label)</visible>
 		</control>
-		<!--BOSSANOVA808 - Remove this 'Library' submenu item as this is the same as clicking 'Music' itself -->
-    <!--
-    <control type="button" id="90116">
+		<control type="button" id="90117">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>14022</label>
-			<onclick>ActivateWindow(MusicLibrary)</onclick>
-			<visible>Library.HasContent(Music)</visible>
-		</control>
-		-->
-    <control type="button" id="90117">
-			<include>ButtonHomeSubCommonValues</include>
-			<label>24001</label>
-			<onclick>ActivateWindow(MusicLibrary,Addons,return)</onclick>
-			<visible>Library.HasContent(Music)</visible>
-		</control>
-		<control type="button" id="90118">
-			<include>ButtonHomeSubCommonValues</include>
-			<label>24001</label>
-			<onclick>ActivateWindow(MusicFiles,Addons,return)</onclick>
-			<visible>!Library.HasContent(Music)</visible>
+			<label>$INFO[Container(90110).ListItemNoWrap(5).Label]</label>
+			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(5).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(5).Label)</visible>
 		</control>
 		<control type="image" id="90119">
 			<width>35</width>
@@ -284,15 +283,20 @@
 		</control>
 		<control type="button" id="90146">
 			<include>ButtonHomeSubCommonValues</include>
+			<label>19138</label>
+			<onclick>ActivateWindow(TVTimerRules)</onclick>
+		</control>
+		<control type="button" id="90147">
+			<include>ButtonHomeSubCommonValues</include>
 			<label>19040</label>
 			<onclick>ActivateWindow(TVTimers)</onclick>
 		</control>
-		<control type="button" id="90147">
+		<control type="button" id="90148">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>137</label>
 			<onclick>ActivateWindow(TVSearch)</onclick>
 		</control>
-		<control type="image" id="90148">
+		<control type="image" id="90149">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -321,15 +325,20 @@
 		</control>
 		<control type="button" id="90246">
 			<include>ButtonHomeSubCommonValues</include>
+			<label>19138</label>
+			<onclick>ActivateWindow(RadioTimerRules)</onclick>
+		</control>
+		<control type="button" id="90247">
+			<include>ButtonHomeSubCommonValues</include>
 			<label>19040</label>
 			<onclick>ActivateWindow(RadioTimers)</onclick>
 		</control>
-		<control type="button" id="90247">
+		<control type="button" id="90248">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>137</label>
 			<onclick>ActivateWindow(RadioSearch)</onclick>
 		</control>
-		<control type="image" id="90248">
+		<control type="image" id="90249">
 			<width>35</width>
 			<height>35</height>
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
@@ -341,35 +350,35 @@
 			<onclick>RunAddon($INFO[Skin.String(HomeVideosButton1)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeVideosButton1))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeVideosButton1))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeVideosButton1))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeVideosButton2))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeVideosButton2)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeVideosButton2))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeVideosButton2))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeVideosButton2))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeVideosButton3))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeVideosButton3)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeVideosButton3))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeVideosButton3))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeVideosButton3))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeVideosButton4))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeVideosButton4)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeVideosButton4))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeVideosButton4))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeVideosButton4))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeVideosButton5))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeVideosButton5)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeVideosButton5))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeVideosButton5))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeVideosButton5))</visible>
 		</item>
 	</include>
 	<include name="HomeAddonItemsMusic">
@@ -378,35 +387,35 @@
 			<onclick>RunAddon($INFO[Skin.String(HomeMusicButton1)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeMusicButton1))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeMusicButton1))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeMusicButton1))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeMusicButton2))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeMusicButton2)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeMusicButton2))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeMusicButton2))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeMusicButton2))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeMusicButton3))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeMusicButton3)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeMusicButton3))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeMusicButton3))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeMusicButton3))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeMusicButton4))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeMusicButton4)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeMusicButton4))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeMusicButton4))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeMusicButton4))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeMusicButton5))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeMusicButton5)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeMusicButton5))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeMusicButton5))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeMusicButton5))</visible>
 		</item>
 	</include>
 	<include name="HomeAddonItemsPictures">
@@ -415,35 +424,35 @@
 			<onclick>RunAddon($INFO[Skin.String(HomePictureButton1)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomePictureButton1))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomePictureButton1))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomePictureButton1))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomePictureButton2))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomePictureButton2)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomePictureButton2))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomePictureButton2))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomePictureButton2))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomePictureButton3))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomePictureButton3)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomePictureButton3))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomePictureButton3))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomePictureButton3))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomePictureButton4))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomePictureButton4)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomePictureButton4))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomePictureButton4))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomePictureButton4))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomePictureButton5))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomePictureButton5)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomePictureButton5))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomePictureButton5))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomePictureButton5))</visible>
 		</item>
 	</include>
 	<include name="HomeAddonItemsPrograms">
@@ -452,35 +461,35 @@
 			<onclick>RunAddon($INFO[Skin.String(HomeProgramButton1)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeProgramButton1))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeProgramButton1))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeProgramButton1))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeProgramButton2))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeProgramButton2)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeProgramButton2))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeProgramButton2))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeProgramButton2))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeProgramButton3))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeProgramButton3)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeProgramButton3))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeProgramButton3))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeProgramButton3))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeProgramButton4))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeProgramButton4)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeProgramButton4))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeProgramButton4))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeProgramButton4))</visible>
 		</item>
 		<item>
 			<label>$INFO[system.addontitle(Skin.String(HomeProgramButton5))]</label>
 			<onclick>RunAddon($INFO[Skin.String(HomeProgramButton5)])</onclick>
 			<icon>$INFO[system.addonicon(Skin.String(HomeProgramButton5))]</icon>
 			<thumb>-</thumb>
-			<visible>!IsEmpty(Skin.String(HomeProgramButton5))</visible>
+			<visible>!String.IsEmpty(Skin.String(HomeProgramButton5))</visible>
 		</item>
 	</include>
 </includes>

@@ -44,7 +44,7 @@
 		<include>MainWindowMouseButtons</include>
 		<include>BehindDialogFadeOut</include>
 		<include>ScrollOffsetLabel</include>
-		<include name="CommonWindowHeader">
+		<include content="CommonWindowHeader">
 			<param name="Icon" value="icon_pictures" />
 			<param name="Label" value="$LOCALIZE[1]" />
 		</include>
@@ -131,6 +131,24 @@
 					<description>Randomize Toggle</description>
 					<include>ButtonCommonValues</include>
 					<label>13319</label>
+				</control>
+				<control type="label" id="203">
+					<width>250</width>
+					<height>35</height>
+					<font>font12</font>
+					<label>31039</label>
+					<textcolor>blue</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+					<visible>Container.Content(addons)</visible>
+				</control>
+				<control type="button" id="204">
+					<description>Get more</description>
+					<textwidth>235</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>21452</label>
+					<onclick>ActivateWindow(addonbrowser,addons://more/image/,return)</onclick>
+					<visible>Container.Content(addons)</visible>
 				</control>
 				<include>CommonNowPlaying_Controls</include>
 			</control>

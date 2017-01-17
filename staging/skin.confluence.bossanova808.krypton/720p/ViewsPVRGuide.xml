@@ -16,21 +16,21 @@
 				<texture>separator2.png</texture>
 			</control>
 			<control type="epggrid" id="10">
-				<viewtype label="19032">list</viewtype>
 				<description>EPG Grid</description>
 				<left>80</left>
 				<top>71</top>
-				<width>1135</width>
+				<width>1105</width>
 				<height>419</height>
-				<pagecontrol>10</pagecontrol>
+				<onleft>101</onleft>
+				<onright>60</onright>
+				<onup>10</onup>
+				<ondown>10</ondown>
+				<viewtype label="19032">list</viewtype>
+				<pagecontrol>60</pagecontrol>
 				<scrolltime>350</scrolltime>
 				<timeblocks>40</timeblocks>
 				<rulerunit>6</rulerunit>
 				<progresstexture border="0,48,18,14">PVR-EpgProgressIndicator.png</progresstexture>
-				<onleft>101</onleft>
-				<onright>101</onright>
-				<onup>10</onup>
-				<ondown>10</ondown>
 				<rulerlayout height="35" width="40">
 					<control type="label" id="2">
 						<left>0</left>
@@ -172,34 +172,9 @@
 					<control type="image">
 						<left>6</left>
 						<top>28</top>
-						<width>24</width>
-						<height>16</height>
-						<texture>PVR-IsRecording.png</texture>
-						<visible>ListItem.IsRecording</visible>
-					</control>
-					<control type="image">
-						<left>6</left>
-						<top>28</top>
 						<width>16</width>
 						<height>16</height>
-						<texture>PVR-HasTimer.png</texture>
-						<visible>ListItem.HasTimer + !ListItem.IsRecording + !ListItem.HasTimerSchedule</visible>
-					</control>
-					<control type="image">
-						<left>6</left>
-						<top>28</top>
-						<width>16</width>
-						<height>16</height>
-						<texture>PVR-HasTimerSchedule.png</texture>
-						<visible>!ListItem.IsRecording + ListItem.HasTimerSchedule</visible>
-					</control>
-					<control type="image">
-						<left>6</left>
-						<top>28</top>
-						<width>16</width>
-						<height>16</height>
-						<texture>PVR-HasRecording.png</texture>
-						<visible>ListItem.HasRecording + !ListItem.IsRecording + !ListItem.HasTimer</visible>
+						<texture>$VAR[PVRTimerIcon]</texture>
 					</control>
 				</itemlayout>
 				<focusedlayout height="48" width="40">
@@ -232,39 +207,30 @@
 					<control type="image">
 						<left>6</left>
 						<top>28</top>
-						<width>24</width>
-						<height>16</height>
-						<texture>PVR-IsRecording.png</texture>
-						<visible>ListItem.IsRecording</visible>
-					</control>
-					<control type="image">
-						<left>6</left>
-						<top>28</top>
 						<width>16</width>
 						<height>16</height>
-						<texture>PVR-HasTimer.png</texture>
-						<visible>ListItem.HasTimer + !ListItem.IsRecording + !ListItem.HasTimerSchedule</visible>
-					</control>
-					<control type="image">
-						<left>6</left>
-						<top>28</top>
-						<width>16</width>
-						<height>16</height>
-						<texture>PVR-HasTimerSchedule.png</texture>
-						<visible>!ListItem.IsRecording + ListItem.HasTimerSchedule</visible>
-					</control>
-					<control type="image">
-						<left>6</left>
-						<top>28</top>
-						<width>16</width>
-						<height>16</height>
-						<texture>PVR-HasRecording.png</texture>
-						<visible>ListItem.HasRecording + !ListItem.IsRecording + !ListItem.HasTimer</visible>
+						<texture>$VAR[PVRTimerIcon]</texture>
 					</control>
 				</focusedlayout>
 			</control>
+			<control type="scrollbar" id="60">
+				<left>1188</left>
+				<top>104</top>
+				<width>25</width>
+				<height>388</height>
+				<texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
+				<texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
+				<texturesliderbarfocus border="0,14,0,14">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+				<textureslidernib>ScrollBarNib.png</textureslidernib>
+				<textureslidernibfocus>ScrollBarNib.png</textureslidernibfocus>
+				<onleft>10</onleft>
+				<onright>101</onright>
+				<showonepage>false</showonepage>
+				<orientation>vertical</orientation>
+				<visible>Control.IsVisible(10)</visible>
+			</control>
 			<control type="group">
-				<visible>!IsEmpty(ListItem.Label)</visible>
+				<visible>!String.IsEmpty(ListItem.Label)</visible>
 				<left>80</left>
 				<top>508</top>
 				<control type="image">
@@ -461,31 +427,9 @@
 						<control type="image">
 							<left>970</left>
 							<top>10</top>
-							<width>30</width>
-							<height>20</height>
-							<texture>PVR-IsRecording.png</texture>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="label">
-							<left>1005</left>
-							<top>0</top>
-							<width>80</width>
-							<height>40</height>
-							<font>font10</font>
-							<align>left</align>
-							<aligny>center</aligny>
-							<textcolor>grey2</textcolor>
-							<selectedcolor>selected</selectedcolor>
-							<label>19043</label>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="image">
-							<left>970</left>
-							<top>10</top>
 							<width>20</width>
 							<height>20</height>
-							<texture>PVR-HasTimer.png</texture>
-							<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
+							<texture>$VAR[PVRTimerIcon]</texture>
 						</control>
 						<control type="label">
 							<left>1000</left>
@@ -497,8 +441,7 @@
 							<aligny>center</aligny>
 							<textcolor>grey2</textcolor>
 							<selectedcolor>selected</selectedcolor>
-							<label>31510</label>
-							<visible>ListItem.HasTimer</visible>
+							<label>$VAR[PVRTimerLabel]</label>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100">
@@ -613,31 +556,9 @@
 						<control type="image">
 							<left>970</left>
 							<top>10</top>
-							<width>30</width>
-							<height>20</height>
-							<texture>PVR-IsRecording.png</texture>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="label">
-							<left>1005</left>
-							<top>0</top>
-							<width>80</width>
-							<height>40</height>
-							<font>font10</font>
-							<align>left</align>
-							<aligny>center</aligny>
-							<textcolor>grey2</textcolor>
-							<selectedcolor>selected</selectedcolor>
-							<label>19043</label>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="image">
-							<left>970</left>
-							<top>10</top>
 							<width>20</width>
 							<height>20</height>
-							<texture>PVR-HasTimer.png</texture>
-							<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
+							<texture>$VAR[PVRTimerIcon]</texture>
 						</control>
 						<control type="label">
 							<left>1000</left>
@@ -649,8 +570,7 @@
 							<aligny>center</aligny>
 							<textcolor>grey2</textcolor>
 							<selectedcolor>selected</selectedcolor>
-							<label>31510</label>
-							<visible>ListItem.HasTimer</visible>
+							<label>$VAR[PVRTimerLabel]</label>
 						</control>
 					</focusedlayout>
 				</control>
@@ -840,31 +760,9 @@
 						<control type="image">
 							<left>970</left>
 							<top>10</top>
-							<width>30</width>
-							<height>20</height>
-							<texture>PVR-IsRecording.png</texture>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="label">
-							<left>1005</left>
-							<top>0</top>
-							<width>80</width>
-							<height>40</height>
-							<font>font10</font>
-							<align>left</align>
-							<aligny>center</aligny>
-							<textcolor>grey2</textcolor>
-							<selectedcolor>selected</selectedcolor>
-							<label>19043</label>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="image">
-							<left>970</left>
-							<top>10</top>
 							<width>20</width>
 							<height>20</height>
-							<texture>PVR-HasTimer.png</texture>
-							<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
+							<texture>$VAR[PVRTimerIcon]</texture>
 						</control>
 						<control type="label">
 							<left>1000</left>
@@ -876,8 +774,7 @@
 							<aligny>center</aligny>
 							<textcolor>grey2</textcolor>
 							<selectedcolor>selected</selectedcolor>
-							<label>31510</label>
-							<visible>ListItem.HasTimer</visible>
+							<label>$VAR[PVRTimerLabel]</label>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100">
@@ -992,31 +889,9 @@
 						<control type="image">
 							<left>970</left>
 							<top>10</top>
-							<width>30</width>
-							<height>20</height>
-							<texture>PVR-IsRecording.png</texture>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="label">
-							<left>1005</left>
-							<top>0</top>
-							<width>80</width>
-							<height>40</height>
-							<font>font10</font>
-							<align>left</align>
-							<aligny>center</aligny>
-							<textcolor>grey2</textcolor>
-							<selectedcolor>selected</selectedcolor>
-							<label>19043</label>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="image">
-							<left>970</left>
-							<top>10</top>
 							<width>20</width>
 							<height>20</height>
-							<texture>PVR-HasTimer.png</texture>
-							<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
+							<texture>$VAR[PVRTimerIcon]</texture>
 						</control>
 						<control type="label">
 							<left>1000</left>
@@ -1028,8 +903,7 @@
 							<aligny>center</aligny>
 							<textcolor>grey2</textcolor>
 							<selectedcolor>selected</selectedcolor>
-							<label>31510</label>
-							<visible>ListItem.HasTimer</visible>
+							<label>$VAR[PVRTimerLabel]</label>
 						</control>
 					</focusedlayout>
 				</control>
@@ -1186,31 +1060,9 @@
 						<control type="image">
 							<left>970</left>
 							<top>10</top>
-							<width>30</width>
-							<height>20</height>
-							<texture>PVR-IsRecording.png</texture>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="label">
-							<left>1005</left>
-							<top>0</top>
-							<width>80</width>
-							<height>40</height>
-							<font>font10</font>
-							<align>left</align>
-							<aligny>center</aligny>
-							<textcolor>grey2</textcolor>
-							<selectedcolor>selected</selectedcolor>
-							<label>19043</label>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="image">
-							<left>970</left>
-							<top>10</top>
 							<width>20</width>
 							<height>20</height>
-							<texture>PVR-HasTimer.png</texture>
-							<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
+							<texture>$VAR[PVRTimerIcon]</texture>
 						</control>
 						<control type="label">
 							<left>1000</left>
@@ -1222,8 +1074,7 @@
 							<aligny>center</aligny>
 							<textcolor>grey2</textcolor>
 							<selectedcolor>selected</selectedcolor>
-							<label>31510</label>
-							<visible>ListItem.HasTimer</visible>
+							<label>$VAR[PVRTimerLabel]</label>
 						</control>
 					</itemlayout>
 					<focusedlayout height="100">
@@ -1318,31 +1169,9 @@
 						<control type="image">
 							<left>970</left>
 							<top>10</top>
-							<width>30</width>
-							<height>20</height>
-							<texture>PVR-IsRecording.png</texture>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="label">
-							<left>1005</left>
-							<top>0</top>
-							<width>80</width>
-							<height>40</height>
-							<font>font10</font>
-							<align>left</align>
-							<aligny>center</aligny>
-							<textcolor>grey2</textcolor>
-							<selectedcolor>selected</selectedcolor>
-							<label>19043</label>
-							<visible>ListItem.IsRecording</visible>
-						</control>
-						<control type="image">
-							<left>970</left>
-							<top>10</top>
 							<width>20</width>
 							<height>20</height>
-							<texture>PVR-HasTimer.png</texture>
-							<visible>ListItem.HasTimer + !ListItem.IsRecording</visible>
+							<texture>$VAR[PVRTimerIcon]</texture>>
 						</control>
 						<control type="label">
 							<left>1000</left>
@@ -1354,8 +1183,7 @@
 							<aligny>center</aligny>
 							<textcolor>grey2</textcolor>
 							<selectedcolor>selected</selectedcolor>
-							<label>31510</label>
-							<visible>ListItem.HasTimer</visible>
+							<label>$VAR[PVRTimerLabel]</label>
 						</control>
 					</focusedlayout>
 				</control>

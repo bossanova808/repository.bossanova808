@@ -11,7 +11,7 @@
 			<texture>floor.png</texture>
 			<include>VisibleFadeEffect</include>
 		</control>
-		<include name="CommonWindowHeader">
+		<include content="CommonWindowHeader">
 			<param name="Icon" value="icon_system" />
 			<param name="Label" value="$LOCALIZE[20077]" />
 		</include>
@@ -273,42 +273,6 @@
 						<onclick>Skin.ToggleSetting(HideEPGwithRDS)</onclick>
 						<selected>Skin.HasSetting(HideEPGwithRDS)</selected>
 					</control>
-					<control type="label" id="106">
-						<width>750</width>
-						<height>45</height>
-						<font>font13_title</font>
-						<label>512</label>
-						<textcolor>blue</textcolor>
-						<shadowcolor>black</shadowcolor>
-						<align>left</align>
-						<aligny>center</aligny>
-					</control>
-					<control type="radiobutton" id="107">
-						<width>750</width>
-						<height>40</height>
-						<font>font13</font>
-						<label>21398</label>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>Skin.ToggleSetting(Use_Startup_Playlist)</onclick>
-						<selected>Skin.HasSetting(Use_Startup_Playlist)</selected>
-					</control>
-					<control type="button" id="108">
-						<description>Startup Playlist Path</description>
-						<width>750</width>
-						<height>40</height>
-						<font>font13</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<label>15311</label>
-						<label2>$INFO[Skin.String(Startup_Playlist_Path)]</label2>
-						<onclick>Skin.SetFile(Startup_Playlist_Path,,special://MusicPlaylists/)</onclick>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<enable>Skin.HasSetting(Use_Startup_Playlist)</enable>
-					</control>
 				</control>
 				<control type="scrollbar" id="60">
 					<left>1060</left>
@@ -386,7 +350,7 @@
 						<selected>Skin.HasSetting(homepageWeatherinfo)</selected>
 						<texturefocus>MenuItemFO.png</texturefocus>
 						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<visible>!IsEmpty(Weather.Plugin)</visible>
+						<visible>!String.IsEmpty(Weather.Plugin)</visible>
 					</control>
 					<control type="radiobutton" id="205">
 						<description>Show Recently added Video info</description>
@@ -684,7 +648,7 @@
 							<focusedcolor>white</focusedcolor>
 							<texturefocus>MenuItemFO.png</texturefocus>
 							<texturenofocus>MenuItemNF.png</texturenofocus>
-							<enable>!IsEmpty(Skin.String(LyricScript_Path))</enable>
+							<enable>!String.IsEmpty(Skin.String(LyricScript_Path))</enable>
 							<onclick>Addon.OpenSettings($INFO[Skin.String(LyricScript_Path)])</onclick>
 						</control>
 						<control type="label" id="410">

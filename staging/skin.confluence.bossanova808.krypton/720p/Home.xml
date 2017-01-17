@@ -6,6 +6,45 @@
 	<onunload condition="Control.HasFocus(9000) + Container(9000).Hasfocus(2)">ClearProperty(VideosDirectLink)</onunload>
 	<onunload condition="Control.HasFocus(9000) + Container(9000).Hasfocus(3)">ClearProperty(MusicDirectLink)</onunload>
 	<controls>
+		<control type="list" id="90160">
+			<left>-10</left>
+			<top>-10</top>
+			<width>1</width>
+			<height>1</height>
+			<viewtype label="535">list</viewtype>
+			<itemlayout height="1" width="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content target="video" limit="6">library://video/movies/</content>
+			<visible>Library.HasContent(Movies)</visible>
+		</control>
+		<control type="list" id="90170">
+			<left>-10</left>
+			<top>-10</top>
+			<width>1</width>
+			<height>1</height>
+			<viewtype label="535">list</viewtype>
+			<itemlayout height="1" width="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content target="video" limit="6">library://video/tvshows/</content>
+			<visible>Library.HasContent(TVShows)</visible>
+		</control>
+		<control type="list" id="90110">
+			<left>-10</left>
+			<top>-10</top>
+			<width>1</width>
+			<height>1</height>
+			<viewtype label="535">list</viewtype>
+			<itemlayout height="1" width="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content target="music" limit="6">library://music/</content>
+			<visible>Library.HasContent(Music)</visible>
+		</control>
 		<include>CommonBackground</include>
 		<!-- Remove Floor
 			<control type="image">
@@ -26,7 +65,7 @@
 			<depth>DepthMenu</depth>
 			<left>0</left>
 			<top>60</top>
-			<visible>Player.HasAudio + !Skin.HasSetting(homepageMusicinfo) + IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+			<visible>Player.HasAudio + !Skin.HasSetting(homepageMusicinfo) + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
 			<include>VisibleFadeEffect</include>
 			<include>Window_OpenClose_Animation</include>
 			<control type="image">
@@ -177,16 +216,16 @@
 					<bordersize>4</bordersize>
 				</control>
 				<control type="image">
-					<left>360</left>
+					<left>365</left>
 					<top>5</top>
-					<width>30</width>
+					<width>25</width>
 					<height>25</height>
 					<aspectratio>keep</aspectratio>
 					<texture>PVR-IsRecording.png</texture>
 				</control>
 				<control type="label">
 					<description>Is Recording Header label</description>
-					<left>-50</left>
+					<left>-45</left>
 					<top>5</top>
 					<height>25</height>
 					<width>400</width>
@@ -230,7 +269,7 @@
 			<depth>DepthMenu</depth>
 			<left>0</left>
 			<top>50</top>
-			<visible>Player.HasVideo + !Skin.HasSetting(homepageVideoinfo) + IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+			<visible>Player.HasVideo + !Skin.HasSetting(homepageVideoinfo) + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
 			<include>VisibleFadeEffect</include>
 			<include>Window_OpenClose_Animation</include>
 			<control type="group">
@@ -464,7 +503,7 @@
 				<effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="225" />
 				<effect type="fade" start="100" end="0" time="225" />
 			</animation>
-			<visible>IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+			<visible>String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
 			<control type="image">
 				<description>Background End image</description>
 				<left>0</left>
@@ -926,10 +965,11 @@
 				<content>
 					<item id="7">
 						<label>31950</label>
-						<onclick>ActivateWindow(Weather)</onclick>
+						<onclick condition="!String.IsEmpty(Weather.Plugin)">ActivateWindow(Weather)</onclick>
+						<onclick condition="String.IsEmpty(Weather.Plugin)">ActivateWindow(servicesettings,weather)</onclick>
 						<icon>-</icon>
 						<thumb>-</thumb>
-						<visible>!Skin.HasSetting(HomeMenuNoWeatherButton) + !IsEmpty(Weather.Plugin)</visible>
+						<visible>!Skin.HasSetting(HomeMenuNoWeatherButton)</visible>
 					</item>
 					<item id="4">
 						<label>31951</label>
@@ -954,8 +994,8 @@
 					</item>
 					<item id="2">
 						<label>31953</label>
-						<onclick condition="StringCompare(Window.Property(VideosDirectLink),True)">ActivateWindow(Videos)</onclick>
-						<onclick condition="!StringCompare(Window.Property(VideosDirectLink),True)">ActivateWindow(Videos,root)</onclick>
+						<onclick condition="String.IsEqual(Window.Property(VideosDirectLink),True)">ActivateWindow(Videos)</onclick>
+						<onclick condition="!String.IsEqual(Window.Property(VideosDirectLink),True)">ActivateWindow(Videos,root)</onclick>
 						<icon>-</icon>
 						<thumb>-</thumb>
 						<visible>!Skin.HasSetting(HomeMenuNoVideosButton)</visible>
@@ -976,8 +1016,8 @@
 					</item>
 					<item id="3">
 						<label>31956</label>
-						<onclick condition="StringCompare(Window.Property(MusicDirectLink),True)">ActivateWindow(Music)</onclick>
-						<onclick condition="!StringCompare(Window.Property(MusicDirectLink),True)">ActivateWindow(Music,root)</onclick>
+						<onclick condition="String.IsEqual(Window.Property(MusicDirectLink),True)">ActivateWindow(Music)</onclick>
+						<onclick condition="!String.IsEqual(Window.Property(MusicDirectLink),True)">ActivateWindow(Music,root)</onclick>
 						<icon>-</icon>
 						<thumb>-</thumb>
 						<visible>!Skin.HasSetting(HomeMenuNoMusicButton)</visible>
@@ -1025,7 +1065,7 @@
 			<onup>9001</onup>
 			<ondown>20</ondown>
 			<control type="fixedlist" id="700">
-				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="StringCompare(Container(700).NumItems,2) | StringCompare(Container(700).NumItems,4)">conditional</animation>
+				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="String.IsEqual(Container(700).NumItems,2) | String.IsEqual(Container(700).NumItems,4)">conditional</animation>
 				<visible>Container(9000).HasFocus(2) | Container(9000).HasFocus(10) | Container(9000).HasFocus(11)</visible>
 				<onleft>700</onleft>
 				<onright>700</onright>
@@ -1037,7 +1077,7 @@
 				</content>
 			</control>
 			<control type="fixedlist" id="703">
-				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="StringCompare(Container(703).NumItems,2) | StringCompare(Container(703).NumItems,4)">conditional</animation>
+				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="String.IsEqual(Container(703).NumItems,2) | String.IsEqual(Container(703).NumItems,4)">conditional</animation>
 				<visible>Container(9000).HasFocus(3)</visible>
 				<onleft>703</onleft>
 				<onright>703</onright>
@@ -1049,7 +1089,7 @@
 				</content>
 			</control>
 			<control type="fixedlist" id="704">
-				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="StringCompare(Container(704).NumItems,2) | StringCompare(Container(704).NumItems,4)">conditional</animation>
+				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="String.IsEqual(Container(704).NumItems,2) | String.IsEqual(Container(704).NumItems,4)">conditional</animation>
 				<visible>Container(9000).HasFocus(4)</visible>
 				<onleft>704</onleft>
 				<onright>704</onright>
@@ -1061,7 +1101,7 @@
 				</content>
 			</control>
 			<control type="fixedlist" id="705">
-				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="StringCompare(Container(705).NumItems,2) | StringCompare(Container(705).NumItems,4)">conditional</animation>
+				<animation effect="slide" start="0,0" end="-91,0" time="0" condition="String.IsEqual(Container(705).NumItems,2) | String.IsEqual(Container(705).NumItems,4)">conditional</animation>
 				<visible>Container(9000).HasFocus(1)</visible>
 				<onleft>705</onleft>
 				<onright>705</onright>
@@ -1173,7 +1213,7 @@
 			<control type="group">
 				<left>20</left>
 				<top>0</top>
-				<visible>Skin.HasSetting(homepageWeatherinfo) + !IsEmpty(Weather.Plugin)</visible>
+				<visible>Skin.HasSetting(homepageWeatherinfo) + !String.IsEmpty(Weather.Plugin)</visible>
 				<include>Window_OpenClose_Animation</include>
 				<control type="image">
 					<description>Weather image</description>
@@ -1225,7 +1265,7 @@
 						<label>$INFO[System.TemperatureUnits]</label>
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
-						<visible>!IsEmpty(Window(Weather).Property(Current.Temperature))</visible>
+						<visible>!String.IsEmpty(Window(Weather).Property(Current.Temperature))</visible>
 					</control>
 					<control type="label">
 						<description>Conditions Label</description>
@@ -1253,7 +1293,7 @@
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Date]</label>
 				<include>Window_OpenClose_Animation</include>
-				<animation effect="slide" start="0,0" end="-40,0" time="75" condition="Window.IsVisible(Mutebug)">conditional</animation>
+				<animation effect="slide" start="0,0" end="-40,0" time="75" condition="Player.Muted">conditional</animation>
 			</control>
 		</control>
 	</controls>
