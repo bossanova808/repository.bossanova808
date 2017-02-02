@@ -6,6 +6,7 @@ sys.path.append( YOCTO_PATH )
 
 from yocto_api import *
 from yocto_display import *
+from traceback import format_exc
 
 display = None
 module = None
@@ -29,7 +30,7 @@ def registerDisplayandModule():
     global display, module
 
     display = YDisplay.FirstDisplay()
-    module = YModule.FirstModule()
+    module = display.get_module()
 
     if not module:
         sys.exit("Couldn't find the module")
@@ -41,7 +42,10 @@ def describeDisplay():
 
     global display
 
-    print("Display found: " + str(display.describe()) + " - " + str(display.get_displayType()) + " - Friendly name: " + str(display.get_friendlyName( )))
+    try:
+        print("Display found: " + str(display.describe()) + " - " + str(display.get_displayType()) + " - Friendly name: " + str(display.get_friendlyName( )))
+    except Exception as inst:
+        print("Exception in describe display..." + format_exc(inst))        
 
 def setBrightness(brightness):
 
