@@ -36,6 +36,10 @@ msgctxt "#31006"
 msgid "View options"
 msgstr "Opzioni di visione"
 
+msgctxt "#31007"
+msgid "Video process information"
+msgstr "Informazioni elaborazione video"
+
 msgctxt "#31008"
 msgid "Full screen"
 msgstr "Schermo Intero"
@@ -44,9 +48,25 @@ msgctxt "#31009"
 msgid "Total duration"
 msgstr "Durata totale"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Musica - File"
+msgctxt "#31010"
+msgid "Hardware decoding"
+msgstr "Decodifica Hardware"
+
+msgctxt "#31011"
+msgid "Inactive"
+msgstr "Inattivo"
+
+msgctxt "#31012"
+msgid "Decoder"
+msgstr "Decoder"
+
+msgctxt "#31013"
+msgid "Audio process information"
+msgstr "Informazioni elaborazione audio"
+
+msgctxt "#31014"
+msgid "Memory used"
+msgstr "Memoria usata"
 
 msgctxt "#31023"
 msgid "Playing"
@@ -152,10 +172,6 @@ msgctxt "#31059"
 msgid "Current playlist"
 msgstr "Playlist corrente"
 
-msgctxt "#31060"
-msgid "This file is stacked, select the part you want to play from."
-msgstr "Questo file è stato accorpato, scegli la parte da cui vuoi iniziare."
-
 msgctxt "#31061"
 msgid "Current selected"
 msgstr "Attualmente Selezionato"
@@ -260,10 +276,6 @@ msgctxt "#31140"
 msgid "Music OSD"
 msgstr "OSD Musica"
 
-msgctxt "#31141"
-msgid "Video OSD"
-msgstr "OSD Video"
-
 msgctxt "#31142"
 msgid "Settings level"
 msgstr "Livello impostazioni"
@@ -304,10 +316,6 @@ msgctxt "#31303"
 msgid "Data provider"
 msgstr "Fornitore dei dati"
 
-msgctxt "#31307"
-msgid "Hide fanart"
-msgstr "Nascondi Fanart"
-
 msgctxt "#31308"
 msgid "Movie details"
 msgstr "Dettagli Film"
@@ -319,26 +327,6 @@ msgstr "Memoria usata:"
 msgctxt "#31310"
 msgid "Track number"
 msgstr "Numero traccia"
-
-msgctxt "#31311"
-msgid "Fanart image[CR][CR]Unavailable[CR][CR] Click button to set"
-msgstr "Immagine fanart[CR][CR]Non disponibile[CR][CR] Premi il bottone per impostarla"
-
-msgctxt "#31312"
-msgid "Current scraper"
-msgstr "Scraper attuale"
-
-msgctxt "#31313"
-msgid "Choose a scraper"
-msgstr "Scegli uno scraper"
-
-msgctxt "#31314"
-msgid "Content scanning options"
-msgstr "Opzioni Scansione Contenuto"
-
-msgctxt "#31317"
-msgid "Set fanart path"
-msgstr "Imposta percorso Fanart"
 
 msgctxt "#31319"
 msgid "Selected profile"
@@ -428,42 +416,6 @@ msgctxt "#31392"
 msgid "Arial based"
 msgstr "Basato su Arial"
 
-msgctxt "#31400"
-msgid "[B]CONFIGURE APPEARANCE SETTINGS[/B][CR][CR]Change the skin · Set language and region · Change file listing options[CR]Set up a screensaver"
-msgstr "[B]CONFIGURA LE IMPOSTAZIONI PER L'ASPETTO[/B][CR][CR]Cambia la Skin · Imposta Lingua e Regione · Cambia le impostazioni di elenco dei file[CR]Imposta uno Screensaver"
-
-msgctxt "#31401"
-msgid "[B]CONFIGURE VIDEO SETTINGS[/B][CR][CR]Manage your video library · Set video playback options · Change video listing options[CR]Set subtitle fonts"
-msgstr "[B]CONFIGURA IMPOSTAZIONI VIDEO[/B][CR][CR]Gestisci la tua Libreria video · Imposta le opzioni di riproduzione dei video · Cambia le opzioni per le liste video[CR]Imposta i font dei sottotitoli"
-
-msgctxt "#31402"
-msgid "[B]CONFIGURE MUSIC SETTINGS[/B][CR][CR]Manage your music library · Set music playback options · Change music listing options[CR]Setup song submission"
-msgstr "[B]CONFIGURA IMPOSTAZIONI MUSICA[/B][CR][CR]Gestisci la tua libreria musicale · Imposta le opzioni di riproduzione musicale · Cambia le impostazioni di ordinamento musicale[CR]Imposta invio canzone"
-
-msgctxt "#31403"
-msgid "[B]CONFIGURE PICTURE SETTINGS[/B][CR][CR]Set picture listing options · Configure slideshow"
-msgstr "[B]CONFIGURA IMPOSTAZIONI IMMAGINI[/B][CR][CR]Cambia le opzioni per le liste delle immagini · Configura presentazioni"
-
-msgctxt "#31404"
-msgid "[B]CONFIGURE WEATHER SETTINGS[/B][CR][CR]Set various cities to collect weather information"
-msgstr "[B]CONFIGURA IMPOSTAZIONI METEO[/B][CR][CR]Imposta varie città delle quali ottenere le informazioni meteo"
-
-msgctxt "#31406"
-msgid "[B]CONFIGURE SYSTEM SETTINGS[/B][CR][CR]Setup and calibrate displays · Configure audio output · Setup remote controls[CR]Set power saving options · Enable debugging · Setup master lock"
-msgstr "[B]CONFIGURA IMPOSTAZIONI DI SISTEMA[/B][CR][CR]Imposta e calibra il video · Configura l'uscita audio · Imposta i controlli remoti[CR]Imposta le opzioni di risparmio energetico · Abilita il debug · Imposta il master lock"
-
-msgctxt "#31408"
-msgid "[B]CONFIGURE ADD-ONS[/B][CR][CR]Manage your installed add-ons · Browse for and install add-ons from kodi.tv[CR]Modify add-on settings"
-msgstr "[B]CONFIGURA ADD-ON[/B][CR][CR]Gestisci i tuoi Add-on installati · Sfoglia e installa Add-on da kodi.tv[CR]Modifica impostazioni Add-on"
-
-msgctxt "#31409"
-msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change full screen info · Manage EPG data settings"
-msgstr "[B]CONFIGURA IMPOSTAZIONI TV[/B][CR][CR]Cambia impostazioni schermo intero · Gestisci impostazioni dati EPG"
-
-msgctxt "#31410"
-msgid "[B]CONFIGURE SERVICE SETTINGS[/B][CR][CR]Setup control of Kodi via UPnP and HTTP · Configure file sharing[CR]Enable Zeroconf · Configure AirPlay"
-msgstr "[B]CONFIGURA IMPOSTAZIONI DI RETE[/B][CR][CR]Imposta il controllo di Kodi via UPnP e HTTP · Configura la condivisione dei file[CR]Abilita Zeroconf · Configura AirPlay"
-
 msgctxt "#31411"
 msgid "First run help..."
 msgstr "Aiuto primo avvio...."
@@ -491,6 +443,34 @@ msgstr "Mostra o nascondi la schermata di login all'avvio."
 msgctxt "#31423"
 msgid "Select the profile that will be used at startup when the login screen is disabled."
 msgstr "Seleziona il profilo che sarà usato all'avvio quando la schermata di login è disabilitata."
+
+msgctxt "#31430"
+msgid "[B]PLAYER SETTINGS[/B][CR][CR]Configure actions that can be used during playback · Configure how media content is played"
+msgstr "[B]IMPOSTAZIONI LETTORE[/B][CR][CR]Configura le azioni che possono essere usate durante la riproduzione · Configura come viene visualizzato il contenuto multimediale"
+
+msgctxt "#31431"
+msgid "[B]LIBRARY SETTINGS[/B][CR][CR]Configure how the library/file views display media content ·  Configure how library lists/views are navigated · Configure the media database options"
+msgstr "[B]IMPOSTAZIONI LIBRERIA[/B][CR][CR]Configura la visualizzazione del contenuto delle viste file/libreria · Configura la navigazione delle liste/viste libreria · Configura le opzioni dei database multimediali"
+
+msgctxt "#31432"
+msgid "[B]PVR SETTINGS[/B][CR][CR]Configure how the channels & guide are managed  · Configure how Live TV and recordings are managed"
+msgstr "[B]IMPOSTAZIONI PVR[/B][CR][CR]Configura la gestione dei Canali e delle Guide · Configura la gestione della TV e delle Registrazioni"
+
+msgctxt "#31433"
+msgid "[B]ADD-ONS SETTINGS[/B][CR][CR]Configure your installed add-ons · Browse for and install add-ons from kodi.tv"
+msgstr "[B]IMPOSTAZIONI ADD-ON[/B][CR][CR]Configura gli Add-on installati · Sfoglia e installa Add-on da kodi.tv"
+
+msgctxt "#31434"
+msgid "[B]SERVICES SETTINGS[/B][CR][CR]Configure & manage media sharing services · Configure web server · Configure & manage the weather service"
+msgstr "[B]IMPOSTAZIONI SERVIZI[/B][CR][CR]Configura e gestisci i servizi di condivisione multimediale · Configura il web server · Configura e gestisci il servizio meteo"
+
+msgctxt "#31435"
+msgid "[B]SYSTEM SETTINGS[/B][CR][CR]Configure display · Configure audio · Configure internet access · Configure power saving· Configure logging"
+msgstr "[B]IMPOSTAZIONI SISTEMA[/B][CR][CR]Configura il display · Configura l'audio · Configura l'accesso a internet · Configura il risparmio energetico · Configura il logging"
+
+msgctxt "#31436"
+msgid "[B]INTERFACE SETTINGS[/B][CR][CR]Configure skin · Configure region · Configure control · Configure screensaver · Configure master lock"
+msgstr "[B]IMPOSTAZIONI INTERFACCIA[/B][CR][CR]Configura la skin · Configura la regione · Configura i controlli · Configura lo screensaver · Configura il master lock"
 
 msgctxt "#31501"
 msgid "Scheduled time"
@@ -547,10 +527,6 @@ msgstr "Previsioni giornaliere"
 msgctxt "#31905"
 msgid "Forecast"
 msgstr "Previsioni"
-
-msgctxt "#31908"
-msgid "Chance of precipitation"
-msgstr "Possibilità di precipitazioni"
 
 msgctxt "#31909"
 msgid "Fetching forecast info..."

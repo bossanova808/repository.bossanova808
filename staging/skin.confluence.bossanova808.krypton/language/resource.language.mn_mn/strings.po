@@ -20,10 +20,6 @@ msgctxt "#31008"
 msgid "Full screen"
 msgstr "Бүтэн дэлгэц"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Дууны Файлууд"
-
 msgctxt "#31023"
 msgid "Playing"
 msgstr "Тоглуулж байна"
@@ -79,6 +75,10 @@ msgstr "Өсөхөөр эрэмбэлэх"
 msgctxt "#31051"
 msgid "Sort: Descending"
 msgstr "Уруудахаар эрэмбэлэх"
+
+msgctxt "#31059"
+msgid "Current playlist"
+msgstr "Одоогийн тоглох жагсаалт"
 
 msgctxt "#31102"
 msgid "Background"

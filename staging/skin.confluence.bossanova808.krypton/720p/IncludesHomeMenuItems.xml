@@ -54,7 +54,7 @@
 		</control>
 		<control type="button" id="90162">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Recent</label>
+			<label>$INFO[Container(90160).ListItemNoWrap(0).Label]</label>
 			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(0).FileNameAndPath],return)</onclick>
 		</control>
 		<control type="button" id="90163">
@@ -124,7 +124,7 @@
 		</control>
 		<control type="button" id="90176">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>In Progress</label>
+			<label>$INFO[Container(90170).ListItemNoWrap(4).Label]</label>
 			<onclick>ActivateWindow(Videos,$INFO[Container(90170).ListItemNoWrap(4).FileNameAndPath],return)</onclick>
 			<visible>!String.IsEmpty(Container(90170).ListItemNoWrap(4).Label)</visible>
 		</control>

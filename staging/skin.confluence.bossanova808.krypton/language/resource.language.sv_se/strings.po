@@ -44,9 +44,9 @@ msgctxt "#31009"
 msgid "Total duration"
 msgstr "Total längd"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Musik - Filer"
+msgctxt "#31014"
+msgid "Memory used"
+msgstr "Använd minne"
 
 msgctxt "#31023"
 msgid "Playing"
@@ -152,10 +152,6 @@ msgctxt "#31059"
 msgid "Current playlist"
 msgstr "Nuvarande spellista"
 
-msgctxt "#31060"
-msgid "This file is stacked, select the part you want to play from."
-msgstr "Denna fil är sammanslagen, välj den del du vill spela."
-
 msgctxt "#31061"
 msgid "Current selected"
 msgstr "För närvarande vald"
@@ -234,7 +230,7 @@ msgstr "Visa \"Spelas nu\" backgrundsvisualisering"
 
 msgctxt "#31128"
 msgid "Lyrics"
-msgstr "Sångtexter"
+msgstr "Sångtext"
 
 msgctxt "#31129"
 msgid "Hide fanart in full screen visualisation"
@@ -242,7 +238,7 @@ msgstr "Dölj fanart i fullskärmsvisualisering"
 
 msgctxt "#31132"
 msgid "Lyrics add-on"
-msgstr "Sångtextstillägg"
+msgstr "Sångtext tillägg"
 
 msgctxt "#31134"
 msgid "Home page \"Videos\" submenu"
@@ -260,10 +256,6 @@ msgctxt "#31140"
 msgid "Music OSD"
 msgstr "Musik-OSD"
 
-msgctxt "#31141"
-msgid "Video OSD"
-msgstr "Video-OSD"
-
 msgctxt "#31142"
 msgid "Settings level"
 msgstr "Inställningsnivå"
@@ -278,7 +270,7 @@ msgstr "Välj din låt"
 
 msgctxt "#31205"
 msgid "Lyrics source"
-msgstr "Sångtextkälla"
+msgstr "Sångtext källa"
 
 msgctxt "#31206"
 msgid "Found"
@@ -304,10 +296,6 @@ msgctxt "#31303"
 msgid "Data provider"
 msgstr "Dataleverantör"
 
-msgctxt "#31307"
-msgid "Hide fanart"
-msgstr "Dölj fanart"
-
 msgctxt "#31308"
 msgid "Movie details"
 msgstr "Filmdetaljer"
@@ -319,26 +307,6 @@ msgstr "Använt minne:"
 msgctxt "#31310"
 msgid "Track number"
 msgstr "Spårnummer"
-
-msgctxt "#31311"
-msgid "Fanart image[CR][CR]Unavailable[CR][CR] Click button to set"
-msgstr "Fanart-bild[CR][CR]Inte Tillgänglig[CR][CR]Klicka på knappen för att ange"
-
-msgctxt "#31312"
-msgid "Current scraper"
-msgstr "Aktuell skrapare"
-
-msgctxt "#31313"
-msgid "Choose a scraper"
-msgstr "Välj en skrapare"
-
-msgctxt "#31314"
-msgid "Content scanning options"
-msgstr "Alternativ för innehållsskanning"
-
-msgctxt "#31317"
-msgid "Set fanart path"
-msgstr "Ange fanartsökväg"
 
 msgctxt "#31319"
 msgid "Selected profile"
@@ -428,42 +396,6 @@ msgctxt "#31392"
 msgid "Arial based"
 msgstr "Arialbaserad"
 
-msgctxt "#31400"
-msgid "[B]CONFIGURE APPEARANCE SETTINGS[/B][CR][CR]Change the skin · Set language and region · Change file listing options[CR]Set up a screensaver"
-msgstr "[B]KONFIGURERA UTSEENDEINSTÄLLNINGAR[/B][CR][CR]Ändra skalet · Ange språk och region · Ange fillistningsalternativ[CR]Ange en skärmsläckare"
-
-msgctxt "#31401"
-msgid "[B]CONFIGURE VIDEO SETTINGS[/B][CR][CR]Manage your video library · Set video playback options · Change video listing options[CR]Set subtitle fonts"
-msgstr "[B]KONFIGURERA GRAFIKINSTÄLLNINGAR[/B][CR][CR]Hantera ditt filmbibliotek · Ange filmuppspelningsalternativ[CR]Ändra videoförteckningsalternativ · Konfigurera undertexttypsnitt"
-
-msgctxt "#31402"
-msgid "[B]CONFIGURE MUSIC SETTINGS[/B][CR][CR]Manage your music library · Set music playback options · Change music listing options[CR]Setup song submission"
-msgstr "[B]KONFIGURERA MUSIKINSTÄLLNINGAR[/B][CR][CR]Hantera ditt musikbibliotek · Ange musikuppspelningsalternativ · Ändra musiklistningsalternativ[CR]Ange låtinskickning"
-
-msgctxt "#31403"
-msgid "[B]CONFIGURE PICTURE SETTINGS[/B][CR][CR]Set picture listing options · Configure slideshow"
-msgstr "[B]KONFIGURERA BILDINSTÄLLNINGAR[/B][CR][CR]Ange bildlistningsalternativ · Justera bildspel"
-
-msgctxt "#31404"
-msgid "[B]CONFIGURE WEATHER SETTINGS[/B][CR][CR]Set various cities to collect weather information"
-msgstr "[B]KONFIGURERA VÄDERINSTÄLLNINGAR[/B][CR][CR]Ange tre städer för insamling av väderinformation"
-
-msgctxt "#31406"
-msgid "[B]CONFIGURE SYSTEM SETTINGS[/B][CR][CR]Setup and calibrate displays · Configure audio output · Setup remote controls[CR]Set power saving options · Enable debugging · Setup master lock"
-msgstr "[B]KONFIGURERA SYSTEMINSTÄLLNINGAR[/B][CR][CR]Ange och kalibrera bildskärmar · Konfigurera ljudutgång · Ställa in fjärrkontroller[CR]Ange energisparalternativ · Aktivera debuggningen · Konfigurera huvudkod och lås"
-
-msgctxt "#31408"
-msgid "[B]CONFIGURE ADD-ONS[/B][CR][CR]Manage your installed add-ons · Browse for and install add-ons from kodi.tv[CR]Modify add-on settings"
-msgstr "[B]KONFIGURERA TILLÄGG[/B][CR][CR]Hantera installerade tillägg · Visa och installera tillägg från kodi.tv[CR]Ändra inställningar för tillägg"
-
-msgctxt "#31409"
-msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change full screen info · Manage EPG data settings"
-msgstr "[B]KONFIGURERA TV-INSTÄLLNINGAR[/B][CR][CR]Ändra fullskärmslägesinformation · Hantera EPG-datainställningar"
-
-msgctxt "#31410"
-msgid "[B]CONFIGURE SERVICE SETTINGS[/B][CR][CR]Setup control of Kodi via UPnP and HTTP · Configure file sharing[CR]Enable Zeroconf · Configure AirPlay"
-msgstr "[B]KONFIGURERA TJÄNSTINSTÄLLNINGAR[/B][CR][CR]Ställ in kontroll av Kodi via UPnP och HTTP · Konfigurera fildelning[CR]Aktivera Zeroconf · Konfigurera AirPlay"
-
 msgctxt "#31411"
 msgid "First run help..."
 msgstr "Förstagångshjälp"
@@ -547,10 +479,6 @@ msgstr "Dygnsprognos"
 msgctxt "#31905"
 msgid "Forecast"
 msgstr "Prognos"
-
-msgctxt "#31908"
-msgid "Chance of precipitation"
-msgstr "Chans för nederbörd"
 
 msgctxt "#31909"
 msgid "Fetching forecast info..."

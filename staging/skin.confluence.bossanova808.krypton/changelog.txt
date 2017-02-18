@@ -1,3 +1,7 @@
+[B]0.0.4[/B]
+
+Sync With Kody 17 release Confluence 3.0.39
+
 [B]0.0.3[/B]
 
 Initial sync with Krytpon RC4 (17th Jan nightly)

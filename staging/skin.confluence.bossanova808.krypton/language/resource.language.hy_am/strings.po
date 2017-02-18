@@ -24,10 +24,6 @@ msgctxt "#31008"
 msgid "Full screen"
 msgstr "Ամբողջ էկրանով"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Երաժշտական ֆայլեր"
-
 msgctxt "#31023"
 msgid "Playing"
 msgstr "Նվագարկում է"
@@ -100,10 +96,6 @@ msgctxt "#31059"
 msgid "Current playlist"
 msgstr "Ընթացիկ նվագացանկ"
 
-msgctxt "#31060"
-msgid "This file is stacked, select the part you want to play from."
-msgstr "Այս ֆայլը կտրատված է: Ընտրեք հատված՝ նվագարկելու համար:"
-
 msgctxt "#31101"
 msgid "Home screen options"
 msgstr "Հիմնական էկրանի տարբերակներ"
@@ -135,10 +127,6 @@ msgstr "Երգի բառեր"
 msgctxt "#31140"
 msgid "Music OSD"
 msgstr "Երգերի OSD"
-
-msgctxt "#31141"
-msgid "Video OSD"
-msgstr "Տեսանյութի OSD"
 
 msgctxt "#31142"
 msgid "Settings level"
@@ -207,10 +195,6 @@ msgstr "Հիմնական տեսք"
 msgctxt "#31392"
 msgid "Arial based"
 msgstr "Arial-հիմքով"
-
-msgctxt "#31400"
-msgid "[B]CONFIGURE APPEARANCE SETTINGS[/B][CR][CR]Change the skin · Set language and region · Change file listing options[CR]Set up a screensaver"
-msgstr "[B]ՁԵՎԱՎՈՐՄԱՆ ԿԱՐԳԱՎՈՐՈՒՄՆԵՐ[/B][CR][CR]Փոխել տեսքը · Ընտրել լեզուն և տեղայնքը · Փոխել ֆայլերի թերթման հատկությունները[CR]Ընտրել դադարի էկրան"
 
 msgctxt "#31420"
 msgid "Login"

@@ -28,10 +28,6 @@ msgctxt "#31008"
 msgid "Full screen"
 msgstr "Täisekraan"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Muusika - Failid"
-
 msgctxt "#31023"
 msgid "Playing"
 msgstr "Mängib"
@@ -112,10 +108,6 @@ msgctxt "#31059"
 msgid "Current playlist"
 msgstr "Valitud esitusloend"
 
-msgctxt "#31060"
-msgid "This file is stacked, select the part you want to play from."
-msgstr "See fail on järjehoidjaga. Vali koht, millest soovid taasesitust jätkata."
-
 msgctxt "#31101"
 msgid "Home screen options"
 msgstr "Avalehe valikud"
@@ -152,10 +144,6 @@ msgctxt "#31140"
 msgid "Music OSD"
 msgstr "Muusika OSD"
 
-msgctxt "#31141"
-msgid "Video OSD"
-msgstr "Video OSD"
-
 msgctxt "#31142"
 msgid "Settings level"
 msgstr "Seadete tase"
@@ -171,10 +159,6 @@ msgstr "Leitud"
 msgctxt "#31303"
 msgid "Data provider"
 msgstr "Teenusepakkuja"
-
-msgctxt "#31311"
-msgid "Fanart image[CR][CR]Unavailable[CR][CR] Click button to set"
-msgstr "Fännipilt[CR][CR]ei ole saadaval[CR][CR]Määramiseks vajuta nuppu"
 
 msgctxt "#31322"
 msgid "Aired"
@@ -227,26 +211,6 @@ msgstr "Rüü vaikeväärtus"
 msgctxt "#31392"
 msgid "Arial based"
 msgstr "Arial-il põhinev"
-
-msgctxt "#31400"
-msgid "[B]CONFIGURE APPEARANCE SETTINGS[/B][CR][CR]Change the skin · Set language and region · Change file listing options[CR]Set up a screensaver"
-msgstr "[B]KONFIGUREERI VÄLIMUSE SEADEID[/B][CR][CR]Muuda rüüd · Määra keel ja regioon · Muuda faililoendi valikuid[CR]Seadista ekraanisäästja"
-
-msgctxt "#31401"
-msgid "[B]CONFIGURE VIDEO SETTINGS[/B][CR][CR]Manage your video library · Set video playback options · Change video listing options[CR]Set subtitle fonts"
-msgstr "[B]KONFIGUREERI VIDEO SEADEID[/B][CR][CR]Halda enda videoteeki · Määra video esitamise seaded · Muuda videoloendi valikuid[CR]Määra subtiitrite font"
-
-msgctxt "#31406"
-msgid "[B]CONFIGURE SYSTEM SETTINGS[/B][CR][CR]Setup and calibrate displays · Configure audio output · Setup remote controls[CR]Set power saving options · Enable debugging · Setup master lock"
-msgstr "[B]KONFIGUREERI SÜSTEEMI SEADEID[/B][CR][CR]Seadista ja kalibreeri ekraane · Konfigureeri heliväljundit · Seadista kaugjuhtimine[CR]Määra energiasäästu valikud· Luba silumine · Seadista pealukk"
-
-msgctxt "#31409"
-msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change full screen info · Manage EPG data settings"
-msgstr "[B]SEADISTA TV SEADEID[/B][CR][CR]Muuda täisekraani infot · Halda elektroonilise saatekava seadeid"
-
-msgctxt "#31410"
-msgid "[B]CONFIGURE SERVICE SETTINGS[/B][CR][CR]Setup control of Kodi via UPnP and HTTP · Configure file sharing[CR]Enable Zeroconf · Configure AirPlay"
-msgstr "[B]KONFIGUREERI TEENUSE SEADEID[/B][CR][CR]Seadista Kodi juhtimine UPnP ja HTTP kaudu · Seadista failide jagamine[CR]Luba Zeroconf · Konfigureeri AirPlay"
 
 msgctxt "#31413"
 msgid "Local subtitle available"
