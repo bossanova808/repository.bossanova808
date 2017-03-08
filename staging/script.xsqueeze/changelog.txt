@@ -1,3 +1,6 @@
+V1.2.7
+- Detect linux on arm
+
 V1.2.6
 - Add browse/play by folder
 

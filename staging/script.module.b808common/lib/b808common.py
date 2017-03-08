@@ -4,7 +4,7 @@
 ### By bossanova808 2015
 ### Free in all senses....
 
-### VERSION 0.2.2
+### VERSION 0.2.3
 
 import xbmc
 import xbmcaddon
@@ -288,6 +288,12 @@ elif xbmc.getCondVisibility( "System.Platform.Linux.RaspberryPi" ):
 elif xbmc.getCondVisibility( "System.Platform.Android" ):
   SYSTEM = "android"
 
+# Seems to be needed for linux on arm support - see https://github.com/bossanova808/repository.bossanova808/issues/7
+try:
+    if(uname[4].startswith("arm")):
+        SYSTEM = "arm"
+except:
+    pass
 
 XBMC_VERSION = None
 VERSION_NUMBER = None

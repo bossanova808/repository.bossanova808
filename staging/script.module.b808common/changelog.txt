@@ -1,3 +1,6 @@
+[B]Version 0.2.3[/B]
+- Linux on arm detection
+
 [B]Version 0.1.6[/B]
 - Unicode logging support
 
