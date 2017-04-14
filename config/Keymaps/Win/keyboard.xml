@@ -1,0 +1,750 @@
+<!-- This file contains the mapping of keys (gamepad, remote, and keyboard) to actions within XBMC -->
+<!-- The <global> section is a fall through - they will only be used if the button is not          -->
+<!-- used in the current window's section.  Note that there is only handling                       -->
+<!-- for a single action per button at this stage.                                                 -->
+<!-- For joystick/gamepad configuration under linux/win32, see below as it differs from xbox       -->
+<!-- gamepads.                                                                                     -->
+
+<!-- The format is:                      -->
+<!--    <device>                         -->
+<!--      <button>action</button>        -->
+<!--    </device>                        -->
+
+<!-- To map keys from other remotes using the RCA protocol, you may add <universalremote> blocks -->
+<!-- In this case, the tags used are <obc#> where # is the original button code (OBC) of the key -->
+<!-- You set it up by adding a <universalremote> block to the window or <global> section:       -->
+<!--    <universalremote>             -->
+<!--       <obc45>Stop</obc45>         -->
+<!--    </universalremote>            -->
+
+<!-- Note that the action can be a built-in function.                 -->
+<!--  eg <B>XBMC.ActivateWindow(MyMusic)</B>                         -->
+<!-- would automatically go to My Music on the press of the B button. -->
+
+<!-- Joysticks / Gamepads:                                                                    -->
+<!--   See the sample PS3 controller configuration below for the format.                      -->
+<!--                                                                                          -->
+<!--  Joystick Name:                                                                          -->
+<!--   Do 'cat /proc/bus/input/devices' or see your xbmc log file  to find the names of       -->
+<!--   detected joysticks. The name used in the configuration should match the detected name. -->
+<!--                                                                                          -->
+<!--  Button Ids:                                                                             -->
+<!--   'id' is the button ID used by SDL. Joystick button ids of connected joysticks appear   -->
+<!--   in xbmc.log when they are pressed. Use your log to map custom buttons to actions.      -->
+<!--                                                                                          -->
+<!--  Axis Ids / Analog Controls                                                              -->
+<!--   Coming soon.                                                                           -->
+
+<!--   Modified by Elitegamer360 for Xbmccustomregis to work with xbmc v.13 and Kodi v.14 and above -->
+<!--   keyboard map v2.48 -->
+
+<keymap>
+  <global>
+    <keyboard>
+      <y mod="ctrl">SendClick(25,14)</y> 
+      <e mod="ctrl">XBMC.ReloadSkin()</e>         
+      <p>Play</p>
+      <q>Screenshot</q>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <left>Left</left>
+      <right>Right</right>
+      <up>Up</up>
+      <down>Down</down>
+      <left mod="ctrl">analogseekback</left>
+      <right mod="ctrl">analogseekforward</right>
+      <pageup>PageUp</pageup>
+      <pagedown>PageDown</pagedown>
+      <return>Select</return>
+      <enter>Select</enter>
+      <backspace>ParentDir</backspace>
+      <key id='65446'>Back</key>
+      <m>ActivateWindow(PlayerControls)</m>
+      <!--<s>ActivateWindow(shutdownmenu)</s>-->
+      <s>ShutDown</s>
+      <escape>PreviousMenu</escape>
+      <i>Info</i>
+      <menu>ContextMenu</menu>
+      <c>ContextMenu</c>
+      <space>Pause</space>
+      <x>Stop</x>
+      <period>SkipNext</period>
+      <comma>SkipPrevious</comma>
+      <tab>FullScreen</tab>
+      <printscreen>Screenshot</printscreen>
+      <s mod="ctrl">RandomPreset</s>	<!-- Used to take screenshot, Now used for MCE remote Music random preset -->
+      <minus>VolumeDown</minus>
+      <plus>VolumeUp</plus>
+      <equals>VolumeUp</equals>
+      <zero>Number0</zero>
+      <one>Number1</one>
+      <two>JumpSMS2</two> 
+      <three>JumpSMS3</three> 
+      <four>JumpSMS4</four> 
+      <five>JumpSMS5</five> 
+      <six>JumpSMS6</six> 
+      <seven>JumpSMS7</seven> 
+      <eight>JumpSMS8</eight> 
+      <nine>JumpSMS9</nine> 
+      <numpadminus>VolumeDown</numpadminus>
+      <numpadplus>VolumeUp</numpadplus>
+      <numpadzero>Number0</numpadzero>
+      <numpadone>Number1</numpadone>
+      <numpadtwo>Number2</numpadtwo>
+      <numpadthree>Number3</numpadthree>
+      <numpadfour>Number4</numpadfour>
+      <numpadfive>Number5</numpadfive>
+      <numpadsix>Number6</numpadsix>
+      <numpadseven>Number7</numpadseven>
+      <numpadeight>Number8</numpadeight>
+      <numpadnine>Number9</numpadnine>
+      <backslash>ToggleFullScreen</backslash>
+      <home>FirstPage</home>
+      <end>LastPage</end>
+      <f5 mod="ctrl,alt">PreviousMenu</f5>  <!--Added to support (GSB Home Jump) feature-->
+      <!-- Multimedia keyboard keys -->
+      <browser_back>ParentDir</browser_back>
+      <browser_forward/>
+      <browser_refresh/>
+      <browser_stop/>
+      <browser_search/>
+      <browser_favorites>ActivateWindow(Favourites)</browser_favorites>
+      <browser_home>XBMC.ActivateWindow(Home)</browser_home>
+      <volume_mute>Mute</volume_mute>
+      <volume_down>VolumeDown</volume_down>
+      <volume_up>VolumeUp</volume_up>
+      <next_track>SkipNext</next_track>
+      <prev_track>SkipPrevious</prev_track>
+      <stop>Stop</stop>
+      <play_pause>Pause</play_pause>
+      <launch_mail></launch_mail>
+      <launch_media_select>XBMC.ActivateWindow(MyMusic)</launch_media_select>
+      <launch_app1_pc_icon>ActivateWindow(MyPrograms)</launch_app1_pc_icon>
+      <launch_app2_pc_icon>ActivateWindow(MyPrograms)</launch_app2_pc_icon>
+      <launch_file_browser/>
+      <launch_media_center/>
+      <!-- ****************************************************** -->
+      <!-- MS Media Center keyboard shortcuts sent by MCE remotes -->
+      <!-- See http://msdn.microsoft.com/en-us/library/bb189249.aspx -->
+      <p mod="ctrl,shift">Play</p>        <!-- Play -->
+      <s mod="ctrl,shift">Stop</s>        <!-- Stop -->
+      <p mod="ctrl">Pause</p>             <!-- Pause -->
+      <f mod="ctrl,shift">FastForward</f> <!-- Fwd -->
+      <b mod="ctrl,shift">Rewind</b>      <!-- Rew -->
+      <f mod="ctrl">SkipNext</f>          <!-- Skip -->
+      <b mod="ctrl">SkipPrevious</b>      <!-- Replay -->
+      <d mod="ctrl">Info</d>              <!-- MCE Details -->
+      <f10>VolumeUp</f10>                 <!-- MCE Vol up -->
+      <f9>VolumeDown</f9>                 <!-- MCE Vol down -->
+      <f8>Mute</f8>                       <!-- MCE mute -->
+      <g mod="ctrl">OSD</g>               <!-- MCE Guide -->
+      <!--<m mod="ctrl">XBMC.ActivateWindow(musiclibrary,albums,return)</m>-->    <!-- MCE My music  Albums-->
+      <i mod="ctrl">ActivateWindow(pictures)</i> <!-- MCE My pictures -->
+      <!--<e mod="ctrl">XBMC.ActivateWindow(videolibrary,tvshowtitles,return)</e>    <!-- MCE TVSHOWS Window-->-->
+      <!-- MCE keypresses without an obvious use in XBMC -->
+      <o mod="ctrl">Notification(MCEKeypress, Recorded TV, 3)</o>
+      <t mod="ctrl">Notification(MCEKeypress, Live TV, 3)</t>
+      <t mod="ctrl,shift">Notification(MCEKeypress, My TV, 3)</t>
+      <a mod="ctrl">Playlist</a>     <!-- Radio Button Activates playlists using MCE remotes for videos/music -->
+      <m mod="ctrl,shift">PlayerControl(ShowVideoMenu)</m> <!-- MCE DVD menu -->
+      <u mod="ctrl">Notification(MCEKeypress, DVD subtitle, 3)</u>
+      <eight mod="ctrl,shift">UpdateLibrary(video)</eight>     <!-- Update Video Library using MCE Remotes-->
+      <three mod="ctrl,shift">Playlist</three>     <!-- Support Button Activates playlists using MCE remotes for videos/music-->
+      <a mod="ctrl,shift">Notification(MCEKeypress, DVD audio, 3)</a>
+      <!-- <y mod="ctrl">audionextlanguage</y>		       Yellow Button: ctrl-y: Switch audio language track -->
+    </keyboard>
+  </global>
+  <LoginScreen>
+    <keyboard>
+      <end>XBMC.ShutDown()</end>
+    </keyboard>
+  </LoginScreen>
+  <Home>
+    <keyboard>
+      <i>info</i>
+       <one>XBMC.CleanLibrary(video,true)</one>
+       <two>XBMC.UpdateLibrary(video,"",true)</two>
+       <four>XBMC.CleanLibrary(music,true)</four>
+       <five>XBMC.UpdateLibrary(music,"",true)</five>
+       <seven>XBMC.Action(reloadkeymaps)</seven>
+      <end>XBMC.ShutDown()</end>
+    </keyboard>
+  </Home>
+  <VirtualKeyboard>
+    <keyboard>
+      <zero>Number0</zero>
+      <one>Number1</one>
+      <two>Number2</two>
+      <three>Number3</three>
+      <four>Number4</four>
+      <five>Number5</five>
+      <six>Number6</six>
+      <seven>Number7</seven>
+      <eight>Number8</eight>
+      <nine>Number9</nine>
+      <backspace>Backspace</backspace>
+    </keyboard>
+  </VirtualKeyboard>
+  <MyTVChannels>
+    <keyboard>
+      <delete>Delete</delete>
+      <m>Move</m>
+      <r>Rename</r>
+    </keyboard>
+  </MyTVChannels>
+  <MyTVRecordings>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyTVRecordings>
+  <MyTVTimers>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyTVTimers>
+  <MyRadioChannels>
+    <keyboard>
+      <m>Move</m>
+    </keyboard>
+  </MyRadioChannels>
+  <MyRadioRecordings>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyRadioRecordings>
+  <MyRadioTimers>
+    <keyboard>
+      <delete>Delete</delete>
+      <r>Rename</r>
+    </keyboard>
+  </MyRadioTimers>
+  <MyFiles>
+    <keyboard>
+      <space>Highlight</space>
+      <delete>Delete</delete>
+      <m>Move</m>
+      <r>Rename</r>
+    </keyboard>
+  </MyFiles>
+  <MyMusicPlaylist>
+    <keyboard>
+      <space>Back</space>
+      <delete>Delete</delete>
+      <q>Delete</q>   <!-- Used for MCE remotes to Delete music in playlist -->
+      <u>MoveItemUp</u>
+      <d>MoveItemDown</d>
+      <pageup>MoveItemUp</pageup>    <!-- Used for MCE remotes to Arrange playlist -->
+      <pagedown>MoveItemDown</pagedown>    <!-- Used for MCE remotes to arrange playlist -->
+      <backspace>Playlist</backspace>      <!-- Close playlist -->
+      <g>PlayerControl(Random)</g>      <!-- Randomise playlist -->
+    </keyboard>
+  </MyMusicPlaylist>
+  <MyMusicPlaylistEditor>
+    <keyboard>
+      <u>MoveItemUp</u>
+      <d>MoveItemDown</d>
+      <pageup>MoveItemUp</pageup>    <!-- Used for MCE remotes to Arrange playlist -->
+      <pagedown>MoveItemDown</pagedown>    <!-- Used for MCE remotes to arrange playlist -->
+      <delete>Delete</delete>
+      <q>Delete</q>   <!-- Used for MCE remotes to Delete music in playlist -->
+      <g>PlayerControl(Random)</g>      <!-- Randomise playlist -->
+    </keyboard>
+  </MyMusicPlaylistEditor>
+  <MyMusicFiles>
+    <keyboard>
+      <space>Playlist</space>
+      <q>Queue</q>
+      <delete>Delete</delete>
+      <g>PlayerControl(RandomOff)</g>      <!-- Random Off Library/Files mode -->
+    </keyboard>
+  </MyMusicFiles>
+  <MyMusicLibrary>
+    <keyboard>
+      <space>Playlist</space>
+      <q>Queue</q>
+      <g>PlayerControl(RandomOff)</g>      <!-- Random Off Library/Files mode -->
+    </keyboard>
+  </MyMusicLibrary>
+  
+  <!-- CHANGE ANYTHING HERE, COPY IT TO TV SECTION BELOW!!-->
+  <FullscreenVideo>
+    <keyboard>  
+      <f5 mod="ctrl,alt">Stop</f5>  <!--Added to support (GSB Home Jump) feature-->
+      <w>AudioDelayPlus</w>
+      <y mod="ctrl">AudioDelayMinus</y>      
+      <s mod="ctrl">NextSubtitle</s>
+      <m mod="ctrl">audionextlanguage</m>
+      <i mod="ctrl">ActivateWindow(SubtitleSearch)</i>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <period>StepForward</period>
+      <comma>StepBack</comma>
+      <backspace>Seek(-7)</backspace>
+      <quote>Seek(-7)</quote>
+      <opensquarebracket>BigStepForward</opensquarebracket>
+      <closesquarebracket>BigStepBack</closesquarebracket>
+      <return>Pause</return>
+      <enter>Pause</enter>
+      <m>OSD</m>
+      <c>OSD</c>
+      <i>Info</i>
+      <o>CodecInfo</o>
+      <z>AspectRatio</z>
+      <!-- 
+      <!-- <pageup>ZoomIn</pageup> -->     <!-- Added for MCE Remotes for extra zooming  -->
+      <!-- <Pagedown>ZoomOut</Pagedown> -->    <!-- Added for MCE Remotes for extra zooming -->
+      <pageup>SubtitleDelayPlus</pageup>     <!-- Added for MCE Remotes for extra zooming  -->
+      <Pagedown>SubtitleDelayMinus</Pagedown>    <!-- Added for MCE Remotes for extra zooming -->
+      <t>ShowSubtitles</t>
+      <t mod="ctrl">SubtitleAlign</t>
+      <l>NextSubtitle</l>
+      <left>StepBack</left>
+      <right>StepForward</right>
+      <up>BigStepForward</up>
+      <down>BigStepBack</down>
+      <a>AudioDelay</a>
+      <escape>Fullscreen</escape>
+      <v>XBMC.ActivateWindow(Teletext)</v>
+      <up mod="ctrl">SubtitleShiftUp</up>
+      <down mod="ctrl">SubtitleShiftDown</down>
+      <zero>Number0</zero>
+      <one>Number1</one>
+      <two>Number2</two>
+      <three>Number3</three>
+      <four>Number4</four>
+      <five>Number5</five>
+      <six>Number6</six>
+      <seven>Number7</seven>
+      <eight>Number8</eight>
+      <nine>Number9</nine>
+    </keyboard>
+  </FullscreenVideo>
+  
+
+<!--
+      <e>XBMC.ActivateWindowAndFocus(MyPVR, 31,0, 10,0)</e>
+      <h>XBMC.ActivateWindowAndFocus(MyPVR, 32,0, 11,0)</h>
+      <j>XBMC.ActivateWindowAndFocus(MyPVR, 33,0, 12,0)</j>
+      <k>XBMC.ActivateWindowAndFocus(MyPVR, 34,0, 13,0)</k>
+      <b>XBMC.ActivateWindowAndFocus(MyPVR, 35,0, 14,0)</b>
+
+      pvrguideinfo  WINDOW_DIALOG_PVR_GUIDE_INFO
+      pvrrecordinginfo  WINDOW_DIALOG_PVR_RECORDING_INFO
+      pvrtimersetting   WINDOW_DIALOG_PVR_TIMER_SETTING
+      pvrgroupmanager   WINDOW_DIALOG_PVR_GROUP_MANAGER
+      pvrchannelmanager   WINDOW_DIALOG_PVR_CHANNEL_MANAGER
+      pvrguidesearch  WINDOW_DIALOG_PVR_GUIDE_SEARCH
+      pvrchannelscan  WINDOW_DIALOG_PVR_CHANNEL_SCAN
+      pvrupdateprogress   WINDOW_DIALOG_PVR_UPDATE_PROGRESS
+      pvrosdchannels  WINDOW_DIALOG_PVR_OSD_CHANNELS
+      pvrosdguide   WINDOW_DIALOG_PVR_OSD_GUIDE
+      pvrosddirector  WINDOW_DIALOG_PVR_OSD_DIRECTOR
+      pvrosdcutter  WINDOW_DIALOG_PVR_OSD_CUTTER
+      pvrosdteletext  WINDOW_DIALOG_OSD_TELETEXT 
+      
+ -->
+
+  <!-- these overule FullScreenVideo but anything undefined drops back to there -->
+  <FullscreenLiveTV>
+    <keyboard>
+      <i mod="ctrl">CodecInfo</i>     
+      <w>ZoomIn</w>
+      <y mod="ctrl">ZoomOut</y>          	
+      <l>XBMC.Action(reloadkeymaps)</l>
+      <o>XBMC.ActivateWindowAndFocus(PVROSDChannels)</o>
+      <i>XBMC.ActivateWindowAndFocus(PVROSDGuide)</i>
+
+<!-- trial on adding skip fw/rev in live tv -->
+      <period>StepForward</period>
+      <comma>StepBack</comma>
+      <backspace>Seek(-7)</backspace>
+      <quote>Seek(-7)</quote>
+      <opensquarebracket>BigStepForward</opensquarebracket>
+      <closesquarebracket>BigStepBack</closesquarebracket>
+
+<!--       <pageup>ChannelUp</pageup>     
+      <Pagedown>ChannelDown</Pagedown>  
+      <left>PreviousChannelGroup</left>
+      <right>NextChannelGroup</right>
+      <up>ChannelUp</up>
+      <down>ChannelDown</down>
+ -->      
+ 	  <q>PlayerControl(Record)</q>
+    </keyboard>
+  </FullscreenLiveTV> 
+  <!-- and basic handling for PVR windows -->
+  <PVROSDChannels>
+    <keyboard>
+      <o>Close</o>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+      <c>Close</c>
+    </keyboard>
+  </PVROSDChannels>
+  <PVROSDGuide>
+    <keyboard>
+      <i>Close</i>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDGuide>
+  <PVROSDDirector>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDDirector>
+  <PVROSDCutter>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDCutter>
+  <MyTVSettings>
+    <keyboard>
+      <backspace>PreviousMenu</backspace>
+    </keyboard>
+  </MyTVSettings>
+
+<VideoTimeSeek>
+    <keyboard>
+      <return>Select</return>
+      <enter>Select</enter>
+    </keyboard>
+  </VideoTimeSeek>
+  <FullscreenInfo>
+    <keyboard>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <period>StepForward</period>
+      <backspace>Close</backspace>
+      <o>CodecInfo</o>
+      <i>Close</i>
+      <d mod="ctrl">Close</d>              <!-- MCE Details -->      
+      <c>Close</c>
+      <m>OSD</m>
+    </keyboard>
+  </FullscreenInfo>
+  <PlayerControls>
+    <keyboard>
+      <i>Close</i>
+      <c>Close</c>
+      <escape>Close</escape>
+      <m>Close</m>
+    </keyboard>
+  </PlayerControls>
+  <Visualisation>
+    <keyboard>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <period>SkipNext</period>
+      <comma>SkipPrevious</comma>
+      <return>ActivateWindow(MusicOSD)</return>
+      <enter>ActivateWindow(MusicOSD)</enter>
+      <m>ActivateWindow(MusicOSD)</m>
+      <i>Info</i>
+      <p>ActivateWindow(VisualisationPresetList)</p>
+      <v>ActivateWindow(VisualisationSettings)</v>
+      <n>ActivateWindow(MusicPlaylist)</n>
+      <left>SkipPrevious</left>
+      <right>SkipNext</right>
+      <up>IncreaseRating</up>
+      <down>DecreaseRating</down>      <!--<back>NextPreset</back>!-->
+      <o>CodecInfo</o>
+      <l>LockPreset</l>
+      <escape>FullScreen</escape>
+      <g>XBMC.ActivateWindow(PVROSDGuide)</g>
+      <c>XBMC.ActivateWindow(PVROSDChannels)</c>
+    </keyboard>
+  </Visualisation>
+  <MusicOSD>
+    <keyboard>
+      <escape>Close</escape>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <period>SkipNext</period>
+      <comma>SkipPrevious</comma>
+      <m>Back</m>
+      <i>Info</i>
+      <o>CodecInfo</o>
+      <p>ActivateWindow(VisualisationPresetList)</p>
+      <v>ActivateWindow(VisualisationSettings)</v>
+      <n>ActivateWindow(MusicPlaylist)</n>
+    </keyboard>
+  </MusicOSD>
+  <VisualisationSettings>
+    <keyboard>
+      <escape>Close</escape>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <period>SkipNext</period>
+      <comma>SkipPrevious</comma>
+      <m>Back</m>
+      <i>Info</i>
+      <o>CodecInfo</o>
+      <p>ActivateWindow(VisualisationPresetList)</p>
+      <v>Back</v>
+      <n>ActivateWindow(MusicPlaylist)</n>
+    </keyboard>
+  </VisualisationSettings>
+  <VisualisationPresetList>
+    <keyboard>
+      <escape>Close</escape>
+      <f>FastForward</f>
+      <r>Rewind</r>
+      <period>SkipNext</period>
+      <comma>SkipPrevious</comma>
+      <m>Back</m>
+      <i>Info</i>
+      <o>CodecInfo</o>
+      <p>Back</p>
+      <v>Back</v>
+      <n>ActivateWindow(MusicPlaylist)</n>
+    </keyboard>
+  </VisualisationPresetList>
+  <SlideShow>
+    <keyboard>
+      <w>ZoomIn</w>
+      <y mod="ctrl">ZoomOut</y>      
+      <zero>ZoomNormal</zero>
+      <one>ZoomLevel1</one>
+      <two>ZoomLevel2</two>
+      <three>ZoomLevel3</three>
+      <four>ZoomLevel4</four>
+      <five>ZoomLevel5</five>
+      <six>ZoomLevel6</six>
+      <seven>ZoomLevel7</seven>
+      <eight>ZoomLevel8</eight>
+      <nine>ZoomLevel9</nine>
+      <i>Info</i>
+      <o>CodecInfo</o>
+      <period>NextPicture</period>
+      <comma>PreviousPicture</comma>
+      <plus>ZoomIn</plus>
+      <minus>ZoomOut</minus>
+      <return>Pause</return>
+      <enter>Pause</enter>
+      <r>Rotate</r>
+ 	  <q>Rotate</q>
+      <backspace>PreviousMenu</backspace>
+    </keyboard>
+  </SlideShow>
+  <ScreenCalibration>
+    <keyboard>
+      <return>NextCalibration</return>
+      <enter>NextCalibration</enter>
+      <d>ResetCalibration</d>
+      <r>NextResolution</r>
+      <backspace>PreviousMenu</backspace>    <!-- Added for better MCE remote functionality --->
+    </keyboard>
+  </ScreenCalibration>
+  <GUICalibration>
+    <keyboard>
+      <return>NextCalibration</return>
+      <enter>NextCalibration</enter>
+      <d>ResetCalibration</d>
+      <backspace>PreviousMenu</backspace>    <!-- Added for better MCE remote functionality --->
+    </keyboard>
+  </GUICalibration>
+  <VideoOSD>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+      <m>Close</m>
+      <c>Close</c>
+      <g mod="ctrl">close</g> <!-- MCE Guide button -->
+      <i>Info</i>
+      <o>CodecInfo</o>
+    </keyboard>
+  </VideoOSD>
+  <VideoMenu>
+    <keyboard>
+      <opensquarebracket>BigStepForward</opensquarebracket>
+      <closesquarebracket>BigStepBack</closesquarebracket>
+      <m>OSD</m>
+      <i>Info</i>
+      <o>CodecInfo</o>
+      <z>AspectRatio</z>
+      <t>ShowSubtitles</t>
+      <l>NextSubtitle</l>
+      <a>AudioDelay</a>
+      <escape>PreviousMenu</escape>
+      <return>Select</return>
+      <enter>Select</enter>
+      <backspace>FullScreen</backspace>
+    </keyboard>
+  </VideoMenu>
+  <OSDVideoSettings>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+      <m>Close</m>
+      <c>Close</c>
+      <i>Info</i>
+      <o>CodecInfo</o>
+    </keyboard>
+  </OSDVideoSettings>
+  <OSDAudioSettings>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+      <i>Info</i>
+      <o>CodecInfo</o>
+    </keyboard>
+  </OSDAudioSettings>
+  <VideoBookmarks>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </VideoBookmarks>
+  <MyVideoLibrary>
+    <keyboard>
+      <delete>Delete</delete>
+      <space>Playlist</space>
+      <w>ToggleWatched</w>
+    </keyboard>
+  </MyVideoLibrary>
+  <MyVideoFiles>
+    <keyboard>
+      <space>Playlist</space>
+      <q>Queue</q>
+      <w>ToggleWatched</w>
+    </keyboard>
+  </MyVideoFiles>
+  <MyVideoPlaylist>
+    <keyboard>
+      <backspace>Playlist</backspace>      <!-- Close playlist -->
+      <space>Playlist</space>      <!-- Close playlist -->
+      <delete>Delete</delete>
+      <q>Delete</q>   <!-- Used for MCE remotes to Delete music in playlist -->
+      <u>MoveItemUp</u>
+      <d>MoveItemDown</d>
+      <pageup>MoveItemUp</pageup>    <!-- Used for MCE remotes to Arrange playlist -->
+      <pagedown>MoveItemDown</pagedown>    <!-- Used for MCE remotes to arrange playlist -->
+    </keyboard>
+  </MyVideoPlaylist>
+  <MyPictures>
+    <keyboard>
+      <delete>Delete</delete>
+    </keyboard>
+  </MyPictures>
+  <ContextMenu>
+    <keyboard>
+      <c>Close</c>
+      <menu>Close</menu>
+      <backspace>Close</backspace>
+    </keyboard>
+  </ContextMenu>
+ <Scripts>
+    <keyboard>
+      <i>info</i>
+    </keyboard>
+  </Scripts>
+  <MusicInformation>
+    <keyboard>
+      <i>Back</i>
+      <d mod="ctrl">Back</d>
+    </keyboard>
+  </MusicInformation>
+  <MovieInformation>
+    <keyboard>
+      <i>Back</i>
+      <d mod="ctrl">Back</d>
+    </keyboard>
+  </MovieInformation>
+  <PictureInfo>
+    <keyboard>
+      <period>NextPicture</period>
+      <comma>PreviousPicture</comma>
+      <i>Back</i>
+      <d mod="ctrl">Back</d>
+      <o>Back</o>
+      <space>Pause</space>
+    </keyboard>
+  </PictureInfo>
+  <Teletext>
+    <keyboard>
+      <v>Back</v>
+    </keyboard>
+  </Teletext>
+ <Favourites>
+    <keyboard>
+      <backspace>Close</backspace>
+    </keyboard>
+  </Favourites>
+  <NumericInput>
+    <keyboard>
+      <backspace>Close</backspace>
+    </keyboard>
+  </NumericInput>
+  <FullscreenLiveTV>
+    <keyboard>
+      <left>PreviousChannelGroup</left>
+      <right>NextChannelGroup</right>
+      <up>ChannelUp</up>
+      <down>ChannelDown</down>
+    </keyboard>
+  </FullscreenLiveTV>
+  <PVROSDChannels>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+      <c>Close</c>
+    </keyboard>
+  </PVROSDChannels>
+  <PVROSDGuide>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDGuide>
+  <PVROSDDirector>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDDirector>
+  <PVROSDCutter>
+    <keyboard>
+      <backspace>Close</backspace>
+      <escape>Close</escape>
+    </keyboard>
+  </PVROSDCutter>
+  <MyTVSettings>
+    <keyboard>
+      <backspace>PreviousMenu</backspace>
+    </keyboard>
+  </MyTVSettings>
+  <FileBrowser>
+    <keyboard>
+      <space>Highlight</space>
+    </keyboard>
+  </FileBrowser>
+  <ShutdownMenu>
+    <keyboard>
+      <s>Back</s>
+    </keyboard>
+  </ShutdownMenu>
+  <AddonInformation>
+    <keyboard>
+      <i>Back</i>
+    </keyboard>
+  </AddonInformation>
+  <AddonSettings>
+    <keyboard>
+      <delete>Delete</delete>
+    </keyboard>
+  </AddonSettings>
+  <Addon>
+    <keyboard>
+      <f1>Red</f1>
+      <f2>Green</f2>
+      <f3>Yellow</f3>
+      <f4>Blue</f4>
+    </keyboard>
+  </Addon>
+</keymap>
