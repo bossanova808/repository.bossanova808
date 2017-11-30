@@ -1,4 +1,4 @@
-[B]0.0.6[/B]
+[B]0.0.7[/B]
 
 Fix unix case sensitivity issue with Defaults.xml
 
