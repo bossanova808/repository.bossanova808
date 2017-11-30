@@ -1,6 +1,6 @@
 [B]0.0.6[/B]
 
-Fix extra line in left panel of MyWeather.mxl
+Fix unix case sensitivity issue with Defaults.xml
 
 [B]0.0.5[/B]
 
