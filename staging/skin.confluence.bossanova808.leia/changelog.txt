@@ -1,17 +1,8 @@
-[B]0.0.7[/B]
+[[B]0.0.1[/B]
 
-Fix unix case sensitivity issue with Defaults.xml
+https://github.com/xbmc/skin.confluence
+Sync with Kodi Leia Confluence - 4.5.11
 
-[B]0.0.5[/B]
 
-Move to using the universal themes instead, but with our bg pic
-
-[B]0.0.4[/B]
-
-Sync With Kody 17 release Confluence 3.0.39
-
-[B]0.0.3[/B]
-
-Initial sync with Krytpon RC4 (17th Jan nightly)
 
 

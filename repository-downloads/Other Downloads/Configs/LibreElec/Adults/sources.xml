@@ -1,0 +1,51 @@
+<sources>
+    <programs>
+        <default pathversion="1"></default>
+    </programs>
+    <video>
+        <default pathversion="1"></default>
+        <source>
+            <name>Movie Library</name>
+            <path pathversion="1">nfs://192.168.1.51/MovieLibrary01/</path>
+            <path pathversion="1">nfs://192.168.1.51/MovieLibrary02/</path>
+            <path pathversion="1">nfs://192.168.1.51/MovieLibrary08/</path>
+        </source>
+        <source>
+            <name>TV Library</name>
+            <path pathversion="1">nfs://192.168.1.51/TVLibrary03/</path>
+            <path pathversion="1">nfs://192.168.1.51/TVLibrary04/</path>
+            <path pathversion="1">nfs://192.168.1.51/TVLibrary05/</path>
+            <path pathversion="1">nfs://192.168.1.51/TVLibrary07/</path>
+            <path pathversion="1">nfs://192.168.1.51/TVLibrary09/</path>
+        </source>
+        <source>
+            <name>Home Movie Library</name>
+            <path pathversion="1">nfs://192.168.1.51/HomeMovieLibrary/</path>
+        </source>
+        <source>
+            <name>Bluray Full Discs</name>
+            <path pathversion="1">smb://HOMESERVER/Backups/Downloads Processing Area/Bluray Full Discs/</path>
+        </source>
+        <source>
+            <name>Other Videos</name>
+            <path pathversion="1">nfs://192.168.1.51/OtherVideos/</path>
+        </source>
+    </video>
+    <music>
+        <default pathversion="1"></default>
+        <source>
+            <name>Jamy</name>
+            <path pathversion="1">nfs://192.168.1.51/MusicLibrary/Jamy/</path>
+        </source>
+    </music>
+    <pictures>
+        <default pathversion="1"></default>
+        <source>
+            <name>Fast Album</name>
+            <path pathversion="1">nfs://192.168.1.51/FastAlbum/</path>
+        </source>
+    </pictures>
+    <files>
+        <default pathversion="1"></default>
+    </files>
+</sources>

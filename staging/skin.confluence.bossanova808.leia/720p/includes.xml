@@ -39,6 +39,31 @@
 	<constant name="DepthFloor">-0.20</constant>
 	<constant name="DepthSideBlade">0.15</constant>
 	<!-- VARIABLES -->
+	<variable name="MusicRating">
+		<value condition="Integer.IsGreater(ListItem.Rating,9.5)">10</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,8.5)">9</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,7.5)">8</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,6.5)">7</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,5.5)">6</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,4.5)">5</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,3.5)">4</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,2.5)">3</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,1.5)">2</value>
+		<value condition="Integer.IsGreater(ListItem.Rating,0.5)">1</value>
+		<value>0</value>
+	</variable>
+	<variable name="AddonInfoHeading">
+		<value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$LOCALIZE[24054]</value>
+		<value>$LOCALIZE[21821]</value>
+	</variable>
+	<variable name="AddonInfoDescription">
+		<value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$INFO[ListItem.AddonNews]</value>
+		<value>$INFO[ListItem.AddonDescription]</value>
+	</variable>
+	<variable name="AddonInfoButtonLabel">
+		<value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$LOCALIZE[21821]</value>
+		<value>$LOCALIZE[24054]</value>
+	</variable>
 	<variable name="GameSelectHeader">
 		<value condition="Window.IsActive(gamevideofilter)">$LOCALIZE[230]</value>
 		<value condition="Window.IsActive(gameviewmode)">$LOCALIZE[35233]</value>
@@ -420,6 +445,23 @@
 		<value condition="Container.Content(Albums)">$INFO[ListItem.Property(Album_Description)]</value>
 		<value condition="Container.Content(Songs)">$INFO[ListItem.Comment]</value>
 	</variable>
+	<variable name="MusicInfoListViewLabel">
+		<value condition="Control.IsVisible(506)">$LOCALIZE[544]</value>
+		<value condition="Control.IsVisible(507) + !Player.HasAudio">$LOCALIZE[31040]</value>
+		<value condition="Control.IsVisible(507) + Player.HasAudio">$LOCALIZE[31040]$INFO[musicplayer.Playlistposition,: ]$INFO[musicplayer.Playlistlength,/]</value>
+	</variable>
+	<variable name="MusicInfoListViewPanel">
+		<value condition="Control.IsVisible(506)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title,,[CR]]$INFO[ListItem.Artist,,[CR]]$INFO[ListItem.Album,[COLOR grey2],[/COLOR][CR]]$INFO[ListItem.DiscNumber,[COLOR grey2]$LOCALIZE[427] ,[/COLOR][CR]]$INFO[ListItem.Year,[COLOR grey2], | [/COLOR]]$INFO[ListItem.Genre,[COLOR grey2],[/COLOR][CR]]$INFO[ListItem.PlayCount,$LOCALIZE[567]: ,[CR]]$INFO[ListItem.Time,$LOCALIZE[180]: ,/]$INFO[ListItem.Duration,,[CR]]</value>
+		<value condition="Control.IsVisible(507) + Player.HasAudio">$INFO[MusicPlayer.TrackNumber,,. ]$INFO[MusicPlayer.Title,,[CR]]$INFO[MusicPlayer.Artist,,[CR]]$INFO[MusicPlayer.Album,[COLOR grey2],[/COLOR][CR]]$INFO[MusicPlayer.DiscNumber,[COLOR grey2]$LOCALIZE[427] ,[/COLOR][CR]]$INFO[MusicPlayer.Year,[COLOR grey2], | [/COLOR]]$INFO[MusicPlayer.Genre,[COLOR grey2],[/COLOR][CR]]$INFO[MusicPlayer.PlayCount,$LOCALIZE[567]: ,[CR]]$INFO[MusicPlayer.Time,$LOCALIZE[31016]: ,/]$INFO[MusicPlayer.Duration,,[CR]]</value>
+	</variable>
+	<variable name="MusicInfoListViewtRating">
+		<value condition="Control.IsVisible(506)">$INFO[ListItem.UserRating,ratings/,.png]</value>
+		<value condition="Control.IsVisible(507) + Player.HasAudio">$INFO[MusicPlayer.UserRating,ratings/,.png]</value>
+	</variable>
+	<variable name="MusicInfoListViewThumb">
+		<value condition="Control.IsVisible(506)">$INFO[ListItem.Icon]</value>
+		<value condition="Control.IsVisible(507)">$INFO[Player.Art(thumb)]</value>
+	</variable>
 	<variable name="MusicInfoListThumb">
 		<value condition="Container.Content(Artists) + !String.IsEmpty(Container(50).Listitem.Icon)">$INFO[Container(50).Listitem.Icon]</value>
 		<value condition="[Container.Content(Albums) | Container.Content(Songs)] + !String.IsEmpty(Container.Art(artist.thumb))">$INFO[Container.Art(artist.thumb)]</value>
@@ -438,6 +480,11 @@
 	<variable name="PosterThumb">
 		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
 		<value>$INFO[ListItem.Icon]</value>
+	</variable>
+	<variable name="NowPlayingThumb">
+		<value condition="!String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
+		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
+		<value>$INFO[Player.Icon]</value>
 	</variable>
 	<variable name="MusicInfoPanelLabel">
 		<value condition="Container.Content(Artists)">$INFO[ListItem.Label]</value>
@@ -468,8 +515,13 @@
 		<value condition="String.Contains(Listitem.mpaa,Rated NR)">mpaa_notrated</value>
 		<value condition="String.Contains(Listitem.mpaa,Not Rated)">mpaa_notrated</value>
 	</variable>
+	<variable name="audiocodec">
+		<value condition="String.StartsWith(ListItem.AudioCodec,mp3)">mp3</value>
+		<value>$INFO[ListItem.AudioCodec]</value>
+	</variable>
 	<variable name="videocodec">
 		<value condition="[String.StartsWith(ListItem.VideoCodec,div) | String.IsEqual(ListItem.VideoCodec,dx50)]">divx</value>
+		<value condition="String.Contains(ListItem.VideoCodec,mpeg4)">mpeg4</value>
 		<value>$INFO[ListItem.VideoCodec]</value>
 	</variable>
 	<variable name="SeekLabel">
@@ -516,6 +568,11 @@
 		<value condition="ListItem.IsRecording">$LOCALIZE[19043]</value>
 		<value condition="ListItem.HasTimer + !ListItem.TimerIsActive">$LOCALIZE[19057]</value>
 		<value condition="ListItem.HasTimer">$LOCALIZE[31510]</value>
+	</variable>
+	<variable name="ProfileIdentificationLabel2Var">
+		<value condition="Skin.HasSetting(show_profilename)">$LOCALIZE[31963]</value>
+		<value condition="Skin.HasSetting(show_profileavatar)">$LOCALIZE[31964]</value>
+		<value>$LOCALIZE[16018]</value>
 	</variable>
 	<!-- INCLUDES -->
 	<include name="MusicInfoPanel">
@@ -842,7 +899,7 @@
 	</include>
 	<include name="CommonNowPlaying">
 		<control type="group">
-			<visible>Player.HasMedia + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
+			<visible>Player.HasMedia + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia)) + !Control.IsVisible(507)</visible>
 			<include>VisibleFadeEffect</include>
 			<animation effect="fade" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
 			<animation effect="fade" time="200" condition="Window.Next(Home)">WindowClose</animation>
@@ -882,6 +939,20 @@
 				<font>font12</font>
 				<textcolor>grey</textcolor>
 				<shadowcolor>black</shadowcolor>
+				<visible>!VideoPlayer.HasEpg | !VideoPlayer.Content(LiveTV)</visible>
+			</control>
+			<control type="label">
+				<left>85</left>
+				<top>53r</top>
+				<width>700</width>
+				<height>20</height>
+				<label>$INFO[Player.Title] - ([COLOR=blue]$INFO[PVR.EpgEventElapsedTime] / $INFO[PVR.EpgEventDuration,][/COLOR])</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>grey</textcolor>
+				<shadowcolor>black</shadowcolor>
+				<visible>VideoPlayer.HasEpg + VideoPlayer.Content(LiveTV)</visible>
 			</control>
 			<control type="label">
 				<left>85</left>
@@ -1465,6 +1536,34 @@
 			<label>$INFO[System.Time]</label>
 			<animation effect="slide" start="0,0" end="-40,0" time="75" condition="Player.Muted">conditional</animation>
 		</control>
+                <control type="group">
+                        <visible>Integer.IsGreater(System.ProfileCount,1)</visible>
+                        <control type="image">
+                                <visible>Skin.HasSetting(show_profileavatar)</visible>
+                                <top>5</top>
+                                <left>1105</left>
+                                <width>30</width>
+                                <height>30</height>
+                                <animation effect="slide" start="0,0" end="-40,0" time="75" condition="Player.Muted">conditional</animation>
+                                <texture>$INFO[System.ProfileThumb]</texture>
+                                <aspectratio>scale</aspectratio>
+                        </control>
+                        <control type="label">
+                                <visible>Skin.HasSetting(show_profilename)</visible>
+                                <font>font28_title</font>
+                                <align>right</align>
+                                <top>5</top>
+                                <left>540</left>
+                                <textcolor>white</textcolor>
+                                <shadowcolor>black</shadowcolor>
+                                <aligny>center</aligny>
+                                <height>30</height>
+                                <width max="600">auto</width>
+                                <animation effect="slide" start="0,0" end="-40,0" time="75" condition="Player.Muted">conditional</animation>
+                                <label>$INFO[System.ProfileName]</label>
+                        </control>
+                </control>
+
 	</include>
 	<include name="HomeAddonsCommonLayout">
 		<include>Window_OpenClose_Animation</include>
