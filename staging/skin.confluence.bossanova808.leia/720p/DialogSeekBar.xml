@@ -559,11 +559,11 @@
 					<top>23</top>
 					<width>240</width>
 					<height>20</height>
-					<font>font13_title</font>
+					<font>font10</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
-					<label>$INFO[Player.Time] / $INFO[Player.Duration] [-$INFO[Player.TimeRemaining]]</label>
+					<label>$INFO[VideoPlayer.Time] / $INFO[VideoPlayer.Duration] [-$INFO[VideoPlayer.TimeRemaining]]</label>
 					<visible>!Player.Seeking</visible>
 				</control>
 				<control type="label">

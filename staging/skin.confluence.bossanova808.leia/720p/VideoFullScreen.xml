@@ -528,7 +528,7 @@
 					<font>font13</font>
 					<align>right</align>
 					<aligny>center</aligny>
-					<label>$INFO[Player.Duration(hh:mm:ss)]</label>
+					<label>-$INFO[VideoPlayer.TimeRemaining(hh:mm:ss)]</label>
 				</control>
 				<control type="label" id="1">
 					<visible>VideoPlayer.Content(LiveTV)</visible>

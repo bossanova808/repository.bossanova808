@@ -1,4 +1,4 @@
-[[B]0.0.1[/B]
+[[B]0.0.2[/B]
 
 https://github.com/xbmc/skin.confluence
 Sync with Kodi Leia Confluence - 4.5.11
