@@ -1,4 +1,7 @@
-[B]Version 0.17[/B]
+[B]Version 0.2.0[/B]
+- Update github links to https...
+
+[B]Version 0.1.7[/B]
 - Moved rep to github so everything is nicely in one place
 
 [B]Version 0.1[/B]
