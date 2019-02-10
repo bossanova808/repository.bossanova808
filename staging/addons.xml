@@ -125,7 +125,7 @@
   </extension>
 </addon>
 
-<addon id="skin.confluence" version="4.5.1501" name="Confluence" provider-name="Jezz_X, Team Kodi">
+<addon id="skin.confluence.bossanova808.leia" version="4.5.1502" name="Confluence" provider-name="Jezz_X, Team Kodi">
 	<requires>
 		<import addon="xbmc.gui" version="5.14.0"/>
 	</requires>
