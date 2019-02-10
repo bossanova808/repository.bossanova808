@@ -9,16 +9,13 @@
 	<depth>DepthOSD</depth>
 	<controls>
 
-
-	<!--  BOSSANOVA808 CLEARART MOD  -->
+	<!--  BOSSANOVA808 MOD CLEARART -->
 	<!--  SHOWS CLEARART BY DEFAULT, OTHERWISE FALLS BACK TO LOGO or BORING THUMB -->
 
-<!-- 	   	<control type="group" id="10121">
-
+	   	<control type="group" id="10121">
 	      	<visible>[Player.Paused]</visible>
    		   	<visible>VideoPlayer.Content(Movies)</visible>
 			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
-
 			<control type="image" id="1">
 				<description>clearart image</description>
 				<posx>10</posx>
@@ -52,13 +49,10 @@
 				<visible>[IsEmpty(Player.Art(clearart)) + IsEmpty(Player.Art(clearlogo))] | [IsEmpty(Player.Art(clearlogo))] </visible>
 			</control>
 		</control>
- -->
 		<control type="group" id="10122">
-
 	      	<visible>[Player.Paused]</visible>
 			<visible>VideoPlayer.Content(Episodes)</visible>
 			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
-
 			<control type="image" id="1">
 				<description>clearart image</description>
 				<posx>10</posx>
@@ -81,9 +75,9 @@
 			</control>
 		</control>
 
-
-
-  <!-- BOSSANOVA808 - OzWeather Radar and Short Forecast -->
+  <!-- END BOSSANOVA808 MOD CLEARART -->
+  
+  <!-- BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
 
 	   <control type="group" id="10125">
   			<posx>25</posx>
@@ -244,9 +238,7 @@
 
     </control>
 
-	  <!-- BOSSANOVA808 Section -->
-
-
+	<!-- END BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
 
 		<control type="group">
 			<visible>player.chaptercount + Window.IsVisible(FullScreenVideo)</visible>

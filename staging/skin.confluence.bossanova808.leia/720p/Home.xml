@@ -50,7 +50,7 @@
 			<control type="image">
 			<depth>DepthFloor</depth>
 			<left>-20</left>
-			<top></top>
+			<top/>
 			<bottom>0</bottom>
 			<width>1320</width>
 			<height>90</height>

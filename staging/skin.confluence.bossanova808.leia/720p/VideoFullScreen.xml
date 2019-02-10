@@ -53,7 +53,7 @@
 		<!-- media infos -->
 		<control type="group" id="1">
 			<depth>DepthOSD</depth>
-			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(OSDAudioDSPSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
+			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="150">VisibleChange</animation>
 			<control type="image" id="1">
 				<left>-20</left>
@@ -188,6 +188,9 @@
 				<visible>VideoPlayer.Content(Episodes)</visible>
 				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			</control>
+
+			<!-- END BOSSANOVA808 CLEARART MOD  -->
+	
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>cover image</description>
@@ -225,10 +228,6 @@
 				<aspectratio aligny="center">keep</aspectratio>
 				<visible>VideoPlayer.Content(LiveTV)</visible>
 			</control>
-
-			<!-- END BOSSANOVA808 MOD -->
-
-
 			<control type="group" id="1">
 				<left>330</left>
 				<top>185r</top>
