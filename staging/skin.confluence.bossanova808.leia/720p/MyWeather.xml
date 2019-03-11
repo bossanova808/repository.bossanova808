@@ -1388,7 +1388,6 @@
 						<ondown>302</ondown>
 						<onback>50</onback>
 					</control>
-
 				</control>
 				<control type="button" id="302">
 					<description>10 day forcast button</description>
