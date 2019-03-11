@@ -1,35 +1,36 @@
+# -*- coding: utf-8 -*-
 #*********************************************************************
 #*
-#* $Id: yocto_display.py 25275 2016-08-24 13:42:24Z mvuilleu $
+#* $Id: yocto_display.py 33877 2018-12-26 12:19:48Z seb $
 #*
 #* Implements yFindDisplay(), the high-level API for Display functions
 #*
-#* - - - - - - - - - License information: - - - - - - - - - 
+#* - - - - - - - - - License information: - - - - - - - - -
 #*
 #*  Copyright (C) 2011 and beyond by Yoctopuce Sarl, Switzerland.
 #*
 #*  Yoctopuce Sarl (hereafter Licensor) grants to you a perpetual
 #*  non-exclusive license to use, modify, copy and integrate this
-#*  file into your software for the sole purpose of interfacing 
-#*  with Yoctopuce products. 
+#*  file into your software for the sole purpose of interfacing
+#*  with Yoctopuce products.
 #*
-#*  You may reproduce and distribute copies of this file in 
+#*  You may reproduce and distribute copies of this file in
 #*  source or object form, as long as the sole purpose of this
-#*  code is to interface with Yoctopuce products. You must retain 
+#*  code is to interface with Yoctopuce products. You must retain
 #*  this notice in the distributed source file.
 #*
 #*  You should refer to Yoctopuce General Terms and Conditions
-#*  for additional information regarding your rights and 
+#*  for additional information regarding your rights and
 #*  obligations.
 #*
 #*  THE SOFTWARE AND DOCUMENTATION ARE PROVIDED 'AS IS' WITHOUT
-#*  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING 
-#*  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS 
+#*  WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
+#*  WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, FITNESS
 #*  FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO
 #*  EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL,
-#*  INDIRECT OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, 
-#*  COST OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR 
-#*  SERVICES, ANY CLAIMS BY THIRD PARTIES (INCLUDING BUT NOT 
+#*  INDIRECT OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA,
+#*  COST OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR
+#*  SERVICES, ANY CLAIMS BY THIRD PARTIES (INCLUDING BUT NOT
 #*  LIMITED TO ANY DEFENSE THEREOF), ANY CLAIMS FOR INDEMNITY OR
 #*  CONTRIBUTION, OR OTHER SIMILAR COSTS, WHETHER ASSERTED ON THE
 #*  BASIS OF CONTRACT, TORT (INCLUDING NEGLIGENCE), BREACH OF
@@ -51,7 +52,7 @@ class YDisplayLayer(object):
     overlapping layers).
 
     """
-#--- (end of generated code: YDisplayLayer class start)
+    #--- (end of generated code: YDisplayLayer class start)
 
     def __init__(self, parent, layerId):
         self._display = parent
@@ -133,13 +134,13 @@ class YDisplayLayer(object):
 
         On failure, throws an exception or returns a negative error code.
         """
-        return self.command_push("c" + ("%06X" % color))
+        return self.command_push("c" + ("%06x" % color))
 
     def selectGrayPen(self, graylevel):
         """
         Selects the pen gray level for all subsequent drawing functions,
         including text drawing. The gray level is provided as a number between
-        0 (black) and 255 (white, or whichever the lighest color is).
+        0 (black) and 255 (white, or whichever the lightest color is).
         For monochrome displays (without gray levels), any value
         lower than 128 is rendered as black, and any value equal
         or above to 128 is non-black.
@@ -169,13 +170,13 @@ class YDisplayLayer(object):
         """
         Enables or disables anti-aliasing for drawing oblique lines and circles.
         Anti-aliasing provides a smoother aspect when looked from far enough,
-        but it can add fuzzyness when the display is looked from very close.
+        but it can add fuzziness when the display is looked from very close.
         At the end of the day, it is your personal choice.
         Anti-aliasing is enabled by default on grayscale and color displays,
         but you can disable it if you prefer. This setting has no effect
         on monochrome displays.
 
-        @param mode : <t>true</t> to enable antialiasing, <t>false</t> to
+        @param mode : true to enable anti-aliasing, false to
                 disable it.
 
         @return YAPI.SUCCESS if the call succeeds.
@@ -263,7 +264,8 @@ class YDisplayLayer(object):
         file, check the device logs for any error message such as missing font file or bad font
         file format.
 
-        @param fontname : the font file name
+        @param fontname : the font file name, embedded fonts are 8x8.yfm, Small.yfm, Medium.yfm, Large.yfm
+        (not available on Yocto-MiniDisplay).
 
         @return YAPI.SUCCESS if the call succeeds.
 
@@ -413,7 +415,7 @@ class YDisplayLayer(object):
 
     def setConsoleWordWrap(self, wordwrap):
         """
-        Sets up the wrapping behaviour used by the consoleOut function.
+        Sets up the wrapping behavior used by the consoleOut function.
 
         @param wordwrap : true to wrap only between words,
                 false to wrap on the last column anyway.
@@ -454,7 +456,7 @@ class YDisplayLayer(object):
 
     def hide(self):
         """
-        Hides the layer. The state of the layer is perserved but the layer is not displayed
+        Hides the layer. The state of the layer is preserved but the layer is not displayed
         on the screen until the next call to unhide(). Hiding the layer can positively
         affect the drawing speed, since it postpones the rendering until all operations are
         completed (double-buffering).
@@ -532,9 +534,8 @@ class YDisplayLayer(object):
 
 #--- (end of generated code: YDisplayLayer implementation)
 
-#--- (DisplayLayer generated code: functions)
-
-#--- (end of DisplayLayer generated code: functions)
+#--- (generated code: YDisplayLayer functions)
+#--- (end of generated code: YDisplayLayer functions)
 
 
 #--- (generated code: YDisplay class start)
@@ -548,7 +549,7 @@ class YDisplay(YFunction):
     sequences (animations).
 
     """
-#--- (end of generated code: YDisplay class start)
+    #--- (end of generated code: YDisplay class start)
     #--- (generated code: YDisplay definitions)
     STARTUPSEQ_INVALID = YAPI.INVALID_STRING
     BRIGHTNESS_INVALID = YAPI.INVALID_UINT
@@ -594,41 +595,30 @@ class YDisplay(YFunction):
         self._recording = False
 
     #--- (generated code: YDisplay implementation)
-    def _parseAttr(self, member):
-        if member.name == "enabled":
-            self._enabled = member.ivalue
-            return 1
-        if member.name == "startupSeq":
-            self._startupSeq = member.svalue
-            return 1
-        if member.name == "brightness":
-            self._brightness = member.ivalue
-            return 1
-        if member.name == "orientation":
-            self._orientation = member.ivalue
-            return 1
-        if member.name == "displayWidth":
-            self._displayWidth = member.ivalue
-            return 1
-        if member.name == "displayHeight":
-            self._displayHeight = member.ivalue
-            return 1
-        if member.name == "displayType":
-            self._displayType = member.ivalue
-            return 1
-        if member.name == "layerWidth":
-            self._layerWidth = member.ivalue
-            return 1
-        if member.name == "layerHeight":
-            self._layerHeight = member.ivalue
-            return 1
-        if member.name == "layerCount":
-            self._layerCount = member.ivalue
-            return 1
-        if member.name == "command":
-            self._command = member.svalue
-            return 1
-        super(YDisplay, self)._parseAttr(member)
+    def _parseAttr(self, json_val):
+        if json_val.has("enabled"):
+            self._enabled = (json_val.getInt("enabled") > 0 if 1 else 0)
+        if json_val.has("startupSeq"):
+            self._startupSeq = json_val.getString("startupSeq")
+        if json_val.has("brightness"):
+            self._brightness = json_val.getInt("brightness")
+        if json_val.has("orientation"):
+            self._orientation = json_val.getInt("orientation")
+        if json_val.has("displayWidth"):
+            self._displayWidth = json_val.getInt("displayWidth")
+        if json_val.has("displayHeight"):
+            self._displayHeight = json_val.getInt("displayHeight")
+        if json_val.has("displayType"):
+            self._displayType = json_val.getInt("displayType")
+        if json_val.has("layerWidth"):
+            self._layerWidth = json_val.getInt("layerWidth")
+        if json_val.has("layerHeight"):
+            self._layerHeight = json_val.getInt("layerHeight")
+        if json_val.has("layerCount"):
+            self._layerCount = json_val.getInt("layerCount")
+        if json_val.has("command"):
+            self._command = json_val.getString("command")
+        super(YDisplay, self)._parseAttr(json_val)
 
     def get_enabled(self):
         """
@@ -639,10 +629,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.ENABLED_INVALID.
         """
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.ENABLED_INVALID
-        return self._enabled
+        res = self._enabled
+        return res
 
     def set_enabled(self, newval):
         """
@@ -666,10 +658,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.STARTUPSEQ_INVALID.
         """
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.STARTUPSEQ_INVALID
-        return self._startupSeq
+        res = self._startupSeq
+        return res
 
     def set_startupSeq(self, newval):
         """
@@ -688,16 +682,18 @@ class YDisplay(YFunction):
 
     def get_brightness(self):
         """
-        Returns the luminosity of the  module informative leds (from 0 to 100).
+        Returns the luminosity of the  module informative LEDs (from 0 to 100).
 
-        @return an integer corresponding to the luminosity of the  module informative leds (from 0 to 100)
+        @return an integer corresponding to the luminosity of the  module informative LEDs (from 0 to 100)
 
         On failure, throws an exception or returns YDisplay.BRIGHTNESS_INVALID.
         """
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.BRIGHTNESS_INVALID
-        return self._brightness
+        res = self._brightness
+        return res
 
     def set_brightness(self, newval):
         """
@@ -724,10 +720,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.ORIENTATION_INVALID.
         """
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.ORIENTATION_INVALID
-        return self._orientation
+        res = self._orientation
+        return res
 
     def set_orientation(self, newval):
         """
@@ -752,10 +750,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.DISPLAYWIDTH_INVALID.
         """
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.DISPLAYWIDTH_INVALID
-        return self._displayWidth
+        res = self._displayWidth
+        return res
 
     def get_displayHeight(self):
         """
@@ -765,10 +765,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.DISPLAYHEIGHT_INVALID.
         """
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.DISPLAYHEIGHT_INVALID
-        return self._displayHeight
+        res = self._displayHeight
+        return res
 
     def get_displayType(self):
         """
@@ -779,10 +781,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.DISPLAYTYPE_INVALID.
         """
-        if self._cacheExpiration == datetime.datetime.fromtimestamp(0):
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+        # res
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.DISPLAYTYPE_INVALID
-        return self._displayType
+        res = self._displayType
+        return res
 
     def get_layerWidth(self):
         """
@@ -792,10 +796,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.LAYERWIDTH_INVALID.
         """
-        if self._cacheExpiration == datetime.datetime.fromtimestamp(0):
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+        # res
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.LAYERWIDTH_INVALID
-        return self._layerWidth
+        res = self._layerWidth
+        return res
 
     def get_layerHeight(self):
         """
@@ -805,10 +811,12 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.LAYERHEIGHT_INVALID.
         """
-        if self._cacheExpiration == datetime.datetime.fromtimestamp(0):
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+        # res
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.LAYERHEIGHT_INVALID
-        return self._layerHeight
+        res = self._layerHeight
+        return res
 
     def get_layerCount(self):
         """
@@ -818,16 +826,20 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns YDisplay.LAYERCOUNT_INVALID.
         """
-        if self._cacheExpiration == datetime.datetime.fromtimestamp(0):
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+        # res
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.LAYERCOUNT_INVALID
-        return self._layerCount
+        res = self._layerCount
+        return res
 
     def get_command(self):
+        # res
         if self._cacheExpiration <= YAPI.GetTickCount():
-            if self.load(YAPI.DefaultCacheValidity) != YAPI.SUCCESS:
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.COMMAND_INVALID
-        return self._command
+        res = self._command
+        return res
 
     def set_command(self, newval):
         rest_val = newval
@@ -853,6 +865,10 @@ class YDisplay(YFunction):
         a display by logical name, no error is notified: the first instance
         found is returned. The search is performed first by hardware name,
         then by logical name.
+
+        If a call to this object's is_online() method returns FALSE although
+        you are certain that the matching device is plugged, make sure that you did
+        call registerHub() at application initialization time.
 
         @param func : a string that uniquely characterizes the display
 
@@ -1010,7 +1026,7 @@ class YDisplay(YFunction):
         Swaps the whole content of two layers. The color and transparency of all the pixels from
         the two layers are swapped. This method only affects the displayed content, but does
         not change any property of the layer objects. In particular, the visibility of each
-        layer stays unchanged. When used between onae hidden layer and a visible layer,
+        layer stays unchanged. When used between one hidden layer and a visible layer,
         this method makes it possible to easily implement double-buffering.
         Note that layer 0 has no transparency support (it is always completely opaque).
 
@@ -1027,6 +1043,9 @@ class YDisplay(YFunction):
     def nextDisplay(self):
         """
         Continues the enumeration of displays started using yFirstDisplay().
+        Caution: You can't make any assumption about the returned displays order.
+        If you want to find a specific a display, use Display.findDisplay()
+        and a hardwareID or a logical name.
 
         @return a pointer to a YDisplay object, corresponding to
                 a display currently online, or a None pointer
@@ -1081,7 +1100,7 @@ class YDisplay(YFunction):
         self._sequence = self._sequence + cmd + '\n'
         return YAPI.SUCCESS
 
-    #--- (generated code: Display functions)
+    #--- (generated code: YDisplay functions)
 
     @staticmethod
     def FirstDisplay():
@@ -1115,4 +1134,4 @@ class YDisplay(YFunction):
 
         return YDisplay.FindDisplay(serialRef.value + "." + funcIdRef.value)
 
-#--- (end of generated code: Display functions)
+#--- (end of generated code: YDisplay functions)

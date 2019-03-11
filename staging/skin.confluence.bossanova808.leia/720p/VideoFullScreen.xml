@@ -183,14 +183,14 @@
 					<aspectratio aligny="bottom">keep</aspectratio>
 					<bordertexture border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
-					<visible>[IsEmpty(Player.Art(tvshow.clearart)) + IsEmpty(Player.Art(tvshow.clearlogo))]| [IsEmpty(Player.Art(tvshow.clearlogo))]</visible>
+					<visible>[IsEmpty(Player.Art(tvshow.clearart)) + IsEmpty(Player.Art(tvshow.clearlogo))] | [IsEmpty(Player.Art(tvshow.clearlogo))]</visible>
 				</control>
 				<visible>VideoPlayer.Content(Episodes)</visible>
 				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			</control>
 
 			<!-- END BOSSANOVA808 CLEARART MOD  -->
-	
+<!-- 	
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>cover image</description>
@@ -217,6 +217,7 @@
 				<bordersize>8</bordersize>
 				<visible>VideoPlayer.Content(Movies)</visible>
 			</control>
+ -->			
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>PIcon image</description>
@@ -418,7 +419,7 @@
 					<font>font12</font>
 					<textcolor>grey</textcolor>
 					<scroll>true</scroll>
-					<visible>Window.IsVisible(VideoOSD) + !VideoPlayer.Content(LiveTV)</visible>
+					<visible>!VideoPlayer.Content(LiveTV)</visible>
 					<animation effect="fade" time="150">VisibleChange</animation>
 				</control>
 				<control type="label" id="1">

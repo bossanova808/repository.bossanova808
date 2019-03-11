@@ -15,26 +15,24 @@
       <Record>Screenshot</Record>
       <Red>FullScreen</Red> 
       <Green>ToggleWatched</Green>  
-      <myvideo>XBMC.ReloadSkin()</myvideo> <!-- reload skin -->
-      <mymusic>Playlist</mymusic> <!-- current playlist -->
+       <myvideo>XBMC.ReloadSkin()</myvideo> <!-- reload skin -->
+       <mymusic>Playlist</mymusic> <!-- current playlist -->
     </remote>
   </global>
 
 <!-- ************** HOME ******************************* -->
 <!-- On the home screen, 1 (video) & 4 (music) clean the library, 2 & 5 trigger an update -->  
-<!-- 7 causes the skin to reload and thus refreshes the recently added lists -->
+<!-- 0 causes the skin to reload and thus refreshes the recently added lists -->
   <home>
      <remote>
        <one>XBMC.CleanLibrary(video)</one>
        <two>XBMC.UpdateLibrary(video)</two>
        <four>XBMC.CleanLibrary(music)</four>
        <five>XBMC.UpdateLibrary(music)</five>
-       <seven>XBMC.ReloadSkin()</seven>
-       <eight>XBMC.Action(reloadkeymaps)</eight>
      </remote>
   </home>
 
-<!-- ************** VIDEO, TV and MOVIE LIBRARY & PLAYLISTS ******* -->
+<!-- ************** VIDEO, TV and MOVIE LIBRARY ******* -->
 <!-- Make Yellow show/hide watched and blue do nothing so the top up/down arrows don't cause issues in the video views -->
 
   <videos>
@@ -46,46 +44,46 @@
     </remote>
   </videos>
 
-  <MyMusicPlaylist>
+  <music>
     <remote>
        <zero>Delete</zero>
        <clear>Queue</clear>
     </remote>
-  </MyMusicPlaylist>
-  <MyMusicPlaylistEditor>
+  </music>
+  <musicplaylist>
     <remote>
        <zero>Delete</zero>
        <clear>Queue</clear>
    </remote>
-  </MyMusicPlaylistEditor>
+  </musicplaylist>
 
 
 <!-- ************** WHILE VIDEO IS PLAYING ************ -->
 <!-- Set up Audio Delay Easy Keys and remap some of the Harmony/MCE lost in translation stuff -->
 
-  <FullscreenVideo>
+  <fullscreenvideo>
     <remote>
       <Start>Stop</Start>
-      <Title>ShowSubtitles</Title>
+      <Title>OSD</Title>
+      <Menu>CodecInfo</Menu>
       <Back>Seek(-7)</Back>
-      <Guide>CodecInfo</Guide>
       <Star>AspectRatio</Star>
       <Select>Pause</Select>
       <Green>SmallStepBack</Green>
       <Yellow>AudioDelayMinus</Yellow>
-      <Blue>AudioDelayPlus</Blue>
+      <Blue>AudioDelayPlus</Blue> 
       <mypictures>ActivateWindow(SubtitleSearch)</mypictures> <!-- download subs -->
       <pageminus>SubtitleDelayMinus</pageminus>
       <pageplus>SubtitleDelayPlus</pageplus>
       <up>ChapterOrBigStepForward</up>
       <down>ChapterOrBigStepBack</down>      
     </remote>
-  </FullscreenVideo>
+  </fullscreenvideo>
 
   <FullscreenLiveTV>
     <remote>
-     <Guide>XBMC.ActivateWindowAndFocus(PVROSDChannels)</Guide>
-     <Info>XBMC.ActivateWindowAndFocus(PVROSDGuide)</Info>
+     <Menu>XBMC.ActivateWindowAndFocus(pvrosdchannels)</Menu>
+     <Info>XBMC.ActivateWindowAndFocus(pvrosdguide)</Info>
       <Yellow>ZoomOut</Yellow>
       <Blue>ZoomIn</Blue> 
       <mypictures>CodecInfo</mypictures> <!-- download subs -->    
@@ -93,58 +91,48 @@
     </remote>
   </FullscreenLiveTV>
 
-  <PVROSDChannels>
+  <pvrosdchannels>
     <remote>
      <Menu>Close</Menu>
-     <Guide>Close</Guide>
      <Info>Close</Info>
     </remote>
-  </PVROSDChannels>
-  <PVROSDGuide>
+  </pvrosdchannels>
+  <pvrosdguide>
     <remote>
      <Menu>Close</Menu>
-     <Guide>Close</Guide>
      <Info>Close</Info>
     </remote>
-  </PVROSDGuide>
+  </pvrosdguide>
 
-  <PlayerProcessInfo>
-    <remote>
-     <Menu>Close</Menu>
-     <Guide>Close</Guide>
-     <Info>Close</Info>
-     <mypictures>Close</mypictures>
-    </remote>
-  </PlayerProcessInfo>
-
-  <VideoOSD>
+  <videoosd>
     <remote>
       <Title>Close</Title>
     </remote>
-  </VideoOSD>
-  <MusicOSD>
+  </videoosd>
+  <musicosd>
     <remote>
       <Title>Close</Title>
     </remote>
-  </MusicOSD>
+  </musicosd>
 
 
 <!-- ************** WHILE MUSIC IS PLAYING ************ -->
 <!-- Remap remote keys in music visualisation mode -->
 
-  <Visualisation>
+  <visualisation>
     <remote>
       <Start>Stop</Start>
-      <Title>XBMC.ActivateWindow(MusicOSD)</Title>
+      <Title>XBMC.ActivateWindow(musicosd)</Title>
+      <Menu>CodecInfo</Menu>
       <Select>Pause</Select>  
     </remote>
- </Visualisation>
+ </visualisation>
 
 <!-- ************** WHILE PICTURES ARE PLAYING ******* -->
 
 <!-- Set up zooming in picture slideshows -->
 
-  <Slideshow>
+  <slideshow>
     <remote>
       <Select>Pause</Select>
       <Yellow>ZoomOut</Yellow>
@@ -153,6 +141,6 @@
       <up>Rotate</up>
       <down>rotateccw</down>      
     </remote>
-  </Slideshow>
+  </slideshow>
 
 </keymap>
