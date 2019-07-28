@@ -4,63 +4,92 @@ import os, sys
 YOCTO_PATH = os.path.join( os.getcwd(), "yoctopuce" )
 sys.path.append( YOCTO_PATH )
 
+B808_PATH = os.path.join( os.getcwd(), "b808common" )
+sys.path.append( B808_PATH )
+
 from yocto_api import *
 from yocto_display import *
 from traceback import format_exc
+from platform import python_version
 
+# By deafult, all these are empty references
 display = None
 module = None
 drawingLayer = None
 displayLayer = None
 
+try:
+    from b808common import log as log
+except ImportError:
+    print("\nXBMC is not available -> probably unit testing")
+    def log(str):
+        print(str)
+
+#########################################################
+# SETUP FUNCTIONS
+#########################################################
 
 def registerYoctoAPI():
     
-    print("registerYoctoAPI")
+    log("registerYoctoAPI")
     errmsg = YRefParam()
-
     # Setup the API to use local USB devices
     if YAPI.RegisterHub("usb", errmsg) != YAPI.SUCCESS:
-        sys.exit("Could not init Yocto API")
+        log("Could not init Yocto API: " + str(errmsg))
+        #sys.exit("Could not init Yocto API")
+
 
 def registerDisplayandModule():
 
-    print("registerDisplayandModule")
+    log("registerDisplayandModule")
     
     global display, module
 
     display = YDisplay.FirstDisplay()
-    module = display.get_module()
-
-    if not module:
-        sys.exit("Couldn't find the module")
-   
     if not display:
         sys.exit("Couldn't find the display")
 
+    module = display.get_module()
+    if not module:
+        sys.exit("Couldn't find the module")
+   
+    log("Registered display " + str(display) + " and module " + str(module))
+
+
 def describeDisplay():
+
+    log("describeDisplay")
 
     global display
 
-    try:
-        print("Display found: " + str(display.describe()) + " - " + str(display.get_displayType()) + " - Friendly name: " + str(display.get_friendlyName( )))
-    except Exception as inst:
-        print("Exception in describe display..." + format_exc(inst))        
+    if display.isOnline():
+        try:
+            log("Display found: " + str(display.describe()) + " - " + str(display.get_displayType()) + " - Friendly name: " + str(display.get_friendlyName( )))
+        except Exception as inst:
+            log("Exception in describe display..." + format_exc(inst))        
+    else:
+        log("Can't describeDisplay - display not online?")
+
+
+
+#########################################################
+# BEHAVIOUR FUNCTIONS (ASSUME DISPLAY IS SETUP)
+#########################################################
 
 def setBrightness(brightness):
 
+    log("setBrightness " + str(brightness))
+
     global display
-    
-    registerDisplayandModule()
+
     display.set_brightness(brightness)
+
 
 def setLED(on):
 
-    print("setLED " + str(on))
+    log("setLED " + str(on))
 
     global module
-
-    registerDisplayandModule()
    
     if on != "false":
         module.set_luminosity(50)
@@ -70,12 +99,12 @@ def setLED(on):
 
 def toggleLED():
 
+    log("toggleLED")
+
     global module
 
-    registerDisplayandModule()
-
     led = module.get_luminosity()
-    print("LED was " + str(led))
+    log("LED was " + str(led))
 
     if led==50:
         module.set_luminosity(0)
@@ -83,11 +112,13 @@ def toggleLED():
         module.set_luminosity(50)
 
     led = module.get_luminosity()
-    print("LED is " + str(led))
+    log("LED is now " + str(led))
 
 
-# Set things up - and because we're actually assigning to our global vars here, we need to use the global keyword...
+# Set up our simple double buffering
 def initialiseLayers():
+
+    log("initialiseLayers")
 
     global display, drawingLayer, displayLayer
 
@@ -114,6 +145,8 @@ def initialiseLayers():
 
 def displayText(lines):
 
+    log("displayText " + str(lines))
+
     global display, drawingLayer, displayLayer
 
     drawingLayer.clear()
@@ -134,33 +167,57 @@ def displayText(lines):
         drawingLayer.selectFont("Medium.yfm")
 
     # DRAWING 
-    if numberOfLines == 1:
-        drawingLayer.drawText(64, 32,YDisplayLayer.ALIGN.CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
-    if numberOfLines == 2:
-        drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
-        drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[1].decode('utf8').encode("ISO-8859-1"))
-    if numberOfLines == 3:
-        drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
-        drawingLayer.drawText(64, 22, YDisplayLayer.ALIGN.TOP_CENTER, lines[1].decode('utf8').encode("ISO-8859-1"))
-        drawingLayer.drawText(64, 44, YDisplayLayer.ALIGN.TOP_CENTER, lines[2].decode('utf8').encode("ISO-8859-1"))
-    if numberOfLines == 4:
-        drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
-        drawingLayer.drawText(64, 16, YDisplayLayer.ALIGN.TOP_CENTER, lines[1].decode('utf8').encode("ISO-8859-1"))
-        drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[2].decode('utf8').encode("ISO-8859-1"))
-        drawingLayer.drawText(64, 48, YDisplayLayer.ALIGN.TOP_CENTER, lines[3].decode('utf8').encode("ISO-8859-1"))
+    if python_version().startswith('2'):
+        if numberOfLines == 1:
+            drawingLayer.drawText(64, 32,YDisplayLayer.ALIGN.CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
+        if numberOfLines == 2:
+            drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
+            drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[1].decode('utf8').encode("ISO-8859-1"))
+        if numberOfLines == 3:
+            drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
+            drawingLayer.drawText(64, 22, YDisplayLayer.ALIGN.TOP_CENTER, lines[1].decode('utf8').encode("ISO-8859-1"))
+            drawingLayer.drawText(64, 44, YDisplayLayer.ALIGN.TOP_CENTER, lines[2].decode('utf8').encode("ISO-8859-1"))
+        if numberOfLines == 4:
+            drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0].decode('utf8').encode("ISO-8859-1"))
+            drawingLayer.drawText(64, 16, YDisplayLayer.ALIGN.TOP_CENTER, lines[1].decode('utf8').encode("ISO-8859-1"))
+            drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[2].decode('utf8').encode("ISO-8859-1"))
+            drawingLayer.drawText(64, 48, YDisplayLayer.ALIGN.TOP_CENTER, lines[3].decode('utf8').encode("ISO-8859-1"))
+    else:
+        if numberOfLines == 1:
+            drawingLayer.drawText(64, 32,YDisplayLayer.ALIGN.CENTER, lines[0])
+        if numberOfLines == 2:
+            drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0])
+            drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[1])
+        if numberOfLines == 3:
+            drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0])
+            drawingLayer.drawText(64, 22, YDisplayLayer.ALIGN.TOP_CENTER, lines[1])
+            drawingLayer.drawText(64, 44, YDisplayLayer.ALIGN.TOP_CENTER, lines[2])
+        if numberOfLines == 4:
+            drawingLayer.drawText(64, 1, YDisplayLayer.ALIGN.TOP_CENTER, lines[0])
+            drawingLayer.drawText(64, 16, YDisplayLayer.ALIGN.TOP_CENTER, lines[1])
+            drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[2])
+            drawingLayer.drawText(64, 48, YDisplayLayer.ALIGN.TOP_CENTER, lines[3])        
 
 
     # DISPLAYING
+    #log("Swap layer content & show:")
     display.swapLayerContent(1,0)
     displayLayer.unhide()
 
+
 def cleanupDisplay():
+    
+    log("cleanupDisplay")
+
     global display, displayLayer, drawingLayer
 
-    # toggleLED()    
-    print("cleanupDisplay")
-    displayLayer.clear()
-    drawingLayer.clear()
+    if display:
+        # toggleLED()        
+        displayLayer.clear()
+        drawingLayer.clear()
+        log("Cleaned up.")
+    else:
+        log("Could not clean up - no display found.")
 
 
 ############################################################
@@ -168,10 +225,13 @@ def cleanupDisplay():
 
 if __name__ == '__main__':
 
+    log("__main__")
+    log('Python', python_version())
+
     import atexit
     atexit.register(cleanupDisplay)
 
-    print("Testing Yocto MaxiDisplay")
+    log("Testing Yocto MaxiDisplay")
 
     registerYoctoAPI()
     registerDisplayandModule()
@@ -186,16 +246,16 @@ if __name__ == '__main__':
     # toggleLED()    
 
     while True:
-        print("Line 1")
+        log("Line 1")
         displayText(["Line 1"])
         time.sleep(2)
-        print("Line 1, Line 2")
+        log("Line 1, Line 2")
         displayText(["Line 1","Line 2"])
         time.sleep(2)
-        print("Line 1, Line 2, Line 3")
+        log("Line 1, Line 2, Line 3")
         displayText(["Line 1","Line 2","Line 3"])
         time.sleep(2)
-        print("Line 1, Line 2, Line 3, Line 4")
+        log("Line 1, Line 2, Line 3, Line 4")
         displayText(["Line 1","Line 2","Line 3","Line 4"])
         time.sleep(2)
 

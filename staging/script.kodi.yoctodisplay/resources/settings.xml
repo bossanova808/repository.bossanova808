@@ -4,6 +4,7 @@
         <setting label="32101" id="brightness" type="slider"  option="int" default="40" range="0,100"/>
         <setting label="32103" type="bool" id="led" default="false"/>
         <setting label="32200" type="lsep"/>
+        <setting label="Restart Yocto Display Service" id="restart"  type="action" action="RunScript($ID)"/>
     </category>
     
 </settings>

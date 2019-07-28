@@ -30,42 +30,33 @@ from yoctomaxidisplay import *
 # The main processing loop for the 2nd screen
 def process2ndScreen():
 
-    monitor = xbmc.Monitor()
+    # https://stackoverflow.com/questions/415511/how-to-get-current-time-in-python
+    timeNow = strftime("%I:%M")
+    temperature = InfoLabel_GetWeatherTemperature()
 
-    # Run every 1/3rd of a second basically
-    while not monitor.waitForAbort(0.33):
+    # If weather is not ready, show nothing
+    if temperature.startswith("Busy") or temperature.startswith("°C"):
+        temperature = ""
+    else:
+        temperature = temperature.replace("°C","°")
 
-        # https://stackoverflow.com/questions/415511/how-to-get-current-time-in-python
-        timeNow = strftime("%I:%M")
-        temperature = InfoLabel_GetWeatherTemperature()
+    #strip leading zero in platform independent way, if there is one
+    if timeNow[0] == "0":
+        timeNow = timeNow[1:]
 
-        # If weather is not ready, show nothing
-        if temperature.startswith("Busy") or temperature.startswith("°C"):
-            temperature = ""
-        else:
-            temperature = temperature.replace("°C","°")
+    if temperature != "":
+        timeAndTemperature = timeNow + "°" + temperature.replace("°","")
+    else:
+        timeAndTemperature = timeNow
 
-        #strip leading zero in platform independent way, if there is one
-        if timeNow[0] == "0":
-            timeNow = timeNow[1:]
+    if InfoLabel_IsPlayerPlaying():            
+        timeRemaining = InfoLabel_GetPlayerTimeRemaining()
+        if len(timeRemaining) > 0 and timeRemaining[0] == "0":
+            timeRemaining = timeRemaining[1:]
+        displayText([timeAndTemperature,"-" + timeRemaining])
+    else:            
+        displayText([timeNow, temperature])
 
-        if temperature != "":
-            timeAndTemperature = timeNow + "°" + temperature.replace("°","")
-        else:
-            timeAndTemperature = timeNow
-
-        if InfoLabel_IsPlayerPlaying():            
-            timeRemaining = InfoLabel_GetPlayerTimeRemaining()
-            if len(timeRemaining) > 0 and timeRemaining[0] == "0":
-                timeRemaining = timeRemaining[1:]
-            displayText([timeAndTemperature,"-" + timeRemaining])
-        else:            
-            displayText([timeNow, temperature])
-
-
-    # Once Kodi is closing, fall through here and close down nicely...
-    cleanupDisplay()
-    footprints(False)
 
 
 if __name__ == '__main__':
@@ -87,12 +78,22 @@ if __name__ == '__main__':
   
     registerYoctoAPI()
     registerDisplayandModule()
-    describeDisplay()
+    #describeDisplay()
   
     # Set up the display
     setBrightness(ADDON.getSetting('brightness'))
     setLED(ADDON.getSetting('led'))
     initialiseLayers() 
 
+    monitor = xbmc.Monitor()
+ 
     # Game loop - this loops until Kodi quits..
-    process2ndScreen()
+    # Run every 1/3rd of a second basically
+    while not monitor.abortRequested():
+        
+        if monitor.waitForAbort(0.33):            
+            cleanupDisplay()
+            footprints(False)
+            break
+        
+        process2ndScreen()
