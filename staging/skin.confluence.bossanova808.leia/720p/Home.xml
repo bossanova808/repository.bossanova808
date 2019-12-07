@@ -1278,7 +1278,7 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<font>font10</font>
-					<textcolor>white</textcolor>
+					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<label>$INFO[Window(Weather).Property(Location)]</label>
 				</control>
@@ -1297,7 +1297,7 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<font>font28_title</font>
-						<textcolor>white</textcolor>
+						<textcolor>gray</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<label>[B]$INFO[Window(Weather).Property(Current.Temperature)][/B]</label>
 					</control>
@@ -1308,7 +1308,7 @@
 						<font>font10</font>
 						<aligny>center</aligny>
 						<label>$INFO[System.TemperatureUnits]</label>
-						<textcolor>white</textcolor>
+						<textcolor>gray</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>!String.IsEmpty(Window(Weather).Property(Current.Temperature))</visible>
 					</control>
@@ -1334,7 +1334,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font10</font>
-				<textcolor>white</textcolor>
+				<textcolor>gray</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Date]</label>
 				<include>Window_OpenClose_Animation</include>
