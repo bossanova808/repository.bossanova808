@@ -8,8 +8,8 @@
   <extension point="xbmc.addon.metadata">
     <language></language>
     <summary>Kodi YoctoDispay</summary>
-    <description>Display current time, current temperatre and media playing time remaining on a YoctoMaxiDisplay screen.</description>
-    <disclaimer>Works only with Yoctopuce USB MaxiDisplay.  Shouldn't blow up the universe or any part of it, but use at your own risk.</disclaimer>
+    <description>Display current time, current temperature and media playing time remaining on a YoctoMaxiDisplay screen.</description>
+    <disclaimer>Works only with Yoctopuce USB MaxiDisplay.  Shouldn't blow up the universe, or any part of it, but use at your own risk.</disclaimer>
     <platform>all</platform>
     <language>en</language>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
