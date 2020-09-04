@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.program.xsqueezechooser" name="XSqueeze Chooser"
-       version="0.2.2" provider-name="bossanova808">
-  <requires>
-    <import addon="xbmc.python" version="2.14.0"/>
-    <import addon="script.module.xsqueezecommon" version="0.2.3"/>
-    <import addon="script.module.b808common" version="0.2.1"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Installed automatically with XSqueeze, this Chooser allows you to select music to play on your XSqueeze player.</summary>
-    <description>Installed automatically with XSqueeze, this Chooser allows you to select music to play on your XSqueeze player.</description>
-    <platform>all</platform>
-    <license>GPL V2</license>
-  </extension>
-</addon>
-
 <addon
   id="repository.bossanova808"
   name="bossanova808's XBMC Addons"
@@ -54,74 +36,6 @@
     <website></website>
     <email></email>
     <source>https://github.com/bossanova808/script.kodi.yoctodisplay</source>
-  </extension>
-</addon>
-
-<addon id="script.module.b808common" version="0.2.4" name="Bossanova808 Common Code" provider-name="bossanova808">
-  <requires>
-    <import addon='xbmc.python' version='2.14.0'/>
-  </requires>
-  <extension point='xbmc.addon.metadata'>
-    <platform>all</platform>
-    <summary lang='en'>Installed automatically with Bossanova808 addons - common code for XSqueeze etc.</summary>
-  </extension>
-  <extension point='xbmc.python.module' library='lib' />
-</addon>
-
-<addon id="script.module.xsqueezecommon" version="0.2.3" name="XSqueeze Common Code" provider-name="bossanova808">
-  <requires>
-    <import addon='xbmc.python' version='2.14.0'/>
-    <import addon="script.module.b808common" version="0.2.1"/>
-  </requires>
-  <extension point='xbmc.addon.metadata'>
-    <platform>all</platform>
-    <summary lang='en'>Installed automatically with XSqueeze - common code for XSqueeze and XSqueeze Chooser</summary>
-  </extension>
-  <extension point='xbmc.python.module' library='lib' />
-</addon>
-
-<addon id="script.xsqueeze"
-       name="XSqueeze"
-       version="1.2.7"
-       provider-name="bossanova808">
-  <requires>
-    <import addon="xbmc.python" version="2.14.0"/>
-    <import addon="script.artistslideshow" version="1.4.7"/>
-    <import addon="script.module.xsqueezecommon" version="0.2.3"/>
-    <import addon="script.module.b808common" version="0.2.3"/>
-    <import addon="plugin.program.xsqueezechooser" version="0.2.2"/>
-  </requires>
-  <extension point="xbmc.python.script"
-             library="default.py">
-    <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Squeezebox player/controller for XBMC.</summary>
-    <description lang="en">Turn your XBMC into a Squeeze player or control an external Squeezebox.</description>
-    <disclaimer lang="en"></disclaimer>
-  </extension>
-</addon>
-
-<addon
-  id="skin.confluence.bossanova808.krypton"
-  version="0.0.7"
-  name="Confluence Bossanova808 Krypton"
-  provider-name="Jezz_X, Team Kodi, bossanova808">
-  <requires>
-    <import addon="xbmc.gui" version="5.12.0"/>
-  </requires>
-  <extension
-    point="xbmc.gui.skin"
-    defaultthemename="textures.xbt"
-    debugging="false"
-    effectslowdown="1.0">
-    <res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Confluence skin by Jezz_X modded by Bossanova808.</summary>
-    <description lang="en">Bossanova808 personal mod of Confluence - just basic Confluence with a few extra nice bits and some hard coded paths - only for use by bossanova808 and friends!</description>
-    <platform>all</platform>
   </extension>
 </addon>
 
@@ -270,6 +184,37 @@
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
 		<news>Updated music artist info.</news>
+	</extension>
+</addon>
+
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.601" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+	<requires>
+		<import addon="xbmc.gui" version="5.15.0"/>
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
+		<res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Confluence skin by Jezz_X.</summary>
+		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
+		<platform>all</platform>
+		<license>GNU General Public License version 2</license>
+		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
+		<source>https://github.com/xbmc/skin.confluence</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+			<screenshot>resources/screenshot-01.jpg</screenshot>
+			<screenshot>resources/screenshot-02.jpg</screenshot>
+			<screenshot>resources/screenshot-03.jpg</screenshot>
+			<screenshot>resources/screenshot-04.jpg</screenshot>
+			<screenshot>resources/screenshot-05.jpg</screenshot>
+			<screenshot>resources/screenshot-06.jpg</screenshot>
+			<screenshot>resources/screenshot-07.jpg</screenshot>
+			<screenshot>resources/screenshot-08.jpg</screenshot>
+			<screenshot>resources/screenshot-09.jpg</screenshot>
+		</assets>
+		<news>- Switch to dynamic content for home screen widgets.[CR]- Home screen widgets show only unwatched items.</news>
 	</extension>
 </addon>
 </addons>
