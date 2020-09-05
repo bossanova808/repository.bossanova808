@@ -481,10 +481,16 @@
 		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
+	<!--  BOSSANOVA808 MOD CLEARART -->
 	<variable name="NowPlayingThumb">
+		<value condition="!String.IsEmpty(Player.Art(clearart))">$INFO[Player.Art(clearart)]</value>
+		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">$INFO[Player.Art(tvshow.clearart)]</value>
+		<value condition="!String.IsEmpty(Player.Art(clearlogo))">$INFO[Player.Art(clearlogo)]</value>
+		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">$INFO[Player.Art(tvshow.clearlogo)]</value>
 		<value condition="!String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
 		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
 		<value>$INFO[Player.Icon]</value>
+	<!--  END BOSSANOVA808 MOD CLEARART -->
 	</variable>
 	<variable name="MusicInfoPanelLabel">
 		<value condition="Container.Content(Artists)">$INFO[ListItem.Label]</value>
@@ -500,11 +506,13 @@
 		<value>DialogBack2.png</value>
 	</variable>
 	<variable name="typehackflagging">
-		<value condition="[String.Contains(ListItem.FilenameAndPath,bluray) | String.Contains(ListItem.FilenameAndPath,bdrip) | String.Contains(ListItem.FilenameAndPath,brrip) | String.Contains(ListItem.FilenameAndPath,bd25) | String.Contains(ListItem.FilenameAndPath,bd50)]">bluray</value>
+		<value condition="[String.Contains(ListItem.FilenameAndPath,bluray) | String.Contains(ListItem.FilenameAndPath,bdrip) | String.Contains(ListItem.FilenameAndPath,brrip) | String.Contains(ListItem.FilenameAndPath,bd25) | String.Contains(ListItem.FilenameAndPath,bd50) | String.Contains(ListItem.FilenameAndPath,remux)]">bluray</value>
 		<value condition="String.Contains(ListItem.FilenameAndPath,hddvd)">hddvd</value>
 		<value condition="String.Contains(ListItem.FilenameAndPath,dvd)">dvd</value>
+		<value condition="String.Contains(ListItem.FilenameAndPath,uhd)">uhd</value>
 		<value condition="[String.Contains(ListItem.FilenameAndPath,pdtv) | String.Contains(ListItem.FilenameAndPath,hdtv) | String.Contains(ListItem.FilenameAndPath,dsr)]">TV</value>
 		<value condition="String.Contains(ListItem.FilenameAndPath,vhs)">vhs</value>
+		<value condition="String.Contains(ListItem.FilenameAndPath,webdl) | String.Contains(ListItem.FilenameAndPath,web-dl) | String.Contains(ListItem.FilenameAndPath,webrip)">web</value>
 	</variable>
 	<variable name="rating">
 		<value condition="String.Contains(listitem.mpaa,Rated G)">mpaa_general</value>
@@ -554,6 +562,7 @@
 	</variable>
 	<variable name="PVRTimerIcon">
 		<value condition="ListItem.IsRecording">PVR-IsRecording.png</value>
+		<value condition="ListItem.HasReminder">PVR-HasReminder.png</value>
 		<value condition="ListItem.HasTimerSchedule + ListItem.TimerHasError">PVR-HasTimerScheduleError.png</value>
 		<value condition="ListItem.HasTimer + ListItem.TimerHasError">PVR-HasTimerError.png</value>
 		<value condition="ListItem.HasTimerSchedule + ListItem.TimerHasConflict">PVR-HasTimerScheduleConflict.png</value>
@@ -563,6 +572,7 @@
 		<value condition="ListItem.HasTimer + !ListItem.TimerIsActive">PVR-HasTimerDisabled.png</value>
 		<value condition="ListItem.HasTimerSchedule">PVR-HasTimerSchedule.png</value>
 		<value condition="ListItem.HasTimer">PVR-HasTimer.png</value>
+		<value condition="ListItem.IsPlayable">PVR-HasArchive.png</value>
 	</variable>
 	<variable name="PVRTimerLabel">
 		<value condition="ListItem.IsRecording">$LOCALIZE[19043]</value>

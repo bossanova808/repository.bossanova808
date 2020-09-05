@@ -8,99 +8,30 @@
 	<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
 	<depth>DepthOSD</depth>
 	<controls>
-
-	<!--  BOSSANOVA808 MOD CLEARART -->
-	<!--  SHOWS CLEARART BY DEFAULT, OTHERWISE FALLS BACK TO LOGO or BORING THUMB -->
-
-	   	<control type="group" id="10121">
+		<!--  BOSSANOVA808 MOD CLEARART -->
+		<control type="group">
 	      	<visible>[Player.Paused]</visible>
-   		   	<visible>VideoPlayer.Content(Movies)</visible>
 			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			<control type="image" id="1">
-				<description>clearart image</description>
-				<posx>10</posx>
-				<posy>260r</posy>
-				<width>300</width>
-				<height>230</height>
-				<texture>$INFO[Player.Art(clearart)]</texture>
-				<aspectratio aligny="bottom">keep</aspectratio>
-				<visible>!String.IsEmpty(Player.Art(clearart))</visible>
-			</control>
-			<control type="image" id="1">
-				<description>logo image</description>
-				<posx>10</posx>
-				<posy>260r</posy>
-				<width>300</width>
-				<height>230</height>
-				<texture>$INFO[Player.Art(clearlogo)]</texture>
-				<aspectratio aligny="bottom">keep</aspectratio>
-				<visible>!String.IsEmpty(Player.Art(clearlogo)) + String.IsEmpty(Player.Art(clearart))</visible>
-			</control>
-			<control type="image" id="1">
-				<description>Movie cover image</description>
+				<depth>DepthOSDPopout</depth>
+				<description>Video cover image</description>
 				<posx>20</posx>
 				<posy>350r</posy>
 				<width>300</width>
 				<height>330</height>
-				<texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
+				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="8">ThumbShadow.png</bordertexture>
-				<bordersize>8</bordersize>
-				<visible>String.IsEmpty(Player.Art(clearart)) + String.IsEmpty(Player.Art(clearlogo))</visible>
 			</control>
 		</control>
-		<control type="group" id="10122">
-	      	<visible>[Player.Paused]</visible>
-			<visible>VideoPlayer.Content(Episodes)</visible>
-			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
-			<control type="image" id="1">
-				<description>clearart image</description>
-				<posx>10</posx>
-				<posy>260r</posy>
-				<width>300</width>
-				<height>230</height>
-				<texture>$INFO[Player.Art(tvshow.clearart)]</texture>
-				<aspectratio aligny="bottom">keep</aspectratio>
-				<visible>!String.IsEmpty(Player.Art(tvshow.clearart))</visible>
-			</control>
-			<control type="image" id="1">
-				<description>logo image</description>
-				<posx>10</posx>
-				<posy>260r</posy>
-				<width>300</width>
-				<height>230</height>
-				<texture>$INFO[Player.Art(tvshow.clearlogo)]</texture>
-				<aspectratio aligny="bottom">keep</aspectratio>
-				<visible>!String.IsEmpty(Player.Art(tvshow.clearlogo)) + String.IsEmpty(Player.Art(tvshow.clearart))</visible>
-			</control>
-			<control type="image" id="1">
-				<description>cover image</description>
-				<posx>20</posx>
-				<posy>260r</posy>
-				<width>300</width>
-				<height>230</height>
-				<texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
-				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="8">ThumbShadow.png</bordertexture>
-				<bordersize>8</bordersize>
-                <visible>String.IsEmpty(Player.Art(tvshow.clearlogo)) + String.IsEmpty(Player.Art(tvshow.clearart))</visible>                    
-			</control>
-
-		</control>
-
-  <!-- END BOSSANOVA808 MOD CLEARART -->
-  
-  <!-- BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
-
-	   <control type="group" id="10125">
+		<!-- END BOSSANOVA808 MOD CLEARART -->
+  		<!-- BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
+	    <control type="group" id="10125">
   			<posx>0</posx>
   			<posy>25</posy>
-
   			<!-- Only show weather if it is available - using a predicted high of zero since this never happens where I live, but it's dodgy -->
   			<!-- Should use Weather.IsFetched but for some reason it doesn't work as expected -->
 			<!-- <visible>!Weather.IsFetched</visible> -->
-	      	<visible>[!StringCompare(Window(2600).Property(Day0.HighTemp),"0") + !StringCompare(Window(2600).Property(Day0.HighTemp),"")]</visible>
-
+	      	<visible>[!StringCompare(Window(2600).Property(Day0.HighTemp),"0") + !String.IsEmpty(Window(2600).Property(Day0.HighTemp))]</visible>
  			<control type="image" id="19547">
   				<description>media info background image</description>
   				<posx>25</posx>
@@ -110,149 +41,144 @@
   				<texture>black-back.png</texture>
   			</control>
  			<control type="label" id="19547">
-					<description>currently label</description>
-					<posx>35</posx>
-					<posy>-40</posy>
-					<width>460</width>
-					<height>160</height>
-					<label>Currently</label>
-					<font>font12</font>
-					<align>left</align>
-					<scroll>true</scroll>
-					<aligny>center</aligny>
-					<textcolor>grey</textcolor>
-					<shadowcolor>black</shadowcolor>
+				<description>currently label</description>
+				<posx>35</posx>
+				<posy>-40</posy>
+				<width>460</width>
+				<height>160</height>
+				<label>Currently</label>
+				<font>font12</font>
+				<align>left</align>
+				<scroll>true</scroll>
+				<aligny>center</aligny>
+				<textcolor>grey</textcolor>
+				<shadowcolor>black</shadowcolor>
 			</control>
   			<control type="label" id="19547">
-					<description>current temp Value</description>
-					<posx>90</posx>
-					<posy>42</posy>
-					<width>180</width>
-					<height>40</height>
-					<font>font35_title</font>
-					<align>right</align>
-					<aligny>top</aligny>
-					<label>$INFO[Window(2600).Property(Current.Temperature)]</label>
-					<textcolor>white</textcolor>
-					<shadowcolor>black</shadowcolor>
+				<description>current temp Value</description>
+				<posx>90</posx>
+				<posy>42</posy>
+				<width>180</width>
+				<height>40</height>
+				<font>font35_title</font>
+				<align>right</align>
+				<aligny>top</aligny>
+				<label>$INFO[Window(2600).Property(Current.Temperature)]</label>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
 			</control>
 			<control type="label" id="19547">
-					<description>current temp Value Units</description>
-					<posx>90</posx>
-					<posy>50</posy>
-					<width>100</width>
-					<height>40</height>
-					<font>font12caps</font>
-					<align>left</align>
-					<aligny>top</aligny>
-					<label>$INFO[System.TemperatureUnits]</label>
-					<textcolor>white</textcolor>
-					<shadowcolor>black</shadowcolor>
+				<description>current temp Value Units</description>
+				<posx>90</posx>
+				<posy>50</posy>
+				<width>100</width>
+				<height>40</height>
+				<font>font12caps</font>
+				<align>left</align>
+				<aligny>top</aligny>
+				<label>$INFO[System.TemperatureUnits]</label>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="label" id="19547">
+				<description>predicted high label</description>
+				<posx>35</posx>
+				<posy>35</posy>
+				<width>460</width>
+				<height>160</height>
+				<label>Predicted[CR]High: [COLOR white]$INFO[Window(2600).Property(Day0.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+				<font>font10</font>
+				<align>left</align>
+				<scroll>true</scroll>
+				<aligny>center</aligny>
+				<textcolor>gray</textcolor>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="label" id="19547">
+				<description>low label</description>
+				<posx>35</posx>
+				<posy>70</posy>
+				<width>460</width>
+				<height>160</height>
+				<label>Overnight[CR]Low:  [COLOR white]$INFO[Window(2600).Property(Day1.LowTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+				<font>font10</font>
+				<align>left</align>
+				<scroll>true</scroll>
+				<aligny>center</aligny>
+				<textcolor>gray</textcolor>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="label" id="19547">
+				<description>tomorrow high label</description>
+				<posx>35</posx>
+				<posy>105</posy>
+				<width>460</width>
+				<height>160</height>
+				<label>Tomorrow[CR]High: [COLOR white]$INFO[Window(2600).Property(Day1.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+				<font>font10</font>
+				<align>left</align>
+				<scroll>true</scroll>
+				<aligny>center</aligny>
+				<textcolor>gray</textcolor>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="group">
+				<posx>140</posx>
+				<posy>15</posy>
+				 <control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/background.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
 				</control>
- 				<control type="label" id="19547">
-					<description>predicted high label</description>
-					<posx>35</posx>
-					<posy>35</posy>
-					<width>460</width>
-					<height>160</height>
-					<label>Predicted[CR]High: [COLOR white]$INFO[Window(2600).Property(Day0.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
-					<font>font10</font>
-					<align>left</align>
-					<scroll>true</scroll>
-					<aligny>center</aligny>
-					<textcolor>gray</textcolor>
-					<shadowcolor>black</shadowcolor>
+				<control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/topography.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
 				</control>
-        <control type="label" id="19547">
-					<description>low label</description>
-					<posx>35</posx>
-					<posy>70</posy>
-					<width>460</width>
-					<height>160</height>
-					<label>Overnight[CR]Low:  [COLOR white]$INFO[Window(2600).Property(Day1.LowTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
-					<font>font10</font>
-					<align>left</align>
-					<scroll>true</scroll>
-					<aligny>center</aligny>
-					<textcolor>gray</textcolor>
-					<shadowcolor>black</shadowcolor>
+				<control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/locations.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
 				</control>
-        <control type="label" id="19547">
- 					<description>tomorrow high label</description>
-					<posx>35</posx>
-					<posy>105</posy>
-					<width>460</width>
-					<height>160</height>
-					<label>Tomorrow[CR]High: [COLOR white]$INFO[Window(2600).Property(Day1.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
-					<font>font10</font>
-					<align>left</align>
-					<scroll>true</scroll>
-					<aligny>center</aligny>
-					<textcolor>gray</textcolor>
-					<shadowcolor>black</shadowcolor>
+				<control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/range.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
 				</control>
-
-        <control type="group">
-  				<posx>140</posx>
-  				<posy>15</posy>
-
-        <control type="image" id="19547">
-  				<posx>0</posx>
-  				<posy>0</posy>
-  				<width>256</width>
-  				<height>256</height>
-  				<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/background.png</texture>
-				  <bordertexture border="8">ThumbShadow.png</bordertexture>
-				  <bordersize>8</bordersize>
-  			</control>
-  			<control type="image" id="19547">
-  				<posx>0</posx>
-  				<posy>0</posy>
-  				<width>256</width>
-  				<height>256</height>
-  				<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/topography.png</texture>
-				  <bordertexture border="8">ThumbShadow.png</bordertexture>
-				  <bordersize>8</bordersize>
- 			</control>
-  			<control type="image" id="19547">
-  				<posx>0</posx>
-  				<posy>0</posy>
-  				<width>256</width>
-  				<height>256</height>
-  				<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/locations.png</texture>
-				  <bordertexture border="8">ThumbShadow.png</bordertexture>
-				  <bordersize>8</bordersize>
-  			</control>
-  			<control type="image" id="19547">
-  				<posx>0</posx>
-  				<posy>0</posy>
-  				<width>256</width>
-  				<height>256</height>
-  				<texture>special://home/userdata/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/range.png</texture>
-				  <bordertexture border="8">ThumbShadow.png</bordertexture>
-				  <bordersize>8</bordersize>
- 			</control>
-  			<control type="multiimage" id="19547">
-  				<description>maps multiimage</description>
-  				<posx>8</posx>
-  				<posy>8</posy>
-  				<width>240</width>
-  				<height>240</height>
-  				<imagepath>special://home/userdata/addon_data/weather.ozweather/currentloop/$INFO[Window(2600).Property(Radar)]/</imagepath>
-  				<timeperimage>500</timeperimage>
-  				<pauseatend>1000</pauseatend>
-  				<fadetime>0</fadetime>
-  				<randomize>false</randomize>
-  				<loop>yes</loop>
-				  <bordertexture border="8">ThumbShadow.png</bordertexture>
-				  <bordersize>8</bordersize>
-  			</control>
-      </control>
-
-    </control>
-
-	<!-- END BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
-
+				<control type="multiimage" id="19547">
+					<description>maps multiimage</description>
+					<posx>8</posx>
+					<posy>8</posy>
+					<width>240</width>
+					<height>240</height>
+					<imagepath>special://home/userdata/addon_data/weather.ozweather/currentloop/$INFO[Window(2600).Property(Radar)]/</imagepath>
+					<timeperimage>500</timeperimage>
+					<pauseatend>1000</pauseatend>
+					<fadetime>0</fadetime>
+					<randomize>false</randomize>
+					<loop>yes</loop>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+				</control>
+			</control>
+		</control>
+		<!-- END BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
 		<control type="group">
 			<visible>Window.IsVisible(FullscreenVideo) + ![Player.HasGame | VideoPlayer.HasEpg]</visible>
 			<left>850r</left>
@@ -617,7 +543,7 @@
 					<width>240</width>
 					<height>20</height>
 					<font>font10</font>
-					<textcolor>white</textcolor>
+					<textcolor>gray</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$INFO[Player.SeekTime] - $INFO[Player.Duration]</label>
