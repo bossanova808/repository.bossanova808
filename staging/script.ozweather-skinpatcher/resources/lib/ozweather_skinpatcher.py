@@ -9,16 +9,17 @@ import xbmcvfs
 global dialog
 
 
+# Just a place to store all our config stuff so we don't go crazy with globals
 class Config:
 
     global dialog
 
-    patch_seekbar = get_setting_as_bool('patchseekbar')
+    patch_videofullscreen = get_setting_as_bool('patch_videofullscreen')
     current_skin = xbmcvfs.translatePath('special://skin')
 
     log(f'special://skin Is [{current_skin}]')
     log(f'CWD is {CWD}')
-    log(f'Patch SeekBar is {patch_seekbar}')
+    log(f'Patch VideoFullScreen is {patch_videofullscreen}')
 
     skin = ''
     skin_xml_folder = ''
@@ -32,28 +33,30 @@ class Config:
         skin_xml_folder = '720p'
     if not skin or not skin_xml_folder:
         log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
+        sys.exit(1)
 
     xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin)
     xml_destination_folder = os.path.join(current_skin, skin_xml_folder)
     current_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml')
-    current_seekbar_xml = os.path.join(xml_destination_folder, 'DialogSeekBar.xml')
+    current_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml')
     backup_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml.original')
-    backup_seekbar_xml = os.path.join(xml_destination_folder, 'DialogSeekBar.xml.original')
+    backup_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml.original')
     new_myweather_xml = os.path.join(xml_source_folder, 'MyWeather.xml')
-    new_seekbar_xml = os.path.join(xml_source_folder, 'DialogSeekBar.xml')
+    new_videofullscreen_xml = os.path.join(xml_source_folder, 'VideoFullScreen.xml')
 
     log(f'Skin XML folder is {xml_destination_folder}')
     log(f'Current MyWeather.xml is {current_myweather_xml}')
-    log(f'Current DialogSeekBar.xml is {current_seekbar_xml}')
+    log(f'Current VideoFullScreen.xml is {current_videofullscreen_xml}')
     log(f'New MyWeather.xml is {new_myweather_xml}')
-    log(f'New DialogSeekBar.xml is {new_seekbar_xml}')
+    log(f'New VideoFullScreen.xml is {new_videofullscreen_xml}')
     log(f'Backup MyWeather.xml will be {backup_myweather_xml}')
-    log(f'Backup DialogSeekBar.xml will be {backup_seekbar_xml}')
+    log(f'Backup VideoFullScreen.xml will be {backup_videofullscreen_xml}')
 
 
 # Backup existing skin files, and install the new ones.
-# Backup occurs only once per sklin version, it will not overwrite existing .original files.
-# This assume on a skin update that all files are replaced (?)
+# Backup occurs only once per skin version, it will not overwrite existing .original files
+# as we don't want to clobber the original backup files if they run this twice for whatever reason...
+# This assumes on a skin update that all files are replaced (i.e. any current .original backup files will be removed)
 def patch(config):
 
     # Backup original files
@@ -62,13 +65,13 @@ def patch(config):
             log("Backing up current MyWeather.xml to MyWeather.xml.original")
             success = xbmcvfs.copy(config.current_myweather_xml, config.backup_myweather_xml)
             log("...done") if success else log("...failed!")
-        if config.patch_seekbar and not xbmcvfs.exists(config.backup_seekbar_xml):
-            log("Backing up current DialogSeekBar.xml to DialogSeekBar.xml.original")
-            success = xbmcvfs.copy(config.current_seekbar_xml, config.backup_seekbar_xml)
+        if config.patch_videofullscreen and not xbmcvfs.exists(config.backup_videofullscreen_xml):
+            log("Backing up current VideoFullScreen.xml to VideoFullScreen.xml.original")
+            success = xbmcvfs.copy(config.current_videofullscreen_xml, config.backup_videofullscreen_xml)
             log("...done") if success else log("...failed!")
     except:
         dialog.notification('OzWeather Skin Patcher',
-                            'Error backing up current skin files - bailing out here!',
+                            'Exception when backing up current skin files - check logs!',
                             xbmcgui.NOTIFICATION_ERROR,
                             5000)
         sys.exit(1)
@@ -78,27 +81,42 @@ def patch(config):
         log(f'Copying OzWeather MyWeather.xml to {config.xml_destination_folder}')
         success = xbmcvfs.copy(config.new_myweather_xml, config.current_myweather_xml)
         log("...done") if success else log("...failed!")
-        if config.patch_seekbar:
-            log(f'Copying OzWeather DialogSeekBar.xml to {config.xml_destination_folder}')
-            success = xbmcvfs.copy(config.new_seekbar_xml, config.current_seekbar_xml)
+        if config.patch_videofullscreen and 'confluence' in config.current_skin:
+            log(f'Copying OzWeather VideoFullScreen.xml to {config.xml_destination_folder}')
+            success = xbmcvfs.copy(config.new_videofullscreen_xml, config.current_videofullscreen_xml)
             log("...done") if success else log("...failed!")
         else:
-            log('Not copying DialogSeekBar.xml, as per addon settings')
+            log('Not copying VideoFullScreen.xml, as per addon settings')
     except:
         dialog.notification('OzWeather Skin Patcher',
-                            'Error copying OzWeather skin files - bailing out here!',
+                            'Exception when copying OzWeather skin files - check logs!',
                             xbmcgui.NOTIFICATION_ERROR,
                             5000)
         sys.exit(1)
 
 
-# Attempt to restore .original files
+# Attempt to restore .original files - we jsut try and restore both, no matter what the setting is
 def restore(config):
-    pass
-
-
-def cancel():
-    pass
+    try:
+        log("Restoring .original skin files")
+        if xbmcvfs.exists(config.backup_myweather_xml):
+            log("Copying back MyWeather.xml from MyWeather.xml.original file")
+            success = xbmcvfs.copy(config.backup_myweather_xml, config.current_myweather_xml)
+            log("...done") if success else log("...failed!")
+        else:
+            log("Could not find MyWeather.xml.original file, did not restore")
+        if xbmcvfs.exists(config.backup_videofullscreen_xml):
+            log("Copying back VideoFullScreen.xml from VideoFullScreen.xml.original file")
+            success = xbmcvfs.copy(config.backup_videofullscreen_xml, config.current_videofullscreen_xml)
+            log("...done") if success else log("...failed!")
+        else:
+            log('Could not find VideoFullScreen.xml.original file, did not restore')
+    except:
+        dialog.notification('OzWeather Skin Patcher',
+                            'Exception when restoring skin files - check logs!',
+                            xbmcgui.NOTIFICATION_ERROR,
+                            5000)
+        sys.exit(1)
 
 
 # This is 'main'...
@@ -121,31 +139,33 @@ def run():
     dialog.textviewer('OzWeather Skin Patcher',
                       """ 
 This utility will patch skin files for OzWeather radar support.\n
-Only patches the currently selected skin, and only supports Estuary and Confluence.
+Only patches the currently selected skin, and only if that skin is Estuary or Confluence.
 Backups of the original files are saved as .original files in the skin folder
-(& can be restored by thus utility).
+(& can be also be restored by this utility).
 
-By default patches only MyWeather.xml, but you can also have it patch DialogSeekBar.xml
-to display radar and basic weather info when media is paused.
-(must be enabled in the addon settings))
+Confluence only - by default patches only MyWeather.xml, but you can also patch VideoFullScreen.xml
+to display radar and basic weather info when media info is displayed during playback.
+(enable this in the addon settings if you wish)
 """)
 
-    # Now confirm if the want to proceed
-    result = dialog.select('OzWeather Skin Patcher', ['Patch', 'Restore', 'Cancel'])
-    log(f'Result is {result}')
+    # Now confirm if they actually want to proceed
+    mode = dialog.select('OzWeather Skin Patcher', ['Patch', 'Restore', 'Cancel'])
+    log(f'Mode is {mode}')
 
-    if result == 1:
+    if mode == 0:
+        log('Patching')
         patch(config)
-    elif result == 2:
+    elif mode == 1:
+        log('Restoring')
         restore(config)
     else:
         log("User cancelled operation.")
 
     # If we got here, all should be well - reload the skin to get the new pretty
-    if result == 1 or result == 2:
-        dialog.notification('OzWeather Skin Patcher', 'Reloading skin after successful modification',
-                            xbmcgui.NOTIFICATION_INFO, 5000)
+    if mode == 0 or mode == 1:
+        log("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-
+        dialog.notification('OzWeather Skin Patcher', 'Action Complete (& skin reloaded)',
+                            xbmcgui.NOTIFICATION_INFO, 5000)
     # and, we're done..
     footprints(False)

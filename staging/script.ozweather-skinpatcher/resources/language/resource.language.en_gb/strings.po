@@ -26,5 +26,5 @@ msgid "Successfully patch skin.confluence & created backup files"
 msgstr ""
 
 msgctxt "#32003"
-msgid "Also patch seekbar.xml to show key info & radar when video paused?"
+msgid "(Confluence only) Also patch VideoFullScreen.xml to show key info & radar with video info?"
 msgstr ""

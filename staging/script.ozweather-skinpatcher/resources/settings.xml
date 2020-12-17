@@ -3,7 +3,7 @@
 	<section id="script.ozweather-skinpatcher">
 		<category help="" id="OzWeather Skin Patcher" label="32000">
 			<group id="1">
-				<setting help="" id="patchseekbar" label="32003" type="boolean">
+				<setting help="" id="patch_videofullscreen" label="32003" type="boolean">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
