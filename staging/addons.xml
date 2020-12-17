@@ -39,6 +39,33 @@
   </extension>
 </addon>
 
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.1" provider-name="bossanova808">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Patch Kodi skins for OzWeather Radar Support.</summary>
+    <description lang="en_GB">
+        This addon attempts to patch Kodi skin for OzWeather radar support.  (Always creating a backup of of the original skin files first).
+    </description>
+    <platform>all</platform>
+    <license>GPL-3.0-only</license>
+    <website></website>
+    <source></source>
+    <forum></forum>
+    <email>bossonav808@gmail.com</email>
+    <news>v0.0.1
+        Initial Release
+    </news>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>
+
 <addon id="skin.confluence.bossanova808.leia" version="4.6.702" name="Confluence Bossanova808 Leia" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.14.0"/>
@@ -187,7 +214,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.602" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.603" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>
