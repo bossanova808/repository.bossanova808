@@ -29,15 +29,7 @@
 		    <texture background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow.Image)]</texture>
 		    <visible>!String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))</visible>
 		</control>
-		<control type="multiimage">
-		    <aspectratio>scale</aspectratio>
-		    <timeperimage>10000</timeperimage>
-		    <randomize>true</randomize>
-		    <fadetime>600</fadetime>
-		    <loop>yes</loop>
-		    <imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
-		    <visible>!String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.ArtworkReady)</visible>
-		</control>
+        <!-- end Bossanova808 Mod -->
 
 		<control type="image">
 			<description>Fanart Image for Artist</description>
