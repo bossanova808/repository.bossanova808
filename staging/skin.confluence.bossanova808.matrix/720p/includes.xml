@@ -1564,7 +1564,7 @@
                                 <align>right</align>
                                 <top>5</top>
                                 <left>540</left>
-                                <textcolor>white</textcolor>
+                                <textcolor>gray</textcolor>
                                 <shadowcolor>black</shadowcolor>
                                 <aligny>center</aligny>
                                 <height>30</height>
