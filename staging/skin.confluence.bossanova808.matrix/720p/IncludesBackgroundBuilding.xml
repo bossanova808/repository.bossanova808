@@ -27,7 +27,7 @@
 			<texture fallback="special://skin/backgrounds/SKINDEFAULT.jpg">$INFO[Skin.String(MasterCustomBackgroundPath)]</texture>
 			<visible>System.IsMaster + Skin.HasSetting(UseCustomBackground) + !String.IsEmpty(Skin.String(MasterCustomBackgroundPath))</visible>
 			<include>VisibleFadeEffect</include>
-		</control>
+		</control>		
 		<control type="image">
 			<depth>DepthBackground</depth>
 			<include>BackgroundDimensions</include>
@@ -37,6 +37,8 @@
 			<fadetime>FanartCrossfadeTime</fadetime>
 			<visible>!Skin.HasSetting(HideBackGroundFanart) + !String.IsEmpty(ListItem.Property(Fanart_Image))</visible>
 			<include>Window_OpenClose_Animation</include>
+			<!-- Bossanov808 Mod - remove fanart from home screen recently added -->
+			<visible>!Window.IsActive(home)</visible>
 			<visible>![Player.HasVideo + !Skin.HasSetting(ShowBackgroundVideo)] | [Player.HasVideo + Window.IsActive(movieinformation)]</visible>
 		</control>
 		<control type="image">
