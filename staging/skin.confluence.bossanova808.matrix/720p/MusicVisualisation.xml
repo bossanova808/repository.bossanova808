@@ -11,8 +11,7 @@
 			<width>1280</width>
 			<height>720</height>
 		</control>
-
-		<!-- Bossanov808 Mod Artist Slideshow support -->
+		<!-- Bossanova808 Use Artist Slideshow in Music Vis. -->
 		<control type="image">
 		    <aspectratio>scale</aspectratio>
 		    <fadetime>400</fadetime>
@@ -29,9 +28,7 @@
 		    <texture background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow.Image)]</texture>
 		    <visible>!String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))</visible>
 		</control>
-        <!-- end Bossanova808 Mod -->
-
-		<control type="image">
+<!-- 		<control type="image">
 			<description>Fanart Image for Artist</description>
 			<left>0</left>
 			<top>0</top>
@@ -42,7 +39,8 @@
 			<colordiffuse>AAFFFFFF</colordiffuse>
 			<visible>!String.IsEmpty(Player.Art(fanart)) + !Skin.HasSetting(HideVisualizationFanart)</visible>
 			<fadetime>600</fadetime>
-		</control>
+		</control> -->
+		<!-- end Bossanova808 mod -->
 		<!-- media infos -->
 		<control type="group">
 			<depth>DepthOSD</depth>
@@ -131,7 +129,30 @@
 					<label>$LOCALIZE[31040]</label>
 					<textcolor>white</textcolor>
 					<shadowcolor>black</shadowcolor>
+					<visible>![MusicPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>
 					<animation effect="slide" start="0,0" end="0,25" time="0" condition="String.IsEmpty(MusicPlayer.Artist) + String.IsEmpty(MusicPlayer.Album)">conditional</animation>
+				</control>
+				<control type="image" id="1">
+					<top>0</top>
+					<width>50</width>
+					<height>25</height>
+					<aspectratio align="center" aligny="center">keep</aspectratio>
+					<texture>PVR-IsRecording.png</texture>
+					<visible>MusicPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
+				</control>
+				<control type="label" id="1">
+					<description>Heading label</description>
+					<left>50</left>
+					<top>0</top>
+					<width>860</width>
+					<height>25</height>
+					<align>left</align>
+					<aligny>center</aligny>
+					<font>font13</font>
+					<label>$LOCALIZE[19158]</label>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<visible>MusicPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
 				</control>
 				<control type="label" id="1">
 					<description>Artist label</description>

@@ -27,7 +27,7 @@
 			<texture fallback="special://skin/backgrounds/SKINDEFAULT.jpg">$INFO[Skin.String(MasterCustomBackgroundPath)]</texture>
 			<visible>System.IsMaster + Skin.HasSetting(UseCustomBackground) + !String.IsEmpty(Skin.String(MasterCustomBackgroundPath))</visible>
 			<include>VisibleFadeEffect</include>
-		</control>		
+		</control>
 		<control type="image">
 			<depth>DepthBackground</depth>
 			<include>BackgroundDimensions</include>
