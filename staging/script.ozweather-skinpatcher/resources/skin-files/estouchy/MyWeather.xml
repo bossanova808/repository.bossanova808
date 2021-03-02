@@ -136,7 +136,7 @@
                     <description>header label</description>
                     <posx>-20</posx>
                     <posy>-20</posy>
-                    <width>510</width>
+                    <width>600</width>
                     <height>30</height>
                     <font>font12_title</font>
                     <label>Observations & Forecast - $INFO[Window.Property(Location)]</label>
@@ -152,7 +152,7 @@
                     <posy>-10</posy>       
                     <control type="image">
                         <description>current weather icon</description>
-                        <posx>20</posx>
+                        <posx>-10</posx>
                         <posy>48</posy>
                         <width>100</width>
                         <height>100</height>
@@ -161,7 +161,7 @@
                     </control>
                     <control type="label">
                         <description>now label</description>
-                        <posx>140</posx>
+                        <posx>110</posx>
                         <posy>-20</posy>
                         <width>460</width>
                         <height>160</height>
@@ -176,7 +176,7 @@
                     </control>
                     <control type="label">
                         <description>current condition label</description>
-                        <posx>140</posx>
+                        <posx>110</posx>
                         <posy>10</posy>
                         <width>460</width>
                         <height>160</height>
@@ -191,7 +191,7 @@
                     </control>
                     <control type="label">
                         <description>current temp Value</description>
-                        <posx>220</posx>
+                        <posx>200</posx>
                         <posy>105</posy>
                         <width>180</width>
                         <height>40</height>
