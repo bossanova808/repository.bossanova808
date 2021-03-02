@@ -39,7 +39,7 @@
   </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.2" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.3" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -47,9 +47,9 @@
     <provides>executable</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Patch Kodi skins (Estuary or Confluence) for OzWeather Radar Support.</summary>
+    <summary lang="en_GB">Patch Kodi skins (Estuary, Estouchy or Confluence) for OzWeather Radar Support.</summary>
     <description lang="en_GB">
-        This addon attempts to patch Kodi skins (currently just Estuary or Confluence) - for OzWeather radar support.  (Creates a backup of of the original skin files first and this addon can also restore those if need be). By default patches only the actual weather page.  For Confluence, can also patch your VideoFullScreen file for weather/radar during playback when video info is displayed.  Turn this on in the addon settings if you wish.
+        This addon attempts to patch Kodi skins (currently just Estuary, Estouchy & Confluence) - for OzWeather radar support.  Skin folder must be writeable! (Creates a backup of of the original skin files first and this addon can also restore those if need be). By default patches only the actual weather page.  For Confluence, can also patch your VideoFullScreen file for weather/radar during playback when video info is displayed.  Turn this on in the addon settings if you wish.
     </description>
     <platform>all</platform>
     <license>GPL-3.0-only</license>
@@ -57,7 +57,9 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>v0.0.2
+    <news>- v0.0.3
+        Add support for Estouchy
+        - v0.0.2
         Initial Release
     </news>
     <assets>
