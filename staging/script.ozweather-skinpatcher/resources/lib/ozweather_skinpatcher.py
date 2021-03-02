@@ -27,6 +27,10 @@ class Config:
         log('Estuary in skin folder name...proceeding...')
         skin = 'estuary'
         skin_xml_folder = 'xml'
+    if 'estouchy' in current_skin:
+        log('Estouchy in skin folder name...proceeding...')
+        skin = 'estouchy'
+        skin_xml_folder = 'xml'
     if 'confluence' in current_skin:
         log('Confluence in skin folder name...proceeding..')
         skin = 'confluence'
@@ -129,9 +133,11 @@ def run():
     dialog = xbmcgui.Dialog()
 
     # Basic sanity checking - are they running the right skin?
-    if 'estuary' not in config.current_skin and 'confluence' not in config.current_skin:
-        log("ERROR - current skin is not confluence or estuary!")
-        dialog.notification('OzWeather Skin Patcher', 'Only Confluence and Estuary are supported',
+    if 'estuary' not in config.current_skin \
+            and 'estouchy' not in config.current_skin \
+            and 'confluence' not in config.current_skin:
+        log("ERROR - current skin is not a supported skin!")
+        dialog.notification('OzWeather Skin Patcher', 'Only Estuary, Estouchy and Confluence are supported',
                             xbmcgui.NOTIFICATION_ERROR, 5000)
         sys.exit(1)
 
@@ -139,7 +145,7 @@ def run():
     dialog.textviewer('OzWeather Skin Patcher',
                       """ 
 This utility will patch skin files for OzWeather radar support.\n
-Only patches the currently selected skin, and only if that skin is Estuary or Confluence.
+Only patches the currently selected skin, and only if that skin is Estuary, Estouchy or Confluence.
 Backups of the original files are saved as .original files in the skin folder
 (& can be also be restored by this utility).
 
