@@ -39,7 +39,7 @@
   </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.5" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.6" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -57,10 +57,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>- v0.0.4
-        Add support for Estouchy
-        - v0.0.2
-        Initial Release
+    <news>- v0.0.6
+        Improve logging and error notifications
     </news>
     <assets>
       <icon>icon.png</icon>

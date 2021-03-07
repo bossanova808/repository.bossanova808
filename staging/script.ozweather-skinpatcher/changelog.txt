@@ -1,3 +1,5 @@
+0.0.6
+- Improve error logging and notifications
 0.0.5
 - Add support for estouchy (nb skin folder must be writable, so e.g. Android devices probably need to be rooted...)
 0.0.2
