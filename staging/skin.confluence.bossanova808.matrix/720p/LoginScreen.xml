@@ -42,7 +42,7 @@
 				<height>64</height>
 				<texture border="10">ContentPanelMirror.png</texture>
 			</control>
-			<control type="label">
+<!-- 			<control type="label">
 				<left>295</left>
 				<top>100</top>
 				<width>690</width>
@@ -52,12 +52,12 @@
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$LOCALIZE[31421]</label>
-			</control>
+			</control -->>
 			<control type="list" id="52">
 				<left>295</left>
-				<top>170</top>
+				<top>90</top>
 				<width>690</width>
-				<height>401</height>
+				<height>501</height>
 				<onleft>20</onleft>
 				<onright>20</onright>
 				<onup>52</onup>
