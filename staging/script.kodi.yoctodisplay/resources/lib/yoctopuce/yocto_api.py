@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # *********************************************************************
 # *
-# * $Id: yocto_api.py 34551 2019-03-06 09:32:33Z seb $
+# * $Id: yocto_api.py 44114 2021-03-03 17:47:55Z mvuilleu $
 # *
 # * High-level programming interface, common to all modules
 # *
@@ -738,28 +738,82 @@ class YAPIContext(object):
     #--- (generated code: YAPIContext implementation)
     def SetDeviceListValidity(self, deviceListValidity):
         """
-        Change the time between each forced enumeration of the YoctoHub used.
-        By default, the library performs a complete enumeration every 10 seconds.
-        To reduce network traffic it is possible to increase this delay.
-        This is particularly useful when a YoctoHub is connected to a GSM network
-        where the traffic is charged. This setting does not affect modules connected by USB,
-        nor the operation of arrival/removal callbacks.
-        Note: This function must be called after yInitAPI.
+        Modifies the delay between each forced enumeration of the used YoctoHubs.
+        By default, the library performs a full enumeration every 10 seconds.
+        To reduce network traffic, you can increase this delay.
+        It's particularly useful when a YoctoHub is connected to the GSM network
+        where traffic is billed. This parameter doesn't impact modules connected by USB,
+        nor the working of module arrival/removal callbacks.
+        Note: you must call this function after yInitAPI.
 
-        @param deviceListValidity : number of seconds between each enumeration.
+        @param deviceListValidity : nubmer of seconds between each enumeration.
         @noreturn
         """
         YAPI._yapiSetNetDevListValidity(deviceListValidity)
 
     def GetDeviceListValidity(self):
         """
-        Returns the time between each forced enumeration of the YoctoHub used.
-        Note: This function must be called after yInitAPI.
+        Returns the delay between each forced enumeration of the used YoctoHubs.
+        Note: you must call this function after yInitAPI.
 
         @return the number of seconds between each enumeration.
         """
         # res
         res = YAPI._yapiGetNetDevListValidity()
+        return res
+
+    def AddUdevRule(self, force):
+        """
+        Adds a UDEV rule which authorizes all users to access Yoctopuce modules
+        connected to the USB ports. This function works only under Linux. The process that
+        calls this method must have root privileges because this method changes the Linux configuration.
+
+        @param force : if true, overwrites any existing rule.
+
+        @return an empty string if the rule has been added.
+
+        On failure, returns a string that starts with "error:".
+        """
+        # msg
+        # res
+        # c_force
+        errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
+        if force:
+            c_force = 1
+        else:
+            c_force = 0
+        res = YAPI._yapiAddUdevRulesForYocto(c_force, errmsg)
+        if res < 0:
+            msg = "error: " + YByte2String(errmsg.value)
+        else:
+            msg = ""
+        return msg
+
+    def SetNetworkTimeout(self, networkMsTimeout):
+        """
+        Modifies the network connection delay for yRegisterHub() and yUpdateDeviceList().
+        This delay impacts only the YoctoHubs and VirtualHub
+        which are accessible through the network. By default, this delay is of 20000 milliseconds,
+        but depending or you network you may want to change this delay,
+        gor example if your network infrastructure is based on a GSM connection.
+
+        @param networkMsTimeout : the network connection delay in milliseconds.
+        @noreturn
+        """
+        YAPI._yapiSetNetworkTimeout(networkMsTimeout)
+
+    def GetNetworkTimeout(self):
+        """
+        Returns the network connection delay for yRegisterHub() and yUpdateDeviceList().
+        This delay impacts only the YoctoHubs and VirtualHub
+        which are accessible through the network. By default, this delay is of 20000 milliseconds,
+        but depending or you network you may want to change this delay,
+        for example if your network infrastructure is based on a GSM connection.
+
+        @return the network connection delay in milliseconds.
+        """
+        # res
+        res = YAPI._yapiGetNetworkTimeout()
         return res
 
     def SetCacheValidity(self, cacheValidityMs):
@@ -826,13 +880,18 @@ class YAPI:
     Y_DETECT_USB = 1
     Y_DETECT_NET = 2
     Y_RESEND_MISSING_PKT = 4
-
     Y_DETECT_ALL = Y_DETECT_USB | Y_DETECT_NET
+
+    DETECT_NONE = 0
+    DETECT_USB = 1
+    DETECT_NET = 2
+    RESEND_MISSING_PKT = 4
+    DETECT_ALL = DETECT_USB | DETECT_NET
 
     YOCTO_API_VERSION_STR = "1.10"
     YOCTO_API_VERSION_BCD = 0x0110
 
-    YOCTO_API_BUILD_NO = "34560"
+    YOCTO_API_BUILD_NO = "44175"
     YOCTO_DEFAULT_PORT = 4444
     YOCTO_VENDORID = 0x24e0
     YOCTO_DEVID_FACTORYBOOT = 1
@@ -890,7 +949,8 @@ class YAPI:
 
         @param arch : A string containing the architecture to use.
                 Possibles value are: "armhf","armel",
-                "i386","x86_64","32bit", "64bit"
+                "aarch64","i386","x86_64",
+                "32bit", "64bit"
 
         @return nothing.
 
@@ -1033,228 +1093,125 @@ class YAPI:
                 "Unable to import YAPI shared library (" + YAPI._yApiCLibFile +
                 "), make sure it is available and accessible.")
 
-        # private extern static int _yapiInitAPI(int mode, StringBuilder errmsgRef);
+
+        ##--- (generated code: YFunction dlldef)
         YAPI._yapiInitAPI = YAPI._yApiCLib.yapiInitAPI
         YAPI._yapiInitAPI.restypes = ctypes.c_int
         YAPI._yapiInitAPI.argtypes = [ctypes.c_int, ctypes.c_char_p]
-
-        #  private extern static void _yapiFreeAPI();
         YAPI._yapiFreeAPI = YAPI._yApiCLib.yapiFreeAPI
-        YAPI._yapiFreeAPI.restypes = ctypes.c_int
+        YAPI._yapiFreeAPI.restypes = None
         YAPI._yapiFreeAPI.argtypes = []
-
         YAPI._yapiSetTraceFile = YAPI._yApiCLib.yapiSetTraceFile
-        YAPI._yapiSetTraceFile.restypes = ctypes.c_int
+        YAPI._yapiSetTraceFile.restypes = None
         YAPI._yapiSetTraceFile.argtypes = [ctypes.c_char_p]
-
-        #  private extern static void _yapiRegisterLogFunction(IntPtr fct);
         YAPI._yapiRegisterLogFunction = YAPI._yApiCLib.yapiRegisterLogFunction
-        YAPI._yapiRegisterLogFunction.restypes = ctypes.c_int
+        YAPI._yapiRegisterLogFunction.restypes = None
         YAPI._yapiRegisterLogFunction.argtypes = [ctypes.c_void_p]
-
-        #  private extern static void _yapiRegisterDeviceArrivalCallback(IntPtr fct);
         YAPI._yapiRegisterDeviceArrivalCallback = YAPI._yApiCLib.yapiRegisterDeviceArrivalCallback
-        YAPI._yapiRegisterDeviceArrivalCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterDeviceArrivalCallback.restypes = None
         YAPI._yapiRegisterDeviceArrivalCallback.argtypes = [ctypes.c_void_p]
-
-        #  private extern static void _yapiRegisterDeviceRemovalCallback(IntPtr fct);
         YAPI._yapiRegisterDeviceRemovalCallback = YAPI._yApiCLib.yapiRegisterDeviceRemovalCallback
-        YAPI._yapiRegisterDeviceRemovalCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterDeviceRemovalCallback.restypes = None
         YAPI._yapiRegisterDeviceRemovalCallback.argtypes = [ctypes.c_void_p]
-
-        #  private extern static void _yapiRegisterDeviceChangeCallback(IntPtr fct);
         YAPI._yapiRegisterDeviceChangeCallback = YAPI._yApiCLib.yapiRegisterDeviceChangeCallback
-        YAPI._yapiRegisterDeviceChangeCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterDeviceChangeCallback.restypes = None
         YAPI._yapiRegisterDeviceChangeCallback.argtypes = [ctypes.c_void_p]
-
-        #  private extern static void _yapiRegisterDeviceConfigChangeCallback(IntPtr fct);
         YAPI._yapiRegisterDeviceConfigChangeCallback = YAPI._yApiCLib.yapiRegisterDeviceConfigChangeCallback
-        YAPI._yapiRegisterDeviceConfigChangeCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterDeviceConfigChangeCallback.restypes = None
         YAPI._yapiRegisterDeviceConfigChangeCallback.argtypes = [ctypes.c_void_p]
-
-        #  private extern static void _yapiRegisterFunctionUpdateCallback(IntPtr fct);
         YAPI._yapiRegisterFunctionUpdateCallback = YAPI._yApiCLib.yapiRegisterFunctionUpdateCallback
-        YAPI._yapiRegisterFunctionUpdateCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterFunctionUpdateCallback.restypes = None
         YAPI._yapiRegisterFunctionUpdateCallback.argtypes = [ctypes.c_void_p]
-
-        #  private extern static void _yapiRegisterTimedReportCallback(IntPtr fct);
         YAPI._yapiRegisterTimedReportCallback = YAPI._yApiCLib.yapiRegisterTimedReportCallback
-        YAPI._yapiRegisterTimedReportCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterTimedReportCallback.restypes = None
         YAPI._yapiRegisterTimedReportCallback.argtypes = [ctypes.c_void_p]
-
-        #  private extern static int _yapiLockDeviceCallBack(StringBuilder errmsgRef);
         YAPI._yapiLockDeviceCallBack = YAPI._yApiCLib.yapiLockDeviceCallBack
         YAPI._yapiLockDeviceCallBack.restypes = ctypes.c_int
         YAPI._yapiLockDeviceCallBack.argtypes = [ctypes.c_char_p]
-
-        #  private extern static int _yapiUnlockDeviceCallBack(StringBuilder errmsgRef);
         YAPI._yapiUnlockDeviceCallBack = YAPI._yApiCLib.yapiUnlockDeviceCallBack
         YAPI._yapiUnlockDeviceCallBack.restypes = ctypes.c_int
         YAPI._yapiUnlockDeviceCallBack.argtypes = [ctypes.c_char_p]
-
-        #  private extern static int _yapiLockFunctionCallBack(StringBuilder errmsgRef);
         YAPI._yapiLockFunctionCallBack = YAPI._yApiCLib.yapiLockFunctionCallBack
         YAPI._yapiLockFunctionCallBack.restypes = ctypes.c_int
         YAPI._yapiLockFunctionCallBack.argtypes = [ctypes.c_char_p]
-
-        #  private extern static int _yapiUnlockFunctionCallBack(StringBuilder errmsgRef);
         YAPI._yapiUnlockFunctionCallBack = YAPI._yApiCLib.yapiUnlockFunctionCallBack
         YAPI._yapiUnlockFunctionCallBack.restypes = ctypes.c_int
         YAPI._yapiUnlockFunctionCallBack.argtypes = [ctypes.c_char_p]
-
-        #  private extern static int _yapiRegisterHub(StringBuilder rootUrl, StringBuilder errmsgRef);
         YAPI._yapiRegisterHub = YAPI._yApiCLib.yapiRegisterHub
         YAPI._yapiRegisterHub.restypes = ctypes.c_int
         YAPI._yapiRegisterHub.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiPreregisterHub(StringBuilder rootUrl, StringBuilder errmsgRef);
         YAPI._yapiPreregisterHub = YAPI._yApiCLib.yapiPreregisterHub
         YAPI._yapiPreregisterHub.restypes = ctypes.c_int
         YAPI._yapiPreregisterHub.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-
-        #  private extern static void _yapiUnregisterHub(StringBuilder rootUrl);
         YAPI._yapiUnregisterHub = YAPI._yApiCLib.yapiUnregisterHub
-        YAPI._yapiUnregisterHub.restypes = ctypes.c_int
+        YAPI._yapiUnregisterHub.restypes = None
         YAPI._yapiUnregisterHub.argtypes = [ctypes.c_char_p]
-
-        #  private extern static int _yapiUpdateDeviceList(uint force, StringBuilder errmsgRef);
         YAPI._yapiUpdateDeviceList = YAPI._yApiCLib.yapiUpdateDeviceList
         YAPI._yapiUpdateDeviceList.restypes = ctypes.c_int
         YAPI._yapiUpdateDeviceList.argtypes = [ctypes.c_uint, ctypes.c_char_p]
-
-        #  private extern static int _yapiHandleEvents(StringBuilder errmsgRef);
         YAPI._yapiHandleEvents = YAPI._yApiCLib.yapiHandleEvents
         YAPI._yapiHandleEvents.restypes = ctypes.c_int
         YAPI._yapiHandleEvents.argtypes = [ctypes.c_char_p]
-
-        #  private extern static u64 _yapiGetTickCount();
         YAPI._yapiGetTickCount = YAPI._yApiCLib.yapiGetTickCount
         YAPI._yapiGetTickCount.restypes = ctypes.c_ulonglong
         YAPI._yapiGetTickCount.argtypes = []
-
-        #  private extern static int _yapiCheckLogicalName(StringBuilder name);
         YAPI._yapiCheckLogicalName = YAPI._yApiCLib.yapiCheckLogicalName
         YAPI._yapiCheckLogicalName.restypes = ctypes.c_int
         YAPI._yapiCheckLogicalName.argtypes = [ctypes.c_char_p]
-
-        #  private extern static u16 _yapiGetAPIVersion(ref IntPtr version, ref IntPtr date);
         YAPI._yapiGetAPIVersion = YAPI._yApiCLib.yapiGetAPIVersion
         YAPI._yapiGetAPIVersion.restypes = ctypes.c_ushort
         YAPI._yapiGetAPIVersion.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
-
-        #  private extern static YDEV_DESCR _yapiGetDevice(StringBuilder device_str, StringBuilder errmsgRef);
         YAPI._yapiGetDevice = YAPI._yApiCLib.yapiGetDevice
         YAPI._yapiGetDevice.restypes = ctypes.c_int
         YAPI._yapiGetDevice.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiGetAllDevices(IntPtr buffer,
-        #                                               int maxsize, ref int neededsize,
-        #                                               StringBuilder errmsgRef);
-        YAPI._yapiGetAllDevices = YAPI._yApiCLib.yapiGetAllDevices
-        YAPI._yapiGetAllDevices.restypes = ctypes.c_int
-        YAPI._yapiGetAllDevices.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiGetDeviceInfo(YDEV_DESCR d, ref yDeviceSt infos, StringBuilder errmsgRef);
         YAPI._yapiGetDeviceInfo = YAPI._yApiCLib.yapiGetDeviceInfo
         YAPI._yapiGetDeviceInfo.restypes = ctypes.c_int
         YAPI._yapiGetDeviceInfo.argtypes = [ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
-
-        #  private extern static YFUN_DESCR _yapiGetFunction(StringBuilder class_str,
-        #                                                    StringBuilder function_str,
-        #                                                    StringBuilder errmsgRef);
         YAPI._yapiGetFunction = YAPI._yApiCLib.yapiGetFunction
         YAPI._yapiGetFunction.restypes = ctypes.c_int
         YAPI._yapiGetFunction.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiGetFunctionsByClass(StringBuilder class_str,
-        #                                                     YFUN_DESCR precFuncDesc,
-        #                                                     IntPtr buffer,
-        #                                                     int maxsize,
-        #                                                     ref int neededsize, StringBuilder errmsgRef);
         YAPI._yapiGetFunctionsByClass = YAPI._yApiCLib.yapiGetFunctionsByClass
         YAPI._yapiGetFunctionsByClass.restypes = ctypes.c_int
-        YAPI._yapiGetFunctionsByClass.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_int,
-                                                  ctypes.c_void_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiGetFunctionsByDevice(YDEV_DESCR device, YFUN_DESCR precFuncDesc,
-        # IntPtr buffer, int maxsize, ref int neededsize, StringBuilder errmsgRef);
+        YAPI._yapiGetFunctionsByClass.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiGetFunctionsByDevice = YAPI._yApiCLib.yapiGetFunctionsByDevice
         YAPI._yapiGetFunctionsByDevice.restypes = ctypes.c_int
-        YAPI._yapiGetFunctionsByDevice.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p, ctypes.c_int,
-                                                   ctypes.c_void_p, ctypes.c_char_p]
-
-        #  internal extern static int _yapiGetFunctionInfoEx(YFUN_DESCR fundesc, ref YDEV_DESCR devdesc,
-        # StringBuilder serial, StringBuilder funcId, StringBuilder baseType, StringBuilder funcName,
-        # StringBuilder funcVal, StringBuilder errmsgRef);
+        YAPI._yapiGetFunctionsByDevice.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiGetFunctionInfoEx = YAPI._yApiCLib.yapiGetFunctionInfoEx
         YAPI._yapiGetFunctionInfoEx.restypes = ctypes.c_int
-        YAPI._yapiGetFunctionInfoEx.argtypes = [ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p,
-                                                ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiGetErrorString(int errorcode, StringBuilder buffer,
-        # int maxsize, StringBuilder errmsgRef);
-        # YAPI._yapiGetErrorString = YAPI._yApiCLib.yapiGetErrorString
-        # YAPI._yapiGetErrorString.restypes = ctypes.c_int
-        # YAPI._yapiGetErrorString.argtypes = [ctypes.c_int , ctypes.c_char_p , ctypes.c_int , ctypes.c_char_p]
-
-        # YRETCODE YAPI_FUNCTION_EXPORT yapiHTTPRequestSyncStart(YIOHDL *iohdl, const char *device,
-        # const char *request, char **reply, int *replysize, char *errmsg);
+        YAPI._yapiGetFunctionInfoEx.argtypes = [ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
         YAPI._yapiHTTPRequestSyncStart = YAPI._yApiCLib.yapiHTTPRequestSyncStart
         YAPI._yapiHTTPRequestSyncStart.restypes = ctypes.c_int
-        YAPI._yapiHTTPRequestSyncStart.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p,
-                                                   POINTER(POINTER(ctypes.c_ubyte)), ctypes.c_void_p, ctypes.c_char_p]
-
-        # YRETCODE YAPI_FUNCTION_EXPORT yapiHTTPRequestSyncStartEx(YIOHDL *iohdl, const char *device,
-        # const char *request, int requestsize, char **reply, int *replysize, char *errmsg);
+        YAPI._yapiHTTPRequestSyncStart.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p, POINTER(POINTER(ctypes.c_ubyte)), ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiHTTPRequestSyncStartEx = YAPI._yApiCLib.yapiHTTPRequestSyncStartEx
         YAPI._yapiHTTPRequestSyncStartEx.restypes = ctypes.c_int
-        YAPI._yapiHTTPRequestSyncStartEx.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int,
-                                                     POINTER(POINTER(ctypes.c_ubyte)), ctypes.c_void_p, ctypes.c_char_p]
-
-        # YRETCODE YAPI_FUNCTION_EXPORT yapiHTTPRequestSyncDone(YIOHDL *iohdl, char *errmsg);
+        YAPI._yapiHTTPRequestSyncStartEx.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, POINTER(POINTER(ctypes.c_ubyte)), ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiHTTPRequestSyncDone = YAPI._yApiCLib.yapiHTTPRequestSyncDone
         YAPI._yapiHTTPRequestSyncDone.restypes = ctypes.c_int
         YAPI._yapiHTTPRequestSyncDone.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
-
-        # YRETCODE YAPI_FUNCTION_EXPORT yapiHTTPRequestAsync(const char *device, const char *request,
-        # yapiRequestAsyncCallback callback, void *context, char *errmsg);
         YAPI._yapiHTTPRequestAsync = YAPI._yApiCLib.yapiHTTPRequestAsync
         YAPI._yapiHTTPRequestAsync.restypes = ctypes.c_int
-        YAPI._yapiHTTPRequestAsync.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_void_p,
-                                               ctypes.c_char_p]
-
-        #  private extern static int _yapiHTTPRequest(StringBuilder device, StringBuilder url,
-        # StringBuilder buffer, int buffsize, ref int fullsize, StringBuilder errmsgRef);
+        YAPI._yapiHTTPRequestAsync.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_char_p]
+        YAPI._yapiHTTPRequestAsyncEx = YAPI._yApiCLib.yapiHTTPRequestAsyncEx
+        YAPI._yapiHTTPRequestAsyncEx.restypes = ctypes.c_int
+        YAPI._yapiHTTPRequestAsyncEx.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiHTTPRequest = YAPI._yApiCLib.yapiHTTPRequest
         YAPI._yapiHTTPRequest.restypes = ctypes.c_int
-        YAPI._yapiHTTPRequest.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int,
-                                          ctypes.c_void_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiGetDevicePath(int devdesc, StringBuilder rootdevice, StringBuilder path,
-        # int pathsize, ref int neededsize, StringBuilder errmsgRef);
+        YAPI._yapiHTTPRequest.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiGetDevicePath = YAPI._yApiCLib.yapiGetDevicePath
         YAPI._yapiGetDevicePath.restypes = ctypes.c_int
-        YAPI._yapiGetDevicePath.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int,
-                                            ctypes.c_void_p, ctypes.c_char_p]
-
-        #  private extern static int _yapiSleep(int duration_ms, StringBuilder errmsgRef);
+        YAPI._yapiGetDevicePath.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiSleep = YAPI._yApiCLib.yapiSleep
         YAPI._yapiSleep.restypes = ctypes.c_int
         YAPI._yapiSleep.argtypes = [ctypes.c_int, ctypes.c_char_p]
-
         YAPI._yapiRegisterHubDiscoveryCallback = YAPI._yApiCLib.yapiRegisterHubDiscoveryCallback
-        YAPI._yapiRegisterHubDiscoveryCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterHubDiscoveryCallback.restypes = None
         YAPI._yapiRegisterHubDiscoveryCallback.argtypes = [ctypes.c_void_p]
-
         YAPI._yapiTriggerHubDiscovery = YAPI._yApiCLib.yapiTriggerHubDiscovery
         YAPI._yapiTriggerHubDiscovery.restypes = ctypes.c_int
         YAPI._yapiTriggerHubDiscovery.argtypes = [ctypes.c_char_p]
-
         YAPI._yapiRegisterDeviceLogCallback = YAPI._yApiCLib.yapiRegisterDeviceLogCallback
-        YAPI._yapiRegisterDeviceLogCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterDeviceLogCallback.restypes = None
         YAPI._yapiRegisterDeviceLogCallback.argtypes = [ctypes.c_void_p]
-
-        ##--- (generated code: YFunction dlldef)
         YAPI._yapiGetAllJsonKeys = YAPI._yApiCLib.yapiGetAllJsonKeys
         YAPI._yapiGetAllJsonKeys.restypes = ctypes.c_int
         YAPI._yapiGetAllJsonKeys.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
@@ -1269,7 +1226,7 @@ class YAPI:
         YAPI._yapiUpdateFirmwareEx.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_int, ctypes.c_char_p]
         YAPI._yapiHTTPRequestSyncStartOutOfBand = YAPI._yApiCLib.yapiHTTPRequestSyncStartOutOfBand
         YAPI._yapiHTTPRequestSyncStartOutOfBand.restypes = ctypes.c_int
-        YAPI._yapiHTTPRequestSyncStartOutOfBand.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, POINTER(POINTER(ctypes.c_ubyte)), ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_char_p]
+        YAPI._yapiHTTPRequestSyncStartOutOfBand.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiHTTPRequestAsyncOutOfBand = YAPI._yApiCLib.yapiHTTPRequestAsyncOutOfBand
         YAPI._yapiHTTPRequestAsyncOutOfBand.restypes = ctypes.c_int
         YAPI._yapiHTTPRequestAsyncOutOfBand.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_char_p]
@@ -1278,7 +1235,7 @@ class YAPI:
         YAPI._yapiTestHub.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p]
         YAPI._yapiJsonGetPath = YAPI._yApiCLib.yapiJsonGetPath
         YAPI._yapiJsonGetPath.restypes = ctypes.c_int
-        YAPI._yapiJsonGetPath.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, POINTER(POINTER(ctypes.c_ubyte)), ctypes.c_char_p]
+        YAPI._yapiJsonGetPath.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiJsonDecodeString = YAPI._yApiCLib.yapiJsonDecodeString
         YAPI._yapiJsonDecodeString.restypes = ctypes.c_int
         YAPI._yapiJsonDecodeString.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
@@ -1286,23 +1243,38 @@ class YAPI:
         YAPI._yapiGetSubdevices.restypes = ctypes.c_int
         YAPI._yapiGetSubdevices.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiFreeMem = YAPI._yApiCLib.yapiFreeMem
-        YAPI._yapiFreeMem.restypes = ctypes.c_int
+        YAPI._yapiFreeMem.restypes = None
         YAPI._yapiFreeMem.argtypes = [ctypes.c_void_p]
         YAPI._yapiGetDevicePathEx = YAPI._yApiCLib.yapiGetDevicePathEx
         YAPI._yapiGetDevicePathEx.restypes = ctypes.c_int
         YAPI._yapiGetDevicePathEx.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
         YAPI._yapiSetNetDevListValidity = YAPI._yApiCLib.yapiSetNetDevListValidity
-        YAPI._yapiSetNetDevListValidity.restypes = ctypes.c_int
+        YAPI._yapiSetNetDevListValidity.restypes = None
         YAPI._yapiSetNetDevListValidity.argtypes = [ctypes.c_int]
         YAPI._yapiGetNetDevListValidity = YAPI._yApiCLib.yapiGetNetDevListValidity
         YAPI._yapiGetNetDevListValidity.restypes = ctypes.c_int
         YAPI._yapiGetNetDevListValidity.argtypes = []
         YAPI._yapiRegisterBeaconCallback = YAPI._yApiCLib.yapiRegisterBeaconCallback
-        YAPI._yapiRegisterBeaconCallback.restypes = ctypes.c_int
+        YAPI._yapiRegisterBeaconCallback.restypes = None
         YAPI._yapiRegisterBeaconCallback.argtypes = [ctypes.c_void_p]
         YAPI._yapiStartStopDeviceLogCallback = YAPI._yApiCLib.yapiStartStopDeviceLogCallback
-        YAPI._yapiStartStopDeviceLogCallback.restypes = ctypes.c_int
+        YAPI._yapiStartStopDeviceLogCallback.restypes = None
         YAPI._yapiStartStopDeviceLogCallback.argtypes = [ctypes.c_char_p, ctypes.c_int]
+        YAPI._yapiIsModuleWritable = YAPI._yApiCLib.yapiIsModuleWritable
+        YAPI._yapiIsModuleWritable.restypes = ctypes.c_int
+        YAPI._yapiIsModuleWritable.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+        YAPI._yapiGetDLLPath = YAPI._yApiCLib.yapiGetDLLPath
+        YAPI._yapiGetDLLPath.restypes = ctypes.c_int
+        YAPI._yapiGetDLLPath.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p]
+        YAPI._yapiSetNetworkTimeout = YAPI._yApiCLib.yapiSetNetworkTimeout
+        YAPI._yapiSetNetworkTimeout.restypes = None
+        YAPI._yapiSetNetworkTimeout.argtypes = [ctypes.c_int]
+        YAPI._yapiGetNetworkTimeout = YAPI._yApiCLib.yapiGetNetworkTimeout
+        YAPI._yapiGetNetworkTimeout.restypes = ctypes.c_int
+        YAPI._yapiGetNetworkTimeout.argtypes = []
+        YAPI._yapiAddUdevRulesForYocto = YAPI._yApiCLib.yapiAddUdevRulesForYocto
+        YAPI._yapiAddUdevRulesForYocto.restypes = ctypes.c_int
+        YAPI._yapiAddUdevRulesForYocto.argtypes = [ctypes.c_int, ctypes.c_char_p]
     #--- (end of generated code: YFunction dlldef)
 
         YAPI._ydllLoaded = True
@@ -1490,15 +1462,15 @@ class YAPI:
     @staticmethod
     def SetDeviceListValidity(deviceListValidity):
         """
-        Change the time between each forced enumeration of the YoctoHub used.
-        By default, the library performs a complete enumeration every 10 seconds.
-        To reduce network traffic it is possible to increase this delay.
-        This is particularly useful when a YoctoHub is connected to a GSM network
-        where the traffic is charged. This setting does not affect modules connected by USB,
-        nor the operation of arrival/removal callbacks.
-        Note: This function must be called after yInitAPI.
+        Modifies the delay between each forced enumeration of the used YoctoHubs.
+        By default, the library performs a full enumeration every 10 seconds.
+        To reduce network traffic, you can increase this delay.
+        It's particularly useful when a YoctoHub is connected to the GSM network
+        where traffic is billed. This parameter doesn't impact modules connected by USB,
+        nor the working of module arrival/removal callbacks.
+        Note: you must call this function after yInitAPI.
 
-        @param deviceListValidity : number of seconds between each enumeration.
+        @param deviceListValidity : nubmer of seconds between each enumeration.
         @noreturn
         """
         YAPI._yapiContext.SetDeviceListValidity(deviceListValidity)
@@ -1506,12 +1478,54 @@ class YAPI:
     @staticmethod
     def GetDeviceListValidity():
         """
-        Returns the time between each forced enumeration of the YoctoHub used.
-        Note: This function must be called after yInitAPI.
+        Returns the delay between each forced enumeration of the used YoctoHubs.
+        Note: you must call this function after yInitAPI.
 
         @return the number of seconds between each enumeration.
         """
         return YAPI._yapiContext.GetDeviceListValidity()
+
+    @staticmethod
+    def AddUdevRule(force):
+        """
+        Adds a UDEV rule which authorizes all users to access Yoctopuce modules
+        connected to the USB ports. This function works only under Linux. The process that
+        calls this method must have root privileges because this method changes the Linux configuration.
+
+        @param force : if true, overwrites any existing rule.
+
+        @return an empty string if the rule has been added.
+
+        On failure, returns a string that starts with "error:".
+        """
+        return YAPI._yapiContext.AddUdevRule(force)
+
+    @staticmethod
+    def SetNetworkTimeout(networkMsTimeout):
+        """
+        Modifies the network connection delay for yRegisterHub() and yUpdateDeviceList().
+        This delay impacts only the YoctoHubs and VirtualHub
+        which are accessible through the network. By default, this delay is of 20000 milliseconds,
+        but depending or you network you may want to change this delay,
+        gor example if your network infrastructure is based on a GSM connection.
+
+        @param networkMsTimeout : the network connection delay in milliseconds.
+        @noreturn
+        """
+        YAPI._yapiContext.SetNetworkTimeout(networkMsTimeout)
+
+    @staticmethod
+    def GetNetworkTimeout():
+        """
+        Returns the network connection delay for yRegisterHub() and yUpdateDeviceList().
+        This delay impacts only the YoctoHubs and VirtualHub
+        which are accessible through the network. By default, this delay is of 20000 milliseconds,
+        but depending or you network you may want to change this delay,
+        for example if your network infrastructure is based on a GSM connection.
+
+        @return the network connection delay in milliseconds.
+        """
+        return YAPI._yapiContext.GetNetworkTimeout()
 
     @staticmethod
     def SetCacheValidity(cacheValidityMs):
@@ -2060,7 +2074,7 @@ class YAPI:
         if YAPI.yapiGetDeviceInfo(d, infos, errmsgRef) != YAPI.SUCCESS:
             return
         modul = YModule.FindModule(YByte2String(infos.serial) + ".module")
-        if modul in YModule._moduleCallbackList and YModule._moduleCallbackList[modul] > 1:
+        if modul in YModule._moduleCallbackList and YModule._moduleCallbackList[modul] > 0:
             ev = YAPI._Event()
             ev.setConfigChange(modul)
             YAPI._DataEvents.append(ev)
@@ -2073,7 +2087,7 @@ class YAPI:
         if YAPI.yapiGetDeviceInfo(d, infos, errmsgRef) != YAPI.SUCCESS:
             return
         modul = YModule.FindModule(YByte2String(infos.serial) + ".module")
-        if modul in YModule._moduleCallbackList and YModule._moduleCallbackList[modul] > 1:
+        if modul in YModule._moduleCallbackList and YModule._moduleCallbackList[modul] > 0:
             ev = YAPI._Event()
             ev.setBeaconChange(modul, beacon)
             YAPI._DataEvents.append(ev)
@@ -2303,10 +2317,22 @@ class YAPI:
     @staticmethod
     def FreeAPI():
         """
-        Frees dynamically allocated memory blocks used by the Yoctopuce library.
-        It is generally not required to call this function, unless you
-        want to free all dynamically allocated memory blocks in order to
-        track a memory leak for instance.
+        Waits for all pending communications with Yoctopuce devices to be
+        completed then frees dynamically allocated resources used by
+        the Yoctopuce library.
+
+        From an operating system standpoint, it is generally not required to call
+        this function since the OS will automatically free allocated resources
+        once your program is completed. However there are two situations when
+        you may really want to use that function:
+
+        - Free all dynamically allocated memory blocks in order to
+        track a memory leak.
+
+        - Send commands to devices right before the end
+        of the program. Since commands are sent in an asynchronous way
+        the program could exit before all commands are effectively sent.
+
         You should not call any other library function after calling
         yFreeAPI(), or your program will crash.
         """
@@ -2379,8 +2405,8 @@ class YAPI:
     @staticmethod
     def PreregisterHub(url, errmsg=None):
         """
-        Fault-tolerant alternative to RegisterHub(). This function has the same
-        purpose and same arguments as RegisterHub(), but does not trigger
+        Fault-tolerant alternative to yRegisterHub(). This function has the same
+        purpose and same arguments as yRegisterHub(), but does not trigger
         an error when the selected hub is not available at the time of the function call.
         This makes it possible to register a network hub independently of the current
         connectivity, and to try to contact it only when a device is actively needed.
@@ -2425,7 +2451,7 @@ class YAPI:
     def TestHub(url, mstimeout, errmsg=None):
         """
         Test if the hub is reachable. This method do not register the hub, it only test if the
-        hub is usable. The url parameter follow the same convention as the RegisterHub
+        hub is usable. The url parameter follow the same convention as the yRegisterHub
         method. This method is useful to verify the authentication parameters for a hub. It
         is possible to force this method to return after mstimeout milliseconds.
 
@@ -2650,8 +2676,8 @@ class YAPI:
 class YFirmwareUpdate(object):
     """
     The YFirmwareUpdate class let you control the firmware update of a Yoctopuce
-    module. This class should not be instantiate directly, instead the method
-    updateFirmware should be called to get an instance of YFirmwareUpdate.
+    module. This class should not be instantiate directly, but instances should be retrieved
+    using the YModule method module.updateFirmware.
 
     """
     #--- (end of generated code: YFirmwareUpdate class start)
@@ -2869,12 +2895,12 @@ class YFirmwareUpdate(object):
 #noinspection PyProtectedMember
 class YDataStream(object):
     """
-    YDataStream objects represent bare recorded measure sequences,
+    DataStream objects represent bare recorded measure sequences,
     exactly as found within the data logger present on Yoctopuce
     sensors.
 
-    In most cases, it is not necessary to use YDataStream objects
-    directly, as the YDataSet objects (returned by the
+    In most cases, it is not necessary to use DataStream objects
+    directly, as the DataSet objects (returned by the
     get_recordedData() method from sensors and the
     get_dataSets() method from the data logger) provide
     a more convenient interface.
@@ -2953,7 +2979,13 @@ class YDataStream(object):
         if val == 0xffff:
             val = 0
         self._nRows = val
-        self._duration = self._nRows * self._dataSamplesInterval
+        if self._nRows > 0:
+            if self._firstMeasureDuration > 0:
+                self._duration = self._firstMeasureDuration + (self._nRows - 1) * self._dataSamplesInterval
+            else:
+                self._duration = self._nRows * self._dataSamplesInterval
+        else:
+            self._duration = 0
         # // precompute decoding parameters
         iCalib = dataset._get_calibration()
         self._caltyp = iCalib[0]
@@ -3282,7 +3314,9 @@ class YMeasure(object):
     """
     YMeasure objects are used within the API to represent
     a value measured at a specified time. These objects are
-    used in particular in conjunction with the YDataSet class.
+    used in particular in conjunction with the YDataSet class,
+    but also for sensors periodic timed reports
+    (see sensor.registerTimedReportCallback).
 
     """
     #--- (end of generated code: YMeasure class start)
@@ -3302,10 +3336,10 @@ class YMeasure(object):
         self._minVal = minVal
         self._avgVal = avgVal
         self._maxVal = maxVal
-        rounded = int(start * 10 + 0.5)
-        self._start_datetime = datetime.datetime.fromtimestamp(rounded / 10.0)
-        rounded = int(end * 10 + 0.5)
-        self._end_datetime = datetime.datetime.fromtimestamp(rounded / 10.0)
+        rounded = int(start * 100 + 0.5)
+        self._start_datetime = datetime.datetime.fromtimestamp(rounded / 100.0)
+        rounded = int(end * 100 + 0.5)
+        self._end_datetime = datetime.datetime.fromtimestamp(rounded / 100.0)
 
     def get_startTimeUTC_asDatetime(self):
         """
@@ -3324,7 +3358,7 @@ class YMeasure(object):
         (Unix timestamp). When the recording rate is higher then 1 sample
         per second, the timestamp may have a fractional part.
 
-        @return an floating point number corresponding to the number of seconds
+        @return a floating point number corresponding to the number of seconds
                 between the Jan 1, 1970 UTC and the beginning of this measure.
         """
         return self._start
@@ -3335,7 +3369,7 @@ class YMeasure(object):
         (Unix timestamp). When the recording rate is higher than 1 sample
         per second, the timestamp may have a fractional part.
 
-        @return an floating point number corresponding to the number of seconds
+        @return a floating point number corresponding to the number of seconds
                 between the Jan 1, 1970 UTC and the end of this measure.
         """
         return self._end
@@ -3380,7 +3414,7 @@ class YDataSet(object):
     YDataSet objects make it possible to retrieve a set of recorded measures
     for a given sensor and a specified time interval. They can be used
     to load data points with a progress report. When the YDataSet object is
-    instantiated by the get_recordedData()  function, no data is
+    instantiated by the sensor.get_recordedData()  function, no data is
     yet loaded from the module. It is only when the loadMore()
     method is called over and over than data will be effectively loaded
     from the dataLogger.
@@ -3390,7 +3424,7 @@ class YDataSet(object):
     once. Measures themselves are available using function get_measures()
     when loaded by subsequent calls to loadMore().
 
-    This class can only be used on devices that use a recent firmware,
+    This class can only be used on devices that use a relatively recent firmware,
     as YDataSet objects are not supported by firmwares older than version 13000.
 
     """
@@ -3719,14 +3753,14 @@ class YDataSet(object):
     def get_startTimeUTC(self):
         """
         Returns the start time of the dataset, relative to the Jan 1, 1970.
-        When the YDataSet is created, the start time is the value passed
+        When the YDataSet object is created, the start time is the value passed
         in parameter to the get_dataSet() function. After the
         very first call to loadMore(), the start time is updated
         to reflect the timestamp of the first measure actually found in the
         dataLogger within the specified range.
 
         <b>DEPRECATED</b>: This method has been replaced by get_summary()
-        which contain more precise informations on the YDataSet.
+        which contain more precise informations.
 
         @return an unsigned number corresponding to the number of seconds
                 between the Jan 1, 1970 and the beginning of this data
@@ -3740,15 +3774,14 @@ class YDataSet(object):
     def get_endTimeUTC(self):
         """
         Returns the end time of the dataset, relative to the Jan 1, 1970.
-        When the YDataSet is created, the end time is the value passed
+        When the YDataSet object is created, the end time is the value passed
         in parameter to the get_dataSet() function. After the
         very first call to loadMore(), the end time is updated
         to reflect the timestamp of the last measure actually found in the
         dataLogger within the specified range.
 
         <b>DEPRECATED</b>: This method has been replaced by get_summary()
-        which contain more precise informations on the YDataSet.
-
+        which contain more precise informations.
 
         @return an unsigned number corresponding to the number of seconds
                 between the Jan 1, 1970 and the end of this data
@@ -3807,7 +3840,7 @@ class YDataSet(object):
     def get_summary(self):
         """
         Returns an YMeasure object which summarizes the whole
-        DataSet. In includes the following information:
+        YDataSet. In includes the following information:
         - the start of a time interval
         - the end of a time interval
         - the minimal value observed during the time interval
@@ -3934,6 +3967,185 @@ class YDataSet(object):
 # --- (generated code: YDataSet functions)
 #--- (end of generated code: YDataSet functions)
 
+
+# --- (generated code: YConsolidatedDataSet class start)
+#noinspection PyProtectedMember
+class YConsolidatedDataSet(object):
+    """
+    YConsolidatedDataSet objects make it possible to retrieve a set of
+    recorded measures from multiple sensors, for a specified time interval.
+    They can be used to load data points progressively, and to receive
+    data records by timestamp, one by one..
+
+    """
+    #--- (end of generated code: YConsolidatedDataSet class start)
+    # --- (generated code: YConsolidatedDataSet definitions)
+    #--- (end of generated code: YConsolidatedDataSet definitions)
+
+    def __init__(self, start, end, sensorList):
+        # --- (generated code: YConsolidatedDataSet attributes)
+        self._start = 0
+        self._end = 0
+        self._nsensors = 0
+        self._sensors = []
+        self._datasets = []
+        self._progresss = []
+        self._nextidx = []
+        self._nexttim = []
+        #--- (end of generated code: YConsolidatedDataSet attributes)
+        self.imm_init(start, end, sensorList)
+
+    # --- (generated code: YConsolidatedDataSet implementation)
+    def imm_init(self, startt, endt, sensorList):
+        self._start = startt
+        self._end = endt
+        self._sensors = sensorList
+        self._nsensors = -1
+        return YAPI.SUCCESS
+
+    @staticmethod
+    def Init(sensorNames, startTime, endTime):
+        """
+        Returns an object holding historical data for multiple
+        sensors, for a specified time interval.
+        The measures will be retrieved from the data logger, which must have been turned
+        on at the desired time. The resulting object makes it possible to load progressively
+        a large set of measures from multiple sensors, consolidating data on the fly
+        to align records based on measurement timestamps.
+
+        @param sensorNames : array of logical names or hardware identifiers of the sensors
+                for which data must be loaded from their data logger.
+        @param startTime : the start of the desired measure time interval,
+                as a Unix timestamp, i.e. the number of seconds since
+                January 1, 1970 UTC. The special value 0 can be used
+                to include any measure, without initial limit.
+        @param endTime : the end of the desired measure time interval,
+                as a Unix timestamp, i.e. the number of seconds since
+                January 1, 1970 UTC. The special value 0 can be used
+                to include any measure, without ending limit.
+
+        @return an instance of YConsolidatedDataSet, providing access to
+                consolidated historical data. Records can be loaded progressively
+                using the YConsolidatedDataSet.nextRecord() method.
+        """
+        # nSensors
+        sensorList = []
+        # idx
+        # sensorName
+        # s
+        # obj
+        nSensors = len(sensorNames)
+        del sensorList[:]
+        idx = 0
+        while idx < nSensors:
+            sensorName = sensorNames[idx]
+            s = YSensor.FindSensor(sensorName)
+            sensorList.append(s)
+            idx = idx + 1
+
+        obj = YConsolidatedDataSet(startTime, endTime, sensorList)
+        return obj
+
+    def nextRecord(self, datarec):
+        """
+        Extracts the next data record from the data logger of all sensors linked to this
+        object.
+
+        @param datarec : array of floating point numbers, that will be filled by the
+                function with the timestamp of the measure in first position,
+                followed by the measured value in next positions.
+
+        @return an integer in the range 0 to 100 (percentage of completion),
+                or a negative error code in case of failure.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        # s
+        # idx
+        # sensor
+        # newdataset
+        # globprogress
+        # currprogress
+        # currnexttim
+        # newvalue
+        measures = []
+        # nexttime
+        # //
+        # // Ensure the dataset have been retrieved
+        # //
+        if self._nsensors == -1:
+            self._nsensors = len(self._sensors)
+            del self._datasets[:]
+            del self._progresss[:]
+            del self._nextidx[:]
+            del self._nexttim[:]
+            s = 0
+            while s < self._nsensors:
+                sensor = self._sensors[s]
+                newdataset = sensor.get_recordedData(self._start, self._end)
+                self._datasets.append(newdataset)
+                self._progresss.append(0)
+                self._nextidx.append(0)
+                self._nexttim.append(0.0)
+                s = s + 1
+        del datarec[:]
+        # //
+        # // Find next timestamp to process
+        # //
+        nexttime = 0
+        s = 0
+        while s < self._nsensors:
+            currnexttim = self._nexttim[s]
+            if currnexttim == 0:
+                idx = self._nextidx[s]
+                measures = self._datasets[s].get_measures()
+                currprogress = self._progresss[s]
+                while (idx >= len(measures)) and (currprogress < 100):
+                    currprogress = self._datasets[s].loadMore()
+                    if currprogress < 0:
+                        currprogress = 100
+                    self._progresss[s] = currprogress
+                    measures = self._datasets[s].get_measures()
+                if idx < len(measures):
+                    currnexttim = measures[idx].get_endTimeUTC()
+                    self._nexttim[s] = currnexttim
+            if currnexttim > 0:
+                if (nexttime == 0) or (nexttime > currnexttim):
+                    nexttime = currnexttim
+            s = s + 1
+        if nexttime == 0:
+            return 100
+        # //
+        # // Extract data for this timestamp
+        # //
+        del datarec[:]
+        datarec.append(nexttime)
+        globprogress = 0
+        s = 0
+        while s < self._nsensors:
+            if self._nexttim[s] == nexttime:
+                idx = self._nextidx[s]
+                measures = self._datasets[s].get_measures()
+                newvalue = measures[idx].get_averageValue()
+                datarec.append(newvalue)
+                self._nexttim[s] = 0.0
+                self._nextidx[s] = idx+1
+            else:
+                datarec.append(float('nan'))
+            currprogress = self._progresss[s]
+            globprogress = globprogress + currprogress
+            s = s + 1
+        if globprogress > 0:
+            globprogress = int((globprogress) / (self._nsensors))
+            if globprogress > 99:
+                globprogress = 99
+
+        return globprogress
+
+#--- (end of generated code: YConsolidatedDataSet implementation)
+
+# --- (generated code: YConsolidatedDataSet functions)
+#--- (end of generated code: YConsolidatedDataSet functions)
 
 # ------------------------------------------------------------------------------------
 # YDevice
@@ -4450,6 +4662,12 @@ class YFunction(object):
         return b""
 
     def _upload(self, path, content):
+        tmpbuffer = self._uploadEx(path, content)
+        if len(tmpbuffer) == 0:
+            return YAPI.IO_ERROR
+        return YAPI.SUCCESS
+
+    def _uploadEx(self, path, content):
         body = "Content-Disposition: form-data; name=\"" + path + "\"; filename=\"api\"\r\n"
         body += "Content-Type: application/octet-stream\r\n"
         body += "Content-Transfer-Encoding: binary\r\n\r\n"
@@ -4467,14 +4685,14 @@ class YFunction(object):
         request += "\r\n--" + boundary + "\r\n"
         request = request.encode("ASCII") + body + str("\r\n--" + boundary + "--\r\n").encode("ASCII")
         tmpbuffer = self._request(request)
-        if len(tmpbuffer) == 0:
-            self._throw(YAPI.IO_ERROR, "http request failed")
-            return YAPI.IO_ERROR
-        return YAPI.SUCCESS
+        return self._strip_http_header(tmpbuffer)
 
     def _download(self, url):
         request = "GET /" + url + " HTTP/1.1\r\n\r\n"
         result_buffer = self._request(request)
+        return self._strip_http_header(result_buffer)
+
+    def _strip_http_header(self, result_buffer):
         found = 0
         while found <= len(result_buffer) - 4:
             if YGetByte(result_buffer, found) == 13 \
@@ -4644,7 +4862,8 @@ class YFunction(object):
         you are certain that the matching device is plugged, make sure that you did
         call registerHub() at application initialization time.
 
-        @param func : a string that uniquely characterizes the function
+        @param func : a string that uniquely characterizes the function, for instance
+                MyDevice..
 
         @return a YFunction object allowing you to drive the function.
         """
@@ -4729,13 +4948,32 @@ class YFunction(object):
         attrVal = self._download(url)
         return YByte2String(attrVal)
 
+    def isReadOnly(self):
+        """
+        Test if the function is readOnly. Return true if the function is write protected
+        or that the function is not available.
+
+        @return true if the function is readOnly or not online.
+        """
+        # serial
+        errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
+        # res
+        try:
+            serial = self.get_serialNumber()
+        except:
+            return True
+        res = YAPI._yapiIsModuleWritable(ctypes.create_string_buffer(YString2Byte(serial)), errmsg)
+        if res > 0:
+            return False
+        return True
+
     def get_serialNumber(self):
         """
         Returns the serial number of the module, as set by the factory.
 
         @return a string corresponding to the serial number of the module, as set by the factory.
 
-        On failure, throws an exception or returns YModule.SERIALNUMBER_INVALID.
+        On failure, throws an exception or returns YFunction.SERIALNUMBER_INVALID.
         """
         # m
         m = self.get_module()
@@ -5071,7 +5309,7 @@ class YFunction(object):
 
         @return an identifier of type YFUN_DESCR.
 
-        If the function has never been contacted, the returned value is YFunction.FUNCTIONDESCRIPTOR_INVALID.
+        If the function has never been contacted, the returned value is Y$CLASSNAME$.FUNCTIONDESCRIPTOR_INVALID.
         """
         return self._fundescr
 
@@ -5140,7 +5378,7 @@ class YFunction(object):
 #noinspection PyProtectedMember
 class YModule(YFunction):
     """
-    This interface is identical for all Yoctopuce USB modules.
+    The YModule class can be used with all Yoctopuce USB devices.
     It can be used to control the module global parameters, and
     to enumerate the functions provided by each module.
 
@@ -5278,14 +5516,15 @@ class YModule(YFunction):
 
     def get_productRelease(self):
         """
-        Returns the hardware release version of the module.
+        Returns the release number of the module hardware, preprogrammed at the factory.
+        The original hardware release returns value 1, revision B returns value 2, etc.
 
-        @return an integer corresponding to the hardware release version of the module
+        @return an integer corresponding to the release number of the module hardware, preprogrammed at the factory
 
         On failure, throws an exception or returns YModule.PRODUCTRELEASE_INVALID.
         """
         # res
-        if self._cacheExpiration <= YAPI.GetTickCount():
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
             if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YModule.PRODUCTRELEASE_INVALID
         res = self._productRelease
@@ -5492,11 +5731,30 @@ class YModule(YFunction):
                 or get additional information on the module.
         """
         # obj
-        obj = YFunction._FindFromCache("Module", func)
+        # cleanHwId
+        # modpos
+        cleanHwId = func
+        modpos = func.find(".module")
+        if modpos != (len(func) - 7):
+            cleanHwId = func + ".module"
+        obj = YFunction._FindFromCache("Module", cleanHwId)
         if obj is None:
-            obj = YModule(func)
-            YFunction._AddToCache("Module", func, obj)
+            obj = YModule(cleanHwId)
+            YFunction._AddToCache("Module", cleanHwId, obj)
         return obj
+
+    def get_productNameAndRevision(self):
+        # prodname
+        # prodrel
+        # fullname
+
+        prodname = self.get_productName()
+        prodrel = self.get_productRelease()
+        if prodrel > 1:
+            fullname = "" + prodname + " rev. " + str(chr(64+prodrel))
+        else:
+            fullname = prodname
+        return fullname
 
     def saveToFlash(self):
         """
@@ -5719,14 +5977,15 @@ class YModule(YFunction):
             if YAPI._atoi(self.get_firmwareRelease()) > 9000:
                 url = "api/" + y + "/sensorType"
                 t_type = YByte2String(self._download(url))
-                if t_type == "RES_NTC":
+                if t_type == "RES_NTC" or t_type == "RES_LINEAR":
                     id = (y)[11: 11 + len(y) - 11]
+                    if id == "":
+                        id = "1"
                     temp_data_bin = self._download("extra.json?page=" + id)
-                    if len(temp_data_bin) == 0:
-                        return temp_data_bin
-                    item = "" + sep + "{\"fid\":\"" + y + "\", \"json\":" + YByte2String(temp_data_bin) + "}\n"
-                    ext_settings = ext_settings + item
-                    sep = ","
+                    if len(temp_data_bin) > 0:
+                        item = "" + sep + "{\"fid\":\"" + y + "\", \"json\":" + YByte2String(temp_data_bin) + "}\n"
+                        ext_settings = ext_settings + item
+                        sep = ","
         ext_settings = ext_settings + "],\n\"files\":["
         if self.hasFunction("files"):
             json = self._download("files.json?a=dir&f=")
@@ -5762,7 +6021,7 @@ class YModule(YFunction):
         while ofs + 1 < size:
             curr = values[ofs]
             currTemp = values[ofs + 1]
-            url = "api/" + funcId + "/.json?command=m" + curr + ":" + currTemp
+            url = "api/" + funcId + ".json?command=m" + curr + ":" + currTemp
             self._download(url)
             ofs = ofs + 2
         return YAPI.SUCCESS
@@ -5799,6 +6058,9 @@ class YModule(YFunction):
         # json_api
         # json_files
         # json_extra
+        # fuperror
+        # globalres
+        fuperror = 0
         json = YByte2String(settings)
         json_api = self._get_json_path(json, "api")
         if json_api == "":
@@ -5825,10 +6087,16 @@ class YModule(YFunction):
                 name = self._decode_json_string(name)
                 data = self._get_json_path(y, "data")
                 data = self._decode_json_string(data)
-                self._upload(name, YAPI._hexStrToBin(data))
+                if name == "":
+                    fuperror = fuperror + 1
+                else:
+                    self._upload(name, YAPI._hexStrToBin(data))
         # // Apply settings a second time for file-dependent settings and dynamic sensor nodes
-        self.set_allSettings(YString2Byte(json_api))
-        return YAPI.SUCCESS
+        globalres = self.set_allSettings(YString2Byte(json_api))
+        if not (fuperror == 0):
+            self._throw(YAPI.IO_ERROR, "Error during file upload")
+            return YAPI.IO_ERROR
+        return globalres
 
     def hasFunction(self, funcId):
         """
@@ -6081,6 +6349,25 @@ class YModule(YFunction):
                     param = str(round(1000 * (calibData[3] - calibData[1]) / calibData[2] - calibData[0]))
         return param
 
+    def _tryExec(self, url):
+        # res
+        # done
+        res = YAPI.SUCCESS
+        done = 1
+        try:
+            self._download(url)
+        except:
+            done = 0
+        if done == 0:
+            # // retry silently after a short wait
+            try:
+                YAPI.Sleep(500)
+                self._download(url)
+            except:
+                # // second failure, return error code
+                res = self.get_errorType()
+        return res
+
     def set_allSettings(self, settings):
         """
         Restores all the settings of the device. Useful to restore all the logical names and calibrations parameters
@@ -6109,6 +6396,8 @@ class YModule(YFunction):
         # leng
         # i
         # j
+        # subres
+        # res
         # njpath
         # jpath
         # fun
@@ -6125,6 +6414,7 @@ class YModule(YFunction):
         # each_str
         # do_update
         # found
+        res = YAPI.SUCCESS
         tmp = YByte2String(settings)
         tmp = self._get_json_path(tmp, "api")
         if not (tmp == ""):
@@ -6154,7 +6444,12 @@ class YModule(YFunction):
 
 
 
-        actualSettings = self._download("api.json")
+        try:
+            actualSettings = self._download("api.json")
+        except:
+            # // retry silently after a short wait
+            YAPI.Sleep(500)
+            actualSettings = self._download("api.json")
         actualSettings = self._flattenJsonStruct(actualSettings)
         new_dslist = self._json_get_array(actualSettings)
 
@@ -6228,6 +6523,8 @@ class YModule(YFunction):
                 do_update = False
             if (do_update) and (attr == "message"):
                 do_update = False
+            if (do_update) and (attr == "signalValue"):
+                do_update = False
             if (do_update) and (attr == "currentValue"):
                 do_update = False
             if (do_update) and (attr == "currentRawValue"):
@@ -6263,6 +6560,10 @@ class YModule(YFunction):
             if (do_update) and (attr == "txCount"):
                 do_update = False
             if (do_update) and (attr == "msgCount"):
+                do_update = False
+            if (do_update) and (attr == "rxMsgCount"):
+                do_update = False
+            if (do_update) and (attr == "txMsgCount"):
                 do_update = False
             if do_update:
                 do_update = False
@@ -6307,19 +6608,25 @@ class YModule(YFunction):
                         j = j + 1
                     newval = self.calibConvert(old_calib, new_val_arr[i], unit_name, sensorType)
                     url = "api/" + fun + ".json?" + attr + "=" + self._escapeAttr(newval)
-                    self._download(url)
+                    subres = self._tryExec(url)
+                    if (res == YAPI.SUCCESS) and (subres != YAPI.SUCCESS):
+                        res = subres
                 else:
                     url = "api/" + fun + ".json?" + attr + "=" + self._escapeAttr(oldval)
                     if attr == "resolution":
                         restoreLast.append(url)
                     else:
-                        self._download(url)
+                        subres = self._tryExec(url)
+                        if (res == YAPI.SUCCESS) and (subres != YAPI.SUCCESS):
+                            res = subres
             i = i + 1
 
         for y in restoreLast:
-            self._download(y)
+            subres = self._tryExec(y)
+            if (res == YAPI.SUCCESS) and (subres != YAPI.SUCCESS):
+                res = subres
         self.clearCache()
-        return YAPI.SUCCESS
+        return res
 
     def get_hardwareId(self):
         """
@@ -6617,11 +6924,9 @@ class YModule(YFunction):
             return YAPI.INVALID_STRING
 
         funid = funcIdRef.value
-        i = 0
-        for c in funid:
-            if '0' <= c <= '9':
-                break
-            i += 1
+        i = len(funid)
+        while i > 0 and '0' <= funid[i-1] <= '9':
+            i -= 1
         res = funid[1:i]
         return funid[0].upper() + res
 
@@ -6740,7 +7045,7 @@ class YModule(YFunction):
 #noinspection PyProtectedMember
 class YSensor(YFunction):
     """
-    The YSensor class is the parent class for all Yoctopuce sensors. It can be
+    The YSensor class is the parent class for all Yoctopuce sensor types. It can be
     used to read the current value and unit of any sensor, read the min/max
     value, configure autonomous recording frequency and access recorded data.
     It also provide a function to register a callback invoked each time the
@@ -6935,11 +7240,11 @@ class YSensor(YFunction):
 
     def get_currentRawValue(self):
         """
-        Returns the uncalibrated, unrounded raw value returned by the sensor, in the specified unit, as a
-        floating point number.
+        Returns the uncalibrated, unrounded raw value returned by the
+        sensor, in the specified unit, as a floating point number.
 
-        @return a floating point number corresponding to the uncalibrated, unrounded raw value returned by
-        the sensor, in the specified unit, as a floating point number
+        @return a floating point number corresponding to the uncalibrated, unrounded raw value returned by the
+                sensor, in the specified unit, as a floating point number
 
         On failure, throws an exception or returns YSensor.CURRENTRAWVALUE_INVALID.
         """
@@ -6976,6 +7281,7 @@ class YSensor(YFunction):
         the value "OFF". Note that setting the  datalogger recording frequency
         to a greater value than the sensor native sampling frequency is useless,
         and even counterproductive: those two frequencies are not related.
+        Remember to call the saveToFlash() method of the module if the modification must be kept.
 
         @param newval : a string corresponding to the datalogger recording frequency for this function
 
@@ -7013,6 +7319,7 @@ class YSensor(YFunction):
         notification frequency to a greater value than the sensor native
         sampling frequency is unless, and even counterproductive: those two
         frequencies are not related.
+        Remember to call the saveToFlash() method of the module if the modification must be kept.
 
         @param newval : a string corresponding to the timed value notification frequency for this function
 
@@ -7043,6 +7350,7 @@ class YSensor(YFunction):
     def set_advMode(self, newval):
         """
         Changes the measuring mode used for the advertised value pushed to the parent hub.
+        Remember to call the saveToFlash() method of the module if the modification must be kept.
 
         @param newval : a value among YSensor.ADVMODE_IMMEDIATE, YSensor.ADVMODE_PERIOD_AVG,
         YSensor.ADVMODE_PERIOD_MIN and YSensor.ADVMODE_PERIOD_MAX corresponding to the measuring mode used
@@ -7071,6 +7379,7 @@ class YSensor(YFunction):
         """
         Changes the resolution of the measured physical values. The resolution corresponds to the numerical precision
         when displaying value. It does not change the precision of the measure itself.
+        Remember to call the saveToFlash() method of the module if the modification must be kept.
 
         @param newval : a floating point number corresponding to the resolution of the measured physical values
 
@@ -7085,6 +7394,7 @@ class YSensor(YFunction):
         """
         Returns the resolution of the measured values. The resolution corresponds to the numerical precision
         of the measures, which is not always the same as the actual precision of the sensor.
+        Remember to call the saveToFlash() method of the module if the modification must be kept.
 
         @return a floating point number corresponding to the resolution of the measured values
 
@@ -7140,7 +7450,8 @@ class YSensor(YFunction):
         you are certain that the matching device is plugged, make sure that you did
         call registerHub() at application initialization time.
 
-        @param func : a string that uniquely characterizes the sensor
+        @param func : a string that uniquely characterizes the sensor, for instance
+                MyDevice..
 
         @return a YSensor object allowing you to drive the sensor.
         """
@@ -7271,11 +7582,11 @@ class YSensor(YFunction):
 
     def get_dataLogger(self):
         """
-        Returns the YDatalogger object of the device hosting the sensor. This method returns an object of
-        class YDatalogger that can control global parameters of the data logger. The returned object
+        Returns the YDatalogger object of the device hosting the sensor. This method returns an object
+        that can control global parameters of the data logger. The returned object
         should not be freed.
 
-        @return an YDataLogger object or None on error.
+        @return an YDatalogger object, or None on error.
         """
         # logger
         # modu
@@ -7322,16 +7633,16 @@ class YSensor(YFunction):
 
     def get_recordedData(self, startTime, endTime):
         """
-        Retrieves a DataSet object holding historical data for this
+        Retrieves a YDataSet object holding historical data for this
         sensor, for a specified time interval. The measures will be
         retrieved from the data logger, which must have been turned
-        on at the desired time. See the documentation of the DataSet
+        on at the desired time. See the documentation of the YDataSet
         class for information on how to get an overview of the
         recorded data, and how to load progressively a large set
         of measures from the data logger.
 
         This function only works if the device uses a recent firmware,
-        as DataSet objects are not supported by firmwares older than
+        as YDataSet objects are not supported by firmwares older than
         version 13000.
 
         @param startTime : the start of the desired measure time interval,
@@ -7642,9 +7953,10 @@ class YSensor(YFunction):
 #noinspection PyProtectedMember
 class YDataLogger(YFunction):
     """
-    Yoctopuce sensors include a non-volatile memory capable of storing ongoing measured
-    data automatically, without requiring a permanent connection to a computer.
-    The DataLogger function controls the global parameters of the internal data
+    A non-volatile memory for storing ongoing measured data is available on most Yoctopuce
+    sensors. Recording can happen automatically, without requiring a permanent
+    connection to a computer.
+    The YDataLogger class controls the global parameters of the internal data
     logger. Recording control (start/stop) as well as data retreival is done at
     sensor objects level.
 
@@ -7899,7 +8211,8 @@ class YDataLogger(YFunction):
         you are certain that the matching device is plugged, make sure that you did
         call registerHub() at application initialization time.
 
-        @param func : a string that uniquely characterizes the data logger
+        @param func : a string that uniquely characterizes the data logger, for instance
+                LIGHTMK3.dataLogger.
 
         @return a YDataLogger object allowing you to drive the data logger.
         """

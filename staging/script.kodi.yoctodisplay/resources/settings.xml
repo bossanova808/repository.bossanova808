@@ -1,10 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<settings>
-    <category label="32100">
-        <setting label="32101" id="brightness" type="slider"  option="int" default="40" range="0,100"/>
-        <setting label="32103" type="bool" id="led" default="false"/>
-        <setting label="32200" type="lsep"/>
-        <setting label="Restart Yocto Display Service" id="restart"  type="action" action="RunScript($ID)"/>
-    </category>
-    
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.kodi.yoctodisplay">
+		<category id="display settings" label="32100" help="">
+			<group id="1">
+				<setting id="brightness" type="integer" label="32101" help="">
+					<level>0</level>
+					<default>40</default>
+					<constraints>
+						<minimum>0</minimum>
+						<maximum>100</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="led" type="boolean" label="32103" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+	</section>
 </settings>

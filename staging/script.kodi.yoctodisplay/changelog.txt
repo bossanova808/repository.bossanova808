@@ -1,2 +1,4 @@
--- V0.0.1 
-Initial Developement
+-- V0.0.2
+Rewrite for Python 3 / Kodi 19
+-- V0.0.1 -> 0.0.4
+Initial Development

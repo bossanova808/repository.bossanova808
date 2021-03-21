@@ -18,25 +18,29 @@
 	</extension>
 </addon>
 
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.0.4" provider-name="bossanova808">
-  <requires>
-    <import addon="xbmc.python" version="2.24.0"/>
-    <import addon="xbmc.addon" version="12.0.0"/>
-  </requires>
-  <extension point="xbmc.service" library="default.py" start="startup"></extension>
-  <extension point="xbmc.addon.metadata">
-    <language></language>
-    <summary>Kodi YoctoDispay</summary>
-    <description>Display current time, current temperature and media playing time remaining on a YoctoMaxiDisplay screen.</description>
-    <disclaimer>Works only with Yoctopuce USB MaxiDisplay.  Shouldn't blow up the universe, or any part of it, but use at your own risk.</disclaimer>
-    <platform>all</platform>
-    <language>en</language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum></forum>
-    <website></website>
-    <email></email>
-    <source>https://github.com/bossanova808/script.kodi.yoctodisplay</source>
-  </extension>
+<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.0" provider-name="bossanova808">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.service" library="default.py" />
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Kodi YoctoDisplay</summary>
+        <description lang="en_GB">
+            Display current time, current temperature and media playing time remaining on a YoctoMaxiDisplay screen.
+        </description>
+        <platform>all</platform>
+        <license>GPL-3.0-only</license>
+        <website>https://github.com/bossanova808/script.kodi.yoctodisplay/</website>
+        <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
+        <forum />
+        <email />
+        <news>v0.2.0
+            - Updated for Python 3 / Kodi 19
+        </news>
+    </extension>
 </addon>
 
 <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.6" provider-name="bossanova808">

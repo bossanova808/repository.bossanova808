@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #*********************************************************************
 #*
-#* $Id: yocto_display.py 33877 2018-12-26 12:19:48Z seb $
+#* $Id: yocto_display.py 43619 2021-01-29 09:14:45Z mvuilleu $
 #*
 #* Implements yFindDisplay(), the high-level API for Display functions
 #*
@@ -39,15 +39,15 @@
 #*********************************************************************/
 
 __docformat__ = 'restructuredtext en'
-from yocto_api import *
+from yoctopuce.yocto_api import *
 
 
 #--- (generated code: YDisplayLayer class start)
 #noinspection PyProtectedMember
 class YDisplayLayer(object):
     """
-    A DisplayLayer is an image layer containing objects to display
-    (bitmaps, text, etc.). The content is displayed only when
+    Each DisplayLayer represents an image layer containing objects
+    to display (bitmaps, text, etc.). The content is displayed only when
     the layer is active on the screen (and not masked by other
     overlapping layers).
 
@@ -282,13 +282,13 @@ class YDisplayLayer(object):
         @param x : the distance from left of layer to the text anchor point, in pixels
         @param y : the distance from top of layer to the text anchor point, in pixels
         @param anchor : the text anchor point, chosen among the YDisplayLayer.ALIGN enumeration:
-                YDisplayLayer.ALIGN.TOP_LEFT,    YDisplayLayer.ALIGN.CENTER_LEFT,   
+                YDisplayLayer.ALIGN.TOP_LEFT,         YDisplayLayer.ALIGN.CENTER_LEFT,
                 YDisplayLayer.ALIGN.BASELINE_LEFT,    YDisplayLayer.ALIGN.BOTTOM_LEFT,
-                YDisplayLayer.ALIGN.TOP_CENTER,  YDisplayLayer.ALIGN.CENTER,        
+                YDisplayLayer.ALIGN.TOP_CENTER,       YDisplayLayer.ALIGN.CENTER,
                 YDisplayLayer.ALIGN.BASELINE_CENTER,  YDisplayLayer.ALIGN.BOTTOM_CENTER,
-                YDisplayLayer.ALIGN.TOP_DECIMAL, YDisplayLayer.ALIGN.CENTER_DECIMAL,
+                YDisplayLayer.ALIGN.TOP_DECIMAL,      YDisplayLayer.ALIGN.CENTER_DECIMAL,
                 YDisplayLayer.ALIGN.BASELINE_DECIMAL, YDisplayLayer.ALIGN.BOTTOM_DECIMAL,
-                YDisplayLayer.ALIGN.TOP_RIGHT,   YDisplayLayer.ALIGN.CENTER_RIGHT,  
+                YDisplayLayer.ALIGN.TOP_RIGHT,        YDisplayLayer.ALIGN.CENTER_RIGHT,
                 YDisplayLayer.ALIGN.BASELINE_RIGHT,   YDisplayLayer.ALIGN.BOTTOM_RIGHT.
         @param text : the text string to draw
 
@@ -542,11 +542,17 @@ class YDisplayLayer(object):
 #noinspection PyProtectedMember
 class YDisplay(YFunction):
     """
+    The YDisplay class allows to drive Yoctopuce displays.
     Yoctopuce display interface has been designed to easily
     show information and images. The device provides built-in
     multi-layer rendering. Layers can be drawn offline, individually,
     and freely moved on the display. It can also replay recorded
     sequences (animations).
+
+    In order to draw on the screen, you should use the
+    display.get_displayLayer method to retrieve the layer(s) on
+    which you want to draw, and then use methods defined in
+    YDisplayLayer to draw on the layers.
 
     """
     #--- (end of generated code: YDisplay class start)
@@ -589,9 +595,9 @@ class YDisplay(YFunction):
         self._layerHeight = YDisplay.LAYERHEIGHT_INVALID
         self._layerCount = YDisplay.LAYERCOUNT_INVALID
         self._command = YDisplay.COMMAND_INVALID
+        self._allDisplayLayers = []
         #--- (end of generated code: YDisplay attributes)
         self._sequence = ""
-        self._allDisplayLayers = []
         self._recording = False
 
     #--- (generated code: YDisplay implementation)
@@ -751,7 +757,7 @@ class YDisplay(YFunction):
         On failure, throws an exception or returns YDisplay.DISPLAYWIDTH_INVALID.
         """
         # res
-        if self._cacheExpiration <= YAPI.GetTickCount():
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
             if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.DISPLAYWIDTH_INVALID
         res = self._displayWidth
@@ -766,7 +772,7 @@ class YDisplay(YFunction):
         On failure, throws an exception or returns YDisplay.DISPLAYHEIGHT_INVALID.
         """
         # res
-        if self._cacheExpiration <= YAPI.GetTickCount():
+        if self._cacheExpiration == datetime.datetime.fromtimestamp(86400):
             if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YDisplay.DISPLAYHEIGHT_INVALID
         res = self._displayHeight
@@ -870,7 +876,8 @@ class YDisplay(YFunction):
         you are certain that the matching device is plugged, make sure that you did
         call registerHub() at application initialization time.
 
-        @param func : a string that uniquely characterizes the display
+        @param func : a string that uniquely characterizes the display, for instance
+                YD128X32.display.
 
         @return a YDisplay object allowing you to drive the display.
         """
@@ -1040,6 +1047,31 @@ class YDisplay(YFunction):
         self.flushLayers()
         return self.sendCommand("E" + str(int(layerIdA)) + "," + str(int(layerIdB)))
 
+    def get_displayLayer(self, layerId):
+        """
+        Returns a YDisplayLayer object that can be used to draw on the specified
+        layer. The content is displayed only when the layer is active on the
+        screen (and not masked by other overlapping layers).
+
+        @param layerId : the identifier of the layer (a number in range 0..layerCount-1)
+
+        @return an YDisplayLayer object
+
+        On failure, throws an exception or returns None.
+        """
+        # layercount
+        # idx
+        layercount = self.get_layerCount()
+        if not ((layerId >= 0) and (layerId < layercount)):
+            self._throw(YAPI.INVALID_ARGUMENT, "invalid DisplayLayer index")
+            return None
+        if len(self._allDisplayLayers) == 0:
+            idx = 0
+            while idx < layercount:
+                self._allDisplayLayers.append(YDisplayLayer(self, idx))
+                idx = idx + 1
+        return self._allDisplayLayers[layerId]
+
     def nextDisplay(self):
         """
         Continues the enumeration of displays started using yFirstDisplay().
@@ -1059,29 +1091,6 @@ class YDisplay(YFunction):
         return YDisplay.FindDisplay(hwidRef.value)
 
 #--- (end of generated code: YDisplay implementation)
-
-    def get_displayLayer(self, layerId):
-        """
-        Returns a YDisplayLayer object that can be used to draw on the specified
-        layer. The content is displayed only when the layer is active on the
-        screen (and not masked by other overlapping layers).
-
-        @param layerId : the identifier of the layer (a number in range 0..layerCount-1)
-
-        @return an YDisplayLayer object
-
-        On failure, throws an exception or returns None.
-        """
-        layercount = self.get_layerCount()
-        if (layerId < 0) or (layerId >= layercount):
-            self._throw(-1, "invalid DisplayLayer index, valid values are [0.." + str(layercount - 1) + "]")
-            return None
-
-        if len(self._allDisplayLayers) == 0:
-            for i in range(0, layercount):
-                self._allDisplayLayers.append(YDisplayLayer(self, str(i)))
-
-        return self._allDisplayLayers[layerId]
 
     def flushLayers(self):
         if self._allDisplayLayers is not None:
