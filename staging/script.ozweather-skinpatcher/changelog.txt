@@ -1,3 +1,5 @@
+0.0.7
+- Fix Estuary support (was using Estouchy file, oops)
 0.0.6
 - Improve error logging and notifications
 0.0.5
