@@ -195,7 +195,7 @@ Only patches the currently selected skin, and only if that skin is Estuary, Esto
 Backups of the original files are saved as .original files in the skin folder
 (& can be also be restored by this utility).
 
-Confluence only - by default patches only MyWeather.xml, but you can also patch VideoFullScreen.xml
+Confluence and Estuary - by default patches only MyWeather.xml, but you can also patch VideoFullScreen.xml
 to display radar and basic weather info when media info is displayed during playback.
 (enable this in the add-on settings if you wish)
 """)
