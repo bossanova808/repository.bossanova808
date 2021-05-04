@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+	<defaultcontrol></defaultcontrol>
+	<controls>
+
+		<!-- BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
+	    <control type="group" id="10125">
+  			<posx>20</posx>
+  			<posy>120</posy>
+  			<!-- Only show weather if it is available - using a predicted high of zero since this never happens where I live, but it's dodgy -->
+  			<!-- Should use Weather.IsFetched but for some reason it doesn't work as expected -->
+			<!-- <visible>!Weather.IsFetched</visible> -->
+	      	<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
+			<visible>[!StringCompare(Window(2600).Property(Day0.HighTemp),"0") + !String.IsEmpty(Window(2600).Property(Day0.HighTemp))]</visible>
+			<control type="group" id="10126">
+				<posx>0</posx>
+				<posy>15</posy>
+				 <control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/background.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+				</control>
+				<control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/topography.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+				</control>
+				<control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/locations.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+				</control>
+				<control type="image" id="19547">
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>256</height>
+					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/range.png</texture>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+				</control> 			
+				<control type="multiimage" id="19547">
+					<description>maps multiimage</description>
+					<posx>8</posx>
+					<posy>8</posy>
+					<width>240</width>
+					<height>240</height>
+					<imagepath>special://profile/addon_data/weather.ozweather/currentloop/$INFO[Window(2600).Property(Radar)]/</imagepath>
+					<timeperimage>500</timeperimage>
+					<pauseatend>1000</pauseatend>
+					<fadetime>0</fadetime>
+					<randomize>false</randomize>
+					<loop>yes</loop>
+					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordersize>8</bordersize>
+				</control>
+			</control>
+			<control type="group" id="10126">
+				<posx>230</posx>
+				<posy></posy>
+	 			<control type="label" id="19547">
+					<description>currently label</description>
+					<posx>35</posx>
+					<posy>-40</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Currently</label>
+					<font>font13</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>grey</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+	  			<control type="label" id="19547">
+					<description>current temp Value</description>
+					<posx>115</posx>
+					<posy>55</posy>
+					<width>180</width>
+					<height>40</height>
+					<font>font13</font>
+					<align>right</align>
+					<aligny>top</aligny>
+					<label>$INFO[Window(2600).Property(Current.Temperature)] °C</label>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label" id="19547">
+					<description>predicted high label</description>
+					<posx>35</posx>
+					<posy>35</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Predicted High: [COLOR white]$INFO[Window(2600).Property(Day0.HighTemp)] °C[/COLOR]</label>
+					<font>font10</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label" id="19547">
+					<description>low label</description>
+					<posx>35</posx>
+					<posy>70</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Overnight Low:  [COLOR white]$INFO[Window(2600).Property(Day1.LowTemp)] °C[/COLOR]</label>
+					<font>font10</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label" id="19547">
+					<description>tomorrow high label</description>
+					<posx>35</posx>
+					<posy>105</posy>
+					<width>460</width>
+					<height>160</height>
+					<label>Tomorrow High: [COLOR white]$INFO[Window(2600).Property(Day1.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+					<font>font10</font>
+					<align>left</align>
+					<scroll>true</scroll>
+					<aligny>center</aligny>
+					<textcolor>gray</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+			</control>
+		</control>
+		<!-- END BOSSANOVA808 MOD - OzWeather Radar and Short Forecast -->
+
+		<control type="group" id="0">
+			<control type="label" id="10">
+				<left>45</left>
+				<top>15</top>
+				<width>1770</width>
+				<height>100</height>
+				<label></label>
+				<font>font12</font>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="label" id="11">
+				<left>45</left>
+				<top>45</top>
+				<width>1770</width>
+				<height>100</height>
+				<label></label>
+				<font>font12</font>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="label" id="12">
+				<left>45</left>
+				<top>75</top>
+				<width>1770</width>
+				<height>100</height>
+				<label></label>
+				<font>font12</font>
+				<shadowcolor>black</shadowcolor>
+			</control>
+		</control>
+		<control type="group" id="1">
+			<depth>DepthOSD+</depth>
+			<visible>Player.Caching + Integer.IsGreater(Player.CacheLevel,0)</visible>
+			<animation effect="fade" delay="300" time="200">Visible</animation>
+			<animation effect="fade" delay="200" time="150">Hidden</animation>
+			<centerleft>50%</centerleft>
+			<width>110</width>
+			<centertop>50%</centertop>
+			<height>110</height>
+			<control type="image" id="1">
+				<centerleft>50%</centerleft>
+				<centertop>50%</centertop>
+				<width>110</width>
+				<height>110</height>
+				<texture colordiffuse="BFFFFFFF">osd/buffer-bg.png</texture>
+			</control>
+			<control type="image" id="1">
+				<centerleft>50%</centerleft>
+				<centertop>50%</centertop>
+				<width>92</width>
+				<height>92</height>
+				<texture>dialogs/extendedprogress/loading-back.png</texture>
+			</control>
+			<control type="image" id="1">
+				<centerleft>50%</centerleft>
+				<centertop>50%</centertop>
+				<width>92</width>
+				<height>92</height>
+				<texture colordiffuse="button_focus">$INFO[Player.CacheLevel,dialogs/volume/progress/p,.png]</texture>
+			</control>
+			<control type="label" id="1">
+				<description>buffering value</description>
+				<label>$INFO[Player.CacheLevel]</label>
+				<centerleft>50%</centerleft>
+				<centertop>50%</centertop>
+				<width>200</width>
+				<height>200</height>
+				<aligny>center</aligny>
+				<align>center</align>
+				<font>font13</font>
+			</control>
+		</control>
+	</controls>
+</window>

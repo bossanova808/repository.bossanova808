@@ -114,7 +114,7 @@ def patch(config):
             notify('Exiting - as error when copying OzWeather MyWeather.xml - is skin folder writeable?')
             sys.exit(1)
 
-        if config.patch_videofullscreen and 'confluence' in config.current_skin:
+        if config.patch_videofullscreen and ('confluence' in config.current_skin or 'estuary' in config.current_skin):
             log(f'Copying OzWeather VideoFullScreen.xml to {config.xml_destination_folder}')
             success = xbmcvfs.copy(config.new_videofullscreen_xml, config.current_videofullscreen_xml)
             if success:
