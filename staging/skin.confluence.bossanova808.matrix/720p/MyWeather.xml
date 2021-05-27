@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<window>
+<window id="2600">
 	<defaultcontrol always="true">50</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<onload condition="!Skin.HasSetting(FirstTimeRun)">ActivateWindow(1112)</onload>
@@ -272,7 +271,7 @@
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
 					</control>
-					<control type="label">
+<!-- 					<control type="label">
 						<description>current dew label</description>
 						<posx>390</posx>
 						<posy>55</posy>
@@ -284,7 +283,7 @@
 						<label>$LOCALIZE[405] :</label>
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
-					</control>
+					</control> -->
 					<control type="label">
 						<description>current humidity label</description>
 						<posx>390</posx>
@@ -350,7 +349,7 @@
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 					</control>
-					<control type="label">
+<!-- 					<control type="label">
 						<description>current dew Value</description>
 						<posx>395</posx>
 						<posy>55</posy>
@@ -362,7 +361,7 @@
 						<label>$INFO[Window.Property(Current.DewPoint)]$INFO[System.TemperatureUnits]</label>
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
-					</control>
+					</control> -->
 					<control type="label">
 						<description>current humidity Value</description>
 						<posx>395</posx>
@@ -398,7 +397,7 @@
 						<font>font10</font>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>$INFO[Window.Property(Current.FireDangerText)] ($INFO[Window.Property(Current.FireDanger)])</label>
+						<label>$INFO[Window.Property(Current.FireDanger)]</label>
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 					</control>
@@ -417,18 +416,18 @@
 					</control>
 					<control type="label">
 						<description>Rain Since 9 label</description>
-						<posx>508</posx>
+						<posx>488</posx>
 						<posy>46</posy>
 						<height>20</height>
 						<font>font10</font>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>Rain Since 9 :</label>
+						<label>Rain Since 9am :</label>
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
 					</control>
-					<control type="label">
+	<!-- 				<control type="label">
 						<description>Rain Since 9 label</description>
 						<posx>508</posx>
 						<posy>61</posy>
@@ -440,7 +439,7 @@
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
-					</control>
+					</control> -->
 					<control type="label">
 						<description>Sunrise label</description>
 						<posx>537</posx>
@@ -467,7 +466,7 @@
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
 					</control>
-					<control type="label">
+<!-- 					<control type="label">
 						<description>Pressure label</description>
 						<posx>528</posx>
 						<posy>106</posy>
@@ -479,7 +478,7 @@
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
-					</control>
+					</control> -->
 					<control type="label">
 						<description>Rain Since 9</description>
 						<posx>600</posx>
@@ -488,12 +487,12 @@
 						<font>font10</font>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>$INFO[Window.Property(Current.RainSince9)]</label>
+						<label>$INFO[Window.Property(Current.RainSince9)]mm</label>
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
 					</control>
-					<control type="label">
+<!-- 					<control type="label">
 						<description>Rain Last Hr</description>
 						<posx>600</posx>
 						<posy>61</posy>
@@ -505,7 +504,7 @@
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
-					</control>
+					</control> -->
 					<control type="label">
 						<description>Sun up</description>
 						<posx>600</posx>
@@ -532,7 +531,7 @@
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
 					</control>
-					<control type="label">
+<!-- 					<control type="label">
 						<description>Pressure Value</description>
 						<posx>600</posx>
 						<posy>106</posy>
@@ -544,7 +543,7 @@
 						<textcolor>white</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<visible>Weather.IsFetched</visible>
-					</control>
+					</control> -->
 				</control>	
 				<!-- End current conditions -->
 
@@ -1388,6 +1387,7 @@
 						<ondown>302</ondown>
 						<onback>50</onback>
 					</control>
+
 				</control>
 				<control type="button" id="302">
 					<description>10 day forcast button</description>

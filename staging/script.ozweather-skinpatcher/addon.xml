@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.8" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.9" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -17,8 +17,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>- v0.0.7
-       Fix Estuary support
+    <news>- v0.0.9
+       Prepare for release of OzWeather using direct BOM API data
     </news>
     <assets>
       <icon>icon.png</icon>

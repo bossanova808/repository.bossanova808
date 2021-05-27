@@ -217,7 +217,7 @@
                         <textcolor>grey2</textcolor>
                         <shadowcolor>black</shadowcolor>
                     </control>
-                    <control type="label">
+<!--                     <control type="label">
                         <description>current dew label</description>
                         <posx>390</posx>
                         <posy>62</posy>
@@ -229,7 +229,7 @@
                         <label>$LOCALIZE[405] :</label>
                         <textcolor>grey2</textcolor>
                         <shadowcolor>black</shadowcolor>
-                    </control>
+                    </control> -->
                     <control type="label">
                         <description>current humidity label</description>
                         <posx>390</posx>
@@ -296,7 +296,7 @@
                         <textcolor>white</textcolor>
                         <shadowcolor>black</shadowcolor>
                     </control>
-                    <control type="label">
+<!--                     <control type="label">
                         <description>current dew Value</description>
                         <posx>395</posx>
                         <posy>62</posy>
@@ -308,7 +308,7 @@
                         <label>$INFO[Window.Property(Current.DewPoint)]$INFO[System.TemperatureUnits]</label>
                         <textcolor>white</textcolor>
                         <shadowcolor>black</shadowcolor>
-                    </control>
+                    </control> -->
                     <control type="label">
                         <description>current humidity Value</description>
                         <posx>395</posx>
@@ -344,7 +344,7 @@
                         <font>font20</font>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[Window.Property(Current.FireDangerText)] ($INFO[Window.Property(Current.FireDanger)])</label>
+                        <label>$INFO[Window.Property(Current.FireDanger)]</label>
                         <textcolor>white</textcolor>
                         <shadowcolor>black</shadowcolor>
                     </control>
@@ -376,8 +376,8 @@
                         <shadowcolor>black</shadowcolor>
                         <visible>Weather.IsFetched</visible>
                     </control>
-                    <control type="label">
-                        <description>Rain Since 9 label</description>
+<!--                     <control type="label">
+                        <description>Rain Last Hr label</description>
                         <posx>550</posx>
                         <posy>68</posy>
                         <height>20</height>
@@ -388,7 +388,7 @@
                         <textcolor>grey2</textcolor>
                         <shadowcolor>black</shadowcolor>
                         <visible>Weather.IsFetched</visible>
-                    </control>
+                    </control> -->
                     <control type="label">
                         <description>Sunrise label</description>
                         <posx>592</posx>
@@ -415,7 +415,7 @@
                         <shadowcolor>black</shadowcolor>
                         <visible>Weather.IsFetched</visible>
                     </control>
-                    <control type="label">
+<!--                     <control type="label">
                         <description>Pressure label</description>
                         <posx>578</posx>
                         <posy>134</posy>
@@ -427,7 +427,7 @@
                         <textcolor>grey2</textcolor>
                         <shadowcolor>black</shadowcolor>
                         <visible>Weather.IsFetched</visible>
-                    </control>
+                    </control> -->
 
                     <control type="label">
                         <description>Rain Since 9</description>
@@ -437,12 +437,12 @@
                         <font>font20</font>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[Window.Property(Current.RainSince9)]</label>
+                        <label>$INFO[Window.Property(Current.RainSince9)]mm</label>
                         <textcolor>white</textcolor>
                         <shadowcolor>black</shadowcolor>
                         <visible>Weather.IsFetched</visible>
                     </control>
-                    <control type="label">
+<!--                     <control type="label">
                         <description>Rain Last Hr</description>
                         <posx>680</posx>
                         <posy>68</posy>
@@ -454,7 +454,7 @@
                         <textcolor>white</textcolor>
                         <shadowcolor>black</shadowcolor>
                         <visible>Weather.IsFetched</visible>
-                    </control>
+                    </control> -->
                     <control type="label">
                         <description>Sun up</description>
                         <posx>680</posx>
@@ -526,7 +526,7 @@
                     <description>Long Weather Forecast</description>
                     <posx>47</posx>
                     <posy>220</posy>
-                    <width>620</width>
+                    <width>720</width>
                     <height>88</height>
                     <font>font20</font>
                     <align>justify</align>

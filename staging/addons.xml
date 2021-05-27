@@ -43,7 +43,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.8" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.0.9" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -61,8 +61,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>- v0.0.7
-       Fix Estuary support
+    <news>- v0.0.9
+       Prepare for release of OzWeather using direct BOM API data
     </news>
     <assets>
       <icon>icon.png</icon>
@@ -218,7 +218,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.607" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.608" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>
