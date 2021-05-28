@@ -1,3 +1,5 @@
+0.1.0
+- Prep for OzWeather BOM API release
 0.0.7
 - Fix Estuary support (was using Estouchy file, oops)
 0.0.6
