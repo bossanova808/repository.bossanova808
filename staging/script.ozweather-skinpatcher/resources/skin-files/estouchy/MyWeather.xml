@@ -138,7 +138,7 @@
                     <posy>-20</posy>
                     <width>600</width>
                     <height>30</height>
-                    <font>font12_title</font>
+                    <font>font20_title</font>
                     <label>Observations & Forecast - $INFO[Window.Property(Location)]</label>
                     <align>center</align>
                     <aligny>center</aligny>
@@ -152,14 +152,14 @@
                     <posy>-10</posy>       
                     <control type="image">
                         <description>current weather icon</description>
-                        <posx>-10</posx>
-                        <posy>48</posy>
+                        <posx>-20</posx>
+                        <posy>80</posy>
                         <width>100</width>
                         <height>100</height>
                         <info>Window.Property(Current.ConditionIcon)</info>
                         <aspectratio>keep</aspectratio>
                     </control>
-                    <control type="label">
+<!--                     <control type="label">
                         <description>now label</description>
                         <posx>110</posx>
                         <posy>-20</posy>
@@ -173,11 +173,11 @@
                         <aligny>center</aligny>
                         <textcolor>grey</textcolor>
                         <shadowcolor>black</shadowcolor>
-                    </control>
+                    </control> -->
                     <control type="label">
                         <description>current condition label</description>
-                        <posx>110</posx>
-                        <posy>10</posy>
+                        <posx>-10</posx>
+                        <posy>-10</posy>
                         <width>460</width>
                         <height>160</height>
                         <info>Window.Property(Current.Condition)</info>
@@ -191,11 +191,11 @@
                     </control>
                     <control type="label">
                         <description>current temp Value</description>
-                        <posx>200</posx>
-                        <posy>105</posy>
+                        <posx>235</posx>
+                        <posy>75</posy>
                         <width>180</width>
                         <height>40</height>
-                        <font>font35_title</font>
+                        <font>font70_title</font>
                         <align>right</align>
                         <aligny>top</aligny>
                         <label>$INFO[Window.Property(Current.Temperature)]$INFO[System.TemperatureUnits]</label>

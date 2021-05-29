@@ -43,7 +43,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.1.0" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.1.1" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -218,7 +218,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.608" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.609" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>
