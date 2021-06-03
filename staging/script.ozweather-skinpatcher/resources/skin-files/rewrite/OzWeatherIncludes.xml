@@ -1,0 +1,248 @@
+<includes>
+
+    <include name="Header">
+        <param name="posx" />
+        <param name="posy" />
+        <param name="width" />
+        <param name="label" default="EMPTY LABEL" />
+        <definition>
+            <control type="label">
+                <description>Header</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <height>30</height>
+                <font>font12_title</font>
+                <label>$PARAM[label]</label>
+                <align>left</align>
+                <textcolor>white</textcolor>
+                <shadowcolor>black</shadowcolor>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Separator">
+        <param name="posx" default="0%" />
+        <param name="posy" default="0%" />
+        <param name="width" default="100%" />
+        <definition>
+            <control type="image">
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <height>4</height>
+                <texture>separator.png</texture>
+            </control>
+        </definition>
+    </include>
+       
+
+    <include name="RadarBackground">
+        <param name="posx" default="2%" />
+        <param name="posy" default="8%" />
+        <param name="width">RadarSquare</param>
+        <param name="height">RadarSquare</param>
+        <param name="texture" />
+        <definition>
+            <control type="image">
+                <description>Radar Background</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture>$PARAM[texture]</texture>
+            </control>
+        </definition>
+    </include>
+
+    <include name="RadarLoop">
+        <param name="posx" default="2%" />
+        <param name="posy" default="8%" />
+        <param name="width">RadarSquare</param>
+        <definition>
+            <control type="multiimage">
+                <description>Radar Loop</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <imagepath>special://profile/addon_data/weather.ozweather/currentloop/$INFO[Window.Property(Radar)]/</imagepath>
+                <timeperimage>500</timeperimage>
+                <pauseatend>1000</pauseatend>
+                <fadetime>0</fadetime>
+                <randomize>false</randomize>
+                <loop>yes</loop>
+            </control>
+        </definition>
+    </include>
+
+    <include name="OzWeatherButton">
+        <param name="id" />
+        <param name="onlick"/>
+        <param name="label" deafult="EMPTY LABEL" />
+        <param name="visible" default="true"/>
+        <definition>
+            <control type="button" id="$PARAM[id]">
+                <height>40</height>
+                <width>auto</width>
+                <align>center</align>
+                <font>font10</font>
+                <onclick>$PARAM[onclick]</onclick>
+                <label>$PARAM[label]</label>  
+                <visible>$PARAM[visible]</visible>
+            </control>
+        </definition>
+    </include>
+
+    <include name="OzWeatherButtons">
+        <param name="left" default="2%" />
+        <param name="top" default="86%" />
+        <param name="width" default="35%" />
+        <definition>
+            <control type="grouplist">
+                <description>OzWeather Buttons</description>
+                <defaultcontrol>100</defaultcontrol>
+                <left>$PARAM[left]</left>
+                <top>$PARAM[top]</top>
+                <width>$PARAM[width]</width>
+                <itemgap>4%</itemgap>
+                <orientation>horizontal</orientation>
+                <align>left</align>
+                <include content="OzWeatherButton">
+                    <param name="id">100</param>
+                    <param name="onclick">Weather.LocationNext</param>
+                    <param name="label">Next Location</param>
+                </include>
+                <include content="OzWeatherButton">
+                    <param name="id">200</param>
+                    <param name="onclick">Weather.LocationPrevious</param>
+                    <param name="label">Prev Location</param>
+                </include>
+                <include content="OzWeatherButton">
+                    <param name="id">300</param>
+                    <param name="onclick">PlayMedia($INFO[Window.Property(Video.1)],noresume)</param>
+                    <param name="label">ABC Weather</param>
+                    <param name="visible">!IsEmpty(Window.Property(Video.1))</param>
+                </include>                  
+            </control>
+        </definition>
+    </include>
+
+    <include name="OzWeatherTag">
+        <param name="posx" default="32%" />
+        <param name="posy" default="93%" />
+        <param name="width" default="10%" />       
+        <definition>
+            <control type="textbox">
+                <description>OzWeather Tag</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <height>30</height>
+                <font>font10</font>
+                <align>right</align>
+                <textcolor>gray</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <label>$INFO[Window.Property(WeatherVersion)]</label>
+            </control>
+        </definition>
+    </include>
+
+
+    <include name="ForecastRow">
+        <param name="posx" default="0%" />
+        <param name="posy" />    
+        <param name="IconCode" />
+        <param name="Outlook" />
+        <param name="DayLabel" />
+        <param name="HighTemperature" />    
+        <param name="LowTemperature" />         
+        <param name="RainChance" />
+        <param name="RainAmount" />
+        <definition>
+            
+            <control type="group">
+           
+                <description>Weather Forecast Row</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>  
+                <height>100%</height>
+                <width>100%</width>
+
+                <visible>Weather.IsFetched</visible> 
+
+                <include content="Separator" />
+
+                <control type="image">
+                    <description>Weather Icon</description>
+                    <posx>7%</posx>
+                    <posy>3%</posy>
+                    <height>14%</height>
+                    <texture>resource://resource.images.weathericons.default/$PARAM[iconcode]</texture>
+                    <aspectratio align="left">keep</aspectratio>                                       
+                </control>     
+
+                <control type="label">
+                    <description>High Value</description>
+                    <posx>19%</posx>
+                    <posy>3%</posy>
+                    <label>$PARAM[HighTemperature]°</label>
+                    <font>font30_title</font>
+                    <textcolor>white</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                    <visible>Weather.IsFetched</visible>
+                </control>
+
+                <control type="label">
+                    <description>Day Label and Outlook</description>
+                    <posx>34%</posx>
+                    <posy>3%</posy>
+                    <font>font10</font>
+                    <label>[COLOR white]$PARAM[DayLabel][/COLOR] - $PARAM[outlook]</label>
+                    <textcolor>gray</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                    <visible>Weather.IsFetched</visible>
+                </control>
+
+                <control type="label">
+                    <description>Low Label and Value</description>
+                    <posx>34%</posx>
+                    <posy>9%</posy>
+                    <font>font10</font>
+                    <label>$LOCALIZE[418] :      [COLOR white]$PARAM[LowTemperature]°[/COLOR]</label>
+                    <textcolor>grey2</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                    <visible>Weather.IsFetched</visible>
+                </control>
+
+                <control type="label">
+                    <description>Rain Chance</description>
+                    <left>65%</left>
+                    <posy>3%</posy>
+                    <width>25%</width>
+                    <align>right</align>
+                    <font>font10</font>
+                    <label>Chance of Rain: [COLOR white]$PARAM[RainChance][/COLOR]</label>
+                    <textcolor>gray</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                </control>
+
+                <control type="label">
+                    <description>Rain Amount</description>
+                    <left>65%</left>
+                    <posy>9%</posy>
+                    <width>25%</width>
+                    <align>right</align>
+                    <font>font10</font>
+                    <label>Predicted Rain: [COLOR white]$PARAM[RainAmount][/COLOR]</label>
+                    <textcolor>gray</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                </control>
+
+            </control>
+
+        </definition>
+    </include>
+
+</includes>
+

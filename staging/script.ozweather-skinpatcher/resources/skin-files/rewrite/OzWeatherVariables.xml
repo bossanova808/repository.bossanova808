@@ -1,0 +1,12 @@
+<includes>
+
+        
+    <constant name="RadarSquare">40%</constant>
+    <constant name="RadarLegend">48%</constant>
+
+
+    <variable name="VarRadarSquare">
+        <value>200</value>
+    </variable>
+
+</includes>
