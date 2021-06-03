@@ -45,7 +45,7 @@
 					<param name="posx">2%</param>
 					<param name="posy">3%</param>
 					<param name="width">40%</param>
-					<param name="label">Radar $INFO[Window.Property(Radar)], updated $INFO[Window.Property(Updated)]</param>
+					<param name="label">Radar ($INFO[Window.Property(Radar)]), updated $INFO[Window.Property(Updated)]</param>
 				</include>	
 				
 				<!-- Note the first is larger, it add's the legend and copyright banner around the rest -->
@@ -97,8 +97,159 @@
 					<param name="posx">3%</param>
 					<param name="posy">3%</param>
 					<param name="width">90%</param>
-					<param name="label">Observations &amp; Forecast - $INFO[Window.Property(Location)]</param>
+					<param name="label">$INFO[Window.Property(Location)]</param>
 				</include>	
+
+
+				<control type="group">
+					<posx>7%</posx>
+					<posy>7%</posy>
+					<height>30%</height>
+					<width>100%</width>
+
+					<include content="Separator" />
+
+					<include content="Header">
+						<param name="posx">0%</param>
+						<param name="posy">5%</param>
+						<param name="label">$INFO[Window.Property(Daily.1.Outlook)]</param>
+					</include>	
+
+					<include content="Header">
+						<param name="posx">0%</param>
+						<param name="posy">18%</param>
+						<param name="label">[COLOR grey]$INFO[Window.Property(Current.NowLabel)] - [/COLOR][COLOR orange]$INFO[Window.Property(Current.NowValue)]&#176;[/COLOR]</param>
+					</include>				
+
+					<include content="Header">
+						<param name="posx">0%</param>
+						<param name="posy">28%</param>
+						<param name="label">[COLOR grey]$INFO[Window.Property(Current.LaterLabel)] - [/COLOR][COLOR skyblue]$INFO[Window.Property(Current.LaterValue)]&#176;[/COLOR]</param>
+					</include>	
+
+					<control type="image">
+						<description>Current Weather Icon</description>
+						<posx>0%</posx>
+						<posy>32%</posy>
+						<width>16%</width>
+						<info>Window.Property(Current.ConditionIcon)</info>
+						<aspectratio>keep</aspectratio>
+					</control>
+
+					<include content="Header">
+						<param name="posx">20%</param>
+						<param name="posy">47%</param>
+						<param name="label">[COLOR grey]Now:[/COLOR]</param>
+					</include>	
+
+					<include content="Header">
+						<param name="posx">34%</param>
+						<param name="posy">47%</param>
+						<param name="label">[COLOR grey2]Feels Like:[/COLOR]</param>
+					</include>	
+
+					<control type="label">
+						<description>Current Temperature</description>
+						<posx>22%</posx>
+						<posy>60%</posy>
+						<font>font_MainMenu</font>
+						<label>$INFO[Window.Property(Current.Temperature)]&#176;</label>
+						<textcolor>white</textcolor>
+						<shadowcolor>black</shadowcolor>
+					</control>	
+
+					<control type="label">
+						<description>Feels Like Temperature</description>
+						<posx>40%</posx>
+						<posy>60%</posy>
+						<font>font_MainMenu</font>
+						<label>$INFO[Window.Property(Current.FeelsLike)]&#176;</label>
+						<textcolor>grey</textcolor>
+						<shadowcolor>black</shadowcolor>
+					</control>	
+
+					<control type="grouplist">
+						<posx>27%</posx>
+						<posy>10%</posy>
+						<height>100%</height>
+						<width>40%</width>
+						<itemgap>20%</itemgap>
+
+						<include content="WeatherInfoLabel">
+							<param name="label">Rain Since 9am</param>	
+						</include>
+						<include content="WeatherInfoLabel">
+							<param name="label">Humidity</param>	
+						</include>
+						<include content="WeatherInfoLabel">
+							<param name="label">UV Max Today</param>	
+						</include>
+						<include content="WeatherInfoLabel">
+							<param name="label">Fire Danger</param>	
+						</include>
+						<include content="WeatherInfoLabel">
+							<param name="label">Wind</param>	
+						</include>
+						<include content="WeatherInfoLabel">
+							<param name="label">Gusts</param>	
+						</include>													
+						<include content="WeatherInfoLabel">
+							<param name="label">Sunrise</param>	
+						</include>
+						<include content="WeatherInfoLabel">
+							<param name="label">Sunset</param>	
+						</include>						
+					</control>
+
+					<control type="grouplist">
+						<posx>68%</posx>
+						<posy>10%</posy>
+						<height>100%</height>
+						<width>20%</width>
+						<itemgap>20%</itemgap>
+
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.RainSince9)]mm</param>	
+						</include>
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.Humidity)]</param>	
+						</include>
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.UVIndex)]</param>	
+						</include>
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.FireDanger)]</param>	
+						</include>
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.WindDirection)] @ $INFO[Window.Property(Current.WindSpeed)]</param>
+						</include>		
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.WindGust)] km/h</param>	
+						</include>		
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.Sunrise)]</param>	
+						</include>	
+						<include content="WeatherInfoValue">
+							<param name="label">$INFO[Window.Property(Current.Sunset)]</param>	
+						</include>
+					</control>
+
+				</control>
+
+	
+
+						<!-- Today's row in the forecast table -->
+<!-- 					<include content="ForecastRow">
+						<param name="posx">0</param>
+						<param name="posy">0</param>
+						<param name="iconcode">$INFO[Window.Property(Daily.1.OutlookIcon)]</param>
+						<param name="outlook">$INFO[Window.Property(Daily.1.Outlook)]</param>
+						<param name="DayLabel">Today</param>
+						<param name="HighTemperature">$INFO[Window.Property(Daily.1.HighTemperature)]</param>
+						<param name="LowTemperature">$INFO[Window.Property(Daily.1.LowTemperature)]</param>
+						<param name="RainChance">$INFO[Window.Property(Daily.1.RainChance)]</param>
+						<param name="RainAmount">$INFO[Window.Property(Daily.1.RainAmount)]</param>
+					</include> -->			
 
 <!-- 				<control type="label">
 					<description>header label</description>
@@ -420,22 +571,9 @@
 
 				<control type="group">
 					<posx>0%</posx>
-					<posy>51%</posy>
+					<posy>50%</posy>
 					<height>45%</height>
 					<width>100%</width>
-
-					<!-- Today's row in the forecast table -->
-<!-- 					<include content="ForecastRow">
-						<param name="posx">0</param>
-						<param name="posy">0</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.1.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.1.Outlook)]</param>
-						<param name="DayLabel">Today</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.1.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.1.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.1.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.1.RainAmount)]</param>
-					</include> -->
 
  					<include content="ForecastRow">
 						<param name="posy">0%</param>

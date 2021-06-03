@@ -149,6 +149,40 @@
     </include>
 
 
+    <include name="WeatherInfoLabel">
+        <param name="posx" default="0%" />
+        <param name="posy" default="0%" />
+        <param name="label" />
+        <definition>
+            <control type="label">
+                <description>Weather Info Label</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>100%</width>
+                <label>[COLOR grey2]$PARAM[label]:[/COLOR]</label>
+                <font>font10</font>
+                <align>right</align>
+            </control>                
+        </definition>
+    </include>
+
+    <include name="WeatherInfoValue">
+        <param name="posx" default="0%" />
+        <param name="posy" default="0%" />
+        <param name="label" />
+        <definition>
+            <control type="label">
+                <description>Weather Info Value</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>100%</width>
+                <label>$PARAM[label]</label>
+                <font>font10</font>
+                <align>left</align>
+            </control>                
+        </definition>
+    </include>
+
     <include name="ForecastRow">
         <param name="posx" default="0%" />
         <param name="posy" />    
@@ -176,8 +210,8 @@
                 <control type="image">
                     <description>Weather Icon</description>
                     <posx>7%</posx>
-                    <posy>3%</posy>
-                    <height>14%</height>
+                    <posy>2%</posy>
+                    <height>16%</height>
                     <texture>resource://resource.images.weathericons.default/$PARAM[iconcode]</texture>
                     <aspectratio align="left">keep</aspectratio>                                       
                 </control>     
@@ -209,7 +243,7 @@
                     <posx>34%</posx>
                     <posy>9%</posy>
                     <font>font10</font>
-                    <label>$LOCALIZE[418] :      [COLOR white]$PARAM[LowTemperature]°[/COLOR]</label>
+                    <label>Low:   [COLOR skyblue]$PARAM[LowTemperature]°[/COLOR]</label>
                     <textcolor>grey2</textcolor>
                     <shadowcolor>black</shadowcolor>
                     <visible>Weather.IsFetched</visible>
