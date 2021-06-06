@@ -3,6 +3,8 @@
 from resources.lib.common import *
 import os
 import sys
+import glob
+import ntpath
 import xbmc
 import xbmcvfs
 
@@ -22,39 +24,44 @@ class Config:
     log(f'Patch VideoFullScreen is {patch_videofullscreen}')
 
     skin = ''
-    skin_xml_folder = ''
+    destination_skin_xml_folder = ''
     if 'estuary' in current_skin:
         log('Estuary in skin folder name...proceeding...')
         skin = 'estuary'
-        skin_xml_folder = 'xml'
+        destination_skin_xml_folder = 'xml'
     if 'estouchy' in current_skin:
         log('Estouchy in skin folder name...proceeding...')
         skin = 'estouchy'
-        skin_xml_folder = 'xml'
+        destination_skin_xml_folder = 'xml'
     if 'confluence' in current_skin:
         log('Confluence in skin folder name...proceeding..')
         skin = 'confluence'
-        skin_xml_folder = '720p'
-    if not skin or not skin_xml_folder:
+        destination_skin_xml_folder = '720p'
+    if not skin or not destination_skin_xml_folder:
         log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
 
-    xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin)
-    xml_destination_folder = os.path.join(current_skin, skin_xml_folder)
+    skin_independent_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', 'skin-independent-components')
+    skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin)
+    xml_destination_folder = os.path.join(current_skin, destination_skin_xml_folder)
     current_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml')
     current_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml')
     backup_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml.original')
     backup_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml.original')
-    new_myweather_xml = os.path.join(xml_source_folder, 'MyWeather.xml')
-    new_videofullscreen_xml = os.path.join(xml_source_folder, 'VideoFullScreen.xml')
+    new_myweather_xml = os.path.join(skin_specific_xml_source_folder, 'MyWeather.xml')
+    new_tweaks_xml = os.path.join(skin_specific_xml_source_folder, f'OzWeatherTweaks-{skin}.xml')
+    new_videofullscreen_xml = os.path.join(skin_specific_xml_source_folder, 'VideoFullScreen.xml')
 
-    log(f'Skin XML folder is {xml_destination_folder}')
-    log(f'Current MyWeather.xml is {current_myweather_xml}')
-    log(f'Current VideoFullScreen.xml is {current_videofullscreen_xml}')
-    log(f'New MyWeather.xml is {new_myweather_xml}')
-    log(f'New VideoFullScreen.xml is {new_videofullscreen_xml}')
-    log(f'Backup MyWeather.xml will be {backup_myweather_xml}')
-    log(f'Backup VideoFullScreen.xml will be {backup_videofullscreen_xml}')
+    log(f'Source - Skin independent XML folder is {skin_independent_xml_source_folder}')
+    log(f'Source - Skin specific XML folder is {skin_specific_xml_source_folder}')
+    log(f'Destination - Skin XML folder is {xml_destination_folder}')
+    log(f'Current - MyWeather.xml is {current_myweather_xml}')
+    log(f'Current - VideoFullScreen.xml is {current_videofullscreen_xml}')
+    log(f'Backup - MyWeather.xml will be {backup_myweather_xml}')
+    log(f'Backup - VideoFullScreen.xml will be {backup_videofullscreen_xml}')
+    log(f'New - MyWeather.xml is {new_myweather_xml}')
+    log(f'New - Tweaks xml is {new_tweaks_xml}')
+    log(f'New - VideoFullScreen.xml is {new_videofullscreen_xml}')
 
 
 # Display a notification from OzWeather Skin Patcher to the Kodi user
@@ -103,10 +110,21 @@ def patch(config):
         notify('Exception when backing up current skin files - check logs!')
         sys.exit(1)
 
-    # Copy new files
-    try:
-        log(f'Copying OzWeather MyWeather.xml to {config.xml_destination_folder}')
-        success = xbmcvfs.copy(config.new_myweather_xml, config.current_myweather_xml)
+    # Prepare to copy new files - at a minimum, the new MyWeather.xml, the associated tweaks file,  and the skin independent components
+    list_of_files_to_copy = glob.glob(config.skin_independent_xml_source_folder + "/*")
+    list_of_files_to_copy.append(config.new_myweather_xml)
+    list_of_files_to_copy.append(config.new_tweaks_xml)
+    # If the setting is set in the addon, and we have one of these, also copy the VideoFullScreen.xml
+    if config.patch_videofullscreen and ('confluence' in config.current_skin or 'estuary' in config.current_skin):
+        log(f"Including VideoFullScreen.xml in files to copy as we have one, and the addon setting is {config.patch_videofullscreen}")
+        list_of_files_to_copy.append(config.new_videofullscreen_xml)
+
+    log("The list of files to copy is")
+    log(list_of_files_to_copy)
+
+    for file in list_of_files_to_copy:
+        log(f"Copying {file} to {config.xml_destination_folder}")
+        success = xbmcvfs.copy(file, config.xml_destination_folder + "/" + ntpath.basename(file))
         if success:
             log("...done")
         else:
@@ -114,22 +132,10 @@ def patch(config):
             notify('Exiting - as error when copying OzWeather MyWeather.xml - is skin folder writeable?')
             sys.exit(1)
 
-        if config.patch_videofullscreen and ('confluence' in config.current_skin or 'estuary' in config.current_skin):
-            log(f'Copying OzWeather VideoFullScreen.xml to {config.xml_destination_folder}')
-            success = xbmcvfs.copy(config.new_videofullscreen_xml, config.current_videofullscreen_xml)
-            if success:
-                log("...done")
-            else:
-                log("...failed!  Is the skin folder writeable?")
-                notify('Exiting - as error when copying OzWeather VideoFullScreen.xml - is skin folder writeable?')
-                sys.exit(1)
-        else:
-            log('Not copying VideoFullScreen.xml, as per addon settings')
-
-    except Exception as inst:
-        log(inst)
-        notify('Exception when copying OzWeather skin files - check logs!')
-        sys.exit(1)
+    # except Exception as inst:
+    #     log(inst)
+    #     notify('Exception when copying OzWeather skin files - check logs!')
+    #     sys.exit(1)
 
 
 # Attempt to restore .original files - we jsut try and restore both, no matter what the setting is
@@ -148,6 +154,7 @@ def restore(config):
                 sys.exit(1)
         else:
             log("Could not find MyWeather.xml.original file, did not restore")
+
         if xbmcvfs.exists(config.backup_videofullscreen_xml):
             log("Copying back VideoFullScreen.xml from VideoFullScreen.xml.original file")
             success = xbmcvfs.copy(config.backup_videofullscreen_xml, config.current_videofullscreen_xml)
