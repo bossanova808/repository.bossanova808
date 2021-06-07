@@ -1,0 +1,23 @@
+<includes>
+
+    <include name="FontHuge">
+        <font>font_MainMenu</font>
+    </include>
+    <include name="FontBig">
+        <font>font30_title</font>
+    </include>
+    <include name="FontHeader">
+        <font>font25_title</font>
+    </include>
+    <include name="FontBody">
+        <font>font10</font>
+    </include>
+
+    <constant name="RadarSquare">40%</constant>
+    <constant name="RadarLegend">48%</constant>
+
+    <constant name="MasterXOffset">-1%</constant>
+    <constant name="MasterYOffset">-3%</constant>
+    <constant name="WeatherInfoLineHeight">28%</constant>
+
+</includes>

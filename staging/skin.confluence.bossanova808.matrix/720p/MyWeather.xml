@@ -1,20 +1,39 @@
-<window id="2600" debugging="true">
+<!--	Unfortunately, a lot of things don't work as variables or constants, e.g. fonts -->
+<!--	..but they do work as includes, it seems, so we use constants, where they _do_ work -->
+<!--	..but otherwise includes, where they don't. -->
+<!--	See the top of OzWeatherTweaks-confluence (etc) for the main 'variables' to change -->
+<!--    But because of Kodi parsing issues with comments in includes, we document those here... -->
 
-	<includes>
-		<include file="OzWeatherVariables.xml" />	
-		<include file="OzWeatherIncludes.xml" />
-	</includes>
+<!-- 	Fonts - there are 4 font sizes to set - FontHuge, FontBig, FontHeader and FontBody -->
+<!--	Radars - RadarLegend is the size for the bigger outer image that adds the copyright and colour key -->
+<!--  		   - RadarSquare is the size for the radar backgrounds and loop images -->
+<!--    Controls - any skin specific controls needed for the weather page -->
+<!--    MasterXOffset & MasterYOffset - shift the content frame around as needed, often values used are negative -->
+<!--    WeatherInfoLineHeight - depending on the BodyFont used, this percentage varies from around 15 to 30% -->
+<!--        to space out the weather info labels on the right of the observations panel -->
 
-	<allowoverlay>no</allowoverlay>
-	<!-- Without this the location switcher in the blade menu breaks (?!) -->
-	<defaultcontrol always="true">50</defaultcontrol>
+<window id="12600">
+    <allowoverlay>no</allowoverlay>
+	<defaultcontrol always="true">222</defaultcontrol>
 
-	<controls>
-		
-		<include>CommonBackground</include>
-		
-		<!-- Major Panels -->
+	<!-- Skin Specific Stuff -->
+    <include file="OzWeatherTweaks-confluence.xml" />
+
+    <!-- All Skins    -->
+    <include file="OzWeatherSnippets.xml" />
+    <include file="OzWeatherRadar.xml" />
+    <include file="OzWeatherButtons.xml" />
+    <include file="OzWeatherObservations.xml" />
+    <include file="OzWeatherForecast.xml" />
+
+    <controls>
+        <include content="CommonBackground" />
+
+        <!-- GROUP OF TWO MAIN CONTENT PANELS, LEFT AND RIGHT -->
 		<control type="group">
+			<posx>MasterXOffset</posx>
+			<posy>MasterYOffset</posy>
+
 			<animation type="WindowOpen" reversible="false">
 				<effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300" />
 				<effect type="fade" start="0" end="100" time="300" />
@@ -23,506 +42,57 @@
 				<effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="300" />
 				<effect type="fade" start="100" end="0" time="300" />
 			</animation>
-			<include>VisibleFadeEffect</include>
 
 			<!--  LEFT PANEL GROUP  -->
-			<control type="group">				
+			<control type="group">
+				<description>Left Panel - The Radar Loop, Buttons, and OzWeather Version Tag</description>
 				<posx>3%</posx>
 				<posy>5%</posy>
+				<visible>Weather.IsFetched</visible>
 
-				<!-- Confluence Only - ok to use non percents here as Confluence = 720p fixed -->
-				<control type="image">
-					<posx>0</posx>
-					<posy>0</posy>
-					<width>550</width>
-					<height>670</height>
-					<texture border="20">ContentPanel.png</texture>
-					<visible>String.IsEqual(Window.Property(SkinInUse),"Confluence")</visible>
-				</control>
+                <include content="ConfluenceLeftPanelContainer" />
 
-				<include content="Header">
+				<include content="OzWeatherHeader">
+					<description>Radar Panel Header - ID and Time Range</description>
 					<param name="posx">2%</param>
 					<param name="posy">3%</param>
-					<param name="width">40%</param>
 					<param name="label">Radar ($INFO[Window.Property(Radar)]), [COLOR grey]from [COLOR]$INFO[Window.Property(RadarOldest)] [COLOR grey]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
-				</include>	
-				
-				<!-- Note the first is larger, it adds the legend and copyright banner around the rest -->
-				<include content="RadarBackground">
-					<param name="height">RadarLegend</param>
-					<param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/legend.png</param>
-				</include>	
-				<include content="RadarBackground">
-					<param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/background.png</param>
-				</include>					
-				<include content="RadarBackground">
-					<param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/topography.png</param>
-				</include>		
-				<include content="RadarBackground">
-					<param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/catchments.png</param>
-				</include>		
-				<include content="RadarBackground">
-					<param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/range.png</param>
-				</include>		
-				<include content="RadarBackground">
-					<param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/locations.png</param>
-				</include>						
-		
+				</include>
+
+				<include content="RadarBackgrounds" />
 				<include content="RadarLoop" />
 				<include content="OzWeatherButtons" />
 				<include content="OzWeatherTag" />
 
-			</control> 
-			<!--  END LEFT PANEL GROUP -->
-			
+			</control> <!--  END LEFT PANEL GROUP -->
+
 			<!-- RIGHT PANEL GROUP  -->
 			<control type="group">
-
+                <description>Right Panel - Current Observations, Extended Forecast Text, Forecast Rows</description>
 				<posx>46%</posx>
 				<posy>5%</posy>
-				
-				<!-- Confluence Only - ok to use non percents here as Confluence = 720p fixed -->
-				<control type="image">
-					<posx>0</posx>
-					<posy>0</posy>
-					<width>680</width>
-					<height>670</height>
-					<texture border="20">ContentPanel.png</texture>
-					<visible>String.IsEqual(Window.Property(SkinInUse),"Confluence")</visible>
-				</control>
+				<visible>Weather.IsFetched</visible>
 
-				<include content="Header">
+                <include content="ConfluenceRightPanelContainer" />
+
+                <include content="OzWeatherHeader">
+					<description>Location Panel Header - Name and Observed At Time</description>
 					<param name="posx">3%</param>
 					<param name="posy">3%</param>
-					<param name="width">90%</param>
 					<param name="label">$INFO[Window.Property(Location)], [COLOR grey]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)]</param>
-				</include>	
+				</include>
 
-				<control type="group">
-					<posx>7%</posx>
-					<posy>6%</posy>
-					<height>30%</height>
-					<width>100%</width>
+				<include content="Observations" />
+				<include content="ExtendedForecast" />
+				<include content="ForecastRows" />
 
-					<include content="Separator">
-						<param name="posy">2%</param>
-					</include>
+            </control> <!--  END RIGHT PANEL GROUP -->
 
-					<include content="Header">
-						<param name="posx">0%</param>
-						<param name="posy">5%</param>
-						<param name="label">$INFO[Window.Property(Daily.1.Outlook)]</param>
-					</include>	
+        </control> <!--END GROUP for Left & Right Panels -->
 
-					<include content="Header">
-						<param name="posx">0%</param>
-						<param name="posy">18%</param>
-						<param name="label">[COLOR grey]$INFO[Window.Property(Current.NowLabel)]: [/COLOR][COLOR orange]$INFO[Window.Property(Current.NowValue)]&#176;[/COLOR]</param>
-					</include>
+        <include content="ConfluenceBladeMenu" />
+        <include content="Clock" />
 
-					<include content="Header">
-						<param name="posx">0%</param>
-						<param name="posy">28%</param>
-						<param name="label">[COLOR grey]$INFO[Window.Property(Current.LaterLabel)]: [/COLOR][COLOR skyblue]$INFO[Window.Property(Current.LaterValue)]&#176;[/COLOR]</param>
-						<param name="visible">!String.Contains(Window.Property(Current.LaterLabel),Tomorrow)</param>
-					</include>
+    </controls>
 
-					<include content="Header">
-						<param name="posx">27%</param>
-						<param name="posy">18%</param>
-						<param name="label">[COLOR grey]Rain Chance: [/COLOR][COLOR skyblue]$INFO[Window.Property(Daily.1.RainChance)][/COLOR]</param>
-					</include>
-
-					<include content="Header">
-						<param name="posx">27%</param>
-						<param name="posy">28%</param>
-						<param name="label">[COLOR grey]Rain Predicted: [/COLOR][COLOR skyblue]$INFO[Window.Property(Daily.1.RainAmount)][/COLOR]</param>
-						<param name="visible">!String.Contains(Window.Property(Current.LaterLabel),Tomorrow)</param>
-					</include>
-
-					<control type="image">
-						<description>Current Weather Icon</description>
-						<posx>0%</posx>
-						<posy>32%</posy>
-						<width>16%</width>
-						<info>Window.Property(Current.ConditionIcon)</info>
-						<aspectratio>keep</aspectratio>
-					</control>
-
-					<include content="Header">
-						<param name="posx">20%</param>
-						<param name="posy">47%</param>
-						<param name="label">[COLOR grey]Now:[/COLOR]</param>
-					</include>	
-
-					<include content="Header">
-						<param name="posx">34%</param>
-						<param name="posy">47%</param>
-						<param name="label">[COLOR grey2]Feels Like:[/COLOR]</param>
-					</include>	
-
-					<control type="label">
-						<description>Current Temperature</description>
-						<posx>22%</posx>
-						<posy>60%</posy>
-						<font>font_MainMenu</font>
-						<label>$INFO[Window.Property(Current.Temperature)]&#176;</label>
-						<textcolor>white</textcolor>
-						<shadowcolor>black</shadowcolor>
-					</control>	
-
-					<control type="label">
-						<description>Feels Like Temperature</description>
-						<posx>40%</posx>
-						<posy>60%</posy>
-						<font>font_MainMenu</font>
-						<label>$INFO[Window.Property(Current.FeelsLike)]&#176;</label>
-						<textcolor>grey2</textcolor>
-						<shadowcolor>black</shadowcolor>
-					</control>	
-
-					<control type="grouplist">
-						<posx>32%</posx>
-						<posy>10%</posy>
-						<height>100%</height>
-						<width>40%</width>
-						<itemgap>20%</itemgap>
-
-						<include content="WeatherInfoLabel">
-							<param name="label">Rain Since 9am</param>	
-						</include>
-						<include content="WeatherInfoLabel">
-							<param name="label">Humidity</param>	
-						</include>
-						<include content="WeatherInfoLabel">
-							<param name="label">UV Max Today</param>	
-						</include>
-						<include content="WeatherInfoLabel">
-							<param name="label">Fire Danger</param>	
-						</include>
-						<include content="WeatherInfoLabel">
-							<param name="label">Wind</param>	
-						</include>
-						<include content="WeatherInfoLabel">
-							<param name="label">Gusts</param>	
-						</include>													
-						<include content="WeatherInfoLabel">
-							<param name="label">Sunrise</param>	
-						</include>
-						<include content="WeatherInfoLabel">
-							<param name="label">Sunset</param>	
-						</include>						
-					</control>
-
-					<control type="grouplist">
-						<posx>73%</posx>
-						<posy>10%</posy>
-						<height>100%</height>
-						<width>20%</width>
-						<itemgap>20%</itemgap>
-
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.RainSince9)]mm</param>	
-						</include>
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.Humidity)]</param>	
-						</include>
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.UVIndex)]</param>	
-						</include>
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.FireDanger)]</param>	
-						</include>
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.WindSpeed)] $INFO[Window.Property(Current.WindDirection)]</param>
-						</include>		
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.WindGust)] km/h</param>
-						</include>		
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.Sunrise)]</param>	
-						</include>	
-						<include content="WeatherInfoValue">
-							<param name="label">$INFO[Window.Property(Current.Sunset)]</param>	
-						</include>
-					</control>
-
-				</control>
-
-				<control type="group">
-					<posx>0%</posx>
-					<posy>33%</posy>
-					<height>11%</height>
-					<width>100%</width>
-
-					<include content="Separator" />
-
-					<!-- EXTENDED WEATHER FORECAST -->
-					<control type="label">
-						<description>Extended Forecast Label</description>
-						<posx>3%</posx>
-						<posy>10%</posy>
-						<font>font12_title</font>
-						<label>Extended Forecast [COLOR grey]for [/COLOR] $INFO[Window.Property(ForecastRegion)] ($INFO[Window.Property(ForecastType)]) [COLOR grey]issued[/COLOR] $INFO[Window.Property(ForecastUpdated)]</label>
-						<textcolor>white</textcolor>
-						<shadowcolor>black</shadowcolor>
-					</control>		
-				
-					<control type="textbox">
-						<description>Extended Forecast</description>
-						<posx>7%</posx>
-						<posy>45%</posy>
-						<width>80%</width>
-						<height>100%</height>
-						<font>font10</font>
-						<textcolor>white</textcolor>
-						<shadowcolor>black</shadowcolor>
-						<info>Window.Property(Current.ConditionLong)</info>
-						<autoscroll time="3000" delay="4000" repeat="5000"></autoscroll>
-					</control> -->
-
-				</control>
-
-
-
-				<control type="group">
-					<posx>0%</posx>
-					<posy>50%</posy>
-					<height>45%</height>
-					<width>100%</width>
-
- 					<include content="ForecastRow">
-						<param name="posy">0%</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.2.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.2.Outlook)]</param>
-						<param name="DayLabel">$INFO[Window.Property(Daily.2.Title)]</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.2.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.2.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.2.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.2.RainAmount)]</param>
-					</include>
-					<include content="ForecastRow">
-						<param name="posy">17%</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.3.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.3.Outlook)]</param>
-						<param name="DayLabel">$INFO[Window.Property(Daily.3.Title)]</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.3.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.3.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.3.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.3.RainAmount)]</param>
-					</include>
-					<include content="ForecastRow">
-						<param name="posy">34%</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.4.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.4.Outlook)]</param>
-						<param name="DayLabel">$INFO[Window.Property(Daily.4.Title)]</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.4.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.4.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.4.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.4.RainAmount)]</param>
-					</include>
-					<include content="ForecastRow">
-						<param name="posy">51%</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.5.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.5.Outlook)]</param>
-						<param name="DayLabel">$INFO[Window.Property(Daily.5.Title)]</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.5.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.5.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.5.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.5.RainAmount)]</param>
-					</include>
-					<include content="ForecastRow">
-						<param name="posy">68%</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.6.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.6.Outlook)]</param>
-						<param name="DayLabel">$INFO[Window.Property(Daily.6.Title)]</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.6.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.6.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.6.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.6.RainAmount)]</param>
-					</include>												
-					<include content="ForecastRow">
-						<param name="posy">85%</param>
-						<param name="iconcode">$INFO[Window.Property(Daily.7.OutlookIcon)]</param>
-						<param name="outlook">$INFO[Window.Property(Daily.7.Outlook)]</param>
-						<param name="DayLabel">$INFO[Window.Property(Daily.7.Title)]</param>
-						<param name="HighTemperature">$INFO[Window.Property(Daily.7.HighTemperature)]</param>
-						<param name="LowTemperature">$INFO[Window.Property(Daily.7.LowTemperature)]</param>
-						<param name="RainChance">$INFO[Window.Property(Daily.7.RainChance)]</param>
-						<param name="RainAmount">$INFO[Window.Property(Daily.7.RainAmount)]</param>
-					</include>	 
-
-
-				</control> <!-- Forecast Row Group -->
-
-			</control> <!-- Right Panel Group -->
-
-	</control> <!-- Major Panels Group -->
-
-
-	<!--  SHIT THAT GOES AT THE BOTTOM FOR THE CLOCK, SIDE MENU ETC -->
-
-	<include>CommonNowPlaying</include>
-	<control type="group">
-		<posx>-250</posx>
-		<include>SideBladeLeft</include>
-		<control type="grouplist" id="9000">
-			<posx>0</posx>
-			<posy>110</posy>
-			<width>250</width>
-			<height>610</height>
-			<onleft>9000</onleft>
-			<onright>50</onright>
-			<onup>9000</onup>
-			<ondown>9000</ondown>
-			<onback>50</onback>
-			<itemgap>0</itemgap>
-			<control type="label" id="200">
-				<width>250</width>
-				<height>35</height>
-				<font>font12caps</font>
-				<label>31006</label>
-				<textcolor>blue</textcolor>
-				<align>center</align>
-				<aligny>center</aligny>
-			</control>
-			<control type="group" id="300">
-				<width>250</width>
-				<height>80</height>
-				<control type="label" id="301">
-					<posx>10</posx>
-					<posy>0</posy>
-					<width>200</width>
-					<height>40</height>
-					<font>font13</font>
-					<label>31027</label>
-					<textcolor>white</textcolor>
-					<align>left</align>
-					<aligny>center</aligny>
-				</control>
-				<control type="spincontrolex" id="3">
-					<description>change location button</description>
-					<posx>0</posx>
-					<posy>40</posy>
-					<font>-</font>
-					<include>ButtonCommonValues</include>
-					<onleft>50</onleft>
-					<onright>50</onright>
-					<onup>200</onup>
-					<ondown>302</ondown>
-					<onback>50</onback>
-				</control>
-			</control>
-			<control type="button" id="302">
-				<description>10 day forcast button</description>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<label>31904</label>
-				<onclick>ClearProperty(Weather.CurrentView)</onclick>
-				<visible>StringCompare(Weather.Plugin,weather.weatherplus)</visible>
-			</control>
-			<control type="button" id="303">
-				<description>36 hour forcast button</description>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<label>31901</label>
-				<onclick>SetProperty(Weather.CurrentView,36hour)</onclick>
-				<visible>StringCompare(Weather.Plugin,weather.weatherplus)</visible>
-			</control>
-			<control type="button" id="304">
-				<description>Weekend forcast button</description>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<label>31903</label>
-				<onclick>SetProperty(Weather.CurrentView,weekend)</onclick>
-				<visible>StringCompare(Weather.Plugin,weather.weatherplus)</visible>
-			</control>
-			<control type="button" id="305">
-				<description>Hourly forecast button</description>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<label>31902</label>
-				<onclick>SetProperty(Weather.CurrentView,hourly)</onclick>
-				<visible>StringCompare(Weather.Plugin,weather.weatherplus)</visible>
-			</control>
-			<control type="button" id="306">
-				<description>Hourly forcast button</description>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<label>31906</label>
-				<onclick>SetProperty(Weather.CurrentView,maps)</onclick>
-				<visible>StringCompare(Weather.Plugin,weather.weatherplus)</visible>
-			</control>
-			<control type="label" id="201">
-				<width>250</width>
-				<height>35</height>
-				<font>font12caps</font>
-				<label>31026</label>
-				<textcolor>blue</textcolor>
-				<align>center</align>
-				<aligny>center</aligny>
-			</control>
-			<control type="button" id="2">
-				<description>Refresh button</description>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<label>103</label>
-			</control>
-			<control type="button" id="5">
-				<description>Custom Weather Script Button</description>
-				<label>$INFO[Skin.String(WeatherScript_Label)]</label>
-				<onclick>SetFocus(50)</onclick>
-				<onclick>XBMC.RunScript($INFO[Skin.String(WeatherScript_Path)])</onclick>
-				<onclick>SetFocus(50)</onclick>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<visible>Skin.HasSetting(WeatherScript_Enable) + !IsEmpty(Skin.String(WeatherScript_Label))</visible>
-			</control>
-			<control type="button" id="4">
-				<description>Settings button</description>
-				<label>5</label>
-				<onclick>ActivateWindow(servicesettings,weather)</onclick>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-			</control>
-			<control type="button" id="6">
-				<description>ABC video button</description>
-				<label>ABC Weather in 90 secs</label>
-				<onclick>PlayMedia($INFO[Window.Property(Video.1)],noresume)</onclick>
-				<visible>!IsEmpty(Window.Property(Video.1))</visible>
-				<textwidth>235</textwidth>
-				<include>ButtonCommonValues</include>
-				<ondown>400</ondown>
-			</control>
-			<include>CommonNowPlaying_Controls</include>
-		</control>
-	</control>
-	<control type="button" id="50">
-		<description>Fake Button to fix Side Menu Navigation</description>
-		<onleft>3</onleft>
-		<onright>3</onright>
-		<onup>3</onup>
-		<ondown>3</ondown>
-		<visible allowhiddenfocus="true">false</visible>
-	</control>
-	<control type="group">
-		<posx>40</posx>
-		<posy>0</posy>
-		<animation effect="slide" end="-310,0" time="400" tween="quadratic" easing="out">WindowClose</animation>
-		<animation effect="slide" start="-310,0" time="400" tween="quadratic" easing="out">WindowOpen</animation>
-		<control type="image">
-			<posx>0</posx>
-			<posy>0</posy>
-			<width>250</width>
-			<height>35</height>
-			<texture border="0,0,32,0">header.png</texture>
-		</control>
-		<control type="label">
-			<include>WindowTitleCommons</include>
-			<posx>220</posx>
-			<label>$LOCALIZE[8]</label>
-		</control>
-	</control>		<include>WindowTitleHomeButton</include>
-	<include>Clock</include>
-</controls>
 </window>
