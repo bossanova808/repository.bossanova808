@@ -34,7 +34,7 @@
 
                 <control type="label">
                     <description>High Value</description>
-                    <posx>19%</posx>
+                    <posx>18%</posx>
                     <posy>3%</posy>
                     <label>$PARAM[HighTemperature]°</label>
                     <include content="FontBig" />
