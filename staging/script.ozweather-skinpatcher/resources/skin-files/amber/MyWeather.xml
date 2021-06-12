@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+
+	<!-- Skin Specific Stuff -->
+    <include file="OzWeatherTweaks-amber.xml" />
+
+    <!-- All Skins    -->
+    <include file="OzWeatherSnippets.xml" />
+    <include file="OzWeatherRadar.xml" />
+    <include file="OzWeatherButtons.xml" />
+    <include file="OzWeatherObservations.xml" />
+    <include file="OzWeatherForecast.xml" />
+
+	<defaultcontrol always="true">222</defaultcontrol>
+	<controls>
+		<include>DefaultBackground</include>
+		<include>Time</include>
+    	<control type="image">
+			<width>1920</width>
+			<top>18</top>
+			<height>1200</height>
+			<texture border="0,30,0,0">OSD/FS_OSDBackground.png</texture>
+      		<colordiffuse>BBBBBBBB</colordiffuse>
+    	</control>
+		<control type="button" id="50">
+			<include>HiddenButton</include>
+			<onclick condition="!Skin.HasSetting(KioskMode.Enabled)">Control.SetFocus(9000)</onclick>
+			<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
+			<onright condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onright>
+			<onup condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onup>
+			<ondown condition="!Skin.HasSetting(KioskMode.Enabled)">9000</ondown>
+		</control>
+
+		<!-- GROUP OF TWO MAIN CONTENT PANELS, LEFT AND RIGHT -->
+		<control type="group">
+			<posx>MasterXOffset</posx>
+			<posy>MasterYOffset</posy>
+
+					<!--  LEFT PANEL GROUP  -->
+			<control type="group">
+				<description>Left Panel - The Radar Loop, Buttons, and OzWeather Version Tag</description>
+				<posx>3%</posx>
+				<posy>5%</posy>
+				<visible>Weather.IsFetched</visible>
+
+                <include content="ConfluenceLeftPanelContainer" />
+
+				<include content="OzWeatherHeader">
+					<description>Radar Panel Header - ID and Time Range</description>
+					<param name="posx">2%</param>
+					<param name="posy">3%</param>
+					<param name="label">Radar ($INFO[Window.Property(Radar)]), [COLOR grey]from [COLOR]$INFO[Window.Property(RadarOldest)] [COLOR grey]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
+				</include>
+
+				<include content="RadarBackgrounds" />
+				<include content="RadarLoop" />
+				<include content="OzWeatherButtons" />
+				<include content="OzWeatherTag" />
+
+			</control> <!--  END LEFT PANEL GROUP -->
+
+			<!-- RIGHT PANEL GROUP  -->
+			<control type="group">
+                <description>Right Panel - Current Observations, Extended Forecast Text, Forecast Rows</description>
+				<posx>46%</posx>
+				<posy>5%</posy>
+				<visible>Weather.IsFetched</visible>
+
+                <include content="ConfluenceRightPanelContainer" />
+
+                <include content="OzWeatherHeader">
+					<description>Location Panel Header - Name and Observed At Time</description>
+					<param name="posx">3%</param>
+					<param name="posy">3%</param>
+					<param name="label">$INFO[Window.Property(Location)], [COLOR grey]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)]</param>
+				</include>
+
+				<include content="Observations" />
+				<include content="ExtendedForecast" />
+				<include content="ForecastRows" />
+
+            </control> <!--  END RIGHT PANEL GROUP -->
+
+        </control> <!--END GROUP for Left & Right Panels -->
+
+
+		<control type="group"  id="8999" description="Side menu 9000 group">
+			<include>9000Commons</include>
+			<control type="grouplist" id="9000">
+				<posx>-499</posx>
+				<posy>60</posy>
+				<width>500</width>
+				<height>1120</height>
+				<onleft>222</onleft>
+				<onright>222</onright>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onback>50</onback>
+				<scrolltime>200</scrolltime>
+				<orientation>vertical</orientation>
+				<control type="label" id="9001" description="Provider">
+					<textoffsetx>10</textoffsetx>
+					<align>center</align>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<include>9000ViewButtons</include>
+					<label>$INFO[Window.Property(WeatherProvider)]</label>
+				</control>
+				<control type="label" description="Refresh">
+					<height>90</height>
+					<textoffsetx>10</textoffsetx>
+					<align>center</align>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<include>9000ViewButtons</include>
+					<label>$INFO[Control.GetLabel(11),$LOCALIZE[12014]:[CR]]</label>
+					<wrapmultiline>true</wrapmultiline>
+				</control>
+				<control type="label" id="9003" description="Spacer">
+					<font></font>
+					<include>9000ViewButtons</include>
+					<label></label>
+				</control>
+				<control type="button" id="2" description="Refresh">
+					<include>9000SysButtons</include>
+				</control>
+				<control type="button" id="4" description="Settings">
+					<include>9000SysButtons</include>
+					<label>$LOCALIZE[5]</label>
+					<onclick>ActivateWindow(servicesettings,weather)</onclick>
+				</control>
+				<control type="togglebutton" id="5" description="Location">
+					<include>9000SysButtons</include>
+					<label>$LOCALIZE[31018]</label>
+					<altlabel>$LOCALIZE[31019]</altlabel>
+					<onclick>Skin.ToggleSetting(Weather8DayForecast)</onclick>
+					<usealttexture>Skin.HasSetting(Weather8DayForecast)</usealttexture>
+				</control>
+				<control type="button" id="3" description="Location">
+					<include>9000SysButtons</include>
+					<label>$INFO[Window(Weather).Property(Location)]</label>
+					<onclick>Weather.LocationNext</onclick>
+				</control>
+				<control type="button" id="6" description="Icons">
+					<visible>System.HasAddon(script.image.resource.select)</visible>
+					<include>9000SysButtons</include>
+					<label>$LOCALIZE[31940]</label>
+					<onclick condition="System.HasAddon(script.image.resource.select)">RunScript(script.image.resource.select,property=weathericonsResource&amp;type=resource.images.weathericons)</onclick>
+					<onclick condition="!System.HasAddon(script.image.resource.select)">InstallAddon(script.image.resource.select)</onclick>
+				</control>
+			</control>
+		</control>
+        <include>TouchButtons</include>
+		<control type="label" id="11" description="Refresh">
+			<include>HiddenButton</include>
+		</control>
+	</controls>
+</window>

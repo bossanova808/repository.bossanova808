@@ -10,11 +10,22 @@ import xbmcvfs
 
 global dialog
 
+# TO SUPPORT A NEW SKIN:
+#
+# First, develop the skin files (including testing controls navigate ok!)
+# Then create a folder for the skin & copy the files er
+# Add the skin name to the supported skins below
+# Each skin also needs an 'if' below
+#  (skin var in the if must match the name of the tweaks file!)
+#  e.g. amber or aeon.nox.silvo etc.
+
 
 # Just a place to store all our config stuff so we don't go crazy with globals
 class Config:
 
     global dialog
+
+    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence']
 
     patch_videofullscreen = get_setting_as_bool('patch_videofullscreen')
     current_skin = xbmcvfs.translatePath('special://skin')
@@ -25,6 +36,11 @@ class Config:
 
     skin = ''
     destination_skin_xml_folder = ''
+
+    if 'amber' in current_skin:
+        log('Amber in skin folder name...proceeding...')
+        skin = 'amber'
+        destination_skin_xml_folder = '1080i'
     if 'estuary' in current_skin:
         log('Estuary in skin folder name...proceeding...')
         skin = 'estuary'
@@ -132,11 +148,6 @@ def patch(config):
             notify('Exiting - as error when copying OzWeather MyWeather.xml - is skin folder writeable?')
             sys.exit(1)
 
-    # except Exception as inst:
-    #     log(inst)
-    #     notify('Exception when copying OzWeather skin files - check logs!')
-    #     sys.exit(1)
-
 
 # Attempt to restore .original files - we jsut try and restore both, no matter what the setting is
 def restore(config):
@@ -183,11 +194,14 @@ def run():
     dialog = xbmcgui.Dialog()
 
     # Basic sanity checking - are they running the right skin?
-    if 'estuary' not in config.current_skin \
-            and 'estouchy' not in config.current_skin \
-            and 'confluence' not in config.current_skin:
+    skin_supported = False
+    for skin in Config.supported_skins:
+        if skin in config.current_skin:
+            skin_supported = True
+
+    if not skin_supported:
         log("ERROR - current skin is not a supported skin!")
-        notify('Only Estuary, Estouchy and Confluence are supported, sorry!')
+        notify('ERROR - current skin is not a supported skin!')
         sys.exit(1)
 
     # Display initial information
@@ -196,15 +210,15 @@ def run():
 <Close this window to proceed to the actual patching stage> 
 
 This utility will patch skin files for OzWeather radar support.\n
-Only patches the currently selected skin, and only if that skin is Estuary, Estouchy or Confluence.
-(Or mods of those skins that still include 'estuary','estouchy', or 'confluence' in the add-in id).
+Only patches the currently selected skin, and only if that skin is Estuary, Estouchy, Amber or Confluence.
+(Or mods of those skins that still include 'estuary','estouchy', 'amber' or 'confluence' in the addon id).
 
 Backups of the original files are saved as .original files in the skin folder
 (& can be also be restored by this utility).
 
-Confluence and Estuary - by default patches only MyWeather.xml, but you can also patch VideoFullScreen.xml
+Confluence and Estuary only - by default patches only MyWeather.xml, but you can also patch VideoFullScreen.xml
 to display radar and basic weather info when media info is displayed during playback.
-(enable this in the add-on settings if you wish)
+(enable this in this addon's settings, if you wish)
 """)
 
     # Now confirm if they actually want to proceed
