@@ -43,7 +43,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.1.1" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.1.3" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -61,8 +61,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>- v0.1.0
-       Prepare for release of OzWeather using direct BOM API data
+    <news>0.1.3
+        - Support for imminent OzWeather 2 release
     </news>
     <assets>
       <icon>icon.png</icon>
