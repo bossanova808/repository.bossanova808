@@ -11,7 +11,7 @@
   			<!-- Should use Weather.IsFetched but for some reason it doesn't work as expected -->
 			<!-- <visible>!Weather.IsFetched</visible> -->
 	      	<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
-			<visible>[!StringCompare(Window(2600).Property(Day0.HighTemp),"0") + !String.IsEmpty(Window(2600).Property(Day0.HighTemp))]</visible>
+			<visible>[!StringCompare(Window(2600).Property(Daily.1.HighTemp),"0") + !String.IsEmpty(Window(2600).Property(Daily.1.HighTemp))]</visible>
 			<control type="group" id="10126">
 				<posx>0</posx>
 				<posy>15</posy>
@@ -93,7 +93,7 @@
 					<font>font13</font>
 					<align>right</align>
 					<aligny>top</aligny>
-					<label>$INFO[Window(2600).Property(Current.Temperature)] °C</label>
+					<label>$INFO[Window(2600).Property(Current.Temperature)]°</label>
 					<textcolor>white</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
@@ -103,7 +103,7 @@
 					<posy>35</posy>
 					<width>460</width>
 					<height>160</height>
-					<label>Predicted High: [COLOR white]$INFO[Window(2600).Property(Day0.HighTemp)] °C[/COLOR]</label>
+					<label>Predicted High: [COLOR white]$INFO[Window(2600).Property(Daily.1.HighTemp)]°[/COLOR]</label>
 					<font>font10</font>
 					<align>left</align>
 					<scroll>true</scroll>
@@ -117,7 +117,7 @@
 					<posy>70</posy>
 					<width>460</width>
 					<height>160</height>
-					<label>Overnight Low:  [COLOR white]$INFO[Window(2600).Property(Day1.LowTemp)] °C[/COLOR]</label>
+					<label>Overnight Low:  [COLOR white]$INFO[Window(2600).Property(Daily.2.LowTemp)]°[/COLOR]</label>
 					<font>font10</font>
 					<align>left</align>
 					<scroll>true</scroll>
@@ -131,7 +131,7 @@
 					<posy>105</posy>
 					<width>460</width>
 					<height>160</height>
-					<label>Tomorrow High: [COLOR white]$INFO[Window(2600).Property(Day1.HighTemp)] $INFO[System.TemperatureUnits][/COLOR]</label>
+					<label>Tomorrow High: [COLOR white]$INFO[Window(2600).Property(Daily.2.HighTemp)]°[/COLOR]</label>
 					<font>font10</font>
 					<align>left</align>
 					<scroll>true</scroll>
