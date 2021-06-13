@@ -1,0 +1,198 @@
+<includes>
+
+    <include name="ForecastRow">
+        <param name="posx" default="0%" />
+        <param name="posy" />
+        <param name="IconCode" />
+        <param name="Outlook" />
+        <param name="DayLabel" />
+        <param name="HighTemperature" />
+        <param name="LowTemperature" />
+        <param name="RainChance" />
+        <param name="RainAmount" />
+        <definition>
+
+            <control type="group">
+
+                <description>Weather Forecast Row</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <height>100%</height>
+                <width>100%</width>
+                <visible>Weather.IsFetched</visible>
+
+                <include content="OzWeatherSeparator" />
+
+                <control type="image">
+                    <description>Weather Icon</description>
+                    <posx>7%</posx>
+                    <posy>44%</posy>
+                    <height>16%</height>
+                    <texture>resource://resource.images.weathericons.default/$PARAM[iconcode]</texture>
+                    <aspectratio align="left">keep</aspectratio>
+                </control>
+
+                <control type="label">
+                    <description>High Value</description>
+                    <posx>18%</posx>
+                    <posy>3%</posy>
+                    <label>$PARAM[HighTemperature]°</label>
+                    <include content="FontBig" />
+                    <textcolor>white</textcolor>
+                    <visible>Weather.IsFetched</visible>
+                </control>
+
+                <control type="label">
+                    <description>Day Label and Outlook</description>
+                    <posx>30%</posx>
+                    <posy>0%</posy>
+                    <include content="FontBody" />
+                    <label>[COLOR white]$PARAM[DayLabel][/COLOR] - $PARAM[outlook]</label>
+                    <visible>Weather.IsFetched</visible>
+                </control>
+
+                <control type="label">
+                    <description>Low Label and Value</description>
+                    <posx>30%</posx>
+                    <posy>11%</posy>
+                    <include content="FontBody" />
+                    <label>[COLOR white]Low:   [/COLOR][COLOR skyblue]$PARAM[LowTemperature]°[/COLOR]</label>
+                    <textcolor>grey2</textcolor>
+                    <visible>Weather.IsFetched</visible>
+                </control>
+
+                <control type="label">
+                    <description>Rain Chance</description>
+                    <left>65%</left>
+                    <posy>0%</posy>
+                    <width>25%</width>
+                    <align>right</align>
+                    <include content="FontBody" />
+                    <label>Rain Chance: [COLOR white]$PARAM[RainChance][/COLOR]</label>
+                    <textcolor>gray</textcolor>
+                </control>
+
+                <control type="label">
+                    <description>Rain Amount</description>
+                    <left>65%</left>
+                    <posy>11%</posy>
+                    <width>25%</width>
+                    <align>right</align>
+                    <include content="FontBody" />
+                    <label>Rain Amount: [COLOR white]$PARAM[RainAmount][/COLOR]</label>
+                    <textcolor>gray</textcolor>
+                </control>
+
+            </control>
+
+        </definition>
+    </include>
+
+    <include name="ExtendedForecast">
+
+        <control type="group">
+            <posx>0%</posx>
+            <posy>33%</posy>
+            <height>11%</height>
+            <width>100%</width>
+
+            <include content="OzWeatherSeparator" />
+
+            <!-- EXTENDED WEATHER FORECAST -->
+            <include content="OzWeatherHeader">
+                <description>Extended Forecast Label</description>
+                <param name="posx">3%</param>
+                <param name="posy">10%</param>
+                <param name="label">Extended Forecast [COLOR grey]for [/COLOR]$INFO[Window.Property(ForecastRegion)] [COLOR grey]issued[/COLOR] $INFO[Window.Property(ForecastUpdated)]</param>
+            </include>
+
+            <control type="textbox">
+                <description>Extended Forecast</description>
+                <posx>7%</posx>
+                <posy>45%</posy>
+                <width>80%</width>
+                <height>100%</height>
+                <include content="FontBody" />
+                <textcolor>white</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <info>Window.Property(Current.ConditionLong)</info>
+                <autoscroll time="3000" delay="4000" repeat="5000"></autoscroll>
+            </control> -->
+
+        </control>
+
+    </include>
+
+    <include name="ForecastRows">
+
+        <control type="group">
+            <posx>0%</posx>
+            <posy>30%</posy>
+            <height>45%</height>
+            <width>100%</width>
+
+            <include content="ForecastRow">
+                <param name="posy">0%</param>
+                <param name="iconcode">$INFO[Window.Property(Daily.2.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Window.Property(Daily.2.Outlook)]</param>
+                <param name="DayLabel">$INFO[Window.Property(Daily.2.Title)]</param>
+                <param name="HighTemperature">$INFO[Window.Property(Daily.2.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Window.Property(Daily.2.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Window.Property(Daily.2.RainChance)]</param>
+                <param name="RainAmount">$INFO[Window.Property(Daily.2.RainAmount)]</param>
+            </include>
+            <include content="ForecastRow">
+                <param name="posy">17%</param>
+                <param name="iconcode">$INFO[Window.Property(Daily.3.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Window.Property(Daily.3.Outlook)]</param>
+                <param name="DayLabel">$INFO[Window.Property(Daily.3.Title)]</param>
+                <param name="HighTemperature">$INFO[Window.Property(Daily.3.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Window.Property(Daily.3.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Window.Property(Daily.3.RainChance)]</param>
+                <param name="RainAmount">$INFO[Window.Property(Daily.3.RainAmount)]</param>
+            </include>
+            <include content="ForecastRow">
+                <param name="posy">34%</param>
+                <param name="iconcode">$INFO[Window.Property(Daily.4.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Window.Property(Daily.4.Outlook)]</param>
+                <param name="DayLabel">$INFO[Window.Property(Daily.4.Title)]</param>
+                <param name="HighTemperature">$INFO[Window.Property(Daily.4.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Window.Property(Daily.4.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Window.Property(Daily.4.RainChance)]</param>
+                <param name="RainAmount">$INFO[Window.Property(Daily.4.RainAmount)]</param>
+            </include>
+            <include content="ForecastRow">
+                <param name="posy">51%</param>
+                <param name="iconcode">$INFO[Window.Property(Daily.5.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Window.Property(Daily.5.Outlook)]</param>
+                <param name="DayLabel">$INFO[Window.Property(Daily.5.Title)]</param>
+                <param name="HighTemperature">$INFO[Window.Property(Daily.5.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Window.Property(Daily.5.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Window.Property(Daily.5.RainChance)]</param>
+                <param name="RainAmount">$INFO[Window.Property(Daily.5.RainAmount)]</param>
+            </include>
+            <include content="ForecastRow">
+                <param name="posy">68%</param>
+                <param name="iconcode">$INFO[Window.Property(Daily.6.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Window.Property(Daily.6.Outlook)]</param>
+                <param name="DayLabel">$INFO[Window.Property(Daily.6.Title)]</param>
+                <param name="HighTemperature">$INFO[Window.Property(Daily.6.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Window.Property(Daily.6.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Window.Property(Daily.6.RainChance)]</param>
+                <param name="RainAmount">$INFO[Window.Property(Daily.6.RainAmount)]</param>
+            </include>
+            <include content="ForecastRow">
+                <param name="posy">85%</param>
+                <param name="iconcode">$INFO[Window.Property(Daily.7.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Window.Property(Daily.7.Outlook)]</param>
+                <param name="DayLabel">$INFO[Window.Property(Daily.7.Title)]</param>
+                <param name="HighTemperature">$INFO[Window.Property(Daily.7.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Window.Property(Daily.7.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Window.Property(Daily.7.RainChance)]</param>
+                <param name="RainAmount">$INFO[Window.Property(Daily.7.RainAmount)]</param>
+            </include>
+        </control>
+
+    </include>
+
+</includes>
