@@ -175,10 +175,10 @@
                     <param name="label">$INFO[Window.Property(Current.FireDanger)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.WindSpeed)] $INFO[Window.Property(Current.WindDirection)]</param>
+                    <param name="label">$INFO[Window.Property(Current.WindSpeedKmh)]km/h $INFO[Window.Property(Current.WindDirection)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.WindGust)] km/h</param>
+                    <param name="label">$INFO[Window.Property(Current.WindGust)]km/h</param>
                 </include>
                 <include content="WeatherInfoValue">
                     <param name="label">$INFO[Window.Property(Current.Sunrise)]</param>
