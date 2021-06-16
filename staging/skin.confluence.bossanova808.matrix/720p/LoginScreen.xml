@@ -42,6 +42,7 @@
 				<height>64</height>
 				<texture border="10">ContentPanelMirror.png</texture>
 			</control>
+			<!-- Bossanova808 Mod - allow for 5 login items on the login screen -->
 <!-- 			<control type="label">
 				<left>295</left>
 				<top>100</top>

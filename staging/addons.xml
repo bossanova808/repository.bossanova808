@@ -43,7 +43,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.1.4" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.1.5" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -65,7 +65,9 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.1.4
+    <news>0.15
+        - Tweaks
+      0.1.4
         - Add support for Amber
       0.1.3
         - Support for imminent OzWeather 2 release, with support for Confluence, Estuary, Estouchy
@@ -224,7 +226,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.609" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.610" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>
@@ -251,7 +253,8 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>- Switch to dynamic content for home screen widgets.[CR]- Home screen widgets show only unwatched items.</news>
+		<news>- OzWeather V2 Support, add tempo change PR
+		</news>
 	</extension>
 </addon>
 </addons>
