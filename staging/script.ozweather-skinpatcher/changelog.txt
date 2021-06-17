@@ -1,3 +1,7 @@
+0.1.6
+- Change approach - make VideoFullScreen.xml non optional, and copy all files from the particular skin folder
+0.1.5
+- Skin file tweaks for v2.0.1 of OzWeather
 0.1.4
 - Add support for new skin - Amber
 0.1.3

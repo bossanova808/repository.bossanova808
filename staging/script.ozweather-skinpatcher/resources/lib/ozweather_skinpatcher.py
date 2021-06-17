@@ -26,13 +26,10 @@ class Config:
     global dialog
 
     supported_skins = ['amber', 'estuary', 'estouchy', 'confluence']
-
-    patch_videofullscreen = get_setting_as_bool('patch_videofullscreen')
     current_skin = xbmcvfs.translatePath('special://skin')
 
     log(f'special://skin Is [{current_skin}]')
     log(f'CWD is {CWD}')
-    log(f'Patch VideoFullScreen is {patch_videofullscreen}')
 
     skin = ''
     destination_skin_xml_folder = ''
@@ -64,9 +61,6 @@ class Config:
     current_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml')
     backup_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml.original')
     backup_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml.original')
-    new_myweather_xml = os.path.join(skin_specific_xml_source_folder, 'MyWeather.xml')
-    new_tweaks_xml = os.path.join(skin_specific_xml_source_folder, f'OzWeatherTweaks-{skin}.xml')
-    new_videofullscreen_xml = os.path.join(skin_specific_xml_source_folder, 'VideoFullScreen.xml')
 
     log(f'Source - Skin independent XML folder is {skin_independent_xml_source_folder}')
     log(f'Source - Skin specific XML folder is {skin_specific_xml_source_folder}')
@@ -75,9 +69,6 @@ class Config:
     log(f'Current - VideoFullScreen.xml is {current_videofullscreen_xml}')
     log(f'Backup - MyWeather.xml will be {backup_myweather_xml}')
     log(f'Backup - VideoFullScreen.xml will be {backup_videofullscreen_xml}')
-    log(f'New - MyWeather.xml is {new_myweather_xml}')
-    log(f'New - Tweaks xml is {new_tweaks_xml}')
-    log(f'New - VideoFullScreen.xml is {new_videofullscreen_xml}')
 
 
 # Display a notification from OzWeather Skin Patcher to the Kodi user
@@ -111,7 +102,7 @@ def patch(config):
                 notify('Exiting - as error when backing up current MyWeather.xml - is skin folder writeable?')
                 sys.exit(1)
 
-        if config.patch_videofullscreen and not xbmcvfs.exists(config.backup_videofullscreen_xml):
+        if config.skin == 'confluence' or config.skin == 'estuary' and not xbmcvfs.exists(config.backup_videofullscreen_xml):
             log("Backing up current VideoFullScreen.xml to VideoFullScreen.xml.original")
             success = xbmcvfs.copy(config.current_videofullscreen_xml, config.backup_videofullscreen_xml)
             if success:
@@ -126,14 +117,9 @@ def patch(config):
         notify('Exception when backing up current skin files - check logs!')
         sys.exit(1)
 
-    # Prepare to copy new files - at a minimum, the new MyWeather.xml, the associated tweaks file,  and the skin independent components
+    # Prepare to copy new files - grab both the skin independent and skin specific files...
     list_of_files_to_copy = glob.glob(config.skin_independent_xml_source_folder + "/*")
-    list_of_files_to_copy.append(config.new_myweather_xml)
-    list_of_files_to_copy.append(config.new_tweaks_xml)
-    # If the setting is set in the addon, and we have one of these, also copy the VideoFullScreen.xml
-    if config.patch_videofullscreen and ('confluence' in config.current_skin or 'estuary' in config.current_skin):
-        log(f"Including VideoFullScreen.xml in files to copy as we have one, and the addon setting is {config.patch_videofullscreen}")
-        list_of_files_to_copy.append(config.new_videofullscreen_xml)
+    list_of_files_to_copy.extend(glob.glob(config.skin_specific_xml_source_folder + "/*"))
 
     log("The list of files to copy is")
     log(list_of_files_to_copy)
@@ -214,11 +200,8 @@ Only patches the currently selected skin, and only if that skin is Estuary, Esto
 (Or mods of those skins that still include 'estuary','estouchy', 'amber' or 'confluence' in the addon id).
 
 Backups of the original files are saved as .original files in the skin folder
-(& can be also be restored by this utility).
+(& those can be also be restored by this utility if needed).
 
-Confluence and Estuary only - by default patches only MyWeather.xml, but you can also patch VideoFullScreen.xml
-to display radar and basic weather info when media info is displayed during playback.
-(enable this in this addon's settings, if you wish)
 """)
 
     # Now confirm if they actually want to proceed
