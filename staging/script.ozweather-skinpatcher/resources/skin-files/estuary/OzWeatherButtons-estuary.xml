@@ -42,7 +42,7 @@
                 <include content="OzWeatherButton">
                     <param name="id">111</param>
                     <param name="onclick">Weather.LocationPrevious</param>
-                    <param name="label">  Prev Location  </param>
+                    <param name="label">  Previous  </param>
                 </include>
                 <include content="OzWeatherButton">
                     <param name="id">222</param>
@@ -58,7 +58,7 @@
                 <include content="OzWeatherButton">
                     <param name="id">444</param>
                     <param name="onclick">Weather.LocationNext</param>
-                    <param name="label">  Next Location  </param>
+                    <param name="label">  Next </param>
                 </include>
             </control>
         </definition>
