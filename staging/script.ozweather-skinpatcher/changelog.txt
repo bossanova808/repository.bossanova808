@@ -1,5 +1,5 @@
 0.2.0
-- Add support for xonfluence
+- Add support for xonfluence, and aeon skins
 0.1.9
 - Tweaks based on feedback
 0.1.7

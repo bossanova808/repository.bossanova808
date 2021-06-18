@@ -7,8 +7,6 @@
 	<onunload>ClearProperty(Window.HasSettings,Home)</onunload>
 	<menucontrol>9051</menucontrol>
 	<controls>
-<!--		<include>CommonBackground</include>-->
-
 		<!-- Skin Specific Stuff -->
 		<include file="OzWeatherTweaks-aeon.xml" />
 
@@ -16,8 +14,8 @@
 		<include file="OzWeatherSnippets.xml" />
 		<include file="OzWeatherRadar.xml" />
 		<include file="OzWeatherButtons.xml" />
-		<include file="OzWeatherObservations.xml" />
-		<include file="OzWeatherForecast.xml" />
+		<include file="OzWeatherObservations-aeon.xml" />
+		<include file="OzWeatherForecast-aeon.xml" />
 
 		<!-- GROUP OF TWO MAIN CONTENT PANELS, LEFT AND RIGHT -->
 		<control type="group">

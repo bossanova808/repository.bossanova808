@@ -17,6 +17,23 @@
         </definition>
     </include>
 
+    <include name="DummyLabel">
+        <param name="posx" default="0%" />
+        <param name="posy" default="0%" />
+        <param name="label" />
+        <definition>
+            <control type="label">
+                <description>Weather Info Label</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>100%</width>
+                <label></label>
+                <include content="FontBody" />
+                <align>right</align>
+            </control>
+        </definition>
+    </include>
+
     <include name="WeatherInfoValue">
         <param name="posx" default="0%" />
         <param name="posy" default="0%" />
@@ -102,34 +119,40 @@
             <control type="label">
                 <description>Current Temperature Value</description>
                 <posx>22%</posx>
-                <posy>60%</posy>
+                <posy>40%</posy>
                 <include content="FontHuge" />
-                <label>$INFO[Window.Property(Current.Temperature)]&#176;</label>
+                <label>$INFO[Window.Property(Current.OzW_Temperature)]&#176;</label>
             </control>
 
             <include content="OzWeatherHeader">
                 <description>Feels Like Temperature OzWeatherHeader</description>
-                <param name="posx">34%</param>
+                <param name="posx">40%</param>
                 <param name="posy">47%</param>
                 <param name="label">[COLOR grey]Feels Like:[/COLOR]</param>
+                <param name="visible">!String.IsEmpty(Window(weather).Property(Current.Ozw_FeelsLike))</param>
             </include>
 
             <control type="label">
                 <description>Feels Like Temperature Value</description>
-                <posx>40%</posx>
-                <posy>60%</posy>
+                <posx>46%</posx>
+                <posy>40%</posy>
                 <include content="FontHuge" />
-                <label>$INFO[Window.Property(Current.FeelsLike)]&#176;</label>
+                <label>$INFO[Window.Property(Current.OzW_FeelsLike)]&#176;</label>
                 <textcolor>grey</textcolor>
+                <visible>!String.IsEmpty(Window(weather).Property(Current.Ozw_FeelsLike))</visible>
             </control>
 
 
             <control type="grouplist">
                 <posx>36%</posx>
-                <posy>15%</posy>
+                <posy>10%</posy>
                 <width>40%</width>
                 <itemgap>WeatherInfoLineHeight</itemgap>
 
+                <!-- without this empty one, it cuts off the first line in aeon?? -->
+                <include content="DummyLabel">
+                    <param name="label"></param>
+                </include>
                 <include content="WeatherInfoLabel">
                     <param name="label">Rain Since 9am</param>
                 </include>
@@ -158,15 +181,18 @@
 
             <control type="grouplist">
                 <posx>77%</posx>
-                <posy>15%</posy>
+                <posy>10%</posy>
                 <width>40%</width>
                 <itemgap>WeatherInfoLineHeight</itemgap>
 
+                <include content="DummyLabel">
+                    <param name="label"></param>
+                </include>
                 <include content="WeatherInfoValue">
                     <param name="label">$INFO[Window.Property(Current.RainSince9)]mm</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.Humidity)]</param>
+                    <param name="label">$INFO[Window.Property(Current.Ozw_Humidity)]%</param>
                 </include>
                 <include content="WeatherInfoValue">
                     <param name="label">$INFO[Window.Property(Current.UVIndex)]</param>
@@ -175,10 +201,10 @@
                     <param name="label">$INFO[Window.Property(Current.FireDanger)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.WindSpeed)] $INFO[Window.Property(Current.WindDirection)]</param>
+                    <param name="label">$INFO[Window.Property(Current.Ozw_WindSpeed)]km/h $INFO[Window.Property(Current.WindDirection)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.WindGust)] km/h</param>
+                    <param name="label">$INFO[Window.Property(Current.WindGust)]km/h</param>
                 </include>
                 <include content="WeatherInfoValue">
                     <param name="label">$INFO[Window.Property(Current.Sunrise)]</param>

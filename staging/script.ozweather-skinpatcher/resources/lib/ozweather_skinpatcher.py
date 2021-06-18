@@ -25,7 +25,7 @@ class Config:
 
     global dialog
 
-    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence']
+    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aeon']
     current_skin = xbmcvfs.translatePath('special://skin')
 
     log(f'special://skin Is [{current_skin}]')
@@ -54,6 +54,14 @@ class Config:
         log('xonfluence in skin folder name...proceeding..')
         skin = 'xonfluence'
         destination_skin_xml_folder = 'xml'
+    if 'aeon.nox' in current_skin:
+        log('aeon.nox in skin folder name...proceeding..')
+        skin = 'aeon'
+        destination_skin_xml_folder = '16x9'
+    if 'aeon.tajo' in current_skin:
+        log('aeon.tajo in skin folder name...proceeding..')
+        skin = 'aeon'
+        destination_skin_xml_folder = '1080i'
     if not skin or not destination_skin_xml_folder:
         log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
@@ -106,7 +114,7 @@ def patch(config):
                 notify('Exiting - as error when backing up current MyWeather.xml - is skin folder writeable?')
                 sys.exit(1)
 
-        if config.skin == 'confluence' or config.skin == 'estuary' and not xbmcvfs.exists(config.backup_videofullscreen_xml):
+        if xbmcvfs.exists(config.current_videofullscreen_xml) and not xbmcvfs.exists(config.backup_videofullscreen_xml):
             log("Backing up current VideoFullScreen.xml to VideoFullScreen.xml.original")
             success = xbmcvfs.copy(config.current_videofullscreen_xml, config.backup_videofullscreen_xml)
             if success:
