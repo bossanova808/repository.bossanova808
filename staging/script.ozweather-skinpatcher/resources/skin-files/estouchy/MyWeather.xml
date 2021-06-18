@@ -92,22 +92,7 @@
 				<item>
 					<label>31200</label>
 					<onclick>ParentDir</onclick>
-					<icon>icon_button_back.png</icon>
-				</item>
-				<item>
-					<label>184</label>
-					<onclick>Weather.Refresh</onclick>
-					<icon>icon_button_refresh.png</icon>
-				</item>
-				<item>
-					<label>31201</label>
-					<onclick>Weather.LocationNext</onclick>
-					<icon>icon_button_city.png</icon>
-				</item>
-				<item>
-					<label>1036</label>
-					<onclick>ActivateWindow(Favourites)</onclick>
-					<icon>icon_button_favourites.png</icon>
+					<icon>icon_button_back.png</icon>				
 				</item>
 			</content>
 		</control>

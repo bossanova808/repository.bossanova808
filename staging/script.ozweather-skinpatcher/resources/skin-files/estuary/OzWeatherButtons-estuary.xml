@@ -40,11 +40,6 @@
                 <onup>2</onup>
                 <ondown>2</ondown>
                 <include content="OzWeatherButton">
-                    <param name="id">111</param>
-                    <param name="onclick">Weather.LocationPrevious</param>
-                    <param name="label">  Previous  </param>
-                </include>
-                <include content="OzWeatherButton">
                     <param name="id">222</param>
                     <param name="onclick">PlayMedia($INFO[Window.Property(Video.1)],noresume)</param>
                     <param name="label">  ABC Weather  </param>
@@ -56,9 +51,14 @@
                     <param name="label">  Refresh  </param>
                 </include>
                 <include content="OzWeatherButton">
+                    <param name="id">111</param>
+                    <param name="onclick">Weather.LocationPrevious</param>
+                    <param name="label">  Previous  </param>
+                </include>
+                <include content="OzWeatherButton">
                     <param name="id">444</param>
                     <param name="onclick">Weather.LocationNext</param>
-                    <param name="label">  Next </param>
+                    <param name="label">  Next  </param>
                 </include>
             </control>
         </definition>

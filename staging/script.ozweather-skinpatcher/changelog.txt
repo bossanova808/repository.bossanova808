@@ -1,3 +1,7 @@
+0.1.8
+- Tweaks based on feedback
+0.1.7
+- New buttons for Estuary
 0.1.6
 - Change approach - make VideoFullScreen.xml non optional, and copy all files from the particular skin folder
 0.1.5
