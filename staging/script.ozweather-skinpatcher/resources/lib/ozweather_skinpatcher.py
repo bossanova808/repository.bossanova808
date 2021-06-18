@@ -25,7 +25,7 @@ class Config:
 
     global dialog
 
-    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence']
+    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence']
     current_skin = xbmcvfs.translatePath('special://skin')
 
     log(f'special://skin Is [{current_skin}]')
@@ -47,9 +47,13 @@ class Config:
         skin = 'estouchy'
         destination_skin_xml_folder = 'xml'
     if 'confluence' in current_skin:
-        log('Confluence in skin folder name...proceeding..')
+        log('confluence in skin folder name...proceeding..')
         skin = 'confluence'
         destination_skin_xml_folder = '720p'
+    if 'xonfluence' in current_skin:
+        log('xonfluence in skin folder name...proceeding..')
+        skin = 'xonfluence'
+        destination_skin_xml_folder = 'xml'
     if not skin or not destination_skin_xml_folder:
         log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
