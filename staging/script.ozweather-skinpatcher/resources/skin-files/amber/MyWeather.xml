@@ -54,9 +54,7 @@
 
 				<include content="RadarBackgrounds" />
 				<include content="RadarLoop" />
-				<include content="OzWeatherButtons">
-					<param name="top">88%</param>
-				</include>
+				<include content="OzWeatherButtons" />
 				<include content="OzWeatherTag" />
 
 			</control> <!--  END LEFT PANEL GROUP -->

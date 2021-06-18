@@ -21,7 +21,7 @@
 
     <include name="OzWeatherButtons">
         <param name="left" default="2%" />
-        <param name="top" default="86%" />
+        <param name="top" default="88%" />
         <param name="width" default="38%" />
         <param name="visible" default="Weather.IsFetched" />
         <definition>
