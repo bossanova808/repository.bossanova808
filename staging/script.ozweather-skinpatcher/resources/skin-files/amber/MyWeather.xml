@@ -20,7 +20,7 @@
 			<top>18</top>
 			<height>1200</height>
 			<texture border="0,30,0,0">OSD/FS_OSDBackground.png</texture>
-      		<colordiffuse>BBBBBBBB</colordiffuse>
+      		<colordiffuse>DDDDDDDD</colordiffuse>
     	</control>
 		<control type="button" id="50">
 			<include>HiddenButton</include>
@@ -54,7 +54,9 @@
 
 				<include content="RadarBackgrounds" />
 				<include content="RadarLoop" />
-				<include content="OzWeatherButtons" />
+				<include content="OzWeatherButtons">
+					<param name="top">88%</param>
+				</include>
 				<include content="OzWeatherTag" />
 
 			</control> <!--  END LEFT PANEL GROUP -->
