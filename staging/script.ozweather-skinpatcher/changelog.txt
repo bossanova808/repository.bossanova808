@@ -1,4 +1,6 @@
-0.1.8
+0.2.0
+- Add support for xonfluence
+0.1.9
 - Tweaks based on feedback
 0.1.7
 - New buttons for Estuary
