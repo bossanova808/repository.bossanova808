@@ -1,0 +1,11 @@
+<control type="image">
+    <include>FullscreenDimensions</include>
+    <aspectratio>scale</aspectratio>
+    <fadetime>FanartCrossfadeTime</fadetime>
+    <texture background="true" fallback="special://skin/backgrounds/default_bg.jpg">$INFO[Skin.String(weatherfanart.path)]$INFO[Window(Weather).Property(Current.FanartCode)]$VAR[WeatherBackgroundTypeVar]</texture>
+    <colordiffuse>BackgroundDiffuse</colordiffuse>
+</control>
+
+<constant name="BackgroundDiffuse">60FFFFFF</constant>
+
+        
