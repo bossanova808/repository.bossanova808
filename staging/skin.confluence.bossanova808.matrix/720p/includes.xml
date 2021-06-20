@@ -1574,7 +1574,7 @@
                         </control>
                         <control type="label">
                                 <visible>Skin.HasSetting(show_profilename)</visible>
-                                <font>font28_title</font>
+                                <font>font24_title</font>
                                 <align>right</align>
                                 <top>5</top>
                                 <left>540</left>
