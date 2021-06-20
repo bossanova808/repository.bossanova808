@@ -16,7 +16,7 @@
                 <include content="FontHeader" />
                 <label>$PARAM[label]</label>
                 <align>left</align>
-                <textcolor>white</textcolor>
+                <textcolor>_colour_text_default_</textcolor>
                 <visible>$PARAM[visible]</visible>
             </control>
         </definition>
@@ -45,7 +45,7 @@
                 <left>33%</left>
                 <height>30</height>
                 <include content="FontBody" />
-                <textcolor>gray</textcolor>
+                <textcolor>_colour_text_dimmer_</textcolor>
                 <label>$INFO[Window.Property(WeatherVersion)]</label>
             </control>
         </definition>

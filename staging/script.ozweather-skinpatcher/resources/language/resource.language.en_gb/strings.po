@@ -25,6 +25,34 @@ msgctxt "#32002"
 msgid "Successfully patch skin.confluence & created backup files"
 msgstr ""
 
-msgctxt "#32003"
-msgid "(Confluence only) Also patch VideoFullScreen.xml to show key info & radar with video info?"
+msgctxt "#32008"
+msgid "Main text (normally white)"
 msgstr ""
+
+msgctxt "#32003"
+msgid "Dim Text (normally silver)"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Dimmer Text (normally gray)"
+msgstr ""
+
+msgctxt "#32005"
+msgid "High Temp (normally orange)"
+msgstr ""
+
+msgctxt "#32006"
+msgid "Low Temps (normally skyblue)"
+msgstr ""
+
+msgctxt "#32009"
+msgid "Show background art? (only Amber/Aeon - either yes/no)"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Opacity for background image"
+msgstr ""
+
+msgctxt "#32010"
+msgid "Kodi Skin Colours (see system/colors.xml for names)"
+msgstr "

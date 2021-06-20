@@ -32,7 +32,7 @@
 						<height>81</height>
 						<font>font15</font>
 						<textoffsetx>20</textoffsetx>
-						<textcolor>grey</textcolor>
+						<textcolor>_colour_text_dim_</textcolor>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 				</itemlayout>
@@ -152,7 +152,7 @@
 						<height>45</height>
 						<font>font16</font>
 						<textoffsetx>15</textoffsetx>
-						<textcolor>white</textcolor>
+						<textcolor>_colour_text_default_</textcolor>
 						<label>Launch the latest ABC Weather Update video?</label>
 						<visible>!IsEmpty(Window.Property(Video.1))</visible>
 						<onclick>PlayMedia(Window.Property(Video.1))</onclick>
@@ -199,7 +199,7 @@
 								<height>45</height>
 								<font>font13_title</font>
 								<textoffsetx>15</textoffsetx>
-								<textcolor>grey</textcolor>
+								<textcolor>_colour_text_dim_</textcolor>
 								<label>$INFO[Window.Property(Day1.Title)][CR]$INFO[Window.Property(Day1.ShortDate)]</label>
 							</control>					
 							<control type="multiimage">
@@ -260,7 +260,7 @@
 								<height>45</height>
 								<font>font13_title</font>
 								<textoffsetx>15</textoffsetx>
-								<textcolor>grey</textcolor>
+								<textcolor>_colour_text_dim_</textcolor>
 								<label>$INFO[Window.Property(Day2.Title)][CR]$INFO[Window.Property(Day2.ShortDate)]</label>
 							</control>					
 							<control type="multiimage">
@@ -321,7 +321,7 @@
 								<height>45</height>
 								<font>font13_title</font>
 								<textoffsetx>15</textoffsetx>
-								<textcolor>grey</textcolor>
+								<textcolor>_colour_text_dim_</textcolor>
 								<label>$INFO[Window.Property(Day3.Title)][CR]$INFO[Window.Property(Day3.ShortDate)]</label>
 							</control>					
 							<control type="multiimage">
@@ -382,7 +382,7 @@
 								<height>45</height>
 								<font>font13_title</font>
 								<textoffsetx>15</textoffsetx>
-								<textcolor>grey</textcolor>
+								<textcolor>_colour_text_dim_</textcolor>
 								<label>$INFO[Window.Property(Day4.Title)][CR]$INFO[Window.Property(Day4.ShortDate)]</label>
 							</control>					
 							<control type="multiimage">
@@ -443,7 +443,7 @@
 								<height>45</height>
 								<font>font13_title</font>
 								<textoffsetx>15</textoffsetx>
-								<textcolor>grey</textcolor>
+								<textcolor>_colour_text_dim_</textcolor>
 								<label>$INFO[Window.Property(Day5.Title)][CR]$INFO[Window.Property(Day5.ShortDate)]</label>
 							</control>					
 							<control type="multiimage">
@@ -503,7 +503,7 @@
 								<height>45</height>
 								<font>font13_title</font>
 								<textoffsetx>15</textoffsetx>
-								<textcolor>grey</textcolor>
+								<textcolor>_colour_text_dim_</textcolor>
 								<label>$INFO[Window.Property(Day6.Title)][CR]$INFO[Window.Property(Day6.ShortDate)]</label>
 							</control>					
 							<control type="multiimage">
@@ -568,7 +568,7 @@
 							<height>45</height>
 							<font>font16</font>
 							<textoffsetx>15</textoffsetx>
-							<textcolor>white</textcolor>
+							<textcolor>_colour_text_default_</textcolor>
 							<label>Last refreshed: $INFO[Window(Weather).Property(Updated)]</label>
 							<visible>!IsEmpty(Window.Property(Video.1))</visible>
 							<onclick>PlayMedia(Window.Property(Video.1))</onclick>
@@ -676,7 +676,7 @@
 						<height>45</height>
 						<font>font15_title</font>
 						<textoffsetx>15</textoffsetx>
-						<textcolor>white</textcolor>
+						<textcolor>_colour_text_default_</textcolor>
 						<shadowcolor>ff000000</shadowcolor>
 						<label>$INFO[Window.Property(Location)]</label>
 					</control>					
@@ -690,7 +690,7 @@
 						<font>WeatherTemp</font>
 						<align>right</align>
 						<label>$INFO[Window.Property(Current.Temperature)]</label>
-						<textcolor>white</textcolor>
+						<textcolor>_colour_text_default_</textcolor>
 						<shadowcolor>ff000000</shadowcolor>
 					</control>
 					<control type="label">
@@ -701,7 +701,7 @@
 						<height>290</height>
 						<font>font16</font>
 						<label>$INFO[System.TemperatureUnits]</label>
-						<textcolor>grey</textcolor>
+						<textcolor>_colour_text_dim_</textcolor>
 					</control>
 
 					<control type="label">
@@ -711,7 +711,7 @@
 						<height>70</height>
 						<font>font15</font>
 						<align>center</align>
-						<textcolor>grey</textcolor>
+						<textcolor>_colour_text_dim_</textcolor>
 						<label>$INFO[Window.Property(Day0.HighTemp),[COLOR red],[/COLOR]]$INFO[Window.Property(Day0.LowTemp), | [COLOR blue],[/COLOR]]</label>
 					</control>
 					<control type="label">
@@ -724,7 +724,7 @@
 						<wrapmultiline>true</wrapmultiline>
 						<font>font16</font>
 						<textoffsetx>15</textoffsetx>
-						<textcolor>grey</textcolor>
+						<textcolor>_colour_text_dim_</textcolor>
 					</control>
 					
 					<control type="grouplist"> <!-- Sky details -->
@@ -808,7 +808,7 @@
 							<height>144</height>
 							<font>font12</font>
 							<align>left</align>
-							<textcolor>white</textcolor>
+							<textcolor>_colour_text_default_</textcolor>
 							<shadowcolor>black</shadowcolor>
 							<info>Window.Property(Current.ConditionLong)</info>
 							<wrapmultiline>true</wrapmultiline>
@@ -895,7 +895,7 @@
 					<visible>!Control.HasFocus(3)</visible>
 				</control>
 				<control type="label" id="202">
-					<textcolor>white</textcolor>
+					<textcolor>_colour_text_default_</textcolor>
 					<include>ButtonCommonValues</include>
 					<label>31069</label>
 					<visible>Control.HasFocus(3)</visible>

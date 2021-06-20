@@ -7,6 +7,16 @@
 	<onunload>ClearProperty(Window.HasSettings,Home)</onunload>
 	<menucontrol>9051</menucontrol>
 	<controls>
+		<include>WindowOpenCloseAnimation</include>
+		<control type="image">
+			<include>FullscreenDimensions</include>
+			<aspectratio>scale</aspectratio>
+			<fadetime>FanartCrossfadeTime</fadetime>
+			<texture background="true" fallback="special://skin/backgrounds/default_bg.jpg">$INFO[Skin.String(weatherfanart.path)]$INFO[Window(Weather).Property(Current.FanartCode)]$VAR[WeatherBackgroundTypeVar]</texture>
+			<visible>_background_visible_</visible>
+      		<colordiffuse>_background_opacity_</colordiffuse>
+		</control>
+
 		<!-- Skin Specific Stuff -->
 		<include file="OzWeatherTweaks-aeon.xml" />
 
@@ -44,7 +54,7 @@
 					<description>Radar Panel Header - ID and Time Range</description>
 					<param name="posx">2%</param>
 					<param name="posy">3%</param>
-					<param name="label">Radar ($INFO[Window.Property(Radar)]), [COLOR grey]from [COLOR]$INFO[Window.Property(RadarOldest)] [COLOR grey]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
+					<param name="label">Radar ($INFO[Window.Property(Radar)]), [COLOR _colour_text_dim_]from [COLOR]$INFO[Window.Property(RadarOldest)] [COLOR _colour_text_dim_]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
 				</include>
 
 				<include content="RadarBackgrounds" />
@@ -67,7 +77,7 @@
 					<description>Location Panel Header - Name and Observed At Time</description>
 					<param name="posx">3%</param>
 					<param name="posy">3%</param>
-					<param name="label">$INFO[Window.Property(Location)], [COLOR grey]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)]</param>
+					<param name="label">$INFO[Window.Property(Location)], [COLOR _colour_text_dim_]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)]</param>
 				</include>
 
 				<include content="Observations" />
@@ -152,7 +162,7 @@
 <!--					<visible>!Control.HasFocus(3)</visible>-->
 <!--				</control>-->
 <!--				<control type="label" id="202">-->
-<!--					<textcolor>white</textcolor>-->
+<!--					<textcolor>_colour_text_default_</textcolor>-->
 <!--					<include>ButtonCommonValues</include>-->
 <!--					<label>31069</label>-->
 <!--					<visible>Control.HasFocus(3)</visible>-->

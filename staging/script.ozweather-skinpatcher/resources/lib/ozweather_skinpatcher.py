@@ -137,17 +137,32 @@ def patch(config):
     log(list_of_files_to_copy)
 
     for file in list_of_files_to_copy:
-        log(f"Copying {file} to {config.xml_destination_folder}")
-        success = xbmcvfs.copy(file, config.xml_destination_folder + "/" + ntpath.basename(file))
-        if success:
-            log("...done")
-        else:
-            log("...failed!  Is the skin folder writeable?")
-            notify('Exiting - as error when copying OzWeather MyWeather.xml - is skin folder writeable?')
+        log(f"Patching & copying {file} to {config.xml_destination_folder}")
+
+        try:
+            with open(file, 'r') as source_file:
+                new_data = source_file.read()
+
+            # Patch in the user's choices
+            new_data = new_data.replace('_colour_text_default_', ADDON.getSetting('colour_text_default'))
+            new_data = new_data.replace('_colour_text_dim_', ADDON.getSetting('colour_text_dim'))
+            new_data = new_data.replace('_colour_text_dimmer_', ADDON.getSetting('colour_text_dimmer'))
+            new_data = new_data.replace('_colour_text_high_temp_', ADDON.getSetting('colour_text_high_temp'))
+            new_data = new_data.replace('_colour_text_low_temp_', ADDON.getSetting('colour_text_low_temp'))
+            new_data = new_data.replace('_background_visible_', ADDON.getSetting('background_visible'))
+            new_data = new_data.replace('_background_opacity_', ADDON.getSetting('background_opacity'))
+
+            with open(config.xml_destination_folder + "/" + ntpath.basename(file), 'w') as destination_file:
+                destination_file.write(new_data)
+
+        except Exception as inst:
+            log("...failed!  Error writing new skin files.")
+            log(inst)
+            notify('Exiting - as error when copying OzWeather skin files - is skin folder writeable?')
             sys.exit(1)
 
 
-# Attempt to restore .original files - we jsut try and restore both, no matter what the setting is
+# Attempt to restore .original files - we just try and restore both, no matter what the setting is
 def restore(config):
 
     try:

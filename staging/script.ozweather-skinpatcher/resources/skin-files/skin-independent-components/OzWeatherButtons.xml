@@ -15,6 +15,7 @@
                 <onclick>$PARAM[onclick]</onclick>
                 <label>$PARAM[label]</label>
                 <visible>$PARAM[visible]</visible>
+                <textcolor>_colour_text_default_</textcolor>
             </control>
         </definition>
     </include>

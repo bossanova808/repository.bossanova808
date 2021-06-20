@@ -72,7 +72,7 @@
                         <height>40</height>
                         <font>font13</font>
                         <label>31027</label>
-                        <textcolor>white</textcolor>
+                        <textcolor>_colour_text_default_</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
                     </control>

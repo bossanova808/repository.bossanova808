@@ -13,8 +13,7 @@
         Supports: Estuary, Estouchy, Confluence, Xonfluence, Amber, Aeon (Nox Silvo and Tajo)
         Skin folder must be writeable! (Creates a backup of of the original skin files first and this addon can also restore those if need be).
         By default patches only the actual weather page.
-        For Estuary &amp; Confluence, can also patch your VideoFullScreen file for weather/radar during playback when video info is displayed.
-        Turn this on in the addon settings if you wish.
+        For Estuary &amp; Confluence, also patched your VideoFullScreen file for weather/radar during playback when video info is displayed.
     </description>
     <platform>all</platform>
     <license>GPL-3.0-only</license>
@@ -22,7 +21,9 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.2.33
+    <news>0.2.4
+      - Add support for user choice of colours, and for aeon/amber background image, background opacity
+      0.2.3
       - Tweaks, add support for aeon (aeon nox silvo and aean tajo tested), xonfluence
       0.1.9
         - Tweaks based on feedback

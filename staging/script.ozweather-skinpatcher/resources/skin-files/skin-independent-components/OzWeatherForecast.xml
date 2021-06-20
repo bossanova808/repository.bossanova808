@@ -38,7 +38,7 @@
                     <posy>3%</posy>
                     <label>$PARAM[HighTemperature]°</label>
                     <include content="FontBig" />
-                    <textcolor>white</textcolor>
+                    <textcolor>_colour_text_default_</textcolor>
                     <visible>Weather.IsFetched</visible>
                 </control>
 
@@ -47,7 +47,7 @@
                     <posx>30%</posx>
                     <posy>3%</posy>
                     <include content="FontBody" />
-                    <label>[COLOR white]$PARAM[DayLabel][/COLOR] - $PARAM[outlook]</label>
+                    <label>[COLOR _colour_text_default_]$PARAM[DayLabel][/COLOR] - $PARAM[outlook]</label>
                     <visible>Weather.IsFetched</visible>
                 </control>
 
@@ -56,8 +56,8 @@
                     <posx>30%</posx>
                     <posy>9%</posy>
                     <include content="FontBody" />
-                    <label>[COLOR white]Low:   [/COLOR][COLOR skyblue]$PARAM[LowTemperature]°[/COLOR]</label>
-                    <textcolor>grey2</textcolor>
+                    <label>[COLOR _colour_text_default_]Low:   [/COLOR][COLOR _colour_text_low_temp_]$PARAM[LowTemperature]°[/COLOR]</label>
+                    <textcolor>_colour_text_dimmer_</textcolor>
                     <visible>Weather.IsFetched</visible>
                 </control>
 
@@ -68,8 +68,8 @@
                     <width>25%</width>
                     <align>right</align>
                     <include content="FontBody" />
-                    <label>Rain Chance: [COLOR white]$PARAM[RainChance][/COLOR]</label>
-                    <textcolor>gray</textcolor>
+                    <label>Rain Chance: [COLOR _colour_text_default_]$PARAM[RainChance][/COLOR]</label>
+                    <textcolor>_colour_text_dimmer_</textcolor>
                 </control>
 
                 <control type="label">
@@ -79,8 +79,8 @@
                     <width>25%</width>
                     <align>right</align>
                     <include content="FontBody" />
-                    <label>Rain Amount: [COLOR white]$PARAM[RainAmount][/COLOR]</label>
-                    <textcolor>gray</textcolor>
+                    <label>Rain Amount: [COLOR _colour_text_default_]$PARAM[RainAmount][/COLOR]</label>
+                    <textcolor>_colour_text_dimmer_</textcolor>
                 </control>
 
             </control>
@@ -103,7 +103,7 @@
                 <description>Extended Forecast Label</description>
                 <param name="posx">3%</param>
                 <param name="posy">10%</param>
-                <param name="label">Extended Forecast [COLOR grey]for [/COLOR]$INFO[Window.Property(ForecastRegion)] [COLOR grey]issued[/COLOR] $INFO[Window.Property(ForecastUpdated)]</param>
+                <param name="label">Extended Forecast [COLOR _colour_text_dim_]for [/COLOR]$INFO[Window.Property(ForecastRegion)] [COLOR _colour_text_dim_]issued[/COLOR] $INFO[Window.Property(ForecastUpdated)]</param>
             </include>
 
             <control type="textbox">
@@ -113,7 +113,7 @@
                 <width>80%</width>
                 <height>100%</height>
                 <include content="FontBody" />
-                <textcolor>white</textcolor>
+                <textcolor>_colour_text_default_</textcolor>
                 <shadowcolor>black</shadowcolor>
                 <info>Window.Property(Current.ConditionLong)</info>
                 <autoscroll time="3000" delay="4000" repeat="5000"></autoscroll>

@@ -69,7 +69,15 @@
 			</control>
 			<control type="group" id="10126">
 				<posx>230</posx>
-				<posy></posy>
+	 			<control type="image" id="19547">
+					<posx>25</posx>
+					<posy>23</posy>
+	  				<description>Black Background Patch</description>
+	  				<width>240</width>
+	  				<height>185</height>
+	  				<texture>colors/black.png</texture>
+					<colordiffuse>88FFFFFF</colordiffuse>
+	  			</control>
 	 			<control type="label" id="19547">
 					<description>currently label</description>
 					<posx>35</posx>
@@ -81,7 +89,7 @@
 					<align>left</align>
 					<scroll>true</scroll>
 					<aligny>center</aligny>
-					<textcolor>grey</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
 	  			<control type="label" id="19547">
@@ -94,7 +102,7 @@
 					<align>right</align>
 					<aligny>top</aligny>
 					<label>$INFO[Window(2600).Property(Current.Temperature)]°</label>
-					<textcolor>white</textcolor>
+					<textcolor>_colour_text_default_</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
 				<control type="label" id="19547">
@@ -103,12 +111,12 @@
 					<posy>35</posy>
 					<width>460</width>
 					<height>160</height>
-					<label>Predicted High: [COLOR white]$INFO[Window(2600).Property(Daily.1.HighTemp)]°[/COLOR]</label>
+					<label>Predicted High: [COLOR _colour_text_default_]$INFO[Window(2600).Property(Daily.1.HighTemp)]°[/COLOR]</label>
 					<font>font10</font>
 					<align>left</align>
 					<scroll>true</scroll>
 					<aligny>center</aligny>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
 				<control type="label" id="19547">
@@ -117,12 +125,12 @@
 					<posy>70</posy>
 					<width>460</width>
 					<height>160</height>
-					<label>Overnight Low:  [COLOR white]$INFO[Window(2600).Property(Daily.2.LowTemp)]°[/COLOR]</label>
+					<label>Overnight Low:  [COLOR _colour_text_default_]$INFO[Window(2600).Property(Daily.2.LowTemp)]°[/COLOR]</label>
 					<font>font10</font>
 					<align>left</align>
 					<scroll>true</scroll>
 					<aligny>center</aligny>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
 				<control type="label" id="19547">
@@ -131,12 +139,12 @@
 					<posy>105</posy>
 					<width>460</width>
 					<height>160</height>
-					<label>Tomorrow High: [COLOR white]$INFO[Window(2600).Property(Daily.2.HighTemp)]°[/COLOR]</label>
+					<label>Tomorrow High: [COLOR _colour_text_default_]$INFO[Window(2600).Property(Daily.2.HighTemp)]°[/COLOR]</label>
 					<font>font10</font>
 					<align>left</align>
 					<scroll>true</scroll>
 					<aligny>center</aligny>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<shadowcolor>black</shadowcolor>
 				</control>
 			</control>

@@ -1,14 +1,50 @@
 <?xml version="1.0" ?>
 <settings version="1">
-	<section id="script.ozweather-skinpatcher">
-		<category help="" id="OzWeather Skin Patcher" label="32000">
-			<group id="1">
-				<setting help="" id="patch_videofullscreen" label="32003" type="boolean">
-					<level>0</level>
-					<default>false</default>
-					<control type="toggle"/>
-				</setting>
-			</group>
-		</category>
-	</section>
+    <section id="script.ozweather-skinpatcher">
+        <category help="" id="OzWeather Skin Patcher" label="32000">
+            <group id="1" label="32010">
+                <setting id="colour_text_default" type="string" label="32008" help="">
+                    <level>0</level>
+                    <default>white</default>
+                    <control type="edit" format="string" />
+                </setting>
+                <setting id="colour_text_dim" type="string" label="32003" help="">
+                    <level>0</level>
+                    <default>silver</default>
+                    <control type="edit" format="string" />
+                </setting>
+                <setting id="colour_text_dimmer" type="string" label="32004" help="">
+                    <level>0</level>
+                    <default>gray</default>
+                    <control type="edit" format="string" />
+                </setting>
+                <setting id="colour_text_high_temp" type="string" label="32005" help="">
+                    <level>0</level>
+                    <default>orange</default>
+                    <control type="edit" format="string" />
+                </setting>
+                <setting id="colour_text_low_temp" type="string" label="32006" help="">
+                    <level>0</level>
+                    <default>skyblue</default>
+                    <control type="edit" format="string" />
+                </setting>
+                <setting id="background_visible" type="string" label="32009" help="">
+                    <level>0</level>
+                    <default>yes</default>
+                    <control type="edit" format="string" />
+                </setting>
+                <setting id="background_opacity" type="string" label="32007" help="">
+                    <level>0</level>
+                    <default>88FFFFFFF</default>
+                    <dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="background_visible">yes</condition>
+						</dependency>
+					</dependencies>
+                    <control type="edit" format="string" />
+                </setting>
+            </group>
+        </category>
+    </section>
 </settings>
+
