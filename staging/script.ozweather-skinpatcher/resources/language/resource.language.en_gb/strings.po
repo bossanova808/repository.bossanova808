@@ -46,7 +46,7 @@ msgid "Low Temps (normally skyblue)"
 msgstr ""
 
 msgctxt "#32009"
-msgid "Show background art? (only Amber/Aeon - either yes/no)"
+msgid "Show background art? (only Amber/Aeon)"
 msgstr ""
 
 msgctxt "#32007"

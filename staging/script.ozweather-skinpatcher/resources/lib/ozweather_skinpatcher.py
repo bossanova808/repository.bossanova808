@@ -140,7 +140,7 @@ def patch(config):
         log(f"Patching & copying {file} to {config.xml_destination_folder}")
 
         try:
-            with open(file, 'r') as source_file:
+            with xbmcvfs.File(file, 'r') as source_file:
                 new_data = source_file.read()
 
             # Patch in the user's choices
@@ -149,10 +149,10 @@ def patch(config):
             new_data = new_data.replace('_colour_text_dimmer_', ADDON.getSetting('colour_text_dimmer'))
             new_data = new_data.replace('_colour_text_high_temp_', ADDON.getSetting('colour_text_high_temp'))
             new_data = new_data.replace('_colour_text_low_temp_', ADDON.getSetting('colour_text_low_temp'))
-            new_data = new_data.replace('_background_visible_', ADDON.getSetting('background_visible'))
+            new_data = new_data.replace('_background_visible_', 'yes' if ADDON.getSettingBool('background_visible_bool') else 'no')
             new_data = new_data.replace('_background_opacity_', ADDON.getSetting('background_opacity'))
 
-            with open(config.xml_destination_folder + "/" + ntpath.basename(file), 'w') as destination_file:
+            with xbmcvfs.File(config.xml_destination_folder + "/" + ntpath.basename(file), 'w') as destination_file:
                 destination_file.write(new_data)
 
         except Exception as inst:

@@ -28,17 +28,17 @@
                     <default>skyblue</default>
                     <control type="edit" format="string" />
                 </setting>
-                <setting id="background_visible" type="string" label="32009" help="">
-                    <level>0</level>
-                    <default>yes</default>
-                    <control type="edit" format="string" />
-                </setting>
+                <setting id="background_visible_bool" type="boolean" label="32009" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
                 <setting id="background_opacity" type="string" label="32007" help="">
                     <level>0</level>
                     <default>88FFFFFFF</default>
                     <dependencies>
 						<dependency type="enable">
-							<condition operator="is" setting="background_visible">yes</condition>
+							<condition operator="is" setting="background_visible_bool">true</condition>
 						</dependency>
 					</dependencies>
                     <control type="edit" format="string" />

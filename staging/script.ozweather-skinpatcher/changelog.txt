@@ -1,4 +1,4 @@
-0.2.4
+0.2.5
 - Add support for user choice of colours, and for aeon/amber background image, background opacity
 0.2.3
 - Tweaks, add support for xonfluence, and aeon skins

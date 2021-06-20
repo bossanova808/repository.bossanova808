@@ -13,13 +13,12 @@
 
 	<defaultcontrol always="true">222</defaultcontrol>
 	<controls>
-		<include>DefaultBackground</include>
 		<include>Time</include>
     	<control type="image">
 			<width>1920</width>
-			<top>18</top>
+			<top>42</top>
 			<height>1200</height>
-			<texture border="0,30,0,0">OSD/FS_OSDBackground.png</texture>
+			<texture>$VAR[Weather.Art]</texture>
 			<visible>_background_visible_</visible>
       		<colordiffuse>_background_opacity_</colordiffuse>
     	</control>
