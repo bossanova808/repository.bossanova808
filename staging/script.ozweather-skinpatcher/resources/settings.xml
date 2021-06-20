@@ -10,7 +10,7 @@
                 </setting>
                 <setting id="colour_text_dim" type="string" label="32003" help="">
                     <level>0</level>
-                    <default>silver</default>
+                    <default>darkgray</default>
                     <control type="edit" format="string" />
                 </setting>
                 <setting id="colour_text_dimmer" type="string" label="32004" help="">

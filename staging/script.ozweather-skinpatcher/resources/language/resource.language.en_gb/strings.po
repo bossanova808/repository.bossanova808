@@ -26,23 +26,23 @@ msgid "Successfully patch skin.confluence & created backup files"
 msgstr ""
 
 msgctxt "#32008"
-msgid "Main text (normally white)"
+msgid "Main text (default white)"
 msgstr ""
 
 msgctxt "#32003"
-msgid "Dim Text (normally silver)"
+msgid "Dim Text (default darkgray, which is lighter than gray ?!)"
 msgstr ""
 
 msgctxt "#32004"
-msgid "Dimmer Text (normally gray)"
+msgid "Dimmer Text (default gray)"
 msgstr ""
 
 msgctxt "#32005"
-msgid "High Temp (normally orange)"
+msgid "High Temp (default orange)"
 msgstr ""
 
 msgctxt "#32006"
-msgid "Low Temps (normally skyblue)"
+msgid "Low Temps (default skyblue)"
 msgstr ""
 
 msgctxt "#32009"
@@ -50,9 +50,9 @@ msgid "Show background art? (only Amber/Aeon)"
 msgstr ""
 
 msgctxt "#32007"
-msgid "Opacity for background image"
+msgid "Opacity for background image, when shown (default 88FFFFFFF)"
 msgstr ""
 
 msgctxt "#32010"
-msgid "Kodi Skin Colours (see system/colors.xml for names)"
+msgid "Kodi Skin Colours (system/colors.xml has the (odd) names, or use AARRGGBB)"
 msgstr "
