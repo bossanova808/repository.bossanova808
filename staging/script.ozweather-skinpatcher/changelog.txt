@@ -1,5 +1,5 @@
-0.2.6
-- Fix custom backgrouns in Amber, hopefully
+0.2.7
+- Fix custom backgrounds in Amber, hopefully
 0.2.5
 - Add support for user choice of colours, and for aeon/amber background image, background opacity
 0.2.3
