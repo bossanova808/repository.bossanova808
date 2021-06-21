@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.610" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.611" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>
@@ -26,7 +26,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>- OzWeather V2 Support, add tempo change PR
+		<news>- OzWeather V2.0.1 Support, add tempo change PR
 		</news>
 	</extension>
 </addon>

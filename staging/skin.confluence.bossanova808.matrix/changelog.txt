@@ -1,3 +1,7 @@
+[B]4.7.611[/B]
+
+2021-06-21 FInal updates for OzWeather 2.0.1
+
 [B]4.7.608[/B]
 
 2021-05-27 Updated MyWeather for forthcoming OzWeather BOM API update

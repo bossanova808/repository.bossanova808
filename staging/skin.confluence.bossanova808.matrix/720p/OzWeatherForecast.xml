@@ -56,8 +56,8 @@
                     <posx>30%</posx>
                     <posy>9%</posy>
                     <include content="FontBody" />
-                    <label>[COLOR white]Low:   [/COLOR][COLOR skyblue]$PARAM[LowTemperature]°[/COLOR]</label>
-                    <textcolor>grey2</textcolor>
+                    <label>[COLOR darkgray]Low:   [/COLOR][COLOR skyblue]$PARAM[LowTemperature]°[/COLOR]</label>
+                    <textcolor>gray</textcolor>
                     <visible>Weather.IsFetched</visible>
                 </control>
 
@@ -103,7 +103,7 @@
                 <description>Extended Forecast Label</description>
                 <param name="posx">3%</param>
                 <param name="posy">10%</param>
-                <param name="label">Extended Forecast [COLOR grey]for [/COLOR]$INFO[Window.Property(ForecastRegion)] [COLOR grey]issued[/COLOR] $INFO[Window.Property(ForecastUpdated)]</param>
+                <param name="label">Extended Forecast [COLOR darkgray]for [/COLOR]$INFO[Window.Property(ForecastRegion)] [COLOR darkgray]issued[/COLOR] $INFO[Window.Property(ForecastUpdated)]</param>
             </include>
 
             <control type="textbox">
