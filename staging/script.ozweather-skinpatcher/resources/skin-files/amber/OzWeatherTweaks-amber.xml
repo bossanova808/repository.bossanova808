@@ -20,4 +20,9 @@
     <constant name="MasterYOffset">0%</constant>
     <constant name="WeatherInfoLineHeight">-30%</constant>
 
+    <variable name="Ozw_Background">
+        <value>$VAR[SubDefaultBackground]</value>
+        <value>$VAR[Weather.Art]</value>
+	</variable>
+
 </includes>

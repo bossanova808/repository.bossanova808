@@ -43,7 +43,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.2.5" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.2.6" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -65,7 +65,9 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.2.5
+    <news>0.2.6
+      - Hopefully fix custom backgrounds in Amber
+      0.2.5
       - Add support for user choice of colours, and for aeon/amber background image, background opacity
       0.2.3
       - Tweaks, add support for aeon (aeon nox silvo and aean tajo tested), xonfluence

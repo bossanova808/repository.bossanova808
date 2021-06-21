@@ -18,7 +18,7 @@
 			<width>1920</width>
 			<top>42</top>
 			<height>1200</height>
-			<texture>$VAR[Weather.Art]</texture>
+			<texture>$VAR[Ozw_Background]</texture>
 			<visible>_background_visible_</visible>
       		<colordiffuse>_background_opacity_</colordiffuse>
     	</control>
