@@ -15,7 +15,7 @@
 				<left>0</left>
 				<top>0</top>
 				<width>1280</width>
-				<height>325</height>
+				<height>400</height>
 				<texture>black-back.png</texture>
 			</control>
 			<control type="label">
@@ -144,11 +144,88 @@
 				<aligny>center</aligny>
 				<font>font12</font>
 				<textcolor>white</textcolor>
+			</control>		
+			<!-- Bossanova808 Mod AMLOGIC video info -->
+			<control type="label">
+				<description>Display mode</description>
+				<left>50</left>
+				<top>140</top>
+				<width>165</width>
+				<height>25</height>
+				<label>AML Display mode:</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>grey2</textcolor>
 			</control>
+			<control type="label">
+				<description>Display mode value</description>
+				<left>220</left>
+				<top>140</top>
+				<width>450</width>
+				<height>25</height>
+				<scroll>true</scroll>
+				<label fallback="1446">$INFO[Player.Process(amlogic.displaymode)]</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+			</control>
+			<control type="label">
+				<description>Pixel format</description>
+				<left>50</left>
+				<top>165</top>
+				<width>165</width>
+				<height>25</height>
+				<label>AML Pixel format:</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>grey2</textcolor>
+			</control>
+			<control type="label">
+				<description>Pixel format value</description>
+				<left>220</left>
+				<top>165</top>
+				<width>450</width>
+				<height>25</height>
+				<scroll>true</scroll>
+				<label fallback="1446">$INFO[Player.Process(amlogic.pixformat)]</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+			</control>
+			<control type="label">
+				<description>Gamut</description>
+				<left>50</left>
+				<top>190</top>
+				<width>165</width>
+				<height>25</height>
+				<label>AML Gamut:</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>grey2</textcolor>
+			</control>
+			<control type="label">
+				<description>Gamut value</description>
+				<left>220</left>
+				<top>190</top>
+				<width>450</width>
+				<height>25</height>
+				<scroll>true</scroll>
+				<label fallback="1446">$INFO[Player.Process(amlogic.eoft_gamut)]</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+			</control>	
+			<!-- END Bossanova808 mod AMLOGIC video info -->	
 			<control type="label">
 				<description>Header</description>
 				<left>50</left>
-				<top>145</top>
+				<top>220</top>
 				<width>565</width>
 				<height>25</height>
 				<label>$LOCALIZE[31013]</label>
@@ -160,7 +237,7 @@
 			<control type="label">
 				<description>Decoder</description>
 				<left>50</left>
-				<top>175</top>
+				<top>250</top>
 				<width>165</width>
 				<height>25</height>
 				<label>$LOCALIZE[31012]:</label>
@@ -172,7 +249,7 @@
 			<control type="label">
 				<description>Decoder value</description>
 				<left>220</left>
-				<top>175</top>
+				<top>250</top>
 				<width>450</width>
 				<height>25</height>
 				<scroll>true</scroll>
@@ -185,7 +262,7 @@
 			<control type="label">
 				<description>Channels</description>
 				<left>50</left>
-				<top>200</top>
+				<top>275</top>
 				<width>165</width>
 				<height>25</height>
 				<label>$LOCALIZE[19019]:</label>
@@ -197,7 +274,7 @@
 			<control type="label">
 				<description>Channels value</description>
 				<left>220</left>
-				<top>200</top>
+				<top>275</top>
 				<width>450</width>
 				<height>25</height>
 				<scroll>true</scroll>
@@ -210,7 +287,7 @@
 			<control type="label">
 				<description>Header</description>
 				<left>50</left>
-				<top>230</top>
+				<top>305</top>
 				<width>565</width>
 				<height>25</height>
 				<label>$LOCALIZE[138]</label>
@@ -222,7 +299,7 @@
 			<control type="label">
 				<description>CPU</description>
 				<left>50</left>
-				<top>260</top>
+				<top>335</top>
 				<width>165</width>
 				<height>25</height>
 				<label>$LOCALIZE[13271]</label>
@@ -234,7 +311,7 @@
 			<control type="label">
 				<description>CPU value</description>
 				<left>220</left>
-				<top>260</top>
+				<top>335</top>
 				<width>450</width>
 				<height>25</height>
 				<scroll>true</scroll>
@@ -247,7 +324,7 @@
 			<control type="label">
 				<description>Memory</description>
 				<left>50</left>
-				<top>285</top>
+				<top>360</top>
 				<width>165</width>
 				<height>25</height>
 				<label>$LOCALIZE[31014]:</label>
@@ -259,7 +336,7 @@
 			<control type="label">
 				<description>Memory value</description>
 				<left>220</left>
-				<top>285</top>
+				<top>360</top>
 				<width>450</width>
 				<height>25</height>
 				<scroll>true</scroll>
