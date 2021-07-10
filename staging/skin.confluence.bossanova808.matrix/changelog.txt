@@ -1,6 +1,10 @@
+[B]4.7.612[/B]
+
+2021-07-10 Add Amlogic Video info
+
 [B]4.7.611[/B]
 
-2021-06-21 FInal updates for OzWeather 2.0.1
+2021-06-21 Final updates for OzWeather 2.0.1
 
 [B]4.7.608[/B]
 
