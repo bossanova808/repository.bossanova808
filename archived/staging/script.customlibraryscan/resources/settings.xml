@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.customlibraryscan">
+		<category id="general" label="32103" help="">
+			<group id="1" label="32105">
+				<setting id="RecipesFolder" type="path" label="32104" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>true</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="path">
+						<heading>32104</heading>
+					</control>
+				</setting>
+				<setting id="StopRequested" type="boolean" label="" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<visible>false</visible>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

@@ -1,0 +1,41 @@
+# Kodi Media Center language file
+# Addon Name: Custom Library Scan
+# Addon id: script.customlibraryscan
+# Addon Provider: bossanova808
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: 2011-12-14 00:00+1000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#32100"
+msgid "Custom Library Scan"
+msgstr "
+
+msgctxt "#32101"
+msgid "Update Library (by folder)"
+msgstr ""
+
+msgctxt "#32102"
+msgid "Show Progress Dialogues While Scanning?"
+msgstr ""
+
+msgctxt "#32103"
+msgid "General"
+msgstr ""
+
+msgctxt "#32104"
+msgid "Recipes Folder (e.g. network folder)"
+msgstr ""
+
+msgctxt "#32105"
+msgid "Leave blank to use the default addon_data folder for your recipes."
+msgstr ""

@@ -1,0 +1,6 @@
+# These files are blocked from the release.zip creation
+.gitignore export-ignore
+.gitattributes export-ignore
+.github export-ignore
+*.pyc export-ignore
+*.pyo export-ignore

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.customlibraryscan" name="Custom Library Scan" version="0.0.1" provider-name="bossanova808">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.yaml" version="5.3.0" />
+  </requires>
+  <extension point="xbmc.service" library="default.py" />
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Create custom library scanning recipes to e.g. scan only your TV folders.</summary>
+    <description lang="en_GB">
+        To help speed up scanning and to give you more control, use this addon to create custom library scanning recipes (e.g. only TV shows, only Movies, or only a particular path)
+    </description>
+    <platform>all</platform>
+    <license>GPL-3.0-only</license>
+    <website>https://github.com/bossanova808/script.customlibraryscan/</website>
+    <source>https://github.com/bossanova808/script.customlibraryscan/</source>
+    <forum />
+    <email>bossonav808@gmail.com</email>
+    <news>v0.0.1
+        - Development version
+    </news>
+<!--     <assets>
+      <icon>icon.png</icon>
+    </assets> -->
+  </extension>
+</addon>
+
+
+
