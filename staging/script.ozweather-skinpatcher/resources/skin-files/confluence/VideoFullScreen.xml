@@ -6,9 +6,15 @@
 	    <control type="group" id="10125">
   			<posx>-15</posx>
   			<posy>15</posy>
+  			<!-- Only show weather if it is available - using a predicted high of zero since this never happens where I live, but it's dodgy -->
+  			<!-- Should use Weather.IsFetched but for some reason it doesn't work as expected -->
+			<!-- <visible>!Weather.IsFetched</visible> -->
 	      	<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
-			<visible>Weather.IsFetched</visible>
- 			<control type="image" id="19547">
+			<!-- Only show weather if it is acyually available - using a predicted high of -50 since this never happens where I live, but it's dodgy -->
+  			<!-- Should use Weather.IsFetched but for some reason it doesn't work as expected (checked again 2021) -->
+			<!-- <visible>!Weather.IsFetched</visible> --> 			
+			<visible>[!StringCompare(Window(2600).Property(Daily.1.HighTemp),"-50") + !String.IsEmpty(Window(2600).Property(Daily.1.HighTemp))]</visible>	
+			<control type="image" id="19547">
   				<description>media info background image</description>
   				<posx>25</posx>
   				<posy>25</posy>
@@ -27,20 +33,20 @@
 				<align>left</align>
 				<scroll>true</scroll>
 				<aligny>center</aligny>
-				<textcolor>darkgray</textcolor>
+				<textcolor>_colour_text_dim_</textcolor>
 				<shadowcolor>black</shadowcolor>
 			</control>
   			<control type="label" id="19547">
 				<description>current temp Value</description>
-				<posx>95</posx>
-				<posy>42</posy>
+				<posx>105</posx>
+				<posy>52</posy>
 				<width>180</width>
 				<height>40</height>
-				<font>font35_title</font>
+				<font>font28_title</font>
 				<align>right</align>
 				<aligny>top</aligny>
-				<label>$INFO[Window(2600).Property(Current.Temperature)]°</label>
-				<textcolor>white</textcolor>
+				<label>$INFO[Window(2600).Property(Current.OzW_Temperature)]°</label>
+				<textcolor>_colour_text_default_</textcolor>
 				<shadowcolor>black</shadowcolor>
 			</control>
 			<control type="label" id="19547">
@@ -49,12 +55,12 @@
 				<posy>35</posy>
 				<width>460</width>
 				<height>160</height>
-				<label>Predicted[CR]High: [COLOR white]$INFO[Window(2600).Property(Daily.1.HighTemp)]°[/COLOR]</label>
+				<label>Predicted[CR]High: [COLOR _colour_text_default_]$INFO[Window(2600).Property(Daily.1.HighTemp)]°[/COLOR]</label>
 				<font>font10</font>
 				<align>left</align>
 				<scroll>true</scroll>
 				<aligny>center</aligny>
-				<textcolor>darkgray</textcolor>
+				<textcolor>_colour_text_dim_</textcolor>
 				<shadowcolor>black</shadowcolor>
 			</control>
 			<control type="label" id="19547">
@@ -63,12 +69,12 @@
 				<posy>70</posy>
 				<width>460</width>
 				<height>160</height>
-				<label>Overnight[CR]Low:  [COLOR white]$INFO[Window(2600).Property(Daily.2.LowTemp)]°[/COLOR]</label>
+				<label>Overnight[CR]Low:  [COLOR _colour_text_default_]$INFO[Window(2600).Property(Daily.2.LowTemp)]°[/COLOR]</label>
 				<font>font10</font>
 				<align>left</align>
 				<scroll>true</scroll>
 				<aligny>center</aligny>
-				<textcolor>darkgray</textcolor>
+				<textcolor>_colour_text_dim_</textcolor>
 				<shadowcolor>black</shadowcolor>
 			</control>
 			<control type="label" id="19547">
@@ -77,12 +83,12 @@
 				<posy>105</posy>
 				<width>460</width>
 				<height>160</height>
-				<label>Tomorrow[CR]High: [COLOR white]$INFO[Window(2600).Property(Daily.2.HighTemp)]°[/COLOR]</label>
+				<label>Tomorrow[CR]High: [COLOR _colour_text_default_]$INFO[Window(2600).Property(Daily.2.HighTemp)]°[/COLOR]</label>
 				<font>font10</font>
 				<align>left</align>
 				<scroll>true</scroll>
 				<aligny>center</aligny>
-				<textcolor>darkgray</textcolor>
+				<textcolor>_colour_text_dim_</textcolor>
 				<shadowcolor>black</shadowcolor>
 			</control>
 			<control type="group" id="10126">
@@ -211,9 +217,9 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font13</font>
-				<textcolor>white</textcolor>
+				<textcolor>_colour_text_default_</textcolor>
 				<shadowcolor>black</shadowcolor>
-				<label>$INFO[Player.Chapter,$LOCALIZE[21396]: ]$INFO[Player.ChapterCount, / ]$INFO[Player.ChapterName,[COLOR=darkgray] - (,)[/COLOR]]</label>
+				<label>$INFO[Player.Chapter,$LOCALIZE[21396]: ]$INFO[Player.ChapterCount, / ]$INFO[Player.ChapterName,[COLOR=_colour_text_dim_] - (,)[/COLOR]]</label>
 				<visible>Player.ChapterCount + !VideoPlayer.Content(LiveTV)</visible>
 			</control>
 			<control type="label" id="1">
@@ -225,7 +231,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font13</font>
-				<textcolor>white</textcolor>
+				<textcolor>_colour_text_default_</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[31509]: ]</label>
 				<visible>VideoPlayer.Content(LiveTV)</visible>
@@ -239,7 +245,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font13</font>
-				<textcolor>white</textcolor>
+				<textcolor>_colour_text_default_</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Time]</label>
 				<animation effect="slide" start="0,0" end="-30,0" time="0" condition="Player.Muted">conditional</animation>
@@ -279,7 +285,7 @@
 					<aligny>center</aligny>
 					<font>font13</font>
 					<label>$LOCALIZE[31040]</label>
-					<textcolor>white</textcolor>
+					<textcolor>_colour_text_default_</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>![VideoPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>
 					<animation effect="slide" start="0,0" end="0,25" time="0" condition="!VideoPlayer.Content(Movies) + !VideoPlayer.Content(Episodes) + !VideoPlayer.Content(MusicVideos) + !VideoPlayer.Content(LiveTV) + !PVR.IsPlayingRecording">conditional</animation>
@@ -302,7 +308,7 @@
 					<aligny>center</aligny>
 					<font>font13</font>
 					<label>$LOCALIZE[19158]</label>
-					<textcolor>white</textcolor>
+					<textcolor>_colour_text_default_</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
 				</control>
@@ -315,7 +321,7 @@
 					<align>left</align>
 					<font>font12</font>
 					<label>$INFO[VideoPlayer.Studio]</label>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dimmer_</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(Movies)</visible>
 				</control>
@@ -328,7 +334,7 @@
 					<align>left</align>
 					<font>font12</font>
 					<label>$INFO[VideoPlayer.TVShowTitle] ($INFO[VideoPlayer.Season,,x]$INFO[VideoPlayer.Episode])</label>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dimmer_</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(Episodes)</visible>
 				</control>
@@ -341,7 +347,7 @@
 					<align>left</align>
 					<font>font12</font>
 					<label>$INFO[VideoPlayer.Artist] $INFO[VideoPlayer.Album, - ]</label>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dimmer_</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(MusicVideos)</visible>
 				</control>
@@ -354,7 +360,7 @@
 					<align>left</align>
 					<font>font12</font>
 					<label>$INFO[VideoPlayer.ChannelNumberLabel,([COLOR=blue],[/COLOR]) ]$INFO[VideoPlayer.ChannelName]$INFO[VideoPlayer.EpisodeName, (,)]</label>
-					<textcolor>gray</textcolor>
+					<textcolor>_colour_text_dimmer_</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
 				</control>
@@ -372,7 +378,7 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[Player.Title]</label>
-						<textcolor>orange</textcolor>
+						<textcolor>_colour_text_high_temp_</textcolor>
 						<scroll>true</scroll>
 					</control>
 					<control type="image" id="1">
@@ -419,7 +425,7 @@
 							<font>font13</font>
 							<align>left</align>
 							<label>$INFO[VideoPlayer.AudioLanguage]</label>
-							<textcolor>darkgray</textcolor>
+							<textcolor>_colour_text_dim_</textcolor>
 						</control>
 					</control>
 					<control type="group" id="1">
@@ -441,7 +447,7 @@
 							<font>font13</font>
 							<align>left</align>
 							<label>$INFO[VideoPlayer.SubtitlesLanguage]</label>
-							<textcolor>darkgray</textcolor>
+							<textcolor>_colour_text_dim_</textcolor>
 						</control>
 					</control>
 				</control>
@@ -454,7 +460,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font12</font>
-					<textcolor>darkgray</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<scroll>true</scroll>
 					<visible>[Player.ShowInfo | Window.IsVisible(VideoOSD)] + !VideoPlayer.Content(LiveTV)</visible>
 					<animation effect="fade" time="150">VisibleChange</animation>
@@ -468,7 +474,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font12</font>
-					<textcolor>darkgray</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<scroll>true</scroll>
 					<visible>!Window.IsVisible(VideoOSD) + VideoPlayer.Content(LiveTV)</visible>
 					<animation effect="fade" time="150">VisibleChange</animation>
@@ -482,7 +488,7 @@
 					<align>center</align>
 					<aligny>center</aligny>
 					<font>font12</font>
-					<textcolor>darkgray</textcolor>
+					<textcolor>_colour_text_dim_</textcolor>
 					<scroll>true</scroll>
 					<visible>!Window.IsVisible(VideoOSD) + VideoPlayer.Content(LiveTV) + PVR.IsTimeShift</visible>
 					<animation effect="fade" time="150">VisibleChange</animation>
@@ -600,7 +606,7 @@
 			<align>center</align>
 			<aligny>center</aligny>
 			<font>font13</font>
-			<textcolor>white</textcolor>
+			<textcolor>_colour_text_default_</textcolor>
 			<shadowcolor>black</shadowcolor>
 			<label>$INFO[Player.SeekNumeric]</label>
 		</control>
