@@ -1,3 +1,5 @@
+0.2.8 
+- Slightly more logging
 0.2.7
 - Fix custom backgrounds in Amber, hopefully
 0.2.5

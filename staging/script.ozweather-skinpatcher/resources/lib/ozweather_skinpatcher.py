@@ -152,8 +152,11 @@ def patch(config):
             new_data = new_data.replace('_background_visible_', 'yes' if ADDON.getSettingBool('background_visible_bool') else 'no')
             new_data = new_data.replace('_background_opacity_', ADDON.getSetting('background_opacity'))
 
-            with xbmcvfs.File(config.xml_destination_folder + "/" + ntpath.basename(file), 'w') as destination_file:
-                destination_file.write(new_data)
+            file_to_write = config.xml_destination_folder + "/" + ntpath.basename(file)
+            log(f"Writing patched file to: {file_to_write}")
+            with xbmcvfs.File(file_to_write, 'w') as destination_file:
+                result = destination_file.write(new_data)
+                log(f"...done...result: {result}")
 
         except Exception as inst:
             log("...failed!  Error writing new skin files.")
