@@ -1,4 +1,6 @@
--- V0.0.2
+-v0.2.1
+Prevent time remaining with PVR Timeshift 
+-v0.2.0
 Rewrite for Python 3 / Kodi 19
--- V0.0.1 -> 0.0.4
+-V0.0.1
 Initial Development

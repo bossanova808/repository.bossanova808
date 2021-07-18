@@ -53,7 +53,7 @@ def process2ndScreen():
     else:
         time_and_temperature = time_now
 
-    if xbmc.getCondVisibility('Player.HasVideo'):
+    if xbmc.getCondVisibility('Player.HasVideo') and not xbmc.getCondVisibility('VideoPlayer.Content(livetv)'):
         time_remaining = xbmc.getInfoLabel('Player.TimeRemaining')
         if len(time_remaining) > 0 and time_remaining[0] == "0":
             time_remaining = time_remaining[1:]

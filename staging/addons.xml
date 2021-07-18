@@ -18,7 +18,7 @@
 	</extension>
 </addon>
 
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.0" provider-name="bossanova808">
+<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.1" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
