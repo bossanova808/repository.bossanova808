@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # *********************************************************************
 # *
-# * $Id: yocto_api.py 44114 2021-03-03 17:47:55Z mvuilleu $
+# * $Id: yocto_api.py 45551 2021-06-14 13:51:37Z web $
 # *
 # * High-level programming interface, common to all modules
 # *
@@ -891,7 +891,7 @@ class YAPI:
     YOCTO_API_VERSION_STR = "1.10"
     YOCTO_API_VERSION_BCD = 0x0110
 
-    YOCTO_API_BUILD_NO = "44175"
+    YOCTO_API_BUILD_NO = "45664"
     YOCTO_DEFAULT_PORT = 4444
     YOCTO_VENDORID = 0x24e0
     YOCTO_DEVID_FACTORYBOOT = 1
@@ -1416,6 +1416,7 @@ class YAPI:
     UNAUTHORIZED = -12             # unauthorized access to password-protected device
     RTC_NOT_READY = -13            # real-time clock has not been initialized (or time was lost)
     FILE_NOT_FOUND = -14           # the file is not found
+    SSL_ERROR = -15                # Error reported by mbedSSL
 
     #--- (end of generated code: YFunction return codes)
 
@@ -2271,7 +2272,7 @@ class YAPI:
             YAPI.yloadYapiCDLL()
         version = YRefParam()
         date = YRefParam()
-        if YAPI.apiGetAPIVersion(version, date) != YAPI.YOCTO_API_VERSION_BCD:
+        if YAPI.apiGetAPIVersion(version, date) < YAPI.YOCTO_API_VERSION_BCD:
             if errmsg is not None:
                 errmsg.value = YAPI._yApiCLibFile + " does does not match the version of the Libary (Libary=" + YAPI.YOCTO_API_VERSION_STR + "." + YAPI.YOCTO_API_BUILD_NO
                 # noinspection PyTypeChecker
@@ -8212,7 +8213,7 @@ class YDataLogger(YFunction):
         call registerHub() at application initialization time.
 
         @param func : a string that uniquely characterizes the data logger, for instance
-                LIGHTMK3.dataLogger.
+                RX420MA1.dataLogger.
 
         @return a YDataLogger object allowing you to drive the data logger.
         """

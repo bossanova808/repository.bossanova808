@@ -1,4 +1,4 @@
-Using: 1.10.44175
+Using: 1.10.45664
 
 Download latest archive from: https://pypi.org/project/yoctopuce/#files
 
