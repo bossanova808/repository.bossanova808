@@ -9,6 +9,6 @@ The main thing here is the automatic skin patcher to support [OzWeather](https:/
 
 There is also a script for displaying some now playing information on an external usb Yocto MaxiDisplay.
 
-Finally, a version of Confluence with some minor mods inc. integrated OzWerather support, clearart support, and a few other tweaks.
+Finally, a personal version of Confluence with some minor mods inc. integrated OzWeather support, clearart support, and a few other tweaks to my taste.  
 
 
