@@ -88,7 +88,11 @@ msgctxt "#31017"
 msgid "Unavailable"
 msgstr ""
 
-#empty strings from id 31018 to 31022
+#empty strings from id 31018 to 31021
+
+msgctxt "#31022"
+msgid "Play speed"
+msgstr ""
 
 msgctxt "#31023"
 msgid "Playing"
@@ -365,7 +369,19 @@ msgctxt "#31145"
 msgid "playlist path"
 msgstr ""
 
-#empty strings from id 31146 to 31199
+msgctxt "#31146"
+msgid "Hide home screen buttons"
+msgstr ""
+
+msgctxt "#31147"
+msgid "Hide - Favourites"
+msgstr ""\
+
+msgctxt "#31148"
+msgid "Hide - Search"
+msgstr ""
+
+#empty strings from id 31149 to 31199
 
 msgctxt "#31200"
 msgid "Shortcuts"
