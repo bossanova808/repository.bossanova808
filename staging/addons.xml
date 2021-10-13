@@ -18,7 +18,7 @@
 	</extension>
 </addon>
 
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.1" provider-name="bossanova808">
+<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.2" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -37,8 +37,8 @@
         <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
         <forum />
         <email />
-        <news>v0.2.0
-            - Updated for Python 3 / Kodi 19
+        <news>v0.2.2
+            - Force architecture to work with Coreelec on Odroid consistently.
         </news>
     </extension>
 </addon>
@@ -237,7 +237,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.613" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.614" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>

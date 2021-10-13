@@ -10,8 +10,10 @@ try:
     from .common import *
 except:
     from common import *
+
 sys.path.append(CWD + '/resources/lib/')
 sys.path.append(CWD + '/resources/lib/yoctopuce')
+
 try:
     from yocto_api import *
     from yocto_display import *
@@ -28,13 +30,19 @@ class YoctoMaxiDisplay:
     displayLayer = None
 
     @staticmethod
-    def register_yocto_API():
+    def register_yocto_API(architecture=None):
         """
         Register the Yocto API to use a USB attached device
         :return: None
         """
         log("register_yocto_API")
         errmsg = YRefParam()
+
+        # September 2021 - added to force correct library loading
+        # (wrong ELF class: ELFCLASS64 errors in log)
+        if architecture:
+            YAPI.SelectArchitecture(architecture)
+
         # Setup the API to use local USB devices
         if YAPI.RegisterHub("usb", errmsg) != YAPI.SUCCESS:
             log("Could not init Yocto API: " + str(errmsg))

@@ -8,7 +8,7 @@ def run(args):
     footprints()
 
     YoctoMaxiDisplay()
-    YoctoMaxiDisplay.register_yocto_API()
+    YoctoMaxiDisplay.register_yocto_API('armhf')
     YoctoMaxiDisplay.register_display_and_module()
     YoctoMaxiDisplay.describe_display()
 
