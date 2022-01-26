@@ -222,7 +222,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.614" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.matrix" version="4.7.615" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.15.0"/>
 	</requires>
@@ -249,8 +249,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>- OzWeather V2.0.1 Support, add tempo change PR
-		</news>
+		<news>v4.7.615 - Minor change to weather files</news>
 	</extension>
 </addon>
 </addons>

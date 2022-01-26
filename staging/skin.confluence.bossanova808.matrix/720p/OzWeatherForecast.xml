@@ -68,7 +68,7 @@
                     <width>25%</width>
                     <align>right</align>
                     <include content="FontBody" />
-                    <label>Rain Chance: [COLOR white]$PARAM[RainChance][/COLOR]</label>
+                    <label>Chance: [COLOR white]$PARAM[RainChance][/COLOR]</label>
                     <textcolor>gray</textcolor>
                 </control>
 
