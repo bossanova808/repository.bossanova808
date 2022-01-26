@@ -985,7 +985,7 @@
 						<visible>False</visible> <!-- BOSSANOVA808 Remove Radio -->
 					</item>
 					<item id="12">
-						<label>31952</label>
+						<label>LIVE TV</label> <!-- BOSSANOVA808 Add 'Live' to label -->
 						<onclick>ActivateWindow(TVChannels)</onclick>
 						<icon/>
 						<thumb/>
