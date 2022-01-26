@@ -43,7 +43,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.2.8" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.2.9" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -57,7 +57,7 @@
         Supports: Estuary, Estouchy, Confluence, Xonfluence, Amber, Aeon (Nox Silvo and Tajo)
         Skin folder must be writeable! (Creates a backup of of the original skin files first and this addon can also restore those if need be).
         By default patches only the actual weather page.
-        For Estuary &amp; Confluence, also patched your VideoFullScreen file for weather/radar during playback when video info is displayed.
+        For Estuary &amp; Confluence, also patches your VideoFullScreen file for weather/radar during playback when video info is displayed.
     </description>
     <platform>all</platform>
     <license>GPL-3.0-only</license>
@@ -65,23 +65,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.2.6
-      - Hopefully fix custom backgrounds in Amber
-      0.2.5
-      - Add support for user choice of colours, and for aeon/amber background image, background opacity
-      0.2.3
-      - Tweaks, add support for aeon (aeon nox silvo and aean tajo tested), xonfluence
-      0.1.9
-        - Tweaks based on feedback
-      0.1.7
-        - VideoFullScreen is always used to make the addon simpler
-        - New buttons for Estuary
-      0.1.5
-        - Tweaks
-      0.1.4
-        - Add support for Amber
-      0.1.3
-        - Support for imminent OzWeather 2 release, with support for Confluence, Estuary, Estouchy
+    <news>0.2.9
+      - Remove 'Rain' from 'Rain Chance' as some BOM short forecasts are not as short as short implies.
     </news>
     <assets>
       <icon>icon.png</icon>

@@ -9,7 +9,7 @@ Utility to make patching of skin files for [OzWeather](https://kodi.wiki/view/Ad
 If a skin update comes along and breaks your radar support, then just (re-)run this add-on, and it will patch the skin files for you.  
 
 Note - will only patch files for the currently active skin.
-Note - will only patch skin files for Estuary, Estouchy, or Confluence.
+Note - will only patch skin files for supported skins - Estuary, Estouchy, Confluence, Xonfluence, Amber, Aeon (Nox Silvo and Tajo).
 
 (Patch files to support other skins, and a matching pull requests here, very gratefully accepted!).
 

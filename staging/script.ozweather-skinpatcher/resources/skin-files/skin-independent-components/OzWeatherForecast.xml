@@ -68,7 +68,7 @@
                     <width>25%</width>
                     <align>right</align>
                     <include content="FontBody" />
-                    <label>Rain Chance: [COLOR _colour_text_default_]$PARAM[RainChance][/COLOR]</label>
+                    <label>Chance: [COLOR _colour_text_default_]$PARAM[RainChance][/COLOR]</label>
                     <textcolor>_colour_text_dimmer_</textcolor>
                 </control>
 

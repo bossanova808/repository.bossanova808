@@ -1,3 +1,5 @@
+0.2.9
+- Remove 'Rain' from 'Rain Chance' as some BOM short forecasts are not as short as short implies.
 0.2.8 
 - Slightly more logging
 0.2.7
