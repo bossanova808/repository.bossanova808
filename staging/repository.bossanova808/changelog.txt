@@ -1,3 +1,6 @@
+[B]Version 0.2.1[/B]
+- changes for Nexus
+
 [B]Version 0.2.0[/B]
 - Update github links to https...
 

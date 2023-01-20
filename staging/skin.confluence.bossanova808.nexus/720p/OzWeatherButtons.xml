@@ -1,0 +1,65 @@
+<includes>
+
+    <include name="OzWeatherButton">
+        <param name="id" />
+        <param name="onlick"/>
+        <param name="label" deafult="EMPTY LABEL" />
+        <param name="visible" default="Weather.IsFetched" />
+        <definition>
+            <control type="button" id="$PARAM[id]">
+                <height>40</height>
+                <width>auto</width>
+                <align>center</align>
+                <aligny>center</aligny>
+                <include content="FontBody" />
+                <onclick>$PARAM[onclick]</onclick>
+                <label>$PARAM[label]</label>
+                <visible>$PARAM[visible]</visible>
+                <textcolor>white</textcolor>
+            </control>
+        </definition>
+    </include>
+
+    <include name="OzWeatherButtons">
+        <param name="left" default="2%" />
+        <param name="top" default="88%" />
+        <param name="width" default="38%" />
+        <param name="visible" default="Weather.IsFetched" />
+        <definition>
+            <control type="grouplist" id="400">
+                <description>OzWeather Buttons</description>
+                <defaultcontrol>222</defaultcontrol>
+                <left>$PARAM[left]</left>
+                <top>$PARAM[top]</top>
+                <width>$PARAM[width]</width>
+                <itemgap>4%</itemgap>
+                <orientation>horizontal</orientation>
+                <align>left</align>
+                <onup>2</onup>
+                <ondown>2</ondown>
+                <include content="OzWeatherButton">
+                    <param name="id">222</param>
+                    <param name="onclick">PlayMedia($INFO[Window.Property(Video.1)],noresume)</param>
+                    <param name="label">ABC Weather</param>
+                    <param name="visible">Weather.IsFetched + !IsEmpty(Window.Property(Video.1))</param>
+                </include>
+                <include content="OzWeatherButton">
+                    <param name="id">333</param>
+                    <param name="onclick">Weather.Refresh</param>
+                    <param name="label">Refresh</param>
+                </include>
+                <include content="OzWeatherButton">
+                    <param name="id">444</param>
+                    <param name="onclick">Weather.LocationNext</param>
+                    <param name="label">Next Location</param>
+                </include>
+                <include content="OzWeatherButton">
+                    <param name="id">111</param>
+                    <param name="onclick">Weather.LocationPrevious</param>
+                    <param name="label">Prev Location</param>
+                </include>
+            </control>
+        </definition>
+    </include>
+
+</includes>
