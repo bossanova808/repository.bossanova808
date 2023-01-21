@@ -96,16 +96,16 @@
 				<animation effect="fade" time="450">Hidden</animation>
 			</control>
 		</control>
-		<control type="image">
-			<left>0</left>
-			<top>100r</top>
-			<width>1280</width>
-			<height>100</height>
-			<texture>floor.png</texture>
-			<aspectratio>stretch</aspectratio>
-			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
-			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>
-		</control>
+<!--		<control type="image">-->
+<!--			<left>0</left>-->
+<!--			<top>100r</top>-->
+<!--			<width>1280</width>-->
+<!--			<height>100</height>-->
+<!--			<texture>floor.png</texture>-->
+<!--			<aspectratio>stretch</aspectratio>-->
+<!--			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>-->
+<!--			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>-->
+<!--		</control>-->
 		<control type="image">
 			<description>Section header image</description>
 			<left>20</left>

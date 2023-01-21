@@ -3,14 +3,14 @@
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<controls>
 		<include>CommonBackground</include>
-		<control type="image">
-			<left>0</left>
-			<top>100r</top>
-			<width>1280</width>
-			<height>100</height>
-			<texture>floor.png</texture>
-			<include>VisibleFadeEffect</include>
-		</control>
+<!--		<control type="image">-->
+<!--			<left>0</left>-->
+<!--			<top>100r</top>-->
+<!--			<width>1280</width>-->
+<!--			<height>100</height>-->
+<!--			<texture>floor.png</texture>-->
+<!--			<include>VisibleFadeEffect</include>-->
+<!--		</control>-->
 		<include content="CommonWindowHeader">
 			<param name="Icon" value="icon_system" />
 			<param name="Label" value="$LOCALIZE[20077]" />
