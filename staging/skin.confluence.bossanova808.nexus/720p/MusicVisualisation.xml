@@ -13,7 +13,7 @@
 		</control>
 		<!-- Bossanova808 Use Artist Slideshow in Music Vis. -->
 		<control type="image">
-		    <aspectratio>scale</aspectratio>
+		    <aspectratio>keep</aspectratio>
 		    <fadetime>400</fadetime>
 		    <animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
 		    <animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
@@ -21,7 +21,7 @@
 		    <visible>String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))</visible>
 		</control>
 		<control type="image">
-		    <aspectratio>scale</aspectratio>
+		    <aspectratio>keep</aspectratio>
 		    <fadetime>400</fadetime>
 		    <animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
 		    <animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
