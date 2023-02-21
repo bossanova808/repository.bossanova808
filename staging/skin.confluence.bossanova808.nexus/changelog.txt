@@ -1,3 +1,8 @@
+[B]4.7.1506[/B]
+
+Latest changes per the review of my PR to the 'real' Confluence
+https://github.com/xbmc/skin.confluence/pull/194
+
 [B]4.7.1505[/B]
 
 Stop Artist Slideshow from cropping or warping images 
