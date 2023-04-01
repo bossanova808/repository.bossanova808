@@ -53,7 +53,7 @@
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$LOCALIZE[31421]</label>
-			</control -->>
+			</control> -->
 			<control type="list" id="52">
 				<left>295</left>
 				<top>90</top>

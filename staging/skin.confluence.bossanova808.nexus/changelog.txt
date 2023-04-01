@@ -1,3 +1,7 @@
+[B]4.7.1507[/B]
+
+Sync upstream Nexus branch
+
 [B]4.7.1506[/B]
 
 Latest changes per the review of my PR to the 'real' Confluence
