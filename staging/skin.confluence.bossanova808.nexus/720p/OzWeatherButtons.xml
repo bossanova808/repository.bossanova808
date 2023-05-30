@@ -39,9 +39,9 @@
                 <ondown>2</ondown>
                 <include content="OzWeatherButton">
                     <param name="id">222</param>
-                    <param name="onclick">PlayMedia($INFO[Window.Property(Video.1)],noresume)</param>
+                    <param name="onclick">RunScript(weather.ozweather,ABC)</param>
                     <param name="label">ABC Weather</param>
-                    <param name="visible">Weather.IsFetched + !IsEmpty(Window.Property(Video.1))</param>
+                    <param name="visible">Weather.IsFetched</param>
                 </include>
                 <include content="OzWeatherButton">
                     <param name="id">333</param>

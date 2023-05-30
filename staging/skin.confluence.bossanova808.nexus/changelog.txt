@@ -1,3 +1,8 @@
+[B]4.7.1508[/B]
+
+Changes for OzWeather/ABC Video
+Auto hide video info on unpause
+
 [B]4.7.1507[/B]
 
 Sync upstream Nexus branch

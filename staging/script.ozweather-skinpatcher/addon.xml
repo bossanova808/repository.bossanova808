@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.2.9" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.0" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -21,8 +21,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.2.9
-      - Remove 'Rain' from 'Rain Chance' as some BOM short forecasts are not as short as short implies.
+    <news>0.3.0
+      - Make sure the ABC weather video link is always current just before playback
     </news>
     <assets>
       <icon>icon.png</icon>
