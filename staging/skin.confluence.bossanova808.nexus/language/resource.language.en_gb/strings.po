@@ -16,6 +16,14 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgctxt "Addon Summary"
+msgid "Confluence skin by Jezz_X."
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use."
+msgstr ""
+
 msgctxt "#31000"
 msgid "Change your"
 msgstr ""
@@ -314,7 +322,11 @@ msgctxt "#31125"
 msgid "Show background \"Now playing\" visualisation"
 msgstr ""
 
-#empty strings from id 31126 to 31127
+msgctxt "#31126"
+msgid "Show posters instead of thumbs for musicvideos"
+msgstr ""
+
+#empty string with ID 31127
 
 msgctxt "#31128"
 msgid "Lyrics"

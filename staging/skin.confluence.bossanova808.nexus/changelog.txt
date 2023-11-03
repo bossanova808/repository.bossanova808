@@ -1,5 +1,10 @@
 [B]4.7.1508[/B]
 
+Minor tweak to Home.xml so custom nodes work the way I want
+Remove non English languages
+
+[B]4.7.1508[/B]
+
 Changes for OzWeather/ABC Video
 Auto hide video info on unpause
 

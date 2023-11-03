@@ -1,7 +1,7 @@
 
 # How to Update
 
-The basic  appraoch is to:
+The basic  approach is to:
 
 - Sync with upstream repo (https://help.github.com/articles/syncing-a-fork/)
 - `git pull upstream/master` (or upstream/whatever)

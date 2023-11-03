@@ -110,7 +110,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.nexus" version="4.7.1508" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.nexus" version="4.7.1509" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.16.0"/>
 	</requires>
@@ -137,7 +137,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v4.7.1508 - ABC weather video and hide info on unpause</news>
+		<news>v4.7.1509 - Minor tweak to Home.xml so custom nodes work the way I want</news>
 	</extension>
 </addon>
 </addons>
