@@ -1,4 +1,12 @@
-[B]4.7.1508[/B]
+[B]4.7.1511[/B]
+
+Tweaks found in other Confluence repos
+
+[B]4.7.1510[/B]
+
+Release of Omega version of Skin
+
+[B]4.7.1509[/B]
 
 Minor tweak to Home.xml so custom nodes work the way I want
 Remove non English languages

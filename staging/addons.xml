@@ -110,7 +110,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.nexus" version="4.7.1509" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.nexus" version="4.7.1511" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.16.0"/>
 	</requires>
@@ -137,11 +137,11 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v4.7.1509 - Minor tweak to Home.xml so custom nodes work the way I want</news>
+		<news>v4.7.1511 - Backport of Omega changes</news>
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="4.7.1510" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="4.7.1511" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.16.0"/>
 	</requires>
@@ -168,7 +168,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v4.7.1510 - Sundry small tweaks borrowed from other folks Confluence repos</news>
+		<news>v4.7.1511 - Fixes for small tweaks borrowed from other folks Confluence repos</news>
 	</extension>
 </addon>
 </addons>

@@ -162,7 +162,7 @@
 				<top>140</top>
 				<width>165</width>
 				<height>25</height>
-				<label>$LOCALIZE[31168]:</label>
+				<label>AML Display mode:</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
@@ -189,7 +189,7 @@
 				<top>165</top>
 				<width>165</width>
 				<height>25</height>
-				<label>$LOCALIZE[31169]:</label>
+				<label>AML Pixel format:</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
@@ -216,7 +216,7 @@
 				<top>190</top>
 				<width>165</width>
 				<height>25</height>
-				<label>$LOCALIZE[31170]:</label>
+				<label>AML Gamut:</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
@@ -230,7 +230,7 @@
 				<width>450</width>
 				<height>25</height>
 				<scroll>true</scroll>
-				<label fallback="1446">$INFO[Player.Process(amlogic.eotf_gamut)]</label>
+				<label fallback="1446">$INFO[Player.Process(amlogic.eoft_gamut)]</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>

@@ -251,6 +251,11 @@
 								<visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
 							</item>
 							<item>
+								<label>$LOCALIZE[574]</label>
+								<label2>$INFO[ListItem.Country]</label2>
+								<visible>!String.IsEmpty(ListItem.Country)</visible>
+							</item>
+							<item>
 								<label>$LOCALIZE[202]:</label>
 								<label2>$INFO[ListItem.TagLine]</label2>
 								<visible>!String.IsEmpty(ListItem.TagLine)</visible>

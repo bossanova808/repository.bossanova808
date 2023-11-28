@@ -380,7 +380,7 @@
 					</control>
 					<control type="image" id="1">
 						<description>Video Resolution Image</description>
-						<width>50</width>
+						<width>55</width>
 						<height>35</height>
 						<aspectratio align="center">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.VideoResolution,flagging/video/,.png]</texture>
@@ -388,37 +388,39 @@
 					</control>
 					<control type="image" id="1">
 						<description>Video Codec Image</description>
-						<left>5</left>
 						<width>80</width>
 						<height>35</height>
-						<aspectratio align="center">keep</aspectratio>
+						<aspectratio align="left">keep</aspectratio>
 						<visible>!Player.ChannelPreviewActive</visible>
 						<texture>$INFO[VideoPlayer.VideoCodec,flagging/video/,.png]</texture>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Codec Image</description>
-						<width>85</width>
+						<width>80</width>
 						<height>35</height>
-						<aspectratio align="center">keep</aspectratio>
+						<aspectratio align="left">keep</aspectratio>
 						<visible>!Player.ChannelPreviewActive</visible>
 						<texture>$INFO[VideoPlayer.AudioCodec,flagging/audio/,.png]</texture>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Channels Image</description>
-						<width>50</width>
+						<width>45</width>
 						<height>35</height>
-						<aspectratio align="center">keep</aspectratio>
+						<align>left</align>
+						<aspectratio align="left">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.AudioChannels,flagging/audio/,.png]</texture>
 						<visible>!Player.ChannelPreviewActive</visible>
 					</control>
 					<control type="group" id="1">
 						<width>85</width>
 						<height>35</height>
+						<align>left</align>
 						<visible>![String.IsEmpty(VideoPlayer.AudioLanguage) | Player.ChannelPreviewActive]</visible>
 						<control type="image" id="1">
 							<left>5</left>
 							<top>0</top>
 							<description>Audio Language Image</description>
+							<align>left</align>
 							<width>80</width>
 							<height>35</height>
 							<texture>flagging/AudioLang.png</texture>
