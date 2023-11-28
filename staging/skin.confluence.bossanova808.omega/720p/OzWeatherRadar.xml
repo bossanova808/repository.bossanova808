@@ -1,0 +1,64 @@
+<includes>
+
+    <include name="RadarBackground">
+        <param name="posx" default="2%" />
+        <param name="posy" default="8%" />
+        <param name="width">RadarSquare</param>
+        <param name="height">RadarSquare</param>
+        <param name="texture" />
+        <definition>
+            <control type="image">
+                <description>Radar Background</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <texture>$PARAM[texture]</texture>
+            </control>
+        </definition>
+    </include>
+
+    <include name="RadarBackgrounds">
+        <include content="RadarBackground">
+            <param name="height">RadarLegend</param>
+            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/legend.png</param>
+        </include>
+        <include content="RadarBackground">
+            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/background.png</param>
+        </include>
+        <include content="RadarBackground">
+            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/topography.png</param>
+        </include>
+        <include content="RadarBackground">
+            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/catchments.png</param>
+        </include>
+        <include content="RadarBackground">
+            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/range.png</param>
+        </include>
+        <include content="RadarBackground">
+            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window.Property(Radar)]/locations.png</param>
+        </include>
+    </include>
+
+    <include name="RadarLoop">
+        <param name="posx" default="2%" />
+        <param name="posy" default="8%" />
+        <param name="width">RadarSquare</param>
+        <definition>
+            <control type="multiimage">
+                <description>Radar Loop</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
+                <imagepath>special://profile/addon_data/weather.ozweather/currentloop/$INFO[Window.Property(Radar)]/</imagepath>
+                <timeperimage>300</timeperimage>
+                <pauseatend>800</pauseatend>
+                <fadetime>0</fadetime>
+                <randomize>false</randomize>
+                <loop>yes</loop>
+            </control>
+        </definition>
+    </include>
+
+</includes>

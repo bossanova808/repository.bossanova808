@@ -1,0 +1,37 @@
+[B]4.7.1508[/B]
+
+Minor tweak to Home.xml so custom nodes work the way I want
+Remove non English languages
+
+[B]4.7.1508[/B]
+
+Changes for OzWeather/ABC Video
+Auto hide video info on unpause
+
+[B]4.7.1507[/B]
+
+Sync upstream Nexus branch
+
+[B]4.7.1506[/B]
+
+Latest changes per the review of my PR to the 'real' Confluence
+https://github.com/xbmc/skin.confluence/pull/194
+
+[B]4.7.1505[/B]
+
+Stop Artist Slideshow from cropping or warping images 
+
+[B]4.7.1504[/B]
+
+Add Colour Picker
+Add new MyFavourites window
+Fixes for CULyrics
+
+[B]4.7.1503[/B]
+
+Use the actual Confluence texture for subs location, and remove floor in a bunch more places
+
+[B]4.7.1502[/B]
+
+Start work on Nexus skin.
+

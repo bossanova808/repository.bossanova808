@@ -1,0 +1,55 @@
+<includes>
+
+    <include name="OzWeatherHeader">
+        <param name="posx" />
+        <param name="posy" />
+        <param name="width" />
+        <param name="label" default="EMPTY LABEL" />
+        <param name="visible" default="Weather.IsFetched" />
+        <definition>
+            <control type="label">
+                <description>Header</description>
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <height>30</height>
+                <include content="FontHeader" />
+                <label>$PARAM[label]</label>
+                <align>left</align>
+                <textcolor>white</textcolor>
+                <visible>$PARAM[visible]</visible>
+            </control>
+        </definition>
+    </include>
+
+    <include name="OzWeatherSeparator">
+        <param name="posx" default="0%" />
+        <param name="posy" default="0%" />
+        <param name="width" default="95%" />
+        <definition>
+            <control type="image">
+                <posx>$PARAM[posx]</posx>
+                <posy>$PARAM[posy]</posy>
+                <width>$PARAM[width]</width>
+                <height>4</height>
+                <texture>separator.png</texture>
+            </control>
+        </definition>
+    </include>
+
+    <include name="OzWeatherTag">
+        <definition>
+            <control type="textbox">
+                <description>OzWeather Tag</description>
+                <top>93%</top>
+                <left>33%</left>
+                <height>30</height>
+                <include content="FontBody" />
+                <textcolor>gray</textcolor>
+                <label>$INFO[Window.Property(WeatherVersion)]</label>
+            </control>
+        </definition>
+    </include>
+
+</includes>
+
