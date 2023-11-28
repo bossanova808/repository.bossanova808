@@ -362,14 +362,14 @@
 					<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
 				</control>
 				<control type="grouplist" id="1">
-					<left>20</left>
+					<left>0</left>
 					<top>60</top>
 					<width>910</width>
 					<height>35</height>
 					<itemgap>5</itemgap>
 					<orientation>horizontal</orientation>
 					<control type="label" id="1">
-						<width min="10" max="520">auto</width>
+						<width min="10" max="430">auto</width>
 						<height>30</height>
 						<font>font30</font>
 						<align>left</align>
@@ -385,6 +385,15 @@
 						<aspectratio align="center">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.VideoResolution,flagging/video/,.png]</texture>
 						<visible>!Player.ChannelPreviewActive</visible>
+					</control>
+					<control type="image" id="1">
+						<description>Video Codec Image</description>
+						<left>5</left>
+						<width>80</width>
+						<height>35</height>
+						<aspectratio align="center">keep</aspectratio>
+						<visible>!Player.ChannelPreviewActive</visible>
+						<texture>$INFO[VideoPlayer.VideoCodec,flagging/video/,.png]</texture>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Codec Image</description>
