@@ -1,3 +1,6 @@
+0.3.1
+- Add support for OSMC and numerous visual tweaks
+- Make the intro text first run only
 0.3.0
 - Make sure the ABC weather video link is always current just before playback
 0.2.9

@@ -1,24 +1,24 @@
 <includes>
 
     <include name="FontHuge">
-        <font>font35_title</font>
+        <font>Font50-bold</font>
     </include>
     <include name="FontBig">
-        <font>font30_title</font>
+        <font>Font48-bold</font>
     </include>
     <include name="FontHeader">
-        <font>font20_title</font>
+        <font>Font33</font>
     </include>
     <include name="FontBody">
-        <font>font20</font>
+        <font>Font25-bold</font>
     </include>
 
     <constant name="RadarSquare">40%</constant>
     <constant name="RadarLegend">48%</constant>
 
-    <constant name="MasterXOffset">0</constant>
-    <constant name="MasterYOffset">-7%</constant>
-    <constant name="WeatherInfoLineHeight">25%</constant>
+    <constant name="MasterXOffset">-1%</constant>
+    <constant name="MasterYOffset">-5%</constant>
+    <constant name="WeatherInfoLineHeight">-5%</constant>
     <constant name="WeatherIconPosY">6%</constant>
     <constant name="HighValuePosY">6%</constant>
 

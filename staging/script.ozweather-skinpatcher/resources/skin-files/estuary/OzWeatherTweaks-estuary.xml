@@ -4,13 +4,13 @@
         <font>font_MainMenu</font>
     </include>
     <include name="FontBig">
-        <font>font30_title</font>
+        <font>font36_title</font>
     </include>
     <include name="FontHeader">
         <font>font25_title</font>
     </include>
     <include name="FontBody">
-        <font>font10</font>
+        <font>font12</font>
     </include>
 
     <constant name="RadarSquare">40%</constant>
@@ -19,5 +19,7 @@
     <constant name="MasterXOffset">-1%</constant>
     <constant name="MasterYOffset">-3%</constant>
     <constant name="WeatherInfoLineHeight">28%</constant>
+    <constant name="WeatherIconPosY">1%</constant>
+    <constant name="HighValuePosY">4%</constant>
 
 </includes>

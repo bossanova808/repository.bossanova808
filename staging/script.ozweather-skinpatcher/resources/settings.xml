@@ -3,6 +3,11 @@
     <section id="script.ozweather-skinpatcher">
         <category help="" id="OzWeather Skin Patcher" label="32000">
             <group id="1" label="32010">
+                <setting id="show_first_run_info" type="boolean" label="32011" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
                 <setting id="colour_text_default" type="string" label="32008" help="">
                     <level>0</level>
                     <default>white</default>

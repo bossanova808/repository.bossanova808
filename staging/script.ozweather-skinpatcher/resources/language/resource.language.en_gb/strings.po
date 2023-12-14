@@ -55,4 +55,8 @@ msgstr ""
 
 msgctxt "#32010"
 msgid "Kodi Skin Colours (system/colors.xml has the (odd) names, or use AARRGGBB)"
-msgstr "
+msgstr ""
+
+msgctxt "#32011"
+msgid "Show First Run Info"
+msgstr ""

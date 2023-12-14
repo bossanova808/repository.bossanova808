@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.0" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.1" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -10,7 +10,7 @@
     <summary lang="en_GB">Patch Kodi skins (Estuary, Estouchy, Confluence, Amber) for OzWeather Radar Support.</summary>
     <description lang="en_GB">
         This addon attempts to patch Kodi skins for OzWeather radar support.
-        Supports: Estuary, Estouchy, Confluence, Xonfluence, Amber, Aeon (Nox Silvo and Tajo)
+        Supports: Estuary, Estouchy, Confluence, OSMC, Xonfluence, Amber, Aeon (Nox Silvo and Tajo)
         Skin folder must be writeable! (Creates a backup of of the original skin files first and this addon can also restore those if need be).
         By default patches only the actual weather page.
         For Estuary &amp; Confluence, also patches your VideoFullScreen file for weather/radar during playback when video info is displayed.
@@ -21,8 +21,8 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.3.0
-      - Make sure the ABC weather video link is always current just before playback
+    <news>0.3.1
+      - Add support for OSMC and numerous visual tweaks
     </news>
     <assets>
       <icon>icon.png</icon>

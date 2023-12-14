@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<!-- Skin Specific Stuff -->
-    <include file="OzWeatherTweaks-estuary.xml" />
-    <include file="OzWeatherButtons-estuary.xml" />
+    <include file="OzWeatherTweaks-osmc.xml" />
+    <include file="OzWeatherButtons-osmc.xml" />
+	<!-- weather -->
+	<!-- Textbox scroll reset -->
+	<include>12600ResetScroll</include>
+	<!-- Sub menu menucontrol -->
+	<include condition="!Skin.HasSetting(KioskMode)">SubMenuMenucontrol</include>
 
     <!-- All Skins    -->
     <include file="OzWeatherSnippets.xml" />
@@ -14,26 +19,35 @@
 	<backgroundcolor>background</backgroundcolor>
 	<menucontrol>10000</menucontrol>
 	<controls>
+		<include>WindowFullscreenDialogFadeAnimation</include>
 
-		<control type="button" id="20000">
-			<include>HiddenObject</include>
-			<animation effect="fade" time="300" start="100" end="0">Focus</animation>
-			<onfocus>SetFocus(2000)</onfocus>
-			<onclick>noop</onclick>
-			<visible allowhiddenfocus="true">Control.HasFocus(20000)</visible>
+		<!-- Hidden side menu button -->
+		<control type="button" id="100">
+			<onleft condition="!Skin.HasSetting(KioskMode)">3001</onleft>
 		</control>
-		<control type="button" id="20001">
-			<include>HiddenObject</include>
-			<animation effect="fade" time="300" start="100" end="0">Focus</animation>
-			<onfocus>SetFocus(2000)</onfocus>
-			<onclick>noop</onclick>
-			<visible allowhiddenfocus="true">Control.HasFocus(20001)</visible>
-		</control>
-		<control type="button" id="10000">
-			<include>HiddenObject</include>
-			<onfocus>ActivateWindow(servicesettings,weather)</onfocus>
-			<onclick>noop</onclick>
-		</control>
+
+		<!-- Background -->
+		<include>WindowBackgroundImagePlain</include>
+
+<!--		<control type="button" id="20000">-->
+<!--			<include>HiddenObject</include>-->
+<!--			<animation effect="fade" time="300" start="100" end="0">Focus</animation>-->
+<!--			<onfocus>SetFocus(2000)</onfocus>-->
+<!--			<onclick>noop</onclick>-->
+<!--			<visible allowhiddenfocus="true">Control.HasFocus(20000)</visible>-->
+<!--		</control>-->
+<!--		<control type="button" id="20001">-->
+<!--			<include>HiddenObject</include>-->
+<!--			<animation effect="fade" time="300" start="100" end="0">Focus</animation>-->
+<!--			<onfocus>SetFocus(2000)</onfocus>-->
+<!--			<onclick>noop</onclick>-->
+<!--			<visible allowhiddenfocus="true">Control.HasFocus(20001)</visible>-->
+<!--		</control>-->
+<!--		<control type="button" id="10000">-->
+<!--			<include>HiddenObject</include>-->
+<!--			<onfocus>ActivateWindow(servicesettings,weather)</onfocus>-->
+<!--			<onclick>noop</onclick>-->
+<!--		</control>-->
 		<control type="videowindow">
 			<depth>DepthBackground</depth>
 			<include>FullScreenDimensions</include>

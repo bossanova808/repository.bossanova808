@@ -19,6 +19,8 @@
     <constant name="MasterXOffset">0%</constant>
     <constant name="MasterYOffset">0%</constant>
     <constant name="WeatherInfoLineHeight">20%</constant>
+    <constant name="WeatherIconPosY">2%</constant>
+    <constant name="HighValuePosY">3%</constant>
 
     <include name="ConfluenceLeftPanelContainer">
         <control type="image">

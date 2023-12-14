@@ -47,6 +47,7 @@
                 <include content="FontBody" />
                 <textcolor>_colour_text_dimmer_</textcolor>
                 <label>$INFO[Window.Property(WeatherVersion)]</label>
+                <autoscroll>false</autoscroll>
             </control>
         </definition>
     </include>

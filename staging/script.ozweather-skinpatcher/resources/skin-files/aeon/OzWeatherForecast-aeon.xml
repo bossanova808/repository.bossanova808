@@ -26,7 +26,7 @@
                 <control type="image">
                     <description>Weather Icon</description>
                     <posx>7%</posx>
-                    <posy>44%</posy>
+                    <posy>WeatherIconPosY</posy>
                     <height>16%</height>
                     <texture>resource://resource.images.weathericons.default/$PARAM[iconcode]</texture>
                     <aspectratio align="left">keep</aspectratio>
@@ -35,7 +35,7 @@
                 <control type="label">
                     <description>High Value</description>
                     <posx>18%</posx>
-                    <posy>3%</posy>
+                    <posy>HighValuePosY</posy>
                     <label>$PARAM[HighTemperature]°</label>
                     <include content="FontBig" />
                     <textcolor>_colour_text_default_</textcolor>

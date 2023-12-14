@@ -1,7 +1,7 @@
 <includes>
 
     <include name="FontHuge">
-        <font>WeatherTitle</font>
+        <font>MainMenuVerticalBig</font>
     </include>
     <include name="FontBig">
         <font>font30_title</font>
@@ -19,6 +19,8 @@
     <constant name="MasterXOffset">0%</constant>
     <constant name="MasterYOffset">0%</constant>
     <constant name="WeatherInfoLineHeight">-30%</constant>
+    <constant name="WeatherIconPosY">5%</constant>
+    <constant name="HighValuePosY">6%</constant>
 
     <variable name="Ozw_Background">
         <value>$VAR[SubDefaultBackground]</value>

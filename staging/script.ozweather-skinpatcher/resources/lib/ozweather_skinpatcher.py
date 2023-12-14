@@ -13,19 +13,19 @@ global dialog
 # TO SUPPORT A NEW SKIN:
 #
 # First, develop the skin files (including testing controls navigate ok!)
-# Then create a folder for the skin & copy the files er
+# Then create a folder for the skin & copy the files
 # Add the skin name to the supported skins below
 # Each skin also needs an 'if' below
-#  (skin var in the if must match the name of the tweaks file!)
+#  (skin var in the addon id must match the name of the tweaks file!)
 #  e.g. amber or aeon.nox.silvo etc.
 
 
-# Just a place to store all our config stuff so we don't go crazy with globals
+# Just a place to store all our config stuff, so we don't go crazy with globals
 class Config:
 
     global dialog
 
-    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aeon']
+    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aeon', 'osmc']
     current_skin = xbmcvfs.translatePath('special://skin')
 
     log(f'special://skin Is [{current_skin}]')
@@ -62,6 +62,10 @@ class Config:
         log('aeon.tajo in skin folder name...proceeding..')
         skin = 'aeon'
         destination_skin_xml_folder = '1080i'
+    if 'osmc' in current_skin:
+        log('osmc in skin folder name...proceeding..')
+        skin = 'osmc'
+        destination_skin_xml_folder = 'xml'
     if not skin or not destination_skin_xml_folder:
         log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
@@ -140,6 +144,11 @@ def patch(config):
         log(f"Patching & copying {file} to {config.xml_destination_folder}")
 
         try:
+
+            # Skip the file that reminds me to be careful with the addon skin files...
+            if "00_" in file:
+                continue
+
             with xbmcvfs.File(file, 'r') as source_file:
                 new_data = source_file.read()
 
@@ -220,19 +229,25 @@ def run():
         notify('ERROR - current skin is not a supported skin!')
         sys.exit(1)
 
-    # Display initial information
-    dialog.textviewer('OzWeather Skin Patcher',
-                      """ 
-<Close this window to proceed to the actual patching stage> 
+    if get_setting_as_bool("show_first_run_info"):
 
-This utility will patch skin files for OzWeather radar support.\n
-Only patches the currently selected skin, and only if that skin is Estuary, Estouchy, Amber or Confluence.
-(Or mods of those skins that still include 'estuary','estouchy', 'amber' or 'confluence' in the addon id).
+        # Only show this again later if they explicitly turn it back on in settings...
+        ADDON.setSetting("show_first_run_info", "false")
 
-Backups of the original files are saved as .original files in the skin folder
-(& those can be also be restored by this utility if needed).
-
-""")
+        # Display initial information
+        dialog.textviewer('OzWeather Skin Patcher',
+                          """
+    [B]IMPORTANT FIRST RUN INFO (Won't be shown again)[/B]                                                 
+    [I](Closing this window will proceed to the actual patching stage)[/I]
+    
+    This utility will patch skin files for OzWeather radar support.
+    Only patches the currently selected skin, and only if that skin is a variant of:
+     
+    Aeon (Nox, Silvo etc), Amber, Confluence, Estuary, Estouchy, OSMC, Xonfluence
+        
+    Backups of the original files are saved as '.original' files in the skin folder
+    & can be also be easily restored by re-running this utility, if needed.    
+    """)
 
     # Now confirm if they actually want to proceed
     mode = dialog.select('OzWeather Skin Patcher', ['Patch', 'Restore', 'Cancel'])
@@ -253,5 +268,5 @@ Backups of the original files are saved as .original files in the skin folder
         xbmc.executebuiltin('ReloadSkin()')
         notify('Successful patch - skin reloaded.', xbmcgui.NOTIFICATION_INFO)
 
-    # and, we're done..
+    # and, we're done...
     footprints(False)
