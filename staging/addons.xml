@@ -141,9 +141,9 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="4.7.1513" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="4.7.1514" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
-		<import addon="xbmc.gui" version="5.17.0"/>
+		<import addon="xbmc.gui" version="5.16.0"/>
 	</requires>
 	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
 		<res width="1280" height="720" aspect="16:9" default="true" folder="720p" />

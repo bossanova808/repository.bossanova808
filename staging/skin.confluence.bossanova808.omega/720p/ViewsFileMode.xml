@@ -72,14 +72,15 @@
 						<aspectratio>keep</aspectratio>
 						<visible>Window.IsVisible(Videos) + [Container.Content(Movies) | Container.Content(Sets) | Container.Content(Episodes) | Container.Content(MusicVideos)]</visible>
 					</control>
-					<control type="image">
-						<left>665</left>
-						<top>14</top>
-						<width>16</width>
-						<height>16</height>
-						<texture>OverlayWatching.png</texture>
-						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
-					</control>
+<!-- bossanova808 remove stupid 'in progress' arrow that is just visual clutter	in the main view -->
+<!--					<control type="image">-->
+<!--						<left>665</left>-->
+<!--						<top>14</top>-->
+<!--						<width>16</width>-->
+<!--						<height>16</height>-->
+<!--						<texture>OverlayWatching.png</texture>-->
+<!--						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>-->
+<!--					</control>-->
 					<control type="image">
 						<left>665</left>
 						<top>14</top>
@@ -165,14 +166,15 @@
 						<aspectratio>keep</aspectratio>
 						<visible>Window.IsVisible(Videos) + [Container.Content(Movies) | Container.Content(Sets) | Container.Content(Episodes) | Container.Content(MusicVideos)]</visible>
 					</control>
-					<control type="image">
-						<left>665</left>
-						<top>14</top>
-						<width>16</width>
-						<height>16</height>
-						<texture>OverlayWatching.png</texture>
-						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
-					</control>
+<!-- bossanova808 remove stupid 'in progress' arrow that is just visual clutter	in the main view -->
+<!--					<control type="image">-->
+<!--						<left>665</left>-->
+<!--						<top>14</top>-->
+<!--						<width>16</width>-->
+<!--						<height>16</height>-->
+<!--						<texture>OverlayWatching.png</texture>-->
+<!--						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>-->
+<!--					</control>-->
  					<control type="image">
 						<left>665</left>
 						<top>14</top>
