@@ -110,7 +110,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.nexus" version="4.7.1512" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.nexus" version="4.7.1513" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.16.0"/>
 	</requires>
@@ -137,11 +137,11 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v4.7.1512 - It's beginning to feel a lot like Christmas...</news>
+		<news>v4.7.1513 - end of the festive season...</news>
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="4.7.1514" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="4.7.1515" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.16.0"/>
 	</requires>
@@ -168,7 +168,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v4.7.1513 - Christmas update &amp; Bump ABI to 5.17.0</news>
+		<news>v4.7.1515 - End of festive season...</news>
 	</extension>
 </addon>
 </addons>
