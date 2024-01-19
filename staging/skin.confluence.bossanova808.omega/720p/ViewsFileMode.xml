@@ -78,7 +78,8 @@
 						<width>16</width>
 						<height>16</height>
 						<texture>OverlayWatching.png</texture>
-						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+						<!-- bossanova808 remove stupid 'in progress' arrow that is just visual clutter	(for folders) -->
+						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
 					<control type="image">
 						<left>665</left>
@@ -171,7 +172,8 @@
 						<width>16</width>
 						<height>16</height>
 						<texture>OverlayWatching.png</texture>
-						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+						<!-- bossanova808 remove stupid 'in progress' arrow that is just visual clutter	(for folders) -->
+						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
  					<control type="image">
 						<left>665</left>
