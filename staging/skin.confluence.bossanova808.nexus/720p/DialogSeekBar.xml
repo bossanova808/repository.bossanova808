@@ -156,7 +156,6 @@
 					<texture>OSDPlay.png</texture>
 					<visible>Player.Playing + !Player.IsTempo</visible>
 				</control>
-
 				<control type="image">
 					<left>28</left>
 					<top>4</top>
@@ -197,7 +196,6 @@
 					<texture>OSD32x.png</texture>
 					<visible>Player.Rewinding32x</visible>
 				</control>
-
 				<control type="image">
 					<left>34</left>
 					<top>4</top>
@@ -338,6 +336,7 @@
 					<visible>Player.Seeking</visible>
 				</control>
 			</control>
+			<!-- BOSSANOVA808 MOD - Time remaining -->
 			<control type="group">
 				<visible>![VideoPlayer.Content(LiveTV) + VideoPlayer.HasEpg]</visible>
 				<control type="label">

@@ -63,7 +63,7 @@
 							<height>170</height>
 							<texture fallback="DefaultVideoCover.png" background="true">$INFO[ListItem.Art(poster)]</texture>
 							<aspectratio>keep</aspectratio>
-							<bordertexture border="5">button-nofocus.png</bordertexture>
+							<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 						</control>
 						<control type="label">
@@ -96,7 +96,7 @@
 							<height>170</height>
 							<texture fallback="DefaultVideoCover.png" background="true">$INFO[ListItem.Art(poster)]</texture>
 							<aspectratio>keep</aspectratio>
-							<bordertexture border="5">folder-focus.png</bordertexture>
+							<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>Control.HasFocus(8000)</visible>
 						</control>
@@ -107,7 +107,7 @@
 							<height>170</height>
 							<texture fallback="DefaultVideoCover.png">$INFO[ListItem.Art(poster)]</texture>
 							<aspectratio>keep</aspectratio>
-							<bordertexture border="5">button-nofocus.png</bordertexture>
+							<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>!Control.HasFocus(8000)</visible>
 						</control>
@@ -171,7 +171,7 @@
 				<top>50</top>
 				<visible>Library.HasContent(TVShows)</visible>
 				<visible>Container(9000).Hasfocus(11) + !Skin.HasSetting(HomepageHideRecentlyAddedVideo) + !Skin.HasSetting(HomeMenuTVShowUsePlaylist)</visible>
-				<!-- BOSSANOVA808 mod - disable recently avoided for TV, avoid spoilers -->
+				<!-- BOSSANOVA808 mod - Completely disable recently added for TV, avoid spoilers -->
 				<visible>False</visible>
 				<include>VisibleFadeEffect</include>
 				<control type="label">
@@ -219,8 +219,8 @@
 							<width>220</width>
 							<height>155</height>
 							<aspectratio>scale</aspectratio>
-							<texture background="true">$VAR[PosterThumb]</texture>
-							<bordertexture border="5">button-nofocus.png</bordertexture>
+              <texture background="true">$VAR[PosterThumb]</texture>
+							<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 						</control>
 						<control type="label">
@@ -265,8 +265,8 @@
 							<width>220</width>
 							<height>155</height>
 							<aspectratio>scale</aspectratio>
-							<texture background="true">$VAR[PosterThumb]</texture>
-							<bordertexture border="5">folder-focus.png</bordertexture>
+              <texture background="true">$VAR[PosterThumb]</texture>
+							<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>Control.HasFocus(8001)</visible>
 						</control>
@@ -276,8 +276,8 @@
 							<width>220</width>
 							<height>155</height>
 							<aspectratio>scale</aspectratio>
-							<texture>$VAR[PosterThumb]</texture>
-							<bordertexture border="5">button-nofocus.png</bordertexture>
+              <texture>$VAR[PosterThumb]</texture>
+							<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>!Control.HasFocus(8001)</visible>
 						</control>
@@ -401,8 +401,8 @@
 							<width>180</width>
 							<height>155</height>
 							<aspectratio>keep</aspectratio>
-							<texture background="true">$INFO[ListItem.Art(thumb)]</texture>
-							<bordertexture border="5">button-nofocus.png</bordertexture>
+							<texture fallback="DefaultAlbumCover.png" background="true">$INFO[ListItem.Art(thumb)]</texture>
+							<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 						</control>
 						<control type="label">
@@ -447,8 +447,8 @@
 							<width>180</width>
 							<height>155</height>
 							<aspectratio>keep</aspectratio>
-							<texture background="true">$INFO[ListItem.Art(thumb)]</texture>
-							<bordertexture border="5">folder-focus.png</bordertexture>
+							<texture fallback="DefaultAlbumCover.png" background="true">$INFO[ListItem.Art(thumb)]</texture>
+							<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>Control.HasFocus(8002)</visible>
 						</control>
@@ -458,8 +458,8 @@
 							<width>180</width>
 							<height>155</height>
 							<aspectratio>keep</aspectratio>
-							<texture background="true">$INFO[ListItem.Art(thumb)]</texture>
-							<bordertexture border="5">button-nofocus.png</bordertexture>
+							<texture fallback="DefaultAlbumCover.png" background="true">$INFO[ListItem.Art(thumb)]</texture>
+							<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 							<bordersize>5</bordersize>
 							<visible>!Control.HasFocus(8002)</visible>
 						</control>

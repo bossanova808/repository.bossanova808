@@ -146,13 +146,13 @@
 			<height>35</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
-		<!-- Bossanova808 Mod - Add New Music at pos. 0 -->
+		<!-- BOSSANOVA808 MOD - Add New Music at pos. 0 -->
 		<control type="button" id="90112">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>New Music</label>
 			<onclick>ActivateWindow(Music,musicdb://recentlyaddedalbums/,return)</onclick>
 		</control>
-		<!-- end Bossanova808 Mod -->
+		<!-- END Bossanova808 Mod -->
 		<control type="button" id="90113">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90110).ListItemNoWrap(1).Label]</label>
@@ -171,14 +171,14 @@
 			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(3).FileNameAndPath],return)</onclick>
 			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(3).Label)</visible>
 		</control>
-		<!-- Bossanova808 Replace Songs with Genres moved from pos. 0 -->
+		<!-- BOSSANOVA808 MOD - eplace Songs with Genres moved from pos. 0 -->
 		<control type="button" id="90116">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90110).ListItemNoWrap(0).Label]</label>
 			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(0).FileNameAndPath],return)</onclick>
 			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(4).Label)</visible>
 		</control>
-		<!-- end Bossanova808 Mod -->
+		<!-- END Bossanova808 Mod -->
 		<control type="button" id="90117">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90110).ListItemNoWrap(5).Label]</label>

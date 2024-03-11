@@ -362,14 +362,14 @@
 					<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
 				</control>
 				<control type="grouplist" id="1">
-					<left>0</left>
+					<left>20</left>
 					<top>60</top>
 					<width>910</width>
 					<height>35</height>
 					<itemgap>5</itemgap>
 					<orientation>horizontal</orientation>
 					<control type="label" id="1">
-						<width min="10" max="430">auto</width>
+						<width min="10" max="520">auto</width>
 						<height>30</height>
 						<font>font30</font>
 						<align>left</align>
@@ -380,47 +380,44 @@
 					</control>
 					<control type="image" id="1">
 						<description>Video Resolution Image</description>
-						<width>55</width>
+						<width>50</width>
 						<height>35</height>
 						<aspectratio align="center">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.VideoResolution,flagging/video/,.png]</texture>
 						<visible>!Player.ChannelPreviewActive</visible>
 					</control>
 					<control type="image" id="1">
-						<description>Video Codec Image</description>
-						<width>80</width>
+						<description>Codec Image</description>
+						<width>73</width>
 						<height>35</height>
 						<aspectratio align="left">keep</aspectratio>
-						<visible>!Player.ChannelPreviewActive</visible>
-						<texture>$INFO[VideoPlayer.VideoCodec,flagging/video/,.png]</texture>
+						<texture>$INFO[VideoPlayer.HdrType,flagging/video/,.png]</texture>
+						<visible>!String.IsEmpty(VideoPlayer.HdrType)</visible>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Codec Image</description>
-						<width>80</width>
+						<width>85</width>
 						<height>35</height>
-						<aspectratio align="left">keep</aspectratio>
+						<aspectratio align="center">keep</aspectratio>
 						<visible>!Player.ChannelPreviewActive</visible>
 						<texture>$INFO[VideoPlayer.AudioCodec,flagging/audio/,.png]</texture>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Channels Image</description>
-						<width>45</width>
+						<width>50</width>
 						<height>35</height>
-						<align>left</align>
-						<aspectratio align="left">keep</aspectratio>
+						<aspectratio align="center">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.AudioChannels,flagging/audio/,.png]</texture>
 						<visible>!Player.ChannelPreviewActive</visible>
 					</control>
 					<control type="group" id="1">
 						<width>85</width>
 						<height>35</height>
-						<align>left</align>
 						<visible>![String.IsEmpty(VideoPlayer.AudioLanguage) | Player.ChannelPreviewActive]</visible>
 						<control type="image" id="1">
 							<left>5</left>
 							<top>0</top>
 							<description>Audio Language Image</description>
-							<align>left</align>
 							<width>80</width>
 							<height>35</height>
 							<texture>flagging/AudioLang.png</texture>
@@ -579,6 +576,7 @@
 					<font>font13</font>
 					<align>right</align>
 					<aligny>center</aligny>
+					<!-- BOSSANOVA808 MOD - Time remaining -->
 					<label>-$INFO[VideoPlayer.TimeRemaining(hh:mm:ss)]</label>
 				</control>
 				<control type="label" id="1">
@@ -600,8 +598,39 @@
 					<height>16</height>
 					<info>Player.Chapters</info>
 					<texturebg border="6,0,6,0" colordiffuse="00FFFFFF">OSDProgressBack.png</texturebg>
-					<righttexture border="2,4,2,4">OSDProgressNib.png</righttexture>
-					<visible>true</visible>
+					<righttexture border="2,4,2,4" colordiffuse="FFFFFFFF">OSDProgressNib.png</righttexture>
+				</control>
+				<control type="ranges" id="1">
+					<description>Cuts</description>
+					<left>100</left>
+					<top>15</top>
+					<width>720</width>
+					<height>16</height>
+					<info>Player.Cuts</info>
+					<texturebg border="6,0,6,0" colordiffuse="00FFFFFF">OSDProgressBack.png</texturebg>
+					<righttexture border="2,4,2,4" colordiffuse="FFFF0000">OSDProgressNib.png</righttexture>
+				</control>
+				<control type="ranges" id="1">
+					<description>Scene Markers</description>
+					<left>100</left>
+					<top>15</top>
+					<width>720</width>
+					<height>16</height>
+					<info>Player.SceneMarkers</info>
+					<texturebg border="6,0,6,0" colordiffuse="00FFFFFF">OSDProgressBack.png</texturebg>
+					<righttexture border="2,4,2,4" colordiffuse="FF0000FF">OSDProgressNib.png</righttexture>
+				</control>
+				<control type="ranges" id="1">
+					<description>Editlist</description>
+					<left>100</left>
+					<top>15</top>
+					<width>720</width>
+					<height>16</height>
+					<info>Player.Editlist</info>
+					<texturebg border="6,0,6,0" colordiffuse="00FFFFFF">OSDProgressBack.png</texturebg>
+					<lefttexture border="2,4,2,4" colordiffuse="FFFFFFFF">OSDProgressNib.png</lefttexture>
+					<midtexture colordiffuse="FFFF0000">colors/white.png</midtexture>
+					<righttexture border="2,4,2,4" colordiffuse="FFFFFFFF">OSDProgressNib.png</righttexture>
 				</control>
 			</control>
 		</control>
