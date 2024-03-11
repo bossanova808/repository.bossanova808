@@ -1371,7 +1371,7 @@
 			<onfocus>Skin.SetString(DefaultHomeFocusItem,$INFO[Container(9000).ListItem.Label])</onfocus>
 			<onfocus>ClearProperty(SetDefaultHomeItem,home)</onfocus>
 			<onfocus condition="Window.Previous(skinsettings)">ActivateWindow(skinsettings)</onfocus>
-			<visible>String.IsEmpty(Window(home).Property(SetDefaultHomeItem))</visible>
+			<visible>!String.IsEmpty(Window(home).Property(SetDefaultHomeItem))</visible>
 		</control>
 	</controls>
 </window>
