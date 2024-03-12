@@ -1,3 +1,7 @@
+[B]4.8.0101[/B]
+
+Integrate Hitcher's Nexus changes up to 4.8.01
+
 [B]4.7.1513[/B]
 
 End of the festive season...
