@@ -1,6 +1,7 @@
 [B]4.8.0101[/B]
 
 Integrate Hitcher's Nexus changes up to 4.8.01
+Add back support for standard weather addons, in case anyone is using this without OzWeather
 
 [B]4.7.1513[/B]
 
@@ -17,7 +18,6 @@ Backport of Omega changes
 [B]4.7.1509[/B]
 
 Minor tweak to Home.xml so custom nodes work the way I want
-Remove non English languages
 
 [B]4.7.1508[/B]
 
