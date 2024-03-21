@@ -15,10 +15,10 @@
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>Video cover image</description>
-				<posx>10</posx>
-				<posy>350r</posy>
-				<width>310</width>
-				<height>340</height>
+				<posx>15</posx>
+				<posy>525r</posy>
+				<width>465</width>
+				<height>510</height>
 				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
 			</control>
@@ -26,23 +26,23 @@
 		<!-- END BOSSANOVA808 MOD CLEARART -->
 		<control type="group">
 			<visible>Window.IsVisible(FullscreenVideo) + ![Player.HasGame | VideoPlayer.HasEpg]</visible>
-			<left>850r</left>
-			<top>-6</top>
+			<left>1275r</left>
+			<top>-9</top>
 			<include>VisibleFadeEffect</include>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>150</width>
-				<height>70</height>
+				<width>225</width>
+				<height>105</height>
 				<colordiffuse>EEFFFFFF</colordiffuse>
 				<texture border="12">OverlayDialogBackground.png</texture>
 			</control>
 			<control type="label" id="1">
 				<description>End time label</description>
-				<left>20</left>
-				<top>10</top>
-				<width>110</width>
-				<height>20</height>
+				<left>30</left>
+				<top>15</top>
+				<width>165</width>
+				<height>30</height>
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font12_title</font>
@@ -52,10 +52,10 @@
 			</control>
 			<control type="label" id="1">
 				<description>End time from infolabel</description>
-				<left>20</left>
-				<top>30</top>
-				<width>110</width>
-				<height>20</height>
+				<left>30</left>
+				<top>45</top>
+				<width>165</width>
+				<height>30</height>
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font13_title</font>
@@ -65,23 +65,23 @@
 		</control>
 		<control type="group">
 			<visible>player.chaptercount + Window.IsVisible(FullScreenVideo)</visible>
-			<left>705r</left>
-			<top>-6</top>
+			<left>1058r</left>
+			<top>-9</top>
 			<include>VisibleFadeEffect</include>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>150</width>
-				<height>70</height>
+				<width>225</width>
+				<height>105</height>
 				<colordiffuse>EEFFFFFF</colordiffuse>
 				<texture border="12">OverlayDialogBackground.png</texture>
 			</control>
 			<control type="label" id="1">
 				<description>Chapter Pos No</description>
-				<left>20</left>
-				<top>10</top>
-				<width>110</width>
-				<height>20</height>
+				<left>30</left>
+				<top>15</top>
+				<width>165</width>
+				<height>30</height>
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font12_title</font>
@@ -91,10 +91,10 @@
 			</control>
 			<control type="label" id="1">
 				<description>Chapter Pos No</description>
-				<left>20</left>
-				<top>30</top>
-				<width>110</width>
-				<height>20</height>
+				<left>30</left>
+				<top>45</top>
+				<width>165</width>
+				<height>30</height>
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font13_title</font>
@@ -104,159 +104,159 @@
 			</control>
 		</control>
 		<control type="group">
-			<left>560r</left>
-			<top>-6</top>
+			<left>840r</left>
+			<top>-9</top>
 			<control type="image">
 				<left>0</left>
 				<top>0</top>
-				<width>370</width>
-				<height>70</height>
+				<width>555</width>
+				<height>105</height>
 				<colordiffuse>EEFFFFFF</colordiffuse>
 				<texture border="12">OverlayDialogBackground.png</texture>
 			</control>
 			<control type="group">
-				<left>260</left>
-				<top>10</top>
+				<left>390</left>
+				<top>15</top>
 				<control type="image">
-					<left>10</left>
+					<left>15</left>
 					<top>0</top>
-					<width>80</width>
-					<height>50</height>
+					<width>120</width>
+					<height>75</height>
 					<texture>OSDSeekFrame.png</texture>
 				</control>
 				<control type="image">
 					<left>0</left>
-					<top>3</top>
-					<width>20</width>
-					<height>44</height>
+					<top>5</top>
+					<width>30</width>
+					<height>66</height>
 					<texture>OSDSeekRewind.png</texture>
 					<visible>Player.Rewinding</visible>
 				</control>
 				<control type="image">
-					<left>80</left>
-					<top>3</top>
-					<width>20</width>
-					<height>44</height>
+					<left>120</left>
+					<top>5</top>
+					<width>30</width>
+					<height>66</height>
 					<texture>OSDSeekForward.png</texture>
 					<visible>Player.Forwarding | Player.IsTempo</visible>
 				</control>
 				<control type="image">
-					<left>31</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>47</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSDPause.png</texture>
 					<visible>Player.Paused</visible>
 				</control>
 				<control type="image">
-					<left>31</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>47</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSDPlay.png</texture>
 					<visible>Player.Playing + !Player.IsTempo</visible>
 				</control>
 				<control type="image">
-					<left>28</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>42</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD2x.png</texture>
 					<visible>Player.Rewinding2x</visible>
 				</control>
 				<control type="image">
-					<left>25</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>38</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD4x.png</texture>
 					<visible>Player.Rewinding4x</visible>
 				</control>
 				<control type="image">
-					<left>22</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>33</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD8x.png</texture>
 					<visible>Player.Rewinding8x</visible>
 				</control>
 				<control type="image">
-					<left>19</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>29</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD16x.png</texture>
 					<visible>Player.Rewinding16x</visible>
 				</control>
 				<control type="image">
-					<left>17</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>26</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD32x.png</texture>
 					<visible>Player.Rewinding32x</visible>
 				</control>
 				<control type="image">
-					<left>34</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>51</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD2x.png</texture>
 					<visible>Player.Forwarding2x</visible>
 				</control>
 				<control type="image">
-					<left>37</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>56</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD4x.png</texture>
 					<visible>Player.Forwarding4x</visible>
 				</control>
 				<control type="image">
-					<left>40</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>60</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD8x.png</texture>
 					<visible>Player.Forwarding8x</visible>
 				</control>
 				<control type="image">
-					<left>43</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>65</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD16x.png</texture>
 					<visible>Player.Forwarding16x</visible>
 				</control>
 				<control type="image">
-					<left>45</left>
-					<top>4</top>
-					<width>40</width>
-					<height>40</height>
+					<left>68</left>
+					<top>6</top>
+					<width>60</width>
+					<height>60</height>
 					<texture>OSD32x.png</texture>
 					<visible>Player.Forwarding32x</visible>
 				</control>
 				<control type="group">
 					<visible>Player.IsTempo</visible>
-					<left>24</left>
-					<top>3</top>
-					<animation effect="slide" end="3,0" condition="String.IsEqual(Player.PlaySpeed,0.90)">Conditional</animation>
-					<animation effect="slide" end="9,0" condition="String.IsEqual(Player.PlaySpeed,1.10)">Conditional</animation>
-					<animation effect="slide" end="12,0" condition="String.IsEqual(Player.PlaySpeed,1.20)">Conditional</animation>
-					<animation effect="slide" end="15,0" condition="String.IsEqual(Player.PlaySpeed,1.30)">Conditional</animation>
-					<animation effect="slide" end="18,0" condition="String.IsEqual(Player.PlaySpeed,1.40)">Conditional</animation>
-					<animation effect="slide" end="20,0" condition="String.IsEqual(Player.PlaySpeed,1.50) | String.IsEqual(Player.PlaySpeed,1.60) | String.IsEqual(Player.PlaySpeed,1.70) | String.IsEqual(Player.PlaySpeed,1.80) | String.IsEqual(Player.PlaySpeed,1.90) | String.IsEqual(Player.PlaySpeed,2.00) | String.IsEqual(Player.PlaySpeed,2.10)">Conditional</animation>
+					<left>36</left>
+					<top>5</top>
+					<animation effect="slide" end="5,0" condition="String.IsEqual(Player.PlaySpeed,0.90)">Conditional</animation>
+					<animation effect="slide" end="14,0" condition="String.IsEqual(Player.PlaySpeed,1.10)">Conditional</animation>
+					<animation effect="slide" end="18,0" condition="String.IsEqual(Player.PlaySpeed,1.20)">Conditional</animation>
+					<animation effect="slide" end="23,0" condition="String.IsEqual(Player.PlaySpeed,1.30)">Conditional</animation>
+					<animation effect="slide" end="27,0" condition="String.IsEqual(Player.PlaySpeed,1.40)">Conditional</animation>
+					<animation effect="slide" end="30,0" condition="String.IsEqual(Player.PlaySpeed,1.50) | String.IsEqual(Player.PlaySpeed,1.60) | String.IsEqual(Player.PlaySpeed,1.70) | String.IsEqual(Player.PlaySpeed,1.80) | String.IsEqual(Player.PlaySpeed,1.90) | String.IsEqual(Player.PlaySpeed,2.00) | String.IsEqual(Player.PlaySpeed,2.10)">Conditional</animation>
 					<control type="image">
 						<left>1</left>
 						<top>1</top>
-						<width>40</width>
-						<height>40</height>
+						<width>60</width>
+						<height>60</height>
 						<texture>OSDClean.png</texture>
 					</control>
 					<control type="label">
 						<description>Playspeed Label</description>
-						<width>40</width>
-						<height>40</height>
+						<width>60</width>
+						<height>60</height>
 						<align>center</align>
 						<aligny>center</aligny>
 						<font>OSDPlaySpeed</font>
@@ -267,10 +267,10 @@
 			</control>
 			<control type="label">
 				<description>Seekbar Label</description>
-				<left>20</left>
-				<top>7</top>
-				<width>240</width>
-				<height>20</height>
+				<left>30</left>
+				<top>11</top>
+				<width>360</width>
+				<height>30</height>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font10_title</font>
@@ -281,10 +281,10 @@
 				<visible>[VideoPlayer.Content(LiveTV) + VideoPlayer.HasEpg]</visible>
 				<control type="label">
 					<description>Elapsed Time Label</description>
-					<left>20</left>
-					<top>23</top>
-					<width>240</width>
-					<height>20</height>
+					<left>30</left>
+					<top>35</top>
+					<width>360</width>
+					<height>30</height>
 					<font>font13_title</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
@@ -294,10 +294,10 @@
 				</control>
 				<control type="label">
 					<description>Seek Time Label</description>
-					<left>20</left>
-					<top>23</top>
-					<width>240</width>
-					<height>20</height>
+					<left>30</left>
+					<top>35</top>
+					<width>360</width>
+					<height>30</height>
 					<font>font13_title</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
@@ -307,29 +307,29 @@
 				</control>
 				<control type="progress">
 					<description>ProgressbarTimeshift</description>
-					<left>20</left>
-					<top>45</top>
-					<width>240</width>
-					<height>15</height>
+					<left>30</left>
+					<top>68</top>
+					<width>360</width>
+					<height>23</height>
 					<info>PVR.TimeshiftProgressBufferEnd </info>
-					<midtexture border="6,0,6,0">OSDProgressMidLight.png</midtexture>
+					<midtexture border="9,13,9,13">OSDProgressMidLight.png</midtexture>
 					<visible>PVR.IsTimeShift</visible>
 				</control>
 				<control type="progress" id="23">
 					<description>Progressbar</description>
-					<left>20</left>
-					<top>45</top>
-					<width>240</width>
-					<height>15</height>
+					<left>30</left>
+					<top>68</top>
+					<width>360</width>
+					<height>23</height>
 					<info>PVR.EpgEventProgress</info>
 					<visible>true</visible>
 				</control>
 				<control type="slider" id="403">
 					<description>Seek Slider</description>
-					<left>20</left>
-					<top>42</top>
-					<width>240</width>
-					<height>12</height>
+					<left>30</left>
+					<top>63</top>
+					<width>360</width>
+					<height>18</height>
 					<texturesliderbar>seekslider.png</texturesliderbar>
 					<textureslidernib>osd_slider_nib.png</textureslidernib>
 					<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>
@@ -341,11 +341,11 @@
 				<visible>![VideoPlayer.Content(LiveTV) + VideoPlayer.HasEpg]</visible>
 				<control type="label">
 					<description>Elapsed Time Label</description>
-					<left>20</left>
-					<top>23</top>
-					<width>240</width>
-					<height>20</height>
-					<font>font10</font>
+					<left>30</left>
+					<top>35</top>
+					<width>360</width>
+					<height>30</height>
+					<font>font13_title</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
@@ -354,11 +354,11 @@
 				</control>
 				<control type="label">
 					<description>Seek Time Label</description>
-					<left>20</left>
-					<top>23</top>
-					<width>240</width>
-					<height>20</height>
-					<font>font10</font>
+					<left>30</left>
+					<top>35</top>
+					<width>360</width>
+					<height>30</height>
+					<font>font13_title</font>
 					<textcolor>gray</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
@@ -367,29 +367,29 @@
 				</control>
 				<control type="progress">
 					<description>ProgressbarCache</description>
-					<left>20</left>
-					<top>45</top>
-					<width>240</width>
-					<height>15</height>
+					<left>30</left>
+					<top>68</top>
+					<width>360</width>
+					<height>23</height>
 					<info>Player.ProgressCache</info>
-					<midtexture border="6,0,6,0">OSDProgressMidLight.png</midtexture>
+					<midtexture border="9,13,9,13">OSDProgressMidLight.png</midtexture>
 					<visible>true</visible>
 				</control>
 				<control type="progress" id="23">
 					<description>Progressbar</description>
-					<left>20</left>
-					<top>45</top>
-					<width>240</width>
-					<height>15</height>
+					<left>30</left>
+					<top>68</top>
+					<width>360</width>
+					<height>23</height>
 					<info>Player.Progress</info>
 					<visible>true</visible>
 				</control>
 				<control type="slider" id="401">
 					<description>Seek Slider</description>
-					<left>20</left>
-					<top>42</top>
-					<width>240</width>
-					<height>12</height>
+					<left>30</left>
+					<top>63</top>
+					<width>360</width>
+					<height>18</height>
 					<texturesliderbar>seekslider.png</texturesliderbar>
 					<textureslidernib>osd_slider_nib.png</textureslidernib>
 					<textureslidernibfocus>osd_slider_nib.png</textureslidernibfocus>

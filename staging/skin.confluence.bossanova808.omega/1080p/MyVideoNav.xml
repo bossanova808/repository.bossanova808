@@ -5,6 +5,14 @@
 	<views>50,51,500,550,551,560,501,508,504,503,515,505,511</views>
 	<onload condition="!Skin.HasSetting(FirstTimeRun)">ActivateWindow(1112)</onload>
 	<controls>
+		<control type="label" id="666">
+			<width>225</width>
+			<align>left</align>
+			<font>font13</font>
+			<textcolor>white</textcolor>
+			<shadowcolor>black</shadowcolor>
+			<label>$VAR[typehackflagging]</label>
+		</control>
 		<include>CommonBackground</include>
 		<include>ContentPanelBackgrounds</include>
 		<control type="group">
@@ -45,17 +53,17 @@
 		<include>BehindDialogFadeOut</include>
 		<include>ScrollOffsetLabel</include>
 		<include content="CommonWindowHeader">
-			<param name="Icon" value="icon_video" />
-			<param name="Label" value="$LOCALIZE[3]" />
+			<param name="Icon" value="icon_video"/>
+			<param name="Label" value="$LOCALIZE[3]"/>
 		</include>
 		<control type="group">
-			<left>-250</left>
+			<left>-375</left>
 			<include>SideBladeLeft</include>
 			<control type="grouplist" id="9000">
 				<left>0</left>
-				<top>60</top>
-				<width>250</width>
-				<height>650</height>
+				<top>90</top>
+				<width>375</width>
+				<height>975</height>
 				<onleft>9000</onleft>
 				<onright>50</onright>
 				<onup>9000</onup>
@@ -63,8 +71,8 @@
 				<onback>50</onback>
 				<itemgap>0</itemgap>
 				<control type="label" id="200">
-					<width>250</width>
-					<height>35</height>
+					<width>375</width>
+					<height>53</height>
 					<font>font12</font>
 					<label>31006</label>
 					<textcolor>blue</textcolor>
@@ -73,7 +81,7 @@
 				</control>
 				<control type="button" id="2">
 					<description>View As button</description>
-					<textwidth>235</textwidth>
+					<textwidth>353</textwidth>
 					<include>ButtonCommonValues</include>
 					<label/>
 				</control>
@@ -94,7 +102,7 @@
 				<control type="edit" id="19">
 					<visible>Container.CanFilter + !Container.CanFilterAdvanced</visible>
 					<description>Filter</description>
-					<textwidth>230</textwidth>
+					<textwidth>345</textwidth>
 					<include>ButtonCommonValues</include>
 					<label>587</label>
 				</control>
@@ -109,7 +117,7 @@
 				</control>
 				<control type="radiobutton" id="99">
 					<description>Show Info Toggle</description>
-					<textwidth>170</textwidth>
+					<textwidth>255</textwidth>
 					<include>ButtonCommonValues</include>
 					<label>31005</label>
 					<onclick>Skin.ToggleSetting(View508HideInfo)</onclick>
@@ -117,8 +125,8 @@
 					<visible>Control.IsVisible(508)</visible>
 				</control>
 				<control type="label" id="201">
-					<width>250</width>
-					<height>35</height>
+					<width>375</width>
+					<height>53</height>
 					<font>font12</font>
 					<label>31026</label>
 					<textcolor>blue</textcolor>
@@ -127,7 +135,7 @@
 				</control>
 				<control type="radiobutton" id="14">
 					<description>Watched Toggle</description>
-					<textwidth>170</textwidth>
+					<textwidth>255</textwidth>
 					<include>ButtonCommonValues</include>
 					<label>20367</label>
 				</control>
@@ -144,7 +152,7 @@
 				</control>
 				<control type="radiobutton" id="11">
 					<description>Unlock Shares</description>
-					<textwidth>170</textwidth>
+					<textwidth>255</textwidth>
 					<include>ButtonCommonValues</include>
 					<label>20336</label>
 					<onclick>mastermode</onclick>
@@ -152,8 +160,8 @@
 					<visible>system.haslocks</visible>
 				</control>
 				<control type="label" id="203">
-					<width>250</width>
-					<height>35</height>
+					<width>375</width>
+					<height>53</height>
 					<font>font12</font>
 					<label>31039</label>
 					<textcolor>blue</textcolor>
@@ -162,7 +170,7 @@
 				</control>
 				<control type="togglebutton" id="20">
 					<description>Update library</description>
-					<textwidth>235</textwidth>
+					<textwidth>353</textwidth>
 					<include>ButtonCommonValues</include>
 					<label>653</label>
 					<altlabel>13353</altlabel>
@@ -173,7 +181,7 @@
 				<!-- BOSSANOVA808 MOD - Add 'Addon Settings' to side blade menu -->
 				<control type="togglebutton" id="205">
 					<description>Addon Settings</description>
-					<textwidth>235</textwidth>
+					<textwidth>353</textwidth>
 					<include>ButtonCommonValues</include>
 					<altlabel>10140</altlabel>
 					<alttexturefocus border="5">button-focus.png</alttexturefocus>
@@ -184,7 +192,7 @@
 				</control>
 				<control type="button" id="204">
 					<description>Get more</description>
-					<textwidth>235</textwidth>
+					<textwidth>353</textwidth>
 					<include>ButtonCommonValues</include>
 					<label>21452</label>
 					<onclick>ActivateWindow(addonbrowser,addons://more/video/,return)</onclick>

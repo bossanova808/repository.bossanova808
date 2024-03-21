@@ -50,8 +50,8 @@
 		<control type="visualisation">
 			<left>0</left>
 			<top>0</top>
-			<width>1280</width>
-			<height>720</height>
+			<width>1920</width>
+			<height>1080</height>
 			<visible>Player.HasAudio + !Skin.HasSetting(ShowBackgroundVis)</visible>
 			<visible>String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
 		</control>
@@ -59,16 +59,16 @@
 			<depth>DepthBackground</depth>
 			<left>0</left>
 			<top>0</top>
-			<width>1280</width>
-			<height>720</height>
+			<width>1920</width>
+			<height>1080</height>
 			<visible>Player.HasVideo + !Slideshow.IsActive + !Window.IsActive(movieinformation) + !Skin.HasSetting(ShowBackgroundVideo) + !Window.IsVisible(TVChannels) + !Window.IsVisible(RadioChannels)</visible>
 		</control>
 		<control type="image">
 			<depth>DepthBackground</depth>
-			<left>-20</left>
-			<top>-40</top>
-			<width>1320</width>
-			<height>120</height>
+			<left>-30</left>
+			<top>-60</top>
+			<width>1980</width>
+			<height>180</height>
 			<texture flipy="true" border="1">HomeNowPlayingBack.png</texture>
 			<visible>[Player.HasVideo + !Slideshow.IsActive + !Window.IsActive(movieinformation) + !Skin.HasSetting(ShowBackgroundVideo)] | [Player.HasAudio + ![Skin.HasSetting(ShowBackgroundVis) | !String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))]] | [!Skin.HasSetting(HideBackGroundFanart) + !String.IsEmpty(ListItem.Property(Fanart_Image))]</visible>
 			<include>VisibleFadeEffect</include>
@@ -77,16 +77,16 @@
 	<include name="ContentPanelBackgrounds">
 		<control type="image">
 			<depth>DepthFloor</depth>
-			<left>-20</left>
-			<top/>
+			<left>-30</left>
+			<top />
 			<bottom>0</bottom>
-			<width>1320</width>
+			<width>1980</width>
 			<!-- BOSSANOVA808 MOD - Finesse floor height in those rare places it is used -->
-			<height>75</height>
+			<height>112</height>
 			<texture>floor_b808.png</texture>
-			<animation effect="rotatex" end="45" time="0" center="620,0" condition="true">Conditional</animation>
-			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
-			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>
+			<animation effect="rotatex" end="45" time="0" center="930,0" condition="true">Conditional</animation>
+			<animation effect="slide" start="0,15" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,15" time="150" condition="Window.Next(Home)">WindowClose</animation>
 			<!-- BOSSANOVA808 MOD - hide in Pictures area -->
 			<visible>!Window.Is(pictures)</visible>
 		</control>
@@ -96,17 +96,17 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(50)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>60</top>
-					<width>750</width>
-					<height>600</height>
+					<left>75</left>
+					<top>90</top>
+					<width>1125</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>750</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>1125</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -114,31 +114,31 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(504) | Control.IsVisible(550) | Control.IsVisible(512)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>60</top>
-					<width>640</width>
-					<height>600</height>
+					<left>75</left>
+					<top>90</top>
+					<width>960</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>640</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>960</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 				<control type="image">
-					<left>700</left>
-					<top>60</top>
-					<width>530</width>
-					<height>600</height>
+					<left>1050</left>
+					<top>90</top>
+					<width>795</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>700</left>
-					<top>652</top>
-					<width>530</width>
-					<height>64</height>
+					<left>1050</left>
+					<top>978</top>
+					<width>795</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -146,31 +146,31 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(551) | Control.IsVisible(560) | Control.IsVisible(511) | Control.IsVisible(506) | Control.IsVisible(507) | Control.IsVisible(513)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>60</top>
-					<width>840</width>
-					<height>600</height>
+					<left>75</left>
+					<top>90</top>
+					<width>1260</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>840</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>1260</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 				<control type="image">
-					<left>900</left>
-					<top>60</top>
-					<width>330</width>
-					<height>600</height>
+					<left>1350</left>
+					<top>90</top>
+					<width>495</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>900</left>
-					<top>652</top>
-					<width>330</width>
-					<height>64</height>
+					<left>1350</left>
+					<top>978</top>
+					<width>495</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -178,17 +178,17 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(501)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>50</top>
-					<width>1180</width>
-					<height>610</height>
+					<left>75</left>
+					<top>75</top>
+					<width>1770</width>
+					<height>915</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>1180</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>1770</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -196,31 +196,31 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(503)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>230</top>
-					<width>640</width>
-					<height>430</height>
+					<left>75</left>
+					<top>345</top>
+					<width>960</width>
+					<height>645</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>640</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>960</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 				<control type="image">
-					<left>700</left>
-					<top>230</top>
-					<width>550</width>
-					<height>430</height>
+					<left>1050</left>
+					<top>345</top>
+					<width>825</width>
+					<height>645</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>700</left>
-					<top>652</top>
-					<width>550</width>
-					<height>64</height>
+					<left>1050</left>
+					<top>978</top>
+					<width>825</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -228,17 +228,17 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(51) | Control.IsVisible(500) | Control.IsVisible(505)</visible>
 				<control type="image">
-					<left>75</left>
-					<top>60</top>
-					<width>1130</width>
-					<height>600</height>
+					<left>113</left>
+					<top>90</top>
+					<width>1695</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>75</left>
-					<top>652</top>
-					<width>1130</width>
-					<height>64</height>
+					<left>113</left>
+					<top>978</top>
+					<width>1695</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -246,31 +246,31 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(514)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>60</top>
-					<width>490</width>
-					<height>600</height>
+					<left>75</left>
+					<top>90</top>
+					<width>735</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>490</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>735</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 				<control type="image">
-					<left>550</left>
-					<top>60</top>
-					<width>680</width>
-					<height>600</height>
+					<left>825</left>
+					<top>90</top>
+					<width>1020</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>550</left>
-					<top>652</top>
-					<width>680</width>
-					<height>64</height>
+					<left>825</left>
+					<top>978</top>
+					<width>1020</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
@@ -278,31 +278,31 @@
 				<include>VisibleFadeEffect</include>
 				<visible>Control.IsVisible(515)</visible>
 				<control type="image">
-					<left>50</left>
-					<top>60</top>
-					<width>400</width>
-					<height>600</height>
+					<left>75</left>
+					<top>90</top>
+					<width>600</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>50</left>
-					<top>652</top>
-					<width>400</width>
-					<height>64</height>
+					<left>75</left>
+					<top>978</top>
+					<width>600</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 				<control type="image">
-					<left>460</left>
-					<top>60</top>
-					<width>770</width>
-					<height>600</height>
+					<left>690</left>
+					<top>90</top>
+					<width>1155</width>
+					<height>900</height>
 					<texture border="15">ContentPanel.png</texture>
 				</control>
 				<control type="image">
-					<left>460</left>
-					<top>652</top>
-					<width>770</width>
-					<height>64</height>
+					<left>690</left>
+					<top>978</top>
+					<width>1155</width>
+					<height>96</height>
 					<texture border="15">ContentPanelMirror.png</texture>
 				</control>
 			</control>
