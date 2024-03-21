@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<window>
-    <include condition="String.IsEqual(Weather.Plugin(),weather.ozweather)"  file="OzWeatherMyWeather.xml">ozweather</include>
-    <include condition="!String.IsEqual(Weather.Plugin(),weather.ozweather)" file="MyWeather_ConfluenceStandard.xml">normal_weather</include>
-</window>
