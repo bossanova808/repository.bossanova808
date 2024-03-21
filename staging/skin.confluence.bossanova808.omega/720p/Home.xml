@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">9000</defaultcontrol>
-	<onload condition="Window.Previous(startup)">Control.Move(9000,2)</onload>
+	<onload condition="String.IsEmpty(Skin.String(DefaultHomeFocusItem))">SetProperty(SetDefaultHomeItem,1,home)</onload>
+	<onload condition="!Window.Previous(Weather) + !Window.Previous(Pictures) + !Window.Previous(Games) + !Window.Previous(RadioChannels) + !Window.Previous(TVChannels) + !Window.Previous(Videos) + !Window.Previous(Music) + !Window.Previous(Programs) + !Window.Previous(Favouritesbrowser) + !Window.Previous(FileManager) + !Window.Previous(Profiles) + !Window.Previous(SystemInfo) + !Window.Previous(EventLog) + !Window.Previous(TVGuide) + !Window.Previous(TVRecordings) + !Window.Previous(TVTimerRules) + !Window.Previous(TVTimers) + !Window.Previous(TVSearch) + !Window.Previous(RadioGuide) + !Window.Previous(RadioRecordings) + !Window.Previous(RadioTimerRules) + !Window.Previous(RadioTimers) + !Window.Previous(RadioSearch) + !Window.Previous(addonbrowser) + !Window.Previous(script.globalsearch)">SetFocus(9000,$INFO[Skin.String(DefaultHomeFocus)])</onload>
 	<onunload condition="Container(9000).Hasfocus(10) | Container(9000).Hasfocus(11) | ControlGroup(9010).HasFocus | ControlGroup(9016).HasFocus | ControlGroup(9017).HasFocus">SetProperty(VideosDirectLink,True)</onunload>
 	<onunload condition="ControlGroup(9011).HasFocus">SetProperty(MusicDirectLink,True)</onunload>
 	<onunload condition="Control.HasFocus(9000) + Container(9000).Hasfocus(2)">ClearProperty(VideosDirectLink)</onunload>
@@ -47,18 +48,18 @@
 			<visible>Library.HasContent(Music)</visible>
 		</control>
 		<include>CommonBackground</include>
-<!--		<control type="image">-->
-<!--			<depth>DepthFloor</depth>-->
-<!--			<left>-20</left>-->
-<!--			<top/>-->
-<!--			<bottom>0</bottom>-->
-<!--			<width>1320</width>-->
-<!--			<height>90</height>-->
-<!--			<texture>floor.png</texture>-->
-<!--			<animation effect="rotatex" end="45" time="0" center="620,0" condition="true">Conditional</animation>-->
-<!--			<animation effect="slide" time="200" condition="Window.Previous(Home)">WindowOpen</animation>-->
-<!--			<animation effect="slide" time="200" condition="Window.Next(Home)">WindowClose</animation>-->
-<!--		</control>-->
+		<control type="image">
+			<depth>DepthFloor</depth>
+			<left>-20</left>
+			<top/>
+			<bottom>0</bottom>
+			<width>1320</width>
+			<height>90</height>
+			<texture>floor.png</texture>
+			<animation effect="rotatex" end="45" time="0" center="620,0" condition="true">Conditional</animation>
+			<animation effect="slide" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" time="200" condition="Window.Next(Home)">WindowClose</animation>
+		</control>
 		<!-- Music Info -->
 		<control type="group">
 			<depth>DepthMenu</depth>
@@ -75,7 +76,7 @@
 				<height>295</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
 				<texture fallback="DefaultAlbumCover.png">$INFO[Player.Art(thumb)]</texture>
-				<bordertexture border="8">ThumbBorder.png</bordertexture>
+				<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 				<bordersize>5</bordersize>
 			</control>
 			<control type="label">
@@ -144,7 +145,7 @@
 					<height>80</height>
 					<aspectratio>keep</aspectratio>
 					<texture background="true" fallback="DefaultVideoCover.png">$INFO[PVR.NextRecordingChannelIcon]</texture>
-					<bordertexture border="8">ThumbBorder.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 					<bordersize>4</bordersize>
 				</control>
 				<control type="image">
@@ -211,7 +212,7 @@
 					<height>80</height>
 					<aspectratio>keep</aspectratio>
 					<texture background="true" fallback="DefaultVideoCover.png">$INFO[PVR.NowRecordingChannelIcon]</texture>
-					<bordertexture border="8">ThumbBorder.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 					<bordersize>4</bordersize>
 				</control>
 				<control type="image">
@@ -281,7 +282,7 @@
 					<height>300</height>
 					<aspectratio aligny="bottom">keep</aspectratio>
 					<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
-					<bordertexture border="8">ThumbBorder.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 					<bordersize>5</bordersize>
 				</control>
 				<control type="label">
@@ -321,7 +322,7 @@
 					<height>300</height>
 					<aspectratio aligny="bottom">keep</aspectratio>
 					<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
-					<bordertexture border="8">ThumbBorder.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 					<bordersize>5</bordersize>
 				</control>
 				<control type="label">
@@ -389,7 +390,7 @@
 					<height>300</height>
 					<aspectratio aligny="bottom">keep</aspectratio>
 					<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
-					<bordertexture border="8">ThumbBorder.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 					<bordersize>5</bordersize>
 				</control>
 				<control type="label">
@@ -442,7 +443,7 @@
 					<height>120</height>
 					<aspectratio>scale</aspectratio>
 					<texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
-					<bordertexture border="8">ThumbBorder.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbBorder.png</bordertexture>
 					<bordersize>5</bordersize>
 				</control>
 				<control type="label">
@@ -797,8 +798,8 @@
 					<include>HomeSubMenuCommonValues</include>
 					<onleft>9017</onleft>
 					<onright>9017</onright>
-					<!-- <visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label) + [System.IsMaster | !Skin.HasSetting(HomeMenuTVShowUsePlaylist)]</visible> -->
 					<!-- Bossanova808 Display sub menu even when main button set to a playlist so node editor works -->
+					<!-- <visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label) + [System.IsMaster | !Skin.HasSetting(HomeMenuTVShowUsePlaylist)]</visible> -->
 					<visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label)</visible>
 					<!-- Buttons for the grouplist -->
 					<include>HomeSubMenuTVShows</include>
@@ -881,7 +882,8 @@
 				<height>60</height>
 				<onleft>9000</onleft>
 				<onright>9000</onright>
-				<onup>601</onup>
+				<onup condition="String.IsEmpty(Window(home).Property(SetDefaultHomeItem))">601</onup>
+				<onup condition="!String.IsEmpty(Window(home).Property(SetDefaultHomeItem))">9999</onup>
 				<ondown>9001</ondown>
 				<pagecontrol/>
 				<scrolltime>300</scrolltime>
@@ -983,14 +985,16 @@
 						<onclick>ActivateWindow(RadioChannels)</onclick>
 						<icon/>
 						<thumb/>
+						<!-- BOSSANOVA808 MOD - Remove radio -->
 						<visible>False</visible> <!-- BOSSANOVA808 Remove Radio -->
 					</item>
 					<item id="12">
-						<label>LIVE TV</label> <!-- BOSSANOVA808 Add 'Live' to label -->
+						<!-- BOSSANOVA808 MOD - add 'Live' to PVR label -->
+						<label>LIVE TV</label>
 						<onclick>ActivateWindow(TVChannels)</onclick>
 						<icon/>
 						<thumb/>
-						<visible>PVR.HasTVChannels</visible>
+						<visible>[!Skin.HasSetting(HomeMenuNoTVButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoTVButton) + System.IsMaster]</visible>
 					</item>
 					<item id="2">
 						<label>31953</label>
@@ -1006,7 +1010,7 @@
 						<onclick condition="!System.IsMaster + Skin.HasSetting(HomeMenuMovieUsePlaylist)">ActivateWindow(Videos,$INFO[Skin.String(HomeMenuMoviePlaylist)],return)</onclick>
 						<icon/>
 						<thumb/>
-						<visible>[[!Skin.HasSetting(HomeMenuNoMovieButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoMovieButton) + System.IsMaster]] + Library.HasContent(Movies)</visible>
+						<visible>[!Skin.HasSetting(HomeMenuNoMovieButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoMovieButton) + System.IsMaster]</visible>
 					</item>
 					<item id="11">
 						<label>31955</label>
@@ -1014,7 +1018,7 @@
 						<onclick condition="!System.IsMaster + Skin.HasSetting(HomeMenuTVShowUsePlaylist)">ActivateWindow(Videos,$INFO[Skin.String(HomeMenuTVShowPlaylist)],return)</onclick>
 						<icon/>
 						<thumb/>
-						<visible>[[!Skin.HasSetting(HomeMenuNoTVShowButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoTVShowButton) + System.IsMaster]] + Library.HasContent(TVShows)</visible>
+						<visible>[!Skin.HasSetting(HomeMenuNoTVShowButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoTVShowButton) + System.IsMaster]</visible>
 					</item>
 					<item id="3">
 						<label>31956</label>
@@ -1285,6 +1289,7 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<font>font10</font>
+					<!-- BOSSANOVA808 MOD - Dimmer text -->
 					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<label>$INFO[Window(Weather).Property(Location)]</label>
@@ -1297,7 +1302,7 @@
 					<orientation>horizontal</orientation>
 					<align>left</align>
 					<itemgap>0</itemgap>
-					<!-- BOSSANOVA808 Use the OzWeather value here, for a float...-->
+					<!-- BOSSANOVA808 MOD - Use the OzWeather value here, for a float...-->
 					<control type="label">
 						<description>Temp label</description>
 						<width min="0" max="300">auto</width>
@@ -1331,12 +1336,42 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font10</font>
+				<!-- BOSSANOVA808 MOD - Dimmer text -->
 				<textcolor>gray</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Date]</label>
 				<include>Window_OpenClose_Animation</include>
 				<animation effect="slide" start="0,0" end="-40,0" time="75" condition="Player.Muted">conditional</animation>
 			</control>
+		</control>
+		<control type="button" id="9999">
+			<centerleft>50%</centerleft>
+			<top>320</top>
+			<width>500</width>
+			<height>42</height>
+			<align>center</align>
+			<aligny>center</aligny>
+			<shadowcolor>black</shadowcolor>
+			<texturefocus/>
+			<texturenofocus/>
+			<font>font16</font>
+			<label>$LOCALIZE[31019]</label>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,1)">Skin.SetString(DefaultHomeFocus,0)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,2)">Skin.SetString(DefaultHomeFocus,1)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,3)">Skin.SetString(DefaultHomeFocus,2)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,4)">Skin.SetString(DefaultHomeFocus,3)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,5)">Skin.SetString(DefaultHomeFocus,4)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,6)">Skin.SetString(DefaultHomeFocus,5)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,7)">Skin.SetString(DefaultHomeFocus,6)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,8)">Skin.SetString(DefaultHomeFocus,7)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,9)">Skin.SetString(DefaultHomeFocus,8)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,10)">Skin.SetString(DefaultHomeFocus,9)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,11)">Skin.SetString(DefaultHomeFocus,10)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).CurrentItem,12)">Skin.SetString(DefaultHomeFocus,11)</onfocus>
+			<onfocus>Skin.SetString(DefaultHomeFocusItem,$INFO[Container(9000).ListItem.Label])</onfocus>
+			<onfocus>ClearProperty(SetDefaultHomeItem,home)</onfocus>
+			<onfocus condition="Window.Previous(skinsettings)">ActivateWindow(skinsettings)</onfocus>
+			<visible>!String.IsEmpty(Window(home).Property(SetDefaultHomeItem))</visible>
 		</control>
 	</controls>
 </window>

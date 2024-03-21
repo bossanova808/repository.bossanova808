@@ -34,7 +34,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="label">
 						<left>280</left>
@@ -78,7 +78,7 @@
 						<width>16</width>
 						<height>16</height>
 						<texture>OverlayWatching.png</texture>
-						<!-- bossanova808 remove stupid 'in progress' arrow that is just visual clutter	(for folders) -->
+						<!-- Bossanova808 Mod - Remove stupid 'in progress' arrow that is just visual clutter	(for folders) -->
 						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
 					<control type="image">
@@ -128,7 +128,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="label">
 						<left>280</left>
@@ -172,7 +172,7 @@
 						<width>16</width>
 						<height>16</height>
 						<texture>OverlayWatching.png</texture>
-						<!-- bossanova808 remove stupid 'in progress' arrow that is just visual clutter	(for folders) -->
+						<!-- Bossanova808 Mod - Remove stupid 'in progress' arrow that is just visual clutter	(for folders) -->
 						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
  					<control type="image">
@@ -215,7 +215,7 @@
 					<aspectratio aligny="bottom">keep</aspectratio>
 					<fadetime>IconCrossfadeTime</fadetime>
 					<texture background="true">$VAR[PosterThumb]</texture>
-					<bordertexture border="8">ThumbShadow.png</bordertexture>
+					<bordertexture infill="false" border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
 				</control>
 				<control type="image">
@@ -253,7 +253,7 @@
 						<top>0</top>
 						<width>214</width>
 						<height>160</height>
-						<bordertexture border="5">button-nofocus.png</bordertexture>
+						<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$VAR[PosterThumb]</texture>
 						<aspectratio>keep</aspectratio>
@@ -265,7 +265,7 @@
 						<width>214</width>
 						<height>160</height>
 						<aspectratio>scale</aspectratio>
-						<bordertexture border="5">button-nofocus.png</bordertexture>
+						<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$INFO[Listitem.Icon]</texture>
 						<visible>Container.Content(Episodes)</visible>
@@ -280,7 +280,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
 						<aligny>center</aligny>
-						<info>ListItem.Label</info>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="image">
 						<left>170</left>
@@ -297,7 +297,7 @@
 						<top>0</top>
 						<width>214</width>
 						<height>160</height>
-						<bordertexture border="5">folder-focus.png</bordertexture>
+						<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$VAR[PosterThumb]</texture>
 						<aspectratio>keep</aspectratio>
@@ -309,7 +309,7 @@
 						<width>214</width>
 						<height>160</height>
 						<aspectratio>scale</aspectratio>
-						<bordertexture border="5">folder-focus.png</bordertexture>
+						<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$INFO[Listitem.Icon]</texture>
 						<visible>Container.Content(Episodes)</visible>
@@ -324,7 +324,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
 						<aligny>center</aligny>
-						<info>ListItem.Label</info>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="image">
 						<left>170</left>
@@ -341,7 +341,7 @@
 						<top>0</top>
 						<width>214</width>
 						<height>240</height>
-						<bordertexture border="5">button-nofocus.png</bordertexture>
+						<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$VAR[PosterThumb]</texture>
 						<aspectratio>keep</aspectratio>
@@ -356,7 +356,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
 						<aligny>center</aligny>
-						<info>ListItem.Label</info>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="image">
 						<left>170</left>
@@ -373,7 +373,7 @@
 						<top>0</top>
 						<width>214</width>
 						<height>240</height>
-						<bordertexture border="5">folder-focus.png</bordertexture>
+						<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$VAR[PosterThumb]</texture>
 						<aspectratio>keep</aspectratio>
@@ -388,7 +388,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
 						<aligny>center</aligny>
-						<info>ListItem.Label</info>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="image">
 						<left>170</left>
@@ -442,7 +442,7 @@
 						<top>0</top>
 						<width>538</width>
 						<height>105</height>
-						<bordertexture border="5">button-nofocus.png</bordertexture>
+						<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$VAR[BannerThumb]</texture>
 						<aspectratio>keep</aspectratio>
@@ -462,7 +462,7 @@
 						<top>0</top>
 						<width>538</width>
 						<height>105</height>
-						<bordertexture border="5">folder-focus.png</bordertexture>
+						<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 						<bordersize>5</bordersize>
 						<texture background="true">$VAR[BannerThumb]</texture>
 						<aspectratio>keep</aspectratio>
@@ -537,7 +537,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="label">
 						<left>60</left>
@@ -638,7 +638,7 @@
 						<selectedcolor>selected</selectedcolor>
 						<align>left</align>
 						<aligny>center</aligny>
-						<label>$INFO[ListItem.Label]</label>
+						<label>$VAR[ShowCustomLabel]</label>
 					</control>
 					<control type="label">
 						<left>60</left>

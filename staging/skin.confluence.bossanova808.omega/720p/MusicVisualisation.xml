@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<!-- BOSSANOVA808 MOD - Artist Slideshow -->
 	<onload>RunScript(script.artistslideshow)</onload>
 	<defaultcontrol/>
 	<controls>
@@ -11,7 +12,7 @@
 			<width>1280</width>
 			<height>720</height>
 		</control>
-		<!-- Bossanova808 Use Artist Slideshow in Music Vis. -->
+		<!-- BOSSANOVA808 MOD - Artist Slideshow -->
 		<control type="image">
 		    <aspectratio>keep</aspectratio>
 		    <fadetime>400</fadetime>
@@ -40,7 +41,7 @@
 			<visible>!String.IsEmpty(Player.Art(fanart)) + !Skin.HasSetting(HideVisualizationFanart)</visible>
 			<fadetime>600</fadetime>
 		</control> -->
-		<!-- end Bossanova808 mod -->
+		<!-- END Bossanova808 mod -->
 		<!-- media infos -->
 		<control type="group">
 			<depth>DepthOSD</depth>
@@ -112,7 +113,7 @@
 				<height>230</height>
 				<texture fallback="DefaultAlbumCover.png">$INFO[Player.Art(thumb)]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="8">ThumbShadow.png</bordertexture>
+				<bordertexture infill="false" border="8">ThumbShadow.png</bordertexture>
 				<bordersize>8</bordersize>
 			</control>
 			<control type="group">

@@ -170,6 +170,7 @@
 					<alttexturenofocus/>
 					<usealttexture>library.isscanningvideo</usealttexture>
 				</control>
+				<!-- BOSSANOVA808 MOD - Add 'Addon Settings' to side blade menu -->
 				<control type="togglebutton" id="205">
 					<description>Addon Settings</description>
 					<textwidth>235</textwidth>

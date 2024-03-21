@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <window>
+  <!-- BOSSANOVA808 MOD - Probably best to leave this whole file as comes from CoreElec -->
+  <!-- Maybe from here? https://discourse.coreelec.org/t/amlogic-color-space-depth-information-addon/4675/124?page=10 -->
   <onload condition="System.HasAddon(service.coreelec.settings)">RunScript(script.amlogic.displayinfo)</onload>
 	<defaultcontrol always="true">100</defaultcontrol>
 	<include>dialogeffect</include>

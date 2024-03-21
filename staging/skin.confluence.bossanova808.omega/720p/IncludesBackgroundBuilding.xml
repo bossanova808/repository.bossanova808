@@ -37,9 +37,9 @@
 			<fadetime>FanartCrossfadeTime</fadetime>
 			<visible>!Skin.HasSetting(HideBackGroundFanart) + !String.IsEmpty(ListItem.Property(Fanart_Image))</visible>
 			<include>Window_OpenClose_Animation</include>
-			<!-- Bossanov808 Mod - remove fanart from home screen recently added -->
+			<!-- BOSSANOVA808 MOD - Remove fanart from home screen recently added -->
 			<visible>!Window.IsActive(home)</visible>
-			<visible>![Player.HasVideo + !Skin.HasSetting(ShowBackgroundVideo)] | [Player.HasVideo + Window.IsActive(movieinformation)]</visible>
+			<!-- <visible>![Player.HasVideo + !Skin.HasSetting(ShowBackgroundVideo)] | [Player.HasVideo + Window.IsActive(movieinformation)]</visible> -->
 		</control>
 		<control type="image">
 			<include>BackgroundDimensions</include>
@@ -81,11 +81,14 @@
 			<top/>
 			<bottom>0</bottom>
 			<width>1320</width>
+			<!-- BOSSANOVA808 MOD - Finesse floor height in those rare places it is used -->
 			<height>75</height>
-			<texture>floor.png</texture>
+			<texture>floor_b808.png</texture>
 			<animation effect="rotatex" end="45" time="0" center="620,0" condition="true">Conditional</animation>
 			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
 			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>
+			<!-- BOSSANOVA808 MOD - hide in Pictures area -->
+			<visible>!Window.Is(pictures)</visible>
 		</control>
 		<control type="group">
 			<include>Window_OpenClose_Animation</include>

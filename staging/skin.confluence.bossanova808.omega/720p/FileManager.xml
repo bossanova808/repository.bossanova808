@@ -3,15 +3,15 @@
 	<defaultcontrol>20</defaultcontrol>
 	<controls>
 		<include>CommonBackground</include>
-<!--		<control type="image">-->
-<!--			<left>0</left>-->
-<!--			<top>100r</top>-->
-<!--			<width>1280</width>-->
-<!--			<height>100</height>-->
-<!--			<texture>floor.png</texture>-->
-<!--			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>-->
-<!--			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>-->
-<!--		</control>-->
+		<control type="image">
+			<left>0</left>
+			<top>100r</top>
+			<width>1280</width>
+			<height>100</height>
+			<texture>floor.png</texture>
+			<animation effect="slide" start="0,10" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,10" time="150" condition="Window.Next(Home)">WindowClose</animation>
+		</control>
 		<control type="group">
 			<left>30</left>
 			<top>40</top>
@@ -44,7 +44,7 @@
 				<height>80</height>
 				<aspectratio>keep</aspectratio>
 				<info>Container(20).ListItem.Icon</info>
-				<bordertexture border="5">button-nofocus.png</bordertexture>
+				<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 				<bordersize>3</bordersize>
 			</control>
 			<control type="label">
@@ -218,7 +218,7 @@
 				<height>80</height>
 				<aspectratio>keep</aspectratio>
 				<info>Container(21).ListItem.Icon</info>
-				<bordertexture border="5">button-nofocus.png</bordertexture>
+				<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 				<bordersize>3</bordersize>
 			</control>
 			<control type="label">

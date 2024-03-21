@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include file="Defaults.xml" />
-	<include file="Includes_DialogSelect.xml" />
 	<include file="ViewsVideoLibrary.xml" />
 	<include file="ViewsMusicLibrary.xml" />
 	<include file="ViewsFileMode.xml" />
@@ -10,7 +9,9 @@
 	<include file="ViewsLiveTV.xml" />
 	<include file="ViewsPVRGuide.xml" />
 	<include file="ViewsWeather.xml" />
+	<include file="IncludesDialogSelect.xml" />
 	<include file="IncludesCodecFlagging.xml" />
+	<include file="IncludesGames.xml" />
 	<include file="IncludesHomeRecentlyAdded.xml" />
 	<include file="IncludesHomeMenuItems.xml" />
 	<include file="IncludesPVR.xml" />
@@ -39,19 +40,6 @@
 	<constant name="DepthFloor">-0.20</constant>
 	<constant name="DepthSideBlade">0.15</constant>
 	<!-- VARIABLES -->
-	<variable name="MusicRating">
-		<value condition="Integer.IsGreater(ListItem.Rating,9.5)">10</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,8.5)">9</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,7.5)">8</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,6.5)">7</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,5.5)">6</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,4.5)">5</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,3.5)">4</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,2.5)">3</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,1.5)">2</value>
-		<value condition="Integer.IsGreater(ListItem.Rating,0.5)">1</value>
-		<value>0</value>
-	</variable>
 	<variable name="AddonInfoHeading">
 		<value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$LOCALIZE[24054]</value>
 		<value>$LOCALIZE[21821]</value>
@@ -68,6 +56,7 @@
 		<value condition="Window.IsActive(gamevideofilter)">$LOCALIZE[230]</value>
 		<value condition="Window.IsActive(gamestretchmode)">$LOCALIZE[35233]</value>
 		<value condition="Window.IsActive(gamevideorotation)">$LOCALIZE[35227]</value>
+		<value condition="Window.IsActive(ingamesaves)">$LOCALIZE[31020]</value>
 	</variable>
 	<variable name="DurationInMinutes">
 		<value condition="String.StartsWith(ListItem.Duration,01:00:)">60 $LOCALIZE[12391]</value>
@@ -480,10 +469,10 @@
 	<variable name="PosterThumb">
 		<value condition="[Skin.HasSetting(ShowPosterInsteadThumb) + Container.Content(MusicVideos) + !String.IsEmpty(ListItem.Art(poster))]">$INFO[ListItem.Art(poster)]</value>
 		<value condition="[Skin.HasSetting(ShowPosterInsteadThumb) + Container.Content(MusicVideos) + String.IsEmpty(ListItem.Art(poster)) + !ListItem.IsFolder]">DefaultVideoPoster.png</value>
-		<value condition="[[Container.Content(MusicVideos) + Control.IsVisible(50) | Control.IsVisible(51)] | [!Container.Content(MusicVideos) + !String.IsEmpty(ListItem.Art(poster))]]">$INFO[ListItem.Art(poster)]</value>
+		<value condition="[[Container.Content(MusicVideos) + [Control.IsVisible(50) | Control.IsVisible(51)]] | [!Container.Content(MusicVideos) + !String.IsEmpty(ListItem.Art(poster))]]">$INFO[ListItem.Art(poster)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
-	<!--  BOSSANOVA808 MOD CLEARART -->
+	<!--  BOSSANOVA808 MOD - Clearart -->
 	<variable name="NowPlayingThumb">
 		<value condition="!String.IsEmpty(Player.Art(clearart))">$INFO[Player.Art(clearart)]</value>
 		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">$INFO[Player.Art(tvshow.clearart)]</value>
@@ -603,6 +592,18 @@
 		<value condition="Skin.HasSetting(show_profilename)">$LOCALIZE[31963]</value>
 		<value condition="Skin.HasSetting(show_profileavatar)">$LOCALIZE[31964]</value>
 		<value>$LOCALIZE[16018]</value>
+	</variable>
+	<variable name="ShowOriginalName">
+		<value condition="Skin.HasSetting(TitleFormat_1st)">$LOCALIZE[31035]</value>
+		<value condition="Skin.HasSetting(TitleFormat_2nd)">$LOCALIZE[31034]</value>
+		<value condition="Skin.HasSetting(TitleFormat_only)">$LOCALIZE[31036]</value>
+		<value>$LOCALIZE[31030]</value>
+	</variable>
+	<variable name="ShowCustomLabel">
+		<value condition="Skin.HasSetting(TitleFormat_1st) + !String.IsEmpty(ListItem.OriginalTitle) + !String.IsEqual(ListItem.Label,ListItem.OriginalTitle)">$INFO[ListItem.OriginalTitle] ($INFO[ListItem.Label])</value>
+		<value condition="Skin.HasSetting(TitleFormat_2nd) + !String.IsEmpty(ListItem.OriginalTitle) + !String.IsEqual(ListItem.Label,ListItem.OriginalTitle)">$INFO[ListItem.Label] ($INFO[ListItem.OriginalTitle])</value>
+		<value condition="Skin.HasSetting(TitleFormat_only) + !String.IsEmpty(ListItem.OriginalTitle) + !String.IsEqual(ListItem.Label,ListItem.OriginalTitle)">$INFO[ListItem.OriginalTitle]</value>
+		<value>$INFO[ListItem.Label]</value>
 	</variable>
 	<!-- INCLUDES -->
 	<include name="MusicInfoPanel">
@@ -1560,6 +1561,7 @@
 			<height>30</height>
 			<align>right</align>
 			<aligny>center</aligny>
+			<!-- BOSSANOVA808 MOD - Dimmer text -->
 			<font>font24_title</font>
 			<textcolor>gray</textcolor>
 			<shadowcolor>black</shadowcolor>
@@ -1580,6 +1582,7 @@
 			</control>
 			<control type="label">
 				<visible>Skin.HasSetting(show_profilename)</visible>
+				<!-- BOSSANOVA808 MOD - Dimmer text -->
 				<font>font24_title</font>
 				<align>right</align>
 				<top>5</top>
@@ -1622,7 +1625,7 @@
 				<width>180</width>
 				<height>120</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="5">button-nofocus.png</bordertexture>
+				<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 				<bordersize>3</bordersize>
 				<texture background="true">$INFO[ListItem.Icon]</texture>
 			</control>
@@ -1653,7 +1656,7 @@
 				<width>180</width>
 				<height>120</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="5">button-nofocus.png</bordertexture>
+				<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
 				<bordersize>3</bordersize>
 				<texture background="true">$INFO[ListItem.Icon]</texture>
 				<visible>!ControlGroup(9002).HasFocus</visible>
@@ -1664,7 +1667,7 @@
 				<width>180</width>
 				<height>120</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture border="5">folder-focus.png</bordertexture>
+				<bordertexture infill="false" border="5">folder-focus.png</bordertexture>
 				<bordersize>3</bordersize>
 				<texture background="true">$INFO[ListItem.Icon]</texture>
 				<visible>ControlGroup(9002).HasFocus</visible>
