@@ -91,7 +91,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font13</font>
-				<textcolor>white</textcolor>
+				<textcolor>gray</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Time]</label>
 				<animation effect="slide" start="0,0" end="-45,0" time="0" condition="Player.Muted">conditional</animation>

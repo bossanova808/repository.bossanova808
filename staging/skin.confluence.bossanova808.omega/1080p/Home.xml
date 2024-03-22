@@ -1292,21 +1292,21 @@
 				<control type="label">
 					<description>Location label</description>
 					<left>98</left>
-					<top>8</top>
+					<top>12</top>
 					<width>750</width>
 					<height>23</height>
 					<align>left</align>
 					<aligny>center</aligny>
 					<font>font10</font>
-					<textcolor>white</textcolor>
+					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<label>$INFO[Window(Weather).Property(Location)]</label>
 				</control>
 				<control type="grouplist">
-					<left>65</left>
-					<top>20</top>
-					<width>1000</width>
-					<height>30</height>
+					<left>98</left>
+					<top>34</top>
+					<width>1500</width>
+					<height>45</height>
 					<orientation>horizontal</orientation>
 					<align>left</align>
 					<itemgap>0</itemgap>

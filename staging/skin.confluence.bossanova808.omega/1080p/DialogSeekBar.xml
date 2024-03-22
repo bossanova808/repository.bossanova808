@@ -15,10 +15,10 @@
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>Video cover image</description>
-				<posx>15</posx>
+				<posx>0</posx>
 				<posy>525r</posy>
-				<width>465</width>
-				<height>510</height>
+				<width>480</width>
+				<height>525</height>
 				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
 			</control>
@@ -53,7 +53,7 @@
 			<control type="label" id="1">
 				<description>End time from infolabel</description>
 				<left>30</left>
-				<top>45</top>
+				<top>50</top>
 				<width>165</width>
 				<height>30</height>
 				<align>center</align>
@@ -123,6 +123,7 @@
 					<width>120</width>
 					<height>75</height>
 					<texture>OSDSeekFrame.png</texture>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -131,6 +132,7 @@
 					<height>66</height>
 					<texture>OSDSeekRewind.png</texture>
 					<visible>Player.Rewinding</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>120</left>
@@ -139,6 +141,7 @@
 					<height>66</height>
 					<texture>OSDSeekForward.png</texture>
 					<visible>Player.Forwarding | Player.IsTempo</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>47</left>
@@ -147,6 +150,7 @@
 					<height>60</height>
 					<texture>OSDPause.png</texture>
 					<visible>Player.Paused</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>47</left>
@@ -155,6 +159,7 @@
 					<height>60</height>
 					<texture>OSDPlay.png</texture>
 					<visible>Player.Playing + !Player.IsTempo</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>42</left>
@@ -163,6 +168,7 @@
 					<height>60</height>
 					<texture>OSD2x.png</texture>
 					<visible>Player.Rewinding2x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>38</left>
@@ -171,6 +177,7 @@
 					<height>60</height>
 					<texture>OSD4x.png</texture>
 					<visible>Player.Rewinding4x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>33</left>
@@ -179,6 +186,7 @@
 					<height>60</height>
 					<texture>OSD8x.png</texture>
 					<visible>Player.Rewinding8x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>29</left>
@@ -187,6 +195,7 @@
 					<height>60</height>
 					<texture>OSD16x.png</texture>
 					<visible>Player.Rewinding16x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>26</left>
@@ -195,6 +204,7 @@
 					<height>60</height>
 					<texture>OSD32x.png</texture>
 					<visible>Player.Rewinding32x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>51</left>
@@ -203,6 +213,7 @@
 					<height>60</height>
 					<texture>OSD2x.png</texture>
 					<visible>Player.Forwarding2x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>56</left>
@@ -211,6 +222,7 @@
 					<height>60</height>
 					<texture>OSD4x.png</texture>
 					<visible>Player.Forwarding4x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>60</left>
@@ -219,6 +231,7 @@
 					<height>60</height>
 					<texture>OSD8x.png</texture>
 					<visible>Player.Forwarding8x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>65</left>
@@ -227,6 +240,7 @@
 					<height>60</height>
 					<texture>OSD16x.png</texture>
 					<visible>Player.Forwarding16x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
 					<left>68</left>
@@ -235,6 +249,7 @@
 					<height>60</height>
 					<texture>OSD32x.png</texture>
 					<visible>Player.Forwarding32x</visible>
+					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="group">
 					<visible>Player.IsTempo</visible>
@@ -252,6 +267,7 @@
 						<width>60</width>
 						<height>60</height>
 						<texture>OSDClean.png</texture>
+						<colordiffuse>EEAAAAAA</colordiffuse>
 					</control>
 					<control type="label">
 						<description>Playspeed Label</description>
@@ -260,7 +276,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<font>OSDPlaySpeed</font>
-						<textcolor>white</textcolor>
+						<textcolor>gray</textcolor>
 						<label>[I]$VAR[PlaySpeed][/I]</label>
 					</control>
 				</control>
@@ -345,8 +361,8 @@
 					<top>35</top>
 					<width>360</width>
 					<height>30</height>
-					<font>font13_title</font>
-					<textcolor>white</textcolor>
+					<font>font10</font>
+					<textcolor>grey</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$INFO[VideoPlayer.Time] / $INFO[VideoPlayer.Duration] [-$INFO[VideoPlayer.TimeRemaining]]</label>

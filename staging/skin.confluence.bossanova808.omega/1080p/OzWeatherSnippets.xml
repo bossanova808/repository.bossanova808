@@ -12,7 +12,7 @@
                 <posx>$PARAM[posx]</posx>
                 <posy>$PARAM[posy]</posy>
                 <width>$PARAM[width]</width>
-                <height>30</height>
+                <height>45</height>
                 <include content="FontHeader" />
                 <label>$PARAM[label]</label>
                 <align>left</align>
@@ -31,7 +31,7 @@
                 <posx>$PARAM[posx]</posx>
                 <posy>$PARAM[posy]</posy>
                 <width>$PARAM[width]</width>
-                <height>4</height>
+                <height>6</height>
                 <texture>separator.png</texture>
             </control>
         </definition>
@@ -43,7 +43,7 @@
                 <description>OzWeather Tag</description>
                 <top>93%</top>
                 <left>33%</left>
-                <height>30</height>
+                <height>45</height>
                 <include content="FontBody" />
                 <textcolor>gray</textcolor>
                 <label>$INFO[Window.Property(WeatherVersion)]</label>

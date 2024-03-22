@@ -78,7 +78,7 @@
 						<width>24</width>
 						<height>24</height>
 						<texture>OverlayWatching.png</texture>
-						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
 					<control type="image">
 						<left>998</left>
@@ -171,7 +171,7 @@
 						<width>24</width>
 						<height>24</height>
 						<texture>OverlayWatching.png</texture>
-						<visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
 					<control type="image">
 						<left>998</left>

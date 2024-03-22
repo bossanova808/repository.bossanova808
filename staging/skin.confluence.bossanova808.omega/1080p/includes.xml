@@ -1632,7 +1632,7 @@
 				<align>right</align>
 				<top>8</top>
 				<left>810</left>
-				<textcolor>white</textcolor>
+				<textcolor>gray</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<aligny>center</aligny>
 				<height>45</height>
