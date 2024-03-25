@@ -15,7 +15,7 @@
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>Video cover image</description>
-				<posx>0</posx>
+				<posx>5</posx>
 				<posy>525r</posy>
 				<width>480</width>
 				<height>525</height>

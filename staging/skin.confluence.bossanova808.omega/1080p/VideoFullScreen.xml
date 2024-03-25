@@ -62,6 +62,7 @@
 		</control>
 	    <control type="group" id="10125">
 			<posx>273</posx>
+			<!-- Offset 10 from posy for radar group above -->
 			<posy>10</posy>
 	      	<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<!-- Only show weather if it is actually available - using a predicted high of -99 since this never happens -->
@@ -185,7 +186,7 @@
 			<depth>DepthOSD</depth>
 			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="150">VisibleChange</animation>
-<!-- BOSSANOVA808 Mod - remove dark fade at top of Video Info OSD -->
+<!-- BOSSANOVA808 Mod - remove dark fade at top of Video Info OSD & chapter stuff so weather can sit high-->
 <!--			<control type="image" id="1">-->
 <!--				<left>-30</left>-->
 <!--				<top>-225</top>-->
@@ -193,20 +194,20 @@
 <!--				<height>384</height>-->
 <!--				<texture flipy="true" border="1">HomeNowPlayingBack.png</texture>-->
 <!--			</control>-->
-			<control type="label" id="1">
-				<description>Chapter Count Header label</description>
-				<left>45</left>
-				<top>8</top>
-				<width>1500</width>
-				<height>38</height>
-				<align>left</align>
-				<aligny>center</aligny>
-				<font>font13</font>
-				<textcolor>white</textcolor>
-				<shadowcolor>black</shadowcolor>
-				<label>$INFO[Player.Chapter,$LOCALIZE[21396]: ]$INFO[Player.ChapterCount, / ]$INFO[Player.ChapterName,[COLOR=grey] - (,)[/COLOR]]</label>
-				<visible>Player.ChapterCount + !VideoPlayer.Content(LiveTV)</visible>
-			</control>
+<!--			<control type="label" id="1">-->
+<!--				<description>Chapter Count Header label</description>-->
+<!--				<left>45</left>-->
+<!--				<top>8</top>-->
+<!--				<width>1500</width>-->
+<!--				<height>38</height>-->
+<!--				<align>left</align>-->
+<!--				<aligny>center</aligny>-->
+<!--				<font>font13</font>-->
+<!--				<textcolor>white</textcolor>-->
+<!--				<shadowcolor>black</shadowcolor>-->
+<!--				<label>$INFO[Player.Chapter,$LOCALIZE[21396]: ]$INFO[Player.ChapterCount, / ]$INFO[Player.ChapterName,[COLOR=grey] - (,)[/COLOR]]</label>-->
+<!--				<visible>Player.ChapterCount + !VideoPlayer.Content(LiveTV)</visible>-->
+<!--			</control>-->
 			<control type="label" id="1">
 				<description>Channel Group label</description>
 				<left>45</left>
@@ -248,7 +249,7 @@
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>Video cover image</description>
-				<posx>0</posx>
+				<posx>5</posx>
 				<posy>525r</posy>
 				<width>480</width>
 				<height>525</height>
