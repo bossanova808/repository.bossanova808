@@ -26,6 +26,6 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v5.0.101 - integrate Hitcher's Omega changes up to 5.0.1</news>
+		<news>v5.0.101 - first proper Omega version, see changelog...</news>
 	</extension>
 </addon>

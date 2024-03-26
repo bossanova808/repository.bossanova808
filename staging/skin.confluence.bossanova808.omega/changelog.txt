@@ -1,3 +1,9 @@
+[B]2024-03-26 - v5.0.101[/B]
+
+Integrate Hitcher's Nexus changes up to 5.0.1
+Various b808 tweaks (reduce more white, tidy up VideoFullScreen/DialogSeekbar)
+Re-integrate standard Confluence weather for anyone not using OzWeather
+
 [B]4.8.0101[/B]
 
 Integrate Hitcher's Nexus changes up to 4.8.01
