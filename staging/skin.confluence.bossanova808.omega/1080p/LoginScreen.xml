@@ -56,9 +56,9 @@
 			</control> -->
 			<control type="list" id="52">
 				<left>443</left>
-				<top>255</top>
+				<top>135</top>
 				<width>1035</width>
-				<height>602</height>
+				<height>751</height>
 				<onleft>20</onleft>
 				<onright>20</onright>
 				<onup>52</onup>
