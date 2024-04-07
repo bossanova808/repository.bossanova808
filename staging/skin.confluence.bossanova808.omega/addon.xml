@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.omega" version="5.0.102" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.103" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -7,7 +7,7 @@
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080p" />
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Bossanova808 family and friends (&amp; Australian/OzWeather specific) mod of Confluence skin, originally by Jezz_X.</summary>
+		<summary lang="en_GB">Bossanova808 family and friends mod of Confluence skin, originally by Jezz_X.</summary>
 		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
 		<platform>all</platform>
 		<license>GNU General Public License version 2</license>
@@ -26,6 +26,6 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v5.0.102 - Hitcher Omega changes to 2024-04-07</news>
+		<news>v5.0.103 - Minor Fixes now Omega is released</news>
 	</extension>
 </addon>

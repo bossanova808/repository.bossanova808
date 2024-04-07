@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <window>
-  <!-- BOSSANOVA808 MOD - Probably best to leave this whole file as comes from CoreElec -->
-  <!-- Maybe from here? https://discourse.coreelec.org/t/amlogic-color-space-depth-information-addon/4675/124?page=10 -->
-  <onload condition="System.HasAddon(service.coreelec.settings)">RunScript(script.amlogic.displayinfo)</onload>
+	<!-- Bossanova808 Mod - get Amlogic info from CoreElec addon -->
+	<onload condition="System.HasAddon(service.coreelec.settings)">RunScript(script.amlogic.displayinfo)</onload>
 	<defaultcontrol always="true">100</defaultcontrol>
 	<include>dialogeffect</include>
 	<depth>DepthOSD</depth>
@@ -13,22 +12,24 @@
 	<controls>
 		<control type="group">
 			<depth>DepthOSD+</depth>
+			<!-- Bossanova808 Mod - Background needs to be bigger for CoreElec systems -->
 			<control type="image">
 				<description>media info background image</description>
 				<left>0</left>
 				<top>0</top>
 				<width>1920</width>
-				<height>810</height>
-				<texture>black-back.png</texture>
+				<height>488</height>
+				<texture colordiffuse="DDFFFFFF">black-back.png</texture>
+				<visible>!System.HasAddon(service.coreelec.settings)</visible>
 			</control>
 			<control type="image">
-				<visible>!VideoPlayer.Content(LiveTV)</visible>
 				<description>media info background image</description>
 				<left>0</left>
 				<top>0</top>
 				<width>1920</width>
-				<height>345</height>
-				<texture>black-back.png</texture>
+				<height>640</height>
+				<texture colordiffuse="DDFFFFFF">black-back.png</texture>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
 			</control>
 			<control type="label">
 				<description>Header</description>
@@ -151,47 +152,12 @@
 				<width>675</width>
 				<height>38</height>
 				<scroll>true</scroll>
-				<label fallback="1446">$INFO[Player.Process(amlogic.pixformat)]</label>
+				<label fallback="1446">$INFO[Player.Process(videowidth),,x]$INFO[Player.Process(videoheight)]$INFO[Player.Process(videoscantype)]$INFO[Player.Process(videodar),$COMMA , AR]$INFO[Player.Process(videofps),$COMMA , FPS]</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
 				<textcolor>white</textcolor>
-				<visible>System.HasAddon(service.coreelec.settings)</visible>
 			</control>
-			<control type="label">
-				<description>Gamut</description>
-				<left>75</left>
-				<top>285</top>
-				<width>248</width>
-				<height>38</height>
-				<label>AML Gamut:</label>
-				<align>left</align>
-				<aligny>center</aligny>
-				<font>font12</font>
-				<textcolor>grey2</textcolor>
-				<visible>System.HasAddon(service.coreelec.settings)</visible>
-			</control>
-			<control type="label">
-				<description>Gamut value</description>
-				<left>330</left>
-				<top>285</top>
-				<width>675</width>
-				<height>38</height>
-				<scroll>true</scroll>
-				<label fallback="1446">$INFO[Player.Process(amlogic.eoft_gamut)]</label>
-				<align>left</align>
-				<aligny>center</aligny>
-				<font>font12</font>
-				<textcolor>white</textcolor>
-				<visible>System.HasAddon(service.coreelec.settings)</visible>
-			</control>
-		</control>
-
-		<control type="group">
-			<depth>DepthOSD+</depth>
-			<left>960</left>
-			<top>-105</top>
-
 			<control type="label">
 				<description>Header</description>
 				<left>75</left>
@@ -316,31 +282,104 @@
 				<font>font12</font>
 				<textcolor>white</textcolor>
 			</control>
+			
+			<!-- Bossanova808 Mod - add Coreelec / Amlogic information -->
 			<control type="label">
-				<description>CPU_temp</description>
+				<description>Header</description>
 				<left>75</left>
-				<top>368</top>
+				<top>473</top>
+				<width>848</width>
+				<height>38</height>
+				<label>Amlogic information</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font13_title</font>
+				<textcolor>blue</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
+			</control>
+			<control type="label">
+				<description>Amlogic Display Mode</description>
+				<left>75</left>
+				<top>518</top>
 				<width>248</width>
 				<height>38</height>
-				<label>$LOCALIZE[22011]</label>
+				<label>AML Display mode:</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
 				<textcolor>grey2</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
 			</control>
 			<control type="label">
-				<description>CPU_temp value</description>
+				<description>Amlogic Display Mode value</description>
 				<left>330</left>
-				<top>368</top>
+				<top>518</top>
 				<width>675</width>
 				<height>38</height>
 				<scroll>true</scroll>
-				<label>$INFO[System.CPUTemperature()]</label>
+				<label>$INFO[Player.Process(amlogic.displaymode)]</label>
 				<align>left</align>
 				<aligny>center</aligny>
 				<font>font12</font>
 				<textcolor>white</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
 			</control>
+			<control type="label">
+				<description>Amlogic Pixel Format</description>
+				<left>75</left>
+				<top>556</top>
+				<width>248</width>
+				<height>38</height>
+				<label>AML Pixel Format:</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>grey2</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
+			</control>
+			<control type="label">
+				<description>Amlogic Pixel Format value</description>
+				<left>330</left>
+				<top>556</top>
+				<width>675</width>
+				<height>38</height>
+				<scroll>true</scroll>
+				<label>$INFO[Player.Process(amlogic.pixformat)]</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
+			</control>
+			<control type="label">
+				<description>Amlogic Gamut</description>
+				<left>75</left>
+				<top>594</top>
+				<width>248</width>
+				<height>38</height>
+				<label>AML Gamut:</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>grey2</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
+			</control>
+			<control type="label">
+				<description>Amlogic Gamut value</description>
+				<left>330</left>
+				<top>594</top>
+				<width>675</width>
+				<height>38</height>
+				<scroll>true</scroll>
+				<label>$INFO[Player.Process(amlogic.eoft_gamut)]</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font12</font>
+				<textcolor>white</textcolor>
+				<visible>System.HasAddon(service.coreelec.settings)</visible>
+			</control>
+			<!-- END Bossanova808 Mod - add Coreelec / Amlogic information -->
+			
 		</control>
 		<control type="group">
 			<depth>DepthOSD+</depth>

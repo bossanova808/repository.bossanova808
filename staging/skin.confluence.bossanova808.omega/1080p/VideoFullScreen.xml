@@ -208,20 +208,20 @@
 <!--				<label>$INFO[Player.Chapter,$LOCALIZE[21396]: ]$INFO[Player.ChapterCount, / ]$INFO[Player.ChapterName,[COLOR=grey] - (,)[/COLOR]]</label>-->
 <!--				<visible>Player.ChapterCount + !VideoPlayer.Content(LiveTV)</visible>-->
 <!--			</control>-->
-			<control type="label" id="1">
-				<description>Channel Group label</description>
-				<left>45</left>
-				<top>8</top>
-				<width>1500</width>
-				<height>38</height>
-				<align>left</align>
-				<aligny>center</aligny>
-				<font>font13</font>
-				<textcolor>white</textcolor>
-				<shadowcolor>black</shadowcolor>
-				<label>$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[31509]: ]</label>
-				<visible>VideoPlayer.Content(LiveTV)</visible>
-			</control>
+<!--			<control type="label" id="1">-->
+<!--				<description>Channel Group label</description>-->
+<!--				<left>45</left>-->
+<!--				<top>8</top>-->
+<!--				<width>1500</width>-->
+<!--				<height>38</height>-->
+<!--				<align>left</align>-->
+<!--				<aligny>center</aligny>-->
+<!--				<font>font13</font>-->
+<!--				<textcolor>white</textcolor>-->
+<!--				<shadowcolor>black</shadowcolor>-->
+<!--				<label>$INFO[VideoPlayer.ChannelGroup,$LOCALIZE[31509]: ]</label>-->
+<!--				<visible>VideoPlayer.Content(LiveTV)</visible>-->
+<!--			</control>-->
 			<control type="label" id="1">
 				<description>Clock label</description>
 				<left>675</left>

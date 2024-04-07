@@ -157,16 +157,17 @@
 				<onclick>Dialog.Close(VideoOSD)</onclick>
 				<visible>VideoPlayer.Content(LiveTV)</visible>
 			</control>
-			<control type="button" id="350">
-				<width>83</width>
-				<height>83</height>
-				<label>31356</label>
-				<font />
-				<texturefocus>OSDTeleTextFO.png</texturefocus>
-				<texturenofocus>OSDTeleTextNF.png</texturenofocus>
-				<onclick>ActivateWindow(Teletext)</onclick>
-				<visible>VideoPlayer.Content(LiveTV)</visible>
-			</control>
+<!--	Bossanova808 Mod - Remove TXT button as no teletext	-->
+<!--			<control type="button" id="350">-->
+<!--				<width>83</width>-->
+<!--				<height>83</height>-->
+<!--				<label>31356</label>-->
+<!--				<font />-->
+<!--				<texturefocus>OSDTeleTextFO.png</texturefocus>-->
+<!--				<texturenofocus>OSDTeleTextNF.png</texturenofocus>-->
+<!--				<onclick>ActivateWindow(Teletext)</onclick>-->
+<!--				<visible>VideoPlayer.Content(LiveTV)</visible>-->
+<!--			</control>-->
 			<control type="image" id="2200">
 				<width>405</width>
 				<texture />
