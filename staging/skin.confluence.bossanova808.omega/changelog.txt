@@ -1,3 +1,7 @@
+[B]2024-04-07 - v5.0.102[/B]
+             
+Hitcher Omega changes to 2024-04-07
+
 [B]2024-03-26 - v5.0.101[/B]
 
 Integrate Hitcher's Nexus changes up to 5.0.1
