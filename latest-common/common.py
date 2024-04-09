@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
+
 """
+
 Handy utility functions & constants for Kodi Addons
-By bossanova808
-Free in all senses....
+By bossanova808 - freely released
 VERSION 0.2.5 2024-04-09
 (For Kodi Matrix & later)
-See: bossanova808 repo/latest.common/common.py for latest version & always copy back any changes there plud do a version & date bump!
+
+For latest version - ALWAYS COPY BACK ANY CHANGES, plus do a version & date bump above:
+https://github.com/bossanova808/repository.bossanova808/blob/main/latest-common/common.py
+
+
 """
+
 import sys
 import traceback
 
