@@ -141,7 +141,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="5.0.303" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.304" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -168,7 +168,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v5.0.303 - Merge in all the Omega changes from Hitcher to 2024-04-10</news>
+		<news>v5.0.304 - Merge in all the Omega changes from Hitcher to 2024-04-10</news>
 	</extension>
 </addon>
 </addons>

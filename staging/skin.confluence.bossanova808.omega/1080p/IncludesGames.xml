@@ -519,7 +519,7 @@
 						<left>20</left>
 						<height>114</height>
 						<label>$INFO[ListItem.Label]</label>
-						<font>font37</font>
+						<font>font13</font>
 						<shadowcolor>text_shadow</shadowcolor>
 						<align>left</align>
 						<aligny>center</aligny>
@@ -613,7 +613,7 @@
 						<left>20</left>
 						<height>114</height>
 						<label>$INFO[ListItem.Label]</label>
-						<font>font37</font>
+						<font>font13</font>
 						<shadowcolor>text_shadow</shadowcolor>
 						<align>left</align>
 						<aligny>center</aligny>
@@ -759,7 +759,6 @@
 			</control>
 			<control type="grouplist" id="90">
 				<left>30</left>
-				<left>690</left>
 				<top>758</top>
 				<width>1580</width>
 				<ondown>3</ondown>
