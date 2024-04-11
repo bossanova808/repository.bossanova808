@@ -1,3 +1,5 @@
+0.3.2
+- Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
 0.3.1
 - Add support for OSMC and numerous visual tweaks
 - Make the intro text first run only

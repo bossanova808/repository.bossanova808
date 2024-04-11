@@ -1,0 +1,209 @@
+<includes>
+
+    <include name="FontHuge">
+        <font>font_MainMenu</font>
+    </include>
+    <include name="FontBig">
+        <font>font30_title</font>
+    </include>
+    <include name="FontHeader">
+        <font>font12_title</font>
+    </include>
+    <include name="FontBody">
+        <font>font10</font>
+    </include>
+
+    <constant name="RadarSquare" condition="$PARAM[test]">40%</constant>
+    <constant name="RadarLegend">48%</constant>
+
+    <constant name="MasterXOffset">0%</constant>
+    <constant name="MasterYOffset">0%</constant>
+    <constant name="WeatherInfoLineHeight">30%</constant>
+
+    <include name="ConfluenceLeftPanelContainer">
+        <control type="image">
+            <description>Confluence Only</description>
+            <visible>String.IsEqual(Window.Property(SkinInUse),"aczg")</visible>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>825</width>
+            <height>1005</height>
+            <texture border="30">ContentPanel.png</texture>
+        </control>
+    </include>
+
+    <include name="ConfluenceRightPanelContainer">
+        <control type="image">
+            <description>Confluence Only</description>
+            <visible>String.IsEqual(Window.Property(SkinInUse),"aczg")</visible>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1020</width>
+            <height>1005</height>
+            <texture border="30">ContentPanel.png</texture>
+            <visible>String.IsEqual(Window.Property(SkinInUse),"aczg")</visible>
+        </control>
+    </include>
+
+    <!-- Copied straight from ACZG MyWeather.xml    -->
+    <include name="ConfluenceBladeMenu">
+         <!--  BLADE MENU ETC -->
+		<control type="group">
+			<left>-429</left>
+			<include>SideBladeLeft</include>
+			<control type="group">
+				<include>SideBladeLeftFadeInAni</include>
+				<left>42</left>
+				<top>15</top>
+				<control type="label">
+					<description></description>
+					<left>0</left>
+					<top>45</top>
+					<height>38</height>
+					<width>360</width>
+					<label>$INFO[Window.Property(Location)]</label>
+					<font>Light20</font>
+					<textcolor>white</textcolor>
+					<align>left</align>
+					<aligny>center</aligny>
+					<animation effect="fade" end="80" time="0" condition="true">conditional</animation>
+				</control>
+			</control>
+			<control type="grouplist" id="9000">
+				<include>SideBladeLeftFadeInAni</include>
+				<left>24</left>
+				<top>90</top>
+				<width>375</width>
+				<height>975</height>
+				<onleft>9000</onleft>
+				<onright>50</onright>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onback>50</onback>
+				<itemgap>0</itemgap>
+				<control type="label" id="200">
+					<width>375</width>
+					<height>53</height>
+					<font>Light18</font>
+					<label></label>
+					<textcolor>blue</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+				</control>
+				<control type="group" id="300">
+					<width>375</width>
+					<height>60</height>
+					<control type="spincontrolex" id="3">
+						<description>change location button</description>
+						<left>0</left>
+						<top>0</top>
+						<textcolor>invisible</textcolor>
+						<focusedcolor>invisible</focusedcolor>
+						<include>ButtonCommonValues</include>
+						<onleft>9000</onleft>
+						<onright>50</onright>
+						<onup>200</onup>
+						<ondown>302</ondown>
+						<onback>50</onback>
+					</control>
+					<control type="label" id="333">
+						<left>16</left>
+						<top>0</top>
+						<width>300</width>
+						<height>60</height>
+						<font>Regular21</font>
+						<label>31027</label>
+						<textcolor>white</textcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+						<visible>Control.HasFocus(3)</visible>
+					</control>
+					<control type="label" id="334">
+						<left>16</left>
+						<top>0</top>
+						<width>300</width>
+						<height>60</height>
+						<font>Regular21</font>
+						<label>31027</label>
+						<textcolor>grey</textcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+						<visible>!Control.HasFocus(3)</visible>
+					</control>
+				</control>
+				<control type="button" id="302">
+					<description>Daily forcast button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>31904</label>
+					<onclick>ClearProperty(Weather.CurrentView)</onclick>
+					<visible>!String.IsEmpty(Window.Property(Daily.IsFetched))</visible>
+				</control>
+				<control type="button" id="303">
+					<description>36 hour forcast button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>31901</label>
+					<onclick>SetProperty(Weather.CurrentView,36hour)</onclick>
+					<visible>!String.IsEmpty(Window.Property(36Hour.IsFetched))</visible>
+				</control>
+				<control type="button" id="304">
+					<description>Weekend forcast button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>31903</label>
+					<onclick>SetProperty(Weather.CurrentView,weekend)</onclick>
+					<visible>!String.IsEmpty(Window.Property(Weekend.IsFetched))</visible>
+				</control>
+				<control type="button" id="305">
+					<description>Hourly forcast button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>31902</label>
+					<onclick>SetProperty(Weather.CurrentView,hourly)</onclick>
+					<visible>!String.IsEmpty(Window.Property(Hourly.IsFetched))</visible>
+				</control>
+				<control type="button" id="306">
+					<description>Maps button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>31910</label>
+					<onclick>SetProperty(Weather.CurrentView,map)</onclick>
+					<visible>!String.IsEmpty(Window.Property(Map.IsFetched))</visible>
+				</control>
+				<control type="button" id="307">
+					<description>Alerts button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>33050</label>
+					<onfocus>SetProperty(Weather.CurrentView,alerts)</onfocus>
+					<visible>!String.IsEmpty(Window.Property(Alerts.IsFetched))</visible>
+				</control>
+				<control type="label" id="201">
+					<width>375</width>
+					<height>53</height>
+					<font>Light18</font>
+					<label>31026</label>
+					<textcolor>blue</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+				</control>
+				<control type="button" id="2">
+					<description>Refresh button</description>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>184</label>
+					<onclick>Weather.Refresh</onclick>
+				</control>
+				<control type="button" id="4">
+					<description>Settings button</description>
+					<label>5</label>
+					<onclick>ActivateWindow(ServiceSettings,weather)</onclick>
+					<textwidth>353</textwidth>
+					<include>ButtonCommonValues</include>
+				</control>
+				<include>CommonNowPlaying_Controls</include>
+			</control>
+		</control>
+    </include>
+</includes>

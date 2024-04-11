@@ -1,3 +1,7 @@
+[B]2024-04-10 - v5.0.306[/B]
+
+Fix blade menu in OzWeather
+
 [B]2024-04-10 - v5.0.305[/B]
 
 Add back Chapter / Channel Group text in new position

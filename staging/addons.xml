@@ -48,7 +48,7 @@
     </extension>
 </addon>
 
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.1" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.2" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -56,11 +56,12 @@
     <provides>executable</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Patch Kodi skins (Estuary, Estouchy, Confluence, Amber) for OzWeather Radar Support.</summary>
+    <summary lang="en_GB">Patch Kodi skins (Estuary, Estouchy, Confluence, Amber, Aeon etc.) for OzWeather Radar Support.</summary>
     <description lang="en_GB">
         This addon attempts to patch Kodi skins for OzWeather radar support.
-        Supports: Estuary, Estouchy, Confluence, OSMC, Xonfluence, Amber, Aeon (Nox Silvo and Tajo)
-        Skin folder must be writeable! (Creates a backup of of the original skin files first and this addon can also restore those if need be).
+        Supports: Estuary, Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo and Tajo)
+        Skin folder **must be writeable!**
+        (Creates a backup of of the original skin files first and this addon can also restore those if need be).
         By default patches only the actual weather page.
         For Estuary &amp; Confluence, also patches your VideoFullScreen file for weather/radar during playback when video info is displayed.
     </description>
@@ -70,8 +71,7 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.3.1
-      - Add support for OSMC and numerous visual tweaks
+    <news>0.3.2 Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
     </news>
     <assets>
       <icon>icon.png</icon>
@@ -141,7 +141,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="5.0.305" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.306" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -168,7 +168,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v5.0.305 - Add back Chapter / Channel Group text in new position</news>
+		<news>v5.0.306 - Fix blade menu in OzWeather</news>
 	</extension>
 </addon>
 </addons>

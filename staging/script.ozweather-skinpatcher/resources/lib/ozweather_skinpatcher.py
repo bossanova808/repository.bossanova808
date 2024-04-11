@@ -25,14 +25,15 @@ class Config:
 
     global dialog
 
-    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aeon', 'osmc']
+    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aczg', 'aeon', 'osmc']
     current_skin = xbmcvfs.translatePath('special://skin')
 
     log(f'special://skin Is [{current_skin}]')
     log(f'CWD is {CWD}')
 
-    skin = ''
-    destination_skin_xml_folder = ''
+    skin = None
+    destination_skin_xml_folder = None
+    skin_specific_xml_source_folder = None
 
     if 'amber' in current_skin:
         log('Amber in skin folder name...proceeding...')
@@ -46,32 +47,47 @@ class Config:
         log('Estouchy in skin folder name...proceeding...')
         skin = 'estouchy'
         destination_skin_xml_folder = 'xml'
+    # Note Confluence changed from 720 -> 1080 with Omega, so handle that here
+    # and below when working out the destination folder
     if 'confluence' in current_skin:
-        log('confluence in skin folder name...proceeding..')
+        log('confluence in skin folder name...proceeding...')
         skin = 'confluence'
-        destination_skin_xml_folder = '720p'
+        if KODI_VERSION_FLOAT >= 21:
+            destination_skin_xml_folder = '1080p'
+            skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '1080p')
+        else:
+            destination_skin_xml_folder = '720p'
+            skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '720p')
+    # Confluence Zeitgeist
+    if 'aczg' in current_skin:
+        log('Confluence Zeitgeist (aczg) in skin folder name...proceeding...')
+        skin = 'aczg'
+        destination_skin_xml_folder = 'xml'
     if 'xonfluence' in current_skin:
-        log('xonfluence in skin folder name...proceeding..')
+        log('xonfluence in skin folder name...proceeding...')
         skin = 'xonfluence'
         destination_skin_xml_folder = 'xml'
     if 'aeon.nox' in current_skin:
-        log('aeon.nox in skin folder name...proceeding..')
+        log('aeon.nox in skin folder name...proceeding...')
         skin = 'aeon'
         destination_skin_xml_folder = '16x9'
     if 'aeon.tajo' in current_skin:
-        log('aeon.tajo in skin folder name...proceeding..')
+        log('aeon.tajo in skin folder name...proceeding...')
         skin = 'aeon'
         destination_skin_xml_folder = '1080i'
     if 'osmc' in current_skin:
-        log('osmc in skin folder name...proceeding..')
+        log('osmc in skin folder name...proceeding...')
         skin = 'osmc'
         destination_skin_xml_folder = 'xml'
+
     if not skin or not destination_skin_xml_folder:
         log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
 
     skin_independent_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', 'skin-independent-components')
-    skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin)
+    # (Confluence already set above due to different 720p/1080p)
+    if not skin_specific_xml_source_folder:
+        skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin)
     xml_destination_folder = os.path.join(current_skin, destination_skin_xml_folder)
     current_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml')
     current_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml')
@@ -115,7 +131,7 @@ def patch(config):
                 log("...done")
             else:
                 log("...failed!  Is the skin folder writeable?")
-                notify('Exiting - as error when backing up current MyWeather.xml - is skin folder writeable?')
+                notify('Exiting - is skin folder writeable? Error when backing up current MyWeather.xml - ')
                 sys.exit(1)
 
         if xbmcvfs.exists(config.current_videofullscreen_xml) and not xbmcvfs.exists(config.backup_videofullscreen_xml):
@@ -125,7 +141,7 @@ def patch(config):
                 log("...done")
             else:
                 log("...failed!  Is the skin folder writeable?")
-                notify('Exiting - as error when backing up current VideoFullScreen.xml - is skin folder writeable?')
+                notify('Exiting - is skin folder writeable? Error when backing up current VideoFullScreen.xml ')
                 sys.exit(1)
 
     except Exception as inst:
@@ -134,8 +150,8 @@ def patch(config):
         sys.exit(1)
 
     # Prepare to copy new files - grab both the skin independent and skin specific files...
-    list_of_files_to_copy = glob.glob(config.skin_independent_xml_source_folder + "/*")
-    list_of_files_to_copy.extend(glob.glob(config.skin_specific_xml_source_folder + "/*"))
+    list_of_files_to_copy = glob.glob(config.skin_independent_xml_source_folder + "/*.xml")
+    list_of_files_to_copy.extend(glob.glob(config.skin_specific_xml_source_folder + "/*.xml"))
 
     log("The list of files to copy is")
     log(list_of_files_to_copy)

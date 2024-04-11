@@ -3,11 +3,15 @@
 """
 
 Handy utility functions & constants for Kodi Addons
+For Kodi Matrix & later
 By bossanova808 - freely released
-VERSION 0.2.5 2024-04-09
-(For Kodi Matrix & later)
+VERSION 0.2.6 2024-04-11
 
-For latest version - ALWAYS COPY BACK ANY CHANGES, plus do a version & date bump above:
+Changelog:
+0.2.6 - (SkinPatcher) - add float KODI_VERSION_FLOAT constant, alongside string KODI_VERSION
+0.2.5 - (Skin) - move to storing copy of latest in bossanova808 repo and adding this mini changelog
+
+For latest version - ALWAYS COPY BACK ANY CHANGES, plus do changelog, and a version & date bump above:
 https://github.com/bossanova808/repository.bossanova808/blob/main/latest-common/common.py
 
 
@@ -34,6 +38,7 @@ CWD = ADDON.getAddonInfo('path')
 LANGUAGE = ADDON.getLocalizedString
 PROFILE = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
 KODI_VERSION = xbmc.getInfoLabel('System.BuildVersion')
+KODI_VERSION_FLOAT = float(KODI_VERSION.split("(")[0])
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
 HOME_WINDOW = xbmcgui.Window(10000)
 WEATHER_WINDOW = xbmcgui.Window(12600)
@@ -202,7 +207,7 @@ def footprints(startup=True):
     """
     if startup:
         log(f'Starting...', level=xbmc.LOGINFO)
-        log(f'Kodi Version: {KODI_VERSION}', level=xbmc.LOGINFO)
+        log(f'Kodi Version: {KODI_VERSION}, as float {KODI_VERSION_FLOAT}', level=xbmc.LOGINFO)
         log(f'Addon arguments: {ADDON_ARGUMENTS}', level=xbmc.LOGINFO)
     else:
         log(f'Exiting...', level=xbmc.LOGINFO)
