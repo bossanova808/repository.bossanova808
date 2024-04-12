@@ -92,7 +92,7 @@
 			<control type="label" id="1">
 				<description>Chapter Pos No</description>
 				<left>30</left>
-				<top>45</top>
+				<top>50</top>
 				<width>165</width>
 				<height>30</height>
 				<align>center</align>
@@ -293,6 +293,7 @@
 				<textcolor>blue</textcolor>
 				<label>$VAR[SeekLabel]</label>
 			</control>
+			<!-- BOSSANOVA808 MOD - Time remaining -->
 			<control type="group">
 				<visible>[VideoPlayer.Content(LiveTV) + VideoPlayer.HasEpg]</visible>
 				<control type="label">
@@ -301,11 +302,11 @@
 					<top>35</top>
 					<width>360</width>
 					<height>30</height>
-					<font>font13_title</font>
+					<font>font10</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
-					<label>$INFO[PVR.EpgEventElapsedTime] - $INFO[PVR.EpgEventDuration]</label>
+					<label>$INFO[PVR.EpgEventElapsedTime] - $INFO[PVR.EpgEventDuration] [-$INFO[PVR.EpgEventRemainingTime]]</label>
 					<visible>!Player.Seeking</visible>
 				</control>
 				<control type="label">
@@ -314,11 +315,11 @@
 					<top>35</top>
 					<width>360</width>
 					<height>30</height>
-					<font>font13_title</font>
+					<font>font10</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
-					<label>$INFO[PVR.EpgEventSeekTime] - $INFO[PVR.EpgEventDuration]</label>
+					<label>$INFO[PVR.EpgEventSeekTime] - $INFO[PVR.EpgEventDuration] [-$INFO[PVR.EpgEventRemainingTime]]</label>
 					<visible>Player.Seeking</visible>
 				</control>
 				<control type="progress">
@@ -378,7 +379,7 @@
 					<textcolor>gray</textcolor>
 					<align>left</align>
 					<aligny>center</aligny>
-					<label>$INFO[Player.SeekTime] - $INFO[Player.Duration]</label>
+					<label>$INFO[Player.SeekTime] - $INFO[Player.Duration]  [-$INFO[VideoPlayer.TimeRemaining]]</label>
 					<visible>Player.Seeking</visible>
 				</control>
 				<control type="progress">
