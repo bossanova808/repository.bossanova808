@@ -1,6 +1,6 @@
-[B]2024-04-10 - v5.0.308[/B]
+[B]2024-04-10 - v5.0.309[/B]
 
-Remove jpg artifacts from main the background image
+Improve, and remove jpg artfacts from main the background image
 
 [B]2024-04-10 - v5.0.307[/B]
 
