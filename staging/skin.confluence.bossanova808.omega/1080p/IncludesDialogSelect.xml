@@ -3,7 +3,8 @@
 	<include name="DialogCheckPreviousEpisodeLayout">
 		<control type="group">
 			<left>440</left>
-			<top>240</top>
+			<!-- Bossanova808 Mod - move this up a tad  -->
+			<top>160</top>
 			<include content="DialogBackgroundCommons">
 				<param name="DialogBackgroundWidth" value="1040"/>
 				<param name="DialogBackgroundHeight" value="612"/>
