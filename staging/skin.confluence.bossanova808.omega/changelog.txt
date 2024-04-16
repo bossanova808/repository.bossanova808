@@ -1,3 +1,7 @@
+[B]2024-04-17 - v5.0.312[/B]
+
+Add check for updates to home addons menu
+
 [B]2024-04-17 - v5.0.311[/B]
 
 Add cleaned up textures from sarbes

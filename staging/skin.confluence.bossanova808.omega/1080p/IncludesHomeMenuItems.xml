@@ -372,6 +372,11 @@
 			<height>53</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
+		<control type="button" id="90307">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Check for updates</label>
+			<onclick>UpdateAddonRepos</onclick>
+		</control>
 		<control type="button" id="90302">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>24998</label>
@@ -379,12 +384,12 @@
 		</control>
 		<control type="button" id="90303">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>24033</label>
+			<label>Install from repo</label>
 			<onclick>ActivateWindow(addonbrowser,addons://repos/,return)</onclick>
 		</control>
 		<control type="button" id="90304">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>24041</label>
+			<label>Install from zip</label>
 			<onclick>InstallFromZip</onclick>
 		</control>
 		<control type="button" id="90305">
