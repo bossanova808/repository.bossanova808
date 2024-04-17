@@ -1,3 +1,7 @@
+[B]2024-04-17 - v5.0.401[/B]
+
+Remove border around unfocussed addons
+
 [B]2024-04-17 - v5.0.312[/B]
 
 Add check for updates to home addons menu

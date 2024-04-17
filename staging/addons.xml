@@ -141,7 +141,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="5.0.312" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.401" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -168,7 +168,7 @@
 			<screenshot>resources/screenshot-08.jpg</screenshot>
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v5.0.312 - Add check for updates to home addons menu</news>
+		<news>v5.0.410 - Remove border around unfocussed addons</news>
 	</extension>
 </addon>
 </addons>

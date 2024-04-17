@@ -1667,7 +1667,8 @@
 				<width>270</width>
 				<height>180</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<bordertexture infill="false" border="5">button-nofocus.png</bordertexture>
+				<!-- Bossanova808 Mod - remove border from unfocussed addons -->
+				<bordertexture infill="false" border="5"/>
 				<bordersize>3</bordersize>
 				<texture background="true">$INFO[ListItem.Icon]</texture>
 			</control>
