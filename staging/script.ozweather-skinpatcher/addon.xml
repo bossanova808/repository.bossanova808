@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.2" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.3" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -22,7 +22,7 @@
     <source></source>
     <forum></forum>
     <email>bossonav808@gmail.com</email>
-    <news>0.3.2 Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
+    <news>0.3.3 Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
     </news>
     <assets>
       <icon>icon.png</icon>

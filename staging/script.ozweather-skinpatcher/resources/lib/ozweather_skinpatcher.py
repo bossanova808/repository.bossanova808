@@ -52,7 +52,7 @@ class Config:
     if 'confluence' in current_skin:
         log('confluence in skin folder name...proceeding...')
         skin = 'confluence'
-        if KODI_VERSION_FLOAT >= 21:
+        if KODI_VERSION_INT >= 21:
             destination_skin_xml_folder = '1080p'
             skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '1080p')
         else:

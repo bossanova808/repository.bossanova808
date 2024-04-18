@@ -1,5 +1,6 @@
-0.3.2
+0.3.3
 - Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
+- Update common.py
 0.3.1
 - Add support for OSMC and numerous visual tweaks
 - Make the intro text first run only
