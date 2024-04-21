@@ -1176,6 +1176,7 @@
 			<left>15</left>
 			<top>72r</top>
 			<include>Window_OpenClose_Animation</include>
+			<!-- Bossanov808 Mod - Add faster profile switching -->
 			<control type="group">
 				<control type="button" id="20">
 					<description>Switch profiles button</description>
@@ -1187,6 +1188,7 @@
 					<font />
 					<!-- List starts from 0 it seems -->
 					<onclick condition="String.IsEmpty(System.ProfileName)">ActivateWindowAndFocus(10029)</onclick>
+					<onclick condition="!String.IsEmpty(System.ProfileName) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away)">ActivateWindowAndFocus(10029)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Adults)">ActivateWindowAndFocus(10029,52,2)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Kids)">ActivateWindowAndFocus(10029,52,1)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Adults - Away)">ActivateWindowAndFocus(10029,52,4)</onclick>
@@ -1293,6 +1295,7 @@
 					<texture>icon_search.png</texture>
 				</control>
 			</control>
+			<!-- END Bossanov808 Mod - Add faster profile switching -->
 		</control>
 		<control type="group">
 			<depth>DepthHeader</depth>

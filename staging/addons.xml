@@ -1,167 +1,183 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon
-  id="repository.bossanova808"
-  name="bossanova808's XBMC Addons"
-  version="0.2.5"
-  provider-name="bossanova808">
 
-  <extension point="xbmc.addon.repository" name="bossanova808's Kodi Addon Repository">
-    <dir>
-      <info>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml</info>
-      <checksum>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml.md5</checksum>
-      <datadir zip="true">https://raw.github.com/bossanova808/repository.bossanova808/master/repository-downloads/</datadir>
-      <hashes>false</hashes>
-    </dir>
-  </extension>
-
-	<extension point="xbmc.addon.metadata">
-		<summary>Repo for Bossanova808's Kodi Addons</summary>
-		<description>Download and install addons by bossanova808.</description>
-		<platform>all</platform>
-	</extension>
-
-</addon>
-
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.2" provider-name="bossanova808">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
-    </requires>
-    <extension point="xbmc.service" library="default.py" />
-    <extension point="xbmc.python.script" library="default.py">
-        <provides>executable</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Kodi YoctoDisplay</summary>
-        <description lang="en_GB">
-            Display current time, current temperature and media playing time remaining on a YoctoMaxiDisplay screen.
-        </description>
-        <platform>all</platform>
-        <license>GPL-3.0-only</license>
-        <website>https://github.com/bossanova808/script.kodi.yoctodisplay/</website>
-        <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
-        <forum />
-        <email />
-        <news>v0.2.2
-            - Force architecture to work with Coreelec on Odroid consistently.
-        </news>
-    </extension>
-</addon>
-
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.3" provider-name="bossanova808">
-  <requires>
-    <import addon="xbmc.python" version="3.0.0"/>
-  </requires>
-  <extension point="xbmc.python.script" library="default.py">
-    <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Patch Kodi skins (Estuary, Estouchy, Confluence, Amber, Aeon etc.) for OzWeather Radar Support.</summary>
-    <description lang="en_GB">
-        This addon attempts to patch Kodi skins for OzWeather radar support.
-        Supports: Estuary, Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo and Tajo)
-        Skin folder **must be writeable!**
-        (Creates a backup of of the original skin files first and this addon can also restore those if need be).
-        By default patches only the actual weather page.
-        For Estuary &amp; Confluence, also patches your VideoFullScreen file for weather/radar during playback when video info is displayed.
-    </description>
-    <platform>all</platform>
-    <license>GPL-3.0-only</license>
-    <website></website>
-    <source></source>
-    <forum></forum>
-    <email>bossonav808@gmail.com</email>
-    <news>0.3.3 Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
-    </news>
-    <assets>
-      <icon>icon.png</icon>
-    </assets>
-  </extension>
-</addon>
-
-<addon id="skin.confluence.bossanova808.matrix" version="4.7.617" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
-	<requires>
-		<import addon="xbmc.gui" version="5.15.0"/>
-	</requires>
-	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
-		<res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Confluence skin by Jezz_X.</summary>
-		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
-		<platform>all</platform>
-		<license>GNU General Public License version 2</license>
-		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
-		<source>https://github.com/xbmc/skin.confluence</source>
-		<assets>
-			<icon>resources/icon.png</icon>
-			<fanart>resources/fanart.jpg</fanart>
-			<screenshot>resources/screenshot-01.jpg</screenshot>
-			<screenshot>resources/screenshot-02.jpg</screenshot>
-			<screenshot>resources/screenshot-03.jpg</screenshot>
-			<screenshot>resources/screenshot-04.jpg</screenshot>
-			<screenshot>resources/screenshot-05.jpg</screenshot>
-			<screenshot>resources/screenshot-06.jpg</screenshot>
-			<screenshot>resources/screenshot-07.jpg</screenshot>
-			<screenshot>resources/screenshot-08.jpg</screenshot>
-			<screenshot>resources/screenshot-09.jpg</screenshot>
-		</assets>
-		<news>v4.7.617 - 2022-09-23 Sync with upstream</news>
-	</extension>
-</addon>
-
-<addon id="skin.confluence.bossanova808.nexus" version="4.8.0101" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
-	<requires>
-		<import addon="xbmc.gui" version="5.16.0"/>
-	</requires>
-	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
-		<res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Bossanova808 family and friends mod of Confluence skin, originally by Jezz_X.</summary>
-		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
-		<platform>all</platform>
-		<license>GNU General Public License version 2</license>
-		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
-		<source>https://github.com/xbmc/skin.confluence</source>
-		<assets>
-			<icon>resources/icon.png</icon>
-			<fanart>resources/fanart.jpg</fanart>
-			<screenshot>resources/screenshot-01.jpg</screenshot>
-			<screenshot>resources/screenshot-02.jpg</screenshot>
-			<screenshot>resources/screenshot-03.jpg</screenshot>
-			<screenshot>resources/screenshot-04.jpg</screenshot>
-			<screenshot>resources/screenshot-05.jpg</screenshot>
-			<screenshot>resources/screenshot-06.jpg</screenshot>
-			<screenshot>resources/screenshot-07.jpg</screenshot>
-			<screenshot>resources/screenshot-08.jpg</screenshot>
-			<screenshot>resources/screenshot-09.jpg</screenshot>
-		</assets>
-		<news>v4.8.0101 - integrate Hitcher's Nexus changes up to 4.8.01</news>
-	</extension>
-</addon>
-
-<addon id="skin.confluence.bossanova808.omega" version="5.0.403" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
-	<requires>
-		<import addon="xbmc.gui" version="5.17.0"/>
-	</requires>
-	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
-		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080p" />
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and visual tweaks, OzWeather and ClearArt support built in.</summary>
-		<description lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and visual tweaks, OzWeather and ClearArt support built in.</description>
-		<platform>all</platform>
-		<license>GNU General Public License version 2</license>
-		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
-		<source>https://github.com/xbmc/skin.confluence</source>
-		<assets>
-			<icon>resources/icon.png</icon>
-			<fanart>resources/fanart.jpg</fanart>
-			<screenshot>resources/screenshot-01.jpg</screenshot>
-			<screenshot>resources/screenshot-02.jpg</screenshot>
-		</assets>
-		<news>v5.0.403 - Add faster profile switching</news>
-	</extension>
-</addon>
+    <addon id="repository.bossanova808" name="bossanova808's XBMC Addons" version="0.2.6" provider-name="bossanova808">
+        <extension point="xbmc.addon.repository" name="bossanova808's Kodi Addon Repository">
+            <dir>
+                <info>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.github.com/bossanova808/repository.bossanova808/master/repository-downloads/</datadir>
+                <hashes>false</hashes>
+            </dir>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary lang="en_GB">Repository for Bossanova808's Kodi Addons</summary>
+            <description lang="en_GB">
+                Download and install addons by Bossanova808.
+            </description>
+            <website>https://github.com/bossanova808/repository.bossanova808/</website>
+            <source>https://github.com/bossanova808/repository.bossanova808/</source>
+            <platform>all</platform>
+            <forum />
+            <email />
+            <news>
+                v0.2.6 - Version bump for new build system.
+            </news>
+            <assets>
+                <icon>resources/icon.png</icon>
+            </assets>
+        </extension>
+    </addon>
+    
+    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.3" provider-name="bossanova808">
+        <requires>
+            <import addon="xbmc.python" version="3.0.0"/>
+        </requires>
+        <extension point="xbmc.service" library="default.py" />
+        <extension point="xbmc.python.script" library="default.py">
+            <provides>executable</provides>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary lang="en_GB">Kodi YoctoDisplay</summary>
+            <description lang="en_GB">
+                Display current time, current temperature and media playing time remaining on a YoctoMaxiDisplay screen.
+            </description>
+            <platform>all</platform>
+            <license>GPL-3.0-only</license>
+            <website>https://github.com/bossanova808/script.kodi.yoctodisplay/</website>
+            <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
+            <forum />
+            <email />
+            <news>
+                v0.2.3 - Force architecture to work with CoreElec on Odroid consistently.
+            </news>
+            <assets>
+                <icon>resources/icon.png</icon>
+            </assets>
+        </extension>
+    </addon>
+    
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.4" provider-name="bossanova808">
+        <requires>
+            <import addon="xbmc.python" version="3.0.0"/>
+        </requires>
+        <extension point="xbmc.python.script" library="default.py">
+            <provides>executable</provides>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary lang="en_GB">Patch Kodi skins (Estuary, Estouchy, Confluence, Amber, Aeon etc.) for OzWeather Radar
+                Support.
+            </summary>
+            <description lang="en_GB">
+                This addon attempts to patch Kodi skins for OzWeather radar support.
+                Supports: Estuary, Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo
+                and Tajo)
+                Skin folder **must be writeable!**
+                (Creates a backup of of the original skin files first and this addon can also restore those if need be).
+                By default, patches only the actual weather page.
+                For Estuary &amp; Confluence, also patches your VideoFullScreen file for weather/radar during playback when
+                video info is displayed.
+            </description>
+            <platform>all</platform>
+            <license>GPL-3.0-only</license>
+            <website>https://github.com/bossanova808/repository.bossanova808/</website>
+            <source>https://github.com/bossanova808/repository.bossanova808/</source>
+            <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
+            <email />
+            <news>
+                v0.3.4 - Version bump for new build system.
+            </news>
+            <assets>
+                <icon>resources/icon.png</icon>
+            </assets>
+        </extension>
+    </addon>
+    
+    <addon id="skin.confluence.bossanova808.matrix" version="4.7.618" name="Confluence Bossanova808 Matrix" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    	<requires>
+    		<import addon="xbmc.gui" version="5.15.0"/>
+    	</requires>
+    	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
+    		<res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
+    	</extension>
+    	<extension point="xbmc.addon.metadata">
+    		<summary lang="en_GB">Confluence skin by Jezz_X.</summary>
+    		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
+    		<platform>all</platform>
+    		<license>GNU General Public License version 2</license>
+    		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
+    		<source>https://github.com/xbmc/skin.confluence</source>
+    		<assets>
+    			<icon>resources/icon.png</icon>
+    			<fanart>resources/fanart.jpg</fanart>
+    			<screenshot>resources/screenshot-01.jpg</screenshot>
+    			<screenshot>resources/screenshot-02.jpg</screenshot>
+    			<screenshot>resources/screenshot-03.jpg</screenshot>
+    			<screenshot>resources/screenshot-04.jpg</screenshot>
+    			<screenshot>resources/screenshot-05.jpg</screenshot>
+    			<screenshot>resources/screenshot-06.jpg</screenshot>
+    			<screenshot>resources/screenshot-07.jpg</screenshot>
+    			<screenshot>resources/screenshot-08.jpg</screenshot>
+    			<screenshot>resources/screenshot-09.jpg</screenshot>
+    		</assets>
+    		<news>v4.7.618 - Version bump for new build system.</news>
+    	</extension>
+    </addon>
+    
+    <addon id="skin.confluence.bossanova808.nexus" version="4.8.0102" name="Confluence Bossanova808 Nexus" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    	<requires>
+    		<import addon="xbmc.gui" version="5.16.0"/>
+    	</requires>
+    	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
+    		<res width="1280" height="720" aspect="16:9" default="true" folder="720p" />
+    	</extension>
+    	<extension point="xbmc.addon.metadata">
+    		<summary lang="en_GB">Bossanova808 family and friends mod of Confluence skin, originally by Jezz_X.</summary>
+    		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
+    		<platform>all</platform>
+    		<license>GNU General Public License version 2</license>
+    		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
+    		<source>https://github.com/xbmc/skin.confluence</source>
+    		<assets>
+    			<icon>resources/icon.png</icon>
+    			<fanart>resources/fanart.jpg</fanart>
+    			<screenshot>resources/screenshot-01.jpg</screenshot>
+    			<screenshot>resources/screenshot-02.jpg</screenshot>
+    			<screenshot>resources/screenshot-03.jpg</screenshot>
+    			<screenshot>resources/screenshot-04.jpg</screenshot>
+    			<screenshot>resources/screenshot-05.jpg</screenshot>
+    			<screenshot>resources/screenshot-06.jpg</screenshot>
+    			<screenshot>resources/screenshot-07.jpg</screenshot>
+    			<screenshot>resources/screenshot-08.jpg</screenshot>
+    			<screenshot>resources/screenshot-09.jpg</screenshot>
+    		</assets>
+    		<news>v4.8.0102 - version bump for new build system</news>
+    	</extension>
+    </addon>
+    
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.404" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    	<requires>
+    		<import addon="xbmc.gui" version="5.17.0"/>
+    	</requires>
+    	<extension point="xbmc.gui.skin" debugging="false" effectslowdown="1.0">
+    		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080p" />
+    	</extension>
+    	<extension point="xbmc.addon.metadata">
+    		<summary lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and visual tweaks, OzWeather and ClearArt support built in.</summary>
+    		<description lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and visual tweaks, OzWeather and ClearArt support built in.</description>
+    		<platform>all</platform>
+    		<license>GNU General Public License version 2</license>
+    		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
+            <website>https://github.com/bossanova808/repository.bossanova808/</website>
+            <source>https://github.com/bossanova808/repository.bossanova808/</source>
+    		<assets>
+    			<icon>resources/icon.png</icon>
+    			<fanart>resources/fanart.jpg</fanart>
+    			<screenshot>resources/screenshot-01.jpg</screenshot>
+    			<screenshot>resources/screenshot-02.jpg</screenshot>
+    		</assets>
+    		<news>v5.0.404 - Fix faster profile switching</news>
+    	</extension>
+    </addon>
+    
 </addons>

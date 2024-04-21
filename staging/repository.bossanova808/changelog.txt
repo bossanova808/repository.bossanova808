@@ -1,24 +1,27 @@
-[B]Version 0.2.1[/B]
-- changes for Nexus
+v0.2.6
+Version bump and tidy up for new build system
 
-[B]Version 0.2.0[/B]
-- Update github links to https...
+v0.2.1
+changes for Nexus
 
-[B]Version 0.1.7[/B]
-- Moved rep to github so everything is nicely in one place
+v0.2.0
+Update Github links to https...
 
-[B]Version 0.1[/B]
-- XSqueeze back into this repo as binaries are required so teh xbmc devs won't let into master repo
-- Back to old diretcory structure
+v0.1.7
+Moved repository to Github so everything is nicely in one place
 
-[B]Version 0.0.8[/B]
-- OzWeather and XSqueeze move to own googlecode repos for easier inclusion into XBMS master repo
+v0.1
+XSqueeze back into this repo as binaries are required so the xbmc devs won't let into master repo
+Back to old directory structure
 
-[B]Version 0.0.8[/B]
-- Added reference to XSqueeze
+v0.0.8
+OzWeather and XSqueeze move to own googlecode repos for easier inclusion into XBMS master repo
 
-[B]Version 0.0.3[/B]
-- Moved to GoogleCode
+v0.0.8
+Added reference to XSqueeze
 
-[B]Version 0.0.1[/B]
-- Initial version
+v0.0.3
+Moved to GoogleCode
+
+v0.0.1
+Initial version

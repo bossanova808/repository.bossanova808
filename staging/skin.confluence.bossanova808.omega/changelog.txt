@@ -1,4 +1,7 @@
-v5.0.403 
+v5.0.404
+Fix faster profile switching
+
+v5.0.403
 Add faster profile switching
 
 v5.0.402
@@ -8,7 +11,7 @@ v5.0.402
 Update fanart/icon/screenshots
 
 v5.0.401
-Remove border around unfocussed addons
+Remove border around unfocused addons
 
 v5.0.312
 Add check for updates to home addons menu
@@ -20,7 +23,7 @@ v5.0.310
 Add colorbutton
 
 v5.0.309
-Improve, and remove jpg artfacts from main the background image
+Improve, and remove jpg artifacts from main the background image
 
 v5.0.307
 Integrate Hitcher's work on Check Previous Episode

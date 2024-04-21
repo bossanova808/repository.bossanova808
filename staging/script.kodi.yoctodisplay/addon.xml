@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.2" provider-name="bossanova808">
+<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.3" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -18,8 +18,11 @@
         <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
         <forum />
         <email />
-        <news>v0.2.2
-            - Force architecture to work with Coreelec on Odroid consistently.
+        <news>
+            v0.2.3 - Force architecture to work with CoreElec on Odroid consistently.
         </news>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
     </extension>
 </addon>

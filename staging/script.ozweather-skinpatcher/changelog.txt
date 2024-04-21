@@ -1,40 +1,61 @@
-0.3.3
-- Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
-- Update common.py
-0.3.1
-- Add support for OSMC and numerous visual tweaks
-- Make the intro text first run only
-0.3.0
-- Make sure the ABC weather video link is always current just before playback
+v0.3.4
+Version bump for new build system.
+
+v0.3.3
+Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
+Update common.py
+
+v0.3.1
+Add support for OSMC and numerous visual tweaks
+Make the intro text first run only
+
+v0.3.0
+Make sure the ABC weather video link is always current just before playback
+
 0.2.9
-- Remove 'Rain' from 'Rain Chance' as some BOM short forecasts are not as short as short implies.
-0.2.8 
-- Slightly more logging
-0.2.7
-- Fix custom backgrounds in Amber, hopefully
-0.2.5
-- Add support for user choice of colours, and for aeon/amber background image, background opacity
-0.2.3
-- Tweaks, add support for xonfluence, and aeon skins
-0.1.9
-- Tweaks based on feedback
-0.1.7
-- New buttons for Estuary
-0.1.6
-- Change approach - make VideoFullScreen.xml non optional, and copy all files from the particular skin folder
-0.1.5
-- Skin file tweaks for v2.0.1 of OzWeather
-0.1.4
-- Add support for new skin - Amber
-0.1.3
-- Support for imminent OzWeather 2 release
-0.1.0
-- Prep for OzWeather BOM API release
-0.0.7
-- Fix Estuary support (was using Estouchy file, oops)
-0.0.6
-- Improve error logging and notifications
-0.0.5
-- Add support for estouchy (nb skin folder must be writable, so e.g. Android devices probably need to be rooted...)
-0.0.2
-- Initial release
+Remove 'Rain' from 'Rain Chance' as some BOM short forecasts are not as short as short implies.
+
+v0.2.8
+Slightly more logging
+
+v0.2.7
+Fix custom backgrounds in Amber, hopefully
+
+v0.2.5
+Add support for user choice of colours, and for aeon/amber background image, background opacity
+
+v0.2.3
+Tweaks, add support for Xonfluence, and aeon skins
+
+v0.1.9
+Tweaks based on feedback
+
+v0.1.7
+New buttons for Estuary
+
+v0.1.6
+Change approach make VideoFullScreen.xml non optional, and copy all files from the particular skin folder
+
+v0.1.5
+Skin file tweaks for v2.0.1 of OzWeather
+
+v0.1.4
+Add support for Amber
+
+v0.1.3
+Support for imminent OzWeather 2 release
+
+v0.1.0
+Prep for OzWeather BOM API release
+
+v0.0.7
+Fix Estuary support (was using Estouchy file, oops)
+
+v0.0.6
+Improve error logging and notifications
+
+v0.0.5
+Add support for estouchy (nb skin folder must be writable, so e.g. Android devices probably need to be rooted...)
+
+v0.0.2
+Initial release
