@@ -141,7 +141,7 @@
 	</extension>
 </addon>
 
-<addon id="skin.confluence.bossanova808.omega" version="5.0.402" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.403" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -149,8 +149,8 @@
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080p" />
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and tweaks, OzWeather and ClearArt support built in.</summary>
-		<description lang="en_GB">Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use.</description>
+		<summary lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and visual tweaks, OzWeather and ClearArt support built in.</summary>
+		<description lang="en_GB">Bossanova808 mod of Confluence skin, originally by Jezz_X &amp; Team Kodi.  Various tidy-ups and visual tweaks, OzWeather and ClearArt support built in.</description>
 		<platform>all</platform>
 		<license>GNU General Public License version 2</license>
 		<forum>https://forum.kodi.tv/forumdisplay.php?fid=125</forum>
@@ -160,15 +160,8 @@
 			<fanart>resources/fanart.jpg</fanart>
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
-			<screenshot>resources/screenshot-03.jpg</screenshot>
-			<screenshot>resources/screenshot-04.jpg</screenshot>
-			<screenshot>resources/screenshot-05.jpg</screenshot>
-			<screenshot>resources/screenshot-06.jpg</screenshot>
-			<screenshot>resources/screenshot-07.jpg</screenshot>
-			<screenshot>resources/screenshot-08.jpg</screenshot>
-			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
-		<news>v5.0.402 - Update fanart/icon/screenshots</news>
+		<news>v5.0.403 - Add faster profile switching</news>
 	</extension>
 </addon>
 </addons>

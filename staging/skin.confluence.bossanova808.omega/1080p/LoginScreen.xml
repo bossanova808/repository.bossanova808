@@ -160,15 +160,15 @@
 					</control>
 				</focusedlayout>
 			</control>
-			<control type="image">
-				<description>LOGO</description>
-				<left>398</left>
-				<top>870</top>
-				<width>330</width>
-				<height>120</height>
-				<aspectratio>keep</aspectratio>
-				<texture>Confluence_Logo.png</texture>
-			</control>
+<!--			<control type="image">-->
+<!--				<description>LOGO</description>-->
+<!--				<left>398</left>-->
+<!--				<top>870</top>-->
+<!--				<width>330</width>-->
+<!--				<height>120</height>-->
+<!--				<aspectratio>keep</aspectratio>-->
+<!--				<texture>Confluence_Logo.png</texture>-->
+<!--			</control>-->
 			<control type="group">
 				<left>1410</left>
 				<top>900</top>

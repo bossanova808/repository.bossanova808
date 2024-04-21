@@ -1065,7 +1065,7 @@
 		<control type="group" id="9002">
 			<depth>DepthMenu</depth>
 			<onup>9001</onup>
-			<ondown>21</ondown>
+			<ondown>10</ondown>
 			<control type="list" id="700">
 				<animation effect="slide" start="0,0" end="544,0" time="0" condition="String.IsEqual(Container(700).NumItems,1)">conditional</animation>
 				<animation effect="slide" start="0,0" end="408,0" time="0" condition="String.IsEqual(Container(700).NumItems,2)">conditional</animation>
@@ -1075,7 +1075,7 @@
 				<onleft>700</onleft>
 				<onright>700</onright>
 				<onup>9001</onup>
-				<ondown>21</ondown>
+				<ondown>10</ondown>
 				<include>HomeAddonsCommonLayout</include>
 				<content>
 					<include>HomeAddonItemsVideos</include>
@@ -1090,7 +1090,7 @@
 				<onleft>703</onleft>
 				<onright>703</onright>
 				<onup>9001</onup>
-				<ondown>21</ondown>
+				<ondown>10</ondown>
 				<include>HomeAddonsCommonLayout</include>
 				<content>
 					<include>HomeAddonItemsMusic</include>
@@ -1105,7 +1105,7 @@
 				<onleft>704</onleft>
 				<onright>704</onright>
 				<onup>9001</onup>
-				<ondown>21</ondown>
+				<ondown>10</ondown>
 				<include>HomeAddonsCommonLayout</include>
 				<content>
 					<include>HomeAddonItemsPictures</include>
@@ -1120,7 +1120,7 @@
 				<onleft>705</onleft>
 				<onright>705</onright>
 				<onup>9001</onup>
-				<ondown>21</ondown>
+				<ondown>10</ondown>
 				<include>HomeAddonsCommonLayout</include>
 				<content>
 					<include>HomeAddonItemsPrograms</include>
@@ -1135,7 +1135,7 @@
 				<onleft>706</onleft>
 				<onright>706</onright>
 				<onup>9001</onup>
-				<ondown>21</ondown>
+				<ondown>10</ondown>
 				<include>HomeAddonsCommonLayout</include>
 				<content>
 					<include>HomeAddonItemsGames</include>
@@ -1170,48 +1170,112 @@
 			</control>
 		</control>
 		<control type="group" id="10">
+			<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEmpty(System.ProfileName)">conditional</animation>
+			<animation effect="slide" start="0,0" end="-75,0" time="0" condition="String.IsEmpty(System.ProfileName)">conditional</animation>
 			<depth>DepthFooter</depth>
-			<left>30</left>
-			<top>83r</top>
+			<left>15</left>
+			<top>72r</top>
 			<include>Window_OpenClose_Animation</include>
 			<control type="group">
-				<visible>!Skin.HasSetting(HomepageHideFavourite)</visible>
 				<control type="button" id="20">
-					<description>Favourites push button</description>
-					<left>83</left>
+					<description>Switch profiles button</description>
+					<left>0</left>
 					<top>0</top>
-					<width>68</width>
-					<height>68</height>
+					<width>60</width>
+					<height>60</height>
+					<label>1036</label>
+					<font />
+					<!-- List starts from 0 it seems -->
+					<onclick condition="String.IsEmpty(System.ProfileName)">ActivateWindowAndFocus(10029)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Adults)">ActivateWindowAndFocus(10029,52,2)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Kids)">ActivateWindowAndFocus(10029,52,1)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Adults - Away)">ActivateWindowAndFocus(10029,52,4)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Kids - Away)">ActivateWindowAndFocus(10029,52,3)</onclick>
+					<texturefocus border="5">floor_buttonFO.png</texturefocus>
+					<texturenofocus border="5">floor_button.png</texturenofocus>
+					<onleft>23</onleft>
+					<onright>21</onright>
+					<onup>9002</onup>
+					<ondown>9003</ondown>
+				</control>
+				<control type="image">
+					<description>Power Icon</description>
+					<left>8</left>
+					<top>8</top>
+					<width>45</width>
+					<height>45</height>
+					<aspectratio>keep</aspectratio>
+					<texture>icon_profiles.png</texture>
+				</control>
+			</control>
+			<control type="group">
+				<control type="button" id="21">
+					<description>Power push button</description>
+					<left>75</left>
+					<top>0</top>
+					<width>60</width>
+					<height>60</height>
+					<label>1036</label>
+					<font />
+					<onclick>ActivateWindow(ShutdownMenu)</onclick>
+					<texturefocus border="5">floor_buttonFO.png</texturefocus>
+					<texturenofocus border="5">floor_button.png</texturenofocus>
+					<onleft>20</onleft>
+					<onright>22</onright>
+					<onup>9002</onup>
+					<ondown>9003</ondown>
+				</control>
+				<control type="image">
+					<description>Power Icon</description>
+					<left>83</left>
+					<top>8</top>
+					<width>45</width>
+					<height>45</height>
+					<aspectratio>keep</aspectratio>
+					<texture>icon_power.png</texture>
+				</control>
+			</control>
+			<control type="group">
+				<visible>!Skin.HasSetting(HomepageHideFavourite)</visible>
+				<control type="button" id="22">
+					<description>Favourites push button</description>
+					<left>150</left>
+					<top>0</top>
+					<width>60</width>
+					<height>60</height>
 					<label>31003</label>
 					<font />
 					<onclick>ActivateWindow(Favouritesbrowser)</onclick>
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<texturenofocus border="5">floor_button.png</texturenofocus>
 					<onleft>21</onleft>
-					<onright>22</onright>
+					<onright>23</onright>
 					<onup>9002</onup>
 					<ondown>9003</ondown>
 				</control>
 				<control type="image">
 					<description>Favourites Icon</description>
-					<left>90</left>
+					<left>158</left>
 					<top>8</top>
-					<width>53</width>
-					<height>53</height>
+					<width>45</width>
+					<height>45</height>
 					<aspectratio>keep</aspectratio>
 					<texture>icon_favourites.png</texture>
 				</control>
 			</control>
 			<control type="group">
-				<control type="button" id="21">
-					<description>Power push button</description>
-					<left>0</left>
+				<visible>!Skin.HasSetting(HomepageHideSearch)</visible>
+				<control type="button" id="23">
+					<description>Search push button</description>
+					<left>225</left>
 					<top>0</top>
-					<width>68</width>
-					<height>68</height>
-					<label>1036</label>
+					<width>60</width>
+					<height>60</height>
+					<label>137</label>
 					<font />
-					<onclick>ActivateWindow(ShutdownMenu)</onclick>
+					<onclick condition="System.AddonIsEnabled(script.globalsearch)">RunScript(script.globalsearch)</onclick>
+					<onclick condition="!System.AddonIsEnabled(script.globalsearch) + System.HasAddon(script.globalsearch)">EnableAddon(script.globalsearch)</onclick>
+					<onclick condition="!System.HasAddon(script.globalsearch)">InstallAddon(script.globalsearch)</onclick>
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<texturenofocus border="5">floor_button.png</texturenofocus>
 					<onleft>22</onleft>
@@ -1220,42 +1284,11 @@
 					<ondown>9003</ondown>
 				</control>
 				<control type="image">
-					<description>Power Icon</description>
-					<left>8</left>
-					<top>8</top>
-					<width>53</width>
-					<height>53</height>
-					<aspectratio>keep</aspectratio>
-					<texture>icon_power.png</texture>
-				</control>
-			</control>
-			<control type="group">
-				<visible>!Skin.HasSetting(HomepageHideSearch)</visible>
-				<animation effect="slide" start="0,0" end="-83,0" time="0" condition="Skin.HasSetting(HomepageHideFavourite)">conditional</animation>
-				<control type="button" id="22">
-					<description>Search push button</description>
-					<left>165</left>
-					<top>0</top>
-					<width>68</width>
-					<height>68</height>
-					<label>137</label>
-					<font />
-					<onclick condition="System.AddonIsEnabled(script.globalsearch)">RunScript(script.globalsearch)</onclick>
-					<onclick condition="!System.AddonIsEnabled(script.globalsearch) + System.HasAddon(script.globalsearch)">EnableAddon(script.globalsearch)</onclick>
-					<onclick condition="!System.HasAddon(script.globalsearch)">InstallAddon(script.globalsearch)</onclick>
-					<texturefocus border="5">floor_buttonFO.png</texturefocus>
-					<texturenofocus border="5">floor_button.png</texturenofocus>
-					<onleft>20</onleft>
-					<onright>21</onright>
-					<onup>9002</onup>
-					<ondown>9003</ondown>
-				</control>
-				<control type="image">
 					<description>Search Icon</description>
-					<left>173</left>
+					<left>233</left>
 					<top>8</top>
-					<width>53</width>
-					<height>53</height>
+					<width>45</width>
+					<height>45</height>
 					<aspectratio>keep</aspectratio>
 					<texture>icon_search.png</texture>
 				</control>
