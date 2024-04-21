@@ -24,16 +24,15 @@ console = Console(record=True, theme=custom_theme)
 # Get the list of addons
 with os.scandir(os.getcwd()) as cwd:
     addons = [i.name for i in cwd if i.is_dir() and not i.name.startswith('.')]
+    # console.log(f"Addons found:")
+    # console.log(addons)
 
-# console.log(f"Addons folders found:")
-# console.log(addons)
-
+# Will be set to true if we detect the need to make any new releases
+changes_detected = False
+# Build up the (potential) new addons.xml file
 addons_xml = []
 
 for addon in addons:
-    # Skip any folders that are not addons...
-    if addon in ['.git', '.github', '.idea']:
-        continue
 
     addon_xml_lines = open(f"{addon}/addon.xml", 'r', encoding="utf-8").readlines()[1:]
     # console.log(addon_xml_lines)
@@ -55,7 +54,7 @@ for addon in addons:
 
     # If there have been changes, then zip up the new version and move to the download folder with the correct name
     make_new_zip = True
-    new_dirhash = dirhash(addon, "md5")
+    new_dirhash = dirhash(addon, "md5", jobs=8)
     addon_dir_hash_existing = None
     dirhash_file = f"../repository-downloads/{addon}/dirhash"
 
@@ -70,6 +69,7 @@ for addon in addons:
         make_new_zip = False
 
     if make_new_zip:
+        changes_detected = True
         repo_download_folder = f"../repository-downloads/{addon}"
         zip_filename = f"{addon}-{version}"
         console.log(f"Making new release zip: '{repo_download_folder}/{zip_filename}.zip'")
@@ -86,18 +86,21 @@ for addon in addons:
             for zips_to_delete in zips_to_delete:
                 os.remove(f"{zips_to_delete}")
 
-# write out the addons.xml and addons.xml.md5 files
-with open("addons.xml", 'w', encoding="utf-8") as addons_xml_file:
-    addons_xml_file.write('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n')
-    addons_xml_file.write('<addons>\n\n')
-    for line in addons_xml:
-        addons_xml_file.write("    " + line)
-    addons_xml_file.write("</addons>\n")
-console.log("Updated addons.xml")
+if changes_detected:
+    # write out the addons.xml and addons.xml.md5 files
+    with open("addons.xml", 'w', encoding="utf-8") as addons_xml_file:
+        addons_xml_file.write('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n')
+        addons_xml_file.write('<addons>\n\n')
+        for line in addons_xml:
+            addons_xml_file.write("    " + line)
+        addons_xml_file.write("</addons>\n")
+    console.log("Updated addons.xml")
 
-# calculate & write the md5 file
-md5 = hashlib.md5(open("addons.xml", "r", encoding="utf-8").read().encode("utf-8")).hexdigest()
-with open("addons.xml.md5", 'w', encoding="utf-8") as addons_xml_md5_file:
-    addons_xml_md5_file.write(md5 + "\n")
-console.log("Updated addons.xml.md5")
-
+    # calculate & write the md5 file
+    md5 = hashlib.md5(open("addons.xml", "r", encoding="utf-8").read().encode("utf-8")).hexdigest()
+    with open("addons.xml.md5", 'w', encoding="utf-8") as addons_xml_md5_file:
+        addons_xml_md5_file.write(md5 + "\n")
+    console.log("Updated addons.xml.md5")
+else:
+    # Do nothing!
+    console.log("No changes detected, thus no update needed for addons.xml and addons.xml.md5", style="info")
