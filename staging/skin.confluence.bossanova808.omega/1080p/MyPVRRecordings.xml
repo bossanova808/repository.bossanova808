@@ -5,15 +5,7 @@
 	<views>50</views>
 	<controls>
 		<include>CommonBackground</include>
-		<control type="image">
-			<left>0</left>
-			<top>150r</top>
-			<width>1920</width>
-			<height>150</height>
-			<texture>floor_b808.png</texture>
-			<animation effect="fade" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
-			<animation effect="fade" time="200" condition="Window.Next(Home)">WindowClose</animation>
-		</control>
+		<include>ContentPanelBackgrounds</include>
 		<control type="group">
 			<include>Window_OpenClose_Animation</include>
 			<control type="group">
