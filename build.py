@@ -9,9 +9,8 @@ import shutil
 import hashlib
 
 # These usually need to be installed, e.g. on Ubuntu:
-# pip3 install rich dirhash semver
-from checksumdir import dirhash
-import semver
+# pip3 install rich dirhash
+from dirhash import dirhash
 from rich.console import Console
 from rich.theme import Theme
 
@@ -70,9 +69,7 @@ for addon in addons:
     # If we detect changes, then zip up the new version and move to the download folder with the correct name
     make_new_zip = True
     # Dirhash version
-    # DIRHASH_CALCULATED = dirhash(ADDON_FOLDER_STAGING, "md5", jobs=8)
-    # Checksumdir version
-    DIRHASH_CALCULATED = dirhash(ADDON_FOLDER_STAGING, "md5")
+    DIRHASH_CALCULATED = dirhash(f"staging/{addon}", "md5", jobs=8)
     DIRHASH_RECORDED = None
     # Use a relative path here as ?dirhash across environments changing?
     DIRHASH_FILE = f"./staging/dirhash/{addon}.dirhash"
@@ -86,6 +83,9 @@ for addon in addons:
                 console.log(f"Valid release zip already exists (dirhash=dirhash), skipping.", style="info")
                 # console.log("(dirhash: {DIRHASH_RECORDED} matches new dirhash: {DIRHASH_CALCULATED})")
                 make_new_zip = False
+            else:
+                console.log(f"Dirhash does not match.", style="info")
+                console.log(f"Recorded: '{DIRHASH_RECORDED}' Calculated: '{DIRHASH_CALCULATED}'", style="info")
 
     # If the addon zip is not actually present, we need to make it no matter what the dirhash situation...
     if not os.path.exists(f"{ADDON_FOLDER_REPOSITORY_DOWNLOADS}/{ZIP_FILE}.zip"):
@@ -97,7 +97,7 @@ for addon in addons:
         changes_detected = True
         console.log(f"Making new release zip: '{ADDON_FOLDER_REPOSITORY_DOWNLOADS}/{ZIP_FILE}.zip'")
         shutil.make_archive(f"{ADDON_FOLDER_REPOSITORY_DOWNLOADS}/{ZIP_FILE}", 'zip', root_dir=STAGING_DIR, base_dir=addon)
-        console.log(f"& writing new dirhash file: '{DIRHASH_FILE}'")
+        console.log(f"Writing new dirhash '{DIRHASH_CALCULATED}' to file: '{DIRHASH_FILE}'")
         with open(DIRHASH_FILE, 'w', encoding="utf-8") as f:
             f.write(DIRHASH_CALCULATED)
 
