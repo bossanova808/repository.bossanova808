@@ -35,14 +35,14 @@
 				<height>900</height>
 				<texture border="10">ContentPanel.png</texture>
 			</control>
-			<control type="image">
-				<left>398</left>
-				<top>978</top>
-				<width>1125</width>
-				<height>96</height>
-				<texture border="10">ContentPanelMirror.png</texture>
-			</control>
-			<!-- BOSSANOVA808 MOD - Allow for 5 login items on the login screen -->
+<!-- BOSSANOVA808 MOD - Allow for 5 login items on the login screen -->
+<!--			<control type="image">-->
+<!--				<left>398</left>-->
+<!--				<top>978</top>-->
+<!--				<width>1125</width>-->
+<!--				<height>96</height>-->
+<!--				<texture border="10">ContentPanelMirror.png</texture>-->
+<!--			</control>-->
 <!-- 			<control type="label">
 				<left>443</left>
 				<top>150</top>

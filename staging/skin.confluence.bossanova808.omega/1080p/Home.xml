@@ -1207,7 +1207,7 @@
 					<width>45</width>
 					<height>45</height>
 					<aspectratio>keep</aspectratio>
-					<texture>icon_profiles.png</texture>
+					<texture>icon_profile.png</texture>
 				</control>
 			</control>
 			<control type="group">

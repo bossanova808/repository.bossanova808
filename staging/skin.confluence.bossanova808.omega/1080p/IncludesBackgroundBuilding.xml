@@ -84,6 +84,7 @@
 			<!-- BOSSANOVA808 MOD - Finesse floor height in those rare places it is used -->
 			<height>112</height>
 			<texture>floor_b808.png</texture>
+			<colordiffuse>50FFFFFF</colordiffuse>
 			<animation effect="rotatex" end="45" time="0" center="930,0" condition="true">Conditional</animation>
 			<animation effect="slide" start="0,15" end="0,0" time="150" condition="Window.Previous(Home)">WindowOpen</animation>
 			<animation effect="slide" start="0,0" end="0,15" time="150" condition="Window.Next(Home)">WindowClose</animation>

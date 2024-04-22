@@ -1,3 +1,8 @@
+v5.0.405
+Visual tidy-ups
+Darken the floor (where it is even still used)
+Rmove the mirror from the login page
+
 v5.0.404
 Fix faster profile switching
 
