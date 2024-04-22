@@ -10,7 +10,7 @@ import hashlib
 
 # These usually need to be installed, e.g. on Ubuntu:
 # pip3 install rich dirhash semver
-from dirhash import dirhash
+from checksumdir import dirhash
 import semver
 from rich.console import Console
 from rich.theme import Theme
@@ -69,7 +69,10 @@ for addon in addons:
     ZIP_FILE = f"{addon}-{version}"
     # If we detect changes, then zip up the new version and move to the download folder with the correct name
     make_new_zip = True
-    DIRHASH_CALCULATED = dirhash(ADDON_FOLDER_STAGING, "md5", jobs=8)
+    # Dirhash version
+    # DIRHASH_CALCULATED = dirhash(ADDON_FOLDER_STAGING, "md5", jobs=8)
+    # Checksumdir version
+    DIRHASH_CALCULATED = dirhash(ADDON_FOLDER_STAGING, "md5")
     DIRHASH_RECORDED = None
     # Use a relative path here as ?dirhash across environments changing?
     DIRHASH_FILE = f"./staging/dirhash/{addon}.dirhash"
