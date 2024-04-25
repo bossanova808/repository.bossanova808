@@ -279,6 +279,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<left>255</left>
@@ -323,6 +324,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<left>255</left>

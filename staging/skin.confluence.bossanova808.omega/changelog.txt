@@ -1,3 +1,6 @@
+v5.0.407 
+Disable thumbnail label scrolling due to CoreElec performance issues - https://discourse.coreelec.org/t/amlogic-no-discussion/46663/606
+
 v5.0.406
 Visual tidy-ups
 Darken the floor (where it is even still used)
