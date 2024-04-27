@@ -52,35 +52,35 @@
                 <description>Today's Outlook</description>
                 <param name="posx">0%</param>
                 <param name="posy">5%</param>
-                <param name="label">$INFO[Window.Property(Daily.1.Outlook)]</param>
+                <param name="label">$INFO[Window(weather).Property(Daily.1.Outlook)]</param>
             </include>
 
             <include content="OzWeatherHeader">
                 <description>Today's Min / Max (if still available)</description>
                 <param name="posx">0%</param>
                 <param name="posy">18%</param>
-                <param name="label">[COLOR _colour_text_dim_]$INFO[Window.Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window.Property(Current.NowValue)]&#176;[/COLOR]</param>
+                <param name="label">[COLOR _colour_text_dim_]$INFO[Window(weather).Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window(weather).Property(Current.NowValue)]&#176;[/COLOR]</param>
             </include>
 
             <include content="OzWeatherHeader">
                 <description>Today's Min / Max (if still available)</description>
                 <param name="posx">0%</param>
                 <param name="posy">28%</param>
-                <param name="label">[COLOR _colour_text_dim_]$INFO[Window.Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window.Property(Current.LaterValue)]&#176;[/COLOR]</param>
+                <param name="label">[COLOR _colour_text_dim_]$INFO[Window(weather).Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Current.LaterValue)]&#176;[/COLOR]</param>
             </include>
 
             <include content="OzWeatherHeader">
                 <description>Today's Rain Chance</description>
                 <param name="posx">28%</param>
                 <param name="posy">18%</param>
-                <param name="label">[COLOR _colour_text_dim_]Rain Chance: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window.Property(Daily.1.RainChance)][/COLOR]</param>
+                <param name="label">[COLOR _colour_text_dim_]Rain Chance: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Daily.1.RainChance)][/COLOR]</param>
             </include>
 
             <include content="OzWeatherHeader">
                 <description>Today's Rain Amount</description>
                 <param name="posx">28%</param>
                 <param name="posy">28%</param>
-                <param name="label">[COLOR _colour_text_dim_]Rain Predicted: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window.Property(Daily.1.RainAmount)][/COLOR]</param>
+                <param name="label">[COLOR _colour_text_dim_]Rain Predicted: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Daily.1.RainAmount)][/COLOR]</param>
             </include>
 
             <control type="image">
@@ -89,7 +89,7 @@
                 <posy>32%</posy>
                 <width>16%</width>
                 <aspectratio>keep</aspectratio>
-                <info>Window.Property(Current.ConditionIcon)</info>
+                <info>Window(weather).Property(Current.ConditionIcon)</info>
             </control>
 
             <include content="OzWeatherHeader">
@@ -104,7 +104,7 @@
                 <posx>22%</posx>
                 <posy>60%</posy>
                 <include content="FontHuge" />
-                <label>$INFO[Window.Property(Current.OzW_Temperature)]&#176;</label>
+                <label>$INFO[Window(weather).Property(Current.OzW_Temperature)]&#176;</label>
             </control>
 
             <include content="OzWeatherHeader">
@@ -120,7 +120,7 @@
                 <posx>44%</posx>
                 <posy>60%</posy>
                 <include content="FontHuge" />
-                <label>$INFO[Window.Property(Current.OzW_FeelsLike)]&#176;</label>
+                <label>$INFO[Window(weather).Property(Current.OzW_FeelsLike)]&#176;</label>
                 <textcolor>_colour_text_dim_</textcolor>
                 <visible>!String.IsEmpty(Window(weather).Property(Current.Ozw_FeelsLike))</visible>
             </control>
@@ -165,28 +165,28 @@
                 <itemgap>WeatherInfoLineHeight</itemgap>
 
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.RainSince9)]mm</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.RainSince9)]mm</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.Ozw_Humidity)]%</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.Ozw_Humidity)]%</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.UVIndex)]</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.UVIndex)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.FireDanger)]</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.FireDanger)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.Ozw_WindSpeed)]km/h $INFO[Window.Property(Current.WindDirection)]</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.Ozw_WindSpeed)]km/h $INFO[Window(weather).Property(Current.WindDirection)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.WindGust)]km/h</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.WindGust)]km/h</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.Sunrise)]</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.Sunrise)]</param>
                 </include>
                 <include content="WeatherInfoValue">
-                    <param name="label">$INFO[Window.Property(Current.Sunset)]</param>
+                    <param name="label">$INFO[Window(weather).Property(Current.Sunset)]</param>
                 </include>
             </control>
 

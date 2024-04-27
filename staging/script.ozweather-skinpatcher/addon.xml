@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.4" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.5" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -27,7 +27,7 @@
         <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
         <email />
         <news>
-            v0.3.4 - Version bump for new build system.
+            v0.3.5 Makes sure weather properties come from the weather window, tidy ups
         </news>
         <assets>
             <icon>resources/icon.png</icon>

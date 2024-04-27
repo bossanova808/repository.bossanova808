@@ -23,7 +23,7 @@
     <include name="ConfluenceLeftPanelContainer">
         <control type="image">
             <description>Confluence Only - ok to use non percents here as Confluence = 720p fixed</description>
-            <visible>String.IsEqual(Window.Property(SkinInUse),"Confluence")</visible>
+            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"Confluence")</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>550</width>
@@ -35,13 +35,13 @@
     <include name="ConfluenceRightPanelContainer">
         <control type="image">
             <description>Confluence Only - ok to use non percents here as Confluence = 720p fixed</description>
-            <visible>String.IsEqual(Window.Property(SkinInUse),"Confluence")</visible>
+            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"Confluence")</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>680</width>
             <height>670</height>
             <texture border="20">ContentPanel.png</texture>
-            <visible>String.IsEqual(Window.Property(SkinInUse),"Confluence")</visible>
+            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"Confluence")</visible>
         </control>
     </include>
 

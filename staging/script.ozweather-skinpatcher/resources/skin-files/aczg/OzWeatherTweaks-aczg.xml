@@ -23,7 +23,7 @@
     <include name="ConfluenceLeftPanelContainer">
         <control type="image">
             <description>Confluence Only</description>
-            <visible>String.IsEqual(Window.Property(SkinInUse),"aczg")</visible>
+            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"aczg")</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>825</width>
@@ -35,13 +35,13 @@
     <include name="ConfluenceRightPanelContainer">
         <control type="image">
             <description>Confluence Only</description>
-            <visible>String.IsEqual(Window.Property(SkinInUse),"aczg")</visible>
+            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"aczg")</visible>
             <posx>0</posx>
             <posy>0</posy>
             <width>1020</width>
             <height>1005</height>
             <texture border="30">ContentPanel.png</texture>
-            <visible>String.IsEqual(Window.Property(SkinInUse),"aczg")</visible>
+            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"aczg")</visible>
         </control>
     </include>
 
@@ -61,7 +61,7 @@
 					<top>45</top>
 					<height>38</height>
 					<width>360</width>
-					<label>$INFO[Window.Property(Location)]</label>
+					<label>$INFO[Window(weather).Property(Location)]</label>
 					<font>Light20</font>
 					<textcolor>white</textcolor>
 					<align>left</align>
@@ -137,7 +137,7 @@
 					<include>ButtonCommonValues</include>
 					<label>31904</label>
 					<onclick>ClearProperty(Weather.CurrentView)</onclick>
-					<visible>!String.IsEmpty(Window.Property(Daily.IsFetched))</visible>
+					<visible>!String.IsEmpty(Window(weather).Property(Daily.IsFetched))</visible>
 				</control>
 				<control type="button" id="303">
 					<description>36 hour forcast button</description>
@@ -145,7 +145,7 @@
 					<include>ButtonCommonValues</include>
 					<label>31901</label>
 					<onclick>SetProperty(Weather.CurrentView,36hour)</onclick>
-					<visible>!String.IsEmpty(Window.Property(36Hour.IsFetched))</visible>
+					<visible>!String.IsEmpty(Window(weather).Property(36Hour.IsFetched))</visible>
 				</control>
 				<control type="button" id="304">
 					<description>Weekend forcast button</description>
@@ -153,7 +153,7 @@
 					<include>ButtonCommonValues</include>
 					<label>31903</label>
 					<onclick>SetProperty(Weather.CurrentView,weekend)</onclick>
-					<visible>!String.IsEmpty(Window.Property(Weekend.IsFetched))</visible>
+					<visible>!String.IsEmpty(Window(weather).Property(Weekend.IsFetched))</visible>
 				</control>
 				<control type="button" id="305">
 					<description>Hourly forcast button</description>
@@ -161,7 +161,7 @@
 					<include>ButtonCommonValues</include>
 					<label>31902</label>
 					<onclick>SetProperty(Weather.CurrentView,hourly)</onclick>
-					<visible>!String.IsEmpty(Window.Property(Hourly.IsFetched))</visible>
+					<visible>!String.IsEmpty(Window(weather).Property(Hourly.IsFetched))</visible>
 				</control>
 				<control type="button" id="306">
 					<description>Maps button</description>
@@ -169,7 +169,7 @@
 					<include>ButtonCommonValues</include>
 					<label>31910</label>
 					<onclick>SetProperty(Weather.CurrentView,map)</onclick>
-					<visible>!String.IsEmpty(Window.Property(Map.IsFetched))</visible>
+					<visible>!String.IsEmpty(Window(weather).Property(Map.IsFetched))</visible>
 				</control>
 				<control type="button" id="307">
 					<description>Alerts button</description>
@@ -177,7 +177,7 @@
 					<include>ButtonCommonValues</include>
 					<label>33050</label>
 					<onfocus>SetProperty(Weather.CurrentView,alerts)</onfocus>
-					<visible>!String.IsEmpty(Window.Property(Alerts.IsFetched))</visible>
+					<visible>!String.IsEmpty(Window(weather).Property(Alerts.IsFetched))</visible>
 				</control>
 				<control type="label" id="201">
 					<width>375</width>

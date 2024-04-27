@@ -1,3 +1,6 @@
+v5.0.408
+OzWeather now uses a Custom Window approach so as to leave MyWeather.xml unmolested
+
 v5.0.407 
 Disable thumbnail label scrolling due to CoreElec performance issues - https://discourse.coreelec.org/t/amlogic-no-discussion/46663/606
 

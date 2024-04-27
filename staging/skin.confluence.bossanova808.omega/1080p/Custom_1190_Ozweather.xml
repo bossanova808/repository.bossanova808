@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1190">
+    
+    <!-- Focus ABC weather -->
+    <onload>Control.SetFocus(222)</onload>
+    <!-- Skin Specific Stuff -->
+    <include file="OzWeatherTweaks-confluence.xml" />
+    <!-- All Skins    -->
+    <include file="OzWeatherSnippets.xml" />
+    <include file="OzWeatherRadar.xml" />
+    <include file="OzWeatherButtons.xml" />
+    <include file="OzWeatherObservations.xml" />
+    <include file="OzWeatherForecast.xml" />
+
+    <controls>
+        <include content="CommonBackground" />
+
+        <!-- GROUP OF TWO MAIN CONTENT PANELS, LEFT AND RIGHT -->
+        <control type="group">
+            <posx>MasterXOffset</posx>
+            <posy>MasterYOffset</posy>
+
+            <animation type="WindowOpen" reversible="false">
+                <effect type="zoom" start="80" end="100" center="960,540" easing="out" tween="back" time="225" />
+                <effect type="fade" start="0" end="100" time="225" />
+            </animation>
+            <animation type="WindowClose" reversible="false">
+                <effect type="zoom" start="100" end="80" center="960,540" easing="in" tween="back" time="225" />
+                <effect type="fade" start="100" end="0" time="225" />
+            </animation>
+
+            <!--  LEFT PANEL GROUP  -->
+            <control type="group">
+                <description>Left Panel - The Radar Loop, Buttons, and OzWeather Version Tag</description>
+                <posx>3%</posx>
+                <posy>5%</posy>
+                <visible>Weather.IsFetched</visible>
+
+                <include content="ConfluenceLeftPanelContainer" />
+
+                <include content="OzWeatherHeader">
+                    <description>Radar Panel Header - ID and Time Range</description>
+                    <param name="posx">2%</param>
+                    <param name="posy">3%</param>
+                    <param name="label">Radar ($INFO[Window(weather).Property(Radar)]), [COLOR darkgray]from [/COLOR]$INFO[Window(weather).Property(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Window(weather).Property(RadarNewest)]</param>
+                </include>
+
+                <include content="RadarBackgrounds" />
+                <include content="RadarLoop" />
+                <include content="OzWeatherButtons" />
+                <include content="OzWeatherTag" />
+
+            </control> <!--  END LEFT PANEL GROUP -->
+
+            <!-- RIGHT PANEL GROUP  -->
+            <control type="group">
+                <description>Right Panel - Current Observations, Extended Forecast Text, Forecast Rows</description>
+                <posx>46%</posx>
+                <posy>5%</posy>
+                <visible>Weather.IsFetched</visible>
+
+                <include content="ConfluenceRightPanelContainer" />
+
+                <include content="OzWeatherHeader">
+                    <description>Location Panel Header - Name and Observed At Time</description>
+                    <param name="posx">3%</param>
+                    <param name="posy">3%</param>
+                    <param name="label">$INFO[Window(weather).Property(Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Window(weather).Property(ObservationsUpdated)]</param>
+                </include>
+
+                <include content="Observations" />
+                <include content="ExtendedForecast" />
+                <include content="ForecastRows" />
+
+            </control> <!--  END RIGHT PANEL GROUP -->
+
+        </control> <!--END GROUP for Left & Right Panels -->
+
+        <include content="ConfluenceBladeMenu" />
+        <include content="Clock" />
+
+    </controls>
+    
+</window>

@@ -46,7 +46,7 @@
                 <height>45</height>
                 <include content="FontBody" />
                 <textcolor>gray</textcolor>
-                <label>$INFO[Window.Property(WeatherVersion)]</label>
+                <label>$INFO[Window(weather).Property(WeatherVersion)]</label>
             </control>
         </definition>
     </include>

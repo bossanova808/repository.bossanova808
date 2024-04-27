@@ -1,3 +1,6 @@
+v0.3.5
+Makes sure weather properties come from the weather window, tidy ups
+
 v0.3.4
 Version bump for new build system.
 
