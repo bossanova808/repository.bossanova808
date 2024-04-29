@@ -1,3 +1,6 @@
+v5.0.409 
+Fix from upstream https://github.com/xbmc/skin.confluence/pull/273/commits/104ba4e2fce8f2f5121c5327b0c305b8092b480f
+
 v5.0.408
 OzWeather now uses a Custom Window approach so as to leave MyWeather.xml unmolested
 
