@@ -15,7 +15,7 @@
 <window>
 			
 	<!-- Focus ABC weather -->
-	<onload>Control.SetFocus(222)</onload>
+	<onload>Control.SetFocus(111)</onload>
 	
 	<!-- Skin Specific Stuff -->
 	<include file="OzWeatherTweaks-aczg.xml" />

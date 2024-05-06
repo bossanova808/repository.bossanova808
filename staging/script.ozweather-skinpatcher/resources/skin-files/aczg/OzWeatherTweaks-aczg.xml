@@ -41,7 +41,6 @@
             <width>1020</width>
             <height>1005</height>
             <texture border="30">ContentPanel.png</texture>
-            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"aczg")</visible>
         </control>
     </include>
 

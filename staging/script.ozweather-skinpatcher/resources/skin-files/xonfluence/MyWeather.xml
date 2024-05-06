@@ -14,7 +14,7 @@
 
 <window id="12600">
     <allowoverlay>no</allowoverlay>
-	<defaultcontrol always="true">222</defaultcontrol>
+	<defaultcontrol always="true">111</defaultcontrol>
 
 	<!-- Skin Specific Stuff -->
     <include file="OzWeatherTweaks-xonfluence.xml" />

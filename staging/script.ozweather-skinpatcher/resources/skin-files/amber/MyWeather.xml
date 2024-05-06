@@ -11,7 +11,7 @@
     <include file="OzWeatherObservations.xml" />
     <include file="OzWeatherForecast.xml" />
 
-	<defaultcontrol always="true">222</defaultcontrol>
+	<defaultcontrol always="true">111</defaultcontrol>
 	<controls>
 		<include>Time</include>
     	<control type="image">
@@ -89,8 +89,8 @@
 				<posy>60</posy>
 				<width>500</width>
 				<height>1120</height>
-				<onleft>222</onleft>
-				<onright>222</onright>
+				<onleft>111</onleft>
+				<onright>111</onright>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
 				<onback>50</onback>

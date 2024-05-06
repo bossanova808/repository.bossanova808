@@ -15,7 +15,7 @@
     <include file="OzWeatherObservations.xml" />
     <include file="OzWeatherForecast.xml" />
 
-	<defaultcontrol always="true">222</defaultcontrol>
+	<defaultcontrol always="true">111</defaultcontrol>
 	<backgroundcolor>background</backgroundcolor>
 	<menucontrol>10000</menucontrol>
 	<controls>

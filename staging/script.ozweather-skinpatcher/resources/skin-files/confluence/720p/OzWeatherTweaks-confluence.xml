@@ -43,7 +43,6 @@
             <width>680</width>
             <height>670</height>
             <texture border="20">ContentPanel.png</texture>
-            <visible>String.IsEqual(Window(weather).Property(SkinInUse),"Confluence")</visible>
         </control>
     </include>
 
@@ -59,10 +58,10 @@
                 <width>250</width>
                 <height>610</height>
                 <onleft>9000</onleft>
-                <onright>222</onright>
+                <onright>111</onright>
                 <onup>9000</onup>
                 <ondown>9000</ondown>
-                <onback>222</onback>
+                <onback>111</onback>
                 <itemgap>0</itemgap>
                 <control type="group" id="300">
                     <width>250</width>
@@ -84,11 +83,11 @@
                         <posy>40</posy>
                         <font>-</font>
                         <include>ButtonCommonValues</include>
-                        <onleft>222</onleft>
-                        <onright>222</onright>
+                        <onleft>111</onleft>
+                        <onright>111</onright>
                         <onup>4</onup>
                         <ondown>2</ondown>
-                        <onback>222</onback>
+                        <onback>111</onback>
                     </control>
                 </control>
                 <control type="button" id="2">

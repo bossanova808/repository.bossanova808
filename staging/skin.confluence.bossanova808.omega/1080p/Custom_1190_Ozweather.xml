@@ -2,7 +2,7 @@
 <window id="1190">
     
     <!-- Focus ABC weather -->
-    <onload>Control.SetFocus(222)</onload>
+    <onload>Control.SetFocus(111)</onload>
     <!-- Skin Specific Stuff -->
     <include file="OzWeatherTweaks-confluence.xml" />
     <!-- All Skins    -->

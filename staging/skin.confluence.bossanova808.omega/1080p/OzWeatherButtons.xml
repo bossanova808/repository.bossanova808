@@ -2,8 +2,8 @@
 
     <include name="OzWeatherButton">
         <param name="id" />
-        <param name="onlick"/>
-        <param name="label" deafult="EMPTY LABEL" />
+        <param name="onclick"/>
+        <param name="label" default="EMPTY LABEL" />
         <param name="visible" default="Weather.IsFetched" />
         <definition>
             <control type="button" id="$PARAM[id]">
@@ -26,9 +26,9 @@
         <param name="width" default="38%" />
         <param name="visible" default="Weather.IsFetched" />
         <definition>
-            <control type="grouplist" id="00">
+            <control type="grouplist" id="400">
                 <description>OzWeather Buttons</description>
-                <defaultcontrol>222</defaultcontrol>
+                <defaultcontrol>111</defaultcontrol>
                 <left>$PARAM[left]</left>
                 <top>$PARAM[top]</top>
                 <width>$PARAM[width]</width>
@@ -38,23 +38,23 @@
                 <onup>2</onup>
                 <ondown>2</ondown>
                 <include content="OzWeatherButton">
-                    <param name="id">222</param>
+                    <param name="id">111</param>
                     <param name="onclick">RunScript(weather.ozweather,ABC)</param>
                     <param name="label">ABC Weather</param>
                     <param name="visible">Weather.IsFetched</param>
                 </include>
                 <include content="OzWeatherButton">
-                    <param name="id">333</param>
+                    <param name="id">222</param>
                     <param name="onclick">Weather.Refresh</param>
                     <param name="label">Refresh</param>
                 </include>
                 <include content="OzWeatherButton">
-                    <param name="id">444</param>
+                    <param name="id">333</param>
                     <param name="onclick">Weather.LocationNext</param>
                     <param name="label">Next Location</param>
                 </include>
                 <include content="OzWeatherButton">
-                    <param name="id">111</param>
+                    <param name="id">444</param>
                     <param name="onclick">Weather.LocationPrevious</param>
                     <param name="label">Prev Location</param>
                 </include>
