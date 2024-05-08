@@ -1,3 +1,6 @@
+v0.3.7 
+Tweaks to Weather Buttons
+
 v0.3.6 
 Tidy up some weather button stuff
 

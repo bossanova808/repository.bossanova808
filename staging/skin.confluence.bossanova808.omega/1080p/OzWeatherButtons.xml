@@ -7,7 +7,7 @@
         <param name="visible" default="Weather.IsFetched" />
         <definition>
             <control type="button" id="$PARAM[id]">
-                <height>60</height>
+                <height>45</height>
                 <width>auto</width>
                 <align>center</align>
                 <aligny>center</aligny>

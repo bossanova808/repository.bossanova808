@@ -57,7 +57,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.6" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.7" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
         </requires>
@@ -85,7 +85,7 @@
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
             <news>
-                v0.3.6 Tidy up some weather button stuff
+                v0.3.7 Tweaks to Weather Buttons
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -155,7 +155,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.411" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.412" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -176,7 +176,7 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.411 Tidy up some weather button stuff</news>
+    		<news>v5.0.412 Revert to old OzWeather approach due to issues with weather buttons in custom windows :( </news>
     	</extension>
     </addon>
     
