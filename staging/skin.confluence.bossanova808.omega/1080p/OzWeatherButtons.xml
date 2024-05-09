@@ -35,8 +35,8 @@
                 <itemgap>4%</itemgap>
                 <orientation>horizontal</orientation>
                 <align>left</align>
-                <onup>2</onup>
-                <ondown>2</ondown>
+                <onup>999</onup>
+                <ondown>999</ondown>
                 <include content="OzWeatherButton">
                     <param name="id">111</param>
                     <param name="onclick">RunScript(weather.ozweather,ABC)</param>

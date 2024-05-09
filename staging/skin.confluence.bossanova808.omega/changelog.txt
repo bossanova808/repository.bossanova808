@@ -1,3 +1,6 @@
+v5.0.413 
+Fix Weather Blade Menu
+
 v5.0.412 
 Revert to old OzWeather approach due to issues with weather buttons in custom windows :( 
 
