@@ -504,7 +504,7 @@
 							<visible>Control.HasFocus(8002)</visible>
 						</control>
 					</focusedlayout>
-					<content target="music" sortby="dateadded" sortorder="descending" limit="15">musicdb://recentlyaddedalbums</content>
+					<content target="music" sortby="dateadded" sortorder="descending" limit="15" browse="never">musicdb://recentlyaddedalbums</content>
 				</control>
 				<control type="button">
 					<description>left Arrow</description>

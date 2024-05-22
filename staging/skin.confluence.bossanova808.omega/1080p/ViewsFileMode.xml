@@ -78,6 +78,7 @@
 						<width>24</width>
 						<height>24</height>
 						<texture>OverlayWatching.png</texture>
+						<!-- BOSSANOVA808 MOD - Remove 'in progress' arrow from folders -->
 						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
 					<control type="image">
@@ -171,6 +172,7 @@
 						<width>24</width>
 						<height>24</height>
 						<texture>OverlayWatching.png</texture>
+						<!-- BOSSANOVA808 MOD - remove 'in progress' arrow from folders -->
 						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
 					</control>
 					<control type="image">
@@ -279,6 +281,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
 						<scroll>false</scroll>
 					</control>
 					<control type="image">
@@ -324,6 +327,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
 						<scroll>false</scroll>
 					</control>
 					<control type="image">

@@ -91,6 +91,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font13</font>
+				<!-- BOSSANOVA808 MOD - dimmer text -->
 				<textcolor>gray</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Time]</label>

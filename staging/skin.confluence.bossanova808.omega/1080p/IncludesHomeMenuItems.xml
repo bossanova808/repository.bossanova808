@@ -372,6 +372,7 @@
 			<height>53</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
+		<!-- BOSSANOVA808 MOD - Addon updates from home -->
 		<control type="button" id="90307">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>Check for updates</label>
@@ -384,12 +385,12 @@
 		</control>
 		<control type="button" id="90303">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Install from repo</label>
+			<label>24033</label>
 			<onclick>ActivateWindow(addonbrowser,addons://repos/,return)</onclick>
 		</control>
 		<control type="button" id="90304">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Install from zip</label>
+			<label>24041</label>
 			<onclick>InstallFromZip</onclick>
 		</control>
 		<control type="button" id="90305">

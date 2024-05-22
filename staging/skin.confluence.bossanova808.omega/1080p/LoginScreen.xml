@@ -160,6 +160,7 @@
 					</control>
 				</focusedlayout>
 			</control>
+			<!-- BOSSANOVA808 MOD - remove COnfluence logo -->
 <!--			<control type="image">-->
 <!--				<description>LOGO</description>-->
 <!--				<left>398</left>-->
@@ -223,6 +224,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font10</font>
+				<!-- BOSSANOVA808 MOD - dimmer text -->
 				<textcolor>grey2</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Date]</label>

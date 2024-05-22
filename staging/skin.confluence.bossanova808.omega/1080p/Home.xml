@@ -1065,6 +1065,7 @@
 		<control type="group" id="9002">
 			<depth>DepthMenu</depth>
 			<onup>9001</onup>
+			<!-- Bossanov808 Mod - Correct button focus -->
 			<ondown>10</ondown>
 			<control type="list" id="700">
 				<animation effect="slide" start="0,0" end="544,0" time="0" condition="String.IsEqual(Container(700).NumItems,1)">conditional</animation>
@@ -1170,13 +1171,13 @@
 			</control>
 		</control>
 		<control type="group" id="10">
+			<!-- Bossanov808 Mod - Add faster profile switching -->
 			<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEmpty(System.ProfileName)">conditional</animation>
 			<animation effect="slide" start="0,0" end="-75,0" time="0" condition="String.IsEmpty(System.ProfileName)">conditional</animation>
 			<depth>DepthFooter</depth>
 			<left>15</left>
 			<top>72r</top>
-			<include>Window_OpenClose_Animation</include>
-			<!-- Bossanov808 Mod - Add faster profile switching -->
+			<include>Window_OpenClose_Animation</include>			
 			<control type="group">
 				<control type="button" id="20">
 					<description>Switch profiles button</description>
@@ -1325,6 +1326,7 @@
 					<aspectratio>keep</aspectratio>
 					<texture>$INFO[Weather.ConditionsIcon]</texture>
 				</control>
+				<!-- BOSSANOVA808 MOD - OzWesther Support -->
 				<control type="label">
 					<description>Location label</description>
 					<left>98</left>

@@ -53,6 +53,7 @@
 			<control type="label" id="1">
 				<description>End time from infolabel</description>
 				<left>30</left>
+				<!--  BOSSANOVA808 MOD - improve spacing -->
 				<top>50</top>
 				<width>165</width>
 				<height>30</height>
@@ -92,6 +93,7 @@
 			<control type="label" id="1">
 				<description>Chapter Pos No</description>
 				<left>30</left>
+				<!--  BOSSANOVA808 MOD - improve spacing -->
 				<top>50</top>
 				<width>165</width>
 				<height>30</height>
@@ -123,6 +125,7 @@
 					<width>120</width>
 					<height>75</height>
 					<texture>OSDSeekFrame.png</texture>
+					<!-- BOSSANOVA808 MOD - dimmer seeking -->
 					<colordiffuse>EEAAAAAA</colordiffuse>
 				</control>
 				<control type="image">
@@ -276,6 +279,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<font>OSDPlaySpeed</font>
+						<!--  BOSSANOVA808 MOD - Grey text -->
 						<textcolor>gray</textcolor>
 						<label>[I]$VAR[PlaySpeed][/I]</label>
 					</control>

@@ -146,6 +146,7 @@
 				<top>0</top>
 				<width>1920</width>
 				<height>240</height>
+				<!--  BOSSANOVA808 MOD - Remove black BG -->
 			</control>
 			<control type="label" id="10">
 				<description>row 1 label</description>
@@ -196,6 +197,7 @@
 <!--			</control>-->
 			<control type="label" id="1">
 				<description>Chapter Count Header label</description>
+				<!--  BOSSANOVA808 MOD - Move chapter info below radar -->
 				<left>20</left>
 				<top>270</top>
 				<width>1500</width>
@@ -210,6 +212,7 @@
 			</control>
 			<control type="label" id="1">
 				<description>Channel Group label</description>
+				<!--  BOSSANOVA808 MOD - Move chapter info below radar -->
 				<left>20</left>
 				<top>270</top>
 				<width>1500</width>
@@ -306,7 +309,8 @@
 					<height>38</height>
 					<align>left</align>
 					<font>font12</font>
-					<label>$INFO[VideoPlayer.Premiered,Released: ,$COMMA ] Studio: $INFO[VideoPlayer.Studio]</label>
+					<!--  BOSSANOVA808 MOD - Premiered Date -->
+					<label>$INFO[VideoPlayer.Premiered,Premiered: ,$COMMA ] Studio: $INFO[VideoPlayer.Studio]</label>
 					<textcolor>grey2</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(Movies)</visible>
@@ -319,7 +323,8 @@
 					<height>38</height>
 					<align>left</align>
 					<font>font12</font>
-					<label>$INFO[VideoPlayer.TVShowTitle] ($INFO[VideoPlayer.Season,,x]$INFO[VideoPlayer.Episode]$INFO[VideoPlayer.Premiered,$COMMA From: ,])</label>
+					<!--  BOSSANOVA808 MOD - Broadcast date -->
+					<label>$INFO[VideoPlayer.TVShowTitle] ($INFO[VideoPlayer.Season,,x]$INFO[VideoPlayer.Episode]$INFO[VideoPlayer.Premiered,$COMMA ,])</label>
 					<textcolor>grey2</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(Episodes)</visible>
@@ -358,7 +363,7 @@
 					<itemgap>8</itemgap>
 					<orientation>horizontal</orientation>
 					<control type="label" id="1">
-						<width min="15" max="780">auto</width>
+						<width min="15" max="720">auto</width>
 						<height>45</height>
 						<font>font30</font>
 						<align>left</align>
@@ -369,11 +374,11 @@
 					</control>
 					<control type="image" id="1">
 						<description>Video Resolution Image</description>
-						<width>75</width>
+						<width>70</width>
 						<height>53</height>
 						<aspectratio align="center">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.VideoResolution,flagging/video/,.png]</texture>
-						<visible>!Player.ChannelPreviewActive</visible>
+						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.VideoResolution)</visible>
 					</control>
 					<control type="image" id="1">
 						<description>Codec Image</description>
@@ -381,39 +386,38 @@
 						<height>53</height>
 						<aspectratio align="left">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.HdrType,flagging/video/,.png]</texture>
-						<visible>!String.IsEmpty(VideoPlayer.HdrType)</visible>
+						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.HdrType)</visible>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Codec Image</description>
-						<width>128</width>
+						<width>110</width>
 						<height>53</height>
 						<aspectratio align="center">keep</aspectratio>
-						<visible>!Player.ChannelPreviewActive</visible>
 						<texture>$INFO[VideoPlayer.AudioCodec,flagging/audio/,.png]</texture>
+						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioCodec)</visible>
 					</control>
 					<control type="image" id="1">
 						<description>Audio Channels Image</description>
-						<width>75</width>
+						<width>70</width>
 						<height>53</height>
 						<aspectratio align="center">keep</aspectratio>
 						<texture>$INFO[VideoPlayer.AudioChannels,flagging/audio/,.png]</texture>
-						<visible>!Player.ChannelPreviewActive</visible>
+						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioChannels)</visible>
 					</control>
 					<control type="group" id="1">
-						<width>128</width>
+						<width>110</width>
 						<height>53</height>
-						<visible>![String.IsEmpty(VideoPlayer.AudioLanguage) | Player.ChannelPreviewActive]</visible>
+						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioLanguage)</visible>
 						<control type="image" id="1">
-							<left>8</left>
 							<top>0</top>
 							<description>Audio Language Image</description>
-							<width>120</width>
+							<width>110</width>
 							<height>53</height>
 							<texture>flagging/AudioLang.png</texture>
 						</control>
 						<control type="label" id="1">
-							<left>57</left>
-							<top>3</top>
+							<left>49</left>
+							<top>5</top>
 							<width>71</width>
 							<height>53</height>
 							<font>font13</font>
@@ -423,19 +427,18 @@
 						</control>
 					</control>
 					<control type="group" id="1">
-						<width>128</width>
+						<width>110</width>
 						<height>53</height>
-						<visible>![String.IsEmpty(VideoPlayer.SubtitlesLanguage) | Player.ChannelPreviewActive] + VideoPlayer.SubtitlesEnabled</visible>
+						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.SubtitlesLanguage) + VideoPlayer.SubtitlesEnabled</visible>
 						<control type="image" id="1">
-							<left>8</left>
 							<top>0</top>
-							<width>120</width>
+							<width>110</width>
 							<height>53</height>
 							<texture>flagging/SubLang.png</texture>
 						</control>
 						<control type="label" id="1">
-							<left>57</left>
-							<top>3</top>
+							<left>49</left>
+							<top>5</top>
 							<width>71</width>
 							<height>53</height>
 							<font>font13</font>

@@ -1,3 +1,6 @@
+v5.0.601
+Sync with 5.0.6 upstream
+
 v5.0.413 
 Fix Weather Blade Menu
 
