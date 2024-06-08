@@ -78,6 +78,7 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
+							<scroll>false</scroll>
 						</control>
 					</itemlayout>
 					<focusedlayout height="330" width="270">
@@ -124,6 +125,7 @@
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>!Control.HasFocus(8000)</visible>
+							<scroll>false</scroll>
 						</control>
 						<control type="label">
 							<left>23</left>
@@ -137,6 +139,7 @@
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>Control.HasFocus(8000)</visible>
+							<scroll>false</scroll>
 						</control>
 					</focusedlayout>
 					<content target="video" sortorder="descending" sortby="dateadded" limit="15" browse="never">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%220%22%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</content>
@@ -367,6 +370,7 @@
 					<font>font12_title</font>
 					<textcolor>white</textcolor>
 					<shadowcolor>black</shadowcolor>
+					<scroll>false</scroll>
 				</control>
 				<control type="list" id="8002">
 					<animation effect="slide" start="0,0" end="150,0" time="0" condition="String.IsEqual(Container(8002).NumItems,3)">conditional</animation>
@@ -417,6 +421,7 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Artist]</label>
+							<scroll>false</scroll>
 						</control>
 						<control type="label">
 							<left>15</left>
@@ -430,6 +435,7 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
+							<scroll>false</scroll>
 						</control>
 					</itemlayout>
 					<focusedlayout height="330" width="300">
@@ -475,6 +481,7 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Artist]</label>
+							<scroll>false</scroll>
 						</control>
 						<control type="label">
 							<left>15</left>
@@ -489,6 +496,7 @@
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>!Control.HasFocus(8002)</visible>
+							<scroll>false</scroll>
 						</control>
 						<control type="label">
 							<left>15</left>
@@ -502,6 +510,7 @@
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
 							<visible>Control.HasFocus(8002)</visible>
+							<scroll>false</scroll>
 						</control>
 					</focusedlayout>
 					<content target="music" sortby="dateadded" sortorder="descending" limit="15" browse="never">musicdb://recentlyaddedalbums</content>
