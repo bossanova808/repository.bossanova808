@@ -1,6 +1,7 @@
 from .common import *
 from .yocto_maxidisplay import YoctoMaxiDisplay
 import time
+import platform
 
 
 def run(args):
@@ -8,7 +9,10 @@ def run(args):
     footprints()
 
     YoctoMaxiDisplay()
-    YoctoMaxiDisplay.register_yocto_API('armhf')
+    architecture = None
+    if platform.system() != 'Windows':
+        architecture = 'armhf'
+    YoctoMaxiDisplay.register_yocto_API(architecture)
     YoctoMaxiDisplay.register_display_and_module()
     YoctoMaxiDisplay.describe_display()
 
@@ -55,8 +59,9 @@ def process2ndScreen():
 
     if xbmc.getCondVisibility('Player.HasVideo') and not xbmc.getCondVisibility('VideoPlayer.Content(livetv)'):
         time_remaining = xbmc.getInfoLabel('Player.TimeRemaining')
-        if len(time_remaining) > 0 and time_remaining[0] == "0":
-            time_remaining = time_remaining[1:]
+        # if len(time_remaining) > 0 and time_remaining[0] == "0":
+        #     time_remaining = time_remaining[1:]
+        time_remaining = time_remaining.lstrip(" 0:")
         YoctoMaxiDisplay.display_text([time_and_temperature, "-" + time_remaining])
     else:
         YoctoMaxiDisplay.display_text([time_now, temperature])

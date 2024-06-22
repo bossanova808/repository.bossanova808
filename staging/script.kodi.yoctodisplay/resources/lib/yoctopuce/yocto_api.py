@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # *********************************************************************
 # *
-# * $Id: yocto_api.py 45551 2021-06-14 13:51:37Z web $
+# * $Id: yocto_api.py 60609 2024-04-18 07:44:20Z seb $
 # *
 # * High-level programming interface, common to all modules
 # *
@@ -43,6 +43,7 @@ __docformat__ = 'restructuredtext en'
 
 import datetime
 import ctypes
+import math
 import platform
 # import abc  (not supported in 2.5.x)
 import random
@@ -102,22 +103,38 @@ def YRelTickCountPython3x(dt):
     return int(round(td.total_seconds() * 1000.0))
 
 
+def YArrayToBytesPython2x(a):
+    return a.tostring()
+
+
+# array.tostring is deprecated in Python 3.2 and was removed in 3.9!
+def YArrayToBytesPython32plus(a):
+    return a.tobytes()
+
+
 YByte2String = None
 YString2Byte = None
 YGetByte = None
 YAddByte = None
+YRelTickCount = None
+YArrayToBytes = None
 if sys.version_info < (3, 0):
     YByte2String = YByte2StringPython2x
     YString2Byte = YString2BytePython2x
     YGetByte = YGetBytePython2x
     YAddByte = YAddBytePython2x
     YRelTickCount = YRelTickCountPython2x
+    YArrayToBytes = YArrayToBytesPython2x
 else:
     YByte2String = YByte2StringPython3x
     YString2Byte = YString2BytePython3x
     YGetByte = YGetBytePython3x
     YAddByte = YAddBytePython3x
     YRelTickCount = YRelTickCountPython3x
+    if sys.version_info < (3, 2):
+        YArrayToBytes = YArrayToBytesPython2x
+    else:
+        YArrayToBytes = YArrayToBytesPython32plus
 
 # Ugly global var for Python 2 compatibility
 yLogFct = None
@@ -345,6 +362,12 @@ class YJSONNumber(YJSONContent):
             return self._doubleValue
         else:
             return self._intValue
+
+    def getString(self):
+        if self._isFloat:
+            return str(self._doubleValue)
+        else:
+            return str(self._intValue)
 
     def toString(self):
         if self._isFloat:
@@ -691,7 +714,7 @@ class YJSONObject(YJSONContent):
                 yzon.parse()
                 self.convert(reference, yzon)
                 return
-            except YAPI.YAPI_Exception:
+            except:
                 self.parse()
                 return
         self.parse()
@@ -719,23 +742,24 @@ class YJSONObject(YJSONContent):
         return self._keys[i]
 
 
-#--- (generated code: YAPIContext class start)
+# --- (generated code: YAPIContext class start)
 #noinspection PyProtectedMember
 class YAPIContext(object):
     #--- (end of generated code: YAPIContext class start)
-    #--- (generated code: YAPIContext return codes)
+    # --- (generated code: YAPIContext return codes)
     #--- (end of generated code: YAPIContext return codes)
-    #--- (generated code: YAPIContext dlldef)
+    # --- (generated code: YAPIContext dlldef)
     #--- (end of generated code: YAPIContext dlldef)
-    #--- (generated code: YAPIContext definitions)
+    # --- (generated code: YAPIContext definitions)
     #--- (end of generated code: YAPIContext definitions)
 
     def __init__(self):
-        #--- (generated code: YAPIContext attributes)
+        # --- (generated code: YAPIContext attributes)
         self._defaultCacheValidity = 5
         #--- (end of generated code: YAPIContext attributes)
+        self._yhub_cache = {}
 
-    #--- (generated code: YAPIContext implementation)
+    # --- (generated code: YAPIContext implementation)
     def SetDeviceListValidity(self, deviceListValidity):
         """
         Modifies the delay between each forced enumeration of the used YoctoHubs.
@@ -788,6 +812,106 @@ class YAPIContext(object):
         else:
             msg = ""
         return msg
+
+    def DownloadHostCertificate(self, url, mstimeout):
+        """
+        Download the TLS/SSL certificate from the hub. This function allows to download a TLS/SSL certificate to add it
+        to the list of trusted certificates using the AddTrustedCertificates method.
+
+        @param url : the root URL of the VirtualHub V2 or HTTP server.
+        @param mstimeout : the number of milliseconds available to download the certificate.
+
+        @return a string containing the certificate. In case of error, returns a string starting with "error:".
+        """
+        errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
+        smallbuff = ctypes.create_string_buffer(4096)
+        # bigbuff
+        # buffsize
+        fullsize = ctypes.c_int()
+        # res
+        # certifcate
+        fullsize.value = 0
+        res = YAPI._yapiGetRemoteCertificate(ctypes.create_string_buffer(YString2Byte(url)), mstimeout, smallbuff, 4096, ctypes.byref(fullsize), errmsg)
+        if res < 0:
+            if res == YAPI.BUFFER_TOO_SMALL:
+                fullsize.value = fullsize.value * 2
+                buffsize = fullsize.value
+                bigbuff = ctypes.create_string_buffer(buffsize)
+                res = YAPI._yapiGetRemoteCertificate(ctypes.create_string_buffer(YString2Byte(url)), mstimeout, bigbuff, buffsize, ctypes.byref(fullsize), errmsg)
+                if res < 0:
+                    certifcate = "error:" + YByte2String(errmsg.value)
+                else:
+                    certifcate = YByte2String(bigbuff.value)
+                bigbuff = None
+            else:
+                certifcate = "error:" + YByte2String(errmsg.value)
+            return certifcate
+        else:
+            certifcate = YByte2String(smallbuff.value)
+        return certifcate
+
+    def AddTrustedCertificates(self, certificate):
+        """
+        Adds a TLS/SSL certificate to the list of trusted certificates. By default, the library
+        library will reject TLS/SSL connections to servers whose certificate is not known. This function
+        function allows to add a list of known certificates. It is also possible to disable the verification
+        using the SetNetworkSecurityOptions method.
+
+        @param certificate : a string containing one or more certificates.
+
+        @return an empty string if the certificate has been added correctly.
+                In case of error, returns a string starting with "error:".
+        """
+        errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
+        # size
+        # res
+        # // null char must be inclued
+        size = len(certificate) + 1
+        res = YAPI._yapiAddSSLCertificateCli(ctypes.create_string_buffer(YString2Byte(certificate)), size, errmsg)
+        if res < 0:
+            return YByte2String(errmsg.value)
+        else:
+            return ""
+
+    def SetTrustedCertificatesList(self, certificatePath):
+        """
+        Set the path of Certificate Authority file on local filesystem. This method takes as a parameter
+        the path of a file containing all certificates in PEM format.
+        For technical reasons, only one file can be specified. So if you need to connect to several Hubs
+        instances with self-signed certificates, you'll need to use
+        a single file containing all the certificates end-to-end. Passing a empty string will restore the
+        default settings. This option is only supported by PHP library.
+
+        @param certificatePath : the path of the file containing all certificates in PEM format.
+
+        @return an empty string if the certificate has been added correctly.
+                In case of error, returns a string starting with "error:".
+        """
+        errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
+        # res
+        res = YAPI._yapiSetTrustedCertificatesList(ctypes.create_string_buffer(YString2Byte(certificatePath)), errmsg)
+        if res < 0:
+            return YByte2String(errmsg.value)
+        else:
+            return ""
+
+    def SetNetworkSecurityOptions(self, opts):
+        """
+        Enables or disables certain TLS/SSL certificate checks.
+
+        @param opts : The options are YAPI.NO_TRUSTED_CA_CHECK,
+                YAPI.NO_EXPIRATION_CHECK, YAPI.NO_HOSTNAME_CHECK.
+
+        @return an empty string if the options are taken into account.
+                On error, returns a string beginning with "error:".
+        """
+        errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
+        # res
+        res = YAPI._yapiSetNetworkSecurityOptions(opts, errmsg)
+        if res < 0:
+            return YByte2String(errmsg.value)
+        else:
+            return ""
 
     def SetNetworkTimeout(self, networkMsTimeout):
         """
@@ -844,9 +968,34 @@ class YAPIContext(object):
         """
         return self._defaultCacheValidity
 
+    def nextHubInUseInternal(self, hubref):
+        # nextref
+        nextref = YAPI._yapiGetNextHubRef(hubref)
+        if nextref < 0:
+            return None
+        return self.getYHubObj(nextref)
+
+    def getYHubObj(self, hubref):
+        # obj
+        obj = self._findYHubFromCache(hubref)
+        if obj is None:
+            obj = YHub(self, hubref)
+            self._addYHubToCache(hubref, obj)
+        return obj
+
 #--- (end of generated code: YAPIContext implementation)
 
-#--- (generated code: YAPIContext functions)
+    def _findYHubFromCache(self, hubref):
+        self._yhub_cache
+        if hubref in self._yhub_cache:
+            return self._yhub_cache[hubref]
+        return None
+
+    def _addYHubToCache(self, hubref, obj):
+        self._yhub_cache[hubref] = obj
+
+
+# --- (generated code: YAPIContext functions)
 #--- (end of generated code: YAPIContext functions)
 
 
@@ -888,10 +1037,10 @@ class YAPI:
     RESEND_MISSING_PKT = 4
     DETECT_ALL = DETECT_USB | DETECT_NET
 
-    YOCTO_API_VERSION_STR = "1.10"
-    YOCTO_API_VERSION_BCD = 0x0110
+    YOCTO_API_VERSION_STR = "2.0"
+    YOCTO_API_VERSION_BCD = 0x0200
 
-    YOCTO_API_BUILD_NO = "45664"
+    YOCTO_API_BUILD_NO = "61305"
     YOCTO_DEFAULT_PORT = 4444
     YOCTO_VENDORID = 0x24e0
     YOCTO_DEVID_FACTORYBOOT = 1
@@ -1010,7 +1159,7 @@ class YAPI:
             machine = platform.machine()
             if libpath == '':
                 libpath = '.'
-                #
+            #
             #  WINDOWS
             #
             if system == 'Windows':
@@ -1025,12 +1174,13 @@ class YAPI:
             #  LINUX (INTEL + ARM)
             #
             elif platform.system() == 'Linux':
-                if machine.find("aarch64") >= 0:
-                    YAPI._yApiCLibFile = libpath + "/cdll/libyapi-aarch64.so"
-                    YAPI._yApiCLibFileFallback = libpath + "/cdll/libyapi-aarch64.so"
-                elif machine.find("arm") >= 0:
-                    YAPI._yApiCLibFile = libpath + "/cdll/libyapi-armhf.so"
-                    YAPI._yApiCLibFileFallback = libpath + "/cdll/libyapi-armel.so"
+                if machine.find("aarch64") >= 0 or machine.find("arm") >= 0:
+                    if arch == '64bit':
+                        YAPI._yApiCLibFile = libpath + "/cdll/libyapi-aarch64.so"
+                        YAPI._yApiCLibFileFallback = libpath + "/cdll/libyapi-aarch64.so"
+                    else:
+                        YAPI._yApiCLibFile = libpath + "/cdll/libyapi-armhf.so"
+                        YAPI._yApiCLibFileFallback = libpath + "/cdll/libyapi-armel.so"
                 elif machine.find("mips") >= 0:
                     byteorder_str = sys.byteorder
                     if byteorder_str.lower() == 'little':
@@ -1053,6 +1203,7 @@ class YAPI:
             elif platform.system() == 'Darwin':
                 if sys.maxsize > 2 ** 32:
                     YAPI._yApiCLibFile = libpath + "/cdll/libyapi.dylib"
+                    YAPI._yApiCLibFile = os.path.abspath(YAPI._yApiCLibFile)
                 else:
                     raise NotImplementedError("Only Intel 64 bits installation are supported for Mac OS X.")
             #
@@ -1061,7 +1212,6 @@ class YAPI:
             else:
                 raise NotImplementedError("unsupported platform " + system +
                                           ", contact support@yoctopuce.com.")
-
         if not os.path.exists(YAPI._yApiCLibFile):
             raise ImportError(
                 "YAPI shared library is missing (" + YAPI._yApiCLibFile +
@@ -1092,7 +1242,6 @@ class YAPI:
             raise ImportError(
                 "Unable to import YAPI shared library (" + YAPI._yApiCLibFile +
                 "), make sure it is available and accessible.")
-
 
         ##--- (generated code: YFunction dlldef)
         YAPI._yapiInitAPI = YAPI._yApiCLib.yapiInitAPI
@@ -1275,6 +1424,33 @@ class YAPI:
         YAPI._yapiAddUdevRulesForYocto = YAPI._yApiCLib.yapiAddUdevRulesForYocto
         YAPI._yapiAddUdevRulesForYocto.restypes = ctypes.c_int
         YAPI._yapiAddUdevRulesForYocto.argtypes = [ctypes.c_int, ctypes.c_char_p]
+        YAPI._yapiSetSSLCertificateSrv = YAPI._yApiCLib.yapiSetSSLCertificateSrv
+        YAPI._yapiSetSSLCertificateSrv.restypes = ctypes.c_int
+        YAPI._yapiSetSSLCertificateSrv.argtypes = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_char_p]
+        YAPI._yapiAddSSLCertificateCli = YAPI._yApiCLib.yapiAddSSLCertificateCli
+        YAPI._yapiAddSSLCertificateCli.restypes = ctypes.c_int
+        YAPI._yapiAddSSLCertificateCli.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p]
+        YAPI._yapiSetNetworkSecurityOptions = YAPI._yApiCLib.yapiSetNetworkSecurityOptions
+        YAPI._yapiSetNetworkSecurityOptions.restypes = ctypes.c_int
+        YAPI._yapiSetNetworkSecurityOptions.argtypes = [ctypes.c_int, ctypes.c_char_p]
+        YAPI._yapiGetRemoteCertificate = YAPI._yApiCLib.yapiGetRemoteCertificate
+        YAPI._yapiGetRemoteCertificate.restypes = ctypes.c_int
+        YAPI._yapiGetRemoteCertificate.argtypes = [ctypes.c_char_p, ctypes.c_ulonglong, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_char_p]
+        YAPI._yapiGetNextHubRef = YAPI._yApiCLib.yapiGetNextHubRef
+        YAPI._yapiGetNextHubRef.restypes = ctypes.c_int
+        YAPI._yapiGetNextHubRef.argtypes = [ctypes.c_int]
+        YAPI._yapiGetHubStrAttr = YAPI._yApiCLib.yapiGetHubStrAttr
+        YAPI._yapiGetHubStrAttr.restypes = ctypes.c_int
+        YAPI._yapiGetHubStrAttr.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_char_p, ctypes.c_int, ctypes.c_void_p]
+        YAPI._yapiGetHubIntAttr = YAPI._yApiCLib.yapiGetHubIntAttr
+        YAPI._yapiGetHubIntAttr.restypes = ctypes.c_int
+        YAPI._yapiGetHubIntAttr.argtypes = [ctypes.c_int, ctypes.c_char_p]
+        YAPI._yapiSetHubIntAttr = YAPI._yApiCLib.yapiSetHubIntAttr
+        YAPI._yapiSetHubIntAttr.restypes = ctypes.c_int
+        YAPI._yapiSetHubIntAttr.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int]
+        YAPI._yapiSetTrustedCertificatesList = YAPI._yApiCLib.yapiSetTrustedCertificatesList
+        YAPI._yapiSetTrustedCertificatesList.restypes = ctypes.c_int
+        YAPI._yapiSetTrustedCertificatesList.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
     #--- (end of generated code: YFunction dlldef)
 
         YAPI._ydllLoaded = True
@@ -1311,8 +1487,8 @@ class YAPI:
         YFACE_EMPTY, YFACE_RUNNING, YFACE_ERROR = range(3)
 
     class _Event:
-        ARRIVAL, REMOVAL, CHANGE, FUN_VALUE, FUN_TIMEDREPORT, \
-            HUB_DISCOVERY, CONFCHANGE, BEACON_CHANGE, YAPI_NOP = range(9)
+        ARRIVAL, REMOVAL, CHANGE, FUN_VALUE, FUN_TIMEDREPORT, FUN_REFRESH, \
+            HUB_DISCOVERY, CONFCHANGE, BEACON_CHANGE, YAPI_NOP = range(10)
 
         def __init__(self):
             self.ev = self.YAPI_NOP
@@ -1351,6 +1527,10 @@ class YAPI:
             self.ev = self.FUN_VALUE
             self.func = func
             self.value = value
+
+        def setFunRefresh(self, func):
+            self.ev = self.FUN_REFRESH
+            self.func = func
 
         def setTimedReport(self, func, timestamp, duration, report):
             self.ev = self.FUN_TIMEDREPORT
@@ -1393,11 +1573,14 @@ class YAPI:
             elif self.ev == self.FUN_TIMEDREPORT:
                 if self.report[0] <= 2:
                     sensor = self.func
-                    sensor._invokeTimedReportCallback(sensor._decodeTimedReport(self.timestamp, self.duration, self.report))
+                    sensor._invokeTimedReportCallback(
+                        sensor._decodeTimedReport(self.timestamp, self.duration, self.report))
             elif self.ev == self.CONFCHANGE:
                 self.module._invokeConfigChangeCallback()
             elif self.ev == self.BEACON_CHANGE:
                 self.module._invokeBeaconCallback(self.beacon)
+            elif self.ev == self.FUN_REFRESH:
+                self.func.isOnline()
 
     ##--- (generated code: YFunction return codes)
     # Yoctopuce error codes, used by default as function return value
@@ -1417,6 +1600,17 @@ class YAPI:
     RTC_NOT_READY = -13            # real-time clock has not been initialized (or time was lost)
     FILE_NOT_FOUND = -14           # the file is not found
     SSL_ERROR = -15                # Error reported by mbedSSL
+    RFID_SOFT_ERROR = -16          # Recoverable error with RFID tag (eg. tag out of reach), check YRfidStatus for details
+    RFID_HARD_ERROR = -17          # Serious RFID error (eg. write-protected, out-of-boundary), check YRfidStatus for details
+    BUFFER_TOO_SMALL = -18         # The buffer provided is too small
+    DNS_ERROR = -19                # Error during name resolutions (invalid hostname or dns communication error)
+    SSL_UNK_CERT = -20             # The certificate is not correctly signed by the trusted CA
+
+    # TLS / SSL definitions
+    NO_TRUSTED_CA_CHECK = 1        # Disables certificate checking
+    NO_EXPIRATION_CHECK = 2        # Disables certificate expiration date checking
+    NO_HOSTNAME_CHECK = 4          # Disable hostname checking
+    LEGACY = 8                     # Allow non secure connection (similar to v1.10)
 
     #--- (end of generated code: YFunction return codes)
 
@@ -1434,7 +1628,8 @@ class YAPI:
 
     _yapiFunctionUpdateFunc = ctypes.CFUNCTYPE(None, ctypes.c_int, ctypes.c_char_p)
 
-    _yapiTimedReportFunc = ctypes.CFUNCTYPE(None, ctypes.c_int, ctypes.c_double, POINTER(c_ubyte), ctypes.c_int, ctypes.c_double)
+    _yapiTimedReportFunc = ctypes.CFUNCTYPE(None, ctypes.c_int, ctypes.c_double, POINTER(c_ubyte), ctypes.c_int,
+                                            ctypes.c_double)
 
     _yapiHubDiscoveryCallback = ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.c_char_p)
 
@@ -1459,7 +1654,7 @@ class YAPI:
         context.response = result
         context.errmsgRef = errmsgRef
 
-    #--- (generated code: YAPIContext yapiwrapper)
+    # --- (generated code: YAPIContext yapiwrapper)
     @staticmethod
     def SetDeviceListValidity(deviceListValidity):
         """
@@ -1474,6 +1669,8 @@ class YAPI:
         @param deviceListValidity : nubmer of seconds between each enumeration.
         @noreturn
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         YAPI._yapiContext.SetDeviceListValidity(deviceListValidity)
 
     @staticmethod
@@ -1484,6 +1681,8 @@ class YAPI:
 
         @return the number of seconds between each enumeration.
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         return YAPI._yapiContext.GetDeviceListValidity()
 
     @staticmethod
@@ -1499,7 +1698,75 @@ class YAPI:
 
         On failure, returns a string that starts with "error:".
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         return YAPI._yapiContext.AddUdevRule(force)
+
+    @staticmethod
+    def DownloadHostCertificate(url, mstimeout):
+        """
+        Download the TLS/SSL certificate from the hub. This function allows to download a TLS/SSL certificate to add it
+        to the list of trusted certificates using the AddTrustedCertificates method.
+
+        @param url : the root URL of the VirtualHub V2 or HTTP server.
+        @param mstimeout : the number of milliseconds available to download the certificate.
+
+        @return a string containing the certificate. In case of error, returns a string starting with "error:".
+        """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
+        return YAPI._yapiContext.DownloadHostCertificate(url, mstimeout)
+
+    @staticmethod
+    def AddTrustedCertificates(certificate):
+        """
+        Adds a TLS/SSL certificate to the list of trusted certificates. By default, the library
+        library will reject TLS/SSL connections to servers whose certificate is not known. This function
+        function allows to add a list of known certificates. It is also possible to disable the verification
+        using the SetNetworkSecurityOptions method.
+
+        @param certificate : a string containing one or more certificates.
+
+        @return an empty string if the certificate has been added correctly.
+                In case of error, returns a string starting with "error:".
+        """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
+        return YAPI._yapiContext.AddTrustedCertificates(certificate)
+
+    @staticmethod
+    def SetTrustedCertificatesList(certificatePath):
+        """
+        Set the path of Certificate Authority file on local filesystem. This method takes as a parameter
+        the path of a file containing all certificates in PEM format.
+        For technical reasons, only one file can be specified. So if you need to connect to several Hubs
+        instances with self-signed certificates, you'll need to use
+        a single file containing all the certificates end-to-end. Passing a empty string will restore the
+        default settings. This option is only supported by PHP library.
+
+        @param certificatePath : the path of the file containing all certificates in PEM format.
+
+        @return an empty string if the certificate has been added correctly.
+                In case of error, returns a string starting with "error:".
+        """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
+        return YAPI._yapiContext.SetTrustedCertificatesList(certificatePath)
+
+    @staticmethod
+    def SetNetworkSecurityOptions(opts):
+        """
+        Enables or disables certain TLS/SSL certificate checks.
+
+        @param opts : The options are YAPI.NO_TRUSTED_CA_CHECK,
+                YAPI.NO_EXPIRATION_CHECK, YAPI.NO_HOSTNAME_CHECK.
+
+        @return an empty string if the options are taken into account.
+                On error, returns a string beginning with "error:".
+        """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
+        return YAPI._yapiContext.SetNetworkSecurityOptions(opts)
 
     @staticmethod
     def SetNetworkTimeout(networkMsTimeout):
@@ -1513,6 +1780,8 @@ class YAPI:
         @param networkMsTimeout : the network connection delay in milliseconds.
         @noreturn
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         YAPI._yapiContext.SetNetworkTimeout(networkMsTimeout)
 
     @staticmethod
@@ -1526,6 +1795,8 @@ class YAPI:
 
         @return the network connection delay in milliseconds.
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         return YAPI._yapiContext.GetNetworkTimeout()
 
     @staticmethod
@@ -1543,6 +1814,8 @@ class YAPI:
                 loaded function parameters, in milliseconds.
         @noreturn
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         YAPI._yapiContext.SetCacheValidity(cacheValidityMs)
 
     @staticmethod
@@ -1556,7 +1829,21 @@ class YAPI:
         @return an integer corresponding to the validity attributed to the
                 loaded function parameters, in milliseconds
         """
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
         return YAPI._yapiContext.GetCacheValidity()
+
+    @staticmethod
+    def nextHubInUseInternal(hubref):
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
+        return YAPI._yapiContext.nextHubInUseInternal(hubref)
+
+    @staticmethod
+    def getYHubObj(hubref):
+        if not YAPI._apiInitialized:
+            YAPI.InitAPI(0)
+        return YAPI._yapiContext.getYHubObj(hubref)
 
     #--- (end of generated code: YAPIContext yapiwrapper)
 
@@ -1600,7 +1887,7 @@ class YAPI:
 
         @return YAPI.SUCCESS when the call succeeds.
 
-        On failure, throws an exception or returns a negative error code.
+        On failure returns a negative error code.
         """
         errBuffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
         if type(ms_duration) == type(int()):
@@ -1841,7 +2128,7 @@ class YAPI:
 
         @return YAPI.SUCCESS when the call succeeds.
 
-        On failure, throws an exception or returns a negative error code.
+        On failure returns a negative error code.
         """
         errBuffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
 
@@ -1857,7 +2144,6 @@ class YAPI:
                 # noinspection PyAttributeOutsideInit
                 errmsg.value = YByte2String(errBuffer.value)
             return res
-
         while len(YAPI._DataEvents) > 0:
             YAPI.yapiLockFunctionCallBack(errmsg)
             if not (len(YAPI._DataEvents)):
@@ -1885,8 +2171,7 @@ class YAPI:
         Re-enables the use of exceptions for runtime error handling.
         Be aware than when exceptions are enabled, every function that fails
         triggers an exception. If the exception is not caught by the user code,
-        it  either fires the debugger or aborts (i.e. crash) the program.
-        On failure, throws an exception or returns a negative error code.
+        it either fires the debugger or aborts (i.e. crash) the program.
         """
         YAPI.ExceptionsDisabled = False
 
@@ -1941,6 +2226,12 @@ class YAPI:
     def native_yDeviceArrivalCallback(d):
         YDevice.PlugDevice(d)
         infos = YAPI.emptyDeviceSt()
+        for i in range(len(YFunction._FunctionCallbacks)):
+            descriptor = YFunction._FunctionCallbacks[i].get_functionDescriptor()
+            if descriptor == YFunction.FUNCTIONDESCRIPTOR_INVALID:
+                ev = YAPI._Event()
+                ev.setFunRefresh(YFunction._FunctionCallbacks[i])
+                YAPI._DataEvents.append(ev)
         errmsgRef = YRefParam()
         if YAPI.yapiGetDeviceInfo(d, infos, errmsgRef) != YAPI.SUCCESS:
             return
@@ -2103,8 +2394,10 @@ class YAPI:
     def native_yFunctionUpdateCallback(f, data):
         if data is None:
             return
+        # look if we have a know objet online
         for i in range(len(YFunction._FunctionCallbacks)):
-            if YFunction._FunctionCallbacks[i].get_functionDescriptor() == f:
+            descriptor = YFunction._FunctionCallbacks[i].get_functionDescriptor()
+            if descriptor == f:
                 ev = YAPI._Event()
                 ev.setFunVal(YFunction._FunctionCallbacks[i], YByte2String(data))
                 YAPI._DataEvents.append(ev)
@@ -2262,7 +2555,7 @@ class YAPI:
 
         @return YAPI.SUCCESS when the call succeeds.
 
-        On failure, throws an exception or returns a negative error code.
+        On failure returns a negative error code.
         """
         errmsg_buffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
         if YAPI._apiInitialized:
@@ -2347,7 +2640,8 @@ class YAPI:
     @staticmethod
     def RegisterHub(url, errmsg=None):
         """
-        Setup the Yoctopuce library to use modules connected on a given machine. The
+        Setup the Yoctopuce library to use modules connected on a given machine. Idealy this
+        call will be made once at the begining of your application.  The
         parameter will determine how the API will work. Use the following values:
 
         <b>usb</b>: When the usb keyword is used, the API will work with
@@ -2357,9 +2651,15 @@ class YAPI:
 
         <b><i>x.x.x.x</i></b> or <b><i>hostname</i></b>: The API will use the devices connected to the
         host with the given IP address or hostname. That host can be a regular computer
-        running a VirtualHub, or a networked YoctoHub such as YoctoHub-Ethernet or
+        running a <i>native VirtualHub</i>, a <i>VirtualHub for web</i> hosted on a server,
+        or a networked YoctoHub such as YoctoHub-Ethernet or
         YoctoHub-Wireless. If you want to use the VirtualHub running on you local
-        computer, use the IP address 127.0.0.1.
+        computer, use the IP address 127.0.0.1. If the given IP is unresponsive, yRegisterHub
+        will not return until a time-out defined by ySetNetworkTimeout has elapsed.
+        However, it is possible to preventively test a connection  with yTestHub.
+        If you cannot afford a network time-out, you can use the non blocking yPregisterHub
+        function that will establish the connection as soon as it is available.
+
 
         <b>callback</b>: that keyword make the API run in "<i>HTTP Callback</i>" mode.
         This a special mode allowing to take control of Yoctopuce devices
@@ -2380,7 +2680,9 @@ class YAPI:
 
         http://username:password@address:port
 
-        You can call <i>RegisterHub</i> several times to connect to several machines.
+        You can call <i>RegisterHub</i> several times to connect to several machines. On
+        the other hand, it is useless and even counterproductive to call <i>RegisterHub</i>
+        with to same address multiple times during the life of the application.
 
         @param url : a string containing either "usb","callback" or the
                 root URL of the hub to monitor
@@ -2388,7 +2690,7 @@ class YAPI:
 
         @return YAPI.SUCCESS when the call succeeds.
 
-        On failure, throws an exception or returns a negative error code.
+        On failure returns a negative error code.
         """
         errmsg_buffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN + 1)
         if not YAPI._apiInitialized:
@@ -2409,7 +2711,8 @@ class YAPI:
         Fault-tolerant alternative to yRegisterHub(). This function has the same
         purpose and same arguments as yRegisterHub(), but does not trigger
         an error when the selected hub is not available at the time of the function call.
-        This makes it possible to register a network hub independently of the current
+        If the connexion cannot be established immediately, a background task will automatically
+        perform periodic retries. This makes it possible to register a network hub independently of the current
         connectivity, and to try to contact it only when a device is actively needed.
 
         @param url : a string containing either "usb","callback" or the
@@ -2418,7 +2721,7 @@ class YAPI:
 
         @return YAPI.SUCCESS when the call succeeds.
 
-        On failure, throws an exception or returns a negative error code.
+        On failure returns a negative error code.
         """
         errmsg_buffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
 
@@ -2493,7 +2796,7 @@ class YAPI:
 
         @return YAPI.SUCCESS when the call succeeds.
 
-        On failure, throws an exception or returns a negative error code.
+        On failure returns a negative error code.
         """
         errmsg_buffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
         if not YAPI._apiInitialized:
@@ -2501,21 +2804,18 @@ class YAPI:
             if YAPI.YISERR(res):
                 return res
         res = YAPI.yapiUpdateDeviceList(0, errmsg)
-        if YAPI.YISERR(res):
-            return res
-        # noinspection PyUnresolvedReferences
-        res = YAPI._yapiHandleEvents(errmsg_buffer)
-        if YAPI.YISERR(res):
-            if errmsg is not None:
-                # noinspection PyAttributeOutsideInit
-                errmsg.value = YByte2String(errmsg_buffer.value)
-            return res
+        if not YAPI.YISERR(res):
+            res = YAPI._yapiHandleEvents(errmsg_buffer)
+            if YAPI.YISERR(res):
+                if errmsg is not None:
+                    # noinspection PyAttributeOutsideInit
+                    errmsg.value = YByte2String(errmsg_buffer.value)
         while len(YAPI._PlugEvents) > 0:
             YAPI.yapiLockDeviceCallBack(errmsg)
             p = YAPI._PlugEvents.pop(0)
             YAPI.yapiUnlockDeviceCallBack(errmsg)
             p.invokePlug()
-        return YAPI.SUCCESS
+        return res
 
     @staticmethod
     def TriggerHubDiscovery(errmsg=None):
@@ -2526,7 +2826,7 @@ class YAPI:
         @param errmsg : a string passed by reference to receive any error message.
 
         @return YAPI.SUCCESS when the call succeeds.
-                On failure, throws an exception or returns a negative error code.
+                On failure returns a negative error code.
         """
         errmsg_buffer = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN + 1)
         if not YAPI._apiInitialized:
@@ -2671,6 +2971,14 @@ class YAPI:
         del YAPI._DataEvents[:]
         YFunction._CalibHandlers.clear()
 
+    @staticmethod
+    def _atof(str_float):
+        try:
+            res = float(str_float)
+        except ValueError:
+            res = 0.0
+        return res
+
 
 # --- (generated code: YFirmwareUpdate class start)
 #noinspection PyProtectedMember
@@ -2688,7 +2996,7 @@ class YFirmwareUpdate(object):
     def __init__(self, serial, path, settings, force=False):
         # --- (generated code: YFirmwareUpdate attributes)
         self._serial = ''
-        self._settings = ''
+        self._settings = bytearray()
         self._firmwarepath = ''
         self._progress_msg = ''
         self._progress_c = 0
@@ -2732,7 +3040,7 @@ class YFirmwareUpdate(object):
             self._progress = int((self._progress_c * 9) / (10))
             self._progress_msg = YByte2String(errmsg.value)
         else:
-            if (len(self._settings) != 0):
+            if (len(self._settings) != 0) and ( self._progress_c != 101):
                 self._progress_msg = "restoring settings"
                 m = YModule.FindModule(self._serial + ".module")
                 if not (m.isOnline()):
@@ -2763,9 +3071,7 @@ class YFirmwareUpdate(object):
     @staticmethod
     def GetAllBootLoaders():
         """
-        Returns a list of all the modules in "firmware update" mode. Only devices
-        connected over USB are listed. For devices connected to a YoctoHub, you
-        must connect yourself to the YoctoHub web interface.
+        Returns a list of all the modules in "firmware update" mode.
 
         @return an array of strings containing the serial numbers of devices in "firmware update" mode.
         """
@@ -2937,6 +3243,7 @@ class YDataStream(object):
         self._calraw = []
         self._calref = []
         self._values = []
+        self._isLoaded = 0
         #--- (end of generated code: YDataStream attributes)
         self._calhdl = None
         self._parent = parent
@@ -2971,7 +3278,7 @@ class YDataStream(object):
             self._startTime = self._utcStamp + (ms_offset / 1000.0)
         else:
             # // legacy encoding subtract the measure interval form the UTC timestamp
-            self._startTime = self._utcStamp -  self._dataSamplesInterval
+            self._startTime = self._utcStamp - self._dataSamplesInterval
         self._firstMeasureDuration = encoded[5]
         if not (self._isAvg):
             self._firstMeasureDuration = self._firstMeasureDuration / 1000.0
@@ -3032,6 +3339,8 @@ class YDataStream(object):
         # idx
         udat = []
         dat = []
+        if self._isLoaded and not (self._isClosed):
+            return YAPI.SUCCESS
         if len(sdata) == 0:
             self._nRows = 0
             return YAPI.SUCCESS
@@ -3042,24 +3351,46 @@ class YDataStream(object):
         if self._isAvg:
             while idx + 3 < len(udat):
                 del dat[:]
-                dat.append(self._decodeVal(udat[idx + 2] + (((udat[idx + 3]) << (16)))))
-                dat.append(self._decodeAvg(udat[idx] + (((((udat[idx + 1]) ^ (0x8000))) << (16))), 1))
-                dat.append(self._decodeVal(udat[idx + 4] + (((udat[idx + 5]) << (16)))))
+                if (udat[idx] == 65535) and (udat[idx + 1] == 65535):
+                    dat.append(float('nan'))
+                    dat.append(float('nan'))
+                    dat.append(float('nan'))
+                else:
+                    dat.append(self._decodeVal(udat[idx + 2] + (((udat[idx + 3]) << (16)))))
+                    dat.append(self._decodeAvg(udat[idx] + (((((udat[idx + 1]) ^ (0x8000))) << (16))), 1))
+                    dat.append(self._decodeVal(udat[idx + 4] + (((udat[idx + 5]) << (16)))))
                 idx = idx + 6
                 self._values.append(dat[:])
         else:
             while idx + 1 < len(udat):
                 del dat[:]
-                dat.append(self._decodeAvg(udat[idx] + (((((udat[idx + 1]) ^ (0x8000))) << (16))), 1))
+                if (udat[idx] == 65535) and (udat[idx + 1] == 65535):
+                    dat.append(float('nan'))
+                else:
+                    dat.append(self._decodeAvg(udat[idx] + (((((udat[idx + 1]) ^ (0x8000))) << (16))), 1))
                 self._values.append(dat[:])
                 idx = idx + 2
 
         self._nRows = len(self._values)
+        self._isLoaded = True
         return YAPI.SUCCESS
+
+    def _wasLoaded(self):
+        return self._isLoaded
 
     def _get_url(self):
         # url
         url = "logger.json?id=" + self._functionId + "&run=" + str(int(self._runNo)) + "&utc=" + str(int(self._utcStamp))
+        return url
+
+    def _get_baseurl(self):
+        # url
+        url = "logger.json?id=" + self._functionId + "&run=" + str(int(self._runNo)) + "&utc="
+        return url
+
+    def _get_urlsuffix(self):
+        # url
+        url = "" + str(int(self._utcStamp))
         return url
 
     def loadStream(self):
@@ -3257,7 +3588,7 @@ class YDataStream(object):
     def get_realDuration(self):
         if self._isClosed:
             return self._duration
-        return int(int(time.time()) - self._utcStamp)
+        return float(int(time.time()) - self._utcStamp)
 
     def get_dataRows(self):
         """
@@ -3439,6 +3770,7 @@ class YDataSet(object):
         self._hardwareId = ''
         self._functionId = ''
         self._unit = ''
+        self._bulkLoad = 0
         self._startTimeMs = 0
         self._endTimeMs = 0
         self._progress = 0
@@ -3485,6 +3817,8 @@ class YDataSet(object):
         streamEndTime = 0
         self._functionId = p.getString("id")
         self._unit = p.getString("unit")
+        if p.has("bulk"):
+            self._bulkLoad = YAPI._atoi(p.getString("bulk"))
         if p.has("calib"):
             self._calib = YAPI._decodeFloats(p.getString("calib"))
             self._calib[0] = round(self._calib[0] / 1000)
@@ -3567,7 +3901,7 @@ class YDataSet(object):
 
         # // Parse complete streams
         for y in self._streams:
-            streamStartTimeMs = round(y.get_realStartTimeUTC() *1000)
+            streamStartTimeMs = round(y.get_realStartTimeUTC() * 1000)
             streamDuration = y.get_realDuration()
             streamEndTimeMs = streamStartTimeMs + round(streamDuration * 1000)
             if (streamStartTimeMs >= self._startTimeMs) and ((self._endTimeMs == 0) or (streamEndTimeMs <= self._endTimeMs)):
@@ -3581,9 +3915,10 @@ class YDataSet(object):
             else:
                 # // stream that are partially in the dataset
                 # // we need to parse data to filter value outside the dataset
-                url = y._get_url()
-                data = self._parent._download(url)
-                y._parseStream(data)
+                if not (y._wasLoaded()):
+                    url = y._get_url()
+                    data = self._parent._download(url)
+                    y._parseStream(data)
                 dataRows = y.get_dataRows()
                 if len(dataRows) == 0:
                     return self.get_progress()
@@ -3608,7 +3943,7 @@ class YDataSet(object):
                 previewMaxVal = YAPI.MIN_DOUBLE
                 m_pos = 0
                 while m_pos < len(dataRows):
-                    measure_data  = dataRows[m_pos]
+                    measure_data = dataRows[m_pos]
                     if m_pos == 0:
                         mitv = fitv
                     else:
@@ -3626,8 +3961,9 @@ class YDataSet(object):
                             previewMinVal = minVal
                         if previewMaxVal < maxVal:
                             previewMaxVal = maxVal
-                        previewTotalAvg = previewTotalAvg + (avgVal * mitv)
-                        previewTotalTime = previewTotalTime + mitv
+                        if not (math.isnan(avgVal)):
+                            previewTotalAvg = previewTotalAvg + (avgVal * mitv)
+                            previewTotalTime = previewTotalTime + mitv
                     tim = end_
                     m_pos = m_pos + 1
                 if previewTotalTime > 0:
@@ -3663,19 +3999,30 @@ class YDataSet(object):
         # tim
         # itv
         # fitv
+        # avgv
         # end_
         # nCols
         # minCol
         # avgCol
         # maxCol
         # firstMeasure
+        # baseurl
+        # url
+        # suffix
+        suffixes = []
+        # idx
+        # bulkFile
+        streamStr = []
+        # urlIdx
+        # streamBin
 
         if progress != self._progress:
             return self._progress
         if self._progress < 0:
             return self.loadSummary(data)
         stream = self._streams[self._progress]
-        stream._parseStream(data)
+        if not (stream._wasLoaded()):
+            stream._parseStream(data)
         dataRows = stream.get_dataRows()
         self._progress = self._progress + 1
         if len(dataRows) == 0:
@@ -3705,10 +4052,39 @@ class YDataSet(object):
                 firstMeasure = False
             else:
                 end_ = tim + itv
-            if (end_ > self._startTimeMs) and ((self._endTimeMs == 0) or (tim < self._endTimeMs)):
-                self._measures.append(YMeasure(tim / 1000, end_ / 1000, y[minCol], y[avgCol], y[maxCol]))
+            avgv = y[avgCol]
+            if (end_ > self._startTimeMs) and ((self._endTimeMs == 0) or (tim < self._endTimeMs)) and not (math.isnan(avgv)):
+                self._measures.append(YMeasure(tim / 1000, end_ / 1000, y[minCol], avgv, y[maxCol]))
             tim = end_
 
+        # // Perform bulk preload to speed-up network transfer
+        if (self._bulkLoad > 0) and (self._progress < len(self._streams)):
+            stream = self._streams[self._progress]
+            if stream._wasLoaded():
+                return self.get_progress()
+            baseurl = stream._get_baseurl()
+            url = stream._get_url()
+            suffix = stream._get_urlsuffix()
+            suffixes.append(suffix)
+            idx = self._progress + 1
+            while (idx < len(self._streams)) and (len(suffixes) < self._bulkLoad):
+                stream = self._streams[idx]
+                if not (stream._wasLoaded()) and (stream._get_baseurl() == baseurl):
+                    suffix = stream._get_urlsuffix()
+                    suffixes.append(suffix)
+                    url = url + "," + suffix
+                idx = idx + 1
+            bulkFile = self._parent._download(url)
+            streamStr = self._parent._json_get_array(bulkFile)
+            urlIdx = 0
+            idx = self._progress
+            while (idx < len(self._streams)) and (urlIdx < len(suffixes)) and (urlIdx < len(streamStr)):
+                stream = self._streams[idx]
+                if (stream._get_baseurl() == baseurl) and (stream._get_urlsuffix() == suffixes[urlIdx]):
+                    streamBin = YString2Byte(streamStr[urlIdx])
+                    stream._parseStream(streamBin)
+                    urlIdx = urlIdx + 1
+                idx = idx + 1
         return self.get_progress()
 
     def get_privateDataStreams(self):
@@ -3811,7 +4187,7 @@ class YDataSet(object):
 
     def loadMore(self):
         """
-        Loads the the next block of measures from the dataLogger, and updates
+        Loads the next block of measures from the dataLogger, and updates
         the progress indicator.
 
         @return an integer in the range 0 to 100 (percentage of completion),
@@ -3826,12 +4202,15 @@ class YDataSet(object):
             if self._startTimeMs != 0:
                 url = "" + url + "&from=" + str(int(self.imm_get_startTimeUTC()))
             if self._endTimeMs != 0:
-                url = "" + url + "&to=" + str(int(self.imm_get_endTimeUTC()+1))
+                url = "" + url + "&to=" + str(int(self.imm_get_endTimeUTC() + 1))
         else:
             if self._progress >= len(self._streams):
                 return 100
             else:
                 stream = self._streams[self._progress]
+                if stream._wasLoaded():
+                    # // Do not reload stream if it was already loaded
+                    return self.processMore(self._progress, YString2Byte(""))
                 url = stream._get_url()
         try:
             return self.processMore(self._progress, self._parent._download(url))
@@ -4130,7 +4509,7 @@ class YConsolidatedDataSet(object):
                 newvalue = measures[idx].get_averageValue()
                 datarec.append(newvalue)
                 self._nexttim[s] = 0.0
-                self._nextidx[s] = idx+1
+                self._nextidx[s] = idx + 1
             else:
                 datarec.append(float('nan'))
             currprogress = self._progresss[s]
@@ -4371,6 +4750,216 @@ native_yBeaconChangeCallbackAnchor = YAPI._yapiBeaconUpdateFunc(YAPI.native_yBea
 native_yHubDiscoveryAnchor = YAPI._yapiHubDiscoveryCallback(YAPI.native_HubDiscoveryCallback)
 # noinspection PyProtectedMember
 native_yDeviceLogAnchor = YAPI._yapiDeviceLogCallback(YAPI.native_DeviceLogCallback)
+
+
+# --- (generated code: YHub class start)
+#noinspection PyProtectedMember
+class YHub(object):
+    #--- (end of generated code: YHub class start)
+    # --- (generated code: YHub definitions)
+    #--- (end of generated code: YHub definitions)
+
+    def __init__(self, yctx, hubref):
+        # --- (generated code: YHub attributes)
+        self._ctx = None
+        self._hubref = 0
+        self._userData = None
+        #--- (end of generated code: YHub attributes)
+        self._ctx = yctx
+        self._hubref = hubref
+
+    # --- (generated code: YHub implementation)
+    def _getStrAttr(self, attrName):
+        val = ctypes.create_string_buffer(1024)
+        # res
+        fullsize = ctypes.c_int()
+        fullsize.value = 0
+        res = YAPI._yapiGetHubStrAttr(self._hubref, ctypes.create_string_buffer(YString2Byte(attrName)), val, 1024, ctypes.byref(fullsize))
+        if res > 0:
+            return YByte2String(val.value)
+        return ""
+
+    def _getIntAttr(self, attrName):
+        return YAPI._yapiGetHubIntAttr(self._hubref, ctypes.create_string_buffer(YString2Byte(attrName)))
+
+    def _setIntAttr(self, attrName, value):
+        YAPI._yapiSetHubIntAttr(self._hubref, ctypes.create_string_buffer(YString2Byte(attrName)), value)
+
+    def get_registeredUrl(self):
+        """
+        Returns the URL that has been used first to register this hub.
+        """
+        return self._getStrAttr("registeredUrl")
+
+    def get_knownUrls(self):
+        """
+        Returns all known URLs that have been used to register this hub.
+        URLs are pointing to the same hub when the devices connected
+        are sharing the same serial number.
+        """
+        smallbuff = ctypes.create_string_buffer(1024)
+        # bigbuff
+        # buffsize
+        fullsize = ctypes.c_int()
+        # yapi_res
+        # urls_packed
+        # known_url_val
+        url_list = []
+
+        fullsize.value = 0
+        known_url_val = "knownUrls"
+        yapi_res = YAPI._yapiGetHubStrAttr(self._hubref, ctypes.create_string_buffer(YString2Byte(known_url_val)), smallbuff, 1024, ctypes.byref(fullsize))
+        if yapi_res < 0:
+            return url_list
+        if fullsize.value <= 1024:
+            urls_packed = YByte2String(smallbuff.value)
+        else:
+            buffsize = fullsize.value
+            bigbuff = ctypes.create_string_buffer(buffsize)
+            yapi_res = YAPI._yapiGetHubStrAttr(self._hubref, ctypes.create_string_buffer(YString2Byte(known_url_val)), bigbuff, buffsize, ctypes.byref(fullsize))
+            if yapi_res < 0:
+                bigbuff = None
+                return url_list
+            else:
+                urls_packed = YByte2String(bigbuff.value)
+            bigbuff = None
+        if not (urls_packed == ""):
+            url_list = (urls_packed).split('?')
+        return url_list
+
+    def get_connectionUrl(self):
+        """
+        Returns the URL currently in use to communicate with this hub.
+        """
+        return self._getStrAttr("connectionUrl")
+
+    def get_serialNumber(self):
+        """
+        Returns the hub serial number, if the hub was already connected once.
+        """
+        return self._getStrAttr("serialNumber")
+
+    def isInUse(self):
+        """
+        Tells if this hub is still registered within the API.
+
+        @return true if the hub has not been unregistered.
+        """
+        return self._getIntAttr("isInUse") > 0
+
+    def isOnline(self):
+        """
+        Tells if there is an active communication channel with this hub.
+
+        @return true if the hub is currently connected.
+        """
+        return self._getIntAttr("isOnline") > 0
+
+    def isReadOnly(self):
+        """
+        Tells if write access on this hub is blocked. Return true if it
+        is not possible to change attributes on this hub
+
+        @return true if it is not possible to change attributes on this hub.
+        """
+        return self._getIntAttr("isReadOnly") > 0
+
+    def set_networkTimeout(self, networkMsTimeout):
+        """
+        Modifies tthe network connection delay for this hub.
+        The default value is inherited from ySetNetworkTimeout
+        at the time when the hub is registered, but it can be updated
+        afterwards for each specific hub if necessary.
+
+        @param networkMsTimeout : the network connection delay in milliseconds.
+        @noreturn
+        """
+        self._setIntAttr("networkTimeout",networkMsTimeout)
+
+    def get_networkTimeout(self):
+        """
+        Returns the network connection delay for this hub.
+        The default value is inherited from ySetNetworkTimeout
+        at the time when the hub is registered, but it can be updated
+        afterwards for each specific hub if necessary.
+
+        @return the network connection delay in milliseconds.
+        """
+        return self._getIntAttr("networkTimeout")
+
+    def get_errorType(self):
+        """
+        Returns the numerical error code of the latest error with the hub.
+        This method is mostly useful when using the Yoctopuce library with
+        exceptions disabled.
+
+        @return a number corresponding to the code of the latest error that occurred while
+                using the hub object
+        """
+        return self._getIntAttr("errorType")
+
+    def get_errorMessage(self):
+        """
+        Returns the error message of the latest error with the hub.
+        This method is mostly useful when using the Yoctopuce library with
+        exceptions disabled.
+
+        @return a string corresponding to the latest error message that occured while
+                using the hub object
+        """
+        return self._getStrAttr("errorMessage")
+
+    def get_userData(self):
+        """
+        Returns the value of the userData attribute, as previously stored
+        using method set_userData.
+        This attribute is never touched directly by the API, and is at
+        disposal of the caller to store a context.
+
+        @return the object stored previously by the caller.
+        """
+        return self._userData
+
+    def set_userData(self, data):
+        """
+        Stores a user context provided as argument in the userData
+        attribute of the function.
+        This attribute is never touched by the API, and is at
+        disposal of the caller to store a context.
+
+        @param data : any kind of object to be stored
+        @noreturn
+        """
+        self._userData = data
+
+    @staticmethod
+    def FirstHubInUse():
+        """
+        Starts the enumeration of hubs currently in use by the API.
+        Use the method YHub.nextHubInUse() to iterate on the
+        next hubs.
+
+        @return a pointer to a YHub object, corresponding to
+                the first hub currently in use by the API, or a
+                None pointer if none has been registered.
+        """
+        return YAPI.nextHubInUseInternal(-1)
+
+    def nextHubInUse(self):
+        """
+        Continues the module enumeration started using YHub.FirstHubInUse().
+        Caution: You can't make any assumption about the order of returned hubs.
+
+        @return a pointer to a YHub object, corresponding to
+                the next hub currenlty in use, or a None pointer
+                if there are no more hubs to enumerate.
+        """
+        return self._ctx.nextHubInUseInternal(self._hubref)
+
+#--- (end of generated code: YHub implementation)
+
+# --- (generated code: YHub functions)
+#--- (end of generated code: YHub functions)
 
 
 # --- (generated code: YFunction class start)
@@ -4638,7 +5227,7 @@ class YFunction(object):
         # Get device Object
         res = self._getDevice(devRef, errmsgRef)
         if YAPI.YISERR(res):
-            self._throw(res, request)
+            self._throw(res, YByte2String(request))
             return b""
         res = devRef.value.HTTPRequest(request, httpbuffer, errmsgRef)
         if YAPI.YISERR(res):
@@ -4676,7 +5265,7 @@ class YFunction(object):
             content = bytes(content)
         elif not isinstance(content, bytes):
             if isinstance(content, array.array):
-                content = content.tostring()
+                content = YArrayToBytes(content)
             else:
                 content = content.encode("latin1")
         body = body.encode("ASCII") + content
@@ -4843,13 +5432,13 @@ class YFunction(object):
         """
         Retrieves a function for a given identifier.
         The identifier can be specified using several formats:
-        <ul>
-        <li>FunctionLogicalName</li>
-        <li>ModuleSerialNumber.FunctionIdentifier</li>
-        <li>ModuleSerialNumber.FunctionLogicalName</li>
-        <li>ModuleLogicalName.FunctionIdentifier</li>
-        <li>ModuleLogicalName.FunctionLogicalName</li>
-        </ul>
+
+        - FunctionLogicalName
+        - ModuleSerialNumber.FunctionIdentifier
+        - ModuleSerialNumber.FunctionLogicalName
+        - ModuleLogicalName.FunctionIdentifier
+        - ModuleLogicalName.FunctionLogicalName
+
 
         This function does not require that the function is online at the time
         it is invoked. The returned object is nevertheless valid.
@@ -4951,10 +5540,11 @@ class YFunction(object):
 
     def isReadOnly(self):
         """
-        Test if the function is readOnly. Return true if the function is write protected
-        or that the function is not available.
+        Indicates whether changes to the function are prohibited or allowed.
+        Returns true if the function is blocked by an admin password
+        or if the function is not available.
 
-        @return true if the function is readOnly or not online.
+        @return true if the function is write-protected or not online.
         """
         # serial
         errmsg = ctypes.create_string_buffer(YAPI.YOCTO_ERRMSG_LEN)
@@ -5288,14 +5878,14 @@ class YFunction(object):
         funcIdRef = YRefParam()
         funcNameRef = YRefParam()
         funcValueRef = YRefParam()
-
+        if self._serial != '':
+            return YModule.FindModule(self._serial + ".module")
         fundescr = YAPI.yapiGetFunction(self._className, self._func, errmsgRef)
         if not YAPI.YISERR(fundescr):
             if not YAPI.YISERR(
                     YAPI.yapiGetFunctionInfo(fundescr, devdescrRef, serialRef, funcIdRef, funcNameRef, funcValueRef,
                                              errmsgRef)):
                 return YModule.FindModule(serialRef.value + ".module")
-
         # return a true YModule object even if it is not a module valid for communicating
         return YModule.FindModule("module_of_" + self._className + "_" + self._func)
 
@@ -5752,7 +6342,7 @@ class YModule(YFunction):
         prodname = self.get_productName()
         prodrel = self.get_productRelease()
         if prodrel > 1:
-            fullname = "" + prodname + " rev. " + str(chr(64+prodrel))
+            fullname = "" + prodname + " rev. " + str(chr(64 + prodrel))
         else:
             fullname = prodname
         return fullname
@@ -5818,8 +6408,10 @@ class YModule(YFunction):
         Registers a device log callback function. This callback will be called each time
         that a module sends a new log message. Mostly useful to debug a Yoctopuce module.
 
-        @param callback : the callback function to call, or a None pointer. The callback function should take two
-                arguments: the module object that emitted the log message, and the character string containing the log.
+        @param callback : the callback function to call, or a None pointer.
+                The callback function should take two
+                arguments: the module object that emitted the log message,
+                and the character string containing the log.
                 On failure, throws an exception or returns a negative error code.
         """
         # serial
@@ -6272,7 +6864,7 @@ class YModule(YFunction):
                         maxSize = len(words)
                     i = 3
                     while i < maxSize:
-                        calibData.append(int(words[i]))
+                        calibData.append(float(words[i]))
                         i = i + 1
             else:
                 if paramVer == 1:
@@ -6287,11 +6879,11 @@ class YModule(YFunction):
                             maxSize = len(words)
                         i = 1
                         while i < maxSize:
-                            calibData.append(int(words[i]))
+                            calibData.append(float(words[i]))
                             i = i + 1
                 else:
                     if paramVer == 0:
-                        ratio = float(param)
+                        ratio = YAPI._atof(param)
                         if ratio > 0:
                             calibData.append(0.0)
                             calibData.append(0.0)
@@ -6629,6 +7221,23 @@ class YModule(YFunction):
         self.clearCache()
         return res
 
+    def addFileToHTTPCallback(self, filename):
+        """
+        Adds a file to the uploaded data at the next HTTP callback.
+        This function only affects the next HTTP callback and only works in
+        HTTP callback mode.
+
+        @param filename : the name of the file to upload at the next HTTP callback
+
+        @return nothing.
+        """
+        # content
+
+        content = self._download("@YCB+" + filename)
+        if len(content) == 0:
+            return YAPI.NOT_SUPPORTED
+        return YAPI.SUCCESS
+
     def get_hardwareId(self):
         """
         Returns the unique hardware identifier of the module.
@@ -6903,12 +7512,13 @@ class YModule(YFunction):
 
     def functionType(self, functionIndex):
         """
-        Retrieves the type of the <i>n</i>th function on the module.
+        Retrieves the type of the <i>n</i>th function on the module. Yoctopuce functions type names match
+        their class names without the <i>Y</i> prefix, for instance <i>Relay</i>, <i>Temperature</i> etc..
 
         @param functionIndex : the index of the function for which the information is desired, starting at
         0 for the first function.
 
-        @return a string corresponding to the type of the function
+        @return a string corresponding to the type of the function.
 
         On failure, throws an exception or returns an empty string.
         """
@@ -6926,7 +7536,7 @@ class YModule(YFunction):
 
         funid = funcIdRef.value
         i = len(funid)
-        while i > 0 and '0' <= funid[i-1] <= '9':
+        while i > 0 and '0' <= funid[i - 1] <= '9':
             i -= 1
         res = funid[1:i]
         return funid[0].upper() + res
@@ -7112,13 +7722,13 @@ class YSensor(YFunction):
         if json_val.has("unit"):
             self._unit = json_val.getString("unit")
         if json_val.has("currentValue"):
-            self._currentValue = round(json_val.getDouble("currentValue") * 1000.0 / 65536.0) / 1000.0
+            self._currentValue = round(json_val.getDouble("currentValue") / 65.536) / 1000.0
         if json_val.has("lowestValue"):
-            self._lowestValue = round(json_val.getDouble("lowestValue") * 1000.0 / 65536.0) / 1000.0
+            self._lowestValue = round(json_val.getDouble("lowestValue") / 65.536) / 1000.0
         if json_val.has("highestValue"):
-            self._highestValue = round(json_val.getDouble("highestValue") * 1000.0 / 65536.0) / 1000.0
+            self._highestValue = round(json_val.getDouble("highestValue") / 65.536) / 1000.0
         if json_val.has("currentRawValue"):
-            self._currentRawValue = round(json_val.getDouble("currentRawValue") * 1000.0 / 65536.0) / 1000.0
+            self._currentRawValue = round(json_val.getDouble("currentRawValue") / 65.536) / 1000.0
         if json_val.has("logFrequency"):
             self._logFrequency = json_val.getString("logFrequency")
         if json_val.has("reportFrequency"):
@@ -7128,7 +7738,7 @@ class YSensor(YFunction):
         if json_val.has("calibrationParam"):
             self._calibrationParam = json_val.getString("calibrationParam")
         if json_val.has("resolution"):
-            self._resolution = round(json_val.getDouble("resolution") * 1000.0 / 65536.0) / 1000.0
+            self._resolution = round(json_val.getDouble("resolution") / 65.536) / 1000.0
         if json_val.has("sensorState"):
             self._sensorState = json_val.getInt("sensorState")
         super(YSensor, self)._parseAttr(json_val)
@@ -7410,11 +8020,10 @@ class YSensor(YFunction):
 
     def get_sensorState(self):
         """
-        Returns the sensor health state code, which is zero when there is an up-to-date measure
+        Returns the sensor state code, which is zero when there is an up-to-date measure
         available or a positive code if the sensor is not able to provide a measure right now.
 
-        @return an integer corresponding to the sensor health state code, which is zero when there is an
-        up-to-date measure
+        @return an integer corresponding to the sensor state code, which is zero when there is an up-to-date measure
                 available or a positive code if the sensor is not able to provide a measure right now
 
         On failure, throws an exception or returns YSensor.SENSORSTATE_INVALID.
@@ -7431,13 +8040,13 @@ class YSensor(YFunction):
         """
         Retrieves a sensor for a given identifier.
         The identifier can be specified using several formats:
-        <ul>
-        <li>FunctionLogicalName</li>
-        <li>ModuleSerialNumber.FunctionIdentifier</li>
-        <li>ModuleSerialNumber.FunctionLogicalName</li>
-        <li>ModuleLogicalName.FunctionIdentifier</li>
-        <li>ModuleLogicalName.FunctionLogicalName</li>
-        </ul>
+
+        - FunctionLogicalName
+        - ModuleSerialNumber.FunctionIdentifier
+        - ModuleSerialNumber.FunctionLogicalName
+        - ModuleLogicalName.FunctionIdentifier
+        - ModuleLogicalName.FunctionLogicalName
+
 
         This function does not require that the sensor is online at the time
         it is invoked. The returned object is nevertheless valid.
@@ -7613,7 +8222,7 @@ class YSensor(YFunction):
         # res
 
         res = self._download("api/dataLogger/recording?recording=1")
-        if not (len(res)>0):
+        if not (len(res) > 0):
             self._throw(YAPI.IO_ERROR, "unable to start datalogger")
             return YAPI.IO_ERROR
         return YAPI.SUCCESS
@@ -7627,7 +8236,7 @@ class YSensor(YFunction):
         # res
 
         res = self._download("api/dataLogger/recording?recording=0")
-        if not (len(res)>0):
+        if not (len(res) > 0):
             self._throw(YAPI.IO_ERROR, "unable to stop datalogger")
             return YAPI.IO_ERROR
         return YAPI.SUCCESS
@@ -7738,7 +8347,7 @@ class YSensor(YFunction):
         del rawValues[:]
         del refValues[:]
         # // Load function parameters if not yet loaded
-        if self._scale == 0:
+        if (self._scale == 0) or (self._cacheExpiration <= YAPI.GetTickCount()):
             if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
                 return YAPI.DEVICE_NOT_FOUND
         if self._caltyp < 0:
@@ -7958,7 +8567,7 @@ class YDataLogger(YFunction):
     sensors. Recording can happen automatically, without requiring a permanent
     connection to a computer.
     The YDataLogger class controls the global parameters of the internal data
-    logger. Recording control (start/stop) as well as data retreival is done at
+    logger. Recording control (start/stop) as well as data retrieval is done at
     sensor objects level.
 
     """
@@ -8192,13 +8801,13 @@ class YDataLogger(YFunction):
         """
         Retrieves a data logger for a given identifier.
         The identifier can be specified using several formats:
-        <ul>
-        <li>FunctionLogicalName</li>
-        <li>ModuleSerialNumber.FunctionIdentifier</li>
-        <li>ModuleSerialNumber.FunctionLogicalName</li>
-        <li>ModuleLogicalName.FunctionIdentifier</li>
-        <li>ModuleLogicalName.FunctionLogicalName</li>
-        </ul>
+
+        - FunctionLogicalName
+        - ModuleSerialNumber.FunctionIdentifier
+        - ModuleSerialNumber.FunctionLogicalName
+        - ModuleLogicalName.FunctionIdentifier
+        - ModuleLogicalName.FunctionLogicalName
+
 
         This function does not require that the data logger is online at the time
         it is invoked. The returned object is nevertheless valid.
@@ -8213,7 +8822,7 @@ class YDataLogger(YFunction):
         call registerHub() at application initialization time.
 
         @param func : a string that uniquely characterizes the data logger, for instance
-                RX420MA1.dataLogger.
+                LIGHTMK4.dataLogger.
 
         @return a YDataLogger object allowing you to drive the data logger.
         """

@@ -18,11 +18,8 @@
         <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
         <forum />
         <email />
-        <news>
-            v0.2.3 - Force architecture to work with CoreElec on Odroid consistently.
+        <news>v0.2.3
+            - Strip leading 0: etc from time remaining
         </news>
-        <assets>
-            <icon>resources/icon.png</icon>
-        </assets>
     </extension>
 </addon>

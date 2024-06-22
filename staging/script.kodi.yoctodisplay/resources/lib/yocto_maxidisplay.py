@@ -152,7 +152,7 @@ class YoctoMaxiDisplay:
         :return: None
         """
 
-        log(f'display_text {lines}')
+        #log(f'display_text {lines}')
 
         YoctoMaxiDisplay.drawingLayer.clear()
         number_of_lines = len(lines)
