@@ -1171,7 +1171,7 @@
 			</control>
 		</control>
 		<control type="group" id="10">
-			<!-- Bossanov808 Mod - Add faster profile switching -->
+			<!-- Bossanova808 Mod - Add faster profile switching -->
 			<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEmpty(System.ProfileName)">conditional</animation>
 			<animation effect="slide" start="0,0" end="-75,0" time="0" condition="String.IsEmpty(System.ProfileName)">conditional</animation>
 			<depth>DepthFooter</depth>
@@ -1296,7 +1296,7 @@
 					<texture>icon_search.png</texture>
 				</control>
 			</control>
-			<!-- END Bossanov808 Mod - Add faster profile switching -->
+			<!-- END Bossanova808 Mod - Add faster profile switching -->
 		</control>
 		<control type="group">
 			<depth>DepthHeader</depth>
@@ -1326,7 +1326,7 @@
 					<aspectratio>keep</aspectratio>
 					<texture>$INFO[Weather.ConditionsIcon]</texture>
 				</control>
-				<!-- BOSSANOVA808 MOD - OzWesther Support -->
+				<!-- BOSSANOVA808 MOD - OzWeather Support -->
 				<control type="label">
 					<description>Location label</description>
 					<left>98</left>

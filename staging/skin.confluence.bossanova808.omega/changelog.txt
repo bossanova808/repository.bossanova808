@@ -1,3 +1,6 @@
+v5.0.701 
+Sync with 5.0.7 upstrem (DialogSubtitles and debug grid fix)
+
 v5.0.602 
 Disable a few more label scrolls to solve CoreElec performance issues
 
