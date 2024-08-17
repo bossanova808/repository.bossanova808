@@ -1,5 +1,8 @@
+v5.0.702
+Add new macros system & use it for fast profile switching
+
 v5.0.701 
-Sync with 5.0.7 upstrem (DialogSubtitles and debug grid fix)
+Sync with 5.0.7 upstream (DialogSubtitles and debug grid fix)
 
 v5.0.602 
 Disable a few more label scrolls to solve CoreElec performance issues

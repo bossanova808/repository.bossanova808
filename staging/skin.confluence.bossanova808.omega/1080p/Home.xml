@@ -1187,13 +1187,15 @@
 					<height>60</height>
 					<label>1036</label>
 					<font />
-					<!-- List starts from 0 it seems -->
-					<onclick condition="String.IsEmpty(System.ProfileName)">ActivateWindowAndFocus(10029)</onclick>
-					<onclick condition="!String.IsEmpty(System.ProfileName) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away)">ActivateWindowAndFocus(10029)</onclick>
-					<onclick condition="String.IsEqual(System.ProfileName,Adults)">ActivateWindowAndFocus(10029,52,2)</onclick>
-					<onclick condition="String.IsEqual(System.ProfileName,Kids)">ActivateWindowAndFocus(10029,52,1)</onclick>
-					<onclick condition="String.IsEqual(System.ProfileName,Adults - Away)">ActivateWindowAndFocus(10029,52,4)</onclick>
-					<onclick condition="String.IsEqual(System.ProfileName,Kids - Away)">ActivateWindowAndFocus(10029,52,3)</onclick>
+<!-- Traditional profile switching - log off current user & return to log in screen -->
+                    <onclick condition="String.IsEmpty(System.ProfileName)">System.LogOff</onclick>
+                    <onclick condition="!String.IsEmpty(System.ProfileName) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away)">System.LogOff</onclick>
+<!-- Bossanova808 Specific fast profile switching -->
+					<onclick condition="String.IsEqual(System.ProfileName,Adults)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Kids)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Adults - Away)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids - Away)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Kids - Away)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults - Away)</onclick>
+<!-- END Bossanova808 Specific fast profile switching -->
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<texturenofocus border="5">floor_button.png</texturenofocus>
 					<onleft>23</onleft>
