@@ -1,3 +1,6 @@
+v0.3.9
+Fix Estouchy for Omega
+
 v0.3.8
 Fix Confluence Blade Menu
 

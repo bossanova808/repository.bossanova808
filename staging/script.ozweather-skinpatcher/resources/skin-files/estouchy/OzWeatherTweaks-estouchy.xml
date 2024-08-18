@@ -16,10 +16,10 @@
     <constant name="RadarSquare">40%</constant>
     <constant name="RadarLegend">48%</constant>
 
-    <constant name="MasterXOffset">0</constant>
+    <constant name="MasterXOffset">-2%</constant>
     <constant name="MasterYOffset">-7%</constant>
-    <constant name="WeatherInfoLineHeight">25%</constant>
-    <constant name="WeatherIconPosY">6%</constant>
-    <constant name="HighValuePosY">6%</constant>
+    <constant name="WeatherInfoLineHeight">27%</constant>
+    <constant name="WeatherIconPosY">0%</constant>
+    <constant name="HighValuePosY">4%</constant>
 
 </includes>

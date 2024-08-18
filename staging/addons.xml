@@ -54,7 +54,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.8" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.9" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
         </requires>
@@ -82,7 +82,7 @@
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
             <news>
-                v0.3.8 Fix Confluence Blade Menu
+                v0.3.9 Fix Estouchy for Omega
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
