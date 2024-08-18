@@ -30,7 +30,14 @@ REPOSITORY_DOWNLOADS_DIR = os.path.join(os.getcwd(), "repository-downloads")
 
 # Get the list of addons
 with os.scandir(STAGING_DIR) as staging_dir:
-    addons = [i.name for i in staging_dir if i.is_dir() and not i.name.startswith('.') and not i.name.startswith('dirhash')]
+    addons = [i.name for i in staging_dir if i.is_dir()
+              and not i.name.startswith('.')
+              and not i.name.startswith('dirhash')
+              and not i.name.startswith('script.starter')
+              # only release these once they're done...
+              and not i.name.startswith('script.module.bossanova808')
+              and not i.name.startswith('script.switchback')
+              ]
     # console.log(f"Addons found:")
     # console.log(addons)
 

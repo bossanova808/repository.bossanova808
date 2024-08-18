@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.switchback" name="Switchback" version="0.0.1" provider-name="bossanova808">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.bossanova808" version="0.0.1"/>
+    </requires>
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Utility for fast switching between recently played media.</summary>
+        <description lang="en_GB">
+            Planned functionality: add to Play/Resume menu options to resume the last three media items that have been played.
+            Possibly?  Register recently played media for easy display in skins?
+        </description>
+        <platform>all</platform>
+        <license>GPL-3.0-only</license>
+        <website>https://github.com/bossanova808/repository.bossanova808/</website>
+        <source>https://github.com/bossanova808/repository.bossanova808/</source>
+        <forum />
+        <email />
+        <news>
+            v0.0.1 Alpha pre-release
+        </news>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+    </extension>
+</addon>
