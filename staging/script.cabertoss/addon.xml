@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.cabertoss" name="Caber Toss" version="0.0.1" provider-name="bossanova808">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.bossanova808" version="0.0.1"/>
+    </requires>
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Provides an easy way to save / email log files.</summary>
+        <description lang="en_GB">
+            Caber toss makes it super easy to save your Kodi log files for later review when something not-quite-right happens.  
+            
+            Whenever the bad thing happens, just run this add on straight after and any standard Kodi log files present (i.e. kodi.log, kod.old.log and the latest kodi.crashlog) will be copied to the folder you've configured (in a date-timed folder).
+            
+            Doing this straight after the bad thing has happened makes it much easier to find the issue later, and means you can carry on watching with minimum disruption at the time.
+            
+            (Even better - bind the command RunScript(script.cabertoss) to a remote key and make it basically transparent!)
+        </description>
+        <platform>all</platform>
+        <license>GPL-3.0-only</license>
+        <website>https://github.com/bossanova808/repository.bossanova808/</website>
+        <source>https://github.com/bossanova808/repository.bossanova808/</source>
+        <forum />
+        <email />
+        <news>
+            v0.0.1 Alpha pre-release
+        </news>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+    </extension>
+</addon>

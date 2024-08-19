@@ -37,6 +37,7 @@ with os.scandir(STAGING_DIR) as staging_dir:
               # only release these once they're done...
               and not i.name.startswith('script.module.bossanova808')
               and not i.name.startswith('script.switchback')
+              and not i.name.startswith('script.cabertoss')
               ]
     # console.log(f"Addons found:")
     # console.log(addons)
