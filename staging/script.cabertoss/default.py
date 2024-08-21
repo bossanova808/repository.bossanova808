@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from resources.lib import starter
+from resources.lib import cabertoss
 
 if __name__ == "__main__":
-    starter.run()
+    cabertoss.run()

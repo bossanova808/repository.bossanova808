@@ -18,10 +18,14 @@ msgid "General"
 msgstr ""
 
 msgctxt "#32001"
-msgid "Some Setting Group"
+msgid "Toss log files to..."
 msgstr ""
 
-msgctxt "#32002"
-msgid "Some Toggle Setting"
+msgctxt "#32023"
+msgid "Windows crashlogs are not supported, sorry"
 msgstr ""
+
+msgctxt "#32024"
+msgid "Android crashlogs are not supported, sorry"
+msgstr "
 

@@ -1,14 +1,19 @@
 
-Kodi Script Starter
+Caber Toss for Kodi
 ===================================
 
-_script.starter_
+_script.cabertoss_
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/bossanova808)
 
 _<Currently in development!>_
 
-A Bossanova808 Kodi script starter kit...
+A script to toss your Kodi logs to somewhere handy, for easier review.
+
+When something unexpected or bad happens, just run this add-on to copy the latest Kodi logs to your chosen destination for easier, later review.
+
+Even better, bind this to a remote button (use `Runscript(script.cabertoss)`) so you can just push this & carry on with your relaxing and deal with the issue later without having to wade through all the stuff you did after the issue happened.
+
 
 
 
