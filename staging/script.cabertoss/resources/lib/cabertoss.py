@@ -1,24 +1,41 @@
 # -*- coding: utf-8 -*-
-from importlib.metadata import files
-
-from bossanova808.common import *
-from resources.lib.store import Store
-# from .monitor import KodiEventMonitor
-# from .player import KodiPlayer
-
 import os
-import sys
-import glob
-import ntpath
+import shutil
+from datetime import datetime
+import re
+
 import xbmc
 import xbmcvfs
+from bossanova808.common import *
+from resources.lib.store import Store
+
+
+def clean_log(content):
+    """
+    Remove username/password details from content
+
+    @param content:
+    @return:
+    """
+    for pattern, repl in Store.replaces:
+        sanitised = re.sub(pattern, repl, content)
+        return sanitised
 
 
 def gather_log_files():
+    """
+    Gather a list of the standard Kodi log files (Kodi.log, Kodi.old.log) and the latest crash log, if there is one.
+
+    @return: list of log files in form [type, path], where type is log, oldlog, or crashlog
+    """
+
     # Basic log files
-    log_files = [['log', Store.kodi_log_file], ['oldlog', Store.kodi_log_file]]
+    log_files = [['log', os.path.join(LOG_PATH, 'kodi.log')]]
+    if os.path.exists(os.path.join(LOG_PATH, 'kodi.old.log')):
+        log_files.append(['oldlog', os.path.join(LOG_PATH, 'kodi.old.log')])
+
     # Can we find a crashlog?
-    # @TODO - add support for CoreElec, Windows (regular & portable), & Android if possible...we're not posting these, so might as well copy them
+    # @TODO - check support for CoreElec & add Android if possible...
     crashlog_path = ''
     items = []
     filematch = None
@@ -32,9 +49,11 @@ def gather_log_files():
         crashlog_path = os.path.expanduser('~')  # not 100% accurate (crashlogs can be created in the dir kodi was started from as well)
         filematch = 'kodi_crashlog'
     elif xbmc.getCondVisibility('system.platform.windows'):
-        log(LANGUAGE(32023))
+        crashlog_path = LOG_PATH
+        filematch = 'crashlog'
     elif xbmc.getCondVisibility('system.platform.android'):
         log(LANGUAGE(32023))
+
     if crashlog_path and os.path.isdir(crashlog_path):
         lastcrash = None
         dirs, possible_crashlog_files = xbmcvfs.listdir(crashlog_path)
@@ -42,30 +61,63 @@ def gather_log_files():
             if filematch in item and os.path.isfile(os.path.join(crashlog_path, item)):
                 items.append(os.path.join(crashlog_path, item))
                 items.sort(key=lambda f: os.path.getmtime(f))
-                lastcrash = items[-1]
+                if not xbmc.getCondVisibility('system.platform.windows'):
+                    lastcrash = [items[-1]]
+                else:
+                    lastcrash = items[-2:]
         if lastcrash:
-            log_files.append(['crashlog', lastcrash])
+            for crashfile in lastcrash:
+                log_files.append(['crashlog', crashfile])
 
+    log("Found these log files to copy:")
+    log(log_files)
     return log_files
 
 
 def copy_log_files(log_files: []):
-    pass
+    """
+    Actually copy the log files to the path in the addon settings
+
+    @param log_files: [] list of log files to copy
+    @return: None
+    """
+    if not log_files:
+        notify("No log files found to copy?!")
+        return
+
+    now_folder_name = 'Kodi_Logs_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    now_destination_path = os.path.join(Store.destination_path, now_folder_name)
+
+    try:
+        log(f'Making destination folder: {now_destination_path}')
+        os.mkdir(now_destination_path)
+        for file in log_files:
+            if file[0] in ['log', 'oldlog']:
+                log(f'Copying sanitised {file[0]} {file[1]}')
+                with open(file[1], 'r', encoding='utf-8') as current:
+                    content = current.read()
+                    sanitised = clean_log(content)
+                with open(os.path.join(now_destination_path,os.path.basename(file[1])), 'w+', encoding='utf-8') as output:
+                    output.write(sanitised)
+            else:
+                log(f'Copying {file[0]} {file[1]}')
+                shutil.copy2(file[1], now_destination_path)
+    except Exception as e:
+        notify(f"Error copying logs: {str(e)}")
 
 
 # This is 'main'...
 def run():
 
     footprints()
-
     Store.load_config_from_settings()
-    Store.log_configuration()
 
-    log_file_list = gather_log_files()
-    log("Found these log files to copy:")
-    log(log_file_list)
-
-    copy_log_files(log_file_list)
+    if not Store.destination_path:
+        notify("No destination path set in the addon settings!")
+    else:
+        log_file_list = gather_log_files()
+        copy_log_files(log_file_list)
+        notify("Logs copied!", xbmcgui.NOTIFICATION_INFO)
 
     # and, we're done...
     footprints(startup=False)

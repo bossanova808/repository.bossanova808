@@ -5,28 +5,23 @@
 Handy utility functions & constants for Kodi Addons
 For Kodi Matrix & later
 By bossanova808 - freely released
-VERSION 0.2.8 2024-08-18
+VERSION 0.2.9 2024-08-23
 
 Changelog:
+0.2.9 - A few tidy ups and log improvements
 0.2.8 - (-> Module, for Switchback dev) Log the python version at start-up
 0.2.7 - Fix getting the major Kodi version (& change float -> int), as it was failing on e.g. 'RC' being in the string apparently
 0.2.6 - (SkinPatcher) - add float KODI_VERSION_FLOAT constant, alongside string KODI_VERSION
 0.2.5 - (Skin) - move to storing copy of latest in bossanova808 repo and adding this mini changelog
-
-For latest version - ALWAYS COPY BACK ANY CHANGES, plus do changelog, and a version & date bump above:
-https://github.com/bossanova808/repository.bossanova808/blob/main/latest-common/common.py
-
-
 """
 
 import sys
 import traceback
-
+import json
 import xbmc
 import xbmcvfs
 import xbmcgui
 import xbmcaddon
-import json
 
 
 ADDON = xbmcaddon.Addon()
@@ -39,6 +34,7 @@ ADDON_ARGUMENTS = f'{sys.argv}'
 CWD = ADDON.getAddonInfo('path')
 LANGUAGE = ADDON.getLocalizedString
 PROFILE = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
+LOG_PATH = xbmcvfs.translatePath('special://logpath')
 KODI_VERSION = xbmc.getInfoLabel('System.BuildVersion')
 KODI_VERSION_INT = int(KODI_VERSION.split(".")[0])
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
@@ -61,12 +57,11 @@ if not xbmc.getUserAgent():
 from resources.lib.store import Store
 from resources.lib.common import *
 ..etc
-
 """
 
 unit_testing = False
 
-# Testing outside of Kodi
+# Are we testing a unit outside Kodi?
 if not xbmc.getUserAgent():
 
     xbmc = None
@@ -124,6 +119,7 @@ else:
     def get_property(window, name):
         """
         Return the value of a window property
+
         :param window: the Kodi window to get the property value from
         :param name: the name of the property to get
         :return: the value of the window property
@@ -134,6 +130,7 @@ else:
     def get_property_as_bool(window, name):
         """
         Return the value of a window property as a boolean
+
         :param window: the Kodi window to get the property value from
         :param name: the name of the property to get
         :return: the value of the window property in boolean form
@@ -147,7 +144,7 @@ else:
 
         :param human_description: Required. A human sensible description of what the command is aiming to do/retrieve.
         :param json_string: Required. The json command to send.
-        :return the json object loaded from the result string
+        :return: the json object loaded from the result string
         """
         log(f'KODI JSON RPC command: {human_description} [{json_string}]')
         result = xbmc.executeJSONRPC(json_string)
@@ -175,21 +172,21 @@ else:
         return get_setting(setting).lower() == "true"
 
 
-    def notify(message, notification_type=xbmcgui.NOTIFICATION_ERROR, duration=5000):
+    def notify(message, icon=xbmcgui.NOTIFICATION_ERROR, duration=5000):
         """
         Send a notification to the user via the Kodi GUI
 
         :param message: the message to send
-        :param notification_type: xbmcgui.NOTIFICATION_ERROR (default), xbmcgui.NOTIFICATION_WARNING, or xbmcgui.NOTIFICATION_INFO
+        :param icon: xbmcgui.NOTIFICATION_ERROR (default), xbmcgui.NOTIFICATION_WARNING, or xbmcgui.NOTIFICATION_INFO (or custom icon)
         :param duration: time to display notification in milliseconds, default 5000
         :return: None
         """
         dialog = xbmcgui.Dialog()
 
-        dialog.notification(ADDON_NAME,
-                            message,
-                            notification_type,
-                            duration)
+        dialog.notification(heading=ADDON_NAME,
+                            message=message,
+                            icon=icon,
+                            time=duration)
 
     def is_playback_paused():
         """
@@ -208,11 +205,11 @@ def footprints(startup=True):
     :param startup: optional, default True.  If true, log the startup of an addon, otherwise log the exit.
     """
     if startup:
-        log(f'Starting...', level=xbmc.LOGINFO)
-        log(f'Kodi System.BuildVersion: {KODI_VERSION}, i.e. Kodi {KODI_VERSION_INT}', level=xbmc.LOGINFO)
-        log(f'Python version {sys.version}', level=xbmc.LOGINFO)
-        log(f'Addon arguments: {ADDON_ARGUMENTS}', level=xbmc.LOGINFO)
+        log(f'Start.', level=xbmc.LOGINFO)
+        log(f'Kodi {KODI_VERSION}', level=xbmc.LOGINFO)
+        log(f'Python {sys.version}', level=xbmc.LOGINFO)
+        log(f'Run {ADDON_ARGUMENTS}', level=xbmc.LOGINFO)
     else:
-        log(f'Exiting...', level=xbmc.LOGINFO)
+        log(f'Finish.', level=xbmc.LOGINFO)
 
 
