@@ -3,6 +3,7 @@ import os
 import shutil
 from datetime import datetime
 import re
+from operator import truediv
 
 import xbmc
 import xbmcvfs
@@ -90,20 +91,24 @@ def copy_log_files(log_files: []):
 
     try:
         log(f'Making destination folder: {now_destination_path}')
-        os.mkdir(now_destination_path)
+        xbmcvfs.mkdir(now_destination_path)
         for file in log_files:
-            if file[0] in ['log', 'oldlog']:
-                log(f'Copying sanitised {file[0]} {file[1]}')
-                with open(file[1], 'r', encoding='utf-8') as current:
-                    content = current.read()
-                    sanitised = clean_log(content)
-                with open(os.path.join(now_destination_path,os.path.basename(file[1])), 'w+', encoding='utf-8') as output:
-                    output.write(sanitised)
-            else:
-                log(f'Copying {file[0]} {file[1]}')
-                shutil.copy2(file[1], now_destination_path)
+            # if file[0] in ['log', 'oldlog']:
+            #     log(f'Copying sanitised {file[0]} {file[1]}')
+            #     with open(file[1], 'r', encoding='utf-8') as current:
+            #         content = current.read()
+            #         sanitised = clean_log(content)
+            #     with open(os.path.join(now_destination_path,os.path.basename(file[1])), 'w+', encoding='utf-8') as output:
+            #         output.write(sanitised)
+            # else:
+            log(f'Copying {file[0]} {file[1]}')
+            if not xbmcvfs.copy(file[1], now_destination_path):
+                return False
+            return True
     except Exception as e:
         notify(f"Error copying logs: {str(e)}")
+        log(str(e))
+        return False
 
 
 # This is 'main'...
@@ -116,8 +121,10 @@ def run():
         notify("No destination path set in the addon settings!")
     else:
         log_file_list = gather_log_files()
-        copy_log_files(log_file_list)
-        notify("Logs copied!", xbmcgui.NOTIFICATION_INFO)
-
+        result = copy_log_files(log_file_list)
+        if result:
+            notify("Logs copied!", xbmcgui.NOTIFICATION_INFO)
+        else:
+            notify("Something went wrong!", xbmcgui.NOTIFICATION_ERROR)
     # and, we're done...
     footprints(startup=False)
