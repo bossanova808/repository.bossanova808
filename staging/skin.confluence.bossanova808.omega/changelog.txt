@@ -1,3 +1,7 @@
+v5.0.703 
+Due to huge CoreElec performance problems with scrolling labels, re-arrange VideoFullScreen
+Title can now take a whole line, and media codec icons are moved up and aligned right
+
 v5.0.702
 Add new macros system & use it for fast profile switching
 

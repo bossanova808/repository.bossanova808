@@ -303,7 +303,7 @@
 				</control>
 				<control type="label" id="1">
 					<description>Studio label</description>
-					<left>30</left>
+					<left>10</left>
 					<top>45</top>
 					<width>1365</width>
 					<height>38</height>
@@ -317,7 +317,7 @@
 				</control>
 				<control type="label" id="1">
 					<description>TV Show label</description>
-					<left>30</left>
+					<left>10</left>
 					<top>45</top>
 					<width>1365</width>
 					<height>38</height>
@@ -331,7 +331,7 @@
 				</control>
 				<control type="label" id="1">
 					<description>Music Info label</description>
-					<left>30</left>
+					<left>10</left>
 					<top>45</top>
 					<width>1365</width>
 					<height>38</height>
@@ -344,7 +344,7 @@
 				</control>
 				<control type="label" id="1">
 					<description>LiveTV Info label</description>
-					<left>30</left>
+					<left>10</left>
 					<top>45</top>
 					<width>1365</width>
 					<height>38</height>
@@ -355,23 +355,29 @@
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
 				</control>
-				<control type="grouplist" id="1">
-					<left>30</left>
+<!-- Bossanova808 Mod - move media codec items to give more room for episode title and disable scrolling due to CoreElec performance issues	-->
+				<control type="label" id="1">
+					<left>10</left>
 					<top>90</top>
+					<width>1365</width>
+					<height>53</height>
+					<width min="15" max="1350">auto</width>
+					<height>45</height>
+					<font>font30</font>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[Player.Title]</label>
+					<textcolor>orange</textcolor>
+					<scroll>false</scroll>
+				</control>
+				<control type="grouplist" id="1">
+					<left>20</left>
+					<top>15</top>
 					<width>1365</width>
 					<height>53</height>
 					<itemgap>8</itemgap>
 					<orientation>horizontal</orientation>
-					<control type="label" id="1">
-						<width min="15" max="720">auto</width>
-						<height>45</height>
-						<font>font30</font>
-						<align>left</align>
-						<aligny>center</aligny>
-						<label>$INFO[Player.Title]</label>
-						<textcolor>orange</textcolor>
-						<scroll>true</scroll>
-					</control>
+					<align>right</align>
 					<control type="image" id="1">
 						<description>Video Resolution Image</description>
 						<width>70</width>
@@ -497,7 +503,7 @@
 				<visible>!VideoPlayer.Content(LiveTV) | [VideoPlayer.Content(LiveTV) + VideoPlayer.HasEpg]</visible>
 				<control type="label" id="1">
 					<visible>!VideoPlayer.Content(LiveTV)</visible>
-					<left>0</left>
+					<left>10</left>
 					<top>0</top>
 					<width>150</width>
 					<height>60</height>

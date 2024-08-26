@@ -15,9 +15,9 @@ if sys.argv[1] == "switch_to_profile":
     dialog.notification(f"Switching Profile",
                         f"to: {sys.argv[2]}",
                         xbmcvfs.translatePath('special://skin/media/icon_profile.png'),
-                        #xbmcgui.NOTIFICATION_INFO,
                         2000)
-    # This is needed or the notification won't show.  Testing shows >= 0.2 needed
+    # This is needed or the notification won't show before the profile switch starts.
+    # Testing shows >= 0.2 needed
     time.sleep(0.2)
     xbmc.executebuiltin(f"LoadProfile({sys.argv[2]},)")
 
