@@ -361,6 +361,8 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<left>40</left>
@@ -401,6 +403,8 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<left>40</left>
