@@ -29,3 +29,22 @@ msgctxt "#32024"
 msgid "Android crashlogs are not supported, sorry"
 msgstr "
 
+msgctxt "#32025"
+msgid "No log files found to copy ?!"
+msgstr "
+
+msgctxt "#32026"
+msgid "Error copying logs"
+msgstr "
+
+msgctxt "#32027"
+msgid "No destination path set in the addon settings!"
+msgstr "
+
+msgctxt "#32028"
+msgid "Logs copied"
+msgstr "
+
+msgctxt "#32029"
+msgid "Something went wrong, (ironically ->) check your logs!"
+msgstr "

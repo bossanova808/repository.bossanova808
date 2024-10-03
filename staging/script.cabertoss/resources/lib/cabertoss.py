@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-import shutil
 from datetime import datetime
 import re
-from operator import truediv
-
 import xbmc
 import xbmcvfs
 from bossanova808.common import *
@@ -83,7 +80,7 @@ def copy_log_files(log_files: []):
     @return: None
     """
     if not log_files:
-        notify("No log files found to copy?!")
+        notify(LANGUAGE(32025))
         return
 
     now_folder_name = 'Kodi_Logs_' + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
@@ -93,21 +90,21 @@ def copy_log_files(log_files: []):
         log(f'Making destination folder: {now_destination_path}')
         xbmcvfs.mkdir(now_destination_path)
         for file in log_files:
-            # if file[0] in ['log', 'oldlog']:
-            #     log(f'Copying sanitised {file[0]} {file[1]}')
-            #     with open(file[1], 'r', encoding='utf-8') as current:
-            #         content = current.read()
-            #         sanitised = clean_log(content)
-            #     with open(os.path.join(now_destination_path,os.path.basename(file[1])), 'w+', encoding='utf-8') as output:
-            #         output.write(sanitised)
-            # else:
-            log(f'Copying {file[0]} {file[1]}')
-            if not xbmcvfs.copy(file[1], now_destination_path):
-                return False
-            return True
+            if file[0] in ['log', 'oldlog']:
+                log(f'Copying sanitised {file[0]} {file[1]}')
+                with open(xbmcvfs.translatePath(file[1]), 'r', encoding='utf-8') as current:
+                    content = current.read()
+                    sanitised = clean_log(content)
+                with open(xbmcvfs.translatePath(os.path.join(now_destination_path,os.path.basename(file[1]))), 'w+', encoding='utf-8') as output:
+                    output.write(sanitised)
+            else:
+                log(f'Copying {file[0]} {file[1]}')
+                if not xbmcvfs.copy(file[1], os.path.join(now_destination_path,os.path.basename(file[1]))):
+                    return False
+        return True
     except Exception as e:
-        notify(f"Error copying logs: {str(e)}")
-        log(str(e))
+        notify(LANGUAGE(32026) + ": {str(e)}")
+        log(f"Error copying logs: {str(e)}")
         return False
 
 
@@ -118,13 +115,13 @@ def run():
     Store.load_config_from_settings()
 
     if not Store.destination_path:
-        notify("No destination path set in the addon settings!")
+        notify(LANGUAGE(32027))
     else:
         log_file_list = gather_log_files()
         result = copy_log_files(log_file_list)
         if result:
-            notify("Logs copied!", xbmcgui.NOTIFICATION_INFO)
+            notify(LANGUAGE(32028) + f": {len(log_file_list)}", xbmcgui.NOTIFICATION_INFO)
         else:
-            notify("Something went wrong!", xbmcgui.NOTIFICATION_ERROR)
+            notify(LANGUAGE(32029), xbmcgui.NOTIFICATION_ERROR)
     # and, we're done...
     footprints(startup=False)
