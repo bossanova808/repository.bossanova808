@@ -56,7 +56,7 @@ if not xbmc.getUserAgent():
 
 from resources.lib.store import Store
 from resources.lib.common import *
-..etc
+...etc
 """
 
 unit_testing = False
@@ -68,7 +68,7 @@ if not xbmc.getUserAgent():
     unit_testing = True
     KODI_VERSION = 'N/A'
 
-    print("\nNo user agent, must be unit testing.\n")
+    print("\nNo user agent, must be unit testing outside of Kodi.\n")
 
     def log(message, exception_instance=None, level=None):
         print(f'DEBUG: {message}')
@@ -76,7 +76,7 @@ if not xbmc.getUserAgent():
             print(f'EXCPT: {traceback.format_exc(exception_instance)}')
 
 
-# Running inside of Kodi
+# Running inside Kodi
 else:
 
     def log(message, exception_instance=None, level=xbmc.LOGDEBUG):
@@ -191,25 +191,25 @@ else:
     def is_playback_paused():
         """
         Helper function to return Kodi player state.
-        (Odd this is needed, it should be a testable state on Player really..)
+        (Odd this is needed, it should be a testable state on Player really...)
 
         :return: boolean indicating player paused state
         """
         return bool(xbmc.getCondVisibility("Player.Paused"))
 
 
-def footprints(startup=True):
-    """
-    Log the startup of an addon, and key Kodi details that are helpful for debugging
+    def footprints(startup=True):
+        """
+        Log the startup of an addon, and key Kodi details that are helpful for debugging
 
-    :param startup: optional, default True.  If true, log the startup of an addon, otherwise log the exit.
-    """
-    if startup:
-        log(f'Start.', level=xbmc.LOGINFO)
-        log(f'Kodi {KODI_VERSION}', level=xbmc.LOGINFO)
-        log(f'Python {sys.version}', level=xbmc.LOGINFO)
-        log(f'Run {ADDON_ARGUMENTS}', level=xbmc.LOGINFO)
-    else:
-        log(f'Finish.', level=xbmc.LOGINFO)
+        :param startup: optional, default True.  If true, log the startup of an addon, otherwise log the exit.
+        """
+        if startup:
+            log(f'Start.', level=xbmc.LOGINFO)
+            log(f'Kodi {KODI_VERSION}', level=xbmc.LOGINFO)
+            log(f'Python {sys.version}', level=xbmc.LOGINFO)
+            log(f'Run {ADDON_ARGUMENTS}', level=xbmc.LOGINFO)
+        else:
+            log(f'Finish.', level=xbmc.LOGINFO)
 
 
