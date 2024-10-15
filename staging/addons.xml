@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 
-    <addon id="repository.bossanova808" name="bossanova808's XBMC Addons" version="0.2.6" provider-name="bossanova808">
-        <extension point="xbmc.addon.repository" name="bossanova808's Kodi Addon Repository">
+    <addon id="repository.bossanova808" name="[B]Bossanova[I]808[/I][/B]" version="0.2.7" provider-name="Bossanova808">
+        <extension point="xbmc.addon.repository" name="Bossanova808's Kodi Addon Repository">
             <dir>
                 <info>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml</info>
                 <checksum>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml.md5</checksum>
@@ -21,7 +21,7 @@
             <forum />
             <email />
             <news>
-                v0.2.6 - Version bump for new build system.
+                v0.2.7 - add some text decoration.
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -29,9 +29,10 @@
         </extension>
     </addon>
     
-    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.3" provider-name="bossanova808">
+    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.4" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
+            <import addon="script.module.bossanova808" version="1.0.0"/>
         </requires>
         <extension point="xbmc.service" library="default.py" />
         <extension point="xbmc.python.script" library="default.py">
@@ -48,15 +49,16 @@
             <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
             <forum />
             <email />
-            <news>v0.2.3
-                - Strip leading 0: etc from time remaining
+            <news>v0.2.4
+    - Use new module
             </news>
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.3.9" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.0" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
+    		<import addon="script.module.bossanova808" version="1.0.0"/>
         </requires>
         <extension point="xbmc.python.script" library="default.py">
             <provides>executable</provides>
@@ -81,8 +83,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>
-                v0.3.9 Fix Estouchy for Omega
+            <news>v0.4.0
+    - Use common module
             </news>
             <assets>
                 <icon>resources/icon.png</icon>

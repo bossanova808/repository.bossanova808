@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.bossanova808" name="bossanova808's Kodi Addons" version="0.2.6" provider-name="bossanova808">
-    <extension point="xbmc.addon.repository" name="bossanova808's Kodi Addon Repository">
+<addon id="repository.bossanova808" name="[B]Bossanova[I]808[/I][/B]" version="0.2.7" provider-name="Bossanova808">
+    <extension point="xbmc.addon.repository" name="Bossanova808's Kodi Addon Repository">
         <dir>
             <info>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml.md5</checksum>
@@ -19,7 +19,7 @@
         <forum />
         <email />
         <news>
-            v0.2.6 - Version bump for new build system.
+            v0.2.7 - add some text decoration.
         </news>
         <assets>
             <icon>resources/icon.png</icon>
