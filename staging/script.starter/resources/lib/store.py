@@ -1,4 +1,4 @@
-from bossanova808.common import *
+from bossanova808.logger import Logger
 
 
 class Store:
@@ -22,4 +22,4 @@ class Store:
         Load in the addon settings, at start or reload them if they have been changed
         :return:
         """
-        log("Loading configuration")
+        Logger.log("Loading configuration")

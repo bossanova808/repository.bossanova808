@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.bossanova808" name="bossanova808's XBMC Addons" version="0.2.6" provider-name="bossanova808">
+<addon id="repository.bossanova808" name="bossanova808's Kodi Addons" version="0.2.6" provider-name="bossanova808">
     <extension point="xbmc.addon.repository" name="bossanova808's Kodi Addon Repository">
         <dir>
             <info>https://raw.githubusercontent.com/bossanova808/repository.bossanova808/master/staging/addons.xml</info>

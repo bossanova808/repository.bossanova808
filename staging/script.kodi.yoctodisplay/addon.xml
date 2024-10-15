@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.3" provider-name="bossanova808">
+<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.4" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.bossanova808" version="1.0.0"/>
     </requires>
     <extension point="xbmc.service" library="default.py" />
     <extension point="xbmc.python.script" library="default.py">
@@ -18,8 +19,8 @@
         <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
         <forum />
         <email />
-        <news>v0.2.3
-            - Strip leading 0: etc from time remaining
+        <news>v0.2.4
+- Use new module
         </news>
     </extension>
 </addon>

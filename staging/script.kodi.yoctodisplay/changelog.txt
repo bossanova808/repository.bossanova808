@@ -1,14 +1,17 @@
+v0.2.4
+- Use new module
+
 v0.2.3
-Strip leading 0: etc from time remaining
+- Strip leading 0: etc from time remaining
 
 v0.2.2
-Force architecture on non Windows to 'armhf' (for Odroid CE)
+- Force architecture on non Windows to 'armhf' (for Odroid CE)
 
 v0.2.1
-Prevent time remaining with PVR Timeshift 
+- Prevent time remaining with PVR Timeshift
 
 v0.2.0
-Rewrite for Python 3 / Kodi 19
+- Rewrite for Python 3 / Kodi 19
 
 v0.0.1
-Initial Development
+- Initial Development

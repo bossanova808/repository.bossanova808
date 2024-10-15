@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
-
-from resources.lib.common import *
+from bossanova808.logger import Logger
+from bossanova808.notify import Notify
+from bossanova808.utilities import *
 import os
 import sys
 import glob
@@ -12,7 +12,7 @@ global dialog
 
 # TO SUPPORT A NEW SKIN:
 #
-# First, develop the skin files (including testing controls navigate ok!)
+# First, develop the skin files (including testing controls navigate OK!)
 # Then create a folder for the skin & copy the files
 # Add the skin name to the supported skins below
 # Each skin also needs an 'if' below
@@ -28,31 +28,32 @@ class Config:
     supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aczg', 'aeon', 'osmc']
     current_skin = xbmcvfs.translatePath('special://skin')
 
-    log(f'special://skin Is [{current_skin}]')
-    log(f'CWD is {CWD}')
+    Logger.info(f'special://skin Is [{current_skin}]')
+    Logger.info(f'CWD is {CWD}')
 
     skin = None
     destination_skin_xml_folder = None
     skin_specific_xml_source_folder = None
 
     if 'amber' in current_skin:
-        log('Amber in skin folder name...proceeding...')
+        Logger.info('Amber in skin folder name...proceeding...')
         skin = 'amber'
         destination_skin_xml_folder = '1080i'
     if 'estuary' in current_skin:
-        log('Estuary in skin folder name...proceeding...')
+        Logger.info('Estuary in skin folder name...proceeding...')
         skin = 'estuary'
         destination_skin_xml_folder = 'xml'
     if 'estouchy' in current_skin:
-        log('Estouchy in skin folder name...proceeding...')
+        Logger.info('Estouchy in skin folder name...proceeding...')
         skin = 'estouchy'
         destination_skin_xml_folder = 'xml'
     # Note Confluence changed from 720 -> 1080 with Omega, so handle that here
     # and below when working out the destination folder
     if 'confluence' in current_skin:
-        log('confluence in skin folder name...proceeding...')
+        Logger.info('confluence in skin folder name...proceeding...')
         skin = 'confluence'
-        if KODI_VERSION_INT >= 21:
+        # Kodi > Omega, when Confluence became 1080p...
+        if int(xbmc.getInfoLabel('System.BuildVersionCode').split(".")[0]) >= 21:
             destination_skin_xml_folder = '1080p'
             skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '1080p')
         else:
@@ -60,28 +61,28 @@ class Config:
             skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '720p')
     # Confluence Zeitgeist
     if 'aczg' in current_skin:
-        log('Confluence Zeitgeist (aczg) in skin folder name...proceeding...')
+        Logger.info('Confluence Zeitgeist (aczg) in skin folder name...proceeding...')
         skin = 'aczg'
         destination_skin_xml_folder = 'xml'
     if 'xonfluence' in current_skin:
-        log('xonfluence in skin folder name...proceeding...')
+        Logger.info('xonfluence in skin folder name...proceeding...')
         skin = 'xonfluence'
         destination_skin_xml_folder = 'xml'
     if 'aeon.nox' in current_skin:
-        log('aeon.nox in skin folder name...proceeding...')
+        Logger.info('aeon.nox in skin folder name...proceeding...')
         skin = 'aeon'
         destination_skin_xml_folder = '16x9'
     if 'aeon.tajo' in current_skin:
-        log('aeon.tajo in skin folder name...proceeding...')
+        Logger.info('aeon.tajo in skin folder name...proceeding...')
         skin = 'aeon'
         destination_skin_xml_folder = '1080i'
     if 'osmc' in current_skin:
-        log('osmc in skin folder name...proceeding...')
+        Logger.info('osmc in skin folder name...proceeding...')
         skin = 'osmc'
         destination_skin_xml_folder = 'xml'
 
     if not skin or not destination_skin_xml_folder:
-        log("Error - skin/skin_xml_folder variable is empty - this should never happen!")
+        Logger.error("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
 
     skin_independent_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', 'skin-independent-components')
@@ -94,26 +95,13 @@ class Config:
     backup_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml.original')
     backup_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml.original')
 
-    log(f'Source - Skin independent XML folder is {skin_independent_xml_source_folder}')
-    log(f'Source - Skin specific XML folder is {skin_specific_xml_source_folder}')
-    log(f'Destination - Skin XML folder is {xml_destination_folder}')
-    log(f'Current - MyWeather.xml is {current_myweather_xml}')
-    log(f'Current - VideoFullScreen.xml is {current_videofullscreen_xml}')
-    log(f'Backup - MyWeather.xml will be {backup_myweather_xml}')
-    log(f'Backup - VideoFullScreen.xml will be {backup_videofullscreen_xml}')
-
-
-# Display a notification from OzWeather Skin Patcher to the Kodi user
-# By default, in this case, it's an error notification
-
-def notify(message, notification_type=xbmcgui.NOTIFICATION_ERROR, duration=5000):
-
-    global dialog
-
-    dialog.notification('OzWeather Skin Patcher',
-                        message,
-                        notification_type,
-                        duration)
+    Logger.info(f'Source - Skin independent XML folder is {skin_independent_xml_source_folder}')
+    Logger.info(f'Source - Skin specific XML folder is {skin_specific_xml_source_folder}')
+    Logger.info(f'Destination - Skin XML folder is {xml_destination_folder}')
+    Logger.info(f'Current - MyWeather.xml is {current_myweather_xml}')
+    Logger.info(f'Current - VideoFullScreen.xml is {current_videofullscreen_xml}')
+    Logger.info(f'Backup - MyWeather.xml will be {backup_myweather_xml}')
+    Logger.info(f'Backup - VideoFullScreen.xml will be {backup_videofullscreen_xml}')
 
 
 # Backup existing skin files, and install the new ones.
@@ -125,39 +113,39 @@ def patch(config):
     # Backup original files
     try:
         if not xbmcvfs.exists(config.backup_myweather_xml):
-            log("Backing up current MyWeather.xml to MyWeather.xml.original")
+            Logger.info("Backing up current MyWeather.xml to MyWeather.xml.original")
             success = xbmcvfs.copy(config.current_myweather_xml, config.backup_myweather_xml)
             if success:
-                log("...done")
+                Logger.info("...done")
             else:
-                log("...failed!  Is the skin folder writeable?")
-                notify('Exiting - is skin folder writeable? Error when backing up current MyWeather.xml - ')
+                Logger.error("...failed!  Is the skin folder writeable?")
+                Notify.error('Exiting - is skin folder writeable? Error when backing up current MyWeather.xml')
                 sys.exit(1)
 
         if xbmcvfs.exists(config.current_videofullscreen_xml) and not xbmcvfs.exists(config.backup_videofullscreen_xml):
-            log("Backing up current VideoFullScreen.xml to VideoFullScreen.xml.original")
+            Logger.info("Backing up current VideoFullScreen.xml to VideoFullScreen.xml.original")
             success = xbmcvfs.copy(config.current_videofullscreen_xml, config.backup_videofullscreen_xml)
             if success:
-                log("...done")
+                Logger.info("...done")
             else:
-                log("...failed!  Is the skin folder writeable?")
-                notify('Exiting - is skin folder writeable? Error when backing up current VideoFullScreen.xml ')
+                Logger.error("...failed!  Is the skin folder writeable?")
+                Notify.error('Exiting - is skin folder writeable? Error when backing up current VideoFullScreen.xml')
                 sys.exit(1)
 
     except Exception as inst:
-        log(inst)
-        notify('Exception when backing up current skin files - check logs!')
+        Logger.error(inst)
+        Notify.error('Exception when backing up current skin files - check logs!')
         sys.exit(1)
 
     # Prepare to copy new files - grab both the skin independent and skin specific files...
     list_of_files_to_copy = glob.glob(config.skin_independent_xml_source_folder + "/*.xml")
     list_of_files_to_copy.extend(glob.glob(config.skin_specific_xml_source_folder + "/*.xml"))
 
-    log("The list of files to copy is")
-    log(list_of_files_to_copy)
+    Logger.info("The list of files to copy is")
+    Logger.info(list_of_files_to_copy)
 
     for file in list_of_files_to_copy:
-        log(f"Patching & copying {file} to {config.xml_destination_folder}")
+        Logger.info(f"Patching & copying {file} to {config.xml_destination_folder}")
 
         try:
 
@@ -178,15 +166,15 @@ def patch(config):
             new_data = new_data.replace('_background_opacity_', ADDON.getSetting('background_opacity'))
 
             file_to_write = config.xml_destination_folder + "/" + ntpath.basename(file)
-            log(f"Writing patched file to: {file_to_write}")
+            Logger.info(f"Writing patched file to: {file_to_write}")
             with xbmcvfs.File(file_to_write, 'w') as destination_file:
                 result = destination_file.write(new_data)
-                log(f"...done...result: {result}")
+                Logger.info(f"...done...result: {result}")
 
         except Exception as inst:
-            log("...failed!  Error writing new skin files.")
-            log(inst)
-            notify('Exiting - as error when copying OzWeather skin files - is skin folder writeable?')
+            Logger.error("...failed!  Error writing new skin files.")
+            Logger.error(inst)
+            Notify.error('Exiting - as error when copying OzWeather skin files - is skin folder writeable?')
             sys.exit(1)
 
 
@@ -194,34 +182,34 @@ def patch(config):
 def restore(config):
 
     try:
-        log("Restoring .original skin files")
+        Logger.info("Restoring .original skin files")
         if xbmcvfs.exists(config.backup_myweather_xml):
-            log("Copying back MyWeather.xml from MyWeather.xml.original file")
+            Logger.info("Copying back MyWeather.xml from MyWeather.xml.original file")
             success = xbmcvfs.copy(config.backup_myweather_xml, config.current_myweather_xml)
             if success:
-                log("...done")
+                Logger.info("...done")
             else:
-                log("...failed!  Is file present? Is the skin folder writeable?")
-                notify('Exiting - failed to restore MyWeather.xml.original - is file present?')
+                Logger.error("...failed!  Is file present? Is the skin folder writeable?")
+                Notify.error('Exiting - failed to restore MyWeather.xml.original - is file present?')
                 sys.exit(1)
         else:
-            log("Could not find MyWeather.xml.original file, did not restore")
+            Logger.info("Could not find MyWeather.xml.original file, did not restore")
 
         if xbmcvfs.exists(config.backup_videofullscreen_xml):
-            log("Copying back VideoFullScreen.xml from VideoFullScreen.xml.original file")
+            Logger.info("Copying back VideoFullScreen.xml from VideoFullScreen.xml.original file")
             success = xbmcvfs.copy(config.backup_videofullscreen_xml, config.current_videofullscreen_xml)
             if success:
-                log("...done")
+                Logger.info("...done")
             else:
-                log("...failed!  Is file present? Is the skin folder writeable?")
-                notify('Exiting - failed to restore VideoFullScreen.xml.original - is file present?')
+                Logger.error("...failed!  Is file present? Is the skin folder writeable?")
+                Notify.error('Exiting - failed to restore VideoFullScreen.xml.original - is file present?')
                 sys.exit(1)
         else:
-            log('Could not find VideoFullScreen.xml.original file, did not restore')
+            Logger.error('Could not find VideoFullScreen.xml.original file, did not restore')
 
     except Exception as inst:
-        log(inst)
-        notify('Exception when restoring skin files - check logs!')
+        Logger.error(inst)
+        Notify.error('Exception when restoring skin files - check logs!')
         sys.exit(1)
 
 
@@ -241,8 +229,8 @@ def run():
             skin_supported = True
 
     if not skin_supported:
-        log("ERROR - current skin is not a supported skin!")
-        notify('ERROR - current skin is not a supported skin!')
+        Logger.error("ERROR - current skin is not a supported skin!")
+        Notify.error('ERROR - current skin is not a supported skin!')
         sys.exit(1)
 
     if get_setting_as_bool("show_first_run_info"):
@@ -267,22 +255,22 @@ def run():
 
     # Now confirm if they actually want to proceed
     mode = dialog.select('OzWeather Skin Patcher', ['Patch', 'Restore', 'Cancel'])
-    log(f'Mode is {mode}')
+    Logger.info(f'Mode is {mode}')
 
     if mode == 0:
-        log('Patching')
+        Logger.info('Patching')
         patch(config)
     elif mode == 1:
-        log('Restoring')
+        Logger.info('Restoring')
         restore(config)
     else:
-        log("User cancelled operation.")
+        Logger.info("User cancelled operation.")
 
     # If we got here, all _should_ be well - reload the skin to get the new pretty
     if mode == 0 or mode == 1:
-        log("Reloading skin to pick up changes")
+        Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-        notify('Successful patch - skin reloaded.', xbmcgui.NOTIFICATION_INFO)
+        Notify.info('Successful patch - skin reloaded.')
 
     # and, we're done...
     footprints(False)

@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
-
-from bossanova808.common import *
+from bossanova808.utilities import *
+# noinspection PyPackages
 # from .store import Store
+# noinspection PyPackages
 # from .monitor import KodiEventMonitor
+# noinspection PyPackages
 # from .player import KodiPlayer
 
 import os
@@ -17,6 +18,7 @@ import xbmcvfs
 def run():
 
     footprints()
+    Store()
 
     # and, we're done...
     footprints(startup=False)

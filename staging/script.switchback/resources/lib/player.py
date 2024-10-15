@@ -1,4 +1,4 @@
-from bossanova808.common import *
+from bossanova808.logger import Logger
 from resources.lib.store import Store
 import xbmc
 
@@ -10,7 +10,7 @@ class KodiPlayer(xbmc.Player):
 
     def __init__(self, *args):
         xbmc.Player.__init__(self)
-        log('KodiPlayer __init__')
+        Logger.debug('KodiPlayer __init__')
 
     def onAVStarted(self):
         """
@@ -18,4 +18,4 @@ class KodiPlayer(xbmc.Player):
 
         :return:
         """
-        log('onAVStarted')
+        Logger.info('onAVStarted')

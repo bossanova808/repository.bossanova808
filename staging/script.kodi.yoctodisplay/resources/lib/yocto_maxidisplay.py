@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
-
+from bossanova808.logger import Logger
 import sys
 from traceback import format_exc
 
+# 24-10 THIS Unit Testing stuff NEEDS TO BE RE-WRITTEN FOR NEW MODULE!!!
 # The below is a bit of a mess because of Kodi vs not Kodi imports
 # This allows for unit testing this module..
-
-try:
-    from .common import *
-except:
-    from common import *
+# try:
+#     from .common import *
+# except:
+#     from common import *
 
 sys.path.append(CWD + '/resources/lib/')
 sys.path.append(CWD + '/resources/lib/yoctopuce')
@@ -17,7 +16,7 @@ sys.path.append(CWD + '/resources/lib/yoctopuce')
 try:
     from yocto_api import *
     from yocto_display import *
-except:
+except ImportError:
     from yoctopuce.yocto_api import *
     from yoctopuce.yocto_display import *
 
@@ -29,13 +28,16 @@ class YoctoMaxiDisplay:
     drawingLayer = None
     displayLayer = None
 
+    def __init__(self):
+        pass
+
     @staticmethod
     def register_yocto_API(architecture=None):
         """
         Register the Yocto API to use a USB attached device
         :return: None
         """
-        log("register_yocto_API")
+        Logger.info("register_yocto_API")
         errmsg = YRefParam()
 
         # September 2021 - added to force correct library loading
@@ -43,16 +45,16 @@ class YoctoMaxiDisplay:
         if architecture:
             YAPI.SelectArchitecture(architecture)
 
-        # Setup the API to use local USB devices
+        # Set up the API to use local USB devices
         if YAPI.RegisterHub("usb", errmsg) != YAPI.SUCCESS:
-            log("Could not init Yocto API: " + str(errmsg))
+            Logger.error("Could not init Yocto API: " + str(errmsg))
             if unit_testing:
                 sys.exit("Could not init Yocto API")
 
     @staticmethod
     def register_display_and_module():
 
-        log("register_display_and_module")
+        Logger.info("register_display_and_module")
 
         YoctoMaxiDisplay.display = YDisplay.FirstDisplay()
         if not YoctoMaxiDisplay.display and unit_testing:
@@ -62,34 +64,34 @@ class YoctoMaxiDisplay:
         if not YoctoMaxiDisplay.module and unit_testing:
             sys.exit("Couldn't find the module")
 
-        log(f'Registered display {YoctoMaxiDisplay.display} and module {YoctoMaxiDisplay.module}')
+        Logger.info(f'Registered display {YoctoMaxiDisplay.display} and module {YoctoMaxiDisplay.module}')
 
     @staticmethod
     def describe_display():
 
-        log("describe_display")
+        Logger.info("describe_display")
 
         if YoctoMaxiDisplay.display.isOnline():
             try:
-                log(f'Display found: {YoctoMaxiDisplay.display.describe()} - '
-                    f'Display type: {YoctoMaxiDisplay.display.get_displayType()} - '
-                    f'Friendly name: {YoctoMaxiDisplay.display.get_friendlyName()}')
+                Logger.info(f'Display found: {YoctoMaxiDisplay.display.describe()} - '
+                            f'Display type: {YoctoMaxiDisplay.display.get_displayType()} - '
+                            f'Friendly name: {YoctoMaxiDisplay.display.get_friendlyName()}')
             except Exception as inst:
-                log("Exception in describe display..." + format_exc(inst))
+                Logger.error("Exception in describe display..." + format_exc(inst))
         else:
-            log("Can't describe_display - display not online?")
+            Logger.error("Can't describe_display - display not online?")
 
     @staticmethod
     def set_brightness(brightness):
 
-        log("set_brightness " + str(brightness))
+        Logger.info("set_brightness " + str(brightness))
 
         YoctoMaxiDisplay.display.set_brightness(brightness)
 
     @staticmethod
     def set_led(on):
 
-        log(f'set_led {on}')
+        Logger.info(f'set_led {on}')
 
         if on != 'false':
             YoctoMaxiDisplay.module.set_luminosity(50)
@@ -99,10 +101,10 @@ class YoctoMaxiDisplay:
     @staticmethod
     def toggle_led():
 
-        log("toggle_led")
+        Logger.info("toggle_led")
 
         led = YoctoMaxiDisplay.module.get_luminosity()
-        log(f'LED was at luminosity {led}')
+        Logger.info(f'LED was at luminosity {led}')
 
         if led == 50:
             YoctoMaxiDisplay.module.set_luminosity(0)
@@ -110,7 +112,7 @@ class YoctoMaxiDisplay:
             YoctoMaxiDisplay.module.set_luminosity(50)
 
         led = YoctoMaxiDisplay.module.get_luminosity()
-        log(f'LED now at luminosity {led}')
+        Logger.info(f'LED now at luminosity {led}')
 
     @staticmethod
     def initialise_layers():
@@ -118,7 +120,7 @@ class YoctoMaxiDisplay:
         Set up simple double buffering
         :return:
         """
-        log("initialise_layers")
+        Logger.info("initialise_layers")
 
         # Start clean
         YoctoMaxiDisplay.display.resetAll()
@@ -152,7 +154,7 @@ class YoctoMaxiDisplay:
         :return: None
         """
 
-        #log(f'display_text {lines}')
+        # Logger.info(f'display_text {lines}')
 
         YoctoMaxiDisplay.drawingLayer.clear()
         number_of_lines = len(lines)
@@ -179,7 +181,7 @@ class YoctoMaxiDisplay:
             YoctoMaxiDisplay.drawingLayer.drawText(64, 32, YDisplayLayer.ALIGN.TOP_CENTER, lines[2])
             YoctoMaxiDisplay.drawingLayer.drawText(64, 48, YDisplayLayer.ALIGN.TOP_CENTER, lines[3])
         else:
-            log(f'Number of lines {number_of_lines} - not in 1 to 4 ')
+            Logger.info(f'Number of lines {number_of_lines} - not in 1 to 4 ')
             pass
 
         # Actually do the display...
@@ -189,27 +191,27 @@ class YoctoMaxiDisplay:
     @staticmethod
     def clean_up_display():
 
-        log("clean_up_display")
+        Logger.info("clean_up_display")
 
         if YoctoMaxiDisplay.display:
             YoctoMaxiDisplay.displayLayer.clear()
             YoctoMaxiDisplay.drawingLayer.clear()
-            log("Cleaned up.")
+            Logger.info("Cleaned up.")
         else:
-            log("Could not clean up - no display found.")
+            Logger.error("Could not clean up - no display found.")
 
 
 # Unit testing - simple function to cycle through 1 to 4 lines of text...
 if __name__ == '__main__':
 
-    log("__main__")
+    Logger.info("__main__")
 
     yocto = YoctoMaxiDisplay()
 
     import atexit
     atexit.register(YoctoMaxiDisplay.clean_up_display)
 
-    log("Testing Yocto MaxiDisplay")
+    Logger.info("Testing Yocto MaxiDisplay")
 
     YoctoMaxiDisplay.register_yocto_API()
     YoctoMaxiDisplay.register_display_and_module()
@@ -222,16 +224,16 @@ if __name__ == '__main__':
     YoctoMaxiDisplay.initialise_layers()
 
     while True:
-        log('Line 1')
+        Logger.info('Line 1')
         YoctoMaxiDisplay.display_text(['Line 1'])
         time.sleep(2)
-        log('Line 1, Line 2')
+        Logger.info('Line 1, Line 2')
         YoctoMaxiDisplay.display_text(['Line 1', 'Line 2'])
         time.sleep(2)
-        log('Line 1, Line 2, Line 3')
+        Logger.info('Line 1, Line 2, Line 3')
         YoctoMaxiDisplay.display_text(['Line 1', 'Line 2', 'Line 3'])
         time.sleep(2)
-        log('Line 1, Line 2, Line 3, Line 4')
+        Logger.info('Line 1, Line 2, Line 3, Line 4')
         YoctoMaxiDisplay.display_text(['Line 1', 'Line 2', 'Line 3', 'Line 4'])
         time.sleep(2)
         # Can't really see this anyway, but it works..

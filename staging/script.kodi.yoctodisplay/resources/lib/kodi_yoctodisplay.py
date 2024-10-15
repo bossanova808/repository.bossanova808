@@ -1,4 +1,6 @@
-from .common import *
+from bossanova808.utilities import *
+import xbmc
+# noinspection PyPackages
 from .yocto_maxidisplay import YoctoMaxiDisplay
 import time
 import platform
