@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.4" provider-name="bossanova808">
+<addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.5" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.0"/>
@@ -19,7 +19,7 @@
         <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
         <forum />
         <email />
-        <news>v0.2.4
+        <news>v0.2.5
 - Use new module
         </news>
     </extension>

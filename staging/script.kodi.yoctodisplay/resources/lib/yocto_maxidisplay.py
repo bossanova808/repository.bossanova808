@@ -1,4 +1,5 @@
 from bossanova808.logger import Logger
+from bossanova808.constants import *
 import sys
 from traceback import format_exc
 
