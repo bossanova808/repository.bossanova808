@@ -7,7 +7,7 @@ class KodiEventMonitor(xbmc.Monitor):
 
     def __init__(self, *args, **kwargs):
         xbmc.Monitor.__init__(self)
-        Logger.debig('KodiEventMonitor __init__')
+        Logger.debug('KodiEventMonitor __init__')
 
     def onSettingsChanged(self):
         Logger.info('onSettingsChanged - reload them.')

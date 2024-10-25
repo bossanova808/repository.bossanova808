@@ -22,6 +22,5 @@ msgid "Some Setting Group"
 msgstr ""
 
 msgctxt "#32002"
-msgid "Some Toggle Setting"
+msgid "Maximum switchback list length"
 msgstr ""
-

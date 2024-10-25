@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.switchback" name="Switchback" version="0.0.1" provider-name="bossanova808">
+<addon id="plugin.video.switchback" name="Switchback" version="0.0.1" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.0"/>
     </requires>
-    <extension point="xbmc.python.script" library="default.py">
-        <provides>executable</provides>
-    </extension>
+    <!-- A service entrypoint to keep track of playbacks -->
+    <extension point="xbmc.service" library="service.py" />
+    <!-- ...and a plugin entrypoint to handle playing from the switchback playlist -->
+    <extension point="xbmc.python.pluginsource" library="plugin.py">
+		<provides>video</provides>
+	</extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Utility for fast switching between recently played media.</summary>
         <description lang="en_GB">
-            Planned functionality: add to Play/Resume menu options to resume the last three media items that have been played.
-            Possibly?  Register recently played media for easy display in skins?
+Planned functionality:
+- Keep a playlist of recently played media.
+- Provide an entry point into that that playlist for easy resume of playback of recent things.
+- Make this bindable to key/button on remote for two click switching (Switchback -> then play/ok on first item - (w. auto resume!!))
+- If possible, extend play/resume menu to off last three played back items? (Don't think possible, but...maybe with skin changes??)
         </description>
         <platform>all</platform>
         <license>GPL-3.0-only</license>
