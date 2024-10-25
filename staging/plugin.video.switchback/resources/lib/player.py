@@ -1,4 +1,5 @@
 from plistlib import dumps
+from urllib.parse import unquote
 
 from bossanova808.logger import Logger
 from bossanova808.utilities import *
@@ -22,7 +23,7 @@ class KodiPlayer(xbmc.Player):
     def onPlayBackStarted(self):
         Logger.info("onPlayBackStarted")
 
-    # Use on AV started we want to record a playback only if the user saw/heard something
+    # Use on AV started we want to record a playback only if the user actually saw a video...
     def onAVStarted(self):
         Logger.info('onAVStarted')
         # Player has to have a file...
@@ -38,14 +39,15 @@ class KodiPlayer(xbmc.Player):
             if xbmc.getCondVisibility('Player.HasVideo'):
                 params = {"playerid":1, "properties": ["title", "thumbnail", "fanart", "year", "showtitle", "season", "episode"]}
             else:
-                params = {"playerid":0, "properties": ["title", "thumbnail", "fanart", "album", "artist", "duration", "streamdetails"]}
+                return
+                # params = {"playerid":0, "properties": ["title", "thumbnail", "fanart", "album", "artist", "duration", "streamdetails"]}
             json_dict['params'] = params
             query = json.dumps(json_dict)
             properties_json = send_kodi_json(f'Get properties for {current_playback.file}', query)
             properties = properties_json['result']['item']
             current_playback.title = properties['title']
-            current_playback.thumbnail = properties['thumbnail']
-            current_playback.fanart = properties['fanart']
+            current_playback.thumbnail = unquote(properties['thumbnail']).replace("image://","").rstrip("/")
+            current_playback.fanart = unquote(properties['fanart']).replace("image://","").rstrip("/")
             if "year" in properties:
                 current_playback.year = properties['year']
             if "showtitle" in properties:
@@ -54,14 +56,14 @@ class KodiPlayer(xbmc.Player):
                 current_playback.season = properties['season']
             if "episode" in properties:
                 current_playback.episode = properties['episode']
-            if "album" in properties:
-                current_playback.album = properties['album']
-            if "artist" in properties:
-                current_playback.artist = properties['artist']
-            if "duration" in properties:
-                current_playback.duration = properties['duration']
-            if "streamdetails" in properties:
-                current_playback.streamdetails = properties['streamdetails']
+            # if "album" in properties:
+            #     current_playback.album = properties['album']
+            # if "artist" in properties:
+            #     current_playback.artist = properties['artist']
+            # if "duration" in properties:
+            #     current_playback.duration = properties['duration']
+            # if "streamdetails" in properties:
+            #     current_playback.streamdetails = properties['streamdetails']
 
             # Logger.info(current_playback)
 

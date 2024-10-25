@@ -1,6 +1,6 @@
 from bossanova808 import exception_logger
-from resources.lib import switchback
+from resources.lib import switchback_service
 
 if __name__ == "__main__":
     with exception_logger.log_exception():
-        switchback.run()
+        switchback_service.run()
