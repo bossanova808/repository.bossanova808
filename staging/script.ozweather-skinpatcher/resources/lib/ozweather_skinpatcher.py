@@ -85,7 +85,7 @@ def patch():
 
 
 # Attempt to restore .original files - we just try and restore both, no matter what the setting is
-def restore(config):
+def restore():
     try:
         Logger.info("Restoring .original skin files")
         if xbmcvfs.exists(Store.backup_myweather_xml):
