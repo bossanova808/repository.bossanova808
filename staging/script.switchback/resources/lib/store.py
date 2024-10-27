@@ -19,7 +19,7 @@ class Store:
     # https://docs.python.org/3/faq/programming.html#how-do-i-create-static-class-data-and-static-class-methods
     kodi_event_monitor = None
     kodi_player = None
-    # Holds our playlist of things played back, in first is latest order
+    # Holds our playlist of things played back, in first is the latest order
     switchback_list = []
     switchback_list_file = xbmcvfs.translatePath(os.path.join(PROFILE, "switchback_list.json"))
     # Basic settings

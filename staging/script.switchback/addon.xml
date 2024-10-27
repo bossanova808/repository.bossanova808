@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.switchback" name="Switchback" version="0.0.1" provider-name="bossanova808">
+<addon id="script.switchback" name="Switchback" version="0.0.1" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.0"/>

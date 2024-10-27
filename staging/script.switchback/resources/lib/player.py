@@ -46,8 +46,11 @@ class KodiPlayer(xbmc.Player):
             properties_json = send_kodi_json(f'Get properties for {current_playback.file}', query)
             properties = properties_json['result']['item']
             current_playback.title = properties['title']
-            current_playback.thumbnail = unquote(properties['thumbnail']).replace("image://","").rstrip("/")
             current_playback.fanart = unquote(properties['fanart']).replace("image://","").rstrip("/")
+            current_playback.thumbnail = unquote(properties['thumbnail']).replace("image://","").rstrip("/")
+            # @TODO - can this be improved?  Why does Kodi return e.g. '.mkv' files for thumbnail - extracted thumbs??
+            if 'jpg' not in current_playback.thumbnail:
+                current_playback.thumbnail = unquote(properties['fanart']).replace("image://","").rstrip("/")
             if "year" in properties:
                 current_playback.year = properties['year']
             if "showtitle" in properties:
@@ -67,9 +70,11 @@ class KodiPlayer(xbmc.Player):
 
             # Logger.info(current_playback)
 
-            # Prepend this playback to our list and write the playback out to file
-            # Probably there's a faster way to do this but the list is never that long anyway..
+            # We only want to have the most current playback recorded in our list, so remove any previous playbacks
+            Store.switchback_list = [x for x in Store.switchback_list if x.file != current_playback.file]
+            # Then, prepend this new playback to our list
             Store.switchback_list = [current_playback] + Store.switchback_list[0:Store.maximum_list_length-1]
+            # Finally, Save the playback list to file
             Store.save_switchback_list()
 
     def onPlayBackEnded(self):  # video ended normally (user didn't stop it)
