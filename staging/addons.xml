@@ -55,7 +55,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.0" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.1" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.0"/>
@@ -83,8 +83,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.4.0
-    - Use common module
+            <news>v0.4.1
+    - Tidy ups, tweak logging
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
