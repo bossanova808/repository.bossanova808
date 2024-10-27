@@ -118,7 +118,7 @@ def patch(config):
             if success:
                 Logger.info("...done")
             else:
-                Logger.error("...failed!  Is the skin folder writeable?")
+                Logger.error(f"...failed!  Is the skin folder {config.xml_destination_folder} writeable?")
                 Notify.error('Exiting - is skin folder writeable? Error when backing up current MyWeather.xml')
                 sys.exit(1)
 
@@ -128,7 +128,7 @@ def patch(config):
             if success:
                 Logger.info("...done")
             else:
-                Logger.error("...failed!  Is the skin folder writeable?")
+                Logger.error(f"...failed!  Is the skin folder {config.xml_destination_folder} writeable?")
                 Notify.error('Exiting - is skin folder writeable? Error when backing up current VideoFullScreen.xml')
                 sys.exit(1)
 
