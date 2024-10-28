@@ -71,7 +71,7 @@ class Store:
         Logger.info('aeon.tajo in skin folder name...proceeding...')
         skin = 'aeon'
         destination_skin_xml_folder = '1080i'
-    if 'osmc' in current_skin:
+    if 'skin.osmc' in current_skin:
         Logger.info('osmc in skin folder name...proceeding...')
         skin = 'osmc'
         destination_skin_xml_folder = 'xml'

@@ -1,3 +1,6 @@
+v0.4.2
+- Fix bug for OSMC users using other skins
+
 v0.4.1
 - Tidy ups, tweak logging
 
