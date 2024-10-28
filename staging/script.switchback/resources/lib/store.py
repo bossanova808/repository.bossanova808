@@ -22,6 +22,7 @@ class Store:
     # Holds our playlist of things played back, in first is the latest order
     switchback_list = []
     switchback_list_file = xbmcvfs.translatePath(os.path.join(PROFILE, "switchback_list.json"))
+    current_playback = None
     # Basic settings
     maximum_list_length = ADDON.getSettingInt('maximum_list_length')
 
@@ -38,8 +39,9 @@ class Store:
         :return:
         """
         Logger.info("Loading configuration")
+        Logger.info(f"Maximum Switchback list length is: {Store.maximum_list_length}")
 
-        Logger.info(f"Loading Switchback playlist: {Store.switchback_list_file}")
+        Logger.info(f"Loading Switchback playlist from file: {Store.switchback_list_file}")
         try:
             with open(Store.switchback_list_file, 'r') as switchback_list_file:
                 switchback_list_json = json.load(switchback_list_file)
@@ -53,10 +55,13 @@ class Store:
                 pass
             Store.switchback_list = []
         except JSONDecodeError:
-            Logger.error("Unable to load existing switchback list, JSONDecodeError...corrupt or empty, starting an empty list")
+            Logger.error("Unable to load existing switchback list, JSONDecodeError...corrupt or empty, starting a new empty list")
             Store.switchback_list = []
         except:
             raise
+
+        Logger.info("Loaded Switchback List is:")
+        Logger.info(Store.switchback_list)
 
     @staticmethod
     def save_switchback_list():

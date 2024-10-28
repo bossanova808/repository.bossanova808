@@ -8,7 +8,7 @@ class Playback:
     Stores data about a Kodi Playback
     """
     file:str = ""
-    # type:str = ""
+    type:str = ""
     id:int = 0
     title:str = ""
     thumbnail:str = ""
@@ -17,6 +17,8 @@ class Playback:
     showtitle:str = ""
     season:int = 0
     episode:int = 0
+    resumetime:float = 0
+    totaltime:float = 0
     # artist:str = ""
     # album:str = ""
     # duration:int = 0
@@ -24,3 +26,4 @@ class Playback:
 
     def toJson(self):
         return json.dumps(self, default=lambda o: o.__dict__)
+
