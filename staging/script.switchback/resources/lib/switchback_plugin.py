@@ -16,10 +16,17 @@ def create_kodi_list_item_from_playback(playback, offscreen=False):
 
     label = playback.title
     if playback.showtitle:
-        label = f"{playback.showtitle} ({playback.season}x{playback.episode}) - {playback.title}"
+        if playback.season >= 0 and playback.episode >= 0:
+            label = f"{playback.showtitle} ({playback.season}x{playback.episode:02d}) - {playback.title}"
+        elif playback.season >= 0:
+            label = f"{playback.showtitle} ({playback.season}x?) - {playback.title}"
+        else:
+            label = f"{playback.showtitle} - {playback.title}"
+    if playback.album:
+        label = f"{playback.artist[0]} - {playback.album} - {playback.title}"
+
     list_item = xbmcgui.ListItem(label=label, path=playback.file, offscreen=offscreen)
 
-    # New VideoInfoTag properties
     tag = list_item.getVideoInfoTag()
     tag.setTitle(playback.title)
     tag.setPath(playback.file)
@@ -35,30 +42,28 @@ def create_kodi_list_item_from_playback(playback, offscreen=False):
         tag.setEpisode(playback.episode)
     # Seems to be for Music Videos only?  List?
     if playback.artist:
-        tag.setArtists([playback.artist])
+        tag.setArtists(playback.artist)
     if playback.album:
         tag.setAlbum(playback.album)
     if playback.duration:
         tag.setDuration(playback.duration)
     if playback.resumetime:
         tag.setResumePoint(playback.resumetime)
-    # if playback.streamdetails:
-    #     tag.setStreamDetails(playback.streamdetails)
-
-    # Old style properties
     list_item.setProperty('IsPlayable', 'true')
     list_item.setPath(path=playback.file)
     list_item.setArt({"thumbnail": playback.thumbnail})
     list_item.setArt({"poster": playback.thumbnail})
     list_item.setArt({"fanart": playback.fanart})
-
     info_labels = {
             'mediatype': playback.type,
             'title': playback.title,
     }
-    list_item.setInfo(playback.type, info_labels)
+    kodi_type = playback.type
+    if playback.type == "unknown":
+        kodi_type = "video"
 
-    # Auto resumes don't work without these, even though they are depracated...
+    list_item.setInfo(kodi_type, info_labels)
+    # Auto resumes just won't work without these, even though they are deprecated...
     list_item.setProperty('TotalTime', str(playback.totaltime))
     list_item.setProperty('ResumeTime', str(playback.resumetime))
     list_item.setProperty('StartOffset', str(playback.resumetime))
@@ -70,7 +75,10 @@ def run(args):
     plugin_instance = int(sys.argv[1])
 
     footprints()
+    Logger.info("(Plugin)")
     Store()
+
+    xbmcplugin.setContent(plugin_instance, 'mixed')
 
     parsed_arguments = parse_qs(sys.argv[2][1:])
     Logger.info(parsed_arguments)
@@ -78,15 +86,14 @@ def run(args):
     Logger.info(f"Mode: {mode}")
 
     if mode and mode[0] == "play_previous":
-        Logger.info("Playing previous file (Store.switchback_list[1])")
+        Logger.info(f"Playing previous file (Store.switchback_list[1]) {Store.switchback_list[1].file}")
         if Store.switchback_list[1]:
             list_item = create_kodi_list_item_from_playback(Store.switchback_list[1], offscreen=True)
             xbmcplugin.setResolvedUrl(plugin_instance, True, list_item)
         else:
             Logger.error("No previous item found to play")
+    # Default mode - show the whole Switchback List
     else:
-        xbmcplugin.setContent(plugin_instance, 'videos')
-
         for playback in Store.switchback_list[0:Store.maximum_list_length]:
             list_item = create_kodi_list_item_from_playback(playback)
             xbmcplugin.addDirectoryItem(plugin_instance, playback.file, list_item)

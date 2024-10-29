@@ -18,9 +18,13 @@ msgid "General"
 msgstr ""
 
 msgctxt "#32001"
-msgid "Some Setting Group"
+msgid "Basic Settings"
 msgstr ""
 
 msgctxt "#32002"
-msgid "Maximum switchback list length"
+msgid "Maximum Switchback list length"
+msgstr ""
+
+msgctxt "#32003"
+msgid "Track Music Playbacks?"
 msgstr ""

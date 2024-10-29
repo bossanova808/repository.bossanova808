@@ -9,6 +9,7 @@ class Playback:
     """
     file:str = ""
     type:str = ""
+    source:str = ""
     id:int = None
     title:str = ""
     thumbnail:str = ""
@@ -22,7 +23,6 @@ class Playback:
     artist:str = ""
     album:str = ""
     duration:int = 0
-    streamdetails:str = ""
 
     def toJson(self):
         return json.dumps(self, default=lambda o: o.__dict__)

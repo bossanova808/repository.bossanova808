@@ -19,6 +19,7 @@ import xbmcvfs
 def run():
 
     footprints()
+    Logger.info("(Service)")
     Store()
     Store.kodi_event_monitor = KodiEventMonitor(xbmc.Monitor)
     Store.kodi_player = KodiPlayer(xbmc.Player)

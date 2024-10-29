@@ -22,9 +22,14 @@ class Store:
     # Holds our playlist of things played back, in first is the latest order
     switchback_list = []
     switchback_list_file = xbmcvfs.translatePath(os.path.join(PROFILE, "switchback_list.json"))
+    # When something is being played back, store the details
     current_playback = None
-    # Basic settings
+    # Addon settings
     maximum_list_length = ADDON.getSettingInt('maximum_list_length')
+    include_music = ADDON.getSettingBool('include_music')
+    # Playbacks are of these possible types
+    kodi_video_types = ["movie", "tvshow", "episode", "musicvideo", "video"]
+    kodi_music_types = ["song","album"]
 
     def __init__(self):
         """
@@ -40,6 +45,7 @@ class Store:
         """
         Logger.info("Loading configuration")
         Logger.info(f"Maximum Switchback list length is: {Store.maximum_list_length}")
+        Logger.info(f"Include Music is: {Store.include_music}")
 
         Logger.info(f"Loading Switchback playlist from file: {Store.switchback_list_file}")
         try:
@@ -48,19 +54,25 @@ class Store:
                 for playback in switchback_list_json:
                     Store.switchback_list.append(Playback(**playback))
         except FileNotFoundError:
-            Logger.error("Unable to load existing switchback list (file not found), so creating empty switchback file")
+            Logger.error("Switchback list file not found, creating empty Switchback list file")
             # Creates an empty Switchback list file if it doesn't yet exist
             os.makedirs(os.path.dirname(Store.switchback_list_file), exist_ok=True)
             with open(Store.switchback_list_file, 'w'):
                 pass
             Store.switchback_list = []
         except JSONDecodeError:
-            Logger.error("Unable to load existing switchback list, JSONDecodeError...corrupt or empty, starting a new empty list")
+            Logger.error("Unable to parse switchback list, JSONDecodeError...corrupt or empty, starting a new empty list")
             Store.switchback_list = []
         except:
             raise
 
-        Logger.info("Loaded Switchback List is:")
+        # Filter out any music playbacks if the setting is currently not to record them
+        for previous_playback in Store.switchback_list:
+            if not Store.include_music and previous_playback.type in Store.kodi_music_types:
+                Logger.warning("Include music is false, removing music playback from Switchback list")
+                Store.switchback_list.remove(previous_playback)
+
+        Logger.info("Switchback List is:")
         Logger.info(Store.switchback_list)
 
     @staticmethod

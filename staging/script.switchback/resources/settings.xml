@@ -5,10 +5,15 @@
             <group id="1" label="32001">
                 <setting id="maximum_list_length" type="integer" label="32002" help="">
                     <level>0</level>
-                    <default>10</default>
+                    <default>5</default>
                     <control type="edit" format="integer">
                         <heading>32002</heading>
                     </control>
+                </setting>
+                <setting id="include_music" type="boolean" label="32003" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
                 </setting>
             </group>
         </category>
