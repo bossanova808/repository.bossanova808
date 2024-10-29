@@ -119,6 +119,8 @@ class KodiPlayer(xbmc.Player):
             Logger.error("No current playback details available...not recording this playback")
             return
 
+        Logger.debug(Store.switchback_list)
+
         # Logger.debug("Current playback")
         # Logger.debug(Store.current_playback)
         # Logger.debug("Starting with Switchback list:")
@@ -137,22 +139,27 @@ class KodiPlayer(xbmc.Player):
         # NEW APPROACH - This keeps all the details from the original playback
         # (as playing back from plugin vs. the library loses the details it seems, even with a full InfoTagVideo?)
         # Allow only one playback of a particular thing in the list - if it has been played again, move it to the top of the list
-        was_replay = False
+        playback_to_remove = None
         for previous_playback in Store.switchback_list:
             if previous_playback.file == Store.current_playback.file:
-                Logger.debug(Store.switchback_list)
-                was_replay = True
-                Logger.debug("Moving re-played item to top of the Switchback List")
-                Store.switchback_list.remove(previous_playback)
-                # Update with the current playback times
-                previous_playback.resumetime = Store.current_playback.resumetime
-                previous_playback.totaltime = Store.current_playback.totaltime
-                Store.switchback_list.insert(0, previous_playback)
-                Logger.debug(Store.switchback_list)
+                playback_to_remove = previous_playback
                 break
 
-        if not was_replay:
+        if playback_to_remove:
+            Logger.debug("Moving re-played item to top of the Switchback List - first remove:")
+            Logger.debug(playback_to_remove)
+            Store.switchback_list.remove(playback_to_remove)
+            Logger.debug(Store.switchback_list)
+            # Update with the current playback times
+            Logger.debug("Then update times and add back")
+            playback_to_remove.resumetime = Store.current_playback.resumetime
+            playback_to_remove.totaltime = Store.current_playback.totaltime
+            Store.switchback_list.insert(0, playback_to_remove)
+        else:
+            Logger.debug("Inserting new playback at top of Switchback List")
             Store.switchback_list.insert(0, Store.current_playback)
+
+        Logger.debug(Store.switchback_list)
 
         # Trim the list to the max length
         Store.switchback_list = Store.switchback_list[0:Store.maximum_list_length - 1]
