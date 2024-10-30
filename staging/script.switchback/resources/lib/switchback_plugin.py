@@ -10,7 +10,8 @@ from bossanova808.utilities import footprints
 from .store import Store
 from infotagger.listitem import ListItemInfoTag
 
-def create_kodi_list_item_from_playback(playback, offscreen=False):
+
+def create_kodi_list_item_from_playback(playback, index=None, offscreen=False):
     Logger.info("Creating list item from playback")
     Logger.info(playback)
 
@@ -73,6 +74,10 @@ def create_kodi_list_item_from_playback(playback, offscreen=False):
     list_item.setArt({"poster": playback.thumbnail})
     list_item.setArt({"fanart": playback.fanart})
 
+    # index can be zero, so explicitly check against None!
+    if index is not None:
+        list_item.addContextMenuItems([(LANGUAGE(32004), "RunPlugin(plugin://script.switchback?mode=delete&index=" + str(index) + ")")])
+
     return list_item
 
 
@@ -97,10 +102,20 @@ def run(args):
             xbmcplugin.setResolvedUrl(plugin_instance, True, list_item)
         else:
             Logger.error("No previous item found to play")
+    if mode and mode[0] == "delete":
+        index_to_remove = parsed_arguments.get('index', None)
+        if index_to_remove:
+            Logger.info(f"Deleting playback {index_to_remove[0]} from Switchback List")
+            Store.switchback_list.remove(Store.switchback_list[int(index_to_remove[0])])
+            Store.save_switchback_list()
+            # Force refresh the list
+            Logger.debug("Force refresh the list")
+            xbmc.executebuiltin("Container.Refresh")
+            # xbmc.executebuiltin("ActivateWindow(Videos,plugin://script.switchback)")
     # Default mode - show the whole Switchback List
     else:
-        for playback in Store.switchback_list[0:Store.maximum_list_length]:
-            list_item = create_kodi_list_item_from_playback(playback)
+        for index, playback in enumerate(Store.switchback_list[0:Store.maximum_list_length]):
+            list_item = create_kodi_list_item_from_playback(playback, index=index)
             xbmcplugin.addDirectoryItem(plugin_instance, playback.file, list_item)
 
         xbmcplugin.endOfDirectory(plugin_instance)

@@ -14,11 +14,17 @@
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Utility for fast switching between recently played media.</summary>
         <description lang="en_GB">
-Planned functionality:
-- Keep a playlist of recently played media.
-- Provide an entry point into that that playlist for easy resume of playback of recent things.
-- Make this bindable to key/button on remote for two click switching (Switchback -> then play/ok on first item - (w. auto resume!!))
-- If possible, extend play/resume menu to off last three played back items? (Don't think possible, but...maybe with skin changes??)
+Keeps a of recently played media (supports Kodi library episodes, movies, and many video addons).
+
+The primary intended use is to make for super easy Switchback between two in progress videos (by binding a remote key to Switchback, see Wiki/Forum thread).
+
+Consider this scenario:
+- You are watching 'video A' with your partner.  You are interrupted and your partner needs to tend to the kids/howl at the moon.
+- You navigate to 'video B' and watch some of that.
+- Your partner comes back.
+- You hit your one button 'Switchback' and 'video A' starts playing again, no need for tedious naviagation etc.
+- You are interrupted again - the moon is very bright tonight...hit your 'Switchback' to resume 'video B' immediately, again with one magic button and no tedious navigation.
+        
         </description>
         <platform>all</platform>
         <license>GPL-3.0-only</license>

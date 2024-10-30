@@ -28,3 +28,7 @@ msgstr ""
 msgctxt "#32003"
 msgid "Track Music Playbacks?"
 msgstr ""
+
+msgctxt "#32004"
+msgid "Delete from Switchback list"
+msgstr ""
