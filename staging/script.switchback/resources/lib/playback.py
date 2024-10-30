@@ -10,7 +10,7 @@ class Playback:
     file:str = ""
     type:str = ""
     source:str = ""
-    id:int = None
+    dbid:int = None
     title:str = ""
     thumbnail:str = ""
     fanart:str = ""

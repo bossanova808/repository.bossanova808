@@ -11,10 +11,11 @@ import xbmc
 import json
 
 
+# This causes big delays and is only needed for addons.
 def getInfoLabel(label):
     value = None
     retry = 0
-    while retry < 100:
+    while retry < 50:
         value = xbmc.getInfoLabel(label)
         retry += 1
         if value:
@@ -49,8 +50,8 @@ class KodiPlayer(xbmc.Player):
             # Get more info on what is playing, query depends on if video or audio...
             json_dict = {
                     "jsonrpc": "2.0",
-                    "id"     : "Player.GetItem",
-                    "method" : "Player.GetItem",
+                    "id": "Player.GetItem",
+                    "method": "Player.GetItem",
             }
             if xbmc.getCondVisibility('Player.HasVideo'):
                 params = {"playerid": 1, "properties": ["title", "thumbnail", "fanart", "year", "showtitle", "season", "episode"]}
@@ -69,7 +70,7 @@ class KodiPlayer(xbmc.Player):
             if 'jpg' not in Store.current_playback.thumbnail:
                 Store.current_playback.thumbnail = unquote(properties['fanart']).replace("image://", "").rstrip("/")
             if "id" in properties:
-                Store.current_playback.id = properties['id']
+                Store.current_playback.dbid = properties['id']
                 Store.current_playback.source = "Kodi Library"
             if "type" in properties:
                 Store.current_playback.type = properties['type']
@@ -93,10 +94,11 @@ class KodiPlayer(xbmc.Player):
             Store.current_playback.totaltime = Store.kodi_player.getTotalTime()
 
             # Try alternate ways to get things if they are missing
-            if not Store.current_playback.source:
-                source = getInfoLabel('ListItem.Path')
-                if source:
-                    Store.current_playback.source = source.split('/')[2]
+            # if not Store.current_playback.source:
+            #     Logger.debug(" %%%%%%%%%%%%%%%%% HERE %%%%%%%%%%%%%%%%%%%%%")
+            #     source = getInfoLabel('ListItem.Path')
+            #     if source:
+            #         Store.current_playback.source = source.split('/')[2]
 
             # Logger.info(current_playback)
 
@@ -146,17 +148,17 @@ class KodiPlayer(xbmc.Player):
                 break
 
         if playback_to_remove:
-            Logger.debug("Moving re-played item to top of the Switchback List - first remove:")
-            Logger.debug(playback_to_remove)
+            # Logger.debug("Moving re-played item to top of the Switchback List - first remove:")
+            # Logger.debug(playback_to_remove)
             Store.switchback_list.remove(playback_to_remove)
-            Logger.debug(Store.switchback_list)
+            # Logger.debug(Store.switchback_list)
+            # Logger.debug("Then update times and add back")
             # Update with the current playback times
-            Logger.debug("Then update times and add back")
             playback_to_remove.resumetime = Store.current_playback.resumetime
             playback_to_remove.totaltime = Store.current_playback.totaltime
             Store.switchback_list.insert(0, playback_to_remove)
         else:
-            Logger.debug("Inserting new playback at top of Switchback List")
+            # Logger.debug("Inserting new playback at top of Switchback List")
             Store.switchback_list.insert(0, Store.current_playback)
 
         Logger.debug(Store.switchback_list)

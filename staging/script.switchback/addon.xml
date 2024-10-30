@@ -3,6 +3,7 @@
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.0"/>
+        <import addon="script.module.infotagger" version="0.0.3" />
     </requires>
     <!-- A service entrypoint to keep track of playbacks -->
     <extension point="xbmc.service" library="service.py" />

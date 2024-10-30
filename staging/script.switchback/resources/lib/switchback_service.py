@@ -33,6 +33,7 @@ def run():
         elif Store.current_playback and Store.kodi_player.isPlaying():
             Store.current_playback.resumetime = Store.kodi_player.getTime()
             Store.current_playback.totaltime = Store.kodi_player.getTotalTime()
+            xbmc.sleep(500)
 
     # and, we're done...
     footprints(startup=False)

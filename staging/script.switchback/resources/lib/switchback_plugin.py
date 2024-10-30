@@ -8,7 +8,7 @@ from bossanova808.logger import Logger
 from bossanova808.utilities import footprints
 # noinspection PyPackages
 from .store import Store
-
+from infotagger.listitem import ListItemInfoTag
 
 def create_kodi_list_item_from_playback(playback, offscreen=False):
     Logger.info("Creating list item from playback")
@@ -26,47 +26,52 @@ def create_kodi_list_item_from_playback(playback, offscreen=False):
         label = f"{playback.artist[0]} - {playback.album} - {playback.title}"
 
     list_item = xbmcgui.ListItem(label=label, path=playback.file, offscreen=offscreen)
+    tag = ListItemInfoTag(list_item, 'video')
 
-    tag = list_item.getVideoInfoTag()
-    tag.setTitle(playback.title)
-    tag.setPath(playback.file)
-    if playback.id:
-        tag.setDbId(playback.id)
-    if playback.year != 0:
-        tag.setYear(playback.year)
-    if playback.showtitle:
-        tag.setTvShowTitle(playback.showtitle)
-    if playback.season:
-        tag.setSeason(playback.season)
-    if playback.episode:
-        tag.setEpisode(playback.episode)
-    # Seems to be for Music Videos only?  List?
-    if playback.artist:
-        tag.setArtists(playback.artist)
-    if playback.album:
-        tag.setAlbum(playback.album)
-    if playback.duration:
-        tag.setDuration(playback.duration)
-    if playback.resumetime:
-        tag.setResumePoint(playback.resumetime)
-    list_item.setProperty('IsPlayable', 'true')
+    # tag = list_item.getVideoInfoTag()
+    # tag.setTitle(playback.title)
+    # tag.setPath(playback.file)
+    # if playback.dbid:
+    #     tag.setDbId(playback.dbid)
+    # if playback.year != 0:
+    #     tag.setYear(playback.year)
+    # if playback.showtitle:
+    #     tag.setTvShowTitle(playback.showtitle)
+    # if playback.season:
+    #     tag.setSeason(playback.season)
+    # if playback.episode:
+    #     tag.setEpisode(playback.episode)
+    # # Seems to be for Music Videos only?  List?
+    # if playback.artist:
+    #     tag.setArtists(playback.artist)
+    # if playback.album:
+    #     tag.setAlbum(playback.album)
+    # if playback.duration:
+    #     tag.setDuration(playback.duration)
+    # if playback.resumetime:
+    #     tag.setResumePoint(playback.resumetime)
+
+    infolabels = {
+            'mediatype': playback.type,
+            'dbid': playback.dbid,
+            'title': playback.title,
+            'year': playback.year,
+            'tvshowtitle': playback.showtitle,
+            'episode': playback.episode,
+            'season': playback.season,
+            'duration': playback.totaltime,
+    }
+    # list_item.setInfo("video", infolabels)
+    tag.set_info(infolabels)
+    # Auto resumes just won't work without these, even though they are deprecated...
     list_item.setPath(path=playback.file)
     list_item.setArt({"thumbnail": playback.thumbnail})
-    list_item.setArt({"poster": playback.thumbnail})
-    list_item.setArt({"fanart": playback.fanart})
-    info_labels = {
-            'mediatype': playback.type,
-            'title': playback.title,
-    }
-    kodi_type = playback.type
-    if playback.type == "unknown":
-        kodi_type = "video"
-
-    list_item.setInfo(kodi_type, info_labels)
-    # Auto resumes just won't work without these, even though they are deprecated...
     list_item.setProperty('TotalTime', str(playback.totaltime))
     list_item.setProperty('ResumeTime', str(playback.resumetime))
     list_item.setProperty('StartOffset', str(playback.resumetime))
+    list_item.setProperty('IsPlayable', 'true')
+    list_item.setArt({"poster": playback.thumbnail})
+    list_item.setArt({"fanart": playback.fanart})
 
     return list_item
 
