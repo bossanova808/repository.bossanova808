@@ -14,7 +14,7 @@
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Utility for fast switching between recently played media.</summary>
         <description lang="en_GB">
-Keeps a of recently played media (supports Kodi library episodes, movies, and many video addons).
+Keeps a list of recently played media (supports Kodi library episodes, movies, and many video addons).
 
 The primary intended use is to make for super easy Switchback between two in progress videos (by binding a remote key to Switchback, see Wiki/Forum thread).
 
