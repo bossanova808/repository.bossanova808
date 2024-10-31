@@ -64,15 +64,15 @@ def create_kodi_list_item_from_playback(playback, index=None, offscreen=False):
     }
     # list_item.setInfo("video", infolabels)
     tag.set_info(infolabels)
-    # Auto resumes just won't work without these, even though they are deprecated...
     list_item.setPath(path=playback.file)
     list_item.setArt({"thumbnail": playback.thumbnail})
+    list_item.setArt({"poster": playback.poster})
+    list_item.setArt({"fanart": playback.fanart})
+    # Auto resumes just won't work without these, even though they are deprecated...
     list_item.setProperty('TotalTime', str(playback.totaltime))
     list_item.setProperty('ResumeTime', str(playback.resumetime))
     list_item.setProperty('StartOffset', str(playback.resumetime))
     list_item.setProperty('IsPlayable', 'true')
-    list_item.setArt({"poster": playback.thumbnail})
-    list_item.setArt({"fanart": playback.fanart})
 
     # index can be zero, so explicitly check against None!
     if index is not None:

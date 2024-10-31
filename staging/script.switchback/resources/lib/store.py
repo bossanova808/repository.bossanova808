@@ -47,6 +47,7 @@ class Store:
         Logger.info(f"Maximum Switchback list length is: {Store.maximum_list_length}")
         Logger.info(f"Include Music is: {Store.include_music}")
 
+        Store.switchback_list = []
         Logger.info(f"Loading Switchback playlist from file: {Store.switchback_list_file}")
         try:
             with open(Store.switchback_list_file, 'r') as switchback_list_file:

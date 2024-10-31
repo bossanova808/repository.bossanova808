@@ -14,6 +14,7 @@ class Playback:
     title:str = ""
     thumbnail:str = ""
     fanart:str = ""
+    poster:str = ""
     year:int = 0
     showtitle:str = ""
     season:int = 0

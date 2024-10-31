@@ -37,6 +37,8 @@ class KodiPlayer(xbmc.Player):
     # Use on AVStarted (vs Playback started) we want to record a playback only if the user actually saw a video...
     def onAVStarted(self):
         Logger.info('onAVStarted')
+        # Reload the Switchback list in case the plugin has e.g. deleted anything
+        Store.load_config_from_settings()
         # If Kodi is playing a file, gather info on it
         if xbmc.getCondVisibility('Player.HasMedia'):
 
@@ -48,46 +50,69 @@ class KodiPlayer(xbmc.Player):
             Store.current_playback = Playback()
             Store.current_playback.file = self.getPlayingFile()
             # Get more info on what is playing, query depends on if video or audio...
+
+            # Unfortunately, when playing from an offscreen playlist, the GetItem properties don't seem to be set,
+            # but can get info from Video/Music-Player it seems...
+            # See https://forum.kodi.tv/showthread.php?tid=379301
             json_dict = {
                     "jsonrpc": "2.0",
-                    "id": "Player.GetItem",
-                    "method": "Player.GetItem",
+                    "id": "XBMC.GetInfoLabels",
+                    "method": "XBMC.GetInfoLabels",
             }
+            stub = None
             if xbmc.getCondVisibility('Player.HasVideo'):
-                params = {"playerid": 1, "properties": ["title", "thumbnail", "fanart", "year", "showtitle", "season", "episode"]}
+                params = {"labels": ["Player.Art(thumb)", "Player.Art(poster)", "Player.Art(fanart)", "Player.Duration", "Player.Art(tvshow.poster)", "Player.Art(movie.poster)", "VideoPlayer.DBID", "VideoPlayer.Title", "VideoPlayer.Year", "VideoPlayer.TVShowTitle", "VideoPlayer.Season", "VideoPlayer.Episode"]}
+                stub = "Video"
             else:
-                params = {"playerid": 0, "properties": ["title", "thumbnail", "fanart", "album", "artist", "duration"]}
+                params = {"labels": ["Player.Art(thumb)", "Player.Art(poster)", "Player.Art(fanart)", "Player.Duration", "MusicPlayer.DBID", "MusicPlayer.Title", "MusicPlayer.Year", "MusicPlayer.Album", "MusicPlayer.Artist"]}
+                stub = "Video"
             json_dict['params'] = params
             query = json.dumps(json_dict)
-            properties_json = send_kodi_json(f'Get properties for {Store.current_playback.file}', query)
-            properties = properties_json['result']['item']
-            Store.current_playback.title = properties['title']
-            if not Store.current_playback.title:
-                Store.current_playback.title = properties['label']
-            Store.current_playback.fanart = unquote(properties['fanart']).replace("image://", "").rstrip("/")
-            Store.current_playback.thumbnail = unquote(properties['thumbnail']).replace("image://", "").rstrip("/")
+            properties_json = send_kodi_json(f'Get playback details from InfoLabels', query)
+            properties = properties_json['result']
+
+            Store.current_playback.title = properties[f'{stub}Player.Title']
+            # if not Store.current_playback.title:
+            #     Store.current_playback.title = properties['label']
+
+            if 'Player.Art(poster)' in properties and properties['Player.Art(poster)']:
+                Store.current_playback.poster = unquote(properties['Player.Art(poster)']).replace("image://", "").rstrip("/")
+                Store.current_playback.type = "movie"
+            if 'Player.Art(tvshow.poster)' in properties and properties['Player.Art(tvshow.poster)']:
+                Store.current_playback.poster = unquote(properties['Player.Art(tvshow.poster)']).replace("image://", "").rstrip("/")
+                Store.current_playback.type = "episode"
+
+            if not Store.current_playback.type:
+                if stub == 'Video':
+                    Store.current_playback.type = "video"
+                else:
+                    Store.current_playback.type = "song"
+
+            Store.current_playback.fanart = unquote(properties['Player.Art(fanart)']).replace("image://", "").rstrip("/")
             # @TODO - can this be improved?  Why does Kodi return e.g. '.mkv' files for thumbnail - extracted thumbs??
+            Store.current_playback.thumbnail = unquote(properties['Player.Art(thumb)']).replace("image://", "").rstrip("/")
             if 'jpg' not in Store.current_playback.thumbnail:
-                Store.current_playback.thumbnail = unquote(properties['fanart']).replace("image://", "").rstrip("/")
-            if "id" in properties:
-                Store.current_playback.dbid = properties['id']
+                Store.current_playback.thumbnail = unquote(properties['Player.Art(fanart)']).replace("image://", "").rstrip("/")
+
+            if f'{stub}Player.DBID' in properties:
+                Store.current_playback.dbid = properties[f'{stub}Player.DBID']
                 Store.current_playback.source = "Kodi Library"
-            if "type" in properties:
-                Store.current_playback.type = properties['type']
-            if "year" in properties:
-                Store.current_playback.year = properties['year']
-            if "showtitle" in properties:
-                Store.current_playback.showtitle = properties['showtitle']
-            if "season" in properties:
-                Store.current_playback.season = properties['season']
-            if "episode" in properties:
-                Store.current_playback.episode = properties['episode']
-            if "album" in properties:
-                Store.current_playback.album = properties['album']
-            if "artist" in properties:
-                Store.current_playback.artist = properties['artist']
-            if "duration" in properties:
-                Store.current_playback.duration = properties['duration']
+            if f'{stub}Player.Year' in properties:
+                Store.current_playback.year = properties[f'{stub}Player.Year']
+            if 'Player.Duration' in properties:
+                Store.current_playback.duration = properties['Player.Duration']
+
+            if 'VideoPlayer.TVShowTitle' in properties:
+                Store.current_playback.showtitle = properties[f'VideoPlayer.TVShowTitle']
+            if 'VideoPlayer.Season' in properties:
+                Store.current_playback.season = properties['VideoPlayer.Season']
+            if 'VideoPlayer.Episode' in properties:
+                Store.current_playback.episode = properties['VideoPlayer.Episode']
+
+            if 'MusicPlayer.Album' in properties:
+                Store.current_playback.album = properties['MusicPlayer.Album']
+            if 'MusicPlayer.Artist' in properties:
+                Store.current_playback.artist = properties['MusicPlayer.Artist']
 
             # These will get updated as playback progress by the service, but initialise them here...
             Store.current_playback.resumetime = Store.kodi_player.getTime()
@@ -99,6 +124,20 @@ class KodiPlayer(xbmc.Player):
             #     source = getInfoLabel('ListItem.Path')
             #     if source:
             #         Store.current_playback.source = source.split('/')[2]
+
+            # json_dict = {
+            #         "jsonrpc": "2.0",
+            #         "id": "Player.GetItem",
+            #         "method": "Player.GetItem",
+            # }
+            # if xbmc.getCondVisibility('Player.HasVideo'):
+            #     params = {"playerid": 1, "properties": ["thumbnail", "fanart"]}
+            # else:
+            #     params = {"playerid": 0, "properties": ["thumbnail", "fanart"]}
+            # json_dict['params'] = params
+            # query = json.dumps(json_dict)
+            # properties_json = send_kodi_json(f'Get properties for {Store.current_playback.file}', query)
+            # properties_from_item = properties_json['result']['item']
 
             # Logger.info(current_playback)
 
