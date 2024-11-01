@@ -14,7 +14,6 @@ class Store:
     """
     Helper class to read in and store the addon settings, and to provide a centralised store
     """
-
     # Static class variables, referred to elsewhere by Store.whatever
     # https://docs.python.org/3/faq/programming.html#how-do-i-create-static-class-data-and-static-class-methods
     kodi_event_monitor = None
@@ -34,6 +33,7 @@ class Store:
     def __init__(self):
         """
         Load in the addon settings and do basic initialisation stuff
+        :return:
         """
         Store.load_config_from_settings()
 
@@ -44,6 +44,8 @@ class Store:
         :return:
         """
         Logger.info("Loading configuration")
+        Store.maximum_list_length = ADDON.getSettingInt('maximum_list_length')
+        Store.include_music = ADDON.getSettingBool('include_music')
         Logger.info(f"Maximum Switchback list length is: {Store.maximum_list_length}")
         Logger.info(f"Include Music is: {Store.include_music}")
 
@@ -68,16 +70,20 @@ class Store:
             raise
 
         # Filter out any music playbacks if the setting is currently not to record them
-        for previous_playback in Store.switchback_list:
-            if not Store.include_music and previous_playback.type in Store.kodi_music_types:
+        for playback_to_maybe_remove in Store.switchback_list:
+            if not Store.include_music and playback_to_maybe_remove.type in Store.kodi_music_types:
                 Logger.warning("Include music is false, removing music playback from Switchback list")
-                Store.switchback_list.remove(previous_playback)
+                Store.switchback_list.remove(playback_to_maybe_remove)
 
         Logger.info("Switchback List is:")
         Logger.info(Store.switchback_list)
 
     @staticmethod
     def save_switchback_list():
+        """
+        Save the Switchback list to file in JSON format
+        :return:
+        """
         with open(Store.switchback_list_file, 'w', encoding='utf-8') as f:
             temp_json = []
             for playback in Store.switchback_list:

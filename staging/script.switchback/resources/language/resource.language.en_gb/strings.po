@@ -26,9 +26,9 @@ msgid "Maximum Switchback list length"
 msgstr ""
 
 msgctxt "#32003"
-msgid "Track Music Playbacks?"
+msgid "Include Music Playbacks?"
 msgstr ""
 
 msgctxt "#32004"
-msgid "Delete from Switchback list"
+msgid "Delete playback from Switchback list"
 msgstr ""

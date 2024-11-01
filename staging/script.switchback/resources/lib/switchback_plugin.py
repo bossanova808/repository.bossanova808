@@ -23,35 +23,18 @@ def create_kodi_list_item_from_playback(playback, index=None, offscreen=False):
             label = f"{playback.showtitle} ({playback.season}x?) - {playback.title}"
         else:
             label = f"{playback.showtitle} - {playback.title}"
-    if playback.album:
-        label = f"{playback.artist[0]} - {playback.album} - {playback.title}"
+    elif playback.channelname:
+        if playback.source == "pvr.live":
+            label = f"PVR Live - Channel {playback.channelname}"
+        else:
+            label = f"PVR Recording - Channel {playback.channelname} - {playback.title}"
+    elif playback.album:
+        label = f"{playback.artist} - {playback.album} - {playback.tracknumber:02d}. {playback.title}"
+    elif playback.artist:
+        label = f"{playback.artist} - {playback.title}"
 
     list_item = xbmcgui.ListItem(label=label, path=playback.file, offscreen=offscreen)
     tag = ListItemInfoTag(list_item, 'video')
-
-    # tag = list_item.getVideoInfoTag()
-    # tag.setTitle(playback.title)
-    # tag.setPath(playback.file)
-    # if playback.dbid:
-    #     tag.setDbId(playback.dbid)
-    # if playback.year != 0:
-    #     tag.setYear(playback.year)
-    # if playback.showtitle:
-    #     tag.setTvShowTitle(playback.showtitle)
-    # if playback.season:
-    #     tag.setSeason(playback.season)
-    # if playback.episode:
-    #     tag.setEpisode(playback.episode)
-    # # Seems to be for Music Videos only?  List?
-    # if playback.artist:
-    #     tag.setArtists(playback.artist)
-    # if playback.album:
-    #     tag.setAlbum(playback.album)
-    # if playback.duration:
-    #     tag.setDuration(playback.duration)
-    # if playback.resumetime:
-    #     tag.setResumePoint(playback.resumetime)
-
     infolabels = {
             'mediatype': playback.type,
             'dbid': playback.dbid,
@@ -60,9 +43,13 @@ def create_kodi_list_item_from_playback(playback, index=None, offscreen=False):
             'tvshowtitle': playback.showtitle,
             'episode': playback.episode,
             'season': playback.season,
+            'album': playback.album,
+            'artist': [playback.artist],
+            'tracknumber': playback.tracknumber,
             'duration': playback.totaltime,
     }
-    # list_item.setInfo("video", infolabels)
+    # Infotagger seems the best way to do this currently as is well teste
+    # I found directly setting things on InfoVideoTag to be buggy/inconsistent
     tag.set_info(infolabels)
     list_item.setPath(path=playback.file)
     list_item.setArt({"thumbnail": playback.thumbnail})
@@ -74,7 +61,7 @@ def create_kodi_list_item_from_playback(playback, index=None, offscreen=False):
     list_item.setProperty('StartOffset', str(playback.resumetime))
     list_item.setProperty('IsPlayable', 'true')
 
-    # index can be zero, so explicitly check against None!
+    # index can be zero, so in this case, must explicitly check against None!
     if index is not None:
         list_item.addContextMenuItems([(LANGUAGE(32004), "RunPlugin(plugin://script.switchback?mode=delete&index=" + str(index) + ")")])
 
@@ -95,6 +82,7 @@ def run(args):
     mode = parsed_arguments.get('mode', None)
     Logger.info(f"Mode: {mode}")
 
+    # Switchback mode - easily swap between switchback_list[0] and switchback_list[1]
     if mode and mode[0] == "play_previous":
         Logger.info(f"Playing previous file (Store.switchback_list[1]) {Store.switchback_list[1].file}")
         if Store.switchback_list[1]:
@@ -102,6 +90,8 @@ def run(args):
             xbmcplugin.setResolvedUrl(plugin_instance, True, list_item)
         else:
             Logger.error("No previous item found to play")
+
+    # Delete an item from the Switchback list - e.g. if it is not playing back properly from Switchback
     if mode and mode[0] == "delete":
         index_to_remove = parsed_arguments.get('index', None)
         if index_to_remove:
@@ -109,9 +99,9 @@ def run(args):
             Store.switchback_list.remove(Store.switchback_list[int(index_to_remove[0])])
             Store.save_switchback_list()
             # Force refresh the list
-            Logger.debug("Force refresh the list")
+            Logger.debug("Force refresh the container so we see the latest Switchback list")
             xbmc.executebuiltin("Container.Refresh")
-            # xbmc.executebuiltin("ActivateWindow(Videos,plugin://script.switchback)")
+
     # Default mode - show the whole Switchback List
     else:
         for index, playback in enumerate(Store.switchback_list[0:Store.maximum_list_length]):
@@ -120,4 +110,5 @@ def run(args):
 
         xbmcplugin.endOfDirectory(plugin_instance)
 
+    # And we're done...
     footprints(startup=False)

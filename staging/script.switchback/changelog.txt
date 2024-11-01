@@ -1,3 +1,6 @@
-v0.0.1
-- Alpha pre-release
+v1.0.0
+- Initial Release
+- Supports Episodes, Movies, Songs, PVR channels
+- Does not (yet?) support: addons/pvr recording
+
 

@@ -3,13 +3,13 @@
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.0"/>
-        <import addon="script.module.infotagger" version="0.0.3" />
+        <import addon="script.module.infotagger" version="0.0.8" />
     </requires>
     <!-- A service entrypoint to keep track of playbacks -->
     <extension point="xbmc.service" library="service.py" />
     <!-- ...and a plugin entrypoint to handle playing from the switchback playlist -->
     <extension point="xbmc.python.pluginsource" library="plugin.py">
-		<provides>video</provides>
+		<provides>video audio</provides>
 	</extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Utility for fast switching between recently played media.</summary>
@@ -23,8 +23,7 @@ Consider this scenario:
 - You navigate to 'video B' and watch some of that.
 - Your partner comes back.
 - You hit your one button 'Switchback' and 'video A' starts playing again, no need for tedious naviagation etc.
-- You are interrupted again - the moon is very bright tonight...hit your 'Switchback' to resume 'video B' immediately, again with one magic button and no tedious navigation.
-        
+- You are interrupted again - the moon is so very bright tonight - hit your 'Switchback' to resume 'video B' immediately, again with one magic button and no tedious navigation.
         </description>
         <platform>all</platform>
         <license>GPL-3.0-only</license>
