@@ -159,7 +159,7 @@ class KodiPlayer(xbmc.Player):
         self.onPlaybackFinished()
 
     @staticmethod
-    def onPlaybackFinished(self):
+    def onPlaybackFinished():
         """
         Playback has finished, so update our Switchback List
         """
