@@ -7,16 +7,18 @@
     </requires>
     <!-- A service entrypoint to keep track of playbacks -->
     <extension point="xbmc.service" library="service.py" />
-    <!-- ...and a plugin entrypoint to handle playing from the switchback playlist -->
+    <!-- ...and a plugin entrypoint to handle presenting and playing media from the switchback playlist -->
     <extension point="xbmc.python.pluginsource" library="plugin.py">
 		<provides>video audio</provides>
 	</extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Utility for fast switching between recently played media.</summary>
         <description lang="en_GB">
+Kodi utility for fast switching between recently played media.
+
 Keeps a list of recently played media (supports Kodi library episodes, movies, and many video addons).
 
-The primary intended use is to make for super easy Switchback between two in progress videos (by binding a remote key to Switchback, see Wiki/Forum thread).
+The primary intended use is to make for super easy Switchback between two in progress videos (by binding a remote key to Switchback, see Wiki/Forum thread for info).
 
 Consider this scenario:
 - You are watching 'video A' with your partner.  You are interrupted and your partner needs to tend to the kids/howl at the moon.
@@ -32,7 +34,7 @@ Consider this scenario:
         <forum />
         <email />
         <news>
-            v0.0.1 Alpha pre-release
+            v1.0.0 Initial release
         </news>
         <assets>
             <icon>resources/icon.png</icon>
