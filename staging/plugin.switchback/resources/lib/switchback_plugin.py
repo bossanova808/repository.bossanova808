@@ -5,6 +5,7 @@ import xbmcplugin
 
 from bossanova808.constants import *
 from bossanova808.logger import Logger
+from bossanova808.notify import Notify
 from bossanova808.utilities import footprints
 # noinspection PyPackages
 from .store import Store
@@ -83,12 +84,14 @@ def run(args):
     Logger.info(f"Mode: {mode}")
 
     # Switchback mode - easily swap between switchback_list[0] and switchback_list[1]
-    if mode and mode[0] == "play_previous":
-        Logger.info(f"Playing previous file (Store.switchback_list[1]) {Store.switchback_list[1].file}")
-        if Store.switchback_list[1]:
+    if mode and mode[0] == "switchback":
+        try:
+            Logger.info(f"Playing previous file (Store.switchback_list[1]) {Store.switchback_list[1].file}")
             list_item = create_kodi_list_item_from_playback(Store.switchback_list[1], offscreen=True)
+            Notify.kodi_notification(f"{list_item.getLabel()}", 3000, ADDON_ICON)
             xbmcplugin.setResolvedUrl(plugin_instance, True, list_item)
-        else:
+        except IndexError:
+            Notify.error("No previous item found to play")
             Logger.error("No previous item found to play")
 
     # Delete an item from the Switchback list - e.g. if it is not playing back properly from Switchback
