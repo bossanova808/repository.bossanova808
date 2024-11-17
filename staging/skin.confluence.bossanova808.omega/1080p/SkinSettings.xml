@@ -293,7 +293,34 @@
 						<onclick>Skin.SelectBool(31021, 31030|TitleFormat_nothing, 31036|TitleFormat_only, 31034|TitleFormat_1st, 31035|TitleFormat_2nd)</onclick>
 						<label2>$VAR[ShowOriginalName]</label2>
 					</control>
+					<!-- BOSSANOVA808 MOD - allow for Skin.HasSetting(IsB808) checks -->
+					<!-- Enables b808 specific things like birthday backgrounds etc. -->
+					<control type="label" id="119">
+						<width>1125</width>
+						<height>68</height>
+						<font>font13_title</font>
+						<label>Testing for bossanova808 - do *not* enable, may break your system:</label>
+						<textcolor>blue</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+					</control>
+					<control type="radiobutton" id="120">
+						<width>1125</width>
+						<height>60</height>
+						<font>font13</font>
+						<label>Bossanova808 Testing?</label>
+						<textcolor>grey2</textcolor>
+						<focusedcolor>white</focusedcolor>
+						<default>false</default>
+						<texturefocus>MenuItemFO.png</texturefocus>
+						<texturenofocus>MenuItemNF.png</texturenofocus>
+						<onclick>Skin.ToggleSetting(IsB808)</onclick>
+						<selected>Skin.HasSetting(IsB808)</selected>
+					</control>
+					<!-- END BOSSANOVA808 MOD - all for IsB808 checks -->
 				</control>
+				
 				<control type="scrollbar" id="60">
 					<left>1590</left>
 					<top>90</top>

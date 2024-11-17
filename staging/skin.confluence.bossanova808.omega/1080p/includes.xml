@@ -493,8 +493,25 @@
 		<value condition="!String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
 		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
 		<value>$INFO[Player.Icon]</value>
-	<!--  END BOSSANOVA808 MOD CLEARART -->
 	</variable>
+	<!--  END BOSSANOVA808 MOD CLEARART -->
+	<!--  BOSSANOVA808 MOD - Holiday Backgrounds - dates in form MM-DD -->
+	<variable name="HolidayBackground">
+		<!-- For testing...	-->
+		<!-- <value>special://skin/backgrounds/Anniversary.jpg</value> -->
+		<value condition="Skin.HasSetting(IsB808) + System.Date(01-03,01-04)">special://skin/backgrounds/BirthdayJem.jpg</value>
+		<value condition="Skin.HasSetting(IsB808) + System.Date(04-11,04-12)">special://skin/backgrounds/BirthdayAmy.jpg</value>
+		<value condition="Skin.HasSetting(IsB808) + System.Date(06-26,06-27)">special://skin/backgrounds/BirthdayLeyna.jpg</value>
+		<value condition="Skin.HasSetting(IsB808) + System.Date(08-12,08-13)">special://skin/backgrounds/BirthdayAleda.jpg</value>
+		<value condition="Skin.HasSetting(IsB808) + System.Date(10-07,10-08)">special://skin/backgrounds/Valentines.jpg</value>
+		<value condition="System.Date(02-14,02-15)">special://skin/backgrounds/Valentines.jpg</value>
+		<value condition="System.Date(04-18,04-22)">special://skin/backgrounds/Easter.jpg</value>
+		<value condition="System.Date(10-31,11-01)">special://skin/backgrounds/Halloween.jpg</value>
+		<value condition="System.Date(12-01,12-26)">special://skin/backgrounds/Christmas.jpg</value>
+		<value condition="System.Date(12-31,01-02)">special://skin/backgrounds/NewYears.jpg</value>
+		<value>$INFO[Skin.CurrentTheme,special://skin/backgrounds/,.jpg]</value>
+	</variable>
+	<!--  END BOSSANOVA808 MOD Holiday Backgrounds -->
 	<variable name="PlaySpeed">
 		<value condition="String.IsEqual(Player.PlaySpeed,0.80)">0.8X</value>
 		<value condition="String.IsEqual(Player.PlaySpeed,0.90)">0.9X</value>

@@ -1,3 +1,6 @@
+v5.0.902 
+Add holiday backgrounds
+
 v5.0.901
 Sync with upstream (tempo, colour management changes), disable some more label scrolling
 
