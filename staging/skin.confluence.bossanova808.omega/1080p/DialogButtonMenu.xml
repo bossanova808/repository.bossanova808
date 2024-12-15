@@ -102,6 +102,25 @@
 				<font>font13</font>
 				<label>13016</label>
 			</control>
+			<!-- BOSSANOVA808 Mod - add reboot to Android for e.g. Ugoos AM6B+-->
+			<control type="button" id="15">
+				<description>Reboot to Android button</description>
+				<width>510</width>
+				<height>60</height>
+				<textcolor>grey2</textcolor>
+				<focusedcolor>white</focusedcolor>
+				<align>center</align>
+				<textwidth>435</textwidth>
+				<texturefocus border="25,5,25,5">ShutdownButtonFocus.png</texturefocus>
+				<texturenofocus border="25,5,25,5">ShutdownButtonNoFocus.png</texturenofocus>
+				<onclick>System.ExecWait("/usr/sbin/rebootfromnand")</onclick>
+				<onclick>Reset()</onclick>
+				<visible>System.PathExist("/dev/system") | System.PathExist("/dev/userdata")</visible>
+				<pulseonselect>false</pulseonselect>
+				<font>font13</font>
+				<label>Reboot from eMMC/NAND</label>
+			</control>	
+			<!-- END BOSSANOVA808 MOD  -->			
 			<control type="button" id="4">
 				<description>Custom Shutdown Timer</description>
 				<width>510</width>
