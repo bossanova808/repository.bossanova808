@@ -1,25 +1,28 @@
-from bossanova808.logger import Logger
-from bossanova808.constants import *
 import sys
+import os
 from traceback import format_exc
 
-# 24-10 THIS Unit Testing stuff NEEDS TO BE RE-WRITTEN FOR NEW MODULE!!!
-# The below is a bit of a mess because of Kodi vs not Kodi imports
-# This allows for unit testing this module..
-# try:
-#     from .common import *
-# except:
-#     from common import *
 
-sys.path.append(CWD + '/resources/lib/')
-sys.path.append(CWD + '/resources/lib/yoctopuce')
 
+unit_testing = False
 try:
+    # Running inside Kodi as usual
+    from bossanova808.logger import Logger
+    from bossanova808.constants import *
+    sys.path.append(CWD + '/resources/lib/')
+    sys.path.append(CWD + '/resources/lib/yoctopuce')
     from yocto_api import *
     from yocto_display import *
 except ImportError:
+    # Unit testing this module outside Kodi
+    unit_testing = True
+    sys.path.append(os.getcwd() + '/resources/lib/')
+    sys.path.append(os.getcwd() + '/resources/lib/yoctopuce')
+    sys.path.append('..\\..\\..\\script.module.bossanova808\\resources\\lib')
+    print(sys.path)
     from yoctopuce.yocto_api import *
     from yoctopuce.yocto_display import *
+    from bossanova808.logger import Logger
 
 
 class YoctoMaxiDisplay:

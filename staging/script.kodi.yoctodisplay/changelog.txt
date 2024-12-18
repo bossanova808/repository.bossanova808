@@ -1,4 +1,7 @@
-v0.2.4
+v0.2.6
+- Fix unit testing, given new module     
+
+v0.2.5
 - Use new module
 
 v0.2.3

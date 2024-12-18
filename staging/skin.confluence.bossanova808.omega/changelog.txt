@@ -1,3 +1,6 @@
+v5.0.904
+Add reboot to eMMC/NAND for e.g. Ugoos AM6B+
+
 v5.0.903 
 Add holiday backgrounds
 
