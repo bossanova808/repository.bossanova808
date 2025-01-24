@@ -13,7 +13,7 @@
 	      	<visible>[Player.Paused]</visible>
 			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			<control type="image" id="1">
-				<depth>DepthOSDPopout</depth>
+				<depth>DepthOSD</depth>
 				<description>Video cover image</description>
 				<posx>5</posx>
 				<posy>525r</posy>
