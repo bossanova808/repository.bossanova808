@@ -1,3 +1,6 @@
+v5.0.905
+Sync with upstream, minors, new PlayerProcessInfo
+
 v5.0.904
 Add reboot to eMMC/NAND for e.g. Ugoos AM6B+
 
