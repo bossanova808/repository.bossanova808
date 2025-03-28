@@ -1172,8 +1172,8 @@
 		</control>
 		<control type="group" id="10">
 			<!-- Bossanova808 Mod - Add faster profile switching -->
-			<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEmpty(System.ProfileName)">conditional</animation>
-			<animation effect="slide" start="0,0" end="-75,0" time="0" condition="String.IsEmpty(System.ProfileName)">conditional</animation>
+			<animation effect="slide" start="0,0" end="0,0" time="0" condition="!Integer.IsGreater(System.ProfileCount,1)">conditional</animation>
+			<animation effect="slide" start="0,0" end="-75,0" time="0" condition="!Integer.IsGreater(System.ProfileCount,1)">conditional</animation>
 			<depth>DepthFooter</depth>
 			<left>15</left>
 			<top>72r</top>
@@ -1188,8 +1188,8 @@
 					<label>1036</label>
 					<font />
 <!-- Traditional profile switching - log off current user & return to log in screen -->
-                    <onclick condition="String.IsEmpty(System.ProfileName)">System.LogOff</onclick>
-                    <onclick condition="!String.IsEmpty(System.ProfileName) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away)">System.LogOff</onclick>
+                    <onclick condition="!Integer.IsGreater(System.ProfileCount,1)">System.LogOff</onclick>
+                    <onclick condition="Integer.IsGreater(System.ProfileCount,1) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away)">System.LogOff</onclick>
 <!-- Bossanova808 Specific fast profile switching -->
 					<onclick condition="String.IsEqual(System.ProfileName,Adults)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Kids)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults)</onclick>

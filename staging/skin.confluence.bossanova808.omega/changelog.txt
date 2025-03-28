@@ -1,3 +1,6 @@
+v5.0.906
+Fix behaviour if only one profile, remove radar from seek etc due to performance issues
+
 v5.0.905
 Sync with upstream, minors, new PlayerProcessInfo
 
