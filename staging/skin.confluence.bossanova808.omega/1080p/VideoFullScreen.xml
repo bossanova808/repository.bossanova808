@@ -55,17 +55,15 @@
 			<depth>DepthOSD</depth>
 			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="150">VisibleChange</animation>
-<!-- BOSSANOVA808 Mod - remove dark fade at top of Video Info OSD & chapter stuff so weather can sit high & is clear -->
-<!--			<control type="image" id="1">-->
-<!--				<left>-30</left>-->
-<!--				<top>-225</top>-->
-<!--				<width>1980</width>-->
-<!--				<height>384</height>-->
-<!--				<texture flipy="true" border="1">HomeNowPlayingBack.png</texture>-->
-<!--			</control>-->
+			<control type="image" id="1">
+				<left>-30</left>
+				<top>-225</top>
+				<width>1980</width>
+				<height>384</height>
+				<texture flipy="true" border="1">HomeNowPlayingBack.png</texture>
+			</control>
 			<control type="label" id="1">
 				<description>Chapter Count Header label</description>
-				<!--  BOSSANOVA808 MOD - Move chapter info below radar -->
 				<left>45</left>
 				<top>8</top>
 				<width>1500</width>
@@ -80,9 +78,8 @@
 			</control>
 			<control type="label" id="1">
 				<description>Channel Group label</description>
-				<!--  BOSSANOVA808 MOD - Move chapter info below radar -->
-				<left>20</left>
-				<top>270</top>
+				<left>45</left>
+				<top>8</top>
 				<width>1500</width>
 				<height>38</height>
 				<align>left</align>
@@ -102,6 +99,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<font>font13</font>
+				<!--  BOSSANOVA808 MOD - Dimmer text -->
 				<textcolor>gray</textcolor>
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Time]</label>

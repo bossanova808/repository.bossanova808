@@ -414,19 +414,34 @@
 						<texturenofocus>MenuItemNF.png</texturenofocus>
 						<visible>!String.IsEmpty(Weather.Plugin)</visible>
 					</control>
+					<!-- BOSSANOVA808 MOD - Separate options for hiding/showing recently added Movies and TV -->
 					<control type="radiobutton" id="205">
-						<description>Show Recently added Video info</description>
+						<description>Show Recently added Movie info</description>
 						<width>1125</width>
 						<height>60</height>
 						<font>font13</font>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
-						<label>31117</label>
+						<label>Show recently added movies</label>
 						<onclick>Skin.ToggleSetting(HomepageHideRecentlyAddedVideo)</onclick>
 						<selected>!Skin.HasSetting(HomepageHideRecentlyAddedVideo)</selected>
 						<texturefocus>MenuItemFO.png</texturefocus>
 						<texturenofocus>MenuItemNF.png</texturenofocus>
 					</control>
+					<control type="radiobutton" id="2050">
+						<description>Show Recently added TV info</description>
+						<width>1125</width>
+						<height>60</height>
+						<font>font13</font>
+						<textcolor>grey2</textcolor>
+						<focusedcolor>white</focusedcolor>
+						<label>Show recently added TV</label>
+						<onclick>Skin.ToggleSetting(HomepageHideRecentlyAddedTV)</onclick>
+						<selected>!Skin.HasSetting(HomepageHideRecentlyAddedTV)</selected>
+						<texturefocus>MenuItemFO.png</texturefocus>
+						<texturenofocus>MenuItemNF.png</texturenofocus>
+					</control>
+					<!-- END BOSSANOVA808 MOD -->
 					<control type="radiobutton" id="206">
 						<description>Show Recently added info</description>
 						<width>1125</width>

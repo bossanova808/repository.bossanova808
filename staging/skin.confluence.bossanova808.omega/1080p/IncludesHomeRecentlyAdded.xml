@@ -173,9 +173,8 @@
 				<left>240</left>
 				<top>75</top>
 				<visible>Library.HasContent(TVShows)</visible>
-				<visible>Container(9000).Hasfocus(11) + !Skin.HasSetting(HomepageHideRecentlyAddedVideo) + !Skin.HasSetting(HomeMenuTVShowUsePlaylist)</visible>
-				<!-- BOSSANOVA808 mod - Completely disable recently added for TV, avoid spoilers -->
-				<visible>False</visible>
+				<!-- BOSSANOVA808 MOD - separate setting for showing recently added TV vs movies -->
+				<visible>Container(9000).Hasfocus(11) + !Skin.HasSetting(HomepageHideRecentlyAddedTV) + !Skin.HasSetting(HomeMenuTVShowUsePlaylist)</visible>
 				<include>VisibleFadeEffect</include>
 				<control type="label">
 					<description>Title label</description>

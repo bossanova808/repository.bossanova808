@@ -1,3 +1,6 @@
+v5.0.907
+Add separate setting for show/hide recently added TV vs. movies
+
 v5.0.906
 Fix behaviour if only one profile, remove radar from seek etc due to performance issues
 
