@@ -500,7 +500,7 @@
 	<!--  BOSSANOVA808 MOD - Holiday Backgrounds - dates in form MM-DD -->
 	<variable name="HolidayBackground">
 		<!-- For testing...uncomment this to overrule all below options	-->
-	 	<value>special://skin/backgrounds/MothersDay.jpg</value>
+<!--	 	<value>special://skin/backgrounds/MothersDay.jpg</value>-->
 		<!-- Bossanova808 Specific -->
 		<value condition="Skin.HasSetting(IsB808) + System.Date(01-03,01-04)">special://skin/backgrounds/BirthdayJem.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(04-11,04-12)">special://skin/backgrounds/BirthdayAmy.jpg</value>
@@ -509,7 +509,7 @@
 		<value condition="Skin.HasSetting(IsB808) + System.Date(10-07,10-08)">special://skin/backgrounds/Valentines.jpg</value>
 		<!-- Need annual updates to these dates! -->
 		<value condition="Skin.HasSetting(IsB808) + System.Date(05-11,05-12)">special://skin/backgrounds/MothersDay.jpg</value>
-		<value condition="Skin.HasSetting(IsB808) + System.Date(05-11,05-12)">special://skin/backgrounds/FathersDay.jpg</value>
+		<value condition="Skin.HasSetting(IsB808) + System.Date(09-07,09-08)">special://skin/backgrounds/FathersDay.jpg</value>
 		<!-- All skin users	-->
 		<value condition="System.Date(02-14,02-15)">special://skin/backgrounds/Valentines.jpg</value>
 		<value condition="System.Date(04-18,04-22)">special://skin/backgrounds/Easter.jpg</value>
