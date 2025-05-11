@@ -1,3 +1,6 @@
+v5.0.908
+Add another holiday background
+
 v5.0.907
 Add separate setting for show/hide recently added TV vs. movies
 

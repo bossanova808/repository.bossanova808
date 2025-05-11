@@ -492,18 +492,25 @@
 		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">$INFO[Player.Art(tvshow.clearlogo)]</value>
 		<value condition="!String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
 		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
+		<value condition="!String.IsEmpty(Player.Art(thumbnail))">$INFO[Player.Art(thumbnail)]</value>
+		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">$INFO[Player.Art(tvshow.thumbnail)]</value>
 		<value>$INFO[Player.Icon]</value>
 	</variable>
 	<!--  END BOSSANOVA808 MOD CLEARART -->
 	<!--  BOSSANOVA808 MOD - Holiday Backgrounds - dates in form MM-DD -->
 	<variable name="HolidayBackground">
-		<!-- For testing...	-->
-		<!-- <value>special://skin/backgrounds/Anniversary.jpg</value> -->
+		<!-- For testing...uncomment this to overrule all below options	-->
+	 	<value>special://skin/backgrounds/MothersDay.jpg</value>
+		<!-- Bossanova808 Specific -->
 		<value condition="Skin.HasSetting(IsB808) + System.Date(01-03,01-04)">special://skin/backgrounds/BirthdayJem.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(04-11,04-12)">special://skin/backgrounds/BirthdayAmy.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(06-26,06-27)">special://skin/backgrounds/BirthdayLeyna.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(08-12,08-13)">special://skin/backgrounds/BirthdayAleda.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(10-07,10-08)">special://skin/backgrounds/Valentines.jpg</value>
+		<!-- Need annual updates to these dates! -->
+		<value condition="Skin.HasSetting(IsB808) + System.Date(05-11,05-12)">special://skin/backgrounds/MothersDay.jpg</value>
+		<value condition="Skin.HasSetting(IsB808) + System.Date(05-11,05-12)">special://skin/backgrounds/FathersDay.jpg</value>
+		<!-- All skin users	-->
 		<value condition="System.Date(02-14,02-15)">special://skin/backgrounds/Valentines.jpg</value>
 		<value condition="System.Date(04-18,04-22)">special://skin/backgrounds/Easter.jpg</value>
 		<value condition="System.Date(10-31,11-01)">special://skin/backgrounds/Halloween.jpg</value>
