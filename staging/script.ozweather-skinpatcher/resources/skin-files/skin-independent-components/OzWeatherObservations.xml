@@ -54,21 +54,94 @@
                 <param name="posy">5%</param>
                 <param name="label">$INFO[Window(weather).Property(Daily.1.Outlook)]</param>
             </include>
-
+            
             <include content="OzWeatherHeader">
-                <description>Today's Min / Max (if still available)</description>
+                <description>BOM's Now/Later Information</description>
                 <param name="posx">0%</param>
                 <param name="posy">18%</param>
                 <param name="label">[COLOR _colour_text_dim_]$INFO[Window(weather).Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window(weather).Property(Current.NowValue)]&#176;[/COLOR]</param>
             </include>
 
             <include content="OzWeatherHeader">
-                <description>Today's Min / Max (if still available)</description>
+                <description>BOM's Now/Later Information</description>
                 <param name="posx">0%</param>
                 <param name="posy">28%</param>
                 <param name="label">[COLOR _colour_text_dim_]$INFO[Window(weather).Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Current.LaterValue)]&#176;[/COLOR]</param>
             </include>
 
+<!--            *** START of Now / Later -->
+
+<!--    Now / Later options: -->
+<!--            Mornings < 9am -->
+<!--            'now': {'is_night': False,-->
+<!--                'later_label': 'Max',-->
+<!--                'now_label': 'Min',-->
+<!--                'temp_later': 15,-->
+<!--                'temp_now': 7},            -->
+<!--            Afternoons 9am <> 6pm -->
+<!--            "now": {-->
+<!--                "is_night": false, -->
+<!--                "later_label": "Overnight Min", -->
+<!--                "now_label": "Max", -->
+<!--                "temp_later": 10, -->
+<!--                "temp_now": 22},             -->
+<!--            Evenings > 6pm -->
+<!--            'now': {-->
+<!--                'is_night': True,-->
+<!--                'later_label': "Tomorrow's max",-->
+<!--                'now_label': 'Overnight min',-->
+<!--                'temp_later': 15,-->
+<!--                'temp_now': 7},-->
+
+<!--            Now: Min / Later: Max -->
+            <include content="OzWeatherHeader">
+                <description>BOM's Now Information</description>
+                <param name="posx">0%</param>
+                <param name="posy">18%</param>
+                <param name="label">[COLOR darkgray]$INFO[Window(weather).Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window(weather).Property(Current.LaterValue)]&#176;[/COLOR]</param>
+                <param name="visible">String.IsEqual(Window(weather).Property(Current.NowLabel),Min) + String.IsEqual(Window(weather).Property(Current.LaterLabel),Max)</param>
+            </include>
+            <include content="OzWeatherHeader">
+                <description>BOM's Now Information</description>
+                <param name="posx">0%</param>
+                <param name="posy">28%</param>
+                <param name="label">[COLOR darkgray]$INFO[Window(weather).Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Current.NowValue)]&#176;[/COLOR]</param>
+                <param name="visible">String.IsEqual(Window(weather).Property(Current.NowLabel),Min) + String.IsEqual(Window(weather).Property(Current.LaterLabel),Max)</param>
+            </include>
+<!--            Now: Max / Later: Overnight Min -->
+            <include content="OzWeatherHeader">
+                <description>BOM's Now Information</description>
+                <param name="posx">0%</param>
+                <param name="posy">18%</param>
+                <param name="label">[COLOR darkgray]$INFO[Window(weather).Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window(weather).Property(Current.NowValue)]&#176;[/COLOR]</param>
+                <param name="visible">String.IsEqual(Window(weather).Property(Current.NowLabel),Max) + String.IsEqual(Window(weather).Property(Current.LaterLabel),Overnight Min)</param>
+            </include>
+            <include content="OzWeatherHeader">
+                <description>BOM's Later Information</description>
+                <param name="posx">0%</param>
+                <param name="posy">28%</param>
+                <param name="label">[COLOR darkgray]$INFO[Window(weather).Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Current.LaterValue)]&#176;[/COLOR]</param>
+                <param name="visible">String.IsEqual(Window(weather).Property(Current.NowLabel),Max) + String.IsEqual(Window(weather).Property(Current.LaterLabel),Overnight Min)</param>
+            </include>
+<!--            Now: Overnight min / Later: Tomorrow's max -->
+            <include content="OzWeatherHeader">
+                <description>BOM's Now Information</description>
+                <param name="posx">0%</param>
+                <param name="posy">18%</param>
+                <param name="label">[COLOR darkgray]$INFO[Window(weather).Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Current.NowValue)]&#176;[/COLOR]</param>
+                <param name="visible">String.Contains(Window(weather).Property(Current.NowLabel),Overnight) + String.Contains(Window(weather).Property(Current.LaterLabel),Tomorrow)</param>
+            </include>
+            <include content="OzWeatherHeader">
+                <description>BOM's Later Information</description>
+                <param name="posx">0%</param>
+                <param name="posy">28%</param>
+                <param name="label">[COLOR darkgray]$INFO[Window(weather).Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window(weather).Property(Current.LaterValue)]&#176;[/COLOR]</param>
+                <param name="visible">String.Contains(Window(weather).Property(Current.NowLabel),Overnight) + String.Contains(Window(weather).Property(Current.LaterLabel),Tomorrow)</param>
+            </include>
+            
+<!--            *** END of Now / Later -->
+            
+            
             <include content="OzWeatherHeader">
                 <description>Today's Rain Chance</description>
                 <param name="posx">28%</param>
