@@ -496,7 +496,57 @@
 		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">$INFO[Player.Art(tvshow.thumbnail)]</value>
 		<value>$INFO[Player.Icon]</value>
 	</variable>
+	<expression name="ClearSomething">!String.IsEmpty(Player.Art(clearart)) | !String.IsEmpty(Player.Art(tvshow.clearart)) | !String.IsEmpty(Player.Art(clearlogo)) | !String.IsEmpty(Player.Art(tvshow.clearlogo))</expression>
+	<expression name="Poster">!$EXP[ClearSomething] + [!String.IsEmpty(Player.Art(poster)) | !String.IsEmpty(Player.Art(tvshow.poster))]</expression>
+	<expression name="Thumbnail">!$EXP[Poster] + [!String.IsEmpty(Player.Art(thumbnail)) | !String.IsEmpty(Player.Art(tvshow.thumbnail))]</expression>
+	<expression name="Icon">!$EXP[ClearSomething] + !$EXP[Poster] + !$EXP[Thumbnail] + !String.IsEmpty(Player.Icon)</expression>
 	<!--  END BOSSANOVA808 MOD CLEARART -->
+	
+<!--	<variable name="NowPlayingHeight">-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">300</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">300</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">300</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">300</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(poster))">525</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">525</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">300</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">300</value>-->
+<!--		<value>525</value>-->
+<!--	</variable>-->
+<!--	<variable name="NowPlayingPosx">-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(poster))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">0</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">0</value>-->
+<!--		<value>20</value>-->
+<!--	</variable>-->
+<!--	<variable name="NowPlayingPosy">-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">300r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">300r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">300r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">300r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(poster))">525r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">525r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">300r</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">300r</value>-->
+<!--		<value>525r</value>-->
+<!--	</variable>-->
+<!--	<variable name="NowPlayingAlign">-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">center</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">center</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">center</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">center</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(poster))">bottom</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">bottom</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">center</value>-->
+<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">center</value>-->
+<!--		<value>bottom</value>-->
+<!--	</variable>-->
+
 	<!--  BOSSANOVA808 MOD - Holiday Backgrounds - dates in form MM-DD -->
 	<variable name="HolidayBackground">
 		<!-- For testing...uncomment this to overrule all below options	-->
@@ -674,6 +724,110 @@
 		<value condition="ListItem.HasVideoExtras">flagging/video/overlay_extras.png</value>
 	</variable>
 	<!-- INCLUDES -->
+	<include name="NowPlayingDebug">
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>100</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Thumb: $VAR[NowPlayingThumb]</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>130</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(clearart): ($INFO[Player.Art(clearart)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>160</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(tvshow.clearart): ($INFO[Player.Art(tvshow.clearart)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>190</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(clearlogo): ($INFO[Player.Art(clearlogo)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>220</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(tvshow.clearlogo): ($INFO[Player.Art(tvshow.clearlogo)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>250</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(poster): ($INFO[Player.Art(poster)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>280</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(tvshow.poster): ($INFO[Player.Art(tvshow.poster)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>310</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(thumbnail): ($INFO[Player.Art(thumbnail)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>340</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>(Player.Art(tvshow.thumbnail): ($INFO[Player.Art(tvshow.thumbnail)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+		<control type="label" id="8010">
+			<left>0</left>
+			<top>370</top>
+			<width>1920</width>
+			<height>30</height>
+			<label>Player.Art(icon): ($INFO[Player.Art(icon)])</label>
+			<font>font11</font>
+			<scroll>true</scroll>
+		</control>
+	</include>
+<!--	<include name="NowPlayingThumb">-->
+<!--		<control type="image" id="1">-->
+<!--			<depth>DepthOSD</depth>-->
+<!--			<description>Video cover image (clearart, clearlogo, poster, thumbnail, icon)</description>-->
+<!--			<posx>$PARAM[NowPlayingPosx]</posx>-->
+<!--			<posy>$PARAM[NowPlayingPosy]</posy>-->
+<!--			<width>450</width>-->
+<!--			<height>$PARAM[NowPlayingHeight]</height>-->
+<!--			<texture fallback="DefaultVideoCover.png">$PARAM[NowPlayingThumb]</texture>-->
+<!--			<aspectratio aligny="$PARAM[NowPlayingAlign]">keep</aspectratio>-->
+<!--		</control>-->
+<!--	</include>-->
 	<include name="MusicInfoPanel">
 		<control type="panel" id="50">
 			<left>$PARAM[panel-left]</left>

@@ -114,16 +114,29 @@
 				<texture border="1">HomeNowPlayingBack.png</texture>
 			</control>
 			<!--  BOSSANOVA808 CLEARART MOD  -->
-			<!--  SHOWS CLEARART BY DEFAULT, OTHERWISE FALLS BACK TO LOGO or BORING THUMB -->
+			<!--  See also DialogSeekBar/xml ~ line 11 -->
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
-				<description>Video cover image</description>
-				<posx>5</posx>
-				<posy>525r</posy>
-				<width>480</width>
-				<height>525</height>
+				<description>Video cover image (clear art/logo, thumbnail)</description>
+				<posx>25</posx>
+				<posy>350r</posy>
+				<width>450</width>
+				<height>350</height>
+				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
+				<aspectratio aligny="center">keep</aspectratio>
+				<visible>$EXP[ClearSomething] | $EXP[Thumbnail]</visible>
+				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
+			</control>
+			<control type="image" id="1">
+				<depth>DepthOSDPopout</depth>
+				<description>Video cover image (poster, icon)</description>
+				<posx>25</posx>
+				<posy>600r</posy>
+				<width>450</width>
+				<height>600</height>
 				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
+				<visible>$EXP[Poster] | $EXP[Icon]</visible>
 				<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			</control>
 			<!-- END BOSSANOVA808 CLEARART MOD  -->

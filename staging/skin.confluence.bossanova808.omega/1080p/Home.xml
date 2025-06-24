@@ -792,11 +792,14 @@
 					<include>HomeSubMenuCommonValues</include>
 					<onleft>9017</onleft>
 					<onright>9017</onright>
-					<!-- Bossanova808 Display sub menu even when main button set to a playlist so node editor works -->
+					<!-- BOSSANOVA808 MOD Display sub menu even when main button set to a playlist -->
 					<!-- <visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label) + [System.IsMaster | !Skin.HasSetting(HomeMenuTVShowUsePlaylist)]</visible> -->
 					<visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label)</visible>
 					<!-- Buttons for the grouplist -->
-					<include>HomeSubMenuTVShows</include>
+					<!-- Force a different menu for Bossanova808/Adults Profile -->
+					<include condition="Skin.HasSetting(IsB808) + String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
+					<include condition="!Skin.HasSetting(IsB808) | !String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShows</include>
+					<!-- END BOSSANOVA808 MOD -->
 				</control>
 				<control type="grouplist" id="9011">
 					<include>HomeSubMenuCommonValues</include>

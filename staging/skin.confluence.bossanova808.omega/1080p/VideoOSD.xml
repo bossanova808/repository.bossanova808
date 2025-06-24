@@ -185,6 +185,7 @@
 <!--				<onclick>ActivateWindow(Teletext)</onclick>-->
 <!--				<visible>VideoPlayer.Content(LiveTV)</visible>-->
 <!--			</control>-->
+<!--	END Bossanova808 Mod		-->
 		</control>
 		<control type="grouplist" id="200">
 			<right>20</right>

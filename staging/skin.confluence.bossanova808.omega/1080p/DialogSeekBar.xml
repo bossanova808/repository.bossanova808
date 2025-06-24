@@ -9,21 +9,107 @@
 	<depth>DepthOSD</depth>
 	<controls>
 		<!--  BOSSANOVA808 MOD CLEARART -->
+		<!-- See also VideoFullScreen.xml ~ line 115 -->
 		<control type="group">
 	      	<visible>[Player.Paused]</visible>
 			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
 			<control type="image" id="1">
 				<depth>DepthOSD</depth>
-				<description>Video cover image</description>
-				<posx>5</posx>
-				<posy>525r</posy>
-				<width>480</width>
-				<height>525</height>
+				<description>Video cover image (clear art/logo, thumbnail)</description>
+				<posx>25</posx>
+				<posy>350r</posy>
+				<width>450</width>
+				<height>350</height>
+				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
+				<aspectratio aligny="center">keep</aspectratio>
+				<visible>$EXP[ClearSomething] | $EXP[Thumbnail]</visible>
+			</control>
+			<control type="image" id="1">
+				<depth>DepthOSD</depth>
+				<description>Video cover image (poster, icon)</description>
+				<posx>25</posx>
+				<posy>600r</posy>
+				<width>450</width>
+				<height>600</height>
 				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>
 				<aspectratio aligny="bottom">keep</aspectratio>
+				<visible>$EXP[Poster] | $EXP[Icon]</visible>
 			</control>
 		</control>
 		<!-- END BOSSANOVA808 MOD CLEARART -->
+		
+<!--			<include content="NowPlayingThumb" condition="$EXP[ClearSomething] | $EXP[Thumbnail]">-->
+<!--				<param name="NowPlayingPosx" value="25" />-->
+<!--				<param name="NowPlayingPosy" value="300r" />-->
+<!--				<param name="NowPlayingHeight" value="300" />-->
+<!--				<param name="NowPlayingThumb" value="$VAR[NowPlayingThumb]" />-->
+<!--				<param name="NowPlayingAlign" value="center" />-->
+<!--			</include>-->
+<!--			<include content="NowPlayingThumb" condition="$EXP[Poster] | $EXP[Icon]">-->
+<!--				<param name="NowPlayingPosx" value="25" />-->
+<!--				<param name="NowPlayingPosy" value="525r" />-->
+<!--				<param name="NowPlayingHeight" value="525" />-->
+<!--				<param name="NowPlayingThumb" value="$VAR[NowPlayingThumb]" />-->
+<!--				<param name="NowPlayingAlign" value="bottom" />-->
+<!--			</include>-->
+<!--			<include content="NowPlayingThumb" condition="$EXP[Thumbnail]">-->
+<!--				<param name="NowPlayingPosx" value="20" />-->
+<!--				<param name="NowPlayingPosy" value="300r" />-->
+<!--				<param name="NowPlayingHeight" value="300" />-->
+<!--				<param name="NowPlayingThumb" value="$VAR[NowPlayingThumb]" />-->
+<!--				<param name="NowPlayingAlign" value="center" />-->
+<!--			</include>-->
+<!--			<include content="NowPlayingThumb" condition="$EXP[Icon]">-->
+<!--				<param name="NowPlayingPosx" value="25" />-->
+<!--				<param name="NowPlayingPosy" value="525r" />-->
+<!--				<param name="NowPlayingHeight" value="525" />-->
+<!--				<param name="NowPlayingThumb" value="$VAR[NowPlayingThumb]" />-->
+<!--				<param name="NowPlayingAlign" value="bottom" />-->
+<!--			</include>-->
+<!--			<control type="image" id="1">-->
+<!--				<depth>DepthOSD</depth>-->
+<!--				<description>Video cover image (clearart or logo)</description>-->
+<!--				<posx>20</posx>-->
+<!--				<posy>525r</posy>-->
+<!--				<width>450</width>-->
+<!--				<height>$VAR[NowPlayingHeight]</height>-->
+<!--				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>-->
+<!--				<aspectratio aligny="center">keep</aspectratio>-->
+<!--			</control>-->
+<!--			<control type="image" id="1">-->
+<!--				<depth>DepthOSD</depth>-->
+<!--				<description>Video cover image (poster)</description>-->
+<!--				<posx>10</posx>-->
+<!--				<posy>525r</posy>-->
+<!--				<width>480</width>-->
+<!--				<height>525</height>-->
+<!--				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>-->
+<!--				<aspectratio aligny="bottom">keep</aspectratio>-->
+<!--				<visible>$EXP[Poster]</visible>-->
+<!--			</control>-->
+<!--			<control type="image" id="1">-->
+<!--				<depth>DepthOSD</depth>-->
+<!--				<description>Video cover image (Thumbnail)</description>-->
+<!--				<posx>50</posx>-->
+<!--				<posy>525r</posy>-->
+<!--				<width>480</width>-->
+<!--				<height>525</height>-->
+<!--				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>-->
+<!--				<aspectratio aligny="bottom">keep</aspectratio>-->
+<!--				<visible>$EXP[Thumbnail]</visible>-->
+<!--			</control>-->
+<!--			<control type="image" id="1">-->
+<!--				<depth>DepthOSD</depth>-->
+<!--				<description>Video cover image (Icon)</description>-->
+<!--				<posx>0</posx>-->
+<!--				<posy>525r</posy>-->
+<!--				<width>480</width>-->
+<!--				<height>525</height>-->
+<!--				<texture fallback="DefaultVideoCover.png">$VAR[NowPlayingThumb]</texture>-->
+<!--				<aspectratio aligny="bottom">keep</aspectratio>-->
+<!--				<visible>$EXP[Icon]</visible>-->
+<!--			</control>-->
+
 		<control type="group">
 			<visible>Window.IsVisible(FullscreenVideo) + ![Player.HasGame | VideoPlayer.HasEpg]</visible>
 			<left>1275r</left>

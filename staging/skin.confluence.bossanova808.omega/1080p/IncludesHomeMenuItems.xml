@@ -93,6 +93,33 @@
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
 		</control>
 	</include>
+	<include name="HomeSubMenuTVShowsAdults">
+		<control type="image" id="90171">
+			<width>53</width>
+			<height>53</height>
+			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
+		</control>
+		<control type="button" id="90172">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Amy</label>
+			<onclick>ActivateWindow(Videos,special://profile/playlists/video/Amy Shows.xsp,return)</onclick>
+		</control>
+		<control type="button" id="90173">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Everything</label>
+			<onclick>ActivateWindow(Videos,videodb://tvshows/titles,return)</onclick>
+		</control>
+		<control type="button" id="90174">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Jem</label>
+			<onclick>ActivateWindow(Videos,special://profile/playlists/video/Jem Shows.xsp,return)</onclick>
+		</control>
+		<control type="image" id="90178">
+			<width>53</width>
+			<height>53</height>
+			<texture border="0,0,0,3">HomeSubEnd.png</texture>
+		</control>
+	</include>
 	<include name="HomeSubMenuTVShows">
 		<control type="image" id="90171">
 			<width>53</width>
