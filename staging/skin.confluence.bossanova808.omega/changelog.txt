@@ -1,3 +1,7 @@
+v5.0.914
+- Improve clearart/logo/poster/thumb/icon display during video playback
+- Hard code b808 specific menus as Library Node Editor is black magic
+
 v5.0.913
 - Fix colouring of BOM now/later info
 - Add reload skin and reload keymap utilities (for b808 only)
