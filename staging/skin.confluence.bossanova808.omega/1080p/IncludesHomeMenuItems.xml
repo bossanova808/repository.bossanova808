@@ -59,16 +59,22 @@
 		</control>
 		<control type="button" id="90163">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>$INFO[Container(90160).ListItemNoWrap(1).Label]</label>
-			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(1).FileNameAndPath],return)</onclick>
+			<label>Recently played</label>
+			<onclick>ActivateWindow(Videos,special://skin/playlists/Recently Played Movies.xsp,return)</onclick>
 			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(1).Label)</visible>
 		</control>
 		<control type="button" id="90164">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>$INFO[Container(90160).ListItemNoWrap(2).Label]</label>
-			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(2).FileNameAndPath],return)</onclick>
-			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(2).Label)</visible>
+			<label>$INFO[Container(90160).ListItemNoWrap(1).Label]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(1).FileNameAndPath],return)</onclick>
+			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(1).Label)</visible>
 		</control>
+<!--		<control type="button" id="90164">-->
+<!--			<include>ButtonHomeSubCommonValues</include>-->
+<!--			<label>$INFO[Container(90160).ListItemNoWrap(2).Label]</label>-->
+<!--			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(2).FileNameAndPath],return)</onclick>-->
+<!--			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(2).Label)</visible>-->
+<!--		</control>-->
 		<control type="button" id="90165">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90160).ListItemNoWrap(3).Label]</label>
@@ -113,6 +119,33 @@
 			<include>ButtonHomeSubCommonValues</include>
 			<label>Jem</label>
 			<onclick>ActivateWindow(Videos,special://profile/playlists/video/Jem Shows.xsp,return)</onclick>
+		</control>
+		<control type="image" id="90178">
+			<width>53</width>
+			<height>53</height>
+			<texture border="0,0,0,3">HomeSubEnd.png</texture>
+		</control>
+	</include>
+	<include name="HomeSubMenuTVShowsAdultsJelly">
+		<control type="image" id="90171">
+			<width>53</width>
+			<height>53</height>
+			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
+		</control>
+		<control type="button" id="90172">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Amy</label>
+			<onclick>ActivateWindow(Videos,special://profile/playlists/video/jellyfintvshowsac0355f09867e7c9a36e41f42dfc7e3f.xsp,return)</onclick>
+		</control>
+		<control type="button" id="90173">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Everything</label>
+			<onclick>ActivateWindow(Videos,videodb://tvshows/titles,return)</onclick>
+		</control>
+		<control type="button" id="90174">
+			<include>ButtonHomeSubCommonValues</include>
+			<label>Jem</label>
+			<onclick>ActivateWindow(Videos,special://profile/playlists/video/jellyfintvshows142cbe15f1c0a4dfa363725312a561da.xsp,return)</onclick>
 		</control>
 		<control type="image" id="90178">
 			<width>53</width>

@@ -797,8 +797,9 @@
 					<visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label)</visible>
 					<!-- Buttons for the grouplist -->
 					<!-- Force a different menu for Bossanova808/Adults Profile -->
-					<include condition="Skin.HasSetting(IsB808) + String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
-					<include condition="!Skin.HasSetting(IsB808) | !String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShows</include>
+					<include condition="String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
+					<include condition="String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShowsAdultsJelly</include>
+					<include condition="!String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShows</include>
 					<!-- END BOSSANOVA808 MOD -->
 				</control>
 				<control type="grouplist" id="9011">
@@ -1192,12 +1193,14 @@
 					<font />
 <!-- Traditional profile switching - log off current user & return to log in screen -->
                     <onclick condition="!Integer.IsGreater(System.ProfileCount,1)">System.LogOff</onclick>
-                    <onclick condition="Integer.IsGreater(System.ProfileCount,1) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away)">System.LogOff</onclick>
+                    <onclick condition="Integer.IsGreater(System.ProfileCount,1) + !String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults - Away) + !String.IsEqual(System.ProfileName,Kids - Away) + !String.IsEqual(System.ProfileName,Adults Jellyfin) + !String.IsEqual(System.ProfileName,Kids Jellyfin)">System.LogOff</onclick>
 <!-- Bossanova808 Specific fast profile switching -->
 					<onclick condition="String.IsEqual(System.ProfileName,Adults)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Kids)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Adults - Away)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids - Away)</onclick>
 					<onclick condition="String.IsEqual(System.ProfileName,Kids - Away)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults - Away)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Adults Jellyfin)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids Jellyfin)</onclick>
+					<onclick condition="String.IsEqual(System.ProfileName,Kids Jellyfin)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults Jellyfin)</onclick>
 <!-- END Bossanova808 Specific fast profile switching -->
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<texturenofocus border="5">floor_button.png</texturenofocus>

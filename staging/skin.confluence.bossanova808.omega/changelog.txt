@@ -1,3 +1,7 @@
+v5.0.915
+- Add Recently Played Movies to main movies menu (played in last 3 months, limit 25)            
+- (B808 only) Changes to skin magic with move to using Jellyfin as a server
+
 v5.0.914
 - Improve clearart/logo/poster/thumb/icon display during video playback
 - Hard code b808 specific menus as Library Node Editor is black magic

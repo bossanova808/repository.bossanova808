@@ -154,7 +154,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.914" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.915" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -175,9 +175,9 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.914
-    - Improve clearart/logo/poster/thumb/icon display during video playback
-    - Hard code b808 specific menus as Library Node Editor is black magic			
+    		<news>v5.0.915
+    - Add Recently Played Movies to main movies menu (played in last 3 months, limit 25)			
+    - (B808 only) Changes to skin magic with move to using Jellyfin as a server
     		</news>
     	</extension>
     </addon>
