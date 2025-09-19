@@ -80,6 +80,7 @@
 						<texture>OverlayWatching.png</texture>
 						<!-- BOSSANOVA808 MOD - Remove 'in progress' arrow from folders -->
 						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
+						<!-- END BOSSANOVA808 MOD -->
 					</control>
 					<control type="image">
 						<left>998</left>
@@ -174,6 +175,7 @@
 						<texture>OverlayWatching.png</texture>
 						<!-- BOSSANOVA808 MOD - remove 'in progress' arrow from folders -->
 						<visible>Window.IsVisible(Videos) + ListItem.IsResumable + !ListItem.IsFolder</visible>
+						<!-- END BOSSANOVA808 MOD -->
 					</control>
 					<control type="image">
 						<left>998</left>
@@ -283,6 +285,7 @@
 						<label>$VAR[ShowCustomLabel]</label>
 						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
 						<scroll>false</scroll>
+						<!-- END BOSSANOVA808 MOD -->
 					</control>
 					<control type="image">
 						<left>255</left>
@@ -329,6 +332,7 @@
 						<label>$VAR[ShowCustomLabel]</label>
 						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
 						<scroll>false</scroll>
+						<!-- END BOSSANOVA808 MOD -->
 					</control>
 					<control type="image">
 						<left>255</left>
@@ -363,6 +367,7 @@
 						<label>$VAR[ShowCustomLabel]</label>
 						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
 						<scroll>false</scroll>
+						<!-- END BOSSANOVA808 MOD -->
 					</control>
 					<control type="image">
 						<left>40</left>
@@ -405,6 +410,7 @@
 						<label>$VAR[ShowCustomLabel]</label>
 						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
 						<scroll>false</scroll>
+						<!-- END BOSSANOVA808 MOD -->
 					</control>
 					<control type="image">
 						<left>40</left>

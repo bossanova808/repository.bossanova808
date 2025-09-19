@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2024-04-12 17:00+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-02-20 02:27+0000\n"
+"Last-Translator: Kai Sommerfeld <ksooo@users.noreply.kodi.weblate.cloud>\n"
 "Language-Team: German <https://kodi.weblate.cloud/projects/kodi-add-ons-skins/skin-confluence/de_de/>\n"
 "Language: de_de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.10\n"
 
 msgctxt "Addon Summary"
 msgid "Confluence skin by Jezz_X."
@@ -23,7 +23,7 @@ msgstr "Confluence Skin von Jezz_X."
 
 msgctxt "Addon Description"
 msgid "Confluence is a combination of concepts from many popular skins, and attempts to embrace and integrate their good ideas into a skin that should be easy for first time Kodi users to understand and use."
-msgstr "[CR]Confluence ist eine Kombination von Konzepten aus vielen beliebten Skins und [CR]versucht, deren besten Ideen zu vereinen, um den Einstieg für neue Kodi-[CR]Nutzer zu erleichtern.[CR][CR]Confluence ist eine Kombination von Konzepten aus vielen beliebten Skins und [CR]versucht, deren besten Ideen zu vereinen, um den Einstieg für neue Kodi-[CR]Nutzer zu erleichtern.[CR][CR]Confluence ist eine Kombination von Konzepten aus vielen beliebten Skins und [CR]versucht, deren besten Ideen zu vereinen, um den Einstieg für neue Kodi-[CR]Nutzer zu erleichtern.[CR][CR]Confluence ist eine Kombination von Konzepten aus vielen beliebten Skins und [CR]versucht, deren besten Ideen zu vereinen, um den Einstieg für neue Kodi-[CR]Nutzer zu erleichtern.Confluence ist eine Kombination von Konzepten aus vielen beliebten Skins und versucht, deren besten Ideen zu vereinen, um den Einstieg für neue Kodi-Nutzer zu erleichtern."
+msgstr "Confluence ist eine Kombination von Konzepten aus vielen beliebten Skins und versucht, deren beste Ideen zu vereinen, die von neuen Kodi-Nutzern einfach zu verstehen und zu verwenden sein sollten."
 
 msgctxt "#31000"
 msgid "Change your"
@@ -34,9 +34,7 @@ msgid "GAMES"
 msgstr "SPIELE"
 
 msgctxt "#31002"
-msgid ""
-"[B]GAME SETTINGS[/B][CR][CR]Configure rewind support & options ·  Configure "
-"keyboard use and number of keyboard players"
+msgid "[B]GAME SETTINGS[/B][CR][CR]Configure rewind support & options ·  Configure keyboard use and number of keyboard players"
 msgstr "[B]SPIELE-EINSTELLUNGEN[/B][CR][CR]Zurückspulen-Unterstützung · Tastaturkonfiguration und Anzahl der Tastaturnutzer"
 
 msgctxt "#31003"
@@ -52,16 +50,16 @@ msgid "Hide information"
 msgstr "Informationen ausblenden"
 
 msgctxt "#31006"
-msgid "View options"
-msgstr "Ansichteneinstellungen"
+msgid "Automatically close video OSD"
+msgstr "Video-OSD automatisch schließen"
 
 msgctxt "#31007"
 msgid "Video process information"
-msgstr "Videoverarbeitungsinformation"
+msgstr "Videoverarbeitungsinformationen"
 
 msgctxt "#31008"
-msgid "Full screen"
-msgstr "Vollbild"
+msgid "Video OSD autoclose time (seconds)"
+msgstr "Video-OSD automatisch schließen nach (Sekunden)"
 
 msgctxt "#31009"
 msgid "Total duration"
@@ -101,19 +99,19 @@ msgstr "Nicht verfügbar"
 
 msgctxt "#31018"
 msgid "Set default startup item"
-msgstr ""
+msgstr "Standard-Startup-Eintrag festlegen"
 
 msgctxt "#31019"
 msgid "Press 'Up' to set this item as default"
-msgstr ""
+msgstr "‚Hoch‘ drücken, um diesen Eintrag als Standard festzulegen"
 
 msgctxt "#31020"
 msgid "Game saves"
-msgstr ""
+msgstr "Gespeicherte Spielstände"
 
 msgctxt "#31021"
 msgid "Movie title format"
-msgstr ""
+msgstr "Format für Filmtitel"
 
 # empty strings from id 31018 to 31021
 msgctxt "#31022"
@@ -144,13 +142,9 @@ msgctxt "#31028"
 msgid "Poster wrap"
 msgstr "Poster"
 
-msgctxt "#31029"
-msgid "Fanart"
-msgstr "Fanart"
-
 msgctxt "#31030"
 msgid "No changes"
-msgstr ""
+msgstr "Keine Änderungen"
 
 msgctxt "#31031"
 msgid "Pic thumbs"
@@ -160,33 +154,25 @@ msgctxt "#31032"
 msgid "Image wrap"
 msgstr "Bild"
 
-msgctxt "#31033"
-msgid "Info"
-msgstr "Information"
-
 msgctxt "#31034"
 msgid "Original title (Localised title)"
-msgstr ""
+msgstr "Originaltitel (Lokalisierter Titel)"
 
 msgctxt "#31035"
 msgid "Localised title (Original title)"
-msgstr ""
+msgstr "Lokalisierter Titel (Originaltitel)"
 
 msgctxt "#31036"
 msgid "Just Original title"
-msgstr ""
+msgstr "Nur Originaltitel"
 
 msgctxt "#31037"
 msgid "Select + X"
-msgstr ""
+msgstr "Select + X"
 
 msgctxt "#31038"
 msgid "Select + Start"
-msgstr ""
-
-msgctxt "#31039"
-msgid "Actions"
-msgstr "Aktionen"
+msgstr "Select + Start"
 
 msgctxt "#31040"
 msgid "Now playing"
@@ -194,7 +180,7 @@ msgstr "Gerade läuft"
 
 msgctxt "#31041"
 msgid "Select + Right Stick"
-msgstr ""
+msgstr "Select + Rechter Stick"
 
 msgctxt "#31042"
 msgid "PLAYING"
@@ -220,10 +206,6 @@ msgctxt "#31048"
 msgid "Visualisation presets"
 msgstr "Visualisierungs-Voreinstellungen"
 
-msgctxt "#31049"
-msgid "End time"
-msgstr "Endzeit"
-
 msgctxt "#31050"
 msgid "Sort: Ascending"
 msgstr "Sortieren: Aufsteigend"
@@ -231,6 +213,18 @@ msgstr "Sortieren: Aufsteigend"
 msgctxt "#31051"
 msgid "Sort: Descending"
 msgstr "Sortieren: Absteigend"
+
+msgctxt "#31052"
+msgid "Subtitles streams"
+msgstr "Untertitelstreams"
+
+msgctxt "#31053"
+msgid "Audio streams"
+msgstr "Audiostreams"
+
+msgctxt "#31054"
+msgid "Video streams"
+msgstr "Videostreams"
 
 msgctxt "#31055"
 msgid "Open playlist"
@@ -248,10 +242,6 @@ msgctxt "#31058"
 msgid "System music files"
 msgstr "System-Musikdateien"
 
-msgctxt "#31059"
-msgid "Current playlist"
-msgstr "Aktuelle Wiedergabeliste"
-
 msgctxt "#31061"
 msgid "Current selected"
 msgstr "Aktuell ausgewählt"
@@ -260,18 +250,12 @@ msgctxt "#31101"
 msgid "Home screen options"
 msgstr "Hauptmenü-Einstellungen"
 
-msgctxt "#31102"
-msgid "Background"
-msgstr "Hintergrund"
-
 msgctxt "#31103"
 msgid "Show \"Paused\" in picture slideshow"
 msgstr "„Pause“ in Bilder-Diaschau anzeigen"
 
 msgctxt "#31104"
-msgid ""
-"Play trailers in a window [COLOR=grey3](Video information dialogue only)[/"
-"COLOR]"
+msgid "Play trailers in a window [COLOR=grey3](Video information dialogue only)[/COLOR]"
 msgstr "Film-Trailer im Fenster wiedergeben [COLOR=grey3](gilt nur für Video-Informationsdialog)[/COLOR]"
 
 msgctxt "#31106"
@@ -279,18 +263,12 @@ msgid "Miscellaneous options"
 msgstr "Sonstige Einstellungen"
 
 msgctxt "#31107"
-msgid ""
-"Hide flagging read from video filenames [COLOR=grey3](e.g. Blu-ray, HD-DVD)[/"
-"COLOR]"
-msgstr "Aus Videodateinamen gelesene Flags ausblenden [COLOR=grey3](z.B. Blu-ray, HD-DVD)[/COLOR]"
+msgid "Hide flagging read from video filenames [COLOR=grey3](e.g. Blu-ray, WEB-DL)[/COLOR]"
+msgstr "Aus Videodateinamen ausgelesene Zusatzinformationen verbergen [COLOR=grey3](z. B. Blu-ray, WEB-DL)[/COLOR]"
 
 msgctxt "#31108"
 msgid "Hide main menu buttons"
 msgstr "Hauptmenü-Buttons ausblenden"
-
-msgctxt "#31109"
-msgid "Enable custom background"
-msgstr "Benutzerdefinierten Hintergrund aktivieren"
 
 msgctxt "#31110"
 msgid "Background path:"
@@ -300,17 +278,9 @@ msgctxt "#31111"
 msgid "Hide"
 msgstr "Ausblenden"
 
-msgctxt "#31112"
-msgid "Options"
-msgstr "Einstellungen"
-
 msgctxt "#31113"
 msgid "Background path Master:"
 msgstr "Master-Dateipfad für Hintergrundbilder:"
-
-msgctxt "#31114"
-msgid "System"
-msgstr "System-Addons"
 
 msgctxt "#31115"
 msgid "Main button playlists"
@@ -355,10 +325,6 @@ msgctxt "#31126"
 msgid "Show posters instead of thumbs for musicvideos"
 msgstr "Für Musikvideos Poster anstelle von Vorschaubildern zeigen"
 
-msgctxt "#31128"
-msgid "Lyrics"
-msgstr "Liedtexte"
-
 msgctxt "#31129"
 msgid "Hide fanart in full screen visualisation"
 msgstr "Fanart ausblenden, wenn Vollbild-Visualiserung aktiv ist"
@@ -380,17 +346,9 @@ msgctxt "#31136"
 msgid "Home page \"Pictures\" submenu"
 msgstr "Untermenü für „Bilder“ im Hauptmenü"
 
-msgctxt "#31140"
-msgid "Music OSD"
-msgstr "Musik-OSD"
-
 msgctxt "#31142"
 msgid "Settings level"
 msgstr "Einstellungsebene"
-
-msgctxt "#31143"
-msgid "Use"
-msgstr "Verwenden"
 
 msgctxt "#31144"
 msgid "playlist"
@@ -412,10 +370,6 @@ msgctxt "#31148"
 msgid "Hide - Search"
 msgstr "Ausblenden - Suche"
 
-msgctxt "#31200"
-msgid "Shortcuts"
-msgstr "Verknüpfungen"
-
 msgctxt "#31203"
 msgid "Choose your song"
 msgstr "Titel auswählen"
@@ -423,14 +377,6 @@ msgstr "Titel auswählen"
 msgctxt "#31205"
 msgid "Lyrics source"
 msgstr "Liedtexte-Quelle"
-
-msgctxt "#31206"
-msgid "Found"
-msgstr "Gefunden"
-
-msgctxt "#31207"
-msgid "Find more items"
-msgstr "Weitere Einträge suchen"
 
 msgctxt "#31208"
 msgid "Upcoming episodes"
@@ -443,10 +389,6 @@ msgstr "„Master-Profil“ Hauptmenü-Buttons ausblenden"
 msgctxt "#31300"
 msgid "Current temperature"
 msgstr "Aktuelle Temperatur"
-
-msgctxt "#31301"
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
 
 msgctxt "#31303"
 msgid "Data provider"
@@ -461,8 +403,8 @@ msgid "Memory used:"
 msgstr "Speichernutzung:"
 
 msgctxt "#31310"
-msgid "Track number"
-msgstr "Track-Nummer"
+msgid "PVR"
+msgstr "PVR"
 
 msgctxt "#31319"
 msgid "Selected profile"
@@ -484,14 +426,6 @@ msgctxt "#31326"
 msgid "Created"
 msgstr "Erstellt"
 
-msgctxt "#31327"
-msgid "Resolution"
-msgstr "Auflösung"
-
-msgctxt "#31328"
-msgid "Recently added"
-msgstr "Kürzlich hinzugefügt"
-
 msgctxt "#31329"
 msgid "[B]Timer set![/B] [COLOR=grey2] - System auto shutdown in[/COLOR]"
 msgstr "[B]Ausschalt-Timer aktiv![/B] [COLOR=grey2] - Zeit bis zum Herunterfahren:[/COLOR]"
@@ -503,6 +437,42 @@ msgstr "Button klicken, um[CR][CR]Film-Trailer wiederzugeben"
 msgctxt "#31331"
 msgid "Album details"
 msgstr "Albumdetails"
+
+msgctxt "#31332"
+msgid "Signal details"
+msgstr "Signaldetails"
+
+msgctxt "#31334"
+msgid "Audio information"
+msgstr "Audioinformationen"
+
+msgctxt "#31336"
+msgid "Video bitrate"
+msgstr "Videobitrate"
+
+msgctxt "#31337"
+msgid "Audio bitrate"
+msgstr "Audiobitrate"
+
+msgctxt "#31341"
+msgid "Pixel format"
+msgstr "Pixelformat"
+
+msgctxt "#31342"
+msgid "Player cache"
+msgstr "Player-Cache"
+
+msgctxt "#31343"
+msgid "Screen resolution"
+msgstr "Bildschirmauflösung"
+
+msgctxt "#31344"
+msgid "Screen rendering speed"
+msgstr "Bidschirmrenderinggeschwindigkeit"
+
+msgctxt "#31345"
+msgid "System temperature"
+msgstr "Systemtemperatur"
 
 msgctxt "#31351"
 msgid "Pause"
@@ -536,18 +506,6 @@ msgctxt "#31361"
 msgid "Change mode"
 msgstr "Modus ändern"
 
-msgctxt "#31362"
-msgid "Enabled"
-msgstr "Aktiviert"
-
-msgctxt "#31390"
-msgid "Skin default"
-msgstr "Skin-Standard"
-
-msgctxt "#31391"
-msgid "Skin default with no caps"
-msgstr "Skin-Standard ohne Großbuchstaben"
-
 msgctxt "#31392"
 msgid "Arial based"
 msgstr "Arial-basiert"
@@ -557,12 +515,7 @@ msgid "First run help..."
 msgstr "Hilfe für ersten Start ..."
 
 msgctxt "#31412"
-msgid ""
-"This tab signifies that there is a menu off to the side of this window that "
-"contains extra options for this section. To access the menu, navigate to the "
-"left with your remote control or keyboard or place your mouse pointer over "
-"the tab. [CR][CR]Click \"OK\" to close this dialogue. It will not appear "
-"again."
+msgid "This tab signifies that there is a menu off to the side of this window that contains extra options for this section. To access the menu, navigate to the left with your remote control or keyboard or place your mouse pointer over the tab. [CR][CR]Click \"OK\" to close this dialogue. It will not appear again."
 msgstr "Dieses Symbol zeigt an, dass ein Menü an der Seite des Fensters versteckt ist, das weitere Einstellungen beinhaltet. Um es aufzurufen, nach links navigieren oder mit der Maus darauf zeigen.[CR][CR]Auf „OK“ klicken, um diesen Dialog zu schließen. Er wird nicht wieder angezeigt werden."
 
 msgctxt "#31413"
@@ -582,61 +535,40 @@ msgid "Show or hide the login screen at startup."
 msgstr "Den Anmeldebildschirm beim Start anzeigen oder ausblenden."
 
 msgctxt "#31423"
-msgid ""
-"Select the profile that will be used at startup when the login screen is "
-"disabled."
+msgid "Select the profile that will be used at startup when the login screen is disabled."
 msgstr "Profil, das beim Start verwendet werden soll, wenn der Anmeldebildschirm deaktiviert ist."
 
 msgctxt "#31430"
-msgid ""
-"[B]PLAYER SETTINGS[/B][CR][CR]Configure actions that can be used during "
-"playback · Configure how media content is played"
+msgid "[B]PLAYER SETTINGS[/B][CR][CR]Configure actions that can be used during playback · Configure how media content is played"
 msgstr "[B]PLAYER EINSTELLUNGEN[/B][CR][CR]Aktionen einstellen, die während der Wiedergabe genutzt werden können · Konfigurieren, wie Medieninhalte wiedergegeben werden"
 
 msgctxt "#31431"
-msgid ""
-"[B]LIBRARY SETTINGS[/B][CR][CR]Configure how the library/file views display "
-"media content ·  Configure how library lists/views are navigated · Configure "
-"the media database options"
+msgid "[B]LIBRARY SETTINGS[/B][CR][CR]Configure how the library/file views display media content ·  Configure how library lists/views are navigated · Configure the media database options"
 msgstr "[B]BIBLIOTHEKS-EINSTELLUNGEN[/B][CR][CR]Konfigurieren der Ansichten für Bibliotheken/Dateien · Konfigurieren der Navigation in Listen/Ansichten der Bibliotheken · Konfigurieren der Optionen der Medien-Datenbanken"
 
 msgctxt "#31432"
-msgid ""
-"[B]PVR SETTINGS[/B][CR][CR]Configure how the channels & guide are managed  · "
-"Configure how Live TV and recordings are managed"
+msgid "[B]PVR SETTINGS[/B][CR][CR]Configure how the channels & guide are managed  · Configure how Live TV and recordings are managed"
 msgstr "[B]PVR-EINSTELLUNGEN[/B][CR][CR]Konfigurieren der Verwaltung der Sender und des Programm-Guides · Konfigurieren der Verwaltung von TV und Aufnahmen"
 
 msgctxt "#31433"
-msgid ""
-"[B]ADD-ONS SETTINGS[/B][CR][CR]Configure your installed add-ons · Browse for "
-"and install add-ons from kodi.tv"
+msgid "[B]ADD-ONS SETTINGS[/B][CR][CR]Configure your installed add-ons · Browse for and install add-ons from kodi.tv"
 msgstr "[B]ADDONS-EINSTELLUNGEN[/B][CR][CR]Konfigurieren der installierten Addons · Finden und installieren von Addons von kodi.tv"
 
 msgctxt "#31434"
-msgid ""
-"[B]SERVICES SETTINGS[/B][CR][CR]Configure & manage media sharing services · "
-"Configure web server · Configure & manage the weather service"
+msgid "[B]SERVICES SETTINGS[/B][CR][CR]Configure & manage media sharing services · Configure web server · Configure & manage the weather service"
 msgstr "[B]DIENSTE-EINSTELLUNGEN[/B][CR][CR]Konfigurieren und Verwalten von Medienfreigabediensten · Konfigurieren des Webservers · Konfigurieren und Verwalten des Wetterdienstes"
 
 msgctxt "#31435"
-msgid ""
-"[B]SYSTEM SETTINGS[/B][CR][CR]Configure display · Configure audio · "
-"Configure internet access · Configure power saving· Configure logging"
+msgid "[B]SYSTEM SETTINGS[/B][CR][CR]Configure display · Configure audio · Configure internet access · Configure power saving· Configure logging"
 msgstr "[B]SYSTEM-EINSTELLUNGEN[/B][CR][CR]Bildschirm konfigurieren · Audio konfigurieren · Internetzugriff konfigurieren · Stromsparfunktion konfigurieren · Protokollierung konfigurieren"
 
 msgctxt "#31436"
-msgid ""
-"[B]INTERFACE SETTINGS[/B][CR][CR]Configure skin · Configure region · "
-"Configure control · Configure screensaver · Configure master lock"
+msgid "[B]INTERFACE SETTINGS[/B][CR][CR]Configure skin · Configure region · Configure control · Configure screensaver · Configure master lock"
 msgstr "[B]OBERFLÄCHEN-EINSTELLUNGEN[/B][CR][CR]Skin konfigurieren · Region konfigurieren · Steuerung konfigurieren · Bildschrimschoner konfigurieren · Master-Sperre konfigurieren"
 
 msgctxt "#31501"
 msgid "Scheduled time"
 msgstr "Geplante Zeit"
-
-msgctxt "#31502"
-msgid "TV"
-msgstr "TV"
 
 msgctxt "#31503"
 msgid "Add group"
@@ -685,14 +617,6 @@ msgstr "Tägliche Vorhersage"
 msgctxt "#31905"
 msgid "Forecast"
 msgstr "Vorhersage"
-
-msgctxt "#31909"
-msgid "Fetching forecast info..."
-msgstr "Vorhersagedaten werden abgerufen ..."
-
-msgctxt "#31910"
-msgid "Maps"
-msgstr "Karten"
 
 msgctxt "#31950"
 msgid "WEATHER"
@@ -748,11 +672,154 @@ msgid "Choose kind of profile identification"
 msgstr "Art der Profil-Identifikation auswählen"
 
 #. Label for the kind of profile identification
-msgctxt "#31963"
-msgid "Profile name"
-msgstr "Profilname"
-
-#. Label for the kind of profile identification
 msgctxt "#31964"
 msgid "Profile avatar"
 msgstr "Profil-Avatar"
+
+#~ msgctxt "#31006"
+#~ msgid "View options"
+#~ msgstr "Ansichteneinstellungen"
+
+#~ msgctxt "#31008"
+#~ msgid "Full screen"
+#~ msgstr "Vollbild"
+
+#~ msgctxt "#31029"
+#~ msgid "Fanart"
+#~ msgstr "Fanart"
+
+#~ msgctxt "#31033"
+#~ msgid "Info"
+#~ msgstr "Information"
+
+#~ msgctxt "#31039"
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
+
+#~ msgctxt "#31049"
+#~ msgid "End time"
+#~ msgstr "Endzeit"
+
+#~ msgctxt "#31059"
+#~ msgid "Current playlist"
+#~ msgstr "Aktuelle Wiedergabeliste"
+
+#~ msgctxt "#31102"
+#~ msgid "Background"
+#~ msgstr "Hintergrund"
+
+#~ msgctxt "#31109"
+#~ msgid "Enable custom background"
+#~ msgstr "Benutzerdefinierten Hintergrund aktivieren"
+
+#~ msgctxt "#31112"
+#~ msgid "Options"
+#~ msgstr "Einstellungen"
+
+#~ msgctxt "#31114"
+#~ msgid "System"
+#~ msgstr "System-Addons"
+
+#~ msgctxt "#31128"
+#~ msgid "Lyrics"
+#~ msgstr "Liedtexte"
+
+#~ msgctxt "#31140"
+#~ msgid "Music OSD"
+#~ msgstr "Musik-OSD"
+
+#~ msgctxt "#31143"
+#~ msgid "Use"
+#~ msgstr "Verwenden"
+
+#~ msgctxt "#31200"
+#~ msgid "Shortcuts"
+#~ msgstr "Verknüpfungen"
+
+#~ msgctxt "#31301"
+#~ msgid "Last updated"
+#~ msgstr "Zuletzt aktualisiert"
+
+#~ msgctxt "#31311"
+#~ msgid "Player"
+#~ msgstr "Player"
+
+#~ msgctxt "#31312"
+#~ msgid "Media"
+#~ msgstr "Medien"
+
+#~ msgctxt "#31313"
+#~ msgid "System"
+#~ msgstr "System"
+
+#~ msgctxt "#31327"
+#~ msgid "Resolution"
+#~ msgstr "Auflösung"
+
+#~ msgctxt "#31333"
+#~ msgid "Video information"
+#~ msgstr "Grafikinformationen"
+
+#~ msgctxt "#31335"
+#~ msgid "Video resolution"
+#~ msgstr "Videoauflösung"
+
+#~ msgctxt "#31338"
+#~ msgid "Audio channels"
+#~ msgstr "Audiokanäle"
+
+#~ msgctxt "#31339"
+#~ msgid "Audio language"
+#~ msgstr "Audiosprache"
+
+#~ msgctxt "#31340"
+#~ msgid "Stream"
+#~ msgstr "Stream"
+
+#~ msgctxt "#31362"
+#~ msgid "Enabled"
+#~ msgstr "Aktiviert"
+
+#~ msgctxt "#31390"
+#~ msgid "Skin default"
+#~ msgstr "Skin-Standard"
+
+#~ msgctxt "#31910"
+#~ msgid "Maps"
+#~ msgstr "Karten"
+
+#~ msgctxt "#31963"
+#~ msgid "Profile name"
+#~ msgstr "Profilname"
+
+#~ msgctxt "#31107"
+#~ msgid "Hide flagging read from video filenames [COLOR=grey3](e.g. Blu-ray, HD-DVD)[/COLOR]"
+#~ msgstr "Aus Videodateinamen gelesene Flags ausblenden [COLOR=grey3](z.B. Blu-ray, HD-DVD)[/COLOR]"
+
+#~ msgctxt "#31206"
+#~ msgid "Found"
+#~ msgstr "Gefunden"
+
+#~ msgctxt "#31207"
+#~ msgid "Find more items"
+#~ msgstr "Weitere Einträge suchen"
+
+#~ msgctxt "#31310"
+#~ msgid "Track number"
+#~ msgstr "Track-Nummer"
+
+#~ msgctxt "#31328"
+#~ msgid "Recently added"
+#~ msgstr "Kürzlich hinzugefügt"
+
+#~ msgctxt "#31391"
+#~ msgid "Skin default with no caps"
+#~ msgstr "Skin-Standard ohne Großbuchstaben"
+
+#~ msgctxt "#31502"
+#~ msgid "TV"
+#~ msgstr "TV"
+
+#~ msgctxt "#31909"
+#~ msgid "Fetching forecast info..."
+#~ msgstr "Vorhersagedaten werden abgerufen ..."

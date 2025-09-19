@@ -53,7 +53,7 @@
 		<!-- media infos -->
 		<control type="group" id="1">
 			<depth>DepthOSD</depth>
-			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
+			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(DialogSettings.xml) | Window.IsVisible(DialogSelect.xml) | Window.IsVisible(1102) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="150">VisibleChange</animation>
 			<control type="image" id="1">
 				<left>-30</left>
@@ -101,6 +101,7 @@
 				<font>font13</font>
 				<!--  BOSSANOVA808 MOD - Dimmer text -->
 				<textcolor>gray</textcolor>
+				<!-- END BOSSANOVA808 MOD -->
 				<shadowcolor>black</shadowcolor>
 				<label>$INFO[System.Time]</label>
 				<animation effect="slide" start="0,0" end="-45,0" time="0" condition="Player.Muted">conditional</animation>
@@ -114,7 +115,7 @@
 				<texture border="1">HomeNowPlayingBack.png</texture>
 			</control>
 			<!--  BOSSANOVA808 CLEARART MOD  -->
-			<!--  See also DialogSeekBar/xml ~ line 11 -->
+			<!--  See also DialogSeekBar/xml ~ line 11 -->			
 			<control type="image" id="1">
 				<depth>DepthOSDPopout</depth>
 				<description>Video cover image (clear art/logo, thumbnail)</description>
@@ -143,21 +144,21 @@
 			<control type="group" id="1">
 				<left>495</left>
 				<top>278r</top>
-				<control type="label" id="1">
-					<description>Heading label</description>
-					<left>0</left>
-					<top>0</top>
-					<width>1365</width>
-					<height>38</height>
-					<align>left</align>
-					<aligny>center</aligny>
-					<font>font13</font>
-					<label>$LOCALIZE[31040]</label>
-					<textcolor>white</textcolor>
-					<shadowcolor>black</shadowcolor>
-					<visible>![VideoPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>
-					<animation effect="slide" start="0,0" end="0,38" time="0" condition="!VideoPlayer.Content(Movies) + !VideoPlayer.Content(Episodes) + !VideoPlayer.Content(MusicVideos) + !VideoPlayer.Content(LiveTV) + !PVR.IsPlayingRecording">conditional</animation>
-				</control>
+<!--				<control type="label" id="1">-->
+<!--					<description>Heading label</description>-->
+<!--					<left>0</left>-->
+<!--					<top>0</top>-->
+<!--					<width>1365</width>-->
+<!--					<height>38</height>-->
+<!--					<align>left</align>-->
+<!--					<aligny>center</aligny>-->
+<!--					<font>font13</font>-->
+<!--					<label>$LOCALIZE[31040]</label>-->
+<!--					<textcolor>white</textcolor>-->
+<!--					<shadowcolor>black</shadowcolor>-->
+<!--					<visible>![VideoPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>-->
+<!--					<animation effect="slide" start="0,0" end="0,38" time="0" condition="!VideoPlayer.Content(Movies) + !VideoPlayer.Content(Episodes) + !VideoPlayer.Content(MusicVideos) + !VideoPlayer.Content(LiveTV) + !PVR.IsPlayingRecording">conditional</animation>-->
+<!--				</control>-->
 				<control type="image" id="1">
 					<top>0</top>
 					<width>75</width>
@@ -182,7 +183,7 @@
 				</control>
 				<control type="label" id="1">
 					<description>Studio label</description>
-					<left>10</left>
+					<left>0</left>
 					<top>45</top>
 					<width>1365</width>
 					<height>38</height>
@@ -196,7 +197,7 @@
 				</control>
 				<control type="label" id="1">
 					<description>TV Show label</description>
-					<left>10</left>
+					<left>0</left>
 					<top>45</top>
 					<width>1365</width>
 					<height>38</height>
@@ -234,9 +235,8 @@
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
 				</control>
-<!-- Bossanova808 Mod - move media codec items to give more room for episode title and disable scrolling due to CoreElec performance issues	-->
 				<control type="label" id="1">
-					<left>10</left>
+					<left>0</left>
 					<top>90</top>
 					<width>1365</width>
 					<height>53</height>
@@ -249,89 +249,64 @@
 					<textcolor>orange</textcolor>
 					<scroll>false</scroll>
 				</control>
+<!-- Bossanova808 Mod - move media codec items to give more room for episode title and disable scrolling due to CoreElec performance issues	-->
 				<control type="grouplist" id="1">
 					<left>20</left>
-					<top>15</top>
+					<top>45</top>
+                    <align>right</align>
 					<width>1365</width>
 					<height>53</height>
 					<itemgap>8</itemgap>
 					<orientation>horizontal</orientation>
-					<align>right</align>
-					<control type="image" id="1">
-						<description>Video Resolution Image</description>
-						<width>70</width>
-						<height>53</height>
-						<aspectratio align="center">keep</aspectratio>
-						<texture>$INFO[VideoPlayer.VideoResolution,flagging/video/,.png]</texture>
-						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.VideoResolution)</visible>
-					</control>
-					<control type="image" id="1">
-						<description>Codec Image</description>
-						<width>110</width>
-						<height>53</height>
-						<aspectratio align="left">keep</aspectratio>
-						<texture>$INFO[VideoPlayer.HdrType,flagging/video/,.png]</texture>
-						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.HdrType)</visible>
-					</control>
-					<control type="image" id="1">
-						<description>Audio Codec Image</description>
-						<width>110</width>
-						<height>53</height>
-						<aspectratio align="center">keep</aspectratio>
-						<texture>$INFO[VideoPlayer.AudioCodec,flagging/audio/,.png]</texture>
-						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioCodec)</visible>
-					</control>
-					<control type="image" id="1">
-						<description>Audio Channels Image</description>
-						<width>70</width>
-						<height>53</height>
-						<aspectratio align="center">keep</aspectratio>
-						<texture>$INFO[VideoPlayer.AudioChannels,flagging/audio/,.png]</texture>
-						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioChannels)</visible>
-					</control>
-					<control type="group" id="1">
-						<width>110</width>
-						<height>53</height>
-						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioLanguage)</visible>
-						<control type="image" id="1">
-							<top>0</top>
-							<description>Audio Language Image</description>
-							<width>110</width>
-							<height>53</height>
-							<texture>flagging/AudioLang.png</texture>
-						</control>
-						<control type="label" id="1">
-							<left>49</left>
-							<top>5</top>
-							<width>71</width>
-							<height>53</height>
-							<font>font13</font>
-							<align>left</align>
-							<label>$INFO[VideoPlayer.AudioLanguage]</label>
-							<textcolor>grey</textcolor>
-						</control>
-					</control>
-					<control type="group" id="1">
-						<width>110</width>
-						<height>53</height>
-						<visible>!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.SubtitlesLanguage) + VideoPlayer.SubtitlesEnabled</visible>
-						<control type="image" id="1">
-							<top>0</top>
-							<width>110</width>
-							<height>53</height>
-							<texture>flagging/SubLang.png</texture>
-						</control>
-						<control type="label" id="1">
-							<left>49</left>
-							<top>5</top>
-							<width>71</width>
-							<height>53</height>
-							<font>font13</font>
-							<align>left</align>
-							<label>$INFO[VideoPlayer.SubtitlesLanguage]</label>
-							<textcolor>grey</textcolor>
-						</control>
-					</control>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="!String.IsEmpty(VideoPlayer.VideoResolution)"/>
+						<param name="flag_label" value="$VAR[VideoResolutionTypeVar]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="!String.IsEmpty(VideoPlayer.HdrType)"/>
+						<param name="flag_label" value="$VAR[VideoHDRTypeVar]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="!String.IsEmpty(VideoPlayer.VideoCodec)"/>
+						<param name="flag_label" value="$VAR[VideoCodecVar]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="!String.IsEmpty(VideoPlayer.VideoAspect)"/>
+						<param name="flag_label" value="$INFO[VideoPlayer.VideoAspect]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="!String.IsEmpty(VideoPlayer.AudioCodec)"/>
+						<param name="flag_label" value="$VAR[AudioCodecVar]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="!String.IsEmpty(VideoPlayer.AudioChannels)"/>
+						<param name="flag_label" value="$VAR[AudioChannelsVar]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_visible" value="ListItem.IsStereoscopic"/>
+						<param name="flag_label" value="3D"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_align" value="right"/>
+						<param name="flag_texture" value="flagging/AudioLang.png"/>
+						<param name="flag_visible" value="!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.AudioLanguage)"/>
+						<param name="flag_label" value="$INFO[VideoPlayer.AudioLanguage,     ]"/>
+					</include>
+					<include content="MediaFlag">
+						<param name="flag_id" value="1"/>
+						<param name="flag_align" value="right"/>
+						<param name="flag_texture" value="flagging/SubLang.png"/>
+						<param name="flag_visible" value="!Player.ChannelPreviewActive + !String.IsEmpty(VideoPlayer.SubtitlesLanguage) + VideoPlayer.SubtitlesEnabled"/>
+						<param name="flag_label" value="$INFO[VideoPlayer.SubtitlesLanguage,     ]"/>
+					</include>
 				</control>
 				<control type="label" id="1">
 					<left>0</left>
@@ -382,7 +357,7 @@
 				<visible>!VideoPlayer.Content(LiveTV) | [VideoPlayer.Content(LiveTV) + VideoPlayer.HasEpg]</visible>
 				<control type="label" id="1">
 					<visible>!VideoPlayer.Content(LiveTV)</visible>
-					<left>10</left>
+					<left>0</left>
 					<top>0</top>
 					<width>150</width>
 					<height>60</height>
@@ -407,7 +382,7 @@
 					<control type="progress" id="1">
 						<description>ProgressbarTimeshift</description>
 						<left>150</left>
-						<top>23</top>
+						<top>18</top>
 						<width>1080</width>
 						<height>24</height>
 						<info>PVR.TimeshiftProgressBufferEnd</info>
@@ -417,7 +392,7 @@
 					<control type="progress" id="1">
 						<description>Progressbar</description>
 						<left>150</left>
-						<top>23</top>
+						<top>18</top>
 						<width>1080</width>
 						<height>24</height>
 						<info>PVR.EpgEventProgress</info>
@@ -428,7 +403,7 @@
 					<control type="progress" id="1">
 						<description>ProgressbarCache</description>
 						<left>150</left>
-						<top>23</top>
+						<top>18</top>
 						<width>1080</width>
 						<height>24</height>
 						<info>Player.ProgressCache</info>
@@ -438,7 +413,7 @@
 					<control type="progress" id="1">
 						<description>Progressbar</description>
 						<left>150</left>
-						<top>23</top>
+						<top>18</top>
 						<width>1080</width>
 						<height>24</height>
 						<info>Player.Progress</info>
@@ -470,7 +445,7 @@
 				<control type="ranges" id="1">
 					<description>Chapters</description>
 					<left>150</left>
-					<top>23</top>
+					<top>18</top>
 					<width>1080</width>
 					<height>24</height>
 					<info>Player.Chapters</info>
@@ -480,7 +455,7 @@
 				<control type="ranges" id="1">
 					<description>Cuts</description>
 					<left>150</left>
-					<top>23</top>
+					<top>18</top>
 					<width>1080</width>
 					<height>24</height>
 					<info>Player.Cuts</info>
@@ -490,7 +465,7 @@
 				<control type="ranges" id="1">
 					<description>Scene Markers</description>
 					<left>150</left>
-					<top>23</top>
+					<top>18</top>
 					<width>1080</width>
 					<height>24</height>
 					<info>Player.SceneMarkers</info>
@@ -500,7 +475,7 @@
 				<control type="ranges" id="1">
 					<description>Editlist</description>
 					<left>150</left>
-					<top>23</top>
+					<top>18</top>
 					<width>1080</width>
 					<height>24</height>
 					<info>Player.Editlist</info>

@@ -147,15 +147,15 @@
 					</item>
 					<item id="2">
 						<label>513</label>
-						<label2>31112</label2>
+						<label2>33063</label2>
 					</item>
 					<item id="3">
-						<label>31102</label>
-						<label2>31112</label2>
+						<label>33068</label>
+						<label2>33063</label2>
 					</item>
 					<item id="4">
 						<label>24000</label>
-						<label2>31200</label2>
+						<label2>111</label2>
 					</item>
 				</content>
 			</control>
@@ -278,7 +278,7 @@
 						<focusedcolor>white</focusedcolor>
 						<texturefocus>MenuItemFO.png</texturefocus>
 						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>Skin.SelectBool(31962, 31963|show_profilename, 31964|show_profileavatar, 16018|show_none)</onclick>
+						<onclick>Skin.SelectBool(31962, 20093|show_profilename, 31964|show_profileavatar, 16018|show_none)</onclick>
 						<label2>$VAR[ProfileIdentificationLabel2Var]</label2>
 					</control>
 					<control type="button" id="118">
@@ -293,90 +293,113 @@
 						<onclick>Skin.SelectBool(31021, 31030|TitleFormat_nothing, 31036|TitleFormat_only, 31034|TitleFormat_1st, 31035|TitleFormat_2nd)</onclick>
 						<label2>$VAR[ShowOriginalName]</label2>
 					</control>
+					<control type="radiobutton" id="119">
+						<width>1125</width>
+						<height>60</height>
+						<font>font13</font>
+						<label>31006</label>
+						<textcolor>grey2</textcolor>
+						<focusedcolor>white</focusedcolor>
+						<texturefocus>MenuItemFO.png</texturefocus>
+						<texturenofocus>MenuItemNF.png</texturenofocus>
+						<onclick>Skin.ToggleSetting(OSDAutoClose)</onclick>
+						<selected>Skin.HasSetting(OSDAutoClose)</selected>
+					</control>
+					<control type="button" id="120">
+						<width>1125</width>
+						<height>60</height>
+						<font>font13</font>
+						<label>- $LOCALIZE[31008]</label>
+						<label2>$VAR[SkinSettingOSDAutoCloseTime]</label2>
+						<textcolor>grey2</textcolor>
+						<focusedcolor>white</focusedcolor>
+						<texturefocus>MenuItemFO.png</texturefocus>
+						<texturenofocus>MenuItemNF.png</texturenofocus>
+						<onclick>Skin.SetNumeric(OSDAutoCloseTime)</onclick>
+						<enable>Skin.HasSetting(OSDAutoClose)</enable>
+					</control>
 <!-- BOSSANOVA808 MOD - allow for Skin.HasSetting(IsB808) checks -->
 <!-- Enables b808 specific things like birthday backgrounds etc. -->
-					<control type="label" id="119">
-						<width>1125</width>
-						<height>68</height>
-						<font>font13_title</font>
-						<label>Utilities for Bossanova808</label>
-						<textcolor>blue</textcolor>
-						<shadowcolor>black</shadowcolor>
-						<align>left</align>
-						<aligny>center</aligny>
-						<visible>Skin.HasSetting(IsB808)</visible>
-					</control>
-					<control type="button" id="123">
-						<width>1125</width>
-						<height>60</height>
-						<font>font13</font>
-						<label>Reload Skin</label>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<default>false</default>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>ReloadSkin()</onclick>
-						<visible>Skin.HasSetting(IsB808)</visible>
-					</control>
-					<control type="button" id="124">
-						<width>1125</width>
-						<height>60</height>
-						<font>font13</font>
-						<label>Reload Keymaps</label>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<default>false</default>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>Action(reloadkeymaps)</onclick>
-						<visible>Skin.HasSetting(IsB808)</visible>
-					</control>
-					<control type="radiobutton" id="121">
-						<width>1125</width>
-						<height>60</height>
-						<font>font13</font>
-						<label>Skin Debug</label>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<default>false</default>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>Skin.ToggleDebug</onclick>
-						<visible>Skin.HasSetting(IsB808)</visible>
-					</control>
-					<control type="radiobutton" id="122">
-						<width>1125</width>
-						<height>60</height>
-						<font>font13</font>
-						<label>Skin Grid</label>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<default>false</default>
-						<texturefocus>MenuItemFO.png</texturefocus>
-						<texturenofocus>MenuItemNF.png</texturenofocus>
-						<onclick>Skin.ToggleSetting(DebugGrid)</onclick>
-						<visible>Skin.HasSetting(IsB808)</visible>
-					</control>
-<!--					<control type="radiobutton" id="120">-->
-<!--						<width>1125</width>-->
-<!--						<height>60</height>-->
-<!--						<font>font13</font>-->
-<!--						<label>Bossanova808 Testing? (*Caution!* ...this may break your system!)</label>-->
-<!--						<textcolor>grey2</textcolor>-->
-<!--						<focusedcolor>white</focusedcolor>-->
-<!--						<default>false</default>-->
-<!--						<texturefocus>MenuItemFO.png</texturefocus>-->
-<!--						<texturenofocus>MenuItemNF.png</texturenofocus>-->
-<!--						<onclick>Skin.ToggleSetting(IsB808)</onclick>-->
-<!--						<selected>Skin.HasSetting(IsB808)</selected>-->
-<!--						<visible>Skin.HasSetting(IsB808)</visible>-->
-<!--					</control>-->
+                    <control type="label" id="121">
+                        <width>1125</width>
+                        <height>68</height>
+                        <font>font13_title</font>
+                        <label>Utilities for Bossanova808</label>
+                        <textcolor>blue</textcolor>
+                        <shadowcolor>black</shadowcolor>
+                        <align>left</align>
+                        <aligny>center</aligny>
+                        <visible>Skin.HasSetting(IsB808)</visible>
+                    </control>
+                    <control type="button" id="122">
+                        <width>1125</width>
+                        <height>60</height>
+                        <font>font13</font>
+                        <label>Reload Skin</label>
+                        <textcolor>grey2</textcolor>
+                        <focusedcolor>white</focusedcolor>
+                        <default>false</default>
+                        <texturefocus>MenuItemFO.png</texturefocus>
+                        <texturenofocus>MenuItemNF.png</texturenofocus>
+                        <onclick>ReloadSkin()</onclick>
+                        <visible>Skin.HasSetting(IsB808)</visible>
+                    </control>
+                    <control type="button" id="123">
+                        <width>1125</width>
+                        <height>60</height>
+                        <font>font13</font>
+                        <label>Reload Keymaps</label>
+                        <textcolor>grey2</textcolor>
+                        <focusedcolor>white</focusedcolor>
+                        <default>false</default>
+                        <texturefocus>MenuItemFO.png</texturefocus>
+                        <texturenofocus>MenuItemNF.png</texturenofocus>
+                        <onclick>Action(reloadkeymaps)</onclick>
+                        <visible>Skin.HasSetting(IsB808)</visible>
+                    </control>
+                    <control type="radiobutton" id="124">
+                        <width>1125</width>
+                        <height>60</height>
+                        <font>font13</font>
+                        <label>Skin Debug</label>
+                        <textcolor>grey2</textcolor>
+                        <focusedcolor>white</focusedcolor>
+                        <default>false</default>
+                        <texturefocus>MenuItemFO.png</texturefocus>
+                        <texturenofocus>MenuItemNF.png</texturenofocus>
+                        <onclick>Skin.ToggleDebug</onclick>
+                        <visible>Skin.HasSetting(IsB808)</visible>
+                    </control>
+                    <control type="radiobutton" id="125">
+                        <width>1125</width>
+                        <height>60</height>
+                        <font>font13</font>
+                        <label>Skin Grid</label>
+                        <textcolor>grey2</textcolor>
+                        <focusedcolor>white</focusedcolor>
+                        <default>false</default>
+                        <texturefocus>MenuItemFO.png</texturefocus>
+                        <texturenofocus>MenuItemNF.png</texturenofocus>
+                        <onclick>Skin.ToggleSetting(DebugGrid)</onclick>
+                        <visible>Skin.HasSetting(IsB808)</visible>
+                    </control>
+<!--                    <control type="radiobutton" id="126">-->
+<!--                        <width>1125</width>-->
+<!--                        <height>60</height>-->
+<!--                        <font>font13</font>-->
+<!--                        <label>Bossanova808 Testing? (*Caution!* ...this may break your system!)</label>-->
+<!--                        <textcolor>grey2</textcolor>-->
+<!--                        <focusedcolor>white</focusedcolor>-->
+<!--                        <default>false</default>-->
+<!--                        <texturefocus>MenuItemFO.png</texturefocus>-->
+<!--                        <texturenofocus>MenuItemNF.png</texturenofocus>-->
+<!--                        <onclick>Skin.ToggleSetting(IsB808)</onclick>-->
+<!--                        <selected>Skin.HasSetting(IsB808)</selected>-->
+<!--                        <visible>Skin.HasSetting(IsB808)</visible>-->
+<!--                    </control>-->
 
 <!-- END BOSSANOVA808 MOD - all for IsB808 checks -->
-					
 				</control>
-				
 				<control type="scrollbar" id="60">
 					<left>1590</left>
 					<top>90</top>
@@ -491,7 +514,7 @@
 						<font>font13</font>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
-						<label>Show recently added TV</label>
+						<label>Show recently added TV shows</label>
 						<onclick>Skin.ToggleSetting(HomepageHideRecentlyAddedTV)</onclick>
 						<selected>!Skin.HasSetting(HomepageHideRecentlyAddedTV)</selected>
 						<texturefocus>MenuItemFO.png</texturefocus>
@@ -716,7 +739,7 @@
 						<font>font13</font>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
-						<label>$LOCALIZE[31111] - $LOCALIZE[31114]</label>
+						<label>$LOCALIZE[31111] - $LOCALIZE[857]</label>
 						<onclick>Skin.ToggleSetting(HomeMenuNoSystemButton)</onclick>
 						<onclick>Skin.Reset(DefaultHomeFocus)</onclick>
 						<onclick>Skin.Reset(DefaultHomeFocusItem)</onclick>
@@ -742,7 +765,7 @@
 						<font>font13</font>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
-						<label>$LOCALIZE[31143] $LOCALIZE[20342] $LOCALIZE[31144]</label>
+						<label>$LOCALIZE[21480] $LOCALIZE[20342] $LOCALIZE[31144]</label>
 						<onclick>Skin.ToggleSetting(HomeMenuMovieUsePlaylist)</onclick>
 						<selected>Skin.HasSetting(HomeMenuMovieUsePlaylist)</selected>
 						<texturefocus>MenuItemFO.png</texturefocus>
@@ -769,7 +792,7 @@
 						<font>font13</font>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
-						<label>$LOCALIZE[31143] $LOCALIZE[20343] $LOCALIZE[31144]</label>
+						<label>$LOCALIZE[21480] $LOCALIZE[20343] $LOCALIZE[31144]</label>
 						<onclick>Skin.ToggleSetting(HomeMenuTVShowUsePlaylist)</onclick>
 						<selected>Skin.HasSetting(HomeMenuTVShowUsePlaylist)</selected>
 						<texturefocus>MenuItemFO.png</texturefocus>
@@ -796,7 +819,7 @@
 						<font>font13</font>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
-						<label>$LOCALIZE[31143] $LOCALIZE[2] $LOCALIZE[31144]</label>
+						<label>$LOCALIZE[21480] $LOCALIZE[2] $LOCALIZE[31144]</label>
 						<onclick>Skin.ToggleSetting(HomeMenuMusicUsePlaylist)</onclick>
 						<selected>Skin.HasSetting(HomeMenuMusicUsePlaylist)</selected>
 						<texturefocus>MenuItemFO.png</texturefocus>
@@ -1061,7 +1084,7 @@
 						<width>1125</width>
 						<height>68</height>
 						<font>font13_title</font>
-						<label>31102</label>
+						<label>33068</label>
 						<textcolor>blue</textcolor>
 						<shadowcolor>black</shadowcolor>
 						<align>left</align>
@@ -1071,7 +1094,7 @@
 						<width>1125</width>
 						<height>60</height>
 						<font>font13</font>
-						<label>31109</label>
+						<label>21389</label>
 						<textcolor>grey2</textcolor>
 						<focusedcolor>white</focusedcolor>
 						<texturefocus>MenuItemFO.png</texturefocus>
@@ -1123,7 +1146,7 @@
 							<width>1125</width>
 							<height>68</height>
 							<font>font13_title</font>
-							<label>31140</label>
+							<label>10120</label>
 							<textcolor>blue</textcolor>
 							<shadowcolor>black</shadowcolor>
 							<align>left</align>

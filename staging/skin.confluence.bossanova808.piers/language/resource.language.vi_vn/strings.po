@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"Report-Msgid-Bugs-To: https://github.com/xbmc/xbmc/issues/\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2024-04-12 17:01+0000\n"
 "Last-Translator: Nguyễn Trung Hậu <trunghau1712@gmail.com>\n"
@@ -50,16 +50,16 @@ msgid "Hide information"
 msgstr "Ẩn thông tin"
 
 msgctxt "#31006"
-msgid "View options"
-msgstr "Các tuỳ chọn xem"
+msgid "Automatically close video OSD"
+msgstr ""
 
 msgctxt "#31007"
 msgid "Video process information"
 msgstr ""
 
 msgctxt "#31008"
-msgid "Full screen"
-msgstr "Toàn màn hình"
+msgid "Video OSD autoclose time (seconds)"
+msgstr ""
 
 msgctxt "#31009"
 msgid "Total duration"
@@ -142,10 +142,6 @@ msgctxt "#31028"
 msgid "Poster wrap"
 msgstr ""
 
-msgctxt "#31029"
-msgid "Fanart"
-msgstr "Fanart"
-
 msgctxt "#31030"
 msgid "No changes"
 msgstr ""
@@ -157,10 +153,6 @@ msgstr "Hình thu nhỏ"
 msgctxt "#31032"
 msgid "Image wrap"
 msgstr ""
-
-msgctxt "#31033"
-msgid "Info"
-msgstr "Thông tin"
 
 msgctxt "#31034"
 msgid "Original title (Localised title)"
@@ -181,10 +173,6 @@ msgstr ""
 msgctxt "#31038"
 msgid "Select + Start"
 msgstr ""
-
-msgctxt "#31039"
-msgid "Actions"
-msgstr "Hành động"
 
 msgctxt "#31040"
 msgid "Now playing"
@@ -219,10 +207,6 @@ msgctxt "#31048"
 msgid "Visualisation presets"
 msgstr ""
 
-msgctxt "#31049"
-msgid "End time"
-msgstr "Thời gian kết thúc"
-
 msgctxt "#31050"
 msgid "Sort: Ascending"
 msgstr "Sắp xếp: Tăng dần"
@@ -230,6 +214,18 @@ msgstr "Sắp xếp: Tăng dần"
 msgctxt "#31051"
 msgid "Sort: Descending"
 msgstr "Sắp xếp: Giảm dần"
+
+msgctxt "#31052"
+msgid "Subtitles streams"
+msgstr ""
+
+msgctxt "#31053"
+msgid "Audio streams"
+msgstr ""
+
+msgctxt "#31054"
+msgid "Video streams"
+msgstr ""
 
 msgctxt "#31055"
 msgid "Open playlist"
@@ -247,10 +243,6 @@ msgctxt "#31058"
 msgid "System music files"
 msgstr "Tập tin âm nhạc thuộc hệ thống"
 
-msgctxt "#31059"
-msgid "Current playlist"
-msgstr "Danh sách hiện tại"
-
 # empty string with id 31060
 msgctxt "#31061"
 msgid "Current selected"
@@ -259,10 +251,6 @@ msgstr ""
 msgctxt "#31101"
 msgid "Home screen options"
 msgstr "Tùy chọn màn hình chính"
-
-msgctxt "#31102"
-msgid "Background"
-msgstr "Nền"
 
 msgctxt "#31103"
 msgid "Show \"Paused\" in picture slideshow"
@@ -277,16 +265,12 @@ msgid "Miscellaneous options"
 msgstr "Tùy chọn tổng quan"
 
 msgctxt "#31107"
-msgid "Hide flagging read from video filenames [COLOR=grey3](e.g. Blu-ray, HD-DVD)[/COLOR]"
+msgid "Hide flagging read from video filenames [COLOR=grey3](e.g. Blu-ray, WEB-DL)[/COLOR]"
 msgstr ""
 
 msgctxt "#31108"
 msgid "Hide main menu buttons"
 msgstr "Ẩn nút menu chính"
-
-msgctxt "#31109"
-msgid "Enable custom background"
-msgstr "Bật nền tùy chỉnh"
 
 msgctxt "#31110"
 msgid "Background path:"
@@ -296,17 +280,9 @@ msgctxt "#31111"
 msgid "Hide"
 msgstr "Ẩn"
 
-msgctxt "#31112"
-msgid "Options"
-msgstr "Tùy chọn"
-
 msgctxt "#31113"
 msgid "Background path Master:"
 msgstr ""
-
-msgctxt "#31114"
-msgid "System"
-msgstr "Hệ thống"
 
 msgctxt "#31115"
 msgid "Main button playlists"
@@ -353,10 +329,6 @@ msgctxt "#31126"
 msgid "Show posters instead of thumbs for musicvideos"
 msgstr ""
 
-msgctxt "#31128"
-msgid "Lyrics"
-msgstr "Lời bài hát"
-
 msgctxt "#31129"
 msgid "Hide fanart in full screen visualisation"
 msgstr ""
@@ -379,17 +351,9 @@ msgctxt "#31136"
 msgid "Home page \"Pictures\" submenu"
 msgstr ""
 
-msgctxt "#31140"
-msgid "Music OSD"
-msgstr "Bảng điều khiển Nhạc"
-
 msgctxt "#31142"
 msgid "Settings level"
 msgstr "Mức độ hiệu chỉnh"
-
-msgctxt "#31143"
-msgid "Use"
-msgstr "Sử dụng"
 
 msgctxt "#31144"
 msgid "playlist"
@@ -410,10 +374,6 @@ msgstr ""
 msgctxt "#31148"
 msgid "Hide - Search"
 msgstr ""
-
-msgctxt "#31200"
-msgid "Shortcuts"
-msgstr "Phím tắt"
 
 msgctxt "#31203"
 msgid "Choose your song"
@@ -436,10 +396,6 @@ msgctxt "#31300"
 msgid "Current temperature"
 msgstr ""
 
-msgctxt "#31301"
-msgid "Last updated"
-msgstr "Cập nhật mới nhất"
-
 msgctxt "#31303"
 msgid "Data provider"
 msgstr "Nhà cung cấp dữ liệu"
@@ -451,6 +407,10 @@ msgstr "Chi tiết phim"
 msgctxt "#31309"
 msgid "Memory used:"
 msgstr "Bộ nhớ đã dùng:"
+
+msgctxt "#31310"
+msgid "PVR"
+msgstr ""
 
 msgctxt "#31319"
 msgid "Selected profile"
@@ -472,10 +432,6 @@ msgctxt "#31326"
 msgid "Created"
 msgstr "Đã tạo"
 
-msgctxt "#31327"
-msgid "Resolution"
-msgstr "Độ phân giải"
-
 msgctxt "#31329"
 msgid "[B]Timer set![/B] [COLOR=grey2] - System auto shutdown in[/COLOR]"
 msgstr "[B]Đã hẹn giờ![/B] [COLOR=grey2] - Hệ thống sẽ tự động tắt trong[/COLOR]"
@@ -487,6 +443,42 @@ msgstr "Nhấn nút để phát[CR][CR]trailer phim"
 msgctxt "#31331"
 msgid "Album details"
 msgstr "Chi tiết album"
+
+msgctxt "#31332"
+msgid "Signal details"
+msgstr ""
+
+msgctxt "#31334"
+msgid "Audio information"
+msgstr ""
+
+msgctxt "#31336"
+msgid "Video bitrate"
+msgstr ""
+
+msgctxt "#31337"
+msgid "Audio bitrate"
+msgstr ""
+
+msgctxt "#31341"
+msgid "Pixel format"
+msgstr ""
+
+msgctxt "#31342"
+msgid "Player cache"
+msgstr ""
+
+msgctxt "#31343"
+msgid "Screen resolution"
+msgstr ""
+
+msgctxt "#31344"
+msgid "Screen rendering speed"
+msgstr ""
+
+msgctxt "#31345"
+msgid "System temperature"
+msgstr ""
 
 msgctxt "#31351"
 msgid "Pause"
@@ -519,18 +511,6 @@ msgstr "Xem 2D"
 msgctxt "#31361"
 msgid "Change mode"
 msgstr "Thay đổi chế độ"
-
-msgctxt "#31362"
-msgid "Enabled"
-msgstr "Đã bật"
-
-msgctxt "#31390"
-msgid "Skin default"
-msgstr "Giao diện mặc định"
-
-msgctxt "#31391"
-msgid "Skin default with no caps"
-msgstr ""
 
 msgctxt "#31392"
 msgid "Arial based"
@@ -648,10 +628,6 @@ msgctxt "#31905"
 msgid "Forecast"
 msgstr "Dự báo"
 
-msgctxt "#31910"
-msgid "Maps"
-msgstr "Bản đồ"
-
 msgctxt "#31950"
 msgid "WEATHER"
 msgstr "Thời tiết"
@@ -706,14 +682,93 @@ msgid "Choose kind of profile identification"
 msgstr "Chọn loại định dạng hồ sơ"
 
 #. Label for the kind of profile identification
-msgctxt "#31963"
-msgid "Profile name"
-msgstr "Tên hồ sơ"
-
-#. Label for the kind of profile identification
 msgctxt "#31964"
 msgid "Profile avatar"
 msgstr "Ảnh đại diện hồ sơ"
+
+#~ msgctxt "#31006"
+#~ msgid "View options"
+#~ msgstr "Các tuỳ chọn xem"
+
+#~ msgctxt "#31008"
+#~ msgid "Full screen"
+#~ msgstr "Toàn màn hình"
+
+#~ msgctxt "#31029"
+#~ msgid "Fanart"
+#~ msgstr "Fanart"
+
+#~ msgctxt "#31033"
+#~ msgid "Info"
+#~ msgstr "Thông tin"
+
+#~ msgctxt "#31039"
+#~ msgid "Actions"
+#~ msgstr "Hành động"
+
+#~ msgctxt "#31049"
+#~ msgid "End time"
+#~ msgstr "Thời gian kết thúc"
+
+#~ msgctxt "#31059"
+#~ msgid "Current playlist"
+#~ msgstr "Danh sách hiện tại"
+
+#~ msgctxt "#31102"
+#~ msgid "Background"
+#~ msgstr "Nền"
+
+#~ msgctxt "#31109"
+#~ msgid "Enable custom background"
+#~ msgstr "Bật nền tùy chỉnh"
+
+#~ msgctxt "#31112"
+#~ msgid "Options"
+#~ msgstr "Tùy chọn"
+
+#~ msgctxt "#31114"
+#~ msgid "System"
+#~ msgstr "Hệ thống"
+
+#~ msgctxt "#31128"
+#~ msgid "Lyrics"
+#~ msgstr "Lời bài hát"
+
+#~ msgctxt "#31140"
+#~ msgid "Music OSD"
+#~ msgstr "Bảng điều khiển Nhạc"
+
+#~ msgctxt "#31143"
+#~ msgid "Use"
+#~ msgstr "Sử dụng"
+
+#~ msgctxt "#31200"
+#~ msgid "Shortcuts"
+#~ msgstr "Phím tắt"
+
+#~ msgctxt "#31301"
+#~ msgid "Last updated"
+#~ msgstr "Cập nhật mới nhất"
+
+#~ msgctxt "#31327"
+#~ msgid "Resolution"
+#~ msgstr "Độ phân giải"
+
+#~ msgctxt "#31362"
+#~ msgid "Enabled"
+#~ msgstr "Đã bật"
+
+#~ msgctxt "#31390"
+#~ msgid "Skin default"
+#~ msgstr "Giao diện mặc định"
+
+#~ msgctxt "#31910"
+#~ msgid "Maps"
+#~ msgstr "Bản đồ"
+
+#~ msgctxt "#31963"
+#~ msgid "Profile name"
+#~ msgstr "Tên hồ sơ"
 
 #~ msgctxt "#31206"
 #~ msgid "Found"

@@ -59,6 +59,7 @@
 		</control>
 		<control type="button" id="90163">
 			<include>ButtonHomeSubCommonValues</include>
+			<!-- BOSSANOVA808MOD -->
 			<label>Recently played</label>
 			<onclick>ActivateWindow(Videos,special://skin/playlists/Recently Played Movies.xsp,return)</onclick>
 			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(1).Label)</visible>
@@ -75,6 +76,7 @@
 <!--			<onclick>ActivateWindow(Videos,$INFO[Container(90160).ListItemNoWrap(2).FileNameAndPath],return)</onclick>-->
 <!--			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(2).Label)</visible>-->
 <!--		</control>-->
+			<!-- END BOSSANOVA808MOD -->
 		<control type="button" id="90165">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90160).ListItemNoWrap(3).Label]</label>
@@ -99,6 +101,7 @@
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
 		</control>
 	</include>
+	<!-- BOSSANOVA808 MOD - Special TV Show Menus -->
 	<include name="HomeSubMenuTVShowsAdults">
 		<control type="image" id="90171">
 			<width>53</width>
@@ -153,6 +156,7 @@
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
 		</control>
 	</include>
+	<!-- END BOSSANOVA808 MOD -->
 	<include name="HomeSubMenuTVShows">
 		<control type="image" id="90171">
 			<width>53</width>
