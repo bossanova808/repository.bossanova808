@@ -1,0 +1,5 @@
+The standard texture floor.png has been removed as in this skin mod it's only used in a very few places (as our background image is dark enough at the bottom not to generally need it).
+
+Removing the texture itself makes for minimal code changes required.
+
+In those few places we still use the visual floor (movie/video/music views), we change the code to point at floor_b808.png (which has been modifed to be a little darker).

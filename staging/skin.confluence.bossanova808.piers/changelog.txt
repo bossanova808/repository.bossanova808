@@ -1,0 +1,174 @@
+v5.1.301
+- Begin Piers work  
+
+v5.0.915
+- Add Recently Played Movies to main movies menu (played in last 3 months, limit 25)            
+- (B808 only) Changes to skin magic with move to using Jellyfin as a server
+
+v5.0.914
+- Improve clearart/logo/poster/thumb/icon display during video playback
+- Hard code b808 specific menus as Library Node Editor is black magic
+
+v5.0.913
+- Fix colouring of BOM now/later info
+- Add reload skin and reload keymap utilities (for b808 only)
+
+v5.0.912
+Add another holiday background
+
+v5.0.911
+Add another holiday background
+
+v5.0.907
+Add separate setting for show/hide recently added TV vs. movies
+
+v5.0.906
+Fix behaviour if only one profile, remove radar from seek etc due to performance issues
+
+v5.0.905
+Sync with upstream, minors, new PlayerProcessInfo
+
+v5.0.904
+Add reboot to eMMC/NAND for e.g. Ugoos AM6B+
+
+v5.0.903 
+Add holiday backgrounds
+
+v5.0.901
+Sync with upstream (tempo, colour management changes), disable some more label scrolling
+
+v5.0.703 
+Due to huge CoreElec performance problems with scrolling labels, re-arrange VideoFullScreen
+Title can now take a whole line, and media codec icons are moved up and aligned right
+
+v5.0.702
+Add new macros system & use it for fast profile switching
+
+v5.0.701 
+Sync with 5.0.7 upstream (DialogSubtitles and debug grid fix)
+
+v5.0.602 
+Disable a few more label scrolls to solve CoreElec performance issues
+
+v5.0.601
+Sync with 5.0.6 upstream
+
+v5.0.413 
+Fix Weather Blade Menu
+
+v5.0.412 
+Revert to old OzWeather approach due to issues with weather buttons in custom windows :( 
+
+v5.0.411 
+Tidy up some weather button stuff
+
+v5.0.410 
+Add date released/aired to VideoFullScreen
+
+v5.0.409 
+Fix from upstream https://github.com/xbmc/skin.confluence/pull/273/commits/104ba4e2fce8f2f5121c5327b0c305b8092b480f
+
+v5.0.408
+OzWeather now uses a Custom Window approach so as to leave MyWeather.xml unmolested
+
+v5.0.407 
+Disable thumbnail label scrolling due to CoreElec performance issues - https://discourse.coreelec.org/t/amlogic-no-discussion/46663/606
+
+v5.0.406
+Visual tidy-ups
+Darken the floor (where it is even still used)
+Rmove the mirror from the login page
+
+v5.0.404
+Fix faster profile switching
+
+v5.0.403
+Add faster profile switching
+
+v5.0.402
+Update fanart/icon/screenshots
+
+v5.0.402
+Update fanart/icon/screenshots
+
+v5.0.401
+Remove border around unfocused addons
+
+v5.0.312
+Add check for updates to home addons menu
+
+v5.0.311
+Add cleaned up textures from sarbes
+
+v5.0.310
+Add colorbutton
+
+v5.0.309
+Improve, and remove jpg artifacts from main the background image
+
+v5.0.307
+Integrate Hitcher's work on Check Previous Episode
+
+v5.0.306
+Fix blade menu in OzWeather
+
+v5.0.305
+Add back Chapter / Channel Group text in new position
+
+v5.0.304
+Merge in all the Omega changes from Hitcher to 2024-04-10
+
+v5.0.302
+Further minor fixes now Omega is released
+
+v5.0.103
+Minor Fixes now Omega is released
+
+v5.0.102
+Hitcher Omega changes to 2024-04-07
+
+v5.0.101
+Integrate Hitcher's Nexus changes up to 5.0.1
+Various b808 tweaks (reduce more white, tidy up VideoFullScreen/DialogSeekbar)
+Re-integrate standard Confluence weather for anyone not using OzWeather
+
+v4.8.0101
+Integrate Hitcher's Nexus changes up to v4.8.01
+
+v4.7.1513
+End of the festive season...
+
+v4.7.1512
+It's beginning to feel a lot like Christmas...
+
+v4.7.1511
+Backport of Omega changes
+
+v4.7.1509
+Minor tweak to Home.xml so custom nodes work the way I want
+Remove non English languages
+
+v4.7.1508
+Changes for OzWeather/ABC Video
+Auto hide video info on unpause
+
+v4.7.1507
+Sync upstream Nexus branch
+
+v4.7.1506
+Latest changes per the review of my PR to the 'real' Confluence
+https://github.com/xbmc/skin.confluence/pull/194
+
+v4.7.1505
+Stop Artist Slideshow from cropping or warping images 
+
+v4.7.1504
+Add Colour Picker
+Add new MyFavourites window
+Fixes for CULyrics
+
+v4.7.1503
+Use the actual Confluence texture for subs location, and remove floor in a bunch more places
+
+v4.7.1502
+Start work on Nexus skin.
