@@ -182,7 +182,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.1.301" name="Confluence Bossanova808 Piers" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.301" name="Confluence Bossanova808 Piers" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
