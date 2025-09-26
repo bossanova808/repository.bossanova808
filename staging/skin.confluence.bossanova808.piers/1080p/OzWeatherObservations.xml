@@ -164,7 +164,7 @@
                 <posx>22%</posx>
                 <posy>60%</posy>
                 <include content="FontHuge" />
-                <label>$INFO[Weather.Data(Current.OzW_Temperature)]&#176;</label>
+                <label>$INFO[Weather.Data(Current.Ozw_Temperature)]&#176;</label>
             </control>
 
             <include content="OzWeatherHeader">
@@ -180,7 +180,7 @@
                 <posx>44%</posx>
                 <posy>60%</posy>
                 <include content="FontHuge" />
-                <label>$INFO[Weather.Data(Current.OzW_FeelsLike)]&#176;</label>
+                <label>$INFO[Weather.Data(Current.Ozw_FeelsLike)]&#176;</label>
                 <textcolor>darkgray</textcolor>
                 <visible>!String.IsEmpty(Weather.Data(Current.Ozw_FeelsLike))</visible>
             </control>

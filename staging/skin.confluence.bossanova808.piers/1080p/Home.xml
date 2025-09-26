@@ -1368,7 +1368,7 @@
 						<shadowcolor>black</shadowcolor>
                         <!-- Our temp here is non-standard, so manually add the ° symbol... -->
                         <label>[B]$INFO[Weather.Data(Current.Ozw_Temperature)][/B]°</label>
-                        <visible>Weather.IsFetched(</visible>
+                        <visible>Weather.IsFetched</visible>
 					</control>
 					<control type="label">
 						<description>Conditions Label</description>
@@ -1376,7 +1376,7 @@
 						<height>33</height>
 						<font>font10</font>
 						<aligny>center</aligny>
-						<label>$INFO[Window.Data(Current.Condition)]</label>
+						<label>$INFO[Weather.Data(Current.Condition)]</label>
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
 					</control>

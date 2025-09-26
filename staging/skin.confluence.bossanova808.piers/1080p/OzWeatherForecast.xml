@@ -117,7 +117,7 @@
                 <shadowcolor>black</shadowcolor>
                 <info>Weather.Data(Current.ConditionLong)</info>
                 <autoscroll time="3000" delay="4000" repeat="5000" />
-            </control> -->
+            </control>
 
         </control>
 

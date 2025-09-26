@@ -358,7 +358,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>!String.IsEmpty(Window.Property(Today.IsFetched))</visible>
+					<visible>!String.IsEmpty(Weather.Data(Today.IsFetched))</visible>
 					<control type="label">
 						<description>Sunrise Label</description>
 						<left>45</left>

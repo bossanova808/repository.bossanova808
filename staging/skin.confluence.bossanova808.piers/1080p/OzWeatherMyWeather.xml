@@ -96,6 +96,7 @@
 
             <!-- Weather.IsUpdating indicator -->
             <control type="group">
+                <visible>Weather.IsUpdating</visible>
                 <depth>DepthDialog+</depth>
                 <left>1820</left>
                 <top>80</top>
@@ -106,7 +107,6 @@
                     <texture>busy.png</texture>
                     <aspectratio>keep</aspectratio>
                     <animation effect="rotate" start="0" end="360" center="24,24" time="900" loop="true" condition="true">conditional</animation>
-                    <visible>Weather.IsUpdating</visible>
                 </control>
             </control>
    

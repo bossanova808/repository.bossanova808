@@ -428,7 +428,7 @@
 	</include>
 	<include name="Weather36Hour">
 		<control type="group">
-			<visible>String.IsEqual(Window.Property(Weather.CurrentView),36hour) + !String.IsEmpty(Window.Property(36Hour.IsFetched))</visible>
+			<visible>String.IsEqual(Window.Property(Weather.CurrentView),36Hour) + !String.IsEmpty(Window.Property(36Hour.IsFetched))</visible>
 			<include>VisibleFadeEffect</include>
 			<control type="button" id="997">
 				<description>Hidden Button for focus</description>
@@ -512,7 +512,7 @@
 						<textcolor>white</textcolor>
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
-						<label>$INFO[Weather.Data(36hour.1.Outlook),[COLOR=grey2]$LOCALIZE[31905]: [/COLOR]]</label>
+						<label>$INFO[Weather.Data(36Hour.1.Outlook),[COLOR=grey2]$LOCALIZE[31905]: [/COLOR]]</label>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -577,7 +577,7 @@
 						<textcolor>white</textcolor>
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
-						<label>$INFO[Weather.Data(36hour.2.Outlook),[COLOR=grey2]$LOCALIZE[31905]: [/COLOR]]</label>
+						<label>$INFO[Weather.Data(36Hour.2.Outlook),[COLOR=grey2]$LOCALIZE[31905]: [/COLOR]]</label>
 					</control>
 					<control type="image">
 						<left>0</left>
@@ -642,7 +642,7 @@
 						<textcolor>white</textcolor>
 						<selectedcolor>selected</selectedcolor>
 						<align>center</align>
-						<label>$INFO[Weather.Data(36hour.3.Outlook),[COLOR=grey2]$LOCALIZE[31905]: [/COLOR]]</label>
+						<label>$INFO[Weather.Data(36Hour.3.Outlook),[COLOR=grey2]$LOCALIZE[31905]: [/COLOR]]</label>
 					</control>
 				</control>
 			</control>

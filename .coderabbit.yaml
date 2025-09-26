@@ -1,0 +1,4 @@
+path_filters:
+  - "!**/MyWeather_ConfluenceStandard.xml"
+  - "!**/ViewsWeather.xml"
+  
