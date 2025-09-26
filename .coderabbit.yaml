@@ -1,4 +1,8 @@
+reviews:
+  review_instructions: |
+    Always present code changes in before/after format for easy copy-pasting. Never show diffs.
+
 path_filters:
   - "!**/MyWeather_ConfluenceStandard.xml"
   - "!**/ViewsWeather.xml"
-  
+
