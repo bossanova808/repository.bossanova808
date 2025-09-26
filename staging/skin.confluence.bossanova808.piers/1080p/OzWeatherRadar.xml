@@ -21,22 +21,22 @@
     <include name="RadarBackgrounds">
         <include content="RadarBackground">
             <param name="height">RadarLegend</param>
-            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/legend.png</param>
+            <param name="texture">special://temp/ozweather/radarbackgrounds/$INFO[Weather.Data(Radar)]/legend.png</param>
         </include>
         <include content="RadarBackground">
-            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/background.png</param>
+            <param name="texture">special://temp/ozweather/radarbackgrounds/$INFO[Weather.Data(Radar)]/background.png</param>
         </include>
         <include content="RadarBackground">
-            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/topography.png</param>
+            <param name="texture">special://temp/ozweather/radarbackgrounds/$INFO[Weather.Data(Radar)]/topography.png</param>
         </include>
         <include content="RadarBackground">
-            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/catchments.png</param>
+            <param name="texture">special://temp/ozweather/radarbackgrounds/$INFO[Weather.Data(Radar)]/catchments.png</param>
         </include>
         <include content="RadarBackground">
-            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/range.png</param>
+            <param name="texture">special://temp/ozweather/radarbackgrounds/$INFO[Weather.Data(Radar)]/range.png</param>
         </include>
         <include content="RadarBackground">
-            <param name="texture">special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(weather).Property(Radar)]/locations.png</param>
+            <param name="texture">special://temp/ozweather/radarbackgrounds/$INFO[Weather.Data(Radar)]/locations.png</param>
         </include>
     </include>
 
@@ -51,7 +51,7 @@
                 <posy>$PARAM[posy]</posy>
                 <width>$PARAM[width]</width>
                 <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
-                <imagepath>special://profile/addon_data/weather.ozweather/currentloop/$INFO[Window(weather).Property(Radar)]/</imagepath>
+                <imagepath>special://temp/ozweather/currentloop/$INFO[Weather.Data(Radar)]/</imagepath>
                 <timeperimage>300</timeperimage>
                 <pauseatend>800</pauseatend>
                 <fadetime>0</fadetime>

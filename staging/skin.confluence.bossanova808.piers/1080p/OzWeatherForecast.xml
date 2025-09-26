@@ -103,7 +103,7 @@
                 <description>Extended Forecast Label</description>
                 <param name="posx">3%</param>
                 <param name="posy">10%</param>
-                <param name="label">Extended Forecast [COLOR darkgray]for [/COLOR]$INFO[Window(weather).Property(ForecastRegion)] [COLOR darkgray]issued[/COLOR] $INFO[Window(weather).Property(ForecastUpdated)]</param>
+                <param name="label">Extended Forecast [COLOR darkgray]for [/COLOR]$INFO[Weather.Data(ForecastRegion)] [COLOR darkgray]issued[/COLOR] $INFO[Weather.Data(ForecastUpdated)]</param>
             </include>
 
             <control type="textbox">
@@ -115,8 +115,8 @@
                 <include content="FontBody" />
                 <textcolor>white</textcolor>
                 <shadowcolor>black</shadowcolor>
-                <info>Window(weather).Property(Current.ConditionLong)</info>
-                <autoscroll time="3000" delay="4000" repeat="5000"></autoscroll>
+                <info>Weather.Data(Current.ConditionLong)</info>
+                <autoscroll time="3000" delay="4000" repeat="5000" />
             </control> -->
 
         </control>
@@ -133,63 +133,63 @@
 
             <include content="ForecastRow">
                 <param name="posy">0%</param>
-                <param name="iconcode">$INFO[Window(weather).Property(Daily.2.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Window(weather).Property(Daily.2.Outlook)]</param>
-                <param name="DayLabel">$INFO[Window(weather).Property(Daily.2.Title)]</param>
-                <param name="HighTemperature">$INFO[Window(weather).Property(Daily.2.HighTemperature)]</param>
-                <param name="LowTemperature">$INFO[Window(weather).Property(Daily.2.LowTemperature)]</param>
-                <param name="RainChance">$INFO[Window(weather).Property(Daily.2.RainChance)]</param>
-                <param name="RainAmount">$INFO[Window(weather).Property(Daily.2.RainAmount)]</param>
+                <param name="iconcode">$INFO[Weather.Data(Daily.2.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Weather.Data(Daily.2.Outlook)]</param>
+                <param name="DayLabel">$INFO[Weather.Data(Daily.2.Title)]</param>
+                <param name="HighTemperature">$INFO[Weather.Data(Daily.2.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Weather.Data(Daily.2.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Weather.Data(Daily.2.RainChance)]</param>
+                <param name="RainAmount">$INFO[Weather.Data(Daily.2.RainAmount)]</param>
             </include>
             <include content="ForecastRow">
                 <param name="posy">17%</param>
-                <param name="iconcode">$INFO[Window(weather).Property(Daily.3.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Window(weather).Property(Daily.3.Outlook)]</param>
-                <param name="DayLabel">$INFO[Window(weather).Property(Daily.3.Title)]</param>
-                <param name="HighTemperature">$INFO[Window(weather).Property(Daily.3.HighTemperature)]</param>
-                <param name="LowTemperature">$INFO[Window(weather).Property(Daily.3.LowTemperature)]</param>
-                <param name="RainChance">$INFO[Window(weather).Property(Daily.3.RainChance)]</param>
-                <param name="RainAmount">$INFO[Window(weather).Property(Daily.3.RainAmount)]</param>
+                <param name="iconcode">$INFO[Weather.Data(Daily.3.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Weather.Data(Daily.3.Outlook)]</param>
+                <param name="DayLabel">$INFO[Weather.Data(Daily.3.Title)]</param>
+                <param name="HighTemperature">$INFO[Weather.Data(Daily.3.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Weather.Data(Daily.3.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Weather.Data(Daily.3.RainChance)]</param>
+                <param name="RainAmount">$INFO[Weather.Data(Daily.3.RainAmount)]</param>
             </include>
             <include content="ForecastRow">
                 <param name="posy">34%</param>
-                <param name="iconcode">$INFO[Window(weather).Property(Daily.4.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Window(weather).Property(Daily.4.Outlook)]</param>
-                <param name="DayLabel">$INFO[Window(weather).Property(Daily.4.Title)]</param>
-                <param name="HighTemperature">$INFO[Window(weather).Property(Daily.4.HighTemperature)]</param>
-                <param name="LowTemperature">$INFO[Window(weather).Property(Daily.4.LowTemperature)]</param>
-                <param name="RainChance">$INFO[Window(weather).Property(Daily.4.RainChance)]</param>
-                <param name="RainAmount">$INFO[Window(weather).Property(Daily.4.RainAmount)]</param>
+                <param name="iconcode">$INFO[Weather.Data(Daily.4.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Weather.Data(Daily.4.Outlook)]</param>
+                <param name="DayLabel">$INFO[Weather.Data(Daily.4.Title)]</param>
+                <param name="HighTemperature">$INFO[Weather.Data(Daily.4.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Weather.Data(Daily.4.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Weather.Data(Daily.4.RainChance)]</param>
+                <param name="RainAmount">$INFO[Weather.Data(Daily.4.RainAmount)]</param>
             </include>
             <include content="ForecastRow">
                 <param name="posy">51%</param>
-                <param name="iconcode">$INFO[Window(weather).Property(Daily.5.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Window(weather).Property(Daily.5.Outlook)]</param>
-                <param name="DayLabel">$INFO[Window(weather).Property(Daily.5.Title)]</param>
-                <param name="HighTemperature">$INFO[Window(weather).Property(Daily.5.HighTemperature)]</param>
-                <param name="LowTemperature">$INFO[Window(weather).Property(Daily.5.LowTemperature)]</param>
-                <param name="RainChance">$INFO[Window(weather).Property(Daily.5.RainChance)]</param>
-                <param name="RainAmount">$INFO[Window(weather).Property(Daily.5.RainAmount)]</param>
+                <param name="iconcode">$INFO[Weather.Data(Daily.5.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Weather.Data(Daily.5.Outlook)]</param>
+                <param name="DayLabel">$INFO[Weather.Data(Daily.5.Title)]</param>
+                <param name="HighTemperature">$INFO[Weather.Data(Daily.5.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Weather.Data(Daily.5.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Weather.Data(Daily.5.RainChance)]</param>
+                <param name="RainAmount">$INFO[Weather.Data(Daily.5.RainAmount)]</param>
             </include>
             <include content="ForecastRow">
                 <param name="posy">68%</param>
-                <param name="iconcode">$INFO[Window(weather).Property(Daily.6.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Window(weather).Property(Daily.6.Outlook)]</param>
-                <param name="DayLabel">$INFO[Window(weather).Property(Daily.6.Title)]</param>
-                <param name="HighTemperature">$INFO[Window(weather).Property(Daily.6.HighTemperature)]</param>
-                <param name="LowTemperature">$INFO[Window(weather).Property(Daily.6.LowTemperature)]</param>
-                <param name="RainChance">$INFO[Window(weather).Property(Daily.6.RainChance)]</param>
-                <param name="RainAmount">$INFO[Window(weather).Property(Daily.6.RainAmount)]</param>
+                <param name="iconcode">$INFO[Weather.Data(Daily.6.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Weather.Data(Daily.6.Outlook)]</param>
+                <param name="DayLabel">$INFO[Weather.Data(Daily.6.Title)]</param>
+                <param name="HighTemperature">$INFO[Weather.Data(Daily.6.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Weather.Data(Daily.6.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Weather.Data(Daily.6.RainChance)]</param>
+                <param name="RainAmount">$INFO[Weather.Data(Daily.6.RainAmount)]</param>
             </include>
             <include content="ForecastRow">
                 <param name="posy">85%</param>
-                <param name="iconcode">$INFO[Window(weather).Property(Daily.7.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Window(weather).Property(Daily.7.Outlook)]</param>
-                <param name="DayLabel">$INFO[Window(weather).Property(Daily.7.Title)]</param>
-                <param name="HighTemperature">$INFO[Window(weather).Property(Daily.7.HighTemperature)]</param>
-                <param name="LowTemperature">$INFO[Window(weather).Property(Daily.7.LowTemperature)]</param>
-                <param name="RainChance">$INFO[Window(weather).Property(Daily.7.RainChance)]</param>
-                <param name="RainAmount">$INFO[Window(weather).Property(Daily.7.RainAmount)]</param>
+                <param name="iconcode">$INFO[Weather.Data(Daily.7.OutlookIcon)]</param>
+                <param name="outlook">$INFO[Weather.Data(Daily.7.Outlook)]</param>
+                <param name="DayLabel">$INFO[Weather.Data(Daily.7.Title)]</param>
+                <param name="HighTemperature">$INFO[Weather.Data(Daily.7.HighTemperature)]</param>
+                <param name="LowTemperature">$INFO[Weather.Data(Daily.7.LowTemperature)]</param>
+                <param name="RainChance">$INFO[Weather.Data(Daily.7.RainChance)]</param>
+                <param name="RainAmount">$INFO[Weather.Data(Daily.7.RainAmount)]</param>
             </include>
         </control>
 

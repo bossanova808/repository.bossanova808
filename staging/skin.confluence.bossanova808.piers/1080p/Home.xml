@@ -1332,7 +1332,7 @@
 					<width>90</width>
 					<height>90</height>
 					<aspectratio>keep</aspectratio>
-					<texture>$INFO[Weather.ConditionsIcon]</texture>
+					<texture>resource://resource.images.weathericons.default/$INFO[Weather.Data(Current.FanartCode)].png</texture>
 				</control>
 				<!-- BOSSANOVA808 MOD - OzWeather Support -->
 				<control type="label">
@@ -1346,7 +1346,7 @@
 					<font>font10</font>
 					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
-					<label>$INFO[Window(Weather).Property(Location)]</label>
+					<label>$INFO[Weather.Data(Current.Location)]</label>
 				</control>
 				<control type="grouplist">
 					<left>98</left>
@@ -1366,7 +1366,9 @@
 						<font>font24_title</font>
 						<textcolor>gray</textcolor>
 						<shadowcolor>black</shadowcolor>
-						<label>[B]$INFO[Window(Weather).Property(Current.Ozw_Temperature)][/B]°</label>
+                        <!-- Our temp here is non-standard, so manually add the ° symbol... -->
+                        <label>[B]$INFO[Weather.Data(Current.Ozw_Temperature)][/B]°</label>
+                        <visible>Weather.IsFetched(</visible>
 					</control>
 					<control type="label">
 						<description>Conditions Label</description>
@@ -1374,7 +1376,7 @@
 						<height>33</height>
 						<font>font10</font>
 						<aligny>center</aligny>
-						<label>$INFO[Window(Weather).Property(Current.Condition),  ]</label>
+						<label>$INFO[Window.Data(Current.Condition)]</label>
 						<textcolor>grey2</textcolor>
 						<shadowcolor>black</shadowcolor>
 					</control>
