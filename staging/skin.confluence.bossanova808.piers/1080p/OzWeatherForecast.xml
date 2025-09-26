@@ -28,7 +28,7 @@
                     <posx>7%</posx>
                     <posy>2%</posy>
                     <height>16%</height>
-                    <texture>resource://resource.images.weathericons.default/$PARAM[iconcode]</texture>
+                    <texture>resource://resource.images.weathericons.default/$PARAM[IconCode]</texture>
                     <aspectratio align="left">keep</aspectratio>
                 </control>
 
@@ -47,7 +47,7 @@
                     <posx>30%</posx>
                     <posy>3%</posy>
                     <include content="FontBody" />
-                    <label>[COLOR white]$PARAM[DayLabel][/COLOR] - $PARAM[outlook]</label>
+                    <label>[COLOR white]$PARAM[DayLabel][/COLOR] - $PARAM[Outlook]</label>
                     <visible>Weather.IsFetched</visible>
                 </control>
 
@@ -133,8 +133,8 @@
 
             <include content="ForecastRow">
                 <param name="posy">0%</param>
-                <param name="iconcode">$INFO[Weather.Data(Daily.2.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Weather.Data(Daily.2.Outlook)]</param>
+                <param name="IconCode">$INFO[Weather.Data(Daily.2.OutlookIcon)]</param>
+                <param name="Outlook">$INFO[Weather.Data(Daily.2.Outlook)]</param>
                 <param name="DayLabel">$INFO[Weather.Data(Daily.2.Title)]</param>
                 <param name="HighTemperature">$INFO[Weather.Data(Daily.2.HighTemperature)]</param>
                 <param name="LowTemperature">$INFO[Weather.Data(Daily.2.LowTemperature)]</param>
@@ -143,8 +143,8 @@
             </include>
             <include content="ForecastRow">
                 <param name="posy">17%</param>
-                <param name="iconcode">$INFO[Weather.Data(Daily.3.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Weather.Data(Daily.3.Outlook)]</param>
+                <param name="IconCode">$INFO[Weather.Data(Daily.3.OutlookIcon)]</param>
+                <param name="Outlook">$INFO[Weather.Data(Daily.3.Outlook)]</param>
                 <param name="DayLabel">$INFO[Weather.Data(Daily.3.Title)]</param>
                 <param name="HighTemperature">$INFO[Weather.Data(Daily.3.HighTemperature)]</param>
                 <param name="LowTemperature">$INFO[Weather.Data(Daily.3.LowTemperature)]</param>
@@ -153,8 +153,8 @@
             </include>
             <include content="ForecastRow">
                 <param name="posy">34%</param>
-                <param name="iconcode">$INFO[Weather.Data(Daily.4.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Weather.Data(Daily.4.Outlook)]</param>
+                <param name="IconCode">$INFO[Weather.Data(Daily.4.OutlookIcon)]</param>
+                <param name="Outlook">$INFO[Weather.Data(Daily.4.Outlook)]</param>
                 <param name="DayLabel">$INFO[Weather.Data(Daily.4.Title)]</param>
                 <param name="HighTemperature">$INFO[Weather.Data(Daily.4.HighTemperature)]</param>
                 <param name="LowTemperature">$INFO[Weather.Data(Daily.4.LowTemperature)]</param>
@@ -163,8 +163,8 @@
             </include>
             <include content="ForecastRow">
                 <param name="posy">51%</param>
-                <param name="iconcode">$INFO[Weather.Data(Daily.5.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Weather.Data(Daily.5.Outlook)]</param>
+                <param name="IconCode">$INFO[Weather.Data(Daily.5.OutlookIcon)]</param>
+                <param name="Outlook">$INFO[Weather.Data(Daily.5.Outlook)]</param>
                 <param name="DayLabel">$INFO[Weather.Data(Daily.5.Title)]</param>
                 <param name="HighTemperature">$INFO[Weather.Data(Daily.5.HighTemperature)]</param>
                 <param name="LowTemperature">$INFO[Weather.Data(Daily.5.LowTemperature)]</param>
@@ -173,8 +173,8 @@
             </include>
             <include content="ForecastRow">
                 <param name="posy">68%</param>
-                <param name="iconcode">$INFO[Weather.Data(Daily.6.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Weather.Data(Daily.6.Outlook)]</param>
+                <param name="IconCode">$INFO[Weather.Data(Daily.6.OutlookIcon)]</param>
+                <param name="Outlook">$INFO[Weather.Data(Daily.6.Outlook)]</param>
                 <param name="DayLabel">$INFO[Weather.Data(Daily.6.Title)]</param>
                 <param name="HighTemperature">$INFO[Weather.Data(Daily.6.HighTemperature)]</param>
                 <param name="LowTemperature">$INFO[Weather.Data(Daily.6.LowTemperature)]</param>
@@ -183,8 +183,8 @@
             </include>
             <include content="ForecastRow">
                 <param name="posy">85%</param>
-                <param name="iconcode">$INFO[Weather.Data(Daily.7.OutlookIcon)]</param>
-                <param name="outlook">$INFO[Weather.Data(Daily.7.Outlook)]</param>
+                <param name="IconCode">$INFO[Weather.Data(Daily.7.OutlookIcon)]</param>
+                <param name="Outlook">$INFO[Weather.Data(Daily.7.Outlook)]</param>
                 <param name="DayLabel">$INFO[Weather.Data(Daily.7.Title)]</param>
                 <param name="HighTemperature">$INFO[Weather.Data(Daily.7.HighTemperature)]</param>
                 <param name="LowTemperature">$INFO[Weather.Data(Daily.7.LowTemperature)]</param>
