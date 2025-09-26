@@ -1321,8 +1321,8 @@
 				<visible>!Skin.HasSetting(homepageWeatherinfo)</visible>
 			</control>
 			<control type="group">
-				<left>30</left>
-				<top>0</top>
+				<left>20</left>
+				<top>10</top>
 				<visible>Skin.HasSetting(homepageWeatherinfo) + !String.IsEmpty(Weather.Plugin)</visible>
 				<include>Window_OpenClose_Animation</include>
 				<control type="image">
@@ -1346,7 +1346,7 @@
 					<font>font10</font>
 					<textcolor>gray</textcolor>
 					<shadowcolor>black</shadowcolor>
-					<label>$INFO[Weather.Data(Current.Location)]</label>
+					<label>$INFO[Weather.Data(Current.Location)]: $INFO[Weather.Data(Current.Condition)]</label>
 				</control>
 				<control type="grouplist">
 					<left>98</left>
@@ -1367,18 +1367,8 @@
 						<textcolor>gray</textcolor>
 						<shadowcolor>black</shadowcolor>
                         <!-- Our temp here is non-standard, so manually add the ° symbol... -->
-                        <label>[B]$INFO[Weather.Data(Current.Ozw_Temperature)][/B]°</label>
+                        <label>$INFO[Weather.Data(Current.Ozw_Temperature)]°</label>
                         <visible>Weather.IsFetched</visible>
-					</control>
-					<control type="label">
-						<description>Conditions Label</description>
-						<width>750</width>
-						<height>33</height>
-						<font>font10</font>
-						<aligny>center</aligny>
-						<label>$INFO[Weather.Data(Current.Condition)]</label>
-						<textcolor>grey2</textcolor>
-						<shadowcolor>black</shadowcolor>
 					</control>
 				</control>
 			</control>
