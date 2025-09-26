@@ -1,7 +1,7 @@
 <!-- BOSSANOVA808 MOD - Entire file, obviously -->
 <!--	Unfortunately, a lot of things don't work as variables or constants, e.g. fonts -->
-<!--	..but they do work as includes, it seems, so we use constants, where they _do_ work -->
-<!--	..but otherwise includes, where they don't. -->
+<!--	...but they do work as includes, it seems, so we use constants, where they _do_ work -->
+<!--	...but otherwise includes, where they don't. -->
 <!--	See the top of OzWeatherTweaks-confluence (etc) for the main 'variables' to change -->
 <!--    But because of Kodi parsing issues with comments in includes, we document those here... -->
 
@@ -52,7 +52,7 @@
 					<description>Left Panel - The Radar Loop, Buttons, and OzWeather Version Tag</description>
 					<posx>3%</posx>
 					<posy>5%</posy>
-					<visible>Weather.IsFetched</visible>
+					<visible>!Weather.IsUpdating</visible>
 
 					<include content="ConfluenceLeftPanelContainer" />
 
@@ -60,7 +60,7 @@
 						<description>Radar Panel Header - ID and Time Range</description>
 						<param name="posx">2%</param>
 						<param name="posy">3%</param>
-						<param name="label">Radar ($INFO[Window.Property(Radar)]), [COLOR darkgray]from [/COLOR]$INFO[Window.Property(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
+						<param name="label">Radar ($INFO[Weather.Data(Radar)]), [COLOR darkgray]from [/COLOR]$INFO[Weather.Data(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Weather.Data(RadarNewest)]</param>
 					</include>
 
 					<include content="RadarBackgrounds" />
@@ -75,7 +75,7 @@
 					<description>Right Panel - Current Observations, Extended Forecast Text, Forecast Rows</description>
 					<posx>46%</posx>
 					<posy>5%</posy>
-					<visible>Weather.IsFetched</visible>
+					<visible>!Weather.IsUpdating</visible>
 
 					<include content="ConfluenceRightPanelContainer" />
 
@@ -83,7 +83,7 @@
 						<description>Location Panel Header - Name and Observed At Time</description>
 						<param name="posx">3%</param>
 						<param name="posy">3%</param>
-						<param name="label">$INFO[Window.Property(Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)]</param>
+						<param name="label">$INFO[Weather.Data(Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Weather.Data(ObservationsUpdated)]</param>
 					</include>
 
 					<include content="Observations" />
@@ -94,6 +94,22 @@
 
 			</control> <!--END GROUP for Left & Right Panels -->
 
+            <!-- Weather.IsUpdating indicator -->
+            <control type="group">
+                <visible>Weather.IsUpdating</visible>
+                <depth>DepthDialog+</depth>
+                <left>1820</left>
+                <top>80</top>
+                <control type="image">
+                    <description>Busy animation</description>
+                    <width>36</width>
+                    <height>36</height>
+                    <texture>busy.png</texture>
+                    <aspectratio>keep</aspectratio>
+                    <animation effect="rotate" start="0" end="360" center="24,24" time="900" loop="true" condition="true">conditional</animation>
+                </control>
+            </control>
+   
 			<include content="ConfluenceBladeMenu" />
 			<include content="Clock" />
 
