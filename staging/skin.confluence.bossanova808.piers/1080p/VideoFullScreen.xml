@@ -190,7 +190,7 @@
 					<align>left</align>
 					<font>font12</font>
 					<!--  BOSSANOVA808 MOD - Premiered Date -->
-					<label>$INFO[VideoPlayer.Premiered,Premiered: ,$COMMA ] Studio: $INFO[VideoPlayer.Studio]</label>
+					<label>$INFO[VideoPlayer.Premiered,Premiered: ,$COMMA ] $INFO[VideoPlayer.Studio,Studio: ]</label>
 					<textcolor>grey2</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(Movies)</visible>
