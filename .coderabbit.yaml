@@ -1,8 +1,7 @@
 reviews:
   review_instructions: |
-    Always present code changes in before/after format for easy copy-pasting. Never show diffs.
-
-path_filters:
-  - "!**/MyWeather_ConfluenceStandard.xml"
-  - "!**/ViewsWeather.xml"
-
+    CRITICAL: Always present code changes in before/after format for easy copy-pasting. NEVER show diffs under any circumstances. Use clear "Before:" and "After:" code blocks only.
+  poem: false
+  in_progress_fortune: false
+chat:
+  art: false

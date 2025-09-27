@@ -98,12 +98,12 @@
             <control type="group">
                 <visible>Weather.IsUpdating</visible>
                 <depth>DepthDialog+</depth>
-                <left>1820</left>
-                <top>80</top>
+                <left>950</left>
+                <top>500</top>
                 <control type="image">
                     <description>Busy animation</description>
-                    <width>36</width>
-                    <height>36</height>
+                    <width>48</width>
+                    <height>48</height>
                     <texture>busy.png</texture>
                     <aspectratio>keep</aspectratio>
                     <animation effect="rotate" start="0" end="360" center="24,24" time="900" loop="true" condition="true">conditional</animation>

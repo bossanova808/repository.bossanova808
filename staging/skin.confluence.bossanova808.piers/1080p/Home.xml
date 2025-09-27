@@ -1324,6 +1324,7 @@
 				<left>20</left>
 				<top>10</top>
 				<visible>Skin.HasSetting(homepageWeatherinfo) + !String.IsEmpty(Weather.Plugin)</visible>
+                <visible>!Weather.isUpdating</visible>
 				<include>Window_OpenClose_Animation</include>
 				<control type="image">
 					<description>Weather image</description>
@@ -1368,7 +1369,6 @@
 						<shadowcolor>black</shadowcolor>
                         <!-- Our temp here is non-standard, so manually add the ° symbol... -->
                         <label>$INFO[Weather.Data(Current.Ozw_Temperature)]°</label>
-                        <visible>Weather.IsFetched</visible>
 					</control>
 				</control>
 			</control>
