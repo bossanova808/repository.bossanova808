@@ -3,5 +3,6 @@
 .gitignore export-ignore
 .gitattributes export-ignore
 .github export-ignore
+.coderabbit.yaml export-ignore
 *.pyc export-ignore
 *.pyo export-ignore
