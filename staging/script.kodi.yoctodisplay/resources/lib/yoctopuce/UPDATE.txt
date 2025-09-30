@@ -1,7 +1,9 @@
-20224-06-22
-Using: 2.0.61305
 
-Download latest archive from: https://pypi.org/project/yoctopuce/#files
+LAST UPDATE: 2025-09-30
+Using: 2.1.6320
+
+
+Download latest tar.gz archive from: https://pypi.org/project/yoctopuce/#files
 
 Extract, and copy these files here:
 cdll (i.e whole folder)

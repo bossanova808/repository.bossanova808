@@ -116,7 +116,7 @@
                 <textcolor>_colour_text_default_</textcolor>
                 <shadowcolor>black</shadowcolor>
                 <info>Window(weather).Property(Current.ConditionLong)</info>
-                <autoscroll time="3000" delay="4000" repeat="5000"></autoscroll>
+                <autoscroll time="3000" delay="4000" repeat="5000"/>
             </control> -->
 
         </control>

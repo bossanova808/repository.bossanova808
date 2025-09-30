@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #*********************************************************************
 #*
-#* $Id: yocto_display.py 59978 2024-03-18 15:04:46Z mvuilleu $
+#* $Id: yocto_display.py 63513 2024-11-28 10:50:30Z seb $
 #*
 #* Implements yFindDisplay(), the high-level API for Display functions
 #*
@@ -603,7 +603,7 @@ class YDisplay(YFunction):
     #--- (generated code: YDisplay implementation)
     def _parseAttr(self, json_val):
         if json_val.has("enabled"):
-            self._enabled = (json_val.getInt("enabled") > 0 if 1 else 0)
+            self._enabled = json_val.getInt("enabled") > 0
         if json_val.has("startupSeq"):
             self._startupSeq = json_val.getString("startupSeq")
         if json_val.has("brightness"):
@@ -946,7 +946,7 @@ class YDisplay(YFunction):
         """
         self.flushLayers()
         self._recording = False
-        self._upload(sequenceName, YString2Byte(self._sequence))
+        self._upload(sequenceName, bytearray(self._sequence, YAPI.DefaultEncoding))
         # //We need to use YPRINTF("") for Objective-C
         self._sequence = ""
         return YAPI.SUCCESS

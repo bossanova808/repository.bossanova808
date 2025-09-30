@@ -1,3 +1,6 @@
+v5.1.305
+- Add new weather widget from upstream
+
 v5.1.304
 - Changes for new WeatherData system: https://forum.kodi.tv/showthread.php?tid=377306&pid=3240797#pid3240797
 

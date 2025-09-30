@@ -1,14 +1,12 @@
 import sys
 import os
-from traceback import format_exc
-
 
 
 unit_testing = False
 try:
     # Running inside Kodi as usual
     from bossanova808.logger import Logger
-    from bossanova808.constants import *
+    from bossanova808.constants import CWD
     sys.path.append(CWD + '/resources/lib/')
     sys.path.append(CWD + '/resources/lib/yoctopuce')
     from yocto_api import *
@@ -16,8 +14,9 @@ try:
 except ImportError:
     # Unit testing this module outside Kodi
     unit_testing = True
-    sys.path.append(os.getcwd() + '/resources/lib/')
-    sys.path.append(os.getcwd() + '/resources/lib/yoctopuce')
+    CWD = os.getcwd()
+    sys.path.append(CWD + '/resources/lib/')
+    sys.path.append(CWD + '/resources/lib/yoctopuce')
     sys.path.append('..\\..\\..\\script.module.bossanova808\\resources\\lib')
     print(sys.path)
     from yoctopuce.yocto_api import *
@@ -64,6 +63,10 @@ class YoctoMaxiDisplay:
         if not YoctoMaxiDisplay.display and unit_testing:
             sys.exit("Couldn't find the display")
 
+        if not YoctoMaxiDisplay.display:
+            # Bubble this up as we'll send a UI warning notification...
+            raise
+
         YoctoMaxiDisplay.module = YoctoMaxiDisplay.display.get_module()
         if not YoctoMaxiDisplay.module and unit_testing:
             sys.exit("Couldn't find the module")
@@ -80,8 +83,9 @@ class YoctoMaxiDisplay:
                 Logger.info(f'Display found: {YoctoMaxiDisplay.display.describe()} - '
                             f'Display type: {YoctoMaxiDisplay.display.get_displayType()} - '
                             f'Friendly name: {YoctoMaxiDisplay.display.get_friendlyName()}')
-            except Exception as inst:
-                Logger.error("Exception in describe display..." + format_exc(inst))
+            except Exception as e:
+                Logger.error("Exception in describe display...")
+                Logger.error(e)
         else:
             Logger.error("Can't describe_display - display not online?")
 
@@ -164,10 +168,10 @@ class YoctoMaxiDisplay:
         number_of_lines = len(lines)
 
         if number_of_lines == 1 or number_of_lines == 2:
-            # 32 pixel high font, but there is a baseline so up to two lines should be ok.
+            # 32 pixel high font, but there is a baseline so up to two lines should be OK.
             YoctoMaxiDisplay.drawingLayer.selectFont("Large.yfm")
         elif number_of_lines == 3 or number_of_lines == 4:
-            # 16 pixel high font, but there is a baseline so up to four lines should be ok.
+            # 16 pixel high font, but there is a baseline so up to four lines should be OK.
             YoctoMaxiDisplay.drawingLayer.selectFont("Medium.yfm")
 
         if number_of_lines == 1:

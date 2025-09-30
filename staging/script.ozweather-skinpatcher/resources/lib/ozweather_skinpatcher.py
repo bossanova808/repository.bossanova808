@@ -1,14 +1,34 @@
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
-from bossanova808.utilities import *
+from bossanova808.constants import ADDON
+from bossanova808.utilities import get_setting_as_bool
 # noinspection PyPackages
 from .store import Store
 import os
 import sys
 import glob
 import ntpath
+
+
 import xbmc
+import xbmcgui
 import xbmcvfs
+import xbmcaddon
+
+
+def get_ozweather_version() -> str:
+    try:
+        ozw = xbmcaddon.Addon(id='weather.ozweather')
+        version = ozw.getAddonInfo('version')
+        return version
+    except Exception as e:
+        Logger.error("Error getting version for weather.ozweather", e)
+        Notify.error("Error getting version for weather.ozweather - is it installed & enabled?")
+        sys.exit(1)
+
+
+def version_tuple(version_str) -> tuple:
+    return tuple(map(int, version_str.split('.')))
 
 
 # Backup existing skin files, and install the new ones.
@@ -44,8 +64,19 @@ def patch():
         sys.exit(1)
 
     # Prepare to copy new files - grab both the skin independent and skin specific files...
-    list_of_files_to_copy = glob.glob(Store.skin_independent_xml_source_folder + "/*.xml")
-    list_of_files_to_copy.extend(glob.glob(Store.skin_specific_xml_source_folder + "/*.xml"))
+    list_of_files_to_copy = glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "*.xml"))
+    list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_specific_xml_source_folder, "*.xml")))
+
+    # Need to use the correct paths for radar, they changed with OzWeather 2.1.6
+    version = get_ozweather_version()
+    if version_tuple(version) <= version_tuple('2.1.5'):
+        # Logic for version 2.1.5 and below
+        Logger.warning("OzWeather is an older version, <= 2.1.5 - use skin file with old radar paths")
+        list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_215", "*.xml")))
+    else:
+        # Logic for version 2.1.6 and above
+        Logger.warning("OzWeather is >= 2.1.6 - use new skin file for radar paths")
+        list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_216", "*.xml")))
 
     Logger.info("The list of files to copy is")
     Logger.info(list_of_files_to_copy)
@@ -121,7 +152,7 @@ def restore():
 # This is 'main'...
 def run():
 
-    footprints()
+    Logger.start()
     Store()
 
     dialog = xbmcgui.Dialog()
@@ -176,4 +207,4 @@ def run():
         Notify.info('Successful patch - skin reloaded.')
 
     # and, we're done...
-    footprints(False)
+    Logger.stop()

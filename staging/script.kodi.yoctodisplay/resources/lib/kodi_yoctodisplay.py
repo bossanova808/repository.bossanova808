@@ -1,22 +1,32 @@
-from bossanova808.utilities import *
-import xbmc
 # noinspection PyPackages
 from .yocto_maxidisplay import YoctoMaxiDisplay
 import time
 import platform
+import xbmc
+
+from bossanova808.utilities import ADDON
+from bossanova808.logger import Logger
+from bossanova808.notify import Notify
 
 
-def run(args):
+def run(_args):
 
-    footprints()
+    Logger.start()
 
     YoctoMaxiDisplay()
     architecture = None
     if platform.system() != 'Windows':
         architecture = 'armhf'
-    YoctoMaxiDisplay.register_yocto_API(architecture)
-    YoctoMaxiDisplay.register_display_and_module()
-    YoctoMaxiDisplay.describe_display()
+
+    # Fail gracefully if the screen is not available
+    try:
+        YoctoMaxiDisplay.register_yocto_API(architecture)
+        YoctoMaxiDisplay.register_display_and_module()
+        YoctoMaxiDisplay.describe_display()
+    except:
+        Notify.warning("YoctoDisplay connection failed, see logs.")
+        Logger.stop()
+        return
 
     # Set up the display
     YoctoMaxiDisplay.set_brightness(ADDON.getSetting('brightness'))
@@ -25,15 +35,16 @@ def run(args):
 
     monitor = xbmc.Monitor()
 
-    # Game loop - this loops until Kodi quits..
+    # Game loop - this loops until Kodi quits...
     # Run every 1/3rd of a second basically
     while not monitor.abortRequested():
 
         if monitor.waitForAbort(0.33):
             YoctoMaxiDisplay.clean_up_display()
-            footprints(False)
+            Logger.stop()
             break
 
+        # This does all the work...
         process2ndScreen()
 
 
@@ -67,5 +78,3 @@ def process2ndScreen():
         YoctoMaxiDisplay.display_text([time_and_temperature, "-" + time_remaining])
     else:
         YoctoMaxiDisplay.display_text([time_now, temperature])
-
-

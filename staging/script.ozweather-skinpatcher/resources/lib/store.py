@@ -50,10 +50,10 @@ class Store:
         # Kodi > Omega, when Confluence became 1080p...
         if int(xbmc.getInfoLabel('System.BuildVersionCode').split(".")[0]) >= 21:
             destination_skin_xml_folder = '1080p'
-            skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '1080p')
+            skin_specific_xml_source_folder = os.path.join(CWD, 'resources', 'skin-files', skin, '1080p')
         else:
             destination_skin_xml_folder = '720p'
-            skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin, '720p')
+            skin_specific_xml_source_folder = os.path.join(CWD, 'resources', 'skin-files', skin, '720p')
     # Confluence Zeitgeist
     if 'aczg' in current_skin:
         Logger.info('Confluence Zeitgeist (aczg) in skin folder name...proceeding...')
@@ -80,10 +80,10 @@ class Store:
         Logger.error("Error - skin/skin_xml_folder variable is empty - this should never happen!")
         sys.exit(1)
 
-    skin_independent_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', 'skin-independent-components')
+    skin_independent_xml_source_folder = os.path.join(CWD, 'resources', 'skin-files', 'skin-independent-components')
     # (Confluence already set above due to different 720p/1080p)
     if not skin_specific_xml_source_folder:
-        skin_specific_xml_source_folder = os.path.join(CWD, 'resources/skin-files/', skin)
+        skin_specific_xml_source_folder = os.path.join(CWD, 'resources', 'skin-files', skin)
     xml_destination_folder = os.path.join(current_skin, destination_skin_xml_folder)
     current_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml')
     current_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml')

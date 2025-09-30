@@ -29,7 +29,7 @@
         </extension>
     </addon>
     
-    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.6" provider-name="bossanova808">
+    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.7" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.0"/>
@@ -49,13 +49,14 @@
             <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
             <forum />
             <email />
-            <news>v0.2.6
-    - Fix unit testing, given new module            
+            <news>v0.2.7
+    - Fail gracefully if can't connect to a YoctoDisplay
+    - Update Yocto libs
             </news>
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.3" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.4" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.0"/>
@@ -83,8 +84,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.4.3
-    - Fix colouring of BOM now/later info
+            <news>v0.4.4
+    - Changes for OzWeather 2.1.6+            
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -182,7 +183,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.304" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.305" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -203,8 +204,8 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.304
-    - Changes for new WeatherData system: https://forum.kodi.tv/showthread.php?tid=377306&pid=3240797#pid3240797
+    		<news>v5.1.305
+    - Add new weather widget from upstream
     		</news>
     	</extension>
     </addon>

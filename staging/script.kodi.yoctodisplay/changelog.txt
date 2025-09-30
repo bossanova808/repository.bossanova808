@@ -1,3 +1,7 @@
+v0.2.7
+- Fail gracefully if can't connect to a YoctoDisplay
+- Update Yocto libs
+
 v0.2.6
 - Fix unit testing, given new module     
 
