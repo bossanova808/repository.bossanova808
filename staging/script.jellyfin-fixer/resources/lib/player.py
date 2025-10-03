@@ -49,7 +49,7 @@ class KodiPlayer(xbmc.Player):
         # Only do something if this is an episode of a TV show
         library_type = item.get('type')
         if library_type in ['episode', 'movie']:
-            dbid = item.get('id') or item.get('episodeid')
+            dbid = item.get('id') or None
 
             if dbid:
                 Logger.debug(f"Playing: {library_type} with dbid: {dbid}")

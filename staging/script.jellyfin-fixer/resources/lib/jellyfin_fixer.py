@@ -18,9 +18,9 @@ def run():
             if kodi_monitor.waitForAbort(1):
                 break
     finally:
+        # We're done...
         Logger.stop()
         player = None
         kodi_monitor = None
 
-    # and, we're done...
-    Logger.stop()
+
