@@ -11,6 +11,11 @@ class KodiPlayer(xbmc.Player):
     """
 
     def __init__(self, *_args):
+        """
+        Initialize a KodiPlayer instance.
+        
+        Calls the xbmc.Player initializer and logs a debug message indicating construction.
+        """
         xbmc.Player.__init__(self)
         Logger.debug('KodiPlayer __init__')
 
@@ -18,6 +23,11 @@ class KodiPlayer(xbmc.Player):
     #     Logger.info('onPlayBackStarted')
 
     def onAVStarted(self) -> None:
+        """
+        Adjusts playback position when audio/video starts based on Kodi resume data.
+        
+        Queries Kodi for an active video player and the currently playing item; if the item is a movie or episode, retrieves its resume position and seeks the player. If a resume position greater than 20 seconds is available, seeks to four seconds before that position; otherwise seeks to the start (0.0). This function performs JSON-RPC requests to Kodi and changes the player's playback position as a side effect.
+        """
         Logger.info('onAVStarted')
 
         # Get active players

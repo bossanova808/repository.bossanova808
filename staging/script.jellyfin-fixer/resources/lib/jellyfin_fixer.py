@@ -9,6 +9,11 @@ from .player import KodiPlayer
 # This is 'main'...
 def run():
 
+    """
+    Start logging, initialize KodiEventMonitor and KodiPlayer, and run until an abort is requested.
+    
+    Initializes the logger and creates monitor and player instances, then polls the monitor until an abort is signaled. Ensures the logger is stopped and created objects are released on exit.
+    """
     Logger.start()
 
     try:

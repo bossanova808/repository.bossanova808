@@ -12,14 +12,17 @@ class Store:
 
     def __init__(self):
         """
-        Load in the addon settings and do basic initialisation stuff
+        Initialize a Store instance and load addon settings into the class-level configuration.
+        
+        This performs minimal startup initialization so the class-level store is populated from the addon's settings.
         """
         Store.load_config_from_settings()
 
     @staticmethod
     def load_config_from_settings():
         """
-        Load in the addon settings, at start or reload them if they have been changed
-        :return:
+        Load addon settings into the centralized Store at startup or when settings change.
+        
+        Reads the current addon configuration and updates the module-level store so other code can access up-to-date settings.
         """
         Logger.log("Loading configuration")
