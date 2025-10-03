@@ -5,7 +5,7 @@ import xbmc
 
 class KodiEventMonitor(xbmc.Monitor):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         xbmc.Monitor.__init__(self)
         Logger.debug('KodiEventMonitor __init__')
 

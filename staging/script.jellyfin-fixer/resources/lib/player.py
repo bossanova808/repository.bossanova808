@@ -10,7 +10,7 @@ class KodiPlayer(xbmc.Player):
     This class represents/monitors the Kodi video player
     """
 
-    def __init__(self, *_args):
+    def __init__(self):
         xbmc.Player.__init__(self)
         Logger.debug('KodiPlayer __init__')
 
@@ -18,6 +18,12 @@ class KodiPlayer(xbmc.Player):
     #     Logger.info('onPlayBackStarted')
 
     def onAVStarted(self) -> None:
+        """
+        This method is called when the Kodi video player is started and AV is beginning to appear
+        Chosen over onPlayBackStarted() as sometimes information is not yet available at that point.
+
+        :return: None
+        """
         Logger.info('onAVStarted')
 
         # Get active players
@@ -49,6 +55,7 @@ class KodiPlayer(xbmc.Player):
         # Only do something if this is an episode of a TV show
         library_type = item.get('type')
         if library_type in ['episode', 'movie']:
+            # in both cases 'id' is returned
             dbid = item.get('id') or None
 
             if dbid:
@@ -79,17 +86,23 @@ class KodiPlayer(xbmc.Player):
 
             json_dict['params'] = params
             query = json.dumps(json_dict)
-            result = send_kodi_json(f'Get resume point for type {library_type} with dbid: {dbid}', query)['result']
+            json_response = send_kodi_json(f'Get resume point for type {library_type} with dbid: {dbid}', query)
+            result = json_response.get('result')
             if result:
                 try:
                     resume_point = result[result_key]['resume']['position']
-                except:
-                    Logger.error("Could not get resume point")
+                except (KeyError, TypeError) as e:
+                    Logger.error(f"Could not get resume point: {e}")
                     resume_point = None
-                Logger.info(f"Resume point retrieved: {resume_point}")
-                # Resume just slightly back from where we were...
-                if resume_point and resume_point > 20:
-                    self.seekTime(resume_point - 4.0)
-                # Close to the beginnging or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
-                else:
-                    self.seekTime(0.0)
+            else:
+                Logger.error("No result returned from JSON-RPC query")
+                resume_point = None
+
+            Logger.info(f"Resume point retrieved: {resume_point}")
+
+            # Resume just slightly back from where we were...
+            if resume_point and resume_point > 20:
+                self.seekTime(resume_point - 4.0)
+            # Close to the beginnging or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
+            else:
+                self.seekTime(0.0)
