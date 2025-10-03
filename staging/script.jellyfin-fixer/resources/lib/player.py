@@ -14,9 +14,6 @@ class KodiPlayer(xbmc.Player):
         xbmc.Player.__init__(self)
         Logger.debug('KodiPlayer __init__')
 
-    # def onPlayBackStarted(self) -> None:
-    #     Logger.info('onPlayBackStarted')
-
     def onAVStarted(self) -> None:
         """
         This method is called when the Kodi video player is started and AV is beginning to appear
@@ -55,15 +52,11 @@ class KodiPlayer(xbmc.Player):
         # Only do something if this is an episode of a TV show
         library_type = item.get('type')
         if library_type in ['episode', 'movie']:
-            # in both cases 'id' is returned
+            # @coderabbitai I have confirmed in both cases 'id' is returned so no need for a more specialised paramter
             dbid = item.get('id') or None
 
             if dbid:
                 Logger.debug(f"Playing: {library_type} with dbid: {dbid}")
-
-            get_method = None
-            id_name = None
-            result_key = None
 
             if library_type == 'episode':
                 get_method = 'VideoLibrary.GetEpisodeDetails'
@@ -73,18 +66,20 @@ class KodiPlayer(xbmc.Player):
                 get_method = 'VideoLibrary.GetMovieDetails'
                 id_name = 'movieid'
                 result_key = 'moviedetails'
+            else:
+                Logger.error(f"Unsupported library type: {library_type}")
+                return
 
             json_dict = {
-                "jsonrpc": "2.0",
-                "id": "getResumePoint",
-                "method": get_method,
-            }
-            params = {
-                id_name: dbid,
-                "properties": ["resume"],
+                    "jsonrpc":"2.0",
+                    "id":"getResumePoint",
+                    "method":get_method,
+                    "params":{
+                            id_name:dbid,
+                            "properties":["resume"],
+                    }
             }
 
-            json_dict['params'] = params
             query = json.dumps(json_dict)
             json_response = send_kodi_json(f'Get resume point for type {library_type} with dbid: {dbid}', query)
             result = json_response.get('result')
@@ -103,6 +98,6 @@ class KodiPlayer(xbmc.Player):
             # Resume just slightly back from where we were...
             if resume_point and resume_point > 20:
                 self.seekTime(resume_point - 4.0)
-            # Close to the beginnging or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
+            # Close to the beginning or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
             else:
                 self.seekTime(0.0)
