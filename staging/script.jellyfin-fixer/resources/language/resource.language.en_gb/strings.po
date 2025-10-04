@@ -18,10 +18,25 @@ msgid "General"
 msgstr ""
 
 msgctxt "#32001"
-msgid "Some Setting Group"
+msgid "Resume how many seconds behind actual resume point?"
 msgstr ""
 
 msgctxt "#32002"
-msgid "Some Toggle Setting"
+msgid "Resume seconds behind resume point"
 msgstr ""
 
+msgctxt "#32003"
+msgid "Resume back seconds"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Jumping back at the start can help with delayed subtitle issues"
+msgstr ""
+
+msgctxt "#32005"
+msgid "Jump back at start?"
+msgstr ""
+
+msgctxt "#32006"
+msgid "After how many seconds of playback?"
+msgstr ""

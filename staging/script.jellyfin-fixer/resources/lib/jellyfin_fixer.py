@@ -4,12 +4,16 @@ from bossanova808.logger import Logger
 from .monitor import KodiEventMonitor
 # noinspection PyPackages
 from .player import KodiPlayer
+# noinspection PyPackages
+from .store import Store
 
 
 # This is 'main'...
 def run():
 
     Logger.start()
+
+    Store.load_config_from_settings()
 
     try:
         kodi_monitor = KodiEventMonitor()
@@ -22,5 +26,3 @@ def run():
         Logger.stop()
         player = None
         kodi_monitor = None
-
-
