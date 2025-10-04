@@ -90,6 +90,9 @@
     - Fail gracefully if can't connect to a YoctoDisplay
     - Update Yocto libs
             </news>
+            <assets>
+                <icon>resources/icon.png</icon>
+            </assets>        
         </extension>
     </addon>
     
