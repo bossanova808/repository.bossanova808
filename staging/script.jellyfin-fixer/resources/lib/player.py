@@ -100,11 +100,17 @@ class KodiPlayer(xbmc.Player):
 
             # Resume just slightly back from where we were as per the user setting (default 7 seconds)
             if resume_point and resume_point > 20:
-                self.seekTime(resume_point - Store.jumpback)
+                self.seekTime(max(resume_point - Store.jumpback, 0))
             # Close to the beginning or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
             # The 1-second delay introduces some jank but seems effective
             else:
-                if Store.jumpback_on_start:
-                    # seconds -> ms
-                    xbmc.sleep(Store.jumpback_on_start_after_seconds * 1000)
-                    self.seekTime(0.0)
+                if Store.jumpback_at_start:
+                    # Schedule seek to 0.0 after delay using a timer or background thread
+                    import threading
+
+                    def delayed_seek():
+                        xbmc.sleep(Store.jumpback_at_start_after_seconds * 1000)
+                        if self.isPlaying():
+                            self.seekTime(0.0)
+
+                    threading.Thread(target=delayed_seek, daemon=True).start()

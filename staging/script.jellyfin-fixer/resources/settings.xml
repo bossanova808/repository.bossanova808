@@ -30,9 +30,9 @@
                     </constraints>
                     <control type="spinner" format="integer"/>
                     <dependencies>
-						<dependency type="enable">
-							<condition operator="is" setting="jumpback_at_start">true</condition>
-						</dependency>
+                        <dependency type="enable">
+                            <condition operator="is" setting="jumpback_at_start">true</condition>
+                        </dependency>
                     </dependencies>
                 </setting>
             </group>

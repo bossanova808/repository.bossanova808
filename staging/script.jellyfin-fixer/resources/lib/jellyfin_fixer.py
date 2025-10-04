@@ -9,13 +9,13 @@ from .store import Store
 
 
 # This is 'main'...
+# noinspection PyUnusedLocal
 def run():
 
     Logger.start()
 
-    Store.load_config_from_settings()
-
     try:
+        Store.load_config_from_settings()
         kodi_monitor = KodiEventMonitor()
         player = KodiPlayer()
         while not kodi_monitor.abortRequested():
