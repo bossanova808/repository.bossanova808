@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <section id="script.jellyfin-fixer">
+        <category help="" id="Jellyfin Fixer" label="32000">
+            <group id="1" label="32001">
+                <setting id="blah" type="boolean" label="32002" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+            </group>
+        </category>
+    </section>
+</settings>
+
