@@ -97,7 +97,7 @@ class KodiPlayer(xbmc.Player):
 
             # Resume just slightly back from where we were...
             if resume_point and resume_point > 20:
-                self.seekTime(resume_point - 4.0)
+                self.seekTime(resume_point - 7.0)
             # Close to the beginning or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
             else:
                 self.seekTime(0.0)
