@@ -3,11 +3,38 @@
     <section id="script.jellyfin-fixer">
         <category help="" id="Jellyfin Fixer" label="32000">
             <group id="1" label="32001">
-                <setting id="blah" type="boolean" label="32002" help="">
-					<level>0</level>
-					<default>true</default>
-					<control type="toggle"/>
-				</setting>
+                <setting id="jumpback_seconds" type="integer" label="32002" help="">
+                    <level>0</level>
+                    <default>7</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <maximum>60</maximum>
+                        <step>1</step>
+                    </constraints>
+                    <control type="spinner" format="integer"/>
+                </setting>
+            </group>
+            <group id="2" label="32004">
+                <setting id="jumpback_at_start" type="boolean" label="32005" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="jumpback_at_start_after_seconds" type="integer" label="32006" help="" parent="jumpback_at_start">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <maximum>10</maximum>
+                        <step>1</step>
+                    </constraints>
+                    <control type="spinner" format="integer"/>
+                    <dependencies>
+                        <dependency type="enable">
+                            <condition operator="is" setting="jumpback_at_start">true</condition>
+                        </dependency>
+                    </dependencies>
+                </setting>
             </group>
         </category>
     </section>

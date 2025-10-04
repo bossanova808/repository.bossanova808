@@ -4,14 +4,18 @@ from bossanova808.logger import Logger
 from .monitor import KodiEventMonitor
 # noinspection PyPackages
 from .player import KodiPlayer
+# noinspection PyPackages
+from .store import Store
 
 
 # This is 'main'...
+# noinspection PyUnusedLocal
 def run():
 
     Logger.start()
 
     try:
+        Store.load_config_from_settings()
         kodi_monitor = KodiEventMonitor()
         player = KodiPlayer()
         while not kodi_monitor.abortRequested():
@@ -22,5 +26,3 @@ def run():
         Logger.stop()
         player = None
         kodi_monitor = None
-
-
