@@ -1,0 +1,21 @@
+[project]
+name = "repository-bossanova808"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dirhash>=0.5.0",
+    "flit>=3.12.0",
+    "rich>=14.1.0",
+]
+
+[project.scripts]
+build = "build:main"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "build"

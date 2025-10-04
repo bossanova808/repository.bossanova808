@@ -6,6 +6,13 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/.venv/lib64" />
+      <excludeFolder url="file://$MODULE_DIR$/staging/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/staging/script.kodi.yoctodisplay/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/staging/script.starter/.idea" />
     </content>
     <content url="file://$MODULE_DIR$/../../../Kodi/Omega/portable_data/addons/script.module.bossanova808/resources/lib" />
     <orderEntry type="inheritedJdk" />

@@ -1,3 +1,6 @@
 *.pyo
 *.pyc
+/.venv
 /**/.idea
+/**/.venv
+/**/__pycache__
