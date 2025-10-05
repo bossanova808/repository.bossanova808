@@ -46,7 +46,7 @@ msgid "Low Temps (default skyblue)"
 msgstr ""
 
 msgctxt "#32009"
-msgid "Show background art? (only Amber/Aeon)"
+msgid "Show background art?"
 msgstr ""
 
 msgctxt "#32007"
@@ -59,4 +59,28 @@ msgstr ""
 
 msgctxt "#32011"
 msgid "Show First Run Info"
+msgstr ""
+
+msgctxt "#32012"
+msgid "OzWeather Settings"
+msgstr ""
+
+msgctxt "#32013"
+msgid "Enable auto-patching (from next reboot)?"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Skin Specific"
+msgstr ""
+
+msgctxt "#32015"
+msgid "Auto patch: if new skin version, auto patch & reload skin after Kodi startup"
+msgstr ""
+
+msgctxt "#32016"
+msgid "After how many seconds (allows for addon updates)"
+msgstr ""
+
+msgctxt "#32017"
+msgid "(Amber and Neon only)"
 msgstr ""

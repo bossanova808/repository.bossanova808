@@ -1,19 +1,18 @@
-from bossanova808.logger import Logger
-from bossanova808.notify import Notify
-from bossanova808.constants import ADDON
-from bossanova808.utilities import get_setting_as_bool
-# noinspection PyPackages
-from .store import Store
 import os
 import sys
 import glob
 import ntpath
-
-
 import xbmc
 import xbmcgui
 import xbmcvfs
 import xbmcaddon
+
+from bossanova808.logger import Logger
+from bossanova808.notify import Notify
+from bossanova808.constants import ADDON, PROFILE
+from bossanova808.utilities import get_setting, get_setting_as_bool
+# noinspection PyPackages
+from .store import Store
 
 
 def get_ozweather_version() -> str:
@@ -23,12 +22,95 @@ def get_ozweather_version() -> str:
         return version
     except Exception as e:
         Logger.error("Error getting version for weather.ozweather", e)
-        Notify.error("Error getting version for weather.ozweather - is it installed & enabled?")
+        Notify.error("Error getting version of OzWeather - is it installed & enabled?")
         sys.exit(1)
 
 
 def version_tuple(version_str) -> tuple:
     return tuple(map(int, version_str.split('.')))
+
+
+def delayed_autopatch():
+
+    Logger.start("(delayed autopatch thread)")
+    # Delay for 40 seconds to allow addon updates
+    delay_setting = get_setting('delay_seconds')
+    try:
+        delay_seconds = int(delay_setting)
+    except (TypeError, ValueError):
+        delay_seconds = 30
+    Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
+    xbmc.sleep(delay_seconds * 1000)
+
+    # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
+    this_skin_version_already_patched = False
+    skin_version_now = None
+    try:
+        skin_addon = xbmcaddon.Addon(id=Store.current_skin)
+        skin_version_now = skin_addon.getAddonInfo('version') or None
+        if skin_version_now:
+            # Read the previously patched skin version from the addon settings directory
+            # File is named after the skin (e.g., "skin.amber") and contains just the version, as a string
+            with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'r') as f:
+                skin_version_recorded = f.read()
+            if skin_version_recorded == skin_version_now:
+                Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
+                this_skin_version_already_patched = True
+            else:
+                Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
+                this_skin_version_already_patched = False
+
+    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
+        Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
+        Logger.error(e)
+
+    if skin_version_now and not this_skin_version_already_patched:
+
+        try:
+            patch()
+        except SystemExit as e:
+            Logger.error(f"Patching failed with exit code {e.code}")
+            Notify.error("Automatic skin patching failed - check logs")
+            return
+        except Exception as e:
+            Logger.error("Unexpected error during patching")
+            Logger.error(e)
+            Notify.error("Automatic skin patching failed - check logs")
+            return
+
+        try:
+            os.makedirs(PROFILE, exist_ok=True)
+            with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'w', encoding='utf-8') as f:
+                f.write(skin_version_now)
+        except (IOError, OSError) as e:
+            Logger.error("Failed to write patch record")
+            Logger.error(e)
+
+        Logger.info("Reloading skin to pick up changes")
+        xbmc.executebuiltin('ReloadSkin()')
+        Notify.info('Successful OzWeather skin patch (skin reloaded).')
+
+    Logger.stop("(delayed autopatch thread)")
+
+def autopatch():
+    """
+    If the user has enabled this, automatically patch the current skin, if needed
+
+    :return:
+    """
+    Logger.start("(service)")
+
+    # Short circuit if Auto Patching is disabled
+    if not get_setting_as_bool('autopatch'):
+        Logger.warning("Autopatching is disabled - doing nothing.")
+        Logger.stop("(service)")
+        return
+
+    # Otherwise, do the actual autopatch work only after a delay (to allow Kodi to first do it's normal update addons work)
+    # (Use threading so as not to block Kodi from anything else)
+    import threading
+    threading.Thread(target=delayed_autopatch, daemon=True).start()
+    Logger.stop("(service)")
 
 
 # Backup existing skin files, and install the new ones.
@@ -160,7 +242,7 @@ def run():
     # Basic sanity checking - are they running the right skin?
     skin_supported = False
     for skin in Store.supported_skins:
-        if skin in Store.current_skin:
+        if skin in Store.current_skin_path:
             skin_supported = True
 
     if not skin_supported:
@@ -204,7 +286,7 @@ def run():
     if mode == 0 or mode == 1:
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-        Notify.info('Successful patch - skin reloaded.')
+        Notify.info('Successful OzWeather skin patch (skin reloaded).')
 
     # and, we're done...
     Logger.stop()
