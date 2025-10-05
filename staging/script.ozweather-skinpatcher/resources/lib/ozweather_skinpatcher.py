@@ -51,7 +51,7 @@ def delayed_autopatch():
         if skin_version_now:
             # Read the previously patched skin version from the addon settings directory
             # File is named after the skin (e.g., "skin.amber") and contains just the version, as a string
-            with open(os.path.join(PROFILE, Store.current_skin), 'r') as f:
+            with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'r') as f:
                 skin_version_recorded = f.read()
             if skin_version_recorded == skin_version_now:
                 Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
@@ -64,11 +64,23 @@ def delayed_autopatch():
         Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
         Logger.error(e)
 
-    if not this_skin_version_already_patched:
-        patch()
+    if skin_version_now and not this_skin_version_already_patched:
+
+        try:
+            patch()
+        except SystemExit as e:
+            Logger.error(f"Patching failed with exit code {e.code}")
+            Notify.error("Automatic skin patching failed - check logs")
+            return
+        except Exception as e:
+            Logger.error("Unexpected error during patching")
+            Logger.error(e)
+            Notify.error("Automatic skin patching failed - check logs")
+            return
+
         try:
             os.makedirs(PROFILE, exist_ok=True)
-            with open(os.path.join(PROFILE, Store.current_skin), 'w', encoding='utf-8') as f:
+            with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'w', encoding='utf-8') as f:
                 f.write(skin_version_now)
         except (IOError, OSError) as e:
             Logger.error("Failed to write patch record")
