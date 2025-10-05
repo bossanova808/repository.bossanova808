@@ -60,3 +60,23 @@ msgstr ""
 msgctxt "#32011"
 msgid "Show First Run Info"
 msgstr ""
+
+msgctxt "#32012"
+msgid "OzWeather Settings"
+msgstr ""
+
+msgctxt "#32013"
+msgid "Enable auto-patching (works from next reboot)?"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Skin Specific"
+msgstr ""
+
+msgctxt "#32015"
+msgid "Auto patch: if update required, auto patch & reload skin soon after Kodi startup"
+msgstr ""
+
+msgctxt "#32016"
+msgid "Delays seconds before patching (to allow for addon updates)"
+msgstr ""

@@ -1,7 +1,7 @@
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
-from bossanova808.constants import ADDON
-from bossanova808.utilities import get_setting_as_bool
+from bossanova808.constants import ADDON, PROFILE
+from bossanova808.utilities import get_setting, get_setting_as_bool
 # noinspection PyPackages
 from .store import Store
 import os
@@ -23,12 +23,70 @@ def get_ozweather_version() -> str:
         return version
     except Exception as e:
         Logger.error("Error getting version for weather.ozweather", e)
-        Notify.error("Error getting version for weather.ozweather - is it installed & enabled?")
+        Notify.error("Error getting version of OzWeather - is it installed & enabled?")
         sys.exit(1)
 
 
 def version_tuple(version_str) -> tuple:
     return tuple(map(int, version_str.split('.')))
+
+
+def delayed_autopatch():
+
+    Logger.start("Delayed autopatch thread")
+    # Delay for 40 seconds to allow addon updates
+    delay_seconds = int(get_setting('delay_seonds')) or 30
+    Logger.info(f"Automatically patching OzWeather after delay of {delay_seconds} seconds from now (to allow Kodo time to update addons")
+    xbmc.sleep(delay_seconds * 1000)
+
+    # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
+    this_skin_version_patched = False
+    skin_version_now = None
+    try:
+        skin_addon = xbmcaddon.Addon(id=Store.current_skin)
+        skin_version_now = skin_addon.getAddonInfo('version') or None
+        if skin_version_now:
+            with open(os.path.join(PROFILE, Store.current_skin), 'r') as f:
+                skin_version_recorded = f.read()
+            if skin_version_recorded == skin_version_now:
+                Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}]')
+                this_skin_version_patched = True
+            else:
+                Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
+                this_skin_version_patched = False
+
+    except:
+        Logger.warning("Unable to determine if skin is already patched - assuming it hasn't been patched")
+
+    if not this_skin_version_patched:
+        patch()
+        with open(os.path.join(PROFILE, Store.current_skin), 'w+', encoding='utf-8') as f:
+            f.write(skin_version_now)
+        Logger.info("Reloading skin to pick up changes")
+        xbmc.executebuiltin('ReloadSkin()')
+        Notify.info('Successful Ozweather skin patch (skin reloaded).')
+
+    Logger.stop("Delayed autopatch thread")
+
+def autopatch():
+    """
+    If the user has enabled this, automatically patch the current skin, if needed
+
+    :return:
+    """
+    Logger.start("(service)")
+
+    # Short circuit if Auto Patching is disabled
+    if not get_setting_as_bool('autopatch'):
+        Logger.warning("Autopatching is disabled - doing nothing.")
+        Logger.stop("(service)")
+        return
+
+    # Otherwise, do the actual autopatch work only after a delay (to allow Kodi to first do it's normal update addons work)
+    # (Use threading so as not to block Kodi from anything else)
+    import threading
+    threading.Thread(target=delayed_autopatch, daemon=True).start()
+    Logger.stop("(service)")
 
 
 # Backup existing skin files, and install the new ones.
@@ -160,7 +218,7 @@ def run():
     # Basic sanity checking - are they running the right skin?
     skin_supported = False
     for skin in Store.supported_skins:
-        if skin in Store.current_skin:
+        if skin in Store.current_skin_path:
             skin_supported = True
 
     if not skin_supported:
@@ -204,7 +262,7 @@ def run():
     if mode == 0 or mode == 1:
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-        Notify.info('Successful patch - skin reloaded.')
+        Notify.info('Successful Ozweather skin patch (skin reloaded).')
 
     # and, we're done...
     Logger.stop()

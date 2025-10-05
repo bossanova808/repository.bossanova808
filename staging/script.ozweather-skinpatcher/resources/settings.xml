@@ -1,13 +1,26 @@
 <?xml version="1.0" ?>
 <settings version="1">
     <section id="script.ozweather-skinpatcher">
-        <category help="" id="OzWeather Skin Patcher" label="32000">
-            <group id="1" label="32010">
-                <setting id="show_first_run_info" type="boolean" label="32011" help="">
+        <category help="" id="Basic" label="32012">
+            <group id="0" label="32015">
+                <setting id="autopatch" type="boolean" label="32013" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+                <setting id="delay_seconds" type="integer" label="32002" help="">
+                    <level>0</level>
+                    <default>30</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <maximum>120</maximum>
+                        <step>1</step>
+                    </constraints>
+                    <control type="spinner" format="integer"/>
+                </setting>
+            </group>
+            <group id="1" label="32010">
+
                 <setting id="colour_text_default" type="string" label="32008" help="">
                     <level>0</level>
                     <default>white</default>
@@ -33,6 +46,10 @@
                     <default>skyblue</default>
                     <control type="edit" format="string" />
                 </setting>
+            </group>
+        </category>
+        <category help="" id="SkinSpecific" label="32014">
+            <group id="2">
                 <setting id="background_visible_bool" type="boolean" label="32009" help="">
 					<level>0</level>
 					<default>false</default>
