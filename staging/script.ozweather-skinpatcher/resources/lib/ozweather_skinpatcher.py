@@ -60,7 +60,7 @@ def delayed_autopatch():
                 Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
                 this_skin_version_already_patched = False
 
-    except (FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
+    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
         Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
         Logger.error(e)
 
