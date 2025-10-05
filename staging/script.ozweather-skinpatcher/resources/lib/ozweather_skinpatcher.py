@@ -1,19 +1,18 @@
+import os
+import sys
+import glob
+import ntpath
+import xbmc
+import xbmcgui
+import xbmcvfs
+import xbmcaddon
+
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
 from bossanova808.constants import ADDON, PROFILE
 from bossanova808.utilities import get_setting, get_setting_as_bool
 # noinspection PyPackages
 from .store import Store
-import os
-import sys
-import glob
-import ntpath
-
-
-import xbmc
-import xbmcgui
-import xbmcvfs
-import xbmcaddon
 
 
 def get_ozweather_version() -> str:
@@ -40,7 +39,7 @@ def delayed_autopatch():
         delay_seconds = int(delay_setting)
     except (TypeError, ValueError):
         delay_seconds = 30
-    Logger.info(f"Automatically patching OzWeather after delay of {delay_seconds} seconds from now (to allow Kodo time to update addons")
+    Logger.info(f"Automatically patching OzWeather after delay of {delay_seconds} seconds from now (to allow Kodi time to update addons")
     xbmc.sleep(delay_seconds * 1000)
 
     # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
@@ -50,6 +49,8 @@ def delayed_autopatch():
         skin_addon = xbmcaddon.Addon(id=Store.current_skin)
         skin_version_now = skin_addon.getAddonInfo('version') or None
         if skin_version_now:
+            # Read the previously patched skin version from the addon settings directory
+            # File is named after the skin (e.g., "skin.amber") and contains just the version, as a string
             with open(os.path.join(PROFILE, Store.current_skin), 'r') as f:
                 skin_version_recorded = f.read()
             if skin_version_recorded == skin_version_now:
@@ -59,13 +60,13 @@ def delayed_autopatch():
                 Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
                 this_skin_version_patched = False
 
-    except Exception as e:
-        Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
-        Logger.error(e)
+    except (FileNotFoundError, IOError, ValueError) as e:
+            Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
+            Logger.error(e)
 
     if not this_skin_version_patched:
         patch()
-        with open(os.path.join(PROFILE, Store.current_skin), 'w+', encoding='utf-8') as f:
+        with open(os.path.join(PROFILE, Store.current_skin), 'w', encoding='utf-8') as f:
             f.write(skin_version_now)
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
