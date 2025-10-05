@@ -39,11 +39,11 @@ def delayed_autopatch():
         delay_seconds = int(delay_setting)
     except (TypeError, ValueError):
         delay_seconds = 30
-    Logger.info(f"Automatically patching OzWeather after delay of {delay_seconds} seconds from now (to allow Kodi time to update addons")
+    Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
     xbmc.sleep(delay_seconds * 1000)
 
     # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
-    this_skin_version_patched = False
+    this_skin_version_already_patched = False
     skin_version_now = None
     try:
         skin_addon = xbmcaddon.Addon(id=Store.current_skin)
@@ -55,19 +55,25 @@ def delayed_autopatch():
                 skin_version_recorded = f.read()
             if skin_version_recorded == skin_version_now:
                 Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
-                this_skin_version_patched = True
+                this_skin_version_already_patched = True
             else:
                 Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
-                this_skin_version_patched = False
+                this_skin_version_already_patched = False
 
-    except (FileNotFoundError, IOError, ValueError) as e:
-            Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
+    except (FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
+        Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
+        Logger.error(e)
+
+    if not this_skin_version_already_patched:
+        patch()
+        try:
+            os.makedirs(PROFILE, exist_ok=True)
+            with open(os.path.join(PROFILE, Store.current_skin), 'w', encoding='utf-8') as f:
+                f.write(skin_version_now)
+        except (IOError, OSError) as e:
+            Logger.error(f"Failed to write patch record")
             Logger.error(e)
 
-    if not this_skin_version_patched:
-        patch()
-        with open(os.path.join(PROFILE, Store.current_skin), 'w', encoding='utf-8') as f:
-            f.write(skin_version_now)
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
         Notify.info('Successful Ozweather skin patch (skin reloaded).')

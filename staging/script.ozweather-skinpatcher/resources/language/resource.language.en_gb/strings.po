@@ -74,11 +74,11 @@ msgid "Skin Specific"
 msgstr ""
 
 msgctxt "#32015"
-msgid "Auto patch: if update required, auto patch & reload skin soon after Kodi startup"
+msgid "Auto patch: if new skin version, auto patch & reload skin after Kodi startup"
 msgstr ""
 
 msgctxt "#32016"
-msgid "Delays seconds before patching (to allow for addon updates)"
+msgid "After how many seconds (allows for addon updates)"
 msgstr ""
 
 msgctxt "#32017"
