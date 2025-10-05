@@ -16,6 +16,11 @@
                         <maximum>120</maximum>
                         <step>1</step>
                     </constraints>
+                    <dependencies>
+                        <dependency type="enable">
+                            <condition operator="is" setting="autopatch">true</condition>
+                        </dependency>
+                    </dependencies>
                     <control type="spinner" format="integer"/>
                 </setting>
             </group>

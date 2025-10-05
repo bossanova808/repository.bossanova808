@@ -35,7 +35,11 @@ def delayed_autopatch():
 
     Logger.start("Delayed autopatch thread")
     # Delay for 40 seconds to allow addon updates
-    delay_seconds = int(get_setting('delay_seonds')) or 30
+    delay_setting = get_setting('delay_seconds')
+    try:
+        delay_seconds = int(delay_setting)
+    except (TypeError, ValueError):
+        delay_seconds = 30
     Logger.info(f"Automatically patching OzWeather after delay of {delay_seconds} seconds from now (to allow Kodo time to update addons")
     xbmc.sleep(delay_seconds * 1000)
 
@@ -55,8 +59,9 @@ def delayed_autopatch():
                 Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
                 this_skin_version_patched = False
 
-    except:
-        Logger.warning("Unable to determine if skin is already patched - assuming it hasn't been patched")
+    except Exception as e:
+        Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
+        Logger.error(e)
 
     if not this_skin_version_patched:
         patch()
