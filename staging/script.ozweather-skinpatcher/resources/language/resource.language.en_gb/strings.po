@@ -46,7 +46,7 @@ msgid "Low Temps (default skyblue)"
 msgstr ""
 
 msgctxt "#32009"
-msgid "Show background art? (only Amber/Aeon)"
+msgid "Show background art?"
 msgstr ""
 
 msgctxt "#32007"
@@ -66,7 +66,7 @@ msgid "OzWeather Settings"
 msgstr ""
 
 msgctxt "#32013"
-msgid "Enable auto-patching (works from next reboot)?"
+msgid "Enable auto-patching (from next reboot)?"
 msgstr ""
 
 msgctxt "#32014"
@@ -79,4 +79,8 @@ msgstr ""
 
 msgctxt "#32016"
 msgid "Delays seconds before patching (to allow for addon updates)"
+msgstr ""
+
+msgctxt "#32017"
+msgid "(Amber and Neon only)"
 msgstr ""

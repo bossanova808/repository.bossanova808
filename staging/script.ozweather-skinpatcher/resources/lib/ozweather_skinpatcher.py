@@ -32,7 +32,7 @@ def version_tuple(version_str) -> tuple:
 
 def delayed_autopatch():
 
-    Logger.start("Delayed autopatch thread")
+    Logger.start("(delayed autopatch thread)")
     # Delay for 40 seconds to allow addon updates
     delay_setting = get_setting('delay_seconds')
     try:
@@ -54,7 +54,7 @@ def delayed_autopatch():
             with open(os.path.join(PROFILE, Store.current_skin), 'r') as f:
                 skin_version_recorded = f.read()
             if skin_version_recorded == skin_version_now:
-                Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}]')
+                Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
                 this_skin_version_patched = True
             else:
                 Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
@@ -72,7 +72,7 @@ def delayed_autopatch():
         xbmc.executebuiltin('ReloadSkin()')
         Notify.info('Successful Ozweather skin patch (skin reloaded).')
 
-    Logger.stop("Delayed autopatch thread")
+    Logger.stop("(delayed autopatch thread)")
 
 def autopatch():
     """
