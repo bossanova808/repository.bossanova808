@@ -71,12 +71,12 @@ def delayed_autopatch():
             with open(os.path.join(PROFILE, Store.current_skin), 'w', encoding='utf-8') as f:
                 f.write(skin_version_now)
         except (IOError, OSError) as e:
-            Logger.error(f"Failed to write patch record")
+            Logger.error("Failed to write patch record")
             Logger.error(e)
 
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-        Notify.info('Successful Ozweather skin patch (skin reloaded).')
+        Notify.info('Successful OzWeather skin patch (skin reloaded).')
 
     Logger.stop("(delayed autopatch thread)")
 
@@ -274,7 +274,7 @@ def run():
     if mode == 0 or mode == 1:
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-        Notify.info('Successful Ozweather skin patch (skin reloaded).')
+        Notify.info('Successful OzWeather skin patch (skin reloaded).')
 
     # and, we're done...
     Logger.stop()
