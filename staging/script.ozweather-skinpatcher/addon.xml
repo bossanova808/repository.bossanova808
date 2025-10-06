@@ -2,7 +2,7 @@
 <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.6" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
-		<import addon="script.module.bossanova808" version="1.0.0"/>
+		<import addon="script.module.bossanova808" version="1.0.2"/>
     </requires>
     <extension point="xbmc.python.script" library="default.py">
         <provides>executable</provides>

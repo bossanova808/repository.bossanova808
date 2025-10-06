@@ -2,7 +2,7 @@
 <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.2" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
-        <import addon="script.module.bossanova808" version="1.0.0"/>
+        <import addon="script.module.bossanova808" version="1.0.2"/>
     </requires>
     <extension library="default.py" point="xbmc.service" />
     <extension point="xbmc.addon.metadata">

@@ -29,10 +29,10 @@
         </extension>
     </addon>
     
-    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.1" provider-name="bossanova808">
+    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.2" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
-            <import addon="script.module.bossanova808" version="1.0.0"/>
+            <import addon="script.module.bossanova808" version="1.0.2"/>
         </requires>
         <extension library="default.py" point="xbmc.service" />
         <extension point="xbmc.addon.metadata">
@@ -57,8 +57,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum />
             <email />
-            <news>
-                v0.0.1 Alpha pre-release
+            <news>v0.0.2
+    - Use more common code
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -96,10 +96,10 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.5" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.6" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
-    		<import addon="script.module.bossanova808" version="1.0.0"/>
+    		<import addon="script.module.bossanova808" version="1.0.2"/>
         </requires>
         <extension point="xbmc.python.script" library="default.py">
             <provides>executable</provides>
@@ -124,8 +124,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.4.5
-    - Add auto-patching         
+            <news>v0.4.6
+    - Add auto-patching and use common code v1.0.2        
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
