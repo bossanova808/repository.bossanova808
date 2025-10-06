@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.1" provider-name="bossanova808">
+<addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.2" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.0"/>
@@ -27,8 +27,8 @@ Known Issues:
         <source>https://github.com/bossanova808/repository.bossanova808/</source>
         <forum />
         <email />
-        <news>
-            v0.0.1 Alpha pre-release
+        <news>v0.0.2
+- Use more common code
         </news>
         <assets>
             <icon>resources/icon.png</icon>

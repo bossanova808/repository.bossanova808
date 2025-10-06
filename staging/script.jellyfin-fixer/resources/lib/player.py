@@ -1,7 +1,7 @@
 import json
 
 from bossanova808.logger import Logger
-from bossanova808.utilities import send_kodi_json
+from bossanova808.utilities import send_kodi_json, get_resume_point
 # noinspection PyPackages
 from .store import Store
 
@@ -55,47 +55,12 @@ class KodiPlayer(xbmc.Player):
         # Only do something if this is an episode of a TV show
         library_type = item.get('type')
         if library_type in ['episode', 'movie']:
-            # @coderabbitai I have confirmed in both cases 'id' is returned so no need for a more specialised paramter
+            # @coderabbitai I have confirmed in both cases 'id' is returned so no need for a more specialised parameter
             dbid = item.get('id') or None
-
             if dbid:
                 Logger.debug(f"Playing: {library_type} with dbid: {dbid}")
 
-            if library_type == 'episode':
-                get_method = 'VideoLibrary.GetEpisodeDetails'
-                id_name = 'episodeid'
-                result_key = 'episodedetails'
-            elif library_type == 'movie':
-                get_method = 'VideoLibrary.GetMovieDetails'
-                id_name = 'movieid'
-                result_key = 'moviedetails'
-            else:
-                Logger.error(f"Unsupported library type: {library_type}")
-                return
-
-            json_dict = {
-                    "jsonrpc":"2.0",
-                    "id":"getResumePoint",
-                    "method":get_method,
-                    "params":{
-                            id_name:dbid,
-                            "properties":["resume"],
-                    }
-            }
-
-            query = json.dumps(json_dict)
-            json_response = send_kodi_json(f'Get resume point for type {library_type} with dbid: {dbid}', query)
-            result = json_response.get('result')
-            if result:
-                try:
-                    resume_point = result[result_key]['resume']['position']
-                except (KeyError, TypeError) as e:
-                    Logger.error(f"Could not get resume point: {e}")
-                    resume_point = None
-            else:
-                Logger.error("No result returned from JSON-RPC query")
-                resume_point = None
-
+            resume_point = get_resume_point(library_type, dbid)
             Logger.info(f"Resume point retrieved: {resume_point}")
 
             # Resume just slightly back from where we were as per the user setting (default 7 seconds)
@@ -111,6 +76,6 @@ class KodiPlayer(xbmc.Player):
                     def delayed_seek():
                         xbmc.sleep(Store.jumpback_at_start_after_seconds * 1000)
                         if self.isPlaying():
-                            self.seekTime(0.0)
+                            self.seekTime(1.0)
 
                     threading.Thread(target=delayed_seek, daemon=True).start()
