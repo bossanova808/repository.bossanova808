@@ -10,24 +10,9 @@ import xbmcaddon
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
 from bossanova808.constants import ADDON, PROFILE
-from bossanova808.utilities import get_setting, get_setting_as_bool
+from bossanova808.utilities import get_setting, get_setting_as_bool, get_addon_version, version_tuple
 # noinspection PyPackages
 from .store import Store
-
-
-def get_ozweather_version() -> str:
-    try:
-        ozw = xbmcaddon.Addon(id='weather.ozweather')
-        version = ozw.getAddonInfo('version')
-        return version
-    except Exception as e:
-        Logger.error("Error getting version for weather.ozweather", e)
-        Notify.error("Error getting version of OzWeather - is it installed & enabled?")
-        sys.exit(1)
-
-
-def version_tuple(version_str) -> tuple:
-    return tuple(map(int, version_str.split('.')))
 
 
 def delayed_autopatch():
@@ -46,8 +31,7 @@ def delayed_autopatch():
     this_skin_version_already_patched = False
     skin_version_now = None
     try:
-        skin_addon = xbmcaddon.Addon(id=Store.current_skin)
-        skin_version_now = skin_addon.getAddonInfo('version') or None
+        skin_version_now = get_addon_version(Store.current_skin)
         if skin_version_now:
             # Read the previously patched skin version from the addon settings directory
             # File is named after the skin (e.g., "skin.amber") and contains just the version, as a string
@@ -61,7 +45,7 @@ def delayed_autopatch():
                 this_skin_version_already_patched = False
 
     except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error("Unable to determine if skin is already patched - assuming it hasn't been patched")
+        Logger.error("Unable to determine if skin is already patched - assuming it _hasn't_ been patched")
         Logger.error(e)
 
     if skin_version_now and not this_skin_version_already_patched:
@@ -102,7 +86,7 @@ def autopatch():
 
     # Short circuit if Auto Patching is disabled
     if not get_setting_as_bool('autopatch'):
-        Logger.warning("Autopatching is disabled - doing nothing.")
+        Logger.warning("Auto-patching is disabled in settings - doing nothing.")
         Logger.stop("(service)")
         return
 
@@ -150,7 +134,7 @@ def patch():
     list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_specific_xml_source_folder, "*.xml")))
 
     # Need to use the correct paths for radar, they changed with OzWeather 2.1.6
-    version = get_ozweather_version()
+    version = get_addon_version("weather.ozweather")
     if version_tuple(version) <= version_tuple('2.1.5'):
         # Logic for version 2.1.5 and below
         Logger.warning("OzWeather is an older version, <= 2.1.5 - use skin file with old radar paths")
