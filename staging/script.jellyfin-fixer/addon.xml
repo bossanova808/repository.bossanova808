@@ -14,8 +14,8 @@ Hacked together add-on to try and solve some very annoying Jellyfin for Kodi pro
 - Kodi doesn't display subtitles without a long delay (https://github.com/jellyfin/jellyfin-kodi/issues/35, https://github.com/xbmc/xbmc/issues/21086 etc), this improves after a seek
 
 This addon detects the start of playback.
-If Kodi is playing back a library item (episode or movie), and there is a known resume point - force Kodi to seek to that resume point.
-If no resume point, or the resume point is at less than 20s, perform a seek to 0 to try and cause the display of subtitles to occur earlier.
+If Kodi is playing back a library item (episode or movie), and there is a known resume point - force Kodi to seek to that resume point (minus a configurable offset, default 7s).
+If no resume point, or the resume point is at less than 20s, perform a seek back to 1 seconds after a configurable delay (default 1s), to try and cause the display of subtitles to occur earlier.
 
 Known Issues:
 *** This breaks the 'play from beginning' method that Kodi offers. ***
