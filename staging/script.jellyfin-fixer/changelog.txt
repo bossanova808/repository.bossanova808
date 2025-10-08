@@ -1,3 +1,6 @@
+v0.0.3
+- V bump to try solve: https://github.com/bossanova808/repository.bossanova808/issues/20
+
 v0.0.2
 - Use more common code
 

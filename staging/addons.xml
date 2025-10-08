@@ -29,7 +29,7 @@
         </extension>
     </addon>
     
-    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.2" provider-name="bossanova808">
+    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.3" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -57,8 +57,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum />
             <email />
-            <news>v0.0.2
-    - Use more common code
+            <news>v0.0.3
+    - V bump to try solve: https://github.com/bossanova808/repository.bossanova808/issues/20            
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -96,7 +96,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.6" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.7" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.2"/>
@@ -223,7 +223,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.305" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.306" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -244,8 +244,8 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.305
-    - Add new weather widget from upstream
+    		<news>v5.1.306
+    - Language fix for new weather widget			
     		</news>
     	</extension>
     </addon>

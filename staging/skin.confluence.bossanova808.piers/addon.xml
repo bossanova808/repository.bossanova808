@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.piers" version="5.1.305" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+<addon id="skin.confluence.bossanova808.piers" version="5.1.306" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
 	<requires>
 		<import addon="xbmc.gui" version="5.18.0"/>
 	</requires>
@@ -20,8 +20,8 @@
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
 		</assets>
-		<news>v5.1.305
-- Add new weather widget from upstream
+		<news>v5.1.306
+- Language fix for new weather widget			
 		</news>
 	</extension>
 </addon>

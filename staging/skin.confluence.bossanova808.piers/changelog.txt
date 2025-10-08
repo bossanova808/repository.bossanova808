@@ -1,3 +1,6 @@
+v5.1.306
+- Language fix for new weather widget
+
 v5.1.305
 - Add new weather widget from upstream
 
