@@ -18,7 +18,7 @@ msgid "General"
 msgstr ""
 
 msgctxt "#32001"
-msgid "Resume how many seconds behind actual resume point?"
+msgid "Resuming a few seconds earlier can help regain the context..."
 msgstr ""
 
 msgctxt "#32002"
@@ -26,7 +26,7 @@ msgid "Resume seconds behind resume point"
 msgstr ""
 
 msgctxt "#32004"
-msgid "Jumping back at the start can help with delayed subtitle issues"
+msgid "Jumping back at the start *may* sometimes help with delayed subtitle issues"
 msgstr ""
 
 msgctxt "#32005"
@@ -35,4 +35,12 @@ msgstr ""
 
 msgctxt "#32006"
 msgid "After how many seconds of playback?"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Minor differences in resume should probably be ignored..."
+msgstr ""
+
+msgctxt "#32008"
+msgid "Fix resume if delta over seconds"
 msgstr ""

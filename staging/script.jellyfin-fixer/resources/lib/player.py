@@ -71,11 +71,18 @@ class KodiPlayer(xbmc.Player):
         resume_point = get_resume_point(library_type, dbid)
         Logger.info(f"Resume point retrieved: {resume_point}")
 
-        # Resume just slightly back from where we were as per the user setting (default 7 seconds)
+        # If the JF <> Kodi resume point differs more than the user chosen delta (default 7 seconds)
+        # Then resume just slightly back from where we _really_ were, as per the user setting (default 7 seconds)
         if resume_point and resume_point > 20:
-            Logger.debug(f"Resume point: {resume_point}, seeking to resume point minus offset: {resume_point - Store.jumpback}")
-            self.seekTime(max(resume_point - Store.jumpback, 0))
-        # Close to the beginning or no resume point - seek back to (0) to attempt to force trigger subtitles earlier
+            playing_time = self.getTime()
+            time_difference = round(abs(playing_time - resume_point), 1)
+            Logger.debug(f"Currently playing time: {playing_time}, Kodi resume: {resume_point}, difference: {time_difference}")
+            if time_difference >= Store.jumpback_delta:
+                seek_to = max(resume_point - Store.jumpback, 0)
+                Logger.debug(f"Differnce > delta, seek to resume point minus offset: {seek_to}")
+                self.seekTime(seek_to)
+
+        # Close to the beginning or no Kodi resume point - seek back to (1) to attempt to force trigger subtitles earlier
         # The 1-second delay introduces some jank but seems effective
         else:
             if Store.jumpback_at_start:

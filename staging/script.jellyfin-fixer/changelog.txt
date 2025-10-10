@@ -1,3 +1,6 @@
+v0.0.4
+- Don't do anything if JF resume point only off by a small number of seconds (configurable)
+
 v0.0.3
 - V bump to try solve: https://github.com/bossanova808/repository.bossanova808/issues/20
 
