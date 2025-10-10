@@ -29,7 +29,7 @@
         </extension>
     </addon>
     
-    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.3" provider-name="bossanova808">
+    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.4" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -57,8 +57,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum />
             <email />
-            <news>v0.0.3
-    - V bump to try solve: https://github.com/bossanova808/repository.bossanova808/issues/20            
+            <news>v0.0.4
+    - Don't do anything if JF resume point only off by a small number of seconds (configurable)           
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
