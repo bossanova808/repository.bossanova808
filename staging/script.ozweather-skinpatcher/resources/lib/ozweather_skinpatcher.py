@@ -5,7 +5,6 @@ import ntpath
 import xbmc
 import xbmcgui
 import xbmcvfs
-import xbmcaddon
 
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
@@ -18,6 +17,11 @@ from .store import Store
 def delayed_autopatch():
 
     Logger.start("(delayed autopatch thread)")
+    # My friends & family skin includes the patches already
+    if 'bossanova808' in Store.current_skin:
+        Logger.debug("Bossanova808 skin detected, not auto-patching")
+        return
+
     # Delay for 40 seconds to allow addon updates
     delay_setting = get_setting('delay_seconds')
     try:

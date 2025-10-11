@@ -1,3 +1,6 @@
+v0.4.8
+- Skip auto patching bossanova808 skin as patch already included
+
 v0.4.7
 - Add auto-patching and use common code v1.0.2
 
