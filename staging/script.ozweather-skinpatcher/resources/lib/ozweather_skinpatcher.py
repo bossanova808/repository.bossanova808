@@ -71,6 +71,7 @@ def delayed_autopatch():
             with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'w', encoding='utf-8') as f:
                 f.write(skin_version_now)
         except (IOError, OSError) as e:
+            Notify.error("Failed to write patch record - check logs")
             Logger.error("Failed to write patch record")
             Logger.error(e)
 

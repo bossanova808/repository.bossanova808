@@ -41,6 +41,10 @@ class Store:
         Logger.info('Estuary in skin folder name -> skin supported.')
         skin = 'estuary'
         destination_skin_xml_folder = 'xml'
+    if 'plextuary' in current_skin_path:
+        Logger.info('Plextuary in skin folder name -> skin supported (as Estuary).')
+        skin = 'estuary'
+        destination_skin_xml_folder = 'xml'
     if 'estouchy' in current_skin_path:
         Logger.info('Estouchy in skin folder name -> skin supported.')
         skin = 'estouchy'

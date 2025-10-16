@@ -1,5 +1,8 @@
+v0.0.6
+- Improve logging 
+
 v0.0.5
-- improve logging            
+- Improve logging            
 
 v0.0.4
 - Don't do anything if JF resume point only off by a small number of seconds (configurable)

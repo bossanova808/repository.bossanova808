@@ -1,3 +1,6 @@
+v0.4.9
+- Add support for Plextuary
+
 v0.4.8
 - Skip auto patching bossanova808 skin as patch already included
 
