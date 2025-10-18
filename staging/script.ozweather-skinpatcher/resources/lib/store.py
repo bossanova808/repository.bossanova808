@@ -19,15 +19,6 @@ class Store:
     skin_version_now = get_addon_version(current_skin)
     ozweather_version_now = get_addon_version("weather.ozweather")
 
-    if not skin_version_now:
-        Notify.error("Could not determine skin version - check logs")
-        Logger.error("No skin version available")
-        exit(1)
-    if not ozweather_version_now:
-        Notify.error("Could not determine OzWeather version - check logs")
-        Logger.error("No OzWeather version available")
-        exit(1)
-
     Logger.info(f'OzWeather is version: {ozweather_version_now}')
     Logger.info(f'current_skin is [{current_skin}], version {skin_version_now}')
     Logger.info(f'special://skin is [{current_skin_path}]')
