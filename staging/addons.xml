@@ -96,7 +96,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.9" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.0" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.2"/>
@@ -108,7 +108,7 @@
         <extension point="xbmc.addon.metadata">
             <summary lang="en_GB">Patch Kodi skins for OzWeather Radar Support.</summary>
             <description lang="en_GB">
-    Supports: Estuary, Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo
+    Supports: Estuary (&amp; Plextuary), Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo
     and Tajo)
     - This addon attempts to patch Kodi skins for OzWeather radar support.
     - By default, will auto-patch your skin every time a new version of the skin arrives.
@@ -124,8 +124,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.4.9
-    - Add support for Plextuary
+            <news>v0.5.0
+    - Also patch if skin has not been patched for current version of OzWeather
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
