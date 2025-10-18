@@ -4,7 +4,8 @@ import xbmc
 import xbmcvfs
 from bossanova808.constants import CWD
 from bossanova808.logger import Logger
-
+from bossanova808.notify import Notify
+from bossanova808.utilities import get_addon_version
 
 # Just a place to store all our config stuff, so we don't go crazy with globals
 class Store:
@@ -12,12 +13,15 @@ class Store:
     def __init__(self):
         pass
     
-    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'xonfluence', 'aczg', 'aeon', 'osmc']
+    supported_skins = ['amber', 'estuary', 'estouchy', 'confluence', 'plextuary', 'xonfluence', 'aczg', 'aeon', 'osmc']
     current_skin_path = xbmcvfs.translatePath('special://skin')
     current_skin = os.path.basename(current_skin_path.rstrip('/').rstrip('\\'))
+    skin_version_now = get_addon_version(current_skin)
+    ozweather_version_now = get_addon_version("weather.ozweather")
 
+    Logger.info(f'OzWeather is version: {ozweather_version_now}')
+    Logger.info(f'current_skin is [{current_skin}], version {skin_version_now}')
     Logger.info(f'special://skin is [{current_skin_path}]')
-    Logger.info(f'current_skin is [{current_skin}]')
     Logger.info(f'CWD is {CWD}')
 
     skin = None
@@ -41,6 +45,7 @@ class Store:
         Logger.info('Estuary in skin folder name -> skin supported.')
         skin = 'estuary'
         destination_skin_xml_folder = 'xml'
+    # Plextuary is just Estuary, really...treat it as such
     if 'plextuary' in current_skin_path:
         Logger.info('Plextuary in skin folder name -> skin supported (as Estuary).')
         skin = 'estuary'
@@ -96,6 +101,7 @@ class Store:
     current_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml')
     backup_myweather_xml = os.path.join(xml_destination_folder, 'MyWeather.xml.original')
     backup_videofullscreen_xml = os.path.join(xml_destination_folder, 'VideoFullScreen.xml.original')
+
 
     Logger.info(f'Source - Skin independent XML folder is {skin_independent_xml_source_folder}')
     Logger.info(f'Source - Skin specific XML folder is {skin_specific_xml_source_folder}')
