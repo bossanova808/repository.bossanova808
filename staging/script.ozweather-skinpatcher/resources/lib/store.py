@@ -4,6 +4,7 @@ import xbmc
 import xbmcvfs
 from bossanova808.constants import CWD
 from bossanova808.logger import Logger
+from bossanova808.notify import Notify
 from bossanova808.utilities import get_addon_version
 
 # Just a place to store all our config stuff, so we don't go crazy with globals
@@ -17,6 +18,15 @@ class Store:
     current_skin = os.path.basename(current_skin_path.rstrip('/').rstrip('\\'))
     skin_version_now = get_addon_version(current_skin)
     ozweather_version_now = get_addon_version("weather.ozweather")
+
+    if not skin_version_now:
+        Notify.error("Could not determine skin version - check logs")
+        Logger.error("No skin version available")
+        exit(1)
+    if not ozweather_version_now:
+        Notify.error("Could not determine OzWeather version - check logs")
+        Logger.error("No OzWeather version available")
+        exit(1)
 
     Logger.info(f'OzWeather is version: {ozweather_version_now}')
     Logger.info(f'current_skin is [{current_skin}], version {skin_version_now}')

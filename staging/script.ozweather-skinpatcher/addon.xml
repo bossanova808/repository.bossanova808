@@ -11,7 +11,7 @@
     <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Patch Kodi skins for OzWeather Radar Support.</summary>
         <description lang="en_GB">
-Supports: Estuary, Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo
+Supports: Estuary (&amp; Plextuary), Estouchy, Confluence, A Confluence Zeitgeist, Xonfluence, OSMC, Amber, Aeon (Nox Silvo
 and Tajo)
 - This addon attempts to patch Kodi skins for OzWeather radar support.
 - By default, will auto-patch your skin every time a new version of the skin arrives.

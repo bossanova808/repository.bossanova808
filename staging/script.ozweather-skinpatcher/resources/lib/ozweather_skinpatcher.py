@@ -33,8 +33,6 @@ def delayed_autopatch():
 
     # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
     this_skin_version_already_patched = False
-    skin_version_now = None
-    ozweather_version_now = None
 
     # Has this version of the skin been patched already?
     try:
@@ -72,7 +70,7 @@ def delayed_autopatch():
         Logger.error(e)
 
 
-    if Store.skin_version_now and Store.ozweather_version_now and not this_skin_version_already_patched:
+    if not this_skin_version_already_patched:
 
         try:
             patch()
@@ -195,7 +193,7 @@ def patch():
             new_data = new_data.replace('_background_visible_', 'yes' if ADDON.getSettingBool('background_visible_bool') else 'no')
             new_data = new_data.replace('_background_opacity_', ADDON.getSetting('background_opacity'))
 
-            file_to_write = Store.xml_destination_folder + "/" + ntpath.basename(file)
+            file_to_write = os.path.join(Store.xml_destination_folder, ntpath.basename(file))
             Logger.info(f"Writing patched file to: {file_to_write}")
             with xbmcvfs.File(file_to_write, 'w') as destination_file:
                 result = destination_file.write(new_data)
@@ -274,7 +272,7 @@ def run():
     This utility will patch skin files for OzWeather radar support.
     Only patches the currently selected skin, and only if that skin is a variant of:
      
-    Aeon (Nox, Silvo etc), Amber, Confluence, Estuary, Estouchy, OSMC, Xonfluence
+    Aeon (Nox, Silvo etc), Amber, Confluence, Estuary, Plextuary, Estouchy, OSMC, Xonfluence
         
     Backups of the original files are saved as '.original' files in the skin folder
     & can be also be easily restored by re-running this utility, if needed.    
