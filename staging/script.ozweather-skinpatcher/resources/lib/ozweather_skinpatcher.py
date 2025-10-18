@@ -18,9 +18,9 @@ def delayed_autopatch():
 
     Logger.start("(delayed autopatch thread)")
     # My friends & family skin includes the patches already
-    # if 'bossanova808' in Store.current_skin:
-    #     Logger.debug("Bossanova808 skin detected, not auto-patching")
-    #     return
+    if 'bossanova808' in Store.current_skin:
+        Logger.debug("Bossanova808 skin detected, not auto-patching")
+        return
 
     # Delay for (default) 40 seconds to allow addon updates
     delay_setting = get_setting('delay_seconds')
