@@ -18,41 +18,61 @@ def delayed_autopatch():
 
     Logger.start("(delayed autopatch thread)")
     # My friends & family skin includes the patches already
-    if 'bossanova808' in Store.current_skin:
-        Logger.debug("Bossanova808 skin detected, not auto-patching")
-        return
+    # if 'bossanova808' in Store.current_skin:
+    #     Logger.debug("Bossanova808 skin detected, not auto-patching")
+    #     return
 
-    # Delay for 40 seconds to allow addon updates
+    # Delay for (default) 40 seconds to allow addon updates
     delay_setting = get_setting('delay_seconds')
     try:
         delay_seconds = int(delay_setting)
     except (TypeError, ValueError):
-        delay_seconds = 30
+        delay_seconds = 40
     Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
     xbmc.sleep(delay_seconds * 1000)
 
     # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
     this_skin_version_already_patched = False
     skin_version_now = None
+    ozweather_version_now = None
+
+    # Has this version of the skin been patched already?
     try:
-        skin_version_now = get_addon_version(Store.current_skin)
-        if skin_version_now:
+        if Store.skin_version_now:
             # Read the previously patched skin version from the addon settings directory
             # File is named after the skin (e.g., "skin.amber") and contains just the version, as a string
             with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'r') as f:
                 skin_version_recorded = f.read()
-            if skin_version_recorded == skin_version_now:
-                Logger.info(f'This skin version has already been patched - now: [{skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
+            if skin_version_recorded == Store.skin_version_now:
+                Logger.info(f'This skin version has already been patched - now: [{Store.skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
                 this_skin_version_already_patched = True
             else:
-                Logger.info(f'This skin version has NOT been patched: - now: [{skin_version_now}] != recorded: [{skin_version_recorded}]')
+                Logger.info(f'This skin version has NOT been patched: - now: [{Store.skin_version_now}] != recorded: [{skin_version_recorded}]')
                 this_skin_version_already_patched = False
 
     except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error("Unable to determine if skin is already patched - assuming it _hasn't_ been patched")
+        Logger.error("Unable to determine if skin is already patched - assuming it _hasn't_ been patched, will patch")
+        this_skin_version_already_patched = False
         Logger.error(e)
 
-    if skin_version_now and not this_skin_version_already_patched:
+    # Also check it has been patched for the current version of OzWeather, to account for any changes there...
+    try:
+        if Store.ozweather_version_now:
+            with open(os.path.join(PROFILE, "ozweather.version"), 'r') as f:
+                ozweather_version_recorded = f.read()
+            if ozweather_version_recorded == Store.ozweather_version_now:
+                Logger.info(f'The skin has already been patched for the installed OzWeather version - now: [{Store.ozweather_version_now}] == recorded: [{ozweather_version_recorded}]')
+            else:
+                Logger.info(f'Skin has NOT been patched for *this version* of OzWeather: [{Store.ozweather_version_now}] - will patch')
+                this_skin_version_already_patched = False
+
+    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
+        Logger.error("Unable to determine if skin already patched for this OzWeather version - assuming it _hasn't_ been patched, will patch")
+        this_skin_version_already_patched = False
+        Logger.error(e)
+
+
+    if Store.skin_version_now and Store.ozweather_version_now and not this_skin_version_already_patched:
 
         try:
             patch()
@@ -69,10 +89,12 @@ def delayed_autopatch():
         try:
             os.makedirs(PROFILE, exist_ok=True)
             with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'w', encoding='utf-8') as f:
-                f.write(skin_version_now)
+                f.write(Store.skin_version_now)
+            with open(os.path.join(PROFILE, "ozweather.version"), 'w', encoding='utf-8') as f:
+                f.write(Store.ozweather_version_now)
         except (IOError, OSError) as e:
-            Notify.error("Failed to write patch record - check logs")
-            Logger.error("Failed to write patch record")
+            Notify.error("Failed to write patch records - check logs")
+            Logger.error("Failed to write patch records")
             Logger.error(e)
 
         Logger.info("Reloading skin to pick up changes")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.4.9" provider-name="bossanova808">
+<addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.0" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
 		<import addon="script.module.bossanova808" version="1.0.2"/>
@@ -27,8 +27,8 @@ video info is displayed.
         <source>https://github.com/bossanova808/repository.bossanova808/</source>
         <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
         <email />
-        <news>v0.4.9
-- Add support for Plextuary
+        <news>v0.5.0
+- Also patch if skin has not been patched for current version of OzWeather
         </news>
         <assets>
             <icon>resources/icon.png</icon>
