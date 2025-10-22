@@ -99,7 +99,7 @@
 					<posy>0</posy>
 					<width>256</width>
 					<height>256</height>
-					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/background.png</texture>
+					<texture>special://temp/ozweather/backgrounds/$INFO[Window(2600).Property(Radar)]/background.png</texture>
 					<bordertexture border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
 				</control>
@@ -108,7 +108,7 @@
 					<posy>0</posy>
 					<width>256</width>
 					<height>256</height>
-					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/topography.png</texture>
+					<texture>special://temp/ozweather/backgrounds/$INFO[Window(2600).Property(Radar)]/topography.png</texture>
 					<bordertexture border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
 				</control>
@@ -117,7 +117,7 @@
 					<posy>0</posy>
 					<width>256</width>
 					<height>256</height>
-					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/locations.png</texture>
+					<texture>special://temp/ozweather/backgrounds/$INFO[Window(2600).Property(Radar)]/locations.png</texture>
 					<bordertexture border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
 				</control>
@@ -126,7 +126,7 @@
 					<posy>0</posy>
 					<width>256</width>
 					<height>256</height>
-					<texture>special://profile/addon_data/weather.ozweather/radarbackgrounds/$INFO[Window(2600).Property(Radar)]/range.png</texture>
+					<texture>special://temp/ozweather/backgrounds/$INFO[Window(2600).Property(Radar)]/range.png</texture>
 					<bordertexture border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
 				</control>
@@ -136,7 +136,7 @@
 					<posy>8</posy>
 					<width>240</width>
 					<height>240</height>
-					<imagepath>special://profile/addon_data/weather.ozweather/currentloop/$INFO[Window(2600).Property(Radar)]/</imagepath>
+					<imagepath>special://temp/ozweather/loop/$INFO[Window(2600).Property(Radar)]/</imagepath>
 					<timeperimage>500</timeperimage>
 					<pauseatend>1000</pauseatend>
 					<fadetime>0</fadetime>

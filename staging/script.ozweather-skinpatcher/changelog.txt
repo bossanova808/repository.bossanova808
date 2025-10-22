@@ -1,3 +1,6 @@
+v0.5.1
+- Also fix the VideoFullScreen files to work with latest OzWeather
+
 v0.5.0
 - Also patch if skin has not been patched for current version of OzWeather
 
