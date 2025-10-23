@@ -96,7 +96,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.1" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.2" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.2"/>
@@ -124,8 +124,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.5.1
-    - Also fix the VideoFullScreen files to work with latest OzWeather            
+            <news>v0.5.2
+    - Be more conservative with properties (Weather.Data is Piers only!)            
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -195,7 +195,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.915" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.916" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -216,9 +216,8 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.915
-    - Add Recently Played Movies to main movies menu (played in last 3 months, limit 25)			
-    - (B808 only) Changes to skin magic with move to using Jellyfin as a server
+    		<news>v5.0.916
+    - Fixes for OzWeather 2.1.6
     		</news>
     	</extension>
     </addon>

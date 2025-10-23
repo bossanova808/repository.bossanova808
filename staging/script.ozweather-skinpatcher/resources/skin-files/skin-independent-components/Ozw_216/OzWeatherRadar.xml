@@ -51,7 +51,7 @@
                 <posy>$PARAM[posy]</posy>
                 <width>$PARAM[width]</width>
                 <aspectratio scalediffuse="false" align="left" aligny="top">keep</aspectratio>
-                <imagepath>special://temp/ozweather/loop/$INFO[Weather.Data(Radar)]/</imagepath>
+                <imagepath>special://temp/ozweather/loop/$INFO[Window(weather).Property(Radar)]/</imagepath>
                 <timeperimage>300</timeperimage>
                 <pauseatend>800</pauseatend>
                 <fadetime>0</fadetime>

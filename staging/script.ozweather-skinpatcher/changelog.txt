@@ -1,3 +1,6 @@
+v0.5.2
+- Be more conservative with properties (Weather.Data is Piers only!) 
+
 v0.5.1
 - Also fix the VideoFullScreen files to work with latest OzWeather
 
