@@ -1,3 +1,9 @@
+v5.0.917
+- Menus fix         
+
+v5.0.916
+- Fixes for OzWeather         
+
 v5.0.915
 - Add Recently Played Movies to main movies menu (played in last 3 months, limit 25)            
 - (B808 only) Changes to skin magic with move to using Jellyfin as a server

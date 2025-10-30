@@ -798,10 +798,10 @@
 					<visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label)</visible>
 					<!-- Buttons for the grouplist -->
 					<!-- Force a different menu for Bossanova808/Adults Profile -->
-					<include condition="String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
-					<include condition="String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShowsAdultsJelly</include>
-					<include condition="!String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShows</include>
-					<!-- END BOSSANOVA808 MOD -->
+					<include condition="Skin.HasSetting(IsB808) + String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
+					<include condition="Skin.HasSetting(IsB808) + String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShowsAdultsJelly</include>
+                    <include condition="!Skin.HasSetting(IsB808)">HomeSubMenuTVShows</include>
+                    <!-- END BOSSANOVA808 MOD -->
 				</control>
 				<control type="grouplist" id="9011">
 					<include>HomeSubMenuCommonValues</include>

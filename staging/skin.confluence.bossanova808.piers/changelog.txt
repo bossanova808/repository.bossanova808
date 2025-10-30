@@ -1,3 +1,6 @@
+5.1.307
+- Menus fix         
+
 v5.1.306
 - Language fix for new weather widget
 
