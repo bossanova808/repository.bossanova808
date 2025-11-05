@@ -1,3 +1,7 @@
+v0.5.3
+- Fix clobbering of min/max - thanks @benyamin-codez
+- https://github.com/bossanova808/repository.bossanova808/issues/23
+
 v0.5.2
 - Be more conservative with properties (Weather.Data is Piers only!) 
 

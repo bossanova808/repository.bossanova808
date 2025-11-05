@@ -55,20 +55,6 @@
                 <param name="label">$INFO[Window(weather).Property(Daily.1.Outlook)]</param>
             </include>
             
-            <include content="OzWeatherHeader">
-                <description>BOM's Now/Later Information</description>
-                <param name="posx">0%</param>
-                <param name="posy">18%</param>
-                <param name="label">[COLOR _colour_text_dim_]$INFO[Window(weather).Property(Current.NowLabel)]: [/COLOR][COLOR _colour_text_high_temp_]$INFO[Window(weather).Property(Current.NowValue)]&#176;[/COLOR]</param>
-            </include>
-
-            <include content="OzWeatherHeader">
-                <description>BOM's Now/Later Information</description>
-                <param name="posx">0%</param>
-                <param name="posy">28%</param>
-                <param name="label">[COLOR _colour_text_dim_]$INFO[Window(weather).Property(Current.LaterLabel)]: [/COLOR][COLOR _colour_text_low_temp_]$INFO[Window(weather).Property(Current.LaterValue)]&#176;[/COLOR]</param>
-            </include>
-
 <!--            *** START of Now / Later -->
 
 <!--    Now / Later options: -->
