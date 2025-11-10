@@ -799,7 +799,7 @@
 					<!-- Force a different menu for Bossanova808/Adults Profile -->
 					<include condition="Skin.HasSetting(IsB808) + String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
 					<include condition="Skin.HasSetting(IsB808) + String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShowsAdultsJelly</include>
-					<include condition="!Skin.HasSetting(IsB808)">HomeSubMenuTVShows</include>
+					<include condition="!String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShows</include>
 					<!-- END BOSSANOVA808 MOD -->
 				</control>
 				<control type="grouplist" id="9011">

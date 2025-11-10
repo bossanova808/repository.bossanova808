@@ -196,7 +196,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.917" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.918" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -217,13 +217,13 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.917
+    		<news>v5.0.918
     - Menus fix			
     		</news>
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.307" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.308" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -244,7 +244,7 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.307
+    		<news>v5.1.308
     - Menus fix				
     		</news>
     	</extension>
