@@ -1,3 +1,6 @@
+v0.5.5
+- Make sure OzWeather extended features is set to on if they're using the patcher as otherwise the magic won't magic
+
 v0.5.4
 - Remove not needed Confluence include from non Confluence style skins
 

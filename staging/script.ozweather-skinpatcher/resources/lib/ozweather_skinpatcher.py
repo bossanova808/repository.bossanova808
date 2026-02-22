@@ -3,6 +3,7 @@ import sys
 import glob
 import ntpath
 import xbmc
+import xbmcaddon
 import xbmcgui
 import xbmcvfs
 
@@ -205,6 +206,11 @@ def patch():
             Notify.error('Exiting - as error when copying OzWeather skin files - is skin folder writeable?')
             sys.exit(1)
 
+    # Make sure Extended Features is turned on or none of the new magic will actualyl show up...
+    addon = xbmcaddon.Addon(id='weather.ozweather')
+    addon.setSetting('ExtendedFeaturesToggle', 'true')
+    Logger.info("OzWeather ExtendedFeaturesToggle set to true")
+    
 
 # Attempt to restore .original files - we just try and restore both, no matter what the setting is
 def restore():
