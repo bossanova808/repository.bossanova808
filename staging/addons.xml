@@ -96,7 +96,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.3" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.4" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.2"/>
@@ -124,9 +124,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.5.3
-    - Fix clobbering of min/max - thanks @benyamin-codez
-    - https://github.com/bossanova808/repository.bossanova808/issues/23        
+            <news>v0.5.4
+    - Remove not needed Confluence include from non Confluence style skins
             </news>
             <assets>
                 <icon>resources/icon.png</icon>

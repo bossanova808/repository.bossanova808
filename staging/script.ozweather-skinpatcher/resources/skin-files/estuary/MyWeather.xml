@@ -82,8 +82,6 @@
 				<posx>3%</posx>
 				<posy>5%</posy>
 
-                <include content="ConfluenceLeftPanelContainer" />
-
 				<include content="OzWeatherHeader">
 					<description>Radar Panel Header - ID and Time Range</description>
 					<param name="posx">2%</param>
@@ -97,14 +95,11 @@
 				<include content="OzWeatherTag" />
 			</control> <!--  END LEFT PANEL GROUP -->
 
-
 			<!-- RIGHT PANEL GROUP  -->
 			<control type="group">
                 <description>Right Panel - Current Observations, Extended Forecast Text, Forecast Rows</description>
 				<posx>46%</posx>
 				<posy>5%</posy>
-
-                <include content="ConfluenceRightPanelContainer" />
 
                 <include content="OzWeatherHeader">
 					<description>Location Panel Header - Name and Observed At Time</description>

@@ -1,3 +1,6 @@
+v0.5.4
+- Remove not needed Confluence include from non Confluence style skins
+
 v0.5.3
 - Fix clobbering of min/max - thanks @benyamin-codez
 - https://github.com/bossanova808/repository.bossanova808/issues/23
