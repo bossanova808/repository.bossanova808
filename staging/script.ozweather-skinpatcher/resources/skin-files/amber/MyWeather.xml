@@ -66,7 +66,7 @@
 					<description>Location Panel Header - Name and Observed At Time</description>
 					<param name="posx">3%</param>
 					<param name="posy">3%</param>
-					<param name="label">$INFO[Window(weather).Property(Location)], [COLOR _colour_text_dim_]observed at[/COLOR] $INFO[Window(weather).Property(ObservationsUpdated)]</param>
+					<param name="label">$INFO[Window(weather).Property(Current.Location)], [COLOR _colour_text_dim_]observed at[/COLOR] $INFO[Window(weather).Property(ObservationsUpdated)] [COLOR _colour_text_dim_](Location $INFO[Window(weather).Property(LocationIndex)], $INFO[Window(weather).Property(LocationGeohash)])</param>
 				</include>
 
 				<include content="Observations" />

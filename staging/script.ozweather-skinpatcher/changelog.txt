@@ -1,3 +1,6 @@
+v0.5.6
+- Tweaks for new labels in OzWeather v2.1.7 
+
 v0.5.5
 - Make sure OzWeather extended features is set to on if they're using the patcher as otherwise the magic won't magic
 
