@@ -20,8 +20,8 @@
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
 		</assets>
-		<news>v5.1.308
-- Menus fix				
+		<news>v5.1.309
+- Updates for OzWeather v2.1.7
 		</news>
 	</extension>
 </addon>
