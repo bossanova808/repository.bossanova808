@@ -60,7 +60,7 @@
 						<description>Radar Panel Header - ID and Time Range</description>
 						<param name="posx">2%</param>
 						<param name="posy">3%</param>
-						<param name="label">Radar ($INFO[Weather.Data(Radar)]), [COLOR darkgray]from [/COLOR]$INFO[Weather.Data(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Weather.Data(RadarNewest)]</param>
+						<param name="label">$INFO[Weather.Data(RadarLocation)] [COLOR darkgray]($INFO[Weather.Data(Radar)])[/COLOR], $INFO[Weather.Data(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Weather.Data(RadarNewest)]</param>
 					</include>
 
 					<include content="RadarBackgrounds" />

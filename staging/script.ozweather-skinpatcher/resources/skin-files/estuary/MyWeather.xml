@@ -86,7 +86,7 @@
 					<description>Radar Panel Header - ID and Time Range</description>
 					<param name="posx">2%</param>
 					<param name="posy">3%</param>
-					<param name="label">$INFO[Window(weather).Property(RadarLocation)] Radar [COLOR _colour_text_dim_]($INFO[Window(weather).Property(Radar)]), from [/COLOR]$INFO[Window(weather).Property(RadarOldest)] [COLOR _colour_text_dim_]to [/COLOR]$INFO[Window(weather).Property(RadarNewest)]</param>
+					<param name="label">$INFO[Window(weather).Property(RadarLocation)] [COLOR _colour_text_dim_](Radar $INFO[Window(weather).Property(Radar)]), [/COLOR]$INFO[Window(weather).Property(RadarOldest)] [COLOR _colour_text_dim_]to [/COLOR]$INFO[Window(weather).Property(RadarNewest)]</param>
 				</include>
 
 				<include content="RadarBackgrounds" />
