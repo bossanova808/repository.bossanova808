@@ -3,7 +3,7 @@
     <include name="OzWeatherButton">
         <param name="id" />
         <param name="onlick"/>
-        <param name="label" deafult="EMPTY LABEL" />
+        <param name="label" default="EMPTY LABEL" />
         <param name="visible" default="Weather.IsFetched" />
         <definition>
             <control type="button" id="$PARAM[id]">
