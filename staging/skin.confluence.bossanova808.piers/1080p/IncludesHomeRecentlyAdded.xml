@@ -6,7 +6,7 @@
 			<onup>20</onup>
 			<ondown condition="Control.IsVisible(600)">600</ondown>
 			<ondown condition="!Control.IsVisible(600)">9000</ondown>
-			<visible>!Window.IsVisible(Favourites)</visible>
+			<visible>!Window.IsVisible(Favouritesbrowser)</visible>
 			<include>VisibleFadeEffect</include>
 			<animation effect="fade" time="225" delay="750">WindowOpen</animation>
 			<animation effect="fade" time="150">WindowClose</animation>

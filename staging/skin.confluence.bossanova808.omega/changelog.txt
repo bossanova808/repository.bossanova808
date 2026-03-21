@@ -1,3 +1,6 @@
+v5.0.919
+- Updates for OzWeather v2.1.7
+
 v5.0.918
 - Menus fix         
 

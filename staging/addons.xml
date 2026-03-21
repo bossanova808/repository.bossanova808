@@ -96,7 +96,7 @@
         </extension>
     </addon>
     
-    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.5" provider-name="bossanova808">
+    <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.6" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
     		<import addon="script.module.bossanova808" version="1.0.2"/>
@@ -124,8 +124,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum>https://forum.kodi.tv/showthread.php?tid=116905</forum>
             <email />
-            <news>v0.5.5
-    - Make sure OzWeather extended features is set to on if they're using the patcher as otherwise the magic won't magic
+            <news>v0.5.6
+    - Tweaks for new labels in OzWeather v2.1.7            
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
@@ -195,7 +195,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.918" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.919" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -216,8 +216,8 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.918
-    - Menus fix			
+    		<news>v5.0.919
+    - Updates for OzWeather v2.1.7		
     		</news>
     	</extension>
     </addon>
@@ -243,8 +243,8 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.308
-    - Menus fix				
+    		<news>v5.1.309
+    - Updates for OzWeather v2.1.7
     		</news>
     	</extension>
     </addon>

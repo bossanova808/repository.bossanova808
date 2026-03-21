@@ -1,3 +1,5 @@
+# RUN WITH uv run build.py
+
 # Standard imports...
 import glob
 import os
