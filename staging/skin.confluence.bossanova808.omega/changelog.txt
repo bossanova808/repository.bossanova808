@@ -1,4 +1,4 @@
-v5.0.919
+v5.0.919 & v5.0.920
 - Updates for OzWeather v2.1.7
 
 v5.0.918

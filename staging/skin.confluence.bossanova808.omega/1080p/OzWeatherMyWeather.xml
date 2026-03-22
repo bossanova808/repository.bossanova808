@@ -60,7 +60,7 @@
 						<description>Radar Panel Header - ID and Time Range</description>
 						<param name="posx">2%</param>
 						<param name="posy">3%</param>
-						<param name="label">Radar ($INFO[Window.Property(Radar)]), [COLOR darkgray]from [/COLOR]$INFO[Window.Property(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
+						<param name="label">$INFO[Window.Property(RadarLocation)] [COLOR darkgray]($INFO[Window.Property(Radar)])[/COLOR], $INFO[Window.Property(RadarOldest)] [COLOR darkgray]to [/COLOR]$INFO[Window.Property(RadarNewest)]</param>
 					</include>
 
 					<include content="RadarBackgrounds" />
@@ -83,7 +83,7 @@
 						<description>Location Panel Header - Name and Observed At Time</description>
 						<param name="posx">3%</param>
 						<param name="posy">3%</param>
-						<param name="label">$INFO[Window.Property(Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)]</param>
+						<param name="label">$INFO[Window.Property(Current.Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Window.Property(ObservationsUpdated)] [COLOR darkgray](Location $INFO[Window.Property(LocationIndex)], $INFO[Window.Property(LocationGeohash)])[/COLOR]</param>
 					</include>
 
 					<include content="Observations" />
