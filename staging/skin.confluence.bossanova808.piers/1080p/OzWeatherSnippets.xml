@@ -42,11 +42,11 @@
             <control type="textbox">
                 <description>OzWeather Tag</description>
                 <top>93%</top>
-                <left>33%</left>
+                <left>32%</left>
                 <height>45</height>
                 <include content="FontBody" />
                 <textcolor>gray</textcolor>
-                <label>$INFO[Weather.Data(WeatherVersion)]</label>
+                <label>v$INFO[Weather.Data(WeatherVersion)] $INFO[Weather.Data(LocationGeohash)] $INFO[Weather.Data(Radar)]</label>
             </control>
         </definition>
     </include>

@@ -76,14 +76,14 @@
 					<posx>46%</posx>
 					<posy>5%</posy>
 					<visible>!Weather.IsUpdating</visible>
-                	<depth>DepthDialog+</depth>
+					
 					<include content="ConfluenceRightPanelContainer" />
 
 					<include content="OzWeatherHeader">
 						<description>Location Panel Header - Name and Observed At Time</description>
 						<param name="posx">3%</param>
 						<param name="posy">3%</param>
-						<param name="label">$INFO[Weather.Data(Current.Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Weather.Data(ObservationsUpdated)] [COLOR darkgray](Location $INFO[Weather.Data(LocationIndex)], $INFO[Weather.Data(LocationGeohash)])[/COLOR]</param>
+						<param name="label">$INFO[Weather.Data(Current.Location)], [COLOR darkgray]observed at[/COLOR] $INFO[Weather.Data(ObservationsUpdated)] [COLOR darkgray](Location $INFO[Weather.Data(LocationIndex)])[/COLOR]</param>
 					</include>
 
 					<include content="Observations" />
