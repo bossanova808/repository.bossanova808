@@ -195,7 +195,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.920" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.921" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -216,13 +216,13 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.920
-    - Updates for OzWeather v2.1.7		
+    		<news>v5.0.921
+    - Overdue updates for holiday dates!
     		</news>
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.308" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.310" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -243,8 +243,8 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.309
-    - Updates for OzWeather v2.1.7
+    		<news>v5.1.310
+    - Overdue updates for holiday dates, sync language with upstream
     		</news>
     	</extension>
     </addon>

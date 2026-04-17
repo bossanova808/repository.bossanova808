@@ -1,3 +1,6 @@
+v5.1.310
+- Overdue updates for holiday dates, sync language with upstream
+
 v5.1.309
 - Updates for OzWeather v2.1.7
 

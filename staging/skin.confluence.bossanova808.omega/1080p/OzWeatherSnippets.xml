@@ -45,7 +45,7 @@
                 <left>32%</left>
                 <height>45</height>
                 <include content="FontBody" />
-                <textcolor>grey</textcolor>
+                <textcolor>_colour_text_dimmer_</textcolor>
                 <label>v$INFO[Window(weather).Property(WeatherVersion)] $INFO[Window(weather).Property(LocationGeohash)] $INFO[Window(weather).Property(Radar)]</label>
                 <autoscroll>false</autoscroll>
             </control>

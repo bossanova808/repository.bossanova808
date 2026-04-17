@@ -484,6 +484,7 @@
 		<value condition="[[Container.Content(MusicVideos) + [Control.IsVisible(50) | Control.IsVisible(51)]] | [!Container.Content(MusicVideos) + !String.IsEmpty(ListItem.Art(poster))]]">$INFO[ListItem.Art(poster)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
+	
 	<!--  BOSSANOVA808 MOD - Clearart -->
 	<variable name="NowPlayingThumb">
 		<value condition="!String.IsEmpty(Player.Art(clearart))">$INFO[Player.Art(clearart)]</value>
@@ -501,74 +502,32 @@
 	<expression name="Thumbnail">!$EXP[Poster] + [!String.IsEmpty(Player.Art(thumbnail)) | !String.IsEmpty(Player.Art(tvshow.thumbnail))]</expression>
 	<expression name="Icon">!$EXP[ClearSomething] + !$EXP[Poster] + !$EXP[Thumbnail] + !String.IsEmpty(Player.Icon)</expression>
 	<!--  END BOSSANOVA808 MOD CLEARART -->
-	
-<!--	<variable name="NowPlayingHeight">-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">300</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">300</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">300</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">300</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(poster))">525</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">525</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">300</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">300</value>-->
-<!--		<value>525</value>-->
-<!--	</variable>-->
-<!--	<variable name="NowPlayingPosx">-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(poster))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">0</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">0</value>-->
-<!--		<value>20</value>-->
-<!--	</variable>-->
-<!--	<variable name="NowPlayingPosy">-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">300r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">300r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">300r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">300r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(poster))">525r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">525r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">300r</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">300r</value>-->
-<!--		<value>525r</value>-->
-<!--	</variable>-->
-<!--	<variable name="NowPlayingAlign">-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearart))">center</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearart))">center</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(clearlogo))">center</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.clearlogo))">center</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(poster))">bottom</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.poster))">bottom</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(thumbnail))">center</value>-->
-<!--		<value condition="!String.IsEmpty(Player.Art(tvshow.thumbnail))">center</value>-->
-<!--		<value>bottom</value>-->
-<!--	</variable>-->
 
 	<!--  BOSSANOVA808 MOD - Holiday Backgrounds - dates in form MM-DD -->
 	<variable name="HolidayBackground">
 		<!-- For testing...uncomment this to overrule all below options	-->
-<!--	 	<value>special://skin/backgrounds/MothersDay.jpg</value>-->
+		<!-- <value>special://skin/backgrounds/MothersDay.jpg</value>-->
 		<!-- Bossanova808 Specific -->
 		<value condition="Skin.HasSetting(IsB808) + System.Date(01-03,01-04)">special://skin/backgrounds/BirthdayJem.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(04-11,04-12)">special://skin/backgrounds/BirthdayAmy.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(06-26,06-27)">special://skin/backgrounds/BirthdayLeyna.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(08-12,08-13)">special://skin/backgrounds/BirthdayAleda.jpg</value>
+		<!-- Jamy anniversary -->
 		<value condition="Skin.HasSetting(IsB808) + System.Date(10-07,10-08)">special://skin/backgrounds/Valentines.jpg</value>
 		<!-- Need annual updates to these dates! -->
 		<value condition="Skin.HasSetting(IsB808) + System.Date(05-11,05-12)">special://skin/backgrounds/MothersDay.jpg</value>
 		<value condition="Skin.HasSetting(IsB808) + System.Date(09-07,09-08)">special://skin/backgrounds/FathersDay.jpg</value>
+		<value condition="System.Date(04-03,04-06)">special://skin/backgrounds/Easter.jpg</value>
 		<!-- All skin users	-->
 		<value condition="System.Date(02-14,02-15)">special://skin/backgrounds/Valentines.jpg</value>
-		<value condition="System.Date(04-18,04-22)">special://skin/backgrounds/Easter.jpg</value>
 		<value condition="System.Date(10-31,11-01)">special://skin/backgrounds/Halloween.jpg</value>
 		<value condition="System.Date(12-01,12-26)">special://skin/backgrounds/Christmas.jpg</value>
 		<value condition="System.Date(12-31,01-02)">special://skin/backgrounds/NewYears.jpg</value>
+		<!-- Default BG -->
 		<value>$INFO[Skin.CurrentTheme,special://skin/backgrounds/,.jpg]</value>
 	</variable>
 	<!--  END BOSSANOVA808 MOD Holiday Backgrounds -->
+	
 	<variable name="PlaySpeed">
 		<value condition="String.IsEqual(Player.PlaySpeed,0.80)">0.8X</value>
 		<value condition="String.IsEqual(Player.PlaySpeed,0.90)">0.9X</value>

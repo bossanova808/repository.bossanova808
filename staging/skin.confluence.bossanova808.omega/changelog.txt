@@ -1,3 +1,6 @@
+v5.0.921
+- Overdue updates for holiday dates!
+
 v5.0.919 & v5.0.920
 - Updates for OzWeather v2.1.7
 
