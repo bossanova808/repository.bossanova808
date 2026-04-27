@@ -1,3 +1,6 @@
+v0.5.7
+- Fix for report: https://forum.kodi.tv/showthread.php?tid=116905&pid=3282199#pid3282199 
+
 v0.5.6
 - Tweaks for new labels in OzWeather v2.1.7 
 
