@@ -21,24 +21,18 @@ def _is_recorded_version_current(record_filename: str, current_version: str, lab
         with open(os.path.join(PROFILE, record_filename), 'r') as f:
             recorded = f.read()
         if recorded == current_version:
-            Logger.info(f'{label} already patched - now: [{current_version}] == recorded: [{recorded}]')
+            Logger.info(f'{label} version test OK - current: [{current_version}] == recorded: [{recorded}]')
             return True
-        Logger.info(f'{label} NOT patched - now: [{current_version}] != recorded: [{recorded}] - will patch')
+        Logger.warning(f'{label} version test NOT OK - current: [{current_version}] != recorded: [{recorded}] - will patch')
         return False
     except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error(f"Unable to determine if {label} is already patched - assuming not, will patch")
+        Logger.error(f"Unable to determine if {label} is already patched - assuming not, therefore will proceed to patch")
         Logger.error(e)
         return False
 
 
 def delayed_autopatch():
-
     Logger.start("(delayed autopatch thread)")
-    # My friends & family skin includes the patches already
-    if 'bossanova808' in Store.current_skin:
-        Logger.debug("Bossanova808 skin detected, not auto-patching")
-        return
-
     skinpatcher_version_now = ADDON.getAddonInfo('version')
 
     # Delay for (default) 40 seconds to allow addon updates
@@ -50,19 +44,20 @@ def delayed_autopatch():
     Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
     xbmc.sleep(delay_seconds * 1000)
 
-    # For auto-patching, retrieve an existing patch record if there is one, for the current skin (which contains the skin version that was patched)
-    need_to_patch = (
-        bool(Store.skin_version_now)
-        and _is_recorded_version_current(f"{Store.current_skin}.version", Store.skin_version_now, "this skin version")
-    )
+    # For auto-patching, patch if any of the recorded versions are missing/stale
+    need_to_patch = False
 
-    # Also check it has been patched for the current version of OzWeather to account for any changes there...
-    if not _is_recorded_version_current("ozweather.version", Store.ozweather_version_now, "skin for OzWeather"):
-        need_to_patch = False
+    # Patch if the current skin version differs from what was last patched
+    if Store.skin_version_now and not _is_recorded_version_current(f"{Store.current_skin}.version", Store.skin_version_now, "Skin"):
+        need_to_patch = True
+
+    # Also patch if OzWeather has changed since we last patched
+    if not _is_recorded_version_current("ozweather.version", Store.ozweather_version_now, "OzWeather"):
+        need_to_patch = True
 
     # Also re-patch if the Skin Patcher itself has been updated, as bundled skin files may have changed
     if not _is_recorded_version_current("skinpatcher.version", skinpatcher_version_now, "Skin Patcher"):
-        need_to_patch = False
+        need_to_patch = True
 
     # OK, so do we need to patch?
     if need_to_patch:
@@ -85,7 +80,7 @@ def delayed_autopatch():
             with open(os.path.join(PROFILE, "ozweather.version"), 'w', encoding='utf-8') as f:
                 f.write(Store.ozweather_version_now)
             with open(os.path.join(PROFILE, "skinpatcher.version"), 'w', encoding='utf-8') as f:
-                f.write(ADDON.getAddonInfo('version'))
+                f.write(skinpatcher_version_now)
         except (IOError, OSError) as e:
             Notify.error("Failed to write patch records - check logs")
             Logger.error("Failed to write patch records")
@@ -96,6 +91,7 @@ def delayed_autopatch():
         Notify.info('Successful OzWeather skin patch (skin reloaded).')
 
     Logger.stop("(delayed autopatch thread)")
+
 
 def autopatch():
     """
@@ -118,12 +114,17 @@ def autopatch():
     Logger.stop("(service)")
 
 
-# Backup existing skin files, and install the new ones.
+# Back up existing skin files and install the new ones.
 # Backup occurs only once per skin version, it will not overwrite existing .original files
 # as we don't want to clobber the original backup files if they run this twice for whatever reason...
 # This assumes on a skin update that all files are replaced (i.e. any current .original backup files will be removed)
 def patch():
-    # Backup original files
+    # My friends & family skin includes the patches already
+    if 'bossanova808' in Store.current_skin:
+        Logger.debug("Bossanova808 skin detected, not actually patching")
+        return
+
+    # Back up original files
     try:
         if not xbmcvfs.exists(Store.backup_myweather_xml):
             Logger.info("Backing up current MyWeather.xml to MyWeather.xml.original")
@@ -158,12 +159,13 @@ def patch():
     version = get_addon_version("weather.ozweather")
     if version_tuple(version) <= version_tuple('2.1.5'):
         # Logic for version 2.1.5 and below
-        Logger.warning("OzWeather is an older version, <= 2.1.5 - use skin file with old radar paths")
+        Logger.info("OzWeather is an older version, <= 2.1.5 - use skin file with old radar paths")
         list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_215", "*.xml")))
     else:
         # Logic for version 2.1.6 and above
-        Logger.warning("OzWeather is >= 2.1.6 - use new skin file for radar paths")
-        list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_216", "*.xml")))
+        Logger.info("OzWeather is >= 2.1.6 - use new skin file for radar paths")
+        list_of_files_to_copy.extend(
+            glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_216", "*.xml")))
 
     Logger.info("The list of files to copy is")
     Logger.info(list_of_files_to_copy)
@@ -205,7 +207,7 @@ def patch():
     addon = xbmcaddon.Addon(id='weather.ozweather')
     addon.setSetting('ExtendedFeaturesToggle', 'true')
     Logger.info("OzWeather ExtendedFeaturesToggle set to true")
-    
+
 
 # Attempt to restore .original files - we just try and restore both, no matter what the setting is
 def restore():
@@ -243,7 +245,6 @@ def restore():
 
 # This is 'main'...
 def run():
-
     Logger.start()
     Store()
 
