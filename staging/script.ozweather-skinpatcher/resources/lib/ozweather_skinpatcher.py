@@ -59,7 +59,12 @@ def delayed_autopatch():
     if not _is_recorded_version_current("skinpatcher.version", skinpatcher_version_now, "Skin Patcher"):
         need_to_patch = True
 
-    # OK, so do we need to patch?
+    # My friends & family skin includes the patches already (this placed here so we know what _would_ have happened, though)
+    if 'bossanova808' in Store.current_skin:
+        Logger.warning("Bossanova808 skin detected, therefore not patching")
+        need_to_patch = False
+
+    # OK, so do we actually need to patch?
     if need_to_patch:
         try:
             patch()
@@ -119,10 +124,6 @@ def autopatch():
 # as we don't want to clobber the original backup files if they run this twice for whatever reason...
 # This assumes on a skin update that all files are replaced (i.e. any current .original backup files will be removed)
 def patch():
-    # My friends & family skin includes the patches already
-    if 'bossanova808' in Store.current_skin:
-        Logger.debug("Bossanova808 skin detected, not actually patching")
-        return
 
     # Back up original files
     try:
