@@ -1,3 +1,6 @@
+v0.5.8
+- Also auto patch is Skin Patcher itself is updated  
+
 v0.5.7
 - Fix for report: https://forum.kodi.tv/showthread.php?tid=116905&pid=3282199#pid3282199 
 

@@ -32,7 +32,7 @@ def delayed_autopatch():
     Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
     xbmc.sleep(delay_seconds * 1000)
 
-    # For auto-patching, retrieve an existing patch record, if there is one, for the current skin (which contains the skin version that was patched)
+    # For auto-patching, retrieve an existing patch record if there is one, for the current skin (which contains the skin version that was patched)
     this_skin_version_already_patched = False
 
     # Has this version of the skin been patched already?
@@ -70,7 +70,23 @@ def delayed_autopatch():
         this_skin_version_already_patched = False
         Logger.error(e)
 
+    # Also re-patch if the Skin Patcher itself has been updated, as bundled skin files may have changed
+    try:
+        skinpatcher_version_now = ADDON.getAddonInfo('version')
+        with open(os.path.join(PROFILE, "skinpatcher.version"), 'r') as f:
+            skinpatcher_version_recorded = f.read()
+        if skinpatcher_version_recorded == skinpatcher_version_now:
+            Logger.info(f'Skin already patched with this Skin Patcher version - now: [{skinpatcher_version_now}] == recorded: [{skinpatcher_version_recorded}]')
+        else:
+            Logger.info(f'Skin Patcher has been updated: [{skinpatcher_version_now}] != recorded: [{skinpatcher_version_recorded}] - will re-patch')
+            this_skin_version_already_patched = False
 
+    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
+        Logger.error("Unable to determine if skin was patched with this Skin Patcher version - assuming it _hasn't_ been patched, will patch")
+        this_skin_version_already_patched = False
+        Logger.error(e)
+
+    # OK so do we need to patch?
     if not this_skin_version_already_patched:
 
         try:
@@ -91,6 +107,8 @@ def delayed_autopatch():
                 f.write(Store.skin_version_now)
             with open(os.path.join(PROFILE, "ozweather.version"), 'w', encoding='utf-8') as f:
                 f.write(Store.ozweather_version_now)
+            with open(os.path.join(PROFILE, "skinpatcher.version"), 'w', encoding='utf-8') as f:
+                f.write(ADDON.getAddonInfo('version'))
         except (IOError, OSError) as e:
             Notify.error("Failed to write patch records - check logs")
             Logger.error("Failed to write patch records")
