@@ -15,6 +15,22 @@ from bossanova808.utilities import get_setting, get_setting_as_bool, get_addon_v
 from .store import Store
 
 
+def _is_recorded_version_current(record_filename: str, current_version: str, label: str) -> bool:
+    """Return True iff PROFILE/<record_filename> exists and matches current_version."""
+    try:
+        with open(os.path.join(PROFILE, record_filename), 'r') as f:
+            recorded = f.read()
+        if recorded == current_version:
+            Logger.info(f'{label} already patched - now: [{current_version}] == recorded: [{recorded}]')
+            return True
+        Logger.info(f'{label} NOT patched - now: [{current_version}] != recorded: [{recorded}] - will patch')
+        return False
+    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
+        Logger.error(f"Unable to determine if {label} is already patched - assuming not, will patch")
+        Logger.error(e)
+        return False
+
+
 def delayed_autopatch():
 
     Logger.start("(delayed autopatch thread)")
@@ -22,6 +38,8 @@ def delayed_autopatch():
     if 'bossanova808' in Store.current_skin:
         Logger.debug("Bossanova808 skin detected, not auto-patching")
         return
+
+    skinpatcher_version_now = ADDON.getAddonInfo('version')
 
     # Delay for (default) 40 seconds to allow addon updates
     delay_setting = get_setting('delay_seconds')
@@ -33,62 +51,21 @@ def delayed_autopatch():
     xbmc.sleep(delay_seconds * 1000)
 
     # For auto-patching, retrieve an existing patch record if there is one, for the current skin (which contains the skin version that was patched)
-    this_skin_version_already_patched = False
+    need_to_patch = (
+        bool(Store.skin_version_now)
+        and _is_recorded_version_current(f"{Store.current_skin}.version", Store.skin_version_now, "this skin version")
+    )
 
-    # Has this version of the skin been patched already?
-    try:
-        if Store.skin_version_now:
-            # Read the previously patched skin version from the addon settings directory
-            # File is named after the skin (e.g., "skin.amber") and contains just the version, as a string
-            with open(os.path.join(PROFILE, f"{Store.current_skin}.version"), 'r') as f:
-                skin_version_recorded = f.read()
-            if skin_version_recorded == Store.skin_version_now:
-                Logger.info(f'This skin version has already been patched - now: [{Store.skin_version_now}] == recorded: [{skin_version_recorded}] - doing nothing.')
-                this_skin_version_already_patched = True
-            else:
-                Logger.info(f'This skin version has NOT been patched: - now: [{Store.skin_version_now}] != recorded: [{skin_version_recorded}]')
-                this_skin_version_already_patched = False
-
-    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error("Unable to determine if skin is already patched - assuming it _hasn't_ been patched, will patch")
-        this_skin_version_already_patched = False
-        Logger.error(e)
-
-    # Also check it has been patched for the current version of OzWeather, to account for any changes there...
-    try:
-        if Store.ozweather_version_now:
-            with open(os.path.join(PROFILE, "ozweather.version"), 'r') as f:
-                ozweather_version_recorded = f.read()
-            if ozweather_version_recorded == Store.ozweather_version_now:
-                Logger.info(f'The skin has already been patched for the installed OzWeather version - now: [{Store.ozweather_version_now}] == recorded: [{ozweather_version_recorded}]')
-            else:
-                Logger.info(f'Skin has NOT been patched for *this version* of OzWeather: [{Store.ozweather_version_now}] - will patch')
-                this_skin_version_already_patched = False
-
-    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error("Unable to determine if skin already patched for this OzWeather version - assuming it _hasn't_ been patched, will patch")
-        this_skin_version_already_patched = False
-        Logger.error(e)
+    # Also check it has been patched for the current version of OzWeather to account for any changes there...
+    if not _is_recorded_version_current("ozweather.version", Store.ozweather_version_now, "skin for OzWeather"):
+        need_to_patch = False
 
     # Also re-patch if the Skin Patcher itself has been updated, as bundled skin files may have changed
-    try:
-        skinpatcher_version_now = ADDON.getAddonInfo('version')
-        with open(os.path.join(PROFILE, "skinpatcher.version"), 'r') as f:
-            skinpatcher_version_recorded = f.read()
-        if skinpatcher_version_recorded == skinpatcher_version_now:
-            Logger.info(f'Skin already patched with this Skin Patcher version - now: [{skinpatcher_version_now}] == recorded: [{skinpatcher_version_recorded}]')
-        else:
-            Logger.info(f'Skin Patcher has been updated: [{skinpatcher_version_now}] != recorded: [{skinpatcher_version_recorded}] - will re-patch')
-            this_skin_version_already_patched = False
+    if not _is_recorded_version_current("skinpatcher.version", skinpatcher_version_now, "Skin Patcher"):
+        need_to_patch = False
 
-    except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error("Unable to determine if skin was patched with this Skin Patcher version - assuming it _hasn't_ been patched, will patch")
-        this_skin_version_already_patched = False
-        Logger.error(e)
-
-    # OK so do we need to patch?
-    if not this_skin_version_already_patched:
-
+    # OK, so do we need to patch?
+    if need_to_patch:
         try:
             patch()
         except SystemExit as e:
