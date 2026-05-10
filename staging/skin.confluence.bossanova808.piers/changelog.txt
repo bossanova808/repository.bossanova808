@@ -1,3 +1,6 @@
+v5.1.311
+- Fix holiday dates
+
 v5.1.310
 - Overdue updates for holiday dates, sync language with upstream
 

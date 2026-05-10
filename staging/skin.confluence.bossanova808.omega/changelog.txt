@@ -1,3 +1,6 @@
+v5.0.922
+- Fix holiday dates
+
 v5.0.921
 - Overdue updates for holiday dates!
 
