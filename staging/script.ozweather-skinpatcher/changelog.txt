@@ -1,3 +1,6 @@
+v0.5.9
+- Improve logging and threading
+
 v0.5.8
 - Also auto patch if Skin Patcher itself is updated  
 

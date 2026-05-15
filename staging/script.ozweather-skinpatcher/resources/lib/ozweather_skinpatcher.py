@@ -26,16 +26,39 @@ def _is_recorded_version_current(record_filename: str, current_version: str, lab
         Logger.warning(f'{label} version test NOT OK - current: [{current_version}] != recorded: [{recorded}] - will patch')
         return False
     except (RuntimeError, FileNotFoundError, IOError, OSError, PermissionError, ValueError) as e:
-        Logger.error(f"Unable to determine if {label} is already patched - assuming not, therefore will proceed to patch")
-        Logger.error(e)
+        Logger.warning(f"Unable to determine if {label} is already patched - assuming not, therefore will proceed to patch")
+        Logger.warning(e)
         return False
 
 
+def _check_skin_is_supported() -> bool:
+    """Return True iff the current skin is a supported skin."""
+    skin_supported = False
+    for skin in Store.supported_skins:
+        if skin in Store.current_skin_path:
+            skin_supported = True
+
+    if not skin_supported:
+        Logger.error("ERROR - current skin is not a supported skin!")
+        Notify.error('ERROR - current skin is not a supported skin!')
+
+    return skin_supported
+
+
+# This is 'main', as run by the addon service (i.e. Kodi starts this automatically)
 def delayed_autopatch():
+    ##########################################################################################################################
+    # N.B. CODE IMMEDIATELY BELOW IS RUN _BEFORE_ THE DELAY - so generally don't add anything here...
+
     Logger.start("(delayed autopatch thread)")
+    # Get this here as the skin patcher itself may be updated, and we want to know what version we're running now...
     skinpatcher_version_now = ADDON.getAddonInfo('version')
 
-    # Delay for (default) 40 seconds to allow addon updates
+    ##########################################################################################################################
+    # THE DELAY
+
+    # Delay for (default) 40 seconds (to allow for Kodi addon updates to occur)
+    # (Note if they haven't finished after the time limit, patching will still happen on the next startup...)
     delay_setting = get_setting('delay_seconds')
     try:
         delay_seconds = int(delay_setting)
@@ -43,6 +66,16 @@ def delayed_autopatch():
         delay_seconds = 40
     Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
     xbmc.sleep(delay_seconds * 1000)
+
+    ##########################################################################################################################
+    # BELOW HERE IS EXECUTED _AFTER_ THE DELAY
+
+    # Maybe they have changed skins since we started?  Doublecheck...
+    Store.update_from_kodi()
+    skin_supported = _check_skin_is_supported()
+    if not skin_supported:
+        Logger.error("ERROR - currently in use skin is not a supported skin, thus exiting here.")
+        return
 
     # For auto-patching, patch if any of the recorded versions are missing/stale
     need_to_patch = False
@@ -59,9 +92,9 @@ def delayed_autopatch():
     if not _is_recorded_version_current("skinpatcher.version", skinpatcher_version_now, "Skin Patcher"):
         need_to_patch = True
 
-    # My friends & family skin includes the patches already (this placed here so we know what _would_ have happened, though)
+    # My friends & family skin includes the patches already (this placed here, so we know what _would_ have happened)
     if 'bossanova808' in Store.current_skin:
-        Logger.warning("Bossanova808 skin detected, therefore not patching")
+        Logger.warning("Bossanova808 skin detected, therefore not actually patching")
         need_to_patch = False
 
     # OK, so do we actually need to patch?
@@ -100,31 +133,33 @@ def delayed_autopatch():
 
 def autopatch():
     """
-    If the user has enabled this, automatically patch the current skin, if needed
+    If the user has enabled this, automatically patch the current skin, if needed.
+    Returns the autopatch thread so the caller can join() it, keeping the service
+    process alive until the work is actually complete.
 
-    :return:
+    :return: threading.Thread if autopatch is running, None otherwise
     """
-    Logger.start("(service)")
 
     # Short circuit if Auto Patching is disabled
     if not get_setting_as_bool('autopatch'):
         Logger.warning("Auto-patching is disabled in settings - doing nothing.")
-        Logger.stop("(service)")
-        return
+        return None
 
-    # Otherwise, do the actual autopatch work only after a delay (to allow Kodi to first do it's normal update addons work)
+    # Otherwise, do the actual autopatch work only after a delay (to allow Kodi to first do its normal update addons work)
     # (Use threading so as not to block Kodi from anything else)
     import threading
-    threading.Thread(target=delayed_autopatch, daemon=True).start()
-    Logger.stop("(service)")
+    thread = threading.Thread(target=delayed_autopatch)
+    thread.start()
+    return thread
 
 
-# Back up existing skin files and install the new ones.
-# Backup occurs only once per skin version, it will not overwrite existing .original files
-# as we don't want to clobber the original backup files if they run this twice for whatever reason...
-# This assumes on a skin update that all files are replaced (i.e. any current .original backup files will be removed)
 def patch():
-
+    """
+    Back up existing skin files and install the new ones
+    Backup occurs only once per skin version, it will not overwrite existing .original files
+    (As we don't want to clobber the original backup files if they run this twice for whatever reason)
+    N.B. remember - on any skin update, all files are replaced (i.e. any current .original backup files will be removed)
+    """
     # Back up original files
     try:
         if not xbmcvfs.exists(Store.backup_myweather_xml):
@@ -137,6 +172,7 @@ def patch():
                 Notify.error('Exiting - is skin folder writeable? Error when backing up current MyWeather.xml')
                 sys.exit(1)
 
+        # @TODO this is not ideal - it backs up this file even in no changes are made to it (which is most scenarios)
         if xbmcvfs.exists(Store.current_videofullscreen_xml) and not xbmcvfs.exists(Store.backup_videofullscreen_xml):
             Logger.info("Backing up current VideoFullScreen.xml to VideoFullScreen.xml.original")
             success = xbmcvfs.copy(Store.current_videofullscreen_xml, Store.backup_videofullscreen_xml)
@@ -164,10 +200,11 @@ def patch():
         list_of_files_to_copy.extend(glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_215", "*.xml")))
     else:
         # Logic for version 2.1.6 and above
-        Logger.info("OzWeather is >= 2.1.6 - use new skin file for radar paths")
+        Logger.info("OzWeather is >= 2.1.6 - use new skin files for radar paths")
         list_of_files_to_copy.extend(
             glob.glob(os.path.join(Store.skin_independent_xml_source_folder, "Ozw_216", "*.xml")))
 
+    list_of_files_to_copy.sort()
     Logger.info("The list of files to copy is")
     Logger.info(list_of_files_to_copy)
 
@@ -244,23 +281,18 @@ def restore():
         sys.exit(1)
 
 
-# This is 'main'...
+# This is 'main', if the user runs the addon directly (manually)
+# (i.e. is not not by the automatic patching service)
 def run():
     Logger.start()
     Store()
-
-    dialog = xbmcgui.Dialog()
-
-    # Basic sanity checking - are they running the right skin?
-    skin_supported = False
-    for skin in Store.supported_skins:
-        if skin in Store.current_skin_path:
-            skin_supported = True
+    skin_supported = _check_skin_is_supported()
 
     if not skin_supported:
-        Logger.error("ERROR - current skin is not a supported skin!")
-        Notify.error('ERROR - current skin is not a supported skin!')
+        Logger.error("ERROR - current skin is not a supported skin, so exiting")
         sys.exit(1)
+
+    dialog = xbmcgui.Dialog()
 
     if get_setting_as_bool("show_first_run_info"):
         # Only show this again later if they explicitly turn it back on in settings...
@@ -271,25 +303,28 @@ def run():
                           """
     [B]IMPORTANT FIRST RUN INFO (Won't be shown again)[/B]                                                 
     [I](Closing this window will proceed to the actual patching stage)[/I]
-    
+
     This utility will patch skin files for OzWeather radar support.
     Only patches the currently selected skin, and only if that skin is a variant of:
-     
+
     Aeon (Nox, Silvo etc), Amber, Confluence, Estuary, Plextuary, Estouchy, OSMC, Xonfluence
-        
+
     Backups of the original files are saved as '.original' files in the skin folder
     & can be also be easily restored by re-running this utility, if needed.    
     """)
 
     # Now confirm if they actually want to proceed
     mode = dialog.select('OzWeather Skin Patcher', ['Patch', 'Restore', 'Cancel'])
+    mode_text = None
     Logger.info(f'Mode is {mode}')
 
     if mode == 0:
         Logger.info('Patching')
+        mode_text = 'patch'
         patch()
     elif mode == 1:
         Logger.info('Restoring')
+        mode_text = 'restore'
         restore()
     else:
         Logger.info("User cancelled operation.")
@@ -298,7 +333,7 @@ def run():
     if mode == 0 or mode == 1:
         Logger.info("Reloading skin to pick up changes")
         xbmc.executebuiltin('ReloadSkin()')
-        Notify.info('Successful OzWeather skin patch (skin reloaded).')
+        Notify.info(f'Successful OzWeather skin {mode_text} - skin reloaded.')
 
     # and, we're done...
     Logger.stop()
