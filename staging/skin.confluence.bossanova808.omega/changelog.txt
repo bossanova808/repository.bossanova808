@@ -1,3 +1,6 @@
+v5.0.923
+- Add Restart Kodi button
+
 v5.0.922
 - Fix holiday dates
 
