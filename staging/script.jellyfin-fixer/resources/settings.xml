@@ -1,8 +1,15 @@
 <?xml version="1.0" ?>
 <settings version="1">
     <section id="script.jellyfin-fixer">
-        <category help="" id="Jellyfin Fixer" label="32000">
-            <group id="1" label="32007">
+        <category id="resume_fixes" label="32012" help="">
+            <group id="10" label="32012">
+                <setting id="enable_resume_fix" type="boolean" label="32013" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+            <group id="11" label="32007">
                 <setting id="jumpback_delta" type="integer" label="32008" help="">
                     <level>0</level>
                     <default>7</default>
@@ -12,9 +19,14 @@
                         <step>1</step>
                     </constraints>
                     <control type="spinner" format="integer"/>
+                    <dependencies>
+                        <dependency type="enable">
+                            <condition operator="is" setting="enable_resume_fix">true</condition>
+                        </dependency>
+                    </dependencies>
                 </setting>
             </group>
-            <group id="2" label="32001">
+            <group id="12" label="32001">
                 <setting id="jumpback_seconds" type="integer" label="32002" help="">
                     <level>0</level>
                     <default>7</default>
@@ -24,31 +36,22 @@
                         <step>1</step>
                     </constraints>
                     <control type="spinner" format="integer"/>
-                </setting>
-            </group>
-            <group id="3" label="32004">
-                <setting id="jumpback_at_start" type="boolean" label="32005" help="">
-                    <level>0</level>
-                    <default>true</default>
-                    <control type="toggle"/>
-                </setting>
-                <setting id="jumpback_at_start_after_seconds" type="integer" label="32006" help="" parent="jumpback_at_start">
-                    <level>0</level>
-                    <default>1</default>
-                    <constraints>
-                        <minimum>0</minimum>
-                        <maximum>10</maximum>
-                        <step>1</step>
-                    </constraints>
-                    <control type="spinner" format="integer"/>
                     <dependencies>
                         <dependency type="enable">
-                            <condition operator="is" setting="jumpback_at_start">true</condition>
+                            <condition operator="is" setting="enable_resume_fix">true</condition>
                         </dependency>
                     </dependencies>
                 </setting>
             </group>
         </category>
+        <category id="clear_ratings" label="32010" help="">
+            <group id="20" label="32010">
+                <setting id="clear_tv_ratings" type="boolean" label="32011" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
     </section>
 </settings>
-

@@ -7,12 +7,11 @@ class Store:
     Helper class to read in and store the addon settings, and to provide a centralised store
     """
 
-    # Static class variables, referred to elsewhere by Store.whatever
-    # https://docs.python.org/3/faq/programming.html#how-do-i-create-static-class-data-and-static-class-methods
+    # Static class variables
+    enable_resume_fix = True
     jumpback_delta = 7
     jumpback = 7
-    jumpback_at_start = True
-    jumpback_at_start_after_seconds = 1
+    clear_tv_ratings = False
 
     def __init__(self):
         """
@@ -28,28 +27,24 @@ class Store:
         """
         Logger.info("Loading configuration")
 
+        Store.enable_resume_fix = get_setting_as_bool("enable_resume_fix")
+        Logger.info(f"Enable resume adjustment behavior: {Store.enable_resume_fix}")
+
         try:
             Store.jumpback_delta = int(get_setting("jumpback_delta"))
         except (ValueError, TypeError):
             Logger.warning("Invalid jumpback_delta setting, using default")
             Store.jumpback_delta = 7
-        Logger.info(f"Jump back delta set to {Store.jumpback_delta}")
 
         try:
             Store.jumpback = int(get_setting("jumpback_seconds"))
         except (ValueError, TypeError):
             Logger.warning("Invalid jumpback_seconds setting, using default")
             Store.jumpback = 7
-        Logger.info(f"Jump back at resume seconds set to {Store.jumpback}")
 
-        Store.jumpback_at_start = get_setting_as_bool("jumpback_at_start")
-        Logger.info(f"Jump back on start: {Store.jumpback_at_start}")
+        if Store.enable_resume_fix:
+            Logger.info(f"Jump back delta set to {Store.jumpback_delta}")
+            Logger.info(f"Jump back at resume seconds set to {Store.jumpback}")
 
-        try:
-            Store.jumpback_at_start_after_seconds = int(get_setting("jumpback_at_start_after_seconds"))
-        except (ValueError, TypeError):
-            Logger.warning("Invalid jumpback_at_start_after_seconds setting, using default")
-            Store.jumpback_at_start_after_seconds = 1
-        if Store.jumpback_at_start:
-            Logger.info(f"Jump back on start after seconds: {Store.jumpback_at_start_after_seconds}")
-
+        Store.clear_tv_ratings = get_setting_as_bool("clear_tv_ratings")
+        Logger.info(f"Purge TV/Episode ratings: {Store.clear_tv_ratings}")

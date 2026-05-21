@@ -13,10 +13,6 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-msgctxt "#32000"
-msgid "General"
-msgstr ""
-
 msgctxt "#32001"
 msgid "Resuming a few seconds earlier can help regain the context..."
 msgstr ""
@@ -25,22 +21,26 @@ msgctxt "#32002"
 msgid "Resume seconds behind resume point"
 msgstr ""
 
-msgctxt "#32004"
-msgid "Jumping back at the start *may* sometimes help with delayed subtitle issues"
-msgstr ""
-
-msgctxt "#32005"
-msgid "Jump back at start?"
-msgstr ""
-
-msgctxt "#32006"
-msgid "After how many seconds of playback?"
-msgstr ""
-
 msgctxt "#32007"
-msgid "Minor differences in resume should probably be ignored..."
+msgid "Minor differences in resume positions across synchronization signals"
 msgstr ""
 
 msgctxt "#32008"
-msgid "Fix resume if delta over seconds"
+msgid "Minimum difference threshold to invoke fix (seconds)"
+msgstr ""
+
+msgctxt "#32010"
+msgid "Purge Ratings"
+msgstr ""
+
+msgctxt "#32011"
+msgid "Purge TV/Episode ratings from media library"
+msgstr ""
+
+msgctxt "#32012"
+msgid "Resume Fixes"
+msgstr ""
+
+msgctxt "#32013"
+msgid "Enable resume point adjustments"
 msgstr ""
