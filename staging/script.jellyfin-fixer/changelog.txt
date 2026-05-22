@@ -1,3 +1,6 @@
+v0.0.8
+— Fixes off by default, add fix to brute force remove all TV show ratings from Kodi's database.
+
 v0.0.6
 - Improve logging 
 

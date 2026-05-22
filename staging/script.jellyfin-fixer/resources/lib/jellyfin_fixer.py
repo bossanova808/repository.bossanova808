@@ -43,7 +43,7 @@ def run():
             if kodi_monitor.waitForAbort(1):
                 break
             if home.getProperty('jellyfin_startup') == 'true':
-                Logger.warning('Jellyfin startup complete - JELLYFIN FIXER ACTIVE.')
+                Logger.warning('Jellyfin startup/initial sync complete - JELLYFIN FIXER now ACTIVE.')
                 startup_successful = True
                 break
             elapsed += 1

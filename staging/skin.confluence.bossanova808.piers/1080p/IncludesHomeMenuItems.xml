@@ -436,7 +436,7 @@
 			<height>53</height>
 			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
 		</control>
-		<!-- BOSSANOVA808 MOD - Addon updates from home -->
+		<!-- BOSSANOVA808 MOD - Addon updates directly from home -->
 		<control type="button" id="90307">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>Check for updates</label>

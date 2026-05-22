@@ -29,7 +29,7 @@
 			<depth>DepthOSD+</depth>
 			<description>Seek Slider</description>
 			<left>645</left>
-			<top>126r</top>
+			<top>123r</top>
 			<width>1080</width>
 			<height>24</height>
 			<onup>702</onup>

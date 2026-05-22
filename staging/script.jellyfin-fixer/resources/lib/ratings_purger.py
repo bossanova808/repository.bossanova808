@@ -21,7 +21,7 @@ def find_profile_video_db():
     pattern = os.path.join(db_dir, "MyVideos*.db")
     candidates = sorted(glob.glob(pattern))
     if not candidates:
-        Logger.error("Jellyfin Fixer: Could not find profile MyVideos*.db in %s" % db_dir)
+        Logger.error("Could not find profile MyVideos*.db in %s" % db_dir)
         return None
     return candidates[-1]
 
@@ -67,7 +67,7 @@ def purge_tv_ratings():
             conn.commit()
             Logger.info(f"Purged {cleared_rows} database records. Refreshing interface view.")
             xbmc.executebuiltin("Container.Refresh")
-            Notify.info(f"Purged {cleared_rows} TV/Episode rating data points.")
+            Notify.info(f"Purged {cleared_rows} TV/Episode ratings.")
         else:
             Logger.info("No ratings found, therefore nothing purged.")
     finally:

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.7" provider-name="bossanova808">
+<addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.8" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -20,7 +20,7 @@ See https://github.com/bossanova808/repository.bossanova808/tree/main/staging/sc
         <source>https://github.com/bossanova808/repository.bossanova808/</source>
         <forum />
         <email />
-        <news>v0.0.7
+        <news>v0.0.8
 — Fixes off by default, add fix to brute force remove all TV show ratings from Kodi's database.
         </news>
         <assets>
