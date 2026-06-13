@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<!-- Bossanova808 Mod - get Amlogic info from CoreElec addon -->
 	<onload condition="System.HasAddon(service.coreelec.settings)">RunScript(script.amlogic.displayinfo)</onload>
 	<defaultcontrol always="true">10000</defaultcontrol>
 	<include>dialogeffect</include>
@@ -24,7 +23,6 @@
 			<control type="grouplist" id="10000">
 				<top>403r</top>
 				<include>HomeSubMenuCommonValues</include>
-				<!-- Buttons for the grouplist -->
 				<control type="image">
 					<width>53</width>
 					<height>53</height>
@@ -92,8 +90,26 @@
 					<texturefocus border="5">HomeSubFO.png</texturefocus>
 					<texturenofocus colordiffuse="B3FFFFFF" border="5">HomeSubNF.png</texturenofocus>
 					<pulseonselect>false</pulseonselect>
-					<label>$LOCALIZE[31313]</label>
+					<label>$LOCALIZE[138]</label>
 					<onfocus>SetProperty(PlayerInfoDialogFocus,10004,Home)</onfocus>
+				</control>
+				<control type="button" id="10005">
+					<height>53</height>
+					<width>270</width>
+					<textwidth>240</textwidth>
+					<align>center</align>
+					<aligny>center</aligny>
+					<font>font12</font>
+					<textcolor>grey2</textcolor>
+					<focusedcolor>white</focusedcolor>
+					<scroll>true</scroll>
+					<texturefocus border="5">HomeSubFO.png</texturefocus>
+					<texturenofocus colordiffuse="B3FFFFFF" border="5">HomeSubNF.png</texturenofocus>
+					<pulseonselect>false</pulseonselect>
+					<label>Advanced/HDR</label>
+					<visible>!String.Contains(Player.Process(amlogic.vs10.mode),SDR)</visible>
+					<visible>String.IsEqual(Player.Process(video.dovi.has.config),1) | String.IsEqual(Player.Process(video.dovi.has.header),1) | String.IsEqual(Player.Process(video.hdr.has.cll),1) | String.IsEqual(Player.Process(video.hdr.has.mdcv),1)</visible>
+					<onfocus>SetProperty(PlayerInfoDialogFocus,10005,Home)</onfocus>
 				</control>
 				<control type="image">
 					<width>53</width>
@@ -101,6 +117,7 @@
 					<texture colordiffuse="B3FFFFFF" border="0,0,0,3" flipy="true">HomeSubEnd.png</texture>
 				</control>
 			</control>
+
 			<control type="grouplist">
 				<description>PVR - Left column</description>
 				<left>50</left>
@@ -157,6 +174,7 @@
 					<shadowcolor>black</shadowcolor>
 				</control>
 			</control>
+
 			<control type="grouplist">
 				<description>PVR - Right column</description>
 				<left>960</left>
@@ -221,6 +239,7 @@
 					<info>PVR.ActStreamProgrSNR</info>
 				</control>
 			</control>
+
 			<control type="grouplist">
 				<description>Player info - Left column</description>
 				<left>50</left>
@@ -300,11 +319,9 @@
 					<visible>Player.HasVideo</visible>
 				</control>
 			</control>
+
 			<control type="grouplist">
-<!-- BOSSANOVA808 Mod - Turn into 3 columns, for CE specific ino			-->
 				<description>Player info - Middle column</description>
-<!--				<left>990</left>-->
-<!-- END  BOSSANOVA808 Mod -->
 				<left>750</left>
 				<top>340r</top>
 				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10002)</visible>
@@ -341,7 +358,7 @@
 					<visible>Player.HasVideo</visible>
 				</control>
 			</control>
-<!-- BOSSANOVA808 Mod - Turn into 3 columns, for CE specific ino			-->
+
 			<control type="grouplist">
 				<visible>System.HasAddon(service.coreelec.settings)</visible>
 				<description>Player info - Left column</description>
@@ -383,7 +400,7 @@
 			</control>
 			
 			<control type="grouplist">
-				<description>Media info - Left column</description>
+				<description>Media info - Video column</description>
 				<left>50</left>
 				<top>340r</top>
 				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10003)</visible>
@@ -436,9 +453,10 @@
 					<visible>!String.IsEmpty(VideoPlayer.VideoBitrate)</visible>
 				</control>
 			</control>
+
 			<control type="grouplist">
-				<description>Media info - Right column</description>
-				<left>990</left>
+				<description>Media info - Audio column</description>
+				<left>750</left>
 				<top>340r</top>
 				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10003)</visible>
 				<control type="label">
@@ -482,6 +500,54 @@
 					<visible>!String.IsEmpty(VideoPlayer.AudioLanguage)</visible>
 				</control>
 			</control>
+
+			<control type="grouplist">
+				<description>Media info - Subtitle column</description>
+				<left>1300</left>
+				<top>340r</top>
+				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10003)</visible>
+				<control type="label">
+					<description>Header</description>
+					<width>880</width>
+					<height>38</height>
+					<label>$LOCALIZE[287]</label>
+					<font>font13_title</font>
+					<textcolor>blue</textcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Language: [/COLOR]$INFO[VideoPlayer.SubtitlesLanguage]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+					<visible>VideoPlayer.HasSubtitles</visible>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Active Stream: [/COLOR]$INFO[VideoPlayer.SubtitleLanguage]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+					<visible>!String.IsEmpty(VideoPlayer.SubtitleLanguage)</visible>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Subtitle Delay: [/COLOR]$INFO[Player.SubtitleDelay,, ms]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+					<visible>VideoPlayer.HasSubtitles</visible>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Subtitles Status: [/COLOR]None Active</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+					<visible>!VideoPlayer.HasSubtitles</visible>
+				</control>
+			</control>
+
 			<control type="grouplist">
 				<description>System info</description>
 				<left>50</left>
@@ -550,6 +616,124 @@
 					<info>System.CpuUsage</info>
 				</control>
 			</control>
+
+			<control type="grouplist">
+				<description>Dolby Vision Engine Stats</description>
+				<left>50</left>
+				<top>340r</top>
+				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10005)</visible>
+				<control type="label">
+					<description>Header</description>
+					<width>880</width>
+					<height>38</height>
+					<label>Dolby Vision Engine</label>
+					<font>font13_title</font>
+					<textcolor>blue</textcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]DV Version: [/COLOR]$INFO[Player.Process(video.dovi.version.major)].$INFO[Player.Process(video.dovi.version.minor)]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+					<visible>!String.IsEmpty(Player.Process(video.dovi.version.major))</visible>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Active Mode: [/COLOR]$VAR[DVProfileExtVar]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Source Profile: [/COLOR]$VAR[DVSourceProfileExtVar]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]$VAR[LevelIDVar][/COLOR]$INFO[Player.Process(video.dovi.level)]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+			</control>
+
+			<control type="grouplist">
+				<description>Bitstream Layer Decoding Flags</description>
+				<left>750</left>
+				<top>340r</top>
+				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10005)</visible>
+				<control type="label">
+					<description>Header</description>
+					<width>880</width>
+					<height>38</height>
+					<label>Bitstream Architecture</label>
+					<font>font13_title</font>
+					<textcolor>blue</textcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]RPU Present: [/COLOR]$VAR[RPUPresentVar]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Base Layer (BL): [/COLOR]$VAR[BLPresentVar]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Enhancement (EL): [/COLOR]$VAR[ELPresentVar] ($VAR[DVELVar])</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]Source EL: [/COLOR]$VAR[ELSourcePresentVar] ($VAR[DVSourceELVar])</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+			</control>
+
+			<control type="grouplist">
+				<description>Mastering and Color Management</description>
+				<left>1300</left>
+				<top>340r</top>
+				<visible>String.IsEqual(Window(Home).Property(PlayerInfoDialogFocus),10005)</visible>
+				<control type="label">
+					<description>Header</description>
+					<width>880</width>
+					<height>38</height>
+					<label>Color Management</label>
+					<font>font13_title</font>
+					<textcolor>blue</textcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]CM Version: [/COLOR]$VAR[CMMetadataVar]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="label">
+					<width>880</width>
+					<height>38</height>
+					<label>[COLOR grey2]VS10 Mode: [/COLOR]$INFO[Player.Process(amlogic.vs10.mode)]</label>
+					<font>font12</font>
+					<shadowcolor>black</shadowcolor>
+					<visible>!String.IsEmpty(Player.Process(amlogic.vs10.mode))</visible>
+				</control>
+			</control>
+
 		</control>
 	</controls>
 </window>

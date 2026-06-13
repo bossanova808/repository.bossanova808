@@ -528,6 +528,60 @@
 	</variable>
 	<!--  END BOSSANOVA808 MOD Holiday Backgrounds -->
 	
+	<!--  BOSSANOVA808 MOD - PPI -->
+
+	<variable name="DVProfileExtVar">
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.profile))">Profile $INFO[Player.Process(video.dovi.profile)]</value>
+		<value>Unknown Profile</value>
+	</variable>
+	<variable name="DVSourceProfileExtVar">
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.source.profile))">Profile $INFO[Player.Process(video.dovi.source.profile)]</value>
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.profile))">Profile $INFO[Player.Process(video.dovi.profile)]</value>
+		<value>N/A</value>
+	</variable>
+	<variable name="LevelIDVar">
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.level))">Level: </value>
+		<value>Level: Unknown</value>
+	</variable>
+	<variable name="RPUPresentVar">
+		<value condition="String.IsEqual(Player.Process(video.dovi.rpu.present),1)">Yes</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.rpu.present),0)">No</value>
+		<value>Not Available</value>
+	</variable>
+	<variable name="BLPresentVar">
+		<value condition="String.IsEqual(Player.Process(video.dovi.bl.present),1)">Yes</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.bl.present),0)">No</value>
+		<value>Not Available</value>
+	</variable>
+	<variable name="DVELVar">
+		<value condition="String.IsEqual(Player.Process(video.dovi.el.type),mel)">MEL (Minimum)</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.el.type),fel)">FEL (Full)</value>
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.el.type))">$INFO[Player.Process(video.dovi.el.type)]</value>
+		<value>None</value>
+	</variable>
+	<variable name="ELPresentVar">
+		<value condition="String.IsEqual(Player.Process(video.dovi.el.present),1)">Yes</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.el.present),0)">No</value>
+		<value>Not Available</value>
+	</variable>
+	<variable name="DVSourceELVar">
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.source.el.type))">$INFO[Player.Process(video.dovi.source.el.type)]</value>
+		<value>$VAR[DVELVar]</value>
+	</variable>
+	<variable name="ELSourcePresentVar">
+		<value condition="String.IsEqual(Player.Process(video.dovi.source.el.present),1)">Yes</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.source.el.present),0)">No</value>
+		<value>$VAR[ELPresentVar]</value>
+	</variable>
+	<variable name="CMMetadataVar">
+		<value condition="String.IsEqual(Player.Process(video.dovi.cm.version),40) | String.IsEqual(Player.Process(video.dovi.cm.version),4.0)">v4.0 (Advanced)</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.cm.version),29) | String.IsEqual(Player.Process(video.dovi.cm.version),2.9)">v2.9 (Legacy)</value>
+		<value condition="!String.IsEmpty(Player.Process(video.dovi.cm.version))">Version $INFO[Player.Process(video.dovi.cm.version)]</value>
+		<value>No Metadata Detected</value>
+	</variable>
+	
+	<!--  END BOSSANOVA808 MOD - PPI -->
+	
 	<variable name="PlaySpeed">
 		<value condition="String.IsEqual(Player.PlaySpeed,0.80)">0.8X</value>
 		<value condition="String.IsEqual(Player.PlaySpeed,0.90)">0.9X</value>
