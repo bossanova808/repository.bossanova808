@@ -1,3 +1,6 @@
+v5.0.925
+- Sync with upstream, add latest p3i PPI
+
 v5.0.924
 - Add latest p3i PPI    
 

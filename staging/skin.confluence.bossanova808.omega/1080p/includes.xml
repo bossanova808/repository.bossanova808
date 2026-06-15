@@ -2403,7 +2403,7 @@
 		<value condition="String.IsEqual(Player.Process(video.color.range),tv)">Limited</value>
 		<value condition="String.IsEqual(Player.Process(video.color.range),pc)">Full</value>
 		<value condition="String.IsEqual(Player.Process(video.color.range),unknown)">[COLOR dimgrey]---[/COLOR]</value>
-		<value>[COLOR dimgrey]---[/COLOR]</value>
+		<value condition="!String.IsEmpty(Player.Process(video.color.range))">$INFO[Player.Process(video.color.range)]</value>
 	</variable>
 	<variable name="ColorPrimariesVar">
 		<value condition="String.IsEqual(Player.Process(video.color.primaries),bt2020)">BT.2020</value>
@@ -2413,8 +2413,7 @@
 		<value condition="String.IsEqual(Player.Process(video.color.primaries),smpte170m)">SMPTE 170M</value>
 		<value condition="String.IsEqual(Player.Process(video.color.primaries),unknown) + Integer.IsEqual(Player.Process(video.dovi.profile),5)">IPTPQc2</value>
 		<value condition="String.IsEqual(Player.Process(video.color.primaries),unknown)">[COLOR dimgrey]---[/COLOR]</value>
-		<value>[UPPERCASE]$INFO[Player.Process(video.color.primaries)][/UPPERCASE]</value>
-		<value>[COLOR dimgrey]---[/COLOR]</value>
+		<value condition="!String.IsEmpty(Player.Process(video.color.primaries))">[UPPERCASE]$INFO[Player.Process(video.color.primaries)][/UPPERCASE]</value>
 	</variable>
 	<variable name="VideoHWDecoder">
 		<value condition="Player.Process(videohwdecoder)">HW</value>
