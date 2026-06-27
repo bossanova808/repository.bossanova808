@@ -29,7 +29,7 @@
         </extension>
     </addon>
     
-    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.8" provider-name="bossanova808">
+    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.9" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -50,8 +50,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum />
             <email />
-            <news>v0.0.8
-    — Fixes off by default, add fix to brute force remove all TV show ratings from Kodi's database.
+            <news>v0.0.9
+    - Tidy up language & settings            
             </news>
             <assets>
                 <icon>resources/icon.png</icon>

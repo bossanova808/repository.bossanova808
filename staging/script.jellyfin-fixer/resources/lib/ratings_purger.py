@@ -67,7 +67,7 @@ def purge_tv_ratings():
             conn.commit()
             Logger.info(f"Purged {cleared_rows} database records. Refreshing interface view.")
             xbmc.executebuiltin("Container.Refresh")
-            Notify.info(f"Purged {cleared_rows} TV/Episode ratings.")
+            Notify.info(f"Purged {cleared_rows} ratings.")
         else:
             Logger.info("No ratings found, therefore nothing purged.")
     finally:
