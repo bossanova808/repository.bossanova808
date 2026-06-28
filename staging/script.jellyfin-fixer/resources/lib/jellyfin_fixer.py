@@ -28,7 +28,7 @@ def run():
         # Wire settings updates to also trigger a real-time database clean evaluation
         def updated_settings_callback():
             Store.load_config_from_settings()
-            if Store.clear_tv_ratings:
+            if Store.clear_ratings:
                 purge_tv_ratings()
 
         kodi_monitor.onSettingsChanged = updated_settings_callback

@@ -11,7 +11,7 @@ class Store:
     enable_resume_fix = True
     jumpback_delta = 7
     jumpback = 7
-    clear_tv_ratings = False
+    clear_ratings = False
 
     def __init__(self):
         """
@@ -46,5 +46,5 @@ class Store:
             Logger.info(f"Jump back delta set to {Store.jumpback_delta}")
             Logger.info(f"Jump back at resume seconds set to {Store.jumpback}")
 
-        Store.clear_tv_ratings = get_setting_as_bool("clear_tv_ratings")
-        Logger.info(f"Purge TV/Episode ratings: {Store.clear_tv_ratings}")
+        Store.clear_ratings = get_setting_as_bool("clear_tv_ratings")
+        Logger.info(f"Purge TV/Episode ratings: {Store.clear_ratings}")

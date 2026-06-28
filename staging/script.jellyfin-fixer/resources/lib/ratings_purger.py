@@ -38,7 +38,7 @@ def execute_safely(cur, query):
 
 def purge_tv_ratings():
     """Wipe all TV show, season, and episode ratings out of the current profile's database."""
-    if not Store.clear_tv_ratings:
+    if not Store.clear_ratings:
         return
 
     db_path = find_profile_video_db()
@@ -67,7 +67,7 @@ def purge_tv_ratings():
             conn.commit()
             Logger.info(f"Purged {cleared_rows} database records. Refreshing interface view.")
             xbmc.executebuiltin("Container.Refresh")
-            Notify.info(f"Purged {cleared_rows} ratings.")
+            # Notify.info(f"Purged {cleared_rows} ratings.")
         else:
             Logger.info("No ratings found, therefore nothing purged.")
     finally:
@@ -76,5 +76,5 @@ def purge_tv_ratings():
 
 def handle_jellyfin_sync_purge():
     """Callback execution entry point intended to fire asynchronously."""
-    if Store.clear_tv_ratings:
+    if Store.clear_ratings:
         threading.Thread(target=purge_tv_ratings, name="JellyfinFixerPurgeWorker", daemon=True).start()

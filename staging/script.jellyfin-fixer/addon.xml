@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.0.9" provider-name="bossanova808">
+<addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.1.0" provider-name="bossanova808">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -20,8 +20,8 @@ See https://github.com/bossanova808/repository.bossanova808/tree/main/staging/sc
         <source>https://github.com/bossanova808/repository.bossanova808/</source>
         <forum />
         <email />
-        <news>v0.0.9
-- Tidy up language & settings            
+        <news>v0.1.0
+- Suppress GUI notifications when ratings are removed                    
         </news>
         <assets>
             <icon>resources/icon.png</icon>

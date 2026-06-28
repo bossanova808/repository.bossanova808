@@ -8,8 +8,6 @@
                     <default>false</default>
                     <control type="toggle"/>
                 </setting>
-<!--            </group>-->
-<!--            <group id="11" label="32007">-->
                 <setting id="jumpback_delta" type="integer" label="32008" help="">
                     <level>0</level>
                     <default>7</default>

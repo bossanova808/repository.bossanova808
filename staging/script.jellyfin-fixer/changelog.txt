@@ -1,3 +1,6 @@
+v0.1.0
+- Suppress GUI notifications when ratings are removed
+
 v0.0.9
 - Tidy up language & settings 
 
