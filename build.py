@@ -55,7 +55,8 @@ def main():
         ADDON_FOLDER_REPOSITORY_DOWNLOADS = os.path.join(REPOSITORY_DOWNLOADS_DIR, addon)
 
         # Read the file, but skip the <?xml ...etc line
-        addon_xml_lines = open(f"{ADDON_FOLDER_STAGING}/addon.xml", 'r', encoding="utf-8").readlines()[1:]
+        with open(f"{ADDON_FOLDER_STAGING}/addon.xml", 'r', encoding="utf-8") as f:
+            addon_xml_lines = f.readlines()[1:]
         # console.log(addon_xml_lines)
         addons_xml += addon_xml_lines
         addons_xml.append("\n")
@@ -109,7 +110,12 @@ def main():
             with open(DIRHASH_FILE, 'w', encoding="utf-8") as f:
                 f.write(DIRHASH_CALCULATED)
 
-            list_of_zips = glob.glob(f"{ADDON_FOLDER_REPOSITORY_DOWNLOADS}/**/*.zip", recursive=True)
+            # Sort oldest-to-newest by modification time - glob's order is not guaranteed,
+            # and version strings (e.g. "5.0.9" vs "5.0.10") don't sort correctly as text.
+            list_of_zips = sorted(
+                glob.glob(f"{ADDON_FOLDER_REPOSITORY_DOWNLOADS}/*.zip"),
+                key=os.path.getmtime,
+            )
             if len(list_of_zips) > 2:
                 zips_to_delete = list_of_zips[0:-2]
                 console.log(f"Deleting release zips prior to previous version:")
@@ -121,7 +127,7 @@ def main():
 
     if changes_detected:
         # write out the addons.xml and addons.xml.md5 files
-        with open(f"{STAGING_DIR}/addons.xml", 'w', encoding="utf-8") as f:
+        with open(f"{STAGING_DIR}/addons.xml", 'w', encoding="utf-8", newline='\n') as f:
             f.write('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n')
             f.write('<addons>\n\n')
             for line in addons_xml:
@@ -130,8 +136,9 @@ def main():
         console.log(f"Updated {STAGING_DIR}/addons.xml")
 
         # calculate & write the md5 file
-        md5 = hashlib.md5(open(f"{STAGING_DIR}/addons.xml", "r", encoding="utf-8").read().encode("utf-8")).hexdigest()
-        with open(f"{STAGING_DIR}/addons.xml.md5", 'w', encoding="utf-8") as f:
+        with open(f"{STAGING_DIR}/addons.xml", "r", encoding="utf-8") as f:
+            md5 = hashlib.md5(f.read().encode("utf-8")).hexdigest()
+        with open(f"{STAGING_DIR}/addons.xml.md5", 'w', encoding="utf-8", newline='\n') as f:
             f.write(md5 + "\n")
         console.log(f"Updated {STAGING_DIR}/addons.xml.md5")
     else:

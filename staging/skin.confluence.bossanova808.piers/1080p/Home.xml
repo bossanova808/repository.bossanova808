@@ -1190,6 +1190,7 @@
 					<top>0</top>
 					<width>60</width>
 					<height>60</height>
+					<enable>Integer.IsGreater(System.ProfileCount,1)</enable>
 					<label>1036</label>
 					<font />
 <!-- Traditional profile switching - log off current user & return to log in screen -->

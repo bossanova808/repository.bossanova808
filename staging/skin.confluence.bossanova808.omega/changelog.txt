@@ -1,3 +1,6 @@
+v5.0.926
+- Fix home screen focus bug: with only one profile (no profile switching in use), moving down to the footer row would focus the hidden profile-switch button instead of the power button
+
 v5.0.925
 - Sync with upstream, add latest p3i PPI
 
