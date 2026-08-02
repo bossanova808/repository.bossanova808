@@ -62,26 +62,26 @@ class Store:
         #  (skin var in the addon id must match the name of the skin-files subfolder!)
         #  e.g. amber or aeon.nox.silvo etc.
 
-        if 'amber' in Store.current_skin_path:
+        if 'amber' in Store.current_skin:
             Logger.info('Amber in skin folder name -> skin supported.')
             skin = 'amber'
             destination_skin_xml_folder = '1080i'
-        if 'estuary' in Store.current_skin_path:
+        if 'estuary' in Store.current_skin:
             Logger.info('Estuary in skin folder name -> skin supported.')
             skin = 'estuary'
             destination_skin_xml_folder = 'xml'
         # Plextuary is just Estuary, really...treat it as such
-        if 'plextuary' in Store.current_skin_path:
+        if 'plextuary' in Store.current_skin:
             Logger.info('Plextuary in skin folder name -> skin supported (as Estuary).')
             skin = 'estuary'
             destination_skin_xml_folder = 'xml'
-        if 'estouchy' in Store.current_skin_path:
+        if 'estouchy' in Store.current_skin:
             Logger.info('Estouchy in skin folder name -> skin supported.')
             skin = 'estouchy'
             destination_skin_xml_folder = 'xml'
         # Note Confluence changed from 720 -> 1080 with Omega, so handle that here
         # and below when working out the destination folder
-        if 'confluence' in Store.current_skin_path:
+        if 'confluence' in Store.current_skin:
             Logger.info('confluence in skin folder name -> skin supported.')
             skin = 'confluence'
             # Kodi >= Omega, when Confluence became 1080p...
@@ -92,23 +92,23 @@ class Store:
                 destination_skin_xml_folder = '720p'
                 skin_specific_xml_source_folder = os.path.join(CWD, 'resources', 'skin-files', skin, '720p')
         # Confluence Zeitgeist
-        if 'aczg' in Store.current_skin_path:
+        if 'aczg' in Store.current_skin:
             Logger.info('Confluence Zeitgeist (aczg) in skin folder name -> skin supported.')
             skin = 'aczg'
             destination_skin_xml_folder = 'xml'
-        if 'xonfluence' in Store.current_skin_path:
+        if 'xonfluence' in Store.current_skin:
             Logger.info('xonfluence in skin folder name -> skin supported.')
             skin = 'xonfluence'
             destination_skin_xml_folder = 'xml'
-        if 'aeon.nox' in Store.current_skin_path:
+        if 'aeon.nox' in Store.current_skin:
             Logger.info('aeon.nox in skin folder name -> skin supported.')
             skin = 'aeon'
             destination_skin_xml_folder = '16x9'
-        if 'aeon.tajo' in Store.current_skin_path:
+        if 'aeon.tajo' in Store.current_skin:
             Logger.info('aeon.tajo in skin folder name -> skin supported.')
             skin = 'aeon'
             destination_skin_xml_folder = '1080i'
-        if 'skin.osmc' in Store.current_skin_path:
+        if 'skin.osmc' in Store.current_skin:
             Logger.info('osmc in skin folder name -> skin supported.')
             skin = 'osmc'
             destination_skin_xml_folder = 'xml'

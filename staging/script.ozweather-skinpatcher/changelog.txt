@@ -1,134 +1,142 @@
-v0.5.9
+v0.5.10 (2026-08-02)
+- Fix malformed default background opacity value
+- Fix restore not sticking - could be silently undone by the next auto-patch run
+- Fix crash if OzWeather isn't installed/enabled when patching
+- Manually running the patcher on a bossanova808 skin no longer touches its files (matches auto-patch behaviour)
+- Escape user-configured colours before writing them into skin XML
+- Tighten skin detection & make the auto-patch delay respond promptly to Kodi shutting down
+
+v0.5.9 (2026-05-15)
 - Improve logging and threading
 
-v0.5.8
+v0.5.8 (2026-04-27)
 - Also auto patch if Skin Patcher itself is updated  
 
-v0.5.7
+v0.5.7 (2026-04-27)
 - Fix for report: https://forum.kodi.tv/showthread.php?tid=116905&pid=3282199#pid3282199 
 
-v0.5.6
+v0.5.6 (2026-03-16)
 - Tweaks for new labels in OzWeather v2.1.7 
 
-v0.5.5
+v0.5.5 (2026-02-22)
 - Make sure OzWeather extended features is set to on if they're using the patcher as otherwise the magic won't magic
 
-v0.5.4
+v0.5.4 (2026-02-22)
 - Remove not needed Confluence include from non Confluence style skins
 
-v0.5.3
+v0.5.3 (2025-11-06)
 - Fix clobbering of min/max - thanks @benyamin-codez
 - https://github.com/bossanova808/repository.bossanova808/issues/23
 
-v0.5.2
+v0.5.2 (2025-10-23)
 - Be more conservative with properties (Weather.Data is Piers only!) 
 
-v0.5.1
+v0.5.1 (2025-10-22)
 - Also fix the VideoFullScreen files to work with latest OzWeather
 
-v0.5.0
+v0.5.0 (2025-10-19)
 - Also patch if skin has not been patched for current version of OzWeather
 
-v0.4.9
+v0.4.9 (2025-10-17)
 - Add support for Plextuary
 
-v0.4.8
+v0.4.8 (2025-10-11)
 - Skip auto patching bossanova808 skin as patch already included
 
-v0.4.7
+v0.4.7 (2025-10-09)
 - Add auto-patching and use common code v1.0.2
 
-v0.4.5
+v0.4.5 (2025-10-06)
 - Add auto-patching
 
-v0.4.4
+v0.4.4 (2025-09-27)
 - Changes for OzWeather 2.1.6+            
 
-v0.4.3
+v0.4.3 (2025-06-16)
 - Fix colouring of BOM now/later info
 
-v0.4.2
+v0.4.2 (2024-10-29)
 - Fix bug for OSMC users using other skins
 
-v0.4.1
+v0.4.1 (2024-10-28)
 - Tidy ups, tweak logging
 
-v0.4.0
+v0.4.0 (2024-10-15)
 - Use common module
 
-v0.3.9
+v0.3.9 (2024-08-18)
 Fix Estouchy for Omega
 
-v0.3.8
+v0.3.8 (2024-05-09)
 Fix Confluence Blade Menu
 
-v0.3.7 
+v0.3.7 (2024-05-08)
 Tweaks to Weather Buttons
 
-v0.3.6 
+v0.3.6 (2024-05-06)
 Tidy up some weather button stuff
 
-v0.3.5
+v0.3.5 (2024-04-27)
 Makes sure weather properties come from the weather window, tidy ups
 
-v0.3.4
+v0.3.4 (2024-04-21)
 Version bump for new build system.
 
-v0.3.3
+v0.3.3 (2024-04-19)
 Updates for Omega (Confluence 1080p, support A Confluence Zeitgeist)
 Update common.py
 
-v0.3.1
+v0.3.1 (2023-12-14)
 Add support for OSMC and numerous visual tweaks
 Make the intro text first run only
 
-v0.3.0
+v0.3.0 (2023-05-31)
 Make sure the ABC weather video link is always current just before playback
 
-0.2.9
+0.2.9 (2022-01-26)
 Remove 'Rain' from 'Rain Chance' as some BOM short forecasts are not as short as short implies.
 
-v0.2.8
+v0.2.8 (2021-07-17)
 Slightly more logging
 
-v0.2.7
+v0.2.7 (2021-06-22)
 Fix custom backgrounds in Amber, hopefully
 
-v0.2.5
+v0.2.5 (2021-06-20)
 Add support for user choice of colours, and for aeon/amber background image, background opacity
 
-v0.2.3
+v0.2.3 (2021-06-18)
 Tweaks, add support for Xonfluence, and aeon skins
 
-v0.1.9
+v0.1.9 (2021-06-18)
 Tweaks based on feedback
 
-v0.1.7
+v0.1.7 (2021-06-18)
 New buttons for Estuary
 
-v0.1.6
+v0.1.6 (2021-06-17)
 Change approach make VideoFullScreen.xml non optional, and copy all files from the particular skin folder
 
-v0.1.5
+v0.1.5 (2021-06-17)
 Skin file tweaks for v2.0.1 of OzWeather
 
-v0.1.4
+v0.1.4 (2021-06-12)
 Add support for Amber
 
-v0.1.3
+v0.1.3 (2021-06-12)
 Support for imminent OzWeather 2 release
 
-v0.1.0
+v0.1.0 (2021-05-28)
 Prep for OzWeather BOM API release
 
-v0.0.7
+v0.0.7 (2021-05-03)
 Fix Estuary support (was using Estouchy file, oops)
 
-v0.0.6
+v0.0.6 (2021-03-08)
 Improve error logging and notifications
 
-v0.0.5
+v0.0.5 (2021-03-02)
 Add support for estouchy (nb skin folder must be writable, so e.g. Android devices probably need to be rooted...)
 
-v0.0.2
+v0.0.2 (2021-02-22)
 Initial release

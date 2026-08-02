@@ -62,7 +62,7 @@
 				</setting>
                 <setting id="background_opacity" type="string" label="32007" help="">
                     <level>0</level>
-                    <default>88FFFFFFF</default>
+                    <default>88FFFFFF</default>
                     <dependencies>
 						<dependency type="enable">
 							<condition operator="is" setting="background_visible_bool">true</condition>

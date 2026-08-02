@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import ntpath
+from xml.sax.saxutils import escape
 import xbmc
 import xbmcaddon
 import xbmcgui
@@ -35,7 +36,7 @@ def _check_skin_is_supported() -> bool:
     """Return True iff the current skin is a supported skin."""
     skin_supported = False
     for skin in Store.supported_skins:
-        if skin in Store.current_skin_path:
+        if skin in Store.current_skin:
             skin_supported = True
 
     if not skin_supported:
@@ -65,7 +66,10 @@ def delayed_autopatch():
     except (TypeError, ValueError):
         delay_seconds = 40
     Logger.info(f"Will automatically patch skin for OzWeather support after a delay of {delay_seconds} seconds from now (to allow Kodi time to update addons)")
-    xbmc.sleep(delay_seconds * 1000)
+    if xbmc.Monitor().waitForAbort(delay_seconds):
+        # Kodi is shutting down - bail out cleanly rather than doing patching work now
+        Logger.info("Kodi is shutting down during the delay - aborting autopatch")
+        return
 
     ##########################################################################################################################
     # BELOW HERE IS EXECUTED _AFTER_ THE DELAY
@@ -194,6 +198,10 @@ def patch():
 
     # Need to use the correct paths for radar, they changed with OzWeather 2.1.6
     version = get_addon_version("weather.ozweather")
+    if not version:
+        Logger.error("Could not determine OzWeather version - is weather.ozweather installed and enabled?")
+        Notify.error('Exiting - could not determine OzWeather version, is it installed & enabled?')
+        sys.exit(1)
     if version_tuple(version) <= version_tuple('2.1.5'):
         # Logic for version 2.1.5 and below
         Logger.info("OzWeather is an older version, <= 2.1.5 - use skin file with old radar paths")
@@ -220,14 +228,14 @@ def patch():
             with xbmcvfs.File(file, 'r') as source_file:
                 new_data = source_file.read()
 
-            # Patch in the user's choices
-            new_data = new_data.replace('_colour_text_default_', ADDON.getSetting('colour_text_default'))
-            new_data = new_data.replace('_colour_text_dim_', ADDON.getSetting('colour_text_dim'))
-            new_data = new_data.replace('_colour_text_dimmer_', ADDON.getSetting('colour_text_dimmer'))
-            new_data = new_data.replace('_colour_text_high_temp_', ADDON.getSetting('colour_text_high_temp'))
-            new_data = new_data.replace('_colour_text_low_temp_', ADDON.getSetting('colour_text_low_temp'))
+            # Patch in the user's choices (escaped, since these are free-text settings substituted into XML)
+            new_data = new_data.replace('_colour_text_default_', escape(ADDON.getSetting('colour_text_default')))
+            new_data = new_data.replace('_colour_text_dim_', escape(ADDON.getSetting('colour_text_dim')))
+            new_data = new_data.replace('_colour_text_dimmer_', escape(ADDON.getSetting('colour_text_dimmer')))
+            new_data = new_data.replace('_colour_text_high_temp_', escape(ADDON.getSetting('colour_text_high_temp')))
+            new_data = new_data.replace('_colour_text_low_temp_', escape(ADDON.getSetting('colour_text_low_temp')))
             new_data = new_data.replace('_background_visible_', 'yes' if ADDON.getSettingBool('background_visible_bool') else 'no')
-            new_data = new_data.replace('_background_opacity_', ADDON.getSetting('background_opacity'))
+            new_data = new_data.replace('_background_opacity_', escape(ADDON.getSetting('background_opacity')))
 
             file_to_write = os.path.join(Store.xml_destination_folder, ntpath.basename(file))
             Logger.info(f"Writing patched file to: {file_to_write}")
@@ -275,6 +283,22 @@ def restore():
         else:
             Logger.error('Could not find VideoFullScreen.xml.original file, did not restore')
 
+        # Clear the patch version records, so they don't lie about the skin still being patched -
+        # and turn off auto-patch, so the next Kodi start doesn't just silently re-apply the
+        # patch straight back over the restore the user just asked for
+        Logger.info("Clearing patch version records and disabling auto-patch, since the skin has been restored")
+        for record_filename in (f"{Store.current_skin}.version", "ozweather.version", "skinpatcher.version"):
+            record_path = os.path.join(PROFILE, record_filename)
+            try:
+                if os.path.exists(record_path):
+                    os.remove(record_path)
+            except OSError as e:
+                Logger.warning(f"Could not remove patch record {record_filename}")
+                Logger.warning(e)
+        if get_setting_as_bool('autopatch'):
+            ADDON.setSetting('autopatch', 'false')
+            Notify.info('Auto-patch turned off, so your restore is not immediately re-patched - re-enable it in settings if you want auto-patching again.', 10000)
+
     except Exception as inst:
         Logger.error(inst)
         Notify.error('Exception when restoring skin files - check logs!')
@@ -291,6 +315,12 @@ def run():
     if not skin_supported:
         Logger.error("ERROR - current skin is not a supported skin, so exiting")
         sys.exit(1)
+
+    # My friends & family skin includes the patches already - nothing to do
+    if 'bossanova808' in Store.current_skin:
+        Logger.info("Bossanova808 skin detected - it already includes OzWeather patches built-in, nothing to do")
+        Notify.info('Bossanova808 skin already includes OzWeather patches - nothing to do')
+        return
 
     dialog = xbmcgui.Dialog()
 
