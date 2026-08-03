@@ -9,43 +9,126 @@ from bossanova808.logger import Logger
 from bossanova808.notify import Notify
 
 
+# How long to wait between (re)connection attempts - both at startup (in case the device
+# hasn't finished USB-enumerating yet) and for as long as Kodi runs afterwards (in case it
+# gets plugged in later, or is disconnected and reconnected mid-session).
+RETRY_DELAY_SECONDS = 5
+
+# How often (in main loop iterations, ~0.33s each) to re-check the brightness/LED
+# settings in case the user changed them while the service is running.
+SETTINGS_RECHECK_EVERY_N_LOOPS = 30
+
+# How long to show the (fairly long) connection-related notifications for
+NOTIFICATION_DURATION_MS = 8000
+
+
+def try_connect(architecture):
+    """
+    Attempt to connect to and fully set up the display.
+    :return: (True, None) on success, or (False, error message) on failure
+    """
+    try:
+        YoctoMaxiDisplay.register_yocto_API(architecture)
+        YoctoMaxiDisplay.register_display_and_module()
+        YoctoMaxiDisplay.describe_display()
+        YoctoMaxiDisplay.set_brightness(ADDON.getSetting('brightness'))
+        YoctoMaxiDisplay.set_led(ADDON.getSettingBool('led'))
+        YoctoMaxiDisplay.initialise_layers()
+        return True, None
+    except Exception as e:
+        Logger.error("YoctoDisplay connection attempt failed")
+        Logger.error(e)
+        YoctoMaxiDisplay.free_api()
+        return False, str(e)
+
+
 def run(_args):
 
     Logger.start()
 
     YoctoMaxiDisplay()
+
     architecture = None
-    if platform.system() != 'Windows':
+    machine = platform.machine().lower()
+    # The bundled Yocto library auto-detects the right binary to load, except it can't
+    # reliably tell hard-float (armhf) apart from soft-float (armel) on 32-bit Linux ARM,
+    # so only override architecture selection in that specific case.
+    if platform.system() == 'Linux' and machine.startswith('arm') and machine != 'aarch64':
         architecture = 'armhf'
 
-    # Fail gracefully if the screen is not available
-    try:
-        YoctoMaxiDisplay.register_yocto_API(architecture)
-        YoctoMaxiDisplay.register_display_and_module()
-        YoctoMaxiDisplay.describe_display()
-    except:
-        Notify.warning("YoctoDisplay connection failed, see logs.")
-        Logger.stop()
-        return
-
-    # Set up the display
-    YoctoMaxiDisplay.set_brightness(ADDON.getSetting('brightness'))
-    YoctoMaxiDisplay.set_led(ADDON.getSetting('led'))
-    YoctoMaxiDisplay.initialise_layers()
-
     monitor = xbmc.Monitor()
+    notified_disconnected = False
 
-    # Game loop - this loops until Kodi quits...
-    # Run every 1/3rd of a second basically
+    # Outer loop: keeps (re)trying to connect for as long as Kodi is running, so the
+    # display gets picked up whenever it's plugged in - at startup or any time later -
+    # and is retried again if it ever gets disconnected mid-session.
     while not monitor.abortRequested():
 
-        if monitor.waitForAbort(0.33):
-            YoctoMaxiDisplay.clean_up_display()
-            Logger.stop()
-            break
+        connected, error_message = try_connect(architecture)
 
-        # This does all the work...
-        process2ndScreen()
+        if not connected:
+            if not notified_disconnected:
+                Notify.warning(f"YoctoDisplay: {error_message} Will keep retrying - see logs.",
+                                NOTIFICATION_DURATION_MS)
+                notified_disconnected = True
+            # Wait before retrying, but bail out immediately & cleanly if Kodi is shutting down
+            if monitor.waitForAbort(RETRY_DELAY_SECONDS):
+                break
+            continue
+
+        if notified_disconnected:
+            Notify.info("YoctoDisplay connected.")
+            notified_disconnected = False
+
+        # Connected - game loop, displaying data until disconnected or Kodi quits
+        # (or this profile is exited). Runs every 1/3rd of a second basically.
+        loop_count = 0
+        current_brightness_setting = ADDON.getSetting('brightness')
+        current_led_setting = ADDON.getSettingBool('led')
+
+        while not monitor.abortRequested():
+
+            if monitor.waitForAbort(0.33):
+                break
+
+            # Periodically re-check brightness/LED settings, in case the user changed
+            # them while the service is running, and re-apply if they've changed
+            loop_count += 1
+            if loop_count >= SETTINGS_RECHECK_EVERY_N_LOOPS:
+                loop_count = 0
+                try:
+                    new_brightness_setting = ADDON.getSetting('brightness')
+                    if new_brightness_setting != current_brightness_setting:
+                        current_brightness_setting = new_brightness_setting
+                        YoctoMaxiDisplay.set_brightness(current_brightness_setting)
+
+                    new_led_setting = ADDON.getSettingBool('led')
+                    if new_led_setting != current_led_setting:
+                        current_led_setting = new_led_setting
+                        YoctoMaxiDisplay.set_led(current_led_setting)
+                except Exception as e:
+                    Logger.warning("Failed to re-apply changed YoctoDisplay settings")
+                    Logger.warning(e)
+
+            # This does all the work...
+            try:
+                process2ndScreen()
+            except Exception as e:
+                Logger.error("Error updating YoctoDisplay - it may have been disconnected")
+                Logger.error(e)
+                Notify.warning("YoctoDisplay lost connection, will keep trying to reconnect - see logs.",
+                                NOTIFICATION_DURATION_MS)
+                notified_disconnected = True
+                break
+
+        # Clean up whatever was set up, whether Kodi is exiting or we're about to retry
+        try:
+            YoctoMaxiDisplay.clean_up_display()
+        except Exception as e:
+            Logger.warning("Error cleaning up YoctoDisplay")
+            Logger.warning(e)
+
+    Logger.stop()
 
 
 # The main processing loop for the 2nd screen

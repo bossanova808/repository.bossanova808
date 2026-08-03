@@ -50,9 +50,12 @@ class YoctoMaxiDisplay:
 
         # Set up the API to use local USB devices
         if YAPI.RegisterHub("usb", errmsg) != YAPI.SUCCESS:
-            Logger.error("Could not init Yocto API: " + str(errmsg))
+            message = "Could not init Yocto API: " + str(errmsg)
+            Logger.error(message)
             if unit_testing:
-                sys.exit("Could not init Yocto API")
+                sys.exit(message)
+            # Bubble this up so the caller can retry/notify...
+            raise RuntimeError(message)
 
     @staticmethod
     def register_display_and_module():
@@ -60,18 +63,35 @@ class YoctoMaxiDisplay:
         Logger.info("register_display_and_module")
 
         YoctoMaxiDisplay.display = YDisplay.FirstDisplay()
-        if not YoctoMaxiDisplay.display and unit_testing:
-            sys.exit("Couldn't find the display")
-
         if not YoctoMaxiDisplay.display:
-            # Bubble this up as we'll send a UI warning notification...
-            raise
+            message = "Couldn't find the Yocto display - is it plugged in and powered?"
+            if unit_testing:
+                sys.exit(message)
+            # Bubble this up so the caller can retry/notify...
+            raise RuntimeError(message)
 
         YoctoMaxiDisplay.module = YoctoMaxiDisplay.display.get_module()
-        if not YoctoMaxiDisplay.module and unit_testing:
-            sys.exit("Couldn't find the module")
+        if not YoctoMaxiDisplay.module:
+            message = "Couldn't find the Yocto display's module"
+            if unit_testing:
+                sys.exit(message)
+            raise RuntimeError(message)
 
         Logger.info(f'Registered display {YoctoMaxiDisplay.display} and module {YoctoMaxiDisplay.module}')
+
+    @staticmethod
+    def free_api():
+        """
+        Release the Yocto API and any underlying USB/hub resources.
+        Safe to call even if registration never succeeded (e.g. between retries).
+        :return: None
+        """
+        Logger.info("free_api")
+        try:
+            YAPI.FreeAPI()
+        except Exception as e:
+            Logger.warning("Error freeing Yocto API (it may not have been registered)")
+            Logger.warning(e)
 
     @staticmethod
     def describe_display():
@@ -101,7 +121,7 @@ class YoctoMaxiDisplay:
 
         Logger.info(f'set_led {on}')
 
-        if on != 'false':
+        if on:
             YoctoMaxiDisplay.module.set_luminosity(50)
         else:
             YoctoMaxiDisplay.module.set_luminosity(0)
@@ -133,8 +153,15 @@ class YoctoMaxiDisplay:
         # Start clean
         YoctoMaxiDisplay.display.resetAll()
 
-        # Which way is up?
-        YoctoMaxiDisplay.display.set_orientation(YDisplay.ORIENTATION_RIGHT)
+        # Which way is up? If the orientation saved in the device's flash (i.e. its
+        # boot-time default, which is what the Yoctopuce boot logo itself uses) doesn't
+        # already match, fix it and save it - a one-off correction, not done every startup,
+        # since flash writes are limited (~100,000 cycles) and this is a device setting,
+        # not something that needs to be re-applied every time we connect.
+        if YoctoMaxiDisplay.display.get_orientation() != YDisplay.ORIENTATION_RIGHT:
+            Logger.info("Saved display orientation is not correct - fixing and saving to flash")
+            YoctoMaxiDisplay.display.set_orientation(YDisplay.ORIENTATION_RIGHT)
+            YoctoMaxiDisplay.module.saveToFlash()
         # First get the layers
         YoctoMaxiDisplay.displayLayer = YoctoMaxiDisplay.display.get_displayLayer(0)
         YoctoMaxiDisplay.drawingLayer = YoctoMaxiDisplay.display.get_displayLayer(1)
@@ -198,15 +225,25 @@ class YoctoMaxiDisplay:
 
     @staticmethod
     def clean_up_display():
-
+        """
+        Clear the display and release the Yocto API. Safe to call even if the
+        display has already been disconnected, or was never successfully found.
+        :return: None
+        """
         Logger.info("clean_up_display")
 
         if YoctoMaxiDisplay.display:
-            YoctoMaxiDisplay.displayLayer.clear()
-            YoctoMaxiDisplay.drawingLayer.clear()
-            Logger.info("Cleaned up.")
+            try:
+                YoctoMaxiDisplay.displayLayer.clear()
+                YoctoMaxiDisplay.drawingLayer.clear()
+                Logger.info("Cleaned up.")
+            except Exception as e:
+                Logger.warning("Error clearing display during clean up (it may have been disconnected)")
+                Logger.warning(e)
         else:
             Logger.error("Could not clean up - no display found.")
+
+        YoctoMaxiDisplay.free_api()
 
 
 # Unit testing - simple function to cycle through 1 to 4 lines of text...

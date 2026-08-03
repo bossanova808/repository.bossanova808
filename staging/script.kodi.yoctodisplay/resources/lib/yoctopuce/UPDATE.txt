@@ -1,6 +1,6 @@
 
-LAST UPDATE: 2025-09-30
-Using: 2.1.6320
+LAST UPDATE: 2026-08-03
+Using: 2.1.15129
 
 
 Download latest tar.gz archive from: https://pypi.org/project/yoctopuce/#files

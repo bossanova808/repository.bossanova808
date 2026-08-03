@@ -59,7 +59,7 @@
         </extension>
     </addon>
     
-    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.7" provider-name="bossanova808">
+    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.8" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.0"/>
@@ -79,9 +79,14 @@
             <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
             <forum />
             <email />
-            <news>v0.2.7
-    - Fail gracefully if can't connect to a YoctoDisplay
-    - Update Yocto libs
+            <news>v0.2.8
+    - Update vendored Yoctopuce SDK (2.1.6320 to 2.1.15129)
+    - Keep retrying to connect indefinitely - picks up the display whenever it's plugged in, and recovers automatically if disconnected mid-session, instead of giving up after one failed attempt
+    - Notifications now include the actual error, not just "see logs"
+    - Properly release the Yocto API on shutdown/profile switch, and don't crash if the display disappears mid-session
+    - Brightness/LED setting changes now apply live, without needing a restart
+    - Fix display orientation being wrong at boot (including the Yoctopuce boot logo) - self-corrects and saves to the device's flash once, rather than every startup
+    - Narrow the Linux ARM library-selection override (was forcing 'armhf' on any non-Windows platform, not just 32-bit ARM)
             </news>
             <assets>
                 <icon>resources/icon.png</icon>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #*********************************************************************
 #*
-#* $Id: yocto_display.py 63513 2024-11-28 10:50:30Z seb $
+#* $Id: yocto_display.py 74722 2026-06-12 12:57:01Z mvuilleu $
 #*
 #* Implements yFindDisplay(), the high-level API for Display functions
 #*
@@ -57,9 +57,11 @@ class YDisplayLayer(object):
     def __init__(self, parent, layerId):
         self._display = parent
         self._id = int(layerId)
+        #--- (generated code: YDisplayLayer attributes)
         self._cmdbuff = ""
         self._hidden = False
-        #--- (generated code: YDisplayLayer attributes)
+        self._polyPrevX = 0
+        self._polyPrevY = 0
         #--- (end of generated code: YDisplayLayer attributes)
 
     #--- (generated code: YDisplayLayer definitions)
@@ -69,31 +71,49 @@ class YDisplayLayer(object):
         TOP_LEFT, CENTER_LEFT, BASELINE_LEFT, BOTTOM_LEFT, TOP_CENTER, CENTER, BASELINE_CENTER, BOTTOM_CENTER, \
             TOP_DECIMAL, CENTER_DECIMAL, BASELINE_DECIMAL, BOTTOM_DECIMAL, TOP_RIGHT, CENTER_RIGHT, BASELINE_RIGHT, \
             BOTTOM_RIGHT = range(16)
+    NO_INK = -1
+    BG_INK = -2
+    FG_INK = -3
     #--- (end of generated code: YDisplayLayer definitions)
 
+    #--- (generated code: YDisplayLayer implementation)
+    def must_be_flushed(self):
+        return len(self._cmdbuff) > 0
+
+    def resetHiddenFlag(self):
+        self._hidden = False
+        return YAPI.SUCCESS
+
     def flush_now(self):
+        # res
         res = YAPI.SUCCESS
-        if self._cmdbuff != "":
+        if len(self._cmdbuff) > 0:
             res = self._display.sendCommand(self._cmdbuff)
             self._cmdbuff = ""
         return res
 
     def command_push(self, cmd):
+        # res
         res = YAPI.SUCCESS
         if len(self._cmdbuff) + len(cmd) >= 100:
-            res = self.flush_now()
-        if self._cmdbuff == "":
+            # // force flush before, to prevent overflow
+            self.flush_now()
+        if len(self._cmdbuff) == 0:
+            # // always prepend layer ID first
             self._cmdbuff = str(self._id)
         self._cmdbuff = self._cmdbuff + cmd
         return res
 
     def command_flush(self, cmd):
-        res = self.command_push(cmd)
-        if not self._hidden:
-            res = self.flush_now()
-        return res
+        # res
 
-    #--- (generated code: YDisplayLayer implementation)
+        res = self.command_push(cmd)
+        if self._hidden:
+            return res
+        if self._display.isFrozen():
+            return res
+        return self.flush_now()
+
     def reset(self):
         """
         Reverts the layer to its initial state (fully transparent, default settings).
@@ -123,8 +143,11 @@ class YDisplayLayer(object):
 
     def selectColorPen(self, color):
         """
-        Selects the pen color for all subsequent drawing functions,
-        including text drawing. The pen color is provided as an RGB value.
+        Selects the color to be used for all subsequent drawing functions,
+        for filling as well as for line and text drawing.
+        To select a different fill and outline color, use
+        selectFillColor and selectLineColor.
+        The pen color is provided as an RGB value.
         For grayscale or monochrome displays, the value is
         automatically converted to the proper range.
 
@@ -139,7 +162,10 @@ class YDisplayLayer(object):
     def selectGrayPen(self, graylevel):
         """
         Selects the pen gray level for all subsequent drawing functions,
-        including text drawing. The gray level is provided as a number between
+        for filling as well as for line and text drawing.
+        To select a different fill and outline color, use
+        selectFillColor and selectLineColor.
+        The gray level is provided as a number between
         0 (black) and 255 (white, or whichever the lightest color is).
         For monochrome displays (without gray levels), any value
         lower than 128 is rendered as black, and any value equal
@@ -166,23 +192,85 @@ class YDisplayLayer(object):
         """
         return self.command_push("e")
 
-    def setAntialiasingMode(self, mode):
+    def selectFillColor(self, color):
         """
-        Enables or disables anti-aliasing for drawing oblique lines and circles.
-        Anti-aliasing provides a smoother aspect when looked from far enough,
-        but it can add fuzziness when the display is looked from very close.
-        At the end of the day, it is your personal choice.
-        Anti-aliasing is enabled by default on grayscale and color displays,
-        but you can disable it if you prefer. This setting has no effect
-        on monochrome displays.
+        Selects the color to be used for filling rectangular bars,
+        discs and polygons. The color is provided as an RGB value.
+        For grayscale or monochrome displays, the value is
+        automatically converted to the proper range.
+        You can also use the constants FG_INK to use the
+        default drawing colour, BG_INK to use the default
+        background colour, and NO_INK to disable filling.
 
-        @param mode : true to enable anti-aliasing, false to
-                disable it.
+        @param color : the desired drawing color, as a 24-bit RGB value,
+                or one of the constants NO_INK, FG_INK
+                or BG_INK
 
         @return YAPI.SUCCESS if the call succeeds.
 
         On failure, throws an exception or returns a negative error code.
         """
+        # r
+        # g
+        # b
+        if color==-1:
+            return self.command_push("f_")
+        if color==-2:
+            return self.command_push("f-")
+        if color==-3:
+            return self.command_push("f.")
+        r = (((color >> 20)) & (15))
+        g = (((color >> 12)) & (15))
+        b = (((color >> 4)) & (15))
+        return self.command_push("f" + ("%x" % r) + "" + ("%x" % g) + "" + ("%x" % b))
+
+    def selectLineColor(self, color):
+        """
+        Selects the color to be used for drawing the outline of rectangular
+        bars, discs and polygons, as well as for drawing lines and text.
+        The color is provided as an RGB value.
+        For grayscale or monochrome displays, the value is
+        automatically converted to the proper range.
+        You can also use the constants FG_INK to use the
+        default drawing colour, BG_INK to use the default
+        background colour, and NO_INK to disable outline drawing.
+
+        @param color : the desired drawing color, as a 24-bit RGB value,
+                or one of the constants NO_INK, FG_INK
+                or BG_INK
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        # r
+        # g
+        # b
+        if color==-1:
+            return self.command_push("l_")
+        if color==-2:
+            return self.command_push("l-")
+        if color==-3:
+            return self.command_push("l*")
+        r = (((color >> 20)) & (15))
+        g = (((color >> 12)) & (15))
+        b = (((color >> 4)) & (15))
+        return self.command_push("l" + ("%x" % r) + "" + ("%x" % g) + "" + ("%x" % b))
+
+    def selectLineWidth(self, width):
+        """
+        Selects the line width for drawing the outline of rectangular
+        bars, discs and polygons, as well as for drawing lines.
+
+        @param width : the desired line width, in pixels
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        return self.command_push("t" + str(int(width)))
+
+    def setAntialiasingMode(self, mode):
         return self.command_push("a" + ("1" if mode else "0"))
 
     def drawPixel(self, x, y):
@@ -300,10 +388,10 @@ class YDisplayLayer(object):
 
     def drawImage(self, x, y, imagename):
         """
-        Draws a GIF image at the specified position. The GIF image must have been previously
-        uploaded to the device built-in memory. If you experience problems using an image
-        file, check the device logs for any error message such as missing image file or bad
-        image file format.
+        Draws an image previously uploaded to the device filesystem, at the specified position.
+        At present time, GIF images are the only supported image format. If you experience
+        problems using an image file, check the device logs for any error message such as
+        missing image file or bad image file format.
 
         @param x : the distance from left of layer to the left of the image, in pixels
         @param y : the distance from top of layer to the top of the image, in pixels
@@ -340,6 +428,24 @@ class YDisplayLayer(object):
         destname = "layer" + str(int(self._id)) + ":" + str(int(w)) + "," + str(int(bgcol)) + "@" + str(int(x)) + "," + str(int(y))
         return self._display.upload(destname,bitmap)
 
+    def drawGIF(self, x, y, gifimage):
+        """
+        Draws a GIF image provided as a binary buffer at the specified position.
+        If the image drawing must be included in an animation sequence, save it
+        in the device filesystem first and use drawImage instead.
+
+        @param x : the distance from left of layer to the left of the image, in pixels
+        @param y : the distance from top of layer to the top of the image, in pixels
+        @param gifimage : a binary object with the content of a GIF file
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        # destname
+        destname = "layer" + str(int(self._id)) + ":G,-1@" + str(int(x)) + "," + str(int(y))
+        return self._display.upload(destname,gifimage)
+
     def moveTo(self, x, y):
         """
         Moves the drawing pointer of this layer to the specified position.
@@ -367,6 +473,52 @@ class YDisplayLayer(object):
         On failure, throws an exception or returns a negative error code.
         """
         return self.command_flush("-" + str(int(x)) + "," + str(int(y)))
+
+    def polygonStart(self, x, y):
+        """
+        Starts drawing a polygon with the first corner at the specified position.
+
+        @param x : the distance from left of layer, in pixels
+        @param y : the distance from top of layer, in pixels
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        self._polyPrevX = x
+        self._polyPrevY = y
+        return self.command_push("[" + str(int(x)) + "," + str(int(y)))
+
+    def polygonAdd(self, x, y):
+        """
+        Adds a point to the currently open polygon, previously opened using
+        polygonStart.
+
+        @param x : the distance from left of layer to the new point, in pixels
+        @param y : the distance from top of layer to the new point, in pixels
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        # dx
+        # dy
+        dx = x - self._polyPrevX
+        dy = y - self._polyPrevY
+        self._polyPrevX = x
+        self._polyPrevY = y
+        return self.command_flush(";" + str(int(dx)) + "," + str(int(dy)))
+
+    def polygonEnd(self):
+        """
+        Close the currently open polygon, fill its content the fill color currently
+        selected for the layer, and draw its outline using the selected line color.
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        return self.command_flush("]")
 
     def consoleOut(self, text):
         """
@@ -528,10 +680,6 @@ class YDisplayLayer(object):
         """
         return self._display.get_layerHeight()
 
-    def resetHiddenFlag(self):
-        self._hidden = False
-        return YAPI.SUCCESS
-
 #--- (end of generated code: YDisplayLayer implementation)
 
 #--- (generated code: YDisplayLayer functions)
@@ -557,8 +705,14 @@ class YDisplay(YFunction):
     """
     #--- (end of generated code: YDisplay class start)
     #--- (generated code: YDisplay definitions)
+    class DISPLAYSTATE:
+        def __init__(self):
+            pass
+        FAILURE, OFF, POWERING, IDLE, REFRESHING = range(5)
     STARTUPSEQ_INVALID = YAPI.INVALID_STRING
     BRIGHTNESS_INVALID = YAPI.INVALID_UINT
+    AUTOINVERTDELAY_INVALID = YAPI.INVALID_UINT
+    DISPLAYPANEL_INVALID = YAPI.INVALID_STRING
     DISPLAYWIDTH_INVALID = YAPI.INVALID_UINT
     DISPLAYHEIGHT_INVALID = YAPI.INVALID_UINT
     LAYERWIDTH_INVALID = YAPI.INVALID_UINT
@@ -574,8 +728,9 @@ class YDisplay(YFunction):
     ORIENTATION_DOWN = 3
     ORIENTATION_INVALID = -1
     DISPLAYTYPE_MONO = 0
-    DISPLAYTYPE_GRAY = 1
-    DISPLAYTYPE_RGB = 2
+    DISPLAYTYPE_EPAPER_BW = 1
+    DISPLAYTYPE_EPAPER_BWR = 2
+    DISPLAYTYPE_EPAPER_BWRY = 3
     DISPLAYTYPE_INVALID = -1
     #--- (end of generated code: YDisplay definitions)
 
@@ -587,7 +742,9 @@ class YDisplay(YFunction):
         self._enabled = YDisplay.ENABLED_INVALID
         self._startupSeq = YDisplay.STARTUPSEQ_INVALID
         self._brightness = YDisplay.BRIGHTNESS_INVALID
+        self._autoInvertDelay = YDisplay.AUTOINVERTDELAY_INVALID
         self._orientation = YDisplay.ORIENTATION_INVALID
+        self._displayPanel = YDisplay.DISPLAYPANEL_INVALID
         self._displayWidth = YDisplay.DISPLAYWIDTH_INVALID
         self._displayHeight = YDisplay.DISPLAYHEIGHT_INVALID
         self._displayType = YDisplay.DISPLAYTYPE_INVALID
@@ -596,9 +753,10 @@ class YDisplay(YFunction):
         self._layerCount = YDisplay.LAYERCOUNT_INVALID
         self._command = YDisplay.COMMAND_INVALID
         self._allDisplayLayers = []
+        self._frozenUntil = 0
+        self._recording = 0
+        self._sequence = ''
         #--- (end of generated code: YDisplay attributes)
-        self._sequence = ""
-        self._recording = False
 
     #--- (generated code: YDisplay implementation)
     def _parseAttr(self, json_val):
@@ -608,8 +766,12 @@ class YDisplay(YFunction):
             self._startupSeq = json_val.getString("startupSeq")
         if json_val.has("brightness"):
             self._brightness = json_val.getInt("brightness")
+        if json_val.has("autoInvertDelay"):
+            self._autoInvertDelay = json_val.getInt("autoInvertDelay")
         if json_val.has("orientation"):
             self._orientation = json_val.getInt("orientation")
+        if json_val.has("displayPanel"):
+            self._displayPanel = json_val.getString("displayPanel")
         if json_val.has("displayWidth"):
             self._displayWidth = json_val.getInt("displayWidth")
         if json_val.has("displayHeight"):
@@ -716,6 +878,43 @@ class YDisplay(YFunction):
         rest_val = str(newval)
         return self._setAttr("brightness", rest_val)
 
+    def get_autoInvertDelay(self):
+        """
+        Returns the interval between automatic display inversions, or 0 if automatic
+        inversion is disabled. Using the automatic inversion mechanism reduces the
+        burn-in that occurs on OLED screens over long periods when the same content
+        remains displayed on the screen.
+
+        @return an integer corresponding to the interval between automatic display inversions, or 0 if automatic
+                inversion is disabled
+
+        On failure, throws an exception or returns YDisplay.AUTOINVERTDELAY_INVALID.
+        """
+        # res
+        if self._cacheExpiration <= YAPI.GetTickCount():
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
+                return YDisplay.AUTOINVERTDELAY_INVALID
+        res = self._autoInvertDelay
+        return res
+
+    def set_autoInvertDelay(self, newval):
+        """
+        Changes the interval between automatic display inversions.
+        The parameter is the number of seconds, or 0 to disable automatic inversion.
+        Using the automatic inversion mechanism reduces the burn-in that occurs on OLED
+        screens over long periods when the same content remains displayed on the screen.
+        Remember to call the saveToFlash() method of the module if the
+        modification must be kept.
+
+        @param newval : an integer corresponding to the interval between automatic display inversions
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        rest_val = str(newval)
+        return self._setAttr("autoInvertDelay", rest_val)
+
     def get_orientation(self):
         """
         Returns the currently selected display orientation.
@@ -747,6 +946,38 @@ class YDisplay(YFunction):
         """
         rest_val = str(newval)
         return self._setAttr("orientation", rest_val)
+
+    def get_displayPanel(self):
+        """
+        Returns the exact model of the display panel.
+
+        @return a string corresponding to the exact model of the display panel
+
+        On failure, throws an exception or returns YDisplay.DISPLAYPANEL_INVALID.
+        """
+        # res
+        if self._cacheExpiration <= YAPI.GetTickCount():
+            if self.load(YAPI._yapiContext.GetCacheValidity()) != YAPI.SUCCESS:
+                return YDisplay.DISPLAYPANEL_INVALID
+        res = self._displayPanel
+        return res
+
+    def set_displayPanel(self, newval):
+        """
+        Changes the model of display to match the connected display panel.
+        This function has no effect if the module does not support the selected
+        display panel.
+        Remember to call the saveToFlash()
+        method of the module if the modification must be kept.
+
+        @param newval : a string corresponding to the model of display to match the connected display panel
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        rest_val = newval
+        return self._setAttr("displayPanel", rest_val)
 
     def get_displayWidth(self):
         """
@@ -780,10 +1011,11 @@ class YDisplay(YFunction):
 
     def get_displayType(self):
         """
-        Returns the display type: monochrome, gray levels or full color.
+        Returns the display type: monochrome OLED, black and white ePaper, color ePaper, etc.
 
-        @return a value among YDisplay.DISPLAYTYPE_MONO, YDisplay.DISPLAYTYPE_GRAY and
-        YDisplay.DISPLAYTYPE_RGB corresponding to the display type: monochrome, gray levels or full color
+        @return a value among YDisplay.DISPLAYTYPE_MONO, YDisplay.DISPLAYTYPE_EPAPER_BW,
+        YDisplay.DISPLAYTYPE_EPAPER_BWR and YDisplay.DISPLAYTYPE_EPAPER_BWRY corresponding to the display
+        type: monochrome OLED, black and white ePaper, color ePaper, etc
 
         On failure, throws an exception or returns YDisplay.DISPLAYTYPE_INVALID.
         """
@@ -888,6 +1120,31 @@ class YDisplay(YFunction):
             YFunction._AddToCache("Display", func, obj)
         return obj
 
+    def sendCommand(self, cmd):
+        if not (self._recording):
+            return self.set_command(cmd)
+        self._sequence = "" + self._sequence + "" + cmd + "\n"
+        return YAPI.SUCCESS
+
+    def flushLayers(self):
+        for ii_0 in self._allDisplayLayers:
+            if ii_0.must_be_flushed():
+                ii_0.flush_now()
+        return YAPI.SUCCESS
+
+    def resetHiddenLayerFlags(self):
+        for ii_0 in self._allDisplayLayers:
+            ii_0.resetHiddenFlag()
+        return YAPI.SUCCESS
+
+    def isFrozen(self):
+        if self._frozenUntil == 0:
+            return False
+        if self._frozenUntil <= YAPI.GetTickCount():
+            self._frozenUntil = 0
+            return False
+        return True
+
     def resetAll(self):
         """
         Clears the display screen and resets all display layers to their default state.
@@ -901,6 +1158,87 @@ class YDisplay(YFunction):
         self.flushLayers()
         self.resetHiddenLayerFlags()
         return self.sendCommand("Z")
+
+    def regenerateDisplay(self):
+        """
+        Forces an ePaper screen to perform a regenerative update using the slow
+        update method. Periodic use of the slow method (total panel update with
+        multiple inversions) prevents ghosting effects and improves contrast.
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        return self.sendCommand("z")
+
+    def get_ePaperState(self, errmsg):
+        """
+        Returns the current state of an ePaper display, specifically to
+        determine whether an update is in progress or whether a
+        configuration issue has been detected. If a display configuration
+        error has been detected, the error message can be retrieved.
+
+        @param errmsg : a string passed by reference to receive the error message.
+
+        @return a value among the enumeration YDisplay.DISPLAYSTATE
+                (YDisplay.DISPLAYSTATE.FAILURE, YDisplay.DISPLAYSTATE.OFF,
+                YDisplay.DISPLAYSTATE.POWERING, YDisplay.DISPLAYSTATE.IDLE,
+                YDisplay.DISPLAYSTATE.REFRESHING)
+                corresponding to the current display state.
+        """
+        # json
+        # dispError
+        # dispState
+
+        if self.get_displayType() == YDisplay.DISPLAYTYPE_MONO:
+            errmsg.value = "Not an ePaper display"
+            return 0
+        json = self._download("disp.json")
+        if len(json) == 0:
+            errmsg.value = self.get_errorMessage()
+            return 0
+        else:
+            dispError = self._json_get_string(self._get_json_path(json, "err"))
+            errmsg.value = dispError
+            if len(dispError) > 0:
+                return 0
+            dispState = YAPI._atoi(self._json_get_key(json, "state"))
+            if dispState > 10:
+                return 4
+            if dispState == 10:
+                return 3
+            if dispState > 0:
+                return 2
+        return 1
+
+    def postponeRefresh(self, duration):
+        """
+        Disables screen refresh for a short period of time. The combination of
+        postponeRefresh and triggerRefresh can be used as an
+        alternative to double-buffering to avoid flickering during display updates.
+
+        @param duration : duration of deactivation in milliseconds (max. 30 seconds)
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        self._frozenUntil = YAPI.GetTickCount() + datetime.timedelta(milliseconds=duration)
+        return self.sendCommand("H" + str(int(duration)))
+
+    def triggerRefresh(self):
+        """
+        Trigger an immediate screen refresh. The combination of
+        postponeRefresh and triggerRefresh can be used as an
+        alternative to double-buffering to avoid flickering during display updates.
+
+        @return YAPI.SUCCESS if the call succeeds.
+
+        On failure, throws an exception or returns a negative error code.
+        """
+        self._frozenUntil = 0
+        self.flushLayers()
+        return self.sendCommand("H0")
 
     def fade(self, brightness, duration):
         """
@@ -1008,6 +1346,7 @@ class YDisplay(YFunction):
 
         On failure, throws an exception or returns a negative error code.
         """
+        self.flushLayers()
         return self._upload(pathname, content)
 
     def copyLayerContent(self, srcLayerId, dstLayerId):
@@ -1072,6 +1411,186 @@ class YDisplay(YFunction):
                 idx = idx + 1
         return self._allDisplayLayers[layerId]
 
+    def readDisplay(self, palette):
+        """
+        Returns a color image with the current content of the display.
+        The image is returned as a binary object, where each byte represents a pixel,
+        from left to right and from top to bottom. The palette used to map byte
+        values to RGB colors is filled into the list provided as argument.
+        In all cases, the first palette entry (value 0) corresponds to the
+        screen default background color.
+        The image dimensions are given by the display width and height.
+
+        @param palette : a list to be filled with the image palette
+
+        @return a binary object if the call succeeds.
+
+        On failure, throws an exception or returns an empty binary object.
+        """
+        # zipmap
+        # zipsize
+        # zipwidth
+        # zipheight
+        # ziprotate
+        # zipcolors
+        # zipcol
+        # zipbits
+        # zipmask
+        # srcpos
+        # endrun
+        # srcpat
+        # srcbit
+        # srcval
+        # srcx
+        # srcy
+        # srci
+        # pixmap
+        # pixcount
+        # pixval
+        # pixpos
+        # rotmap
+        pixmap = bytearray(0)
+        # // Check if the display firmware has autoInvertDelay and pixels.bin support
+
+        if self.get_autoInvertDelay() < 0:
+            # // Old firmware, use uncompressed GIF output to rebuild pixmap
+            zipmap = self._download("display.gif")
+            zipsize = len(zipmap)
+            if zipsize == 0:
+                return pixmap
+            if not (zipsize >= 32):
+                self._throw(YAPI.IO_ERROR, "not a GIF image")
+                return pixmap
+            if not ((zipmap[0] == 71) and (zipmap[2] == 70)):
+                self._throw(YAPI.INVALID_ARGUMENT, "not a GIF image")
+                return pixmap
+            zipwidth = zipmap[6] + 256 * zipmap[7]
+            zipheight = zipmap[8] + 256 * zipmap[9]
+            del palette[:]
+            zipcol = zipmap[13] * 65536 + zipmap[14] * 256 + zipmap[15]
+            palette.append(zipcol)
+            zipcol = zipmap[16] * 65536 + zipmap[17] * 256 + zipmap[18]
+            palette.append(zipcol)
+            pixcount = zipwidth * zipheight
+            pixmap = bytearray(pixcount)
+            pixpos = 0
+            srcpos = 30
+            zipsize = zipsize - 2
+            while srcpos < zipsize:
+                # // load next run size
+                endrun = srcpos + 1 + zipmap[srcpos]
+                srcpos = srcpos + 1
+                while srcpos < endrun:
+                    srcval = zipmap[srcpos]
+                    srcpos = srcpos + 1
+                    srcbit = 8
+                    while srcbit != 0:
+                        if srcbit < 3:
+                            srcval = srcval + (zipmap[srcpos] << srcbit)
+                            srcpos = srcpos + 1
+                        pixval = ((srcval) & (7))
+                        srcval = (srcval >> 3)
+                        if not ((pixval > 1) and (pixval != 4)):
+                            self._throw(YAPI.INVALID_ARGUMENT, "unexpected encoding")
+                            return pixmap
+                        pixmap[pixpos] = pixval
+                        pixpos = pixpos + 1
+                        srcbit = srcbit - 3
+            return pixmap
+        # // New firmware, use compressed pixels.bin
+        zipmap = self._download("pixels.bin")
+        zipsize = len(zipmap)
+        if zipsize == 0:
+            return pixmap
+        if not (zipsize >= 16):
+            self._throw(YAPI.IO_ERROR, "not a pixmap")
+            return pixmap
+        if not ((zipmap[0] == 80) and (zipmap[2] == 88)):
+            self._throw(YAPI.INVALID_ARGUMENT, "not a pixmap")
+            return pixmap
+        zipwidth = zipmap[4] + 256 * zipmap[5]
+        zipheight = zipmap[6] + 256 * zipmap[7]
+        ziprotate = zipmap[8]
+        zipcolors = zipmap[9]
+        del palette[:]
+        srcpos = 10
+        srci = 0
+        while srci < zipcolors:
+            zipcol = zipmap[srcpos] * 65536 + zipmap[srcpos+1] * 256 + zipmap[srcpos+2]
+            palette.append(zipcol)
+            srcpos = srcpos + 3
+            srci = srci + 1
+        zipbits = 1
+        while (1 << zipbits) < zipcolors:
+            zipbits = zipbits + 1
+        zipmask = (1 << zipbits) - 1
+
+        pixcount = zipwidth * zipheight
+        pixmap = bytearray(pixcount)
+        srcx = 0
+        srcy = 0
+        srcval = 0
+        while srcpos < zipsize:
+            # // load next compression pattern byte
+            srcpat = zipmap[srcpos]
+            srcpos = srcpos + 1
+            srcbit = 7
+            while srcbit >= 0:
+                # // get next bitmap byte
+                if ((srcpat) & (128)) != 0:
+                    srcval = zipmap[srcpos]
+                    srcpos = srcpos + 1
+                    if zipbits > 1:
+                        srcval = (srcval << 8) + zipmap[srcpos]
+                        srcpos = srcpos + 1
+                srcpat = (srcpat << 1)
+                pixpos = srcy * zipwidth + srcx
+                # // produce 8 pixels
+                srci = 7 * zipbits
+                while srci >= 0:
+                    pixval = (((srcval >> srci)) & (zipmask))
+                    pixmap[pixpos] = pixval
+                    pixpos = pixpos + 1
+                    srci = srci - zipbits
+                srcy = srcy + 1
+                if srcy >= zipheight:
+                    srcy = 0
+                    srcx = srcx + 8
+                    # // drop last bytes if image is not a multiple of 8
+                    if srcx >= zipwidth:
+                        srcbit = 0
+                srcbit = srcbit - 1
+        # // rotate pixmap to match display orientation
+        if ziprotate == 0:
+            return pixmap
+        if ((ziprotate) & (2)) != 0:
+            # // rotate buffer 180 degrees by swapping pixels
+            srcpos = 0
+            pixpos = pixcount - 1
+            while srcpos < pixpos:
+                pixval = pixmap[srcpos]
+                pixmap[srcpos] = pixmap[pixpos]
+                pixmap[pixpos] = pixval
+                srcpos = srcpos + 1
+                pixpos = pixpos - 1
+        if ((ziprotate) & (1)) == 0:
+            return pixmap
+        # // rotate 90 ccw: first pixel is bottom left
+        rotmap = bytearray(pixcount)
+        srcx = 0
+        srcy = zipwidth - 1
+        srcpos = 0
+        while srcpos < pixcount:
+            pixval = pixmap[srcpos]
+            pixpos = srcy * zipheight + srcx
+            rotmap[pixpos] = pixval
+            srcy = srcy - 1
+            if srcy < 0:
+                srcx = srcx + 1
+                srcy = zipwidth - 1
+            srcpos = srcpos + 1
+        return rotmap
+
     def nextDisplay(self):
         """
         Continues the enumeration of displays started using yFirstDisplay().
@@ -1091,23 +1610,6 @@ class YDisplay(YFunction):
         return YDisplay.FindDisplay(hwidRef.value)
 
 #--- (end of generated code: YDisplay implementation)
-
-    def flushLayers(self):
-        if self._allDisplayLayers is not None:
-            for it in self._allDisplayLayers:
-                it.flush_now()
-        return YAPI.SUCCESS
-
-    def resetHiddenLayerFlags(self):
-        if self._allDisplayLayers is not None:
-            for it in self._allDisplayLayers:
-                it.resetHiddenFlag()
-
-    def sendCommand(self, cmd):
-        if not self._recording:
-            return self.set_command(cmd)
-        self._sequence = self._sequence + cmd + '\n'
-        return YAPI.SUCCESS
 
     #--- (generated code: YDisplay functions)
 

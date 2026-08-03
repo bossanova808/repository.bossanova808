@@ -1,24 +1,33 @@
-v0.2.7
+v0.2.8 (2026-08-03)
+- Update vendored Yoctopuce SDK (2.1.6320 to 2.1.15129)
+- Keep retrying to connect indefinitely - picks up the display whenever it's plugged in, and recovers automatically if disconnected mid-session, instead of giving up after one failed attempt
+- Notifications now include the actual error, not just "see logs"
+- Properly release the Yocto API on shutdown/profile switch, and don't crash if the display disappears mid-session
+- Brightness/LED setting changes now apply live, without needing a restart
+- Fix display orientation being wrong at boot (including the Yoctopuce boot logo) - self-corrects and saves to the device's flash once, rather than every startup
+- Narrow the Linux ARM library-selection override (was forcing 'armhf' on any non-Windows platform, not just 32-bit ARM)
+
+v0.2.7 (2025-09-30)
 - Fail gracefully if can't connect to a YoctoDisplay
 - Update Yocto libs
 
-v0.2.6
+v0.2.6 (2024-12-18)
 - Fix unit testing, given new module     
 
-v0.2.5
+v0.2.5 (2024-12-18)
 - Use new module
 
-v0.2.3
+v0.2.3 (2024-06-22)
 - Strip leading 0: etc from time remaining
 
-v0.2.2
+v0.2.2 (2024-06-22)
 - Force architecture on non Windows to 'armhf' (for Odroid CE)
 
-v0.2.1
+v0.2.1 (2024-06-22)
 - Prevent time remaining with PVR Timeshift
 
-v0.2.0
+v0.2.0 (2024-06-22)
 - Rewrite for Python 3 / Kodi 19
 
-v0.0.1
+v0.0.1 (2024-06-22)
 - Initial Development
