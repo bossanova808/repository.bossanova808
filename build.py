@@ -125,14 +125,27 @@ def main():
 
     console.rule(f"Repository Actions", style="exec")
 
+    # Build the addons.xml content and compare against what's on disk, so that removing
+    # an addon (which needs no new zip, and so never sets changes_detected above) is still
+    # picked up as a change - not just per-addon dirhash/zip changes.
+    new_addons_xml_content = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'
+    new_addons_xml_content += '<addons>\n\n'
+    for line in addons_xml:
+        new_addons_xml_content += "    " + line
+    new_addons_xml_content += "</addons>\n"
+
+    ADDONS_XML_FILE = f"{STAGING_DIR}/addons.xml"
+    if not changes_detected and os.path.exists(ADDONS_XML_FILE):
+        with open(ADDONS_XML_FILE, 'r', encoding="utf-8", newline='') as f:
+            existing_addons_xml_content = f.read()
+        if existing_addons_xml_content != new_addons_xml_content:
+            console.log("addons.xml content differs from what's on disk (e.g. an addon was removed)", style="info")
+            changes_detected = True
+
     if changes_detected:
         # write out the addons.xml and addons.xml.md5 files
-        with open(f"{STAGING_DIR}/addons.xml", 'w', encoding="utf-8", newline='\n') as f:
-            f.write('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n')
-            f.write('<addons>\n\n')
-            for line in addons_xml:
-                f.write("    " + line)
-            f.write("</addons>\n")
+        with open(ADDONS_XML_FILE, 'w', encoding="utf-8", newline='\n') as f:
+            f.write(new_addons_xml_content)
         console.log(f"Updated {STAGING_DIR}/addons.xml")
 
         # calculate & write the md5 file
