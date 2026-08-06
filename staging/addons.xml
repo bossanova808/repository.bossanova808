@@ -59,7 +59,7 @@
         </extension>
     </addon>
     
-    <addon id="script.kodi.yoctodisplay" name="Kodi YoctoDisplay" version="0.2.8" provider-name="bossanova808">
+    <addon id="script.kodi.yoctodisplay" name="YoctoDisplay" version="0.2.9" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.0"/>
@@ -69,7 +69,7 @@
             <provides>executable</provides>
         </extension>
         <extension point="xbmc.addon.metadata">
-            <summary lang="en_GB">Kodi YoctoDisplay</summary>
+            <summary lang="en_GB">YoctoDisplay</summary>
             <description lang="en_GB">
                 Display current time, current temperature and media playing time remaining on a YoctoMaxiDisplay screen.
             </description>
@@ -79,7 +79,10 @@
             <source>https://github.com/bossanova808/script.kodi.yoctodisplay/</source>
             <forum />
             <email />
-            <news>v0.2.8
+            <news>v0.2.9
+    - Renamed the addon to "YoctoDisplay" (was "Kodi YoctoDisplay") - addon ID is unchanged
+    
+    v0.2.8
     - Update vendored Yoctopuce SDK (2.1.6320 to 2.1.15129)
     - Keep retrying to connect indefinitely - picks up the display whenever it's plugged in, and recovers automatically if disconnected mid-session, instead of giving up after one failed attempt
     - Notifications now include the actual error, not just "see logs"
