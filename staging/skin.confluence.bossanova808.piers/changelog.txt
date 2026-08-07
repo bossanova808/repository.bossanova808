@@ -1,3 +1,7 @@
+v5.1.317
+- Fix fast profile switching not working for the "Adults HDD"/"Kids HDD" profiles - fell back to a full logout instead
+- Remove unused "- Away" profile switching entries
+
 v5.1.316
 - Add comprehensive PlayerProcessInfo (PPI) dialog: detailed video/audio/system info, plus Dolby Vision metadata and Amlogic processing details on p3i/AM6B+ hardware
 - Add codec/HDR/Dolby Vision badge overlays on video start, in the OSD, and in the PlayerProcessInfo dialog

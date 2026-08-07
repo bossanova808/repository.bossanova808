@@ -142,7 +142,7 @@
         </extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.927" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.928" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -163,21 +163,22 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.927
+    		<news>v5.0.928
+    - Fix fast profile switching not working for the "Adults HDD"/"Kids HDD" profiles - fell back to a full logout instead
+    - Remove unused "- Away" profile switching entries
+    
+    v5.0.927
     - Add comprehensive PlayerProcessInfo (PPI) dialog: detailed video/audio/system info, plus Dolby Vision metadata and Amlogic processing details on p3i/AM6B+ hardware
     - Add codec/HDR/Dolby Vision badge overlays on video start, in the OSD, and in the PlayerProcessInfo dialog
     - Add graceful fallback to real Kodi values (or a clean "N/A") for PPI info fields on Windows/non-Amlogic platforms, instead of blank or garbled text
     - Fix codec badges never actually appearing on screen - the file defining them was never registered with the skin engine
     - Fix ClearArt/thumbnail overlapping the PlayerProcessInfo dialog
     - Add "p3i Extras" section to skin settings: codec logo duration (numeric entry, default 3s) and position (Left/Center/Right, default Top Left) for startup/OSD/PPI badges
-    
-    v5.0.926
-    - Fix home screen focus bug: with only one profile (no profile switching in use), moving down to the footer row would focus the hidden profile-switch button instead of the power button
     		</news>
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.316" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.317" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -198,16 +199,17 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.316
+    		<news>v5.1.317
+    - Fix fast profile switching not working for the "Adults HDD"/"Kids HDD" profiles - fell back to a full logout instead
+    - Remove unused "- Away" profile switching entries
+    
+    v5.1.316
     - Add comprehensive PlayerProcessInfo (PPI) dialog: detailed video/audio/system info, plus Dolby Vision metadata and Amlogic processing details on p3i/AM6B+ hardware
     - Add codec/HDR/Dolby Vision badge overlays on video start, in the OSD, and in the PlayerProcessInfo dialog
     - Add graceful fallback to real Kodi values (or a clean "N/A") for PPI info fields on Windows/non-Amlogic platforms, instead of blank or garbled text
     - Fix codec badges never actually appearing on screen - the file defining them was never registered with the skin engine
     - Fix ClearArt/thumbnail overlapping the PlayerProcessInfo dialog
     - Add "p3i Extras" section to skin settings: codec logo duration (numeric entry, default 3s) and position (Left/Center/Right, default Top Left) for startup/OSD/PPI badges
-    
-    v5.1.315
-    - Fix home screen focus bug: with only one profile (no profile switching in use), moving down to the footer row would focus the hidden profile-switch button instead of the power button
     		</news>
     	</extension>
     </addon>
