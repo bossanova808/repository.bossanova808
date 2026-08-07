@@ -11,6 +11,7 @@
 	<include file="ViewsWeather.xml" />
 	<include file="IncludesDialogSelect.xml" />
 	<include file="IncludesCodecFlagging.xml" />
+	<include file="Includes_CodecLogos.xml" />
 	<include file="IncludesGames.xml" />
 	<include file="IncludesHomeRecentlyAdded.xml" />
 	<include file="IncludesHomeMenuItems.xml" />

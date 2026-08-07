@@ -9,6 +9,10 @@
 		<top>0</top>
 	</coordinates>
 	<controls>
+		<include condition="Skin.HasSetting(osd.useleftCodecLogos) | [!Skin.HasSetting(osd.useleftCodecLogos) + !Skin.HasSetting(osd.usecenterCodecLogos) + !Skin.HasSetting(osd.userightCodecLogos)]">CodecLogosLeftOSD</include>
+		<include condition="Skin.HasSetting(osd.usecenterCodecLogos)">CodecLogosCenterOSD</include>
+		<include condition="Skin.HasSetting(osd.userightCodecLogos)">CodecLogosRightOSD</include>
+
 		<control type="button">
 			<description>Close Window button</description>
 			<left>126r</left>
@@ -23,6 +27,7 @@
 			<texturenofocus>DialogCloseButton.png</texturenofocus>
 			<animation effect="slide" start="0,0" end="-45,0" time="0" condition="Player.Muted">conditional</animation>
 			<animation effect="fade" time="150">VisibleChange</animation>
+			<visible>!Skin.HasSetting(osd.userightCodecLogos)</visible>
 			<visible>system.getbool(input.enablemouse) + ![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks)]</visible>
 		</control>
 		<control type="slider" id="87">
@@ -268,6 +273,22 @@
 				<onclick>SetProperty(optionsdialog_content,options,home)</onclick>
 				<onclick>SetProperty(optionsdialog_header,$LOCALIZE[33063],home)</onclick>
 				<onclick>ActivateWindow(1114)</onclick>
+			</control>
+			<control type="button" id="208">
+				<width>83</width>
+				<height>83</height>
+				<font/>
+				<texturefocus>OSDChannelListFO.png</texturefocus>
+				<texturenofocus>OSDChannelListNF.png</texturenofocus>
+				<onclick>ActivateWindow(playerprocessinfo)</onclick>
+			</control>
+			<control type="button" id="209">
+				<width>83</width>
+				<height>83</height>
+				<font/>
+				<texturefocus>OSDPreFO.png</texturefocus>
+				<texturenofocus>OSDPreNF.png</texturenofocus>
+				<onclick>ActivateWindow(1189)</onclick>
 			</control>
 		</control>
 	</controls>

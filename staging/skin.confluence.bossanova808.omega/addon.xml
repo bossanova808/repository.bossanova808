@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.omega" version="5.0.926" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.927" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -20,11 +20,16 @@
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
 		</assets>
-		<news>v5.0.926
-- Fix home screen focus bug: with only one profile (no profile switching in use), moving down to the footer row would focus the hidden profile-switch button instead of the power button
+		<news>v5.0.927
+- Add comprehensive PlayerProcessInfo (PPI) dialog: detailed video/audio/system info, plus Dolby Vision metadata and Amlogic processing details on p3i/AM6B+ hardware
+- Add codec/HDR/Dolby Vision badge overlays on video start, in the OSD, and in the PlayerProcessInfo dialog
+- Add graceful fallback to real Kodi values (or a clean "N/A") for PPI info fields on Windows/non-Amlogic platforms, instead of blank or garbled text
+- Fix codec badges never actually appearing on screen - the file defining them was never registered with the skin engine
+- Fix ClearArt/thumbnail overlapping the PlayerProcessInfo dialog
+- Add "p3i Extras" section to skin settings: codec logo duration (numeric entry, default 3s) and position (Left/Center/Right, default Top Left) for startup/OSD/PPI badges
 
-v5.0.925
-- Sync with upstream, add latest p3i PPI
+v5.0.926
+- Fix home screen focus bug: with only one profile (no profile switching in use), moving down to the footer row would focus the hidden profile-switch button instead of the power button
 		</news>
 	</extension>
 </addon>

@@ -13,6 +13,7 @@
 		<control type="group">
 	      	<visible>[Player.Paused]</visible>
 			<visible>!Skin.HasSetting(HideSeekBarOSD) | Window.IsActive(VideoOSD) | Player.ShowInfo</visible>
+			<visible>!Window.IsVisible(DialogPlayerProcessInfo.xml)</visible>
 			<control type="image" id="1">
 				<depth>DepthOSD</depth>
 				<description>Video cover image (clear art/logo, thumbnail)</description>

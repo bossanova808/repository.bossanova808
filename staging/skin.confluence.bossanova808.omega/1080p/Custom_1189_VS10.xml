@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="1189" type="dialog">
+	<defaultcontrol always="true">11500</defaultcontrol>
+	<include>dialogeffect</include>
+	<coordinates>
+		<left>360</left>
+		<top>213</top>
+	</coordinates>
+	<controls>
+		<control type="group" id="11200">
+			<centerleft>50%</centerleft>
+			<centertop>50%</centertop>
+			<animation effect="fade" time="150">VisibleChange</animation>
+			<include content="DialogBackgroundCommons">
+				<param name="DialogBackgroundWidth" value="1200" />
+				<param name="DialogBackgroundHeight" value="400" />
+				<param name="DialogHeaderWidth" value="1080" />
+				<param name="DialogHeaderLabel" value="$LOCALIZE[31765]" />
+				<param name="DialogHeaderId" value="1" />
+				<param name="CloseButtonLeft" value="1065" />
+				<param name="CloseButtonNav" value="10" />
+			</include>
+			<control type="grouplist" id="11500">
+				<animation effect="fade" time="150">VisibleChange</animation>
+				<left>53</left>
+				<top>105</top>
+				<width>1095</width>
+				<height>292</height>
+				<itemgap>6</itemgap>
+				<onleft>11500</onleft>
+				<onright>11500</onright>
+				<onup>11500</onup>
+				<ondown>11500</ondown>
+				<orientation>vertical</orientation>
+				<control type="button" id="11301">
+					<height>60</height>
+					<width>1095</width>
+					<texturefocus border="5">button-focus2.png</texturefocus>
+					<label>$LOCALIZE[31764]</label>
+					<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5) | [[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + String.Contains(Player.Process(video.hdr.type),Dolby)]</selected>
+					<onclick>Action(vs10.original)</onclick>
+					<onclick>Dialog.Close(1189)</onclick>
+				</control>
+				<control type="button" id="11302">
+					<height>60</height>
+					<width>1095</width>
+					<texturefocus border="5">button-focus2.png</texturefocus>
+					<label>VS10 SDR</label>
+					<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),3)</selected>
+					<onclick>Action(vs10.sdr)</onclick>
+					<onclick>Dialog.Close(1189)</onclick>
+				</control>
+				<control type="button" id="11303">
+					<height>60</height>
+					<width>1095</width>
+					<texturefocus border="5">button-focus2.png</texturefocus>
+					<label>VS10 HDR10</label>
+					<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),2)</selected>
+					<onclick>Action(vs10.hdr10)</onclick>
+					<onclick>Dialog.Close(1189)</onclick>
+				</control>
+				<control type="button" id="11304">
+					<height>60</height>
+					<width>1095</width>
+					<texturefocus border="5">button-focus2.png</texturefocus>
+					<label>VS10 Dolby Vision</label>
+					<selected>[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + !String.Contains(Player.Process(video.hdr.type),Dolby)</selected>
+					<onclick>Action(vs10.dv)</onclick>
+					<onclick>Dialog.Close(1189)</onclick>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>
+
+
