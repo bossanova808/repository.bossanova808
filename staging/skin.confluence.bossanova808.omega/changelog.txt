@@ -1,3 +1,9 @@
+v5.0.930 (2026-08-09)
+- Cross-reference the whole skin against upstream Confluence and against Piers; standardise all mod comment markers to one consistent format and label previously-unmarked code (PPI/codec-logo overlays, Recently Played, Adults-profile TV menus, etc.)
+- Backport Piers's Home Weather Widget attempt, then revert it - depends on Weather.Data() infolabels not available on Omega's older engine; documented as a deliberate, engine-gated divergence rather than accidental drift
+- Refresh strings.po from upstream, and protect the custom PPI/codec-logo settings string block (#31700-#31793) from being overwritten by future refreshes
+- Remove unused debug-only scaffolding left over from earlier ClearArt development
+
 v5.0.929 (2026-08-09)
 - Port Piers's modern text-badge media flag row to Omega's video library views, video info dialog, and music visualisation (previously only the fullscreen "Now Playing" bar had been modernised)
 - Move music Now Playing flag row to the upper right and remove the redundant "Now playing" header, matching the video treatment

@@ -318,6 +318,7 @@
 						<onclick>Skin.SetNumeric(OSDAutoCloseTime)</onclick>
 						<enable>Skin.HasSetting(OSDAutoClose)</enable>
 					</control>
+					<!-- BOSSANOVA808 MOD - p3i codec/HDR/Dolby Vision logo overlay settings -->
 					<control type="label" id="2360">
 						<width>1125</width>
 						<height>68</height>
@@ -391,6 +392,7 @@
 						<onclick condition="Skin.HasSetting(ppi.usecenterCodecLogos)">Skin.Reset(ppi.usecenterCodecLogos)</onclick>
 						<label2>$VAR[PPICodecLogosLabel]</label2>
 					</control>
+					<!-- END BOSSANOVA808 MOD -->
 <!-- BOSSANOVA808 MOD - allow for Skin.HasSetting(IsB808) checks -->
 <!-- Enables b808 specific things like birthday backgrounds etc. -->
                     <control type="label" id="121">

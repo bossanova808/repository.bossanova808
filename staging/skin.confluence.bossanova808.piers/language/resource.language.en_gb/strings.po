@@ -685,7 +685,8 @@ msgctxt "#31511"
 msgid "Channel options"
 msgstr ""
 
-#empty strings from id 31512 to 31900
+#empty strings from id 31512 to 31699, and 31794 to 31900
+#BOSSANOVA808: #31700-#31793 below are custom strings used by the PPI (PlayerProcessInfo) dialog and p3i codec-logo settings - NOT present upstream. Do not overwrite this block with a wholesale upstream strings.po refresh; merge/preserve it instead. See DialogPlayerProcessInfo.xml, Custom_1189_VS10.xml, SkinSettings.xml and IncludesVariables.xml for usage.
 
 msgctxt "#31700"
 msgid "Display mode"

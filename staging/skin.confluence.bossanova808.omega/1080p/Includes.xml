@@ -671,98 +671,6 @@
 		<value condition="ListItem.HasVideoExtras">flagging/video/overlay_extras.png</value>
 	</variable>
 	<!-- INCLUDES -->
-	<include name="NowPlayingDebug">
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>100</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Thumb: $VAR[NowPlayingThumb]</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>130</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(clearart): ($INFO[Player.Art(clearart)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>160</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(tvshow.clearart): ($INFO[Player.Art(tvshow.clearart)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>190</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(clearlogo): ($INFO[Player.Art(clearlogo)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>220</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(tvshow.clearlogo): ($INFO[Player.Art(tvshow.clearlogo)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>250</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(poster): ($INFO[Player.Art(poster)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>280</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(tvshow.poster): ($INFO[Player.Art(tvshow.poster)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>310</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(thumbnail): ($INFO[Player.Art(thumbnail)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>340</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>(Player.Art(tvshow.thumbnail): ($INFO[Player.Art(tvshow.thumbnail)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-		<control type="label" id="8010">
-			<left>0</left>
-			<top>370</top>
-			<width>1920</width>
-			<height>30</height>
-			<label>Player.Art(icon): ($INFO[Player.Art(icon)])</label>
-			<font>font11</font>
-			<scroll>true</scroll>
-		</control>
-	</include>
 <!--	<include name="NowPlayingThumb">-->
 <!--		<control type="image" id="1">-->
 <!--			<depth>DepthOSD</depth>-->
@@ -1791,7 +1699,7 @@
 				<width>270</width>
 				<height>180</height>
 				<aspectratio aligny="bottom">keep</aspectratio>
-				<!-- Bossanova808 Mod - remove border from unfocussed addons -->
+				<!-- BOSSANOVA808 MOD - remove border from unfocussed addons -->
 				<bordertexture infill="false" border="5"/>
 				<bordersize>3</bordersize>
 				<texture background="true">$INFO[ListItem.Icon]</texture>

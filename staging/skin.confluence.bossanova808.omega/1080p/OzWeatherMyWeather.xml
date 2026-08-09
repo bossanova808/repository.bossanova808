@@ -1,4 +1,5 @@
 <!-- BOSSANOVA808 MOD - Entire file, obviously -->
+<!-- KNOWN, DELIBERATE DIVERGENCE FROM PIERS: Piers's copy uses the newer Weather.Data() infolabels and a Weather.IsUpdating busy indicator (matching upstream's weather refactor); Omega stays on the older Window(weather).Property() syntax because Weather.Data()/Weather.IsUpdating are believed unavailable on Omega's older engine (xbmc.gui 5.17.0 vs Piers's 5.18.0). Not accidental drift - do not backport without confirming engine support first. -->
 <!--	Unfortunately, a lot of things don't work as variables or constants, e.g. fonts -->
 <!--	..but they do work as includes, it seems, so we use constants, where they _do_ work -->
 <!--	..but otherwise includes, where they don't. -->

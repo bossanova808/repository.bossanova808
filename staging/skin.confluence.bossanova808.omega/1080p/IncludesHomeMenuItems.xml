@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include name="HomeSubMenuVideos">
 		<control type="image" id="90101">
@@ -59,6 +59,7 @@
 		</control>
 		<control type="button" id="90163">
 			<include>ButtonHomeSubCommonValues</include>
+			<!-- BOSSANOVA808 MOD - Recently played movies quick-access item -->
 			<label>Recently played</label>
 			<onclick>ActivateWindow(Videos,special://skin/playlists/Recently Played Movies.xsp,return)</onclick>
 			<visible>!String.IsEmpty(Container(90160).ListItemNoWrap(1).Label)</visible>
@@ -99,6 +100,7 @@
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
 		</control>
 	</include>
+	<!-- BOSSANOVA808 MOD - Special TV Show Menus -->
 	<include name="HomeSubMenuTVShowsAdults">
 		<control type="image" id="90171">
 			<width>53</width>
@@ -212,7 +214,7 @@
 			<label>New Music</label>
 			<onclick>ActivateWindow(Music,musicdb://recentlyaddedalbums/,return)</onclick>
 		</control>
-		<!-- END Bossanova808 Mod -->
+		<!-- END BOSSANOVA808 MOD -->
 		<control type="button" id="90113">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90110).ListItemNoWrap(1).Label]</label>
@@ -238,7 +240,7 @@
 			<onclick>ActivateWindow(Music,$INFO[Container(90110).ListItemNoWrap(0).FileNameAndPath],return)</onclick>
 			<visible>!String.IsEmpty(Container(90110).ListItemNoWrap(4).Label)</visible>
 		</control>
-		<!-- END Bossanova808 Mod -->
+		<!-- END BOSSANOVA808 MOD -->
 		<control type="button" id="90117">
 			<include>ButtonHomeSubCommonValues</include>
 			<label>$INFO[Container(90110).ListItemNoWrap(5).Label]</label>

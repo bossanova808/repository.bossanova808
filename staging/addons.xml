@@ -142,7 +142,7 @@
         </extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.929" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.930" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -163,12 +163,10 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.929
-    - Port Piers's modern text-badge media flag row to Omega's video library views, video info dialog, and music visualisation (previously only the fullscreen "Now Playing" bar had been modernised)
-    - Move music Now Playing flag row to the upper right and remove the redundant "Now playing" header, matching the video treatment
-    - Fix music Now Playing flag row overlapping the seek bar
-    - Remove personal star-rating UI (display badges, "Set my rating" buttons, and the OSD rate button) - unused feature
-    - Fix Music OSD icon row leaving a gap after removing the rating button - icons now anchor to the right edge like the Video OSD
+    		<news>v5.0.930
+    - Cross-reference the whole skin against upstream Confluence and against Piers; standardise all mod comment markers to one consistent format and label previously-unmarked code (PPI/codec-logo overlays, Recently Played, Adults-profile TV menus, etc.)
+    - Refresh strings.po from upstream, and protect the custom PPI/codec-logo settings string block from being overwritten by future refreshes
+    - Remove unused debug-only scaffolding left over from earlier ClearArt development
     
     v5.0.928
     - Fix fast profile switching not working for the "Adults HDD"/"Kids HDD" profiles - fell back to a full logout instead
@@ -185,7 +183,7 @@
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.318" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.319" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -206,10 +204,11 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.318
-    - Move music Now Playing flag row to the upper right and remove the redundant "Now playing" header, matching the video treatment
-    - Remove personal star-rating UI (display badges, "Set my rating" buttons, and the OSD rate button) - unused feature
-    - Fix Music OSD icon row leaving a gap after removing the rating button - icons now anchor to the right edge like the Video OSD
+    		<news>v5.1.319
+    - Cross-reference the whole skin against upstream Confluence and against Omega; standardise all mod comment markers to one consistent format and label previously-unmarked code
+    - Fix stale Home Weather Widget thumbnail border size (matching an upstream fix Piers hadn't picked up yet)
+    - Refresh strings.po from upstream, and protect the custom PPI/codec-logo settings string block from being overwritten by future refreshes
+    - Document known, deliberate engine-gated divergences from Omega (OzWeather page and Home Weather Widget both depend on Weather.Data() infolabels Omega's older engine doesn't have)
     
     v5.1.317
     - Fix fast profile switching not working for the "Adults HDD"/"Kids HDD" profiles - fell back to a full logout instead

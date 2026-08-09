@@ -680,7 +680,7 @@
 		<value condition="[[Container.Content(MusicVideos) + [Control.IsVisible(50) | Control.IsVisible(51)]] | [!Container.Content(MusicVideos) + !String.IsEmpty(ListItem.Art(poster))]]">$INFO[ListItem.Art(poster)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
-	<!-- Bossanova808 Mod - Replaced at bottom of file -->
+	<!-- BOSSANOVA808 MOD - Replaced at bottom of file -->
 	<!-- 
 	<variable name="NowPlayingThumb">
 		<value condition="!String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>

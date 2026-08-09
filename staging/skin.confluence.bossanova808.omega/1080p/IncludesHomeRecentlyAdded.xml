@@ -78,6 +78,7 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
+							<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance issues -->
 							<scroll>false</scroll>
 						</control>
 					</itemlayout>

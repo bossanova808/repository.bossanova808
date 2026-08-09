@@ -2,7 +2,7 @@
 <window>
 	<defaultcontrol />
 	<controls>
-	
+	<!-- BOSSANOVA808 MOD - p3i codec/HDR/Dolby Vision startup logo overlays -->
         <control type="group" id="2">
             <depth>DepthOSD+</depth>
             <visible>Skin.HasSetting(osd.useleftCodecStartupLogos) | [!Skin.HasSetting(osd.useleftCodecStartupLogos) + !Skin.HasSetting(osd.usecenterCodecStartupLogos) + !Skin.HasSetting(osd.userightCodecStartupLogos)]</visible>
@@ -935,6 +935,7 @@
                 <param name="colordiffuse">AB16A34A</param>
             </include>
         </control>
+		<!-- END BOSSANOVA808 MOD -->
 		<!-- view mode, sizing, screen resolution -->
 		<control type="group" id="0">
 			<depth>DepthOSD+</depth>
@@ -1025,7 +1026,9 @@
 			</control>
 			<control type="label" id="1">
 				<description>Clock label</description>
+				<!-- BOSSANOVA808 MOD - hide clock when right-side codec logos are shown, to avoid overlap -->
 				<visible>!Skin.HasSetting(osd.userightCodecLogos)</visible>
+				<!-- END BOSSANOVA808 MOD -->
 				<left>675</left>
 				<top>8</top>
 				<width>1200</width>
@@ -1185,7 +1188,7 @@
 					<textcolor>orange</textcolor>
 					<scroll>false</scroll>
 				</control>
-<!-- Bossanova808 Mod - move media codec items to give more room for episode title and disable scrolling due to CoreElec performance issues	-->
+<!-- BOSSANOVA808 MOD - move media codec items to give more room for episode title and disable scrolling due to CoreElec performance issues	-->
 				<control type="grouplist" id="1">
 					<left>20</left>
 					<top>45</top>

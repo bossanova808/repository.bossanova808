@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<!-- BOSSANOVA808 MOD - Artist Slideshow -->
 	<onload>RunScript(script.artistslideshow)</onload>
@@ -41,7 +41,7 @@
 			<visible>!String.IsEmpty(Player.Art(fanart)) + !Skin.HasSetting(HideVisualizationFanart)</visible>
 			<fadetime>600</fadetime>
 		</control> -->
-		<!-- END Bossanova808 mod -->
+		<!-- END BOSSANOVA808 MOD -->
 		<!-- media infos -->
 		<control type="group">
 			<depth>DepthOSD</depth>
@@ -120,7 +120,7 @@
 			<control type="group">
 				<left>495</left>
 				<top>345r</top>
-				<!-- Bossanova808 Mod - disabled to match video case (redundant "Now playing" header once the modern flag row/title are shown) -->
+				<!-- BOSSANOVA808 MOD - disabled to match video case (redundant "Now playing" header once the modern flag row/title are shown) -->
 				<!--				<control type="label" id="1">-->
 				<!--					<description>Heading label</description>-->
 				<!--					<left>0</left>-->

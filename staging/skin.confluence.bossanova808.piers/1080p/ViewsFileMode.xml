@@ -283,7 +283,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
-						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
 						<scroll>false</scroll>
 						<!-- END BOSSANOVA808 MOD -->
 					</control>
@@ -330,7 +330,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
-						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
 						<scroll>false</scroll>
 						<!-- END BOSSANOVA808 MOD -->
 					</control>
@@ -365,7 +365,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
-						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
 						<scroll>false</scroll>
 						<!-- END BOSSANOVA808 MOD -->
 					</control>
@@ -408,7 +408,7 @@
 						<align>center</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
-						<!-- BOSSANOVA808 MOD -- disable label scrolling to to CoreElec performance bug -->
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
 						<scroll>false</scroll>
 						<!-- END BOSSANOVA808 MOD -->
 					</control>

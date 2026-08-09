@@ -252,7 +252,7 @@
 				<onclick>PlayerControl(Random)</onclick>
 			</control>
 		</control>
-		<!-- Bossanova808 Mod - split into its own right-anchored grouplist (matching VideoOSD's icon row) so the icon cluster stays flush to the screen edge instead of leaving a gap when items are removed -->
+		<!-- BOSSANOVA808 MOD - split into its own right-anchored grouplist (matching VideoOSD's icon row) so the icon cluster stays flush to the screen edge instead of leaving a gap when items are removed -->
 		<control type="grouplist" id="200">
 			<right>20</right>
 			<top>90r</top>

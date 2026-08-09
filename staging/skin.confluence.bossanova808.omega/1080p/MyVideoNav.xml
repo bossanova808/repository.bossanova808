@@ -190,6 +190,7 @@
 					<onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
 					<visible>!String.IsEmpty(Container.PluginName)</visible>
 				</control>
+				<!-- END BOSSANOVA808 MOD -->
 				<control type="button" id="204">
 					<description>Get more</description>
 					<textwidth>353</textwidth>

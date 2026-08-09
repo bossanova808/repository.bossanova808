@@ -1070,7 +1070,7 @@
 		<control type="group" id="9002">
 			<depth>DepthMenu</depth>
 			<onup>9001</onup>
-			<!-- Bossanov808 Mod - Correct button focus -->
+			<!-- BOSSANOVA808 MOD - Correct button focus -->
 			<ondown>10</ondown>
 			<control type="list" id="700">
 				<animation effect="slide" start="0,0" end="544,0" time="0" condition="String.IsEqual(Container(700).NumItems,1)">conditional</animation>
@@ -1176,7 +1176,7 @@
 			</control>
 		</control>
 		<control type="group" id="10">
-			<!-- Bossanova808 Mod - Add faster profile switching -->
+			<!-- BOSSANOVA808 MOD - Add faster profile switching -->
 			<animation effect="slide" start="0,0" end="0,0" time="0" condition="!Integer.IsGreater(System.ProfileCount,1)">conditional</animation>
 			<animation effect="slide" start="0,0" end="-75,0" time="0" condition="!Integer.IsGreater(System.ProfileCount,1)">conditional</animation>
 			<depth>DepthFooter</depth>
@@ -1306,7 +1306,7 @@
 					<texture>icon_search.png</texture>
 				</control>
 			</control>
-			<!-- END Bossanova808 Mod - Add faster profile switching -->
+			<!-- END BOSSANOVA808 MOD - Add faster profile switching -->
 		</control>
 		<control type="group">
 			<depth>DepthHeader</depth>

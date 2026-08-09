@@ -102,7 +102,7 @@
 				<font>font13</font>
 				<label>13016</label>
 			</control>
-			<!-- BOSSANOVA808 Mod - add quick Kodi restart (works Linux/Windows apparently) and reboot to Android for e.g. Ugoos AM6B+ -->
+			<!-- BOSSANOVA808 MOD - add quick Kodi restart (works Linux/Windows apparently) and reboot to Android for e.g. Ugoos AM6B+ -->
 			<control type="button" id="16">
 				<description>Restart Kodi Button</description>
 				<width>510</width>

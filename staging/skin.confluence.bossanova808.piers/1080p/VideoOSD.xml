@@ -9,9 +9,11 @@
 		<top>0</top>
 	</coordinates>
 	<controls>
+		<!-- BOSSANOVA808 MOD - p3i codec/HDR logo overlays -->
 		<include condition="Skin.HasSetting(osd.useleftCodecLogos) | [!Skin.HasSetting(osd.useleftCodecLogos) + !Skin.HasSetting(osd.usecenterCodecLogos) + !Skin.HasSetting(osd.userightCodecLogos)]">CodecLogosLeftOSD</include>
 		<include condition="Skin.HasSetting(osd.usecenterCodecLogos)">CodecLogosCenterOSD</include>
 		<include condition="Skin.HasSetting(osd.userightCodecLogos)">CodecLogosRightOSD</include>
+		<!-- END BOSSANOVA808 MOD -->
 
 		<control type="button">
 			<description>Close Window button</description>
@@ -27,7 +29,9 @@
 			<texturenofocus>DialogCloseButton.png</texturenofocus>
 			<animation effect="slide" start="0,0" end="-45,0" time="0" condition="Player.Muted">conditional</animation>
 			<animation effect="fade" time="150">VisibleChange</animation>
+			<!-- BOSSANOVA808 MOD - hide close button when right-side codec logos are shown, to avoid overlap -->
 			<visible>!Skin.HasSetting(osd.userightCodecLogos)</visible>
+			<!-- END BOSSANOVA808 MOD -->
 			<visible>system.getbool(input.enablemouse) + ![Window.IsVisible(SliderDialog) | Window.IsVisible(DialogSettings.xml) | Window.IsVisible(DialogSelect.xml) | Window.IsVisible(1102) | Window.IsVisible(VideoBookmarks)]</visible>
 		</control>
 		<control type="slider" id="87">
@@ -179,7 +183,7 @@
 				<onclick>Dialog.Close(VideoOSD)</onclick>
 				<visible>VideoPlayer.Content(LiveTV)</visible>
 			</control>
-<!-- Bossanova808 Mod - Disable TELETXT button -->
+<!-- BOSSANOVA808 MOD - Disable TELETXT button -->
 <!--			<control type="button" id="112">-->
 <!--				<width>83</width>-->
 <!--				<height>83</height>-->
@@ -190,13 +194,14 @@
 <!--				<onclick>ActivateWindow(Teletext)</onclick>-->
 <!--				<visible>VideoPlayer.Content(LiveTV)</visible>-->
 <!--			</control>-->
-<!--	END Bossanova808 Mod		-->
+<!--	END BOSSANOVA808 MOD - Disable TELETXT button -->
 		</control>
 		<control type="grouplist" id="200">
 			<right>20</right>
 			<top>90r</top>
-<!-- 112 -> 111 per above -->
+			<!-- BOSSANOVA808 MOD - 112 disabled above, so wire the group's wraparound to 111 instead -->
 			<onleft>111</onleft>
+			<!-- END BOSSANOVA808 MOD -->
 			<onright>101</onright>
 			<orientation>horizontal</orientation>
 			<align>right</align>
@@ -258,6 +263,7 @@
 				<onclick>SetProperty(optionsdialog_header,$LOCALIZE[33063],home)</onclick>
 				<onclick>ActivateWindow(1102)</onclick>
 			</control>
+			<!-- BOSSANOVA808 MOD - PlayerProcessInfo (PPI) and codec-logo preset buttons -->
 			<control type="button" id="208">
 				<width>83</width>
 				<height>83</height>
@@ -274,6 +280,7 @@
 				<texturenofocus>OSDPreNF.png</texturenofocus>
 				<onclick>ActivateWindow(1189)</onclick>
 			</control>
+			<!-- END BOSSANOVA808 MOD -->
 		</control>
 	</controls>
 </window>
