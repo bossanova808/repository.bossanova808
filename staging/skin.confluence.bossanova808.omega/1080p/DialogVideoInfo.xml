@@ -62,7 +62,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="group">
 					<top>135</top>
@@ -931,12 +931,6 @@
 						<label>20410</label>
 						<onclick>PlayMedia($INFO[ListItem.Trailer],1)</onclick>
 						<visible>!String.IsEmpty(ListItem.Trailer) + Skin.HasSetting(WindowedTrailer)</visible>
-					</control>
-					<control type="button" id="7">
-						<description>Set my rating</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>38023</label>
-						<visible>Control.IsEnabled(7)</visible>
 					</control>
 					<control type="button" id="14">
 						<description>Manage versions</description>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.omega" version="5.0.928" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.929" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -20,7 +20,14 @@
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
 		</assets>
-		<news>v5.0.928
+		<news>v5.0.929
+- Port Piers's modern text-badge media flag row to Omega's video library views, video info dialog, and music visualisation (previously only the fullscreen "Now Playing" bar had been modernised)
+- Move music Now Playing flag row to the upper right and remove the redundant "Now playing" header, matching the video treatment
+- Fix music Now Playing flag row overlapping the seek bar
+- Remove personal star-rating UI (display badges, "Set my rating" buttons, and the OSD rate button) - unused feature
+- Fix Music OSD icon row leaving a gap after removing the rating button - icons now anchor to the right edge like the Video OSD
+
+v5.0.928
 - Fix fast profile switching not working for the "Adults HDD"/"Kids HDD" profiles - fell back to a full logout instead
 - Remove unused "- Away" profile switching entries
 

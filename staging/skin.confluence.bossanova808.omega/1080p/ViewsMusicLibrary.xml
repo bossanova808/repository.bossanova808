@@ -163,13 +163,6 @@
 					<bordertexture infill="false" border="8">ThumbShadow.png</bordertexture>
 					<bordersize>8</bordersize>
 				</control>
-				<control type="image">
-					<left>15</left>
-					<top>473</top>
-					<width>252</width>
-					<height>30</height>
-					<texture fallback="ratings/0.png">$VAR[MusicInfoListViewtRating]</texture>
-				</control>
 				<control type="label">
 					<left>15</left>
 					<top>510</top>

@@ -216,11 +216,6 @@
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label />
 					</control>
-					<control type="button" id="7">
-						<description>Set my rating</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label />
-					</control>
 				</control>
 			</control>
 		</control>

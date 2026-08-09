@@ -119,20 +119,21 @@
 			<control type="group">
 				<left>495</left>
 				<top>345r</top>
-				<control type="label" id="1">
-					<description>Heading label</description>
-					<left>0</left>
-					<top>0</top>
-					<width>1365</width>
-					<height>38</height>
-					<align>left</align>
-					<font>font13</font>
-					<label>$LOCALIZE[31040]</label>
-					<textcolor>white</textcolor>
-					<shadowcolor>black</shadowcolor>
-					<visible>![MusicPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>
-					<animation effect="slide" start="0,0" end="0,38" time="0" condition="String.IsEmpty(MusicPlayer.Artist) + String.IsEmpty(MusicPlayer.Album)">conditional</animation>
-				</control>
+				<!-- Bossanova808 Mod - disabled to match video case (redundant "Now playing" header once the modern flag row/title are shown) -->
+				<!--				<control type="label" id="1">-->
+				<!--					<description>Heading label</description>-->
+				<!--					<left>0</left>-->
+				<!--					<top>0</top>-->
+				<!--					<width>1365</width>-->
+				<!--					<height>38</height>-->
+				<!--					<align>left</align>-->
+				<!--					<font>font13</font>-->
+				<!--					<label>$LOCALIZE[31040]</label>-->
+				<!--					<textcolor>white</textcolor>-->
+				<!--					<shadowcolor>black</shadowcolor>-->
+				<!--					<visible>![MusicPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>-->
+				<!--					<animation effect="slide" start="0,0" end="0,38" time="0" condition="String.IsEmpty(MusicPlayer.Artist) + String.IsEmpty(MusicPlayer.Album)">conditional</animation>-->
+				<!--				</control>-->
 				<control type="image" id="1">
 					<top>0</top>
 					<width>75</width>
@@ -181,8 +182,9 @@
 					<scroll>true</scroll>
 				</control>
 				<control type="grouplist">
-					<left>30</left>
-					<top>145</top>
+					<left>20</left>
+					<top>45</top>
+					<align>right</align>
 					<width>1365</width>
 					<height>39</height>
 					<itemgap>8</itemgap>
@@ -217,27 +219,6 @@
 						<param name="flag_visible" value="!String.IsEmpty(MusicPlayer.BMP)"/>
 						<param name="flag_label" value="$INFO[MusicPlayer.BMP,,bpm]"/>
 					</include>
-					<control type="group">
-						<description>Rating</description>
-						<width>258</width>
-						<height>39</height>
-						<control type="image">
-							<description>rating back</description>
-							<left>0</left>
-							<top>0</top>
-							<width>258</width>
-							<height>39</height>
-							<texture border="5">flagging/blank.png</texture>
-						</control>
-						<control type="image">
-							<description>User Rating</description>
-							<left>3</left>
-							<top>4</top>
-							<width>252</width>
-							<height>32</height>
-							<texture fallback="ratings/0.png">$INFO[MusicPlayer.UserRating,ratings/,.png]</texture>
-						</control>
-					</control>
 				</control>
 				<control type="label">
 					<left>0</left>

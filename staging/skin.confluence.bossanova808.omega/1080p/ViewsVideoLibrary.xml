@@ -202,7 +202,7 @@
 				<include>AudioChannelsFlaggingConditions</include>
 				<include>AspectCodecFlaggingConditions</include>
 				<include>VideoStereoscopicsFlaggingConditions</include>
-				<include>VideoTypeHackFlaggingConditions</include>
+				<include>VideoTypeFlaggingConditions</include>
 			</control>
 		</control>
 		<control type="group">
@@ -796,7 +796,7 @@
 				<include>AudioChannelsFlaggingConditions</include>
 				<include>AspectCodecFlaggingConditions</include>
 				<include>VideoStereoscopicsFlaggingConditions</include>
-				<include>VideoTypeHackFlaggingConditions</include>
+				<include>VideoTypeFlaggingConditions</include>
 			</control>
 			<control type="grouplist">
 				<description>MPAA Rating Flagging Images</description>
@@ -1119,7 +1119,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="label">
 					<description>INFO txt</description>
@@ -1225,7 +1225,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="textbox">
 					<description>Description Value for Movie</description>
@@ -1456,7 +1456,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -1589,7 +1589,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="image">
 					<left>0</left>
@@ -1865,7 +1865,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="image">
 					<depth>DepthContent+</depth>
@@ -2030,7 +2030,7 @@
 					<include>AudioChannelsFlaggingConditions</include>
 					<include>AspectCodecFlaggingConditions</include>
 					<include>VideoStereoscopicsFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>VideoTypeFlaggingConditions</include>
 				</control>
 				<control type="image">
 					<depth>DepthContent+</depth>

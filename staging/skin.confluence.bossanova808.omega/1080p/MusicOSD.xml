@@ -44,6 +44,7 @@
 		<control type="grouplist" id="100">
 			<left>488</left>
 			<top>90r</top>
+			<onright>200</onright>
 			<orientation>horizontal</orientation>
 			<itemgap>0</itemgap>
 			<animation effect="fade" time="150">VisibleChange</animation>
@@ -250,33 +251,17 @@
 				<visible>!MusicPlayer.Content(LiveTV)</visible>
 				<onclick>PlayerControl(Random)</onclick>
 			</control>
-			<control type="image" id="2300">
-				<width>158</width>
-				<texture />
-			</control>
-			<control type="image" id="2400">
-				<width>83</width>
-				<texture />
-			</control>
-			<control type="image" id="2500">
-				<width>83</width>
-				<texture />
-				<visible>MusicPlayer.Content(LiveTV)</visible>
-			</control>
-			<control type="image" id="2600">
-				<width>83</width>
-				<texture />
-				<visible>!PVR.CanRecordPlayingChannel</visible>
-			</control>
-			<control type="button" id="705">
-				<width>83</width>
-				<height>83</height>
-				<label>563</label>
-				<font />
-				<texturefocus>OSDRateFO.png</texturefocus>
-				<texturenofocus>OSDRateNF.png</texturenofocus>
-				<onclick>setrating</onclick>
-			</control>
+		</control>
+		<!-- Bossanova808 Mod - split into its own right-anchored grouplist (matching VideoOSD's icon row) so the icon cluster stays flush to the screen edge instead of leaving a gap when items are removed -->
+		<control type="grouplist" id="200">
+			<right>20</right>
+			<top>90r</top>
+			<onleft>100</onleft>
+			<orientation>horizontal</orientation>
+			<itemgap>0</itemgap>
+			<align>right</align>
+			<animation effect="fade" time="150">VisibleChange</animation>
+			<visible>![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(PVRRadioRDSInfo) | Window.IsVisible(Addon)]</visible>
 			<control type="togglebutton" id="701">
 				<width>83</width>
 				<height>83</height>
