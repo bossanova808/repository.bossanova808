@@ -5,7 +5,11 @@ Kodi Bossanova808 Repository
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/bossanova808) 
 
-_(To install, download the latest [repository zip](https://github.com/bossanova808/repository.bossanova808/tree/42b19fc74f4158414b3d444f1f43904f9c5a2b0d/repository-downloads/repository.bossanova808) and then use 'Install from zip' in the Kodi Addons area)._
+## Installation
+
+1. In Kodi, go to **Settings → Media → File manager → Add source**, and add `https://repo.bossanova808.net` as a new source (call it whatever you like, e.g. `bossanova808`).
+2. Go to **Add-ons → Install from zip file**, browse to the source you just added, and install `repository.bossanova808-x.y.z.zip`.
+3. You can now browse and install any of the addons below from **Add-ons → Install from repository → Bossanova808's Kodi Addon Repository** - they'll auto-update from there too.
 
 **Note:** these addons are a bit less polished that the ones I submit to the official Kodi repo and/or contain/do things they don't allow in official add-ons (such as patching skin files, or binary blobs for hardware support).  
 
