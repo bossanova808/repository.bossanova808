@@ -97,6 +97,36 @@
         </extension>
     </addon>
     
+    <addon id="script.limp" name="Limp" version="1.0.0" provider-name="bossanova808">
+      <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.bossanova808" version="1.0.4"/>
+      </requires>
+      <extension point="xbmc.service" library="default.py" />
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Automatically forces software decoding for rotated or otherwise broken video played from chosen paths, restoring hardware decoding afterwards.</summary>
+        <description lang="en_GB">
+          CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all.
+    
+          Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere.
+        </description>
+        <platform>all</platform>
+        <license>GPL-3.0-only</license>
+        <website>https://github.com/bossanova808/repository.bossanova808/</website>
+        <source>https://github.com/bossanova808/repository.bossanova808/</source>
+        <forum />
+        <email />
+        <news>v1.0.0
+    - Detects and forces software decoding for video that trips up Amlogic's amcodec hardware decoder - files with a rotation tag, and MJPEG-in-AVI clips that hang on hardware decode entirely
+    - Scope it to specific paths, or apply everywhere
+    - Restores hardware decoding once affected playback ends
+        </news>
+        <assets>
+          <icon>resources/icon.png</icon>
+        </assets>
+      </extension>
+    </addon>
+    
     <addon id="script.ozweather-skinpatcher" name="OzWeather Skin Patcher" version="0.5.10" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>

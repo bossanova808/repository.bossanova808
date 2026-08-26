@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.limp">
+		<category help="" id="default" label="32000">
+			<group id="1">
+				<setting help="32015" id="ApplyEverywhere" label="32014" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="2" label="32012">
+				<setting id="Path1" label="32010" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<sources>
+							<source>video</source>
+						</sources>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>32010</heading>
+					</control>
+				</setting>
+				<setting id="Path2" label="32010" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<sources>
+							<source>video</source>
+						</sources>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>32010</heading>
+					</control>
+				</setting>
+				<setting id="Path3" label="32010" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<sources>
+							<source>video</source>
+						</sources>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>32010</heading>
+					</control>
+				</setting>
+				<setting id="Path4" label="32010" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<sources>
+							<source>video</source>
+						</sources>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>32010</heading>
+					</control>
+				</setting>
+				<setting id="Path5" label="32010" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<sources>
+							<source>video</source>
+						</sources>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>32010</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

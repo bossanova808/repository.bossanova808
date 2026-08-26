@@ -1,0 +1,45 @@
+# Kodi Media Center language file
+# Addon Name: Limp
+# Addon id: script.limp
+# Addon version: 0.1.0
+# Addon Provider: bossanova808
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "Automatically forces software decoding for rotated or otherwise broken video played from chosen paths, restoring hardware decoding afterwards."
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all. Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere."
+msgstr ""
+
+msgctxt "#32000"
+msgid "Paths"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Apply everywhere (not recommended)"
+msgstr ""
+
+msgctxt "#32015"
+msgid "Applies to every video played, not just under the paths below. Not recommended - without a path to exclude modern high-resolution video, this can force unnecessary, CPU-heavy software decoding on files that don't need it."
+msgstr ""
+
+msgctxt "#32012"
+msgid "Or, limit by these paths..."
+msgstr ""
+
+msgctxt "#32010"
+msgid "Path"
+msgstr ""
