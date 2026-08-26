@@ -25,6 +25,10 @@ A small addon for various personal Jellyfin-for-Kodi hack-fixes - currently clea
 
 Script for displaying some simple 'now playing' information (remaining time & current temperature), on an external USB connected [Yocto MaxiDisplay](https://www.yoctopuce.com/EN/products/usb-displays/yocto-maxidisplay).  Unfortunately this can't be released via the official Kodi repository as it includes pre-compiled binaries for driving the Yocto display.
 
+## Limp
+
+Forces software decoding for video files Amlogic's `amcodec` hardware decoder gets wrong (rotated phone/camera clips, and old MJPEG-in-AVI clips that hang on hardware decode), restoring hardware decoding afterwards. Scoped by path, or optionally applied everywhere. See the [full README](https://github.com/bossanova808/repository.bossanova808/blob/main/staging/script.limp/README.md) for details.
+
 ## Bossanova808 Friends & Family Confluence
 
 _(This is probably too personalised to be of general interest)._
