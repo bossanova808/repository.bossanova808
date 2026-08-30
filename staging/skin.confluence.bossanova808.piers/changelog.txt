@@ -1,3 +1,6 @@
+v5.1.320 (2026-08-26)
+- Add Atmos and DTS:X detection to the shared AudioCodecVar flag (library flags, Now Playing bar, and PlayerProcessInfo) - Kodi's AudioCodec infolabel doesn't distinguish these, so it's detected via filename matching, ported from signde's upstream fork
+
 v5.1.319 (2026-08-09)
 - Cross-reference the whole skin against upstream Confluence and against Omega; standardise all mod comment markers to one consistent format and label previously-unmarked code
 - Fix stale Home Weather Widget thumbnail border size (5 to 25), matching an upstream fix this skin hadn't picked up yet

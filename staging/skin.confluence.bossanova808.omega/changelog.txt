@@ -1,3 +1,6 @@
+v5.0.931 (2026-08-26)
+- Add Atmos and DTS:X detection to the shared AudioCodecVar flag (library flags, Now Playing bar, and PlayerProcessInfo) - Kodi's AudioCodec infolabel doesn't distinguish these, so it's detected via filename matching, ported from signde's upstream fork
+
 v5.0.930 (2026-08-09)
 - Cross-reference the whole skin against upstream Confluence and against Piers; standardise all mod comment markers to one consistent format and label previously-unmarked code (PPI/codec-logo overlays, Recently Played, Adults-profile TV menus, etc.)
 - Backport Piers's Home Weather Widget attempt, then revert it - depends on Weather.Data() infolabels not available on Omega's older engine; documented as a deliberate, engine-gated divergence rather than accidental drift

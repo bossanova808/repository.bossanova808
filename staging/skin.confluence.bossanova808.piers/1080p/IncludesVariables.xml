@@ -157,6 +157,8 @@
 		<value>$INFO[ListItem.AudioChannels]</value>
 	</variable>
 	<variable name="AudioCodecVar">
+		<value condition="[!Window.IsActive(fullscreenvideo) + String.Contains(ListItem.FileNameAndPath,atmos)] | [Window.IsActive(fullscreenvideo) + String.Contains(Player.FileNameAndPath,atmos)]">Atmos</value>
+		<value condition="[!Window.IsActive(fullscreenvideo) + [String.Contains(ListItem.FileNameAndPath,dtsx) | String.Contains(ListItem.FileNameAndPath,dts-x) | String.Contains(ListItem.FileNameAndPath,dts:x)]] | [Window.IsActive(fullscreenvideo) + [String.Contains(Player.FileNameAndPath,dtsx) | String.Contains(Player.FileNameAndPath,dts-x) | String.Contains(Player.FileNameAndPath,dts:x)]]">DTS:X</value>
 		<value condition="String.IsEqual(ListItem.AudioCodec,aac) | [Window.IsActive(fullscreenvideo) + String.IsEqual(VideoPlayer.AudioCodec,aac)] | [Window.IsActive(visualisation) + String.IsEqual(MusicPlayer.Codec,aac)]">AAC</value>
 		<value condition="String.IsEqual(ListItem.AudioCodec,aac_latm) | [Window.IsActive(fullscreenvideo) + String.IsEqual(VideoPlayer.AudioCodec,aac_latm)] | [Window.IsActive(visualisation) + String.IsEqual(MusicPlayer.Codec,aac_latm)]">AAC-LATM</value>
 		<value condition="String.IsEqual(ListItem.AudioCodec,aac_lc) | [Window.IsActive(fullscreenvideo) + String.IsEqual(VideoPlayer.AudioCodec,aac_lc)] | [Window.IsActive(visualisation) + String.IsEqual(MusicPlayer.Codec,aac_lc)]">AAC-LC</value>
