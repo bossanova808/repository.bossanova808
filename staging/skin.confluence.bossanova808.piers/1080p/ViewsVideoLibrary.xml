@@ -145,7 +145,8 @@
 				<font>font28_title</font>
 				<textcolor>blue</textcolor>
 				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$VAR[ShowCustomLabel]</label>
@@ -214,7 +215,8 @@
 				<height>53</height>
 				<font>font28_title</font>
 				<textcolor>blue</textcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$VAR[ShowCustomLabel]</label>
@@ -265,7 +267,8 @@
 				<height>53</height>
 				<font>font28_title</font>
 				<textcolor>blue</textcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$VAR[ShowCustomLabel]</label>
@@ -329,7 +332,8 @@
 				<font>font24_title</font>
 				<textcolor>white</textcolor>
 				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$VAR[ShowCustomLabel]</label>
@@ -494,7 +498,8 @@
 				<font>font24_title</font>
 				<textcolor>blue</textcolor>
 				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$VAR[ShowCustomLabel]</label>
@@ -846,6 +851,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>15</left>
@@ -925,6 +932,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>15</left>
@@ -1278,6 +1287,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>15</left>
@@ -1357,6 +1368,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>15</left>
@@ -1732,6 +1745,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<left>480</left>
@@ -1780,6 +1795,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$VAR[ShowCustomLabel]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<left>480</left>
@@ -1839,6 +1856,8 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$VAR[ShowCustomLabel]</label>
+					<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+					<scroll>false</scroll>
 				</control>
 				<control type="textbox">
 					<description>Description Value for Video</description>
@@ -1904,6 +1923,8 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$VAR[ShowCustomLabel]</label>
+					<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+					<scroll>false</scroll>
 				</control>
 				<control type="textbox">
 					<description>Description Value for Video</description>
@@ -1954,6 +1975,8 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$VAR[ShowCustomLabel]</label>
+					<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+					<scroll>false</scroll>
 				</control>
 				<control type="textbox">
 					<description>Description Value for Video</description>
@@ -2004,6 +2027,8 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$VAR[ShowCustomLabel]</label>
+					<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+					<scroll>false</scroll>
 				</control>
 				<control type="textbox">
 					<description>Description Value for Video</description>

@@ -1,3 +1,7 @@
+v5.1.321 (2026-08-26)
+- Fix CoreELEC UI-lock bug when a long episode/movie title scrolls in the video library List view - scrolling is now disabled there, matching other fixes throughout the skin
+- Apply the same fix to the equivalent Music library List view, and to a List view in the file browser that had been missed by an earlier pass
+
 v5.1.320 (2026-08-26)
 - Add Atmos and DTS:X detection to the shared AudioCodecVar flag (library flags, Now Playing bar, and PlayerProcessInfo) - Kodi's AudioCodec infolabel doesn't distinguish these, so it's detected via filename matching, ported from signde's upstream fork
 

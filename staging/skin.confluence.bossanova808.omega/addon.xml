@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.omega" version="5.0.931" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+<addon id="skin.confluence.bossanova808.omega" version="5.0.932" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 	</requires>
@@ -20,8 +20,9 @@
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
 		</assets>
-		<news>v5.0.931
-- Add Atmos and DTS:X detection to the shared audio-codec flag (library flags, Now Playing bar, and PlayerProcessInfo) - ported from signde's upstream fork
+		<news>v5.0.932
+- Fix CoreELEC UI-lock bug when a long episode/movie title scrolls in the video library List view - scrolling is now disabled there, matching other fixes throughout the skin
+- Apply the same fix to the equivalent Music library List view, and to a List view in the file browser that had been missed by an earlier pass
 		</news>
 	</extension>
 </addon>

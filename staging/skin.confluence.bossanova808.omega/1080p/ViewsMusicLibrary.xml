@@ -54,6 +54,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>90</left>
@@ -106,6 +108,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>90</left>
@@ -200,7 +204,8 @@
 				<font>font24_title</font>
 				<textcolor>white</textcolor>
 				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.Label]</label>
@@ -349,7 +354,8 @@
 				<font>font24_title</font>
 				<textcolor>blue</textcolor>
 				<shadowcolor>black</shadowcolor>
-				<scroll>true</scroll>
+				<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+				<scroll>false</scroll>
 				<align>center</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.Label]</label>
@@ -471,6 +477,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>45</left>
@@ -531,6 +539,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>45</left>
@@ -701,6 +711,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 				</itemlayout>
 				<focusedlayout height="60" width="870">
@@ -733,6 +745,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 				</focusedlayout>
 			</control>
@@ -903,6 +917,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>90</left>
@@ -955,6 +971,8 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[ListItem.Label]</label>
+						<!-- BOSSANOVA808 MOD - disable label scrolling due to CoreElec performance bug -->
+						<scroll>false</scroll>
 					</control>
 					<control type="label">
 						<left>90</left>
