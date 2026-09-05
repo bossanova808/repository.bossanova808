@@ -1,3 +1,7 @@
+v5.0.933 (2026-09-05)
+- JemFlix branding shown in place of the Kodi logo (login screen and home screen), dimmed slightly, when the Jellyfin add-on is installed; original Kodi logo shown otherwise
+- Login screen: profiles without a custom icon now show icon_profile.png instead of the passport-style default
+
 v5.0.932 (2026-08-26)
 - Fix CoreELEC UI-lock bug when a long episode/movie title scrolls in the video library List view - scrolling is now disabled there, matching other fixes throughout the skin
 - Apply the same fix to the equivalent Music library List view, and to a List view in the file browser that had been missed by an earlier pass

@@ -26,6 +26,20 @@
 				<height>75</height>
 				<aspectratio aligny="top" align="left">keep</aspectratio>
 				<texture>kodi-logo.png</texture>
+				<visible>!System.HasAddon(plugin.video.jellyfin)</visible>
+				<include>Window_OpenClose_Animation</include>
+			</control>
+			<!-- BOSSANOVA808 MOD - JemFlix branding shown instead of the Kodi logo when Jellyfin is installed -->
+			<control type="image">
+				<description>LOGO JemFlix</description>
+				<left>15</left>
+				<top>15</top>
+				<width>230</width>
+				<height>210</height>
+				<aspectratio aligny="top" align="left">keep</aspectratio>
+				<texture>jemflix-logo-with-j-small.png</texture>
+				<colordiffuse>FFDDDDDD</colordiffuse>
+				<visible>System.HasAddon(plugin.video.jellyfin)</visible>
 				<include>Window_OpenClose_Animation</include>
 			</control>
 			<control type="image">
@@ -74,6 +88,16 @@
 						<height>143</height>
 						<texture border="5">button-nofocus.png</texture>
 					</control>
+					<!-- BOSSANOVA808 MOD - use icon_profile.png instead of the passport-style DefaultUser.png for profiles without a custom icon -->
+					<control type="image">
+						<left>15</left>
+						<top>15</top>
+						<width>120</width>
+						<height>113</height>
+						<texture>icon_profile.png</texture>
+						<aspectratio>keep</aspectratio>
+						<visible>String.IsEmpty(ListItem.Icon) | String.Contains(ListItem.Icon,DefaultUser.png)</visible>
+					</control>
 					<control type="image">
 						<left>15</left>
 						<top>15</top>
@@ -81,6 +105,7 @@
 						<height>113</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 						<aspectratio>keep</aspectratio>
+						<visible>!String.IsEmpty(ListItem.Icon) + !String.Contains(ListItem.Icon,DefaultUser.png)</visible>
 					</control>
 					<control type="label">
 						<left>165</left>
@@ -126,6 +151,16 @@
 						<visible>Control.HasFocus(52)</visible>
 						<include>VisibleFadeEffect</include>
 					</control>
+					<!-- BOSSANOVA808 MOD - use icon_profile.png instead of the passport-style DefaultUser.png for profiles without a custom icon -->
+					<control type="image">
+						<left>15</left>
+						<top>15</top>
+						<width>120</width>
+						<height>113</height>
+						<texture>icon_profile.png</texture>
+						<aspectratio>keep</aspectratio>
+						<visible>String.IsEmpty(ListItem.Icon) | String.Contains(ListItem.Icon,DefaultUser.png)</visible>
+					</control>
 					<control type="image">
 						<left>15</left>
 						<top>15</top>
@@ -133,6 +168,7 @@
 						<height>113</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 						<aspectratio>keep</aspectratio>
+						<visible>!String.IsEmpty(ListItem.Icon) + !String.Contains(ListItem.Icon,DefaultUser.png)</visible>
 					</control>
 					<control type="label">
 						<left>165</left>

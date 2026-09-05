@@ -1319,7 +1319,21 @@
 				<texture>kodi-logo.png</texture>
 				<include>VisibleFadeEffect</include>
 				<include>Window_OpenClose_Animation</include>
-				<visible>!Skin.HasSetting(homepageWeatherinfo)</visible>
+				<visible>!Skin.HasSetting(homepageWeatherinfo) + !System.HasAddon(plugin.video.jellyfin)</visible>
+			</control>
+			<!-- BOSSANOVA808 MOD - JemFlix branding shown instead of the Kodi logo when Jellyfin is installed -->
+			<control type="image">
+				<description>LOGO JemFlix</description>
+				<left>15</left>
+				<top>8</top>
+				<width>230</width>
+				<height>210</height>
+				<aspectratio aligny="top" align="left">keep</aspectratio>
+				<texture>jemflix-logo-with-j-small.png</texture>
+				<colordiffuse>FFDDDDDD</colordiffuse>
+				<include>VisibleFadeEffect</include>
+				<include>Window_OpenClose_Animation</include>
+				<visible>!Skin.HasSetting(homepageWeatherinfo) + System.HasAddon(plugin.video.jellyfin)</visible>
 			</control>
 			<control type="group">
 				<left>30</left>
