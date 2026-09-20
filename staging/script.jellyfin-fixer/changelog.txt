@@ -1,3 +1,6 @@
+v0.1.2 (2026-09-20)
+- Add optional notification (on by default) when the initial Jellyfin sync completes
+
 v0.1.1 (2026-09-20)
 - Fix ratings purge firing before Jellyfin's library sync had actually finished writing to the database
 

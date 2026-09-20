@@ -51,5 +51,14 @@
                 </setting>
             </group>
         </category>
+        <category id="notifications" label="32015" help="">
+            <group id="30" label="32015">
+                <setting id="notify_sync_complete" type="boolean" label="32016" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
     </section>
 </settings>

@@ -12,6 +12,7 @@ class Store:
     jumpback_delta = 7
     jumpback = 7
     clear_ratings = False
+    notify_sync_complete = True
 
     def __init__(self):
         """
@@ -48,3 +49,6 @@ class Store:
 
         Store.clear_ratings = get_setting_as_bool("clear_tv_ratings")
         Logger.info(f"Purge TV/Episode ratings: {Store.clear_ratings}")
+
+        Store.notify_sync_complete = get_setting_as_bool("notify_sync_complete")
+        Logger.info(f"Notify when initial Jellyfin sync is complete: {Store.notify_sync_complete}")

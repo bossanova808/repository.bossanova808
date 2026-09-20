@@ -29,7 +29,7 @@
         </extension>
     </addon>
     
-    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.1.1" provider-name="bossanova808">
+    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.1.2" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -50,8 +50,8 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum />
             <email />
-            <news>v0.1.1
-    - Fix ratings purge firing before Jellyfin's library sync had actually finished writing to the database
+            <news>v0.1.2
+    - Add optional notification (on by default) when the initial Jellyfin sync completes
             </news>
             <assets>
                 <icon>resources/icon.png</icon>

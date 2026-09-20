@@ -1,7 +1,9 @@
 import xbmcgui
 import xbmc
+import xbmcvfs
 
 from bossanova808.logger import Logger
+from bossanova808.constants import ADDON_ID
 
 # noinspection PyPackages
 from .monitor import KodiEventMonitor
@@ -16,6 +18,12 @@ JELLYFIN_STARTUP_TIMEOUT = 900  # seconds
 JELLYFIN_SYNC_TIMEOUT = 1800  # seconds
 # How long to wait, after startup, to see whether a write-back sync even starts
 JELLYFIN_SYNC_SETTLE = 30  # seconds
+
+# Sent with a "Jellyfin" heading/icon, so it reads as a continuation of Jellyfin for Kodi's
+# own startup notifications (e.g. its "Welcome <user>" toast), rather than as a separate addon
+JELLYFIN_SYNC_NOTIFICATION_HEADING = 'Jellyfin'
+JELLYFIN_SYNC_NOTIFICATION_MESSAGE = 'Initial sync complete, now ready...'
+JELLYFIN_SYNC_NOTIFICATION_ICON = xbmcvfs.translatePath(f'special://home/addons/{ADDON_ID}/resources/notification_icon.png')
 
 
 # This is 'main'...
@@ -74,6 +82,10 @@ def run():
                     break
                 sync_elapsed += 1
             Logger.warning('Jellyfin startup/initial sync complete - JELLYFIN FIXER now ACTIVE.')
+            if Store.notify_sync_complete:
+                xbmcgui.Dialog().notification(heading=JELLYFIN_SYNC_NOTIFICATION_HEADING,
+                                               message=JELLYFIN_SYNC_NOTIFICATION_MESSAGE,
+                                               icon=JELLYFIN_SYNC_NOTIFICATION_ICON)
 
         # Only proceed to initialisation if the startup signal arrived
         if startup_successful:
