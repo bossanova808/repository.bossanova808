@@ -22,7 +22,7 @@ JELLYFIN_SYNC_SETTLE = 30  # seconds
 # Sent with a "Jellyfin" heading/icon, so it reads as a continuation of Jellyfin for Kodi's
 # own startup notifications (e.g. its "Welcome <user>" toast), rather than as a separate addon
 JELLYFIN_SYNC_NOTIFICATION_HEADING = 'Jellyfin'
-JELLYFIN_SYNC_NOTIFICATION_MESSAGE = 'Initial sync complete, now ready...'
+JELLYFIN_SYNC_NOTIFICATION_MESSAGE = 'Kodi library updated.'
 JELLYFIN_SYNC_NOTIFICATION_ICON = xbmcvfs.translatePath(f'special://home/addons/{ADDON_ID}/resources/notification_icon.png')
 
 
