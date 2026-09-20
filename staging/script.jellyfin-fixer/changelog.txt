@@ -1,27 +1,30 @@
-v0.1.0
+v0.1.1 (2026-09-20)
+- Fix ratings purge firing before Jellyfin's library sync had actually finished writing to the database
+
+v0.1.0 (2026-06-28)
 - Suppress GUI notifications when ratings are removed
 
-v0.0.9
-- Tidy up language & settings 
+v0.0.9 (2026-06-27)
+- Tidy up language & settings
 
-v0.0.8
+v0.0.8 (2026-05-22)
 — Fixes off by default, add fix to brute force remove all TV show ratings from Kodi's database.
 
-v0.0.6
-- Improve logging 
+v0.0.6 (2025-10-17)
+- Improve logging
 
-v0.0.5
-- Improve logging            
+v0.0.5 (2025-10-14)
+- Improve logging
 
-v0.0.4
+v0.0.4 (2025-10-11)
 - Don't do anything if JF resume point only off by a small number of seconds (configurable)
 
-v0.0.3
+v0.0.3 (2025-10-09)
 - V bump to try solve: https://github.com/bossanova808/repository.bossanova808/issues/20
 
-v0.0.2
+v0.0.2 (2025-10-06)
 - Use more common code
 
-v0.0.1
+v0.0.1 (2025-10-03)
 - Alpha pre-release
 

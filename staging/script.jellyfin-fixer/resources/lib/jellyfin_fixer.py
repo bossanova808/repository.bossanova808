@@ -12,6 +12,10 @@ from .ratings_purger import purge_tv_ratings, handle_jellyfin_sync_purge
 
 # Give up waiting after 15 minutes (enough even for a very long sync)
 JELLYFIN_STARTUP_TIMEOUT = 900  # seconds
+# Once startup handshake is seen, give up waiting for the write-back sync after 30 minutes
+JELLYFIN_SYNC_TIMEOUT = 1800  # seconds
+# How long to wait, after startup, to see whether a write-back sync even starts
+JELLYFIN_SYNC_SETTLE = 30  # seconds
 
 
 # This is 'main'...
@@ -43,12 +47,33 @@ def run():
             if kodi_monitor.waitForAbort(1):
                 break
             if home.getProperty('jellyfin_startup') == 'true':
-                Logger.warning('Jellyfin startup/initial sync complete - JELLYFIN FIXER now ACTIVE.')
+                Logger.info('Jellyfin startup handshake seen - waiting for library write-back sync to finish...')
                 startup_successful = True
                 break
             elapsed += 1
         else:
             Logger.error(f'Jellyfin startup not detected after {JELLYFIN_STARTUP_TIMEOUT}s - JELLYFIN FIXER *NOT* ACTIVE.')
+
+        # jellyfin_startup only means Jellyfin for Kodi's fast-sync handshake with the server
+        # returned - its writer threads then apply those changes to the Kodi database
+        # asynchronously afterwards, and set jellyfin_sync true/cleared around that work.
+        # Wait for that to actually finish before treating the sync as complete, otherwise
+        # we can purge ratings while Jellyfin is still mid-write.
+        if startup_successful:
+            sync_elapsed = 0
+            sync_seen_active = False
+            while sync_elapsed < JELLYFIN_SYNC_TIMEOUT:
+                if kodi_monitor.waitForAbort(1):
+                    break
+                syncing = home.getProperty('jellyfin_sync') == 'true'
+                if syncing:
+                    sync_seen_active = True
+                elif sync_seen_active:
+                    break
+                elif sync_elapsed >= JELLYFIN_SYNC_SETTLE:
+                    break
+                sync_elapsed += 1
+            Logger.warning('Jellyfin startup/initial sync complete - JELLYFIN FIXER now ACTIVE.')
 
         # Only proceed to initialisation if the startup signal arrived
         if startup_successful:
