@@ -1,3 +1,6 @@
+v0.2.10 (2026-09-26)
+- Add an add-on icon
+
 v0.2.9 (2026-08-06)
 - Renamed the addon to "YoctoDisplay" (was "Kodi YoctoDisplay") - addon ID is unchanged
 
