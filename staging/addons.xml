@@ -183,7 +183,7 @@
     - Fix crash if OzWeather isn't installed/enabled when patching
     - Manually running the patcher on a bossanova808 skin no longer touches its files (matches auto-patch behaviour)
     - Escape user-configured colours before writing them into skin XML
-    - Tighten skin detection & make the auto-patch delay respond promptly to Kodi shutting down
+    - Tighten skin detection &amp; make the auto-patch delay respond promptly to Kodi shutting down
     
     v0.5.9
     - Improve logging and threading
