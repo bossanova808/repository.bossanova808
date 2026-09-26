@@ -1,3 +1,8 @@
+v5.1.323 (2026-09-26)
+- Our household-specific behaviour (custom TV menus on the Adults profiles, fast Adults/Kids profile switching, family birthday backgrounds, skin utilities) is now switched on by the private script.bossanova808.private marker add-on, replacing the per-profile IsB808 skin setting
+- Fix TV sub-menus: every profile now gets exactly one sub-menu, so other people's installs with an "Adults" profile get the standard menus instead of none
+- Profile switch button does a normal log-off everywhere except our own installs
+
 v5.1.322 (2026-09-05)
 - JemFlix branding shown in place of the Kodi logo (login screen and home screen), dimmed slightly, when the Jellyfin add-on is installed; original Kodi logo shown otherwise
 - Login screen: profiles without a custom icon now show icon_profile.png instead of the passport-style default

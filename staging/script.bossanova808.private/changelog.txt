@@ -1,0 +1,2 @@
+v1.0.0 (2026-09-26)
+- Initial release - marks a Kodi install as one of Bossanova808's own, so the Bossanova808 skins enable their household-specific behaviour

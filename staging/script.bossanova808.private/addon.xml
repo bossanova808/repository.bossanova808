@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.bossanova808.private" name="Bossanova808 Private - DO NOT INSTALL" version="1.0.0" provider-name="bossanova808">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Testing only - this add-on may break your system - DON'T INSTALL!</summary>
+    <description lang="en_GB">
+      Testing only - this add-on may break your system - DON'T INSTALL!
+
+      This is a private add-on for Bossanova808's own Kodi systems only. It switches on personal, household-specific behaviour in Bossanova808's skins (custom menus, profile handling and more) that will not make sense - and may not work - anywhere else.
+
+      If you have installed it by accident, please uninstall it.
+    </description>
+    <platform>all</platform>
+    <license>GPL-3.0-only</license>
+    <website>https://github.com/bossanova808/repository.bossanova808/</website>
+    <source>https://github.com/bossanova808/repository.bossanova808/</source>
+    <forum />
+    <email />
+    <news>v1.0.0
+- Initial release - marks a Kodi install as one of Bossanova808's own, so the Bossanova808 skins enable their household-specific behaviour
+    </news>
+    <assets>
+      <icon>resources/icon.png</icon>
+    </assets>
+  </extension>
+</addon>

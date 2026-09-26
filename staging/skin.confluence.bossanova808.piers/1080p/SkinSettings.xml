@@ -393,8 +393,7 @@
 						<label2>$VAR[PPICodecLogosLabel]</label2>
 					</control>
 					<!-- END BOSSANOVA808 MOD -->
-<!-- BOSSANOVA808 MOD - allow for Skin.HasSetting(IsB808) checks -->
-<!-- Enables b808 specific things like birthday backgrounds etc. -->
+<!-- BOSSANOVA808 MOD - utilities only shown on Bossanova808's own installs ($EXP[IsBossanova808]) -->
                     <control type="label" id="121">
                         <width>1125</width>
                         <height>68</height>
@@ -404,7 +403,7 @@
                         <shadowcolor>black</shadowcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <visible>Skin.HasSetting(IsB808)</visible>
+                        <visible>$EXP[IsBossanova808]</visible>
                     </control>
                     <control type="button" id="122">
                         <width>1125</width>
@@ -417,7 +416,7 @@
                         <texturefocus>MenuItemFO.png</texturefocus>
                         <texturenofocus>MenuItemNF.png</texturenofocus>
                         <onclick>ReloadSkin()</onclick>
-                        <visible>Skin.HasSetting(IsB808)</visible>
+                        <visible>$EXP[IsBossanova808]</visible>
                     </control>
                     <control type="button" id="123">
                         <width>1125</width>
@@ -430,7 +429,7 @@
                         <texturefocus>MenuItemFO.png</texturefocus>
                         <texturenofocus>MenuItemNF.png</texturenofocus>
                         <onclick>Action(reloadkeymaps)</onclick>
-                        <visible>Skin.HasSetting(IsB808)</visible>
+                        <visible>$EXP[IsBossanova808]</visible>
                     </control>
                     <control type="radiobutton" id="124">
                         <width>1125</width>
@@ -443,7 +442,7 @@
                         <texturefocus>MenuItemFO.png</texturefocus>
                         <texturenofocus>MenuItemNF.png</texturenofocus>
                         <onclick>Skin.ToggleDebug</onclick>
-                        <visible>Skin.HasSetting(IsB808)</visible>
+                        <visible>$EXP[IsBossanova808]</visible>
                     </control>
                     <control type="radiobutton" id="125">
                         <width>1125</width>
@@ -456,24 +455,9 @@
                         <texturefocus>MenuItemFO.png</texturefocus>
                         <texturenofocus>MenuItemNF.png</texturenofocus>
                         <onclick>Skin.ToggleSetting(DebugGrid)</onclick>
-                        <visible>Skin.HasSetting(IsB808)</visible>
+                        <visible>$EXP[IsBossanova808]</visible>
                     </control>
-<!--                    <control type="radiobutton" id="126">-->
-<!--                        <width>1125</width>-->
-<!--                        <height>60</height>-->
-<!--                        <font>font13</font>-->
-<!--                        <label>Bossanova808 Testing? (*Caution!* ...this may break your system!)</label>-->
-<!--                        <textcolor>grey2</textcolor>-->
-<!--                        <focusedcolor>white</focusedcolor>-->
-<!--                        <default>false</default>-->
-<!--                        <texturefocus>MenuItemFO.png</texturefocus>-->
-<!--                        <texturenofocus>MenuItemNF.png</texturenofocus>-->
-<!--                        <onclick>Skin.ToggleSetting(IsB808)</onclick>-->
-<!--                        <selected>Skin.HasSetting(IsB808)</selected>-->
-<!--                        <visible>Skin.HasSetting(IsB808)</visible>-->
-<!--                    </control>-->
-
-<!-- END BOSSANOVA808 MOD - all for IsB808 checks -->
+<!-- END BOSSANOVA808 MOD -->
 
 				</control>
 				<control type="scrollbar" id="60">

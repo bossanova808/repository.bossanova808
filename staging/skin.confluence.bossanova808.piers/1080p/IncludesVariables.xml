@@ -822,15 +822,15 @@
 		<!-- For testing...uncomment this to overrule all below options	-->
 		<!-- <value>special://skin/backgrounds/MothersDay.jpg</value>-->
 		<!-- Bossanova808 Specific -->
-		<value condition="Skin.HasSetting(IsB808) + System.Date(01-03,01-04)">special://skin/backgrounds/BirthdayJem.jpg</value>
-		<value condition="Skin.HasSetting(IsB808) + System.Date(04-11,04-12)">special://skin/backgrounds/BirthdayAmy.jpg</value>
-		<value condition="Skin.HasSetting(IsB808) + System.Date(06-26,06-27)">special://skin/backgrounds/BirthdayLeyna.jpg</value>
-		<value condition="Skin.HasSetting(IsB808) + System.Date(08-12,08-13)">special://skin/backgrounds/BirthdayAleda.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(01-03,01-04)">special://skin/backgrounds/BirthdayJem.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(04-11,04-12)">special://skin/backgrounds/BirthdayAmy.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(06-26,06-27)">special://skin/backgrounds/BirthdayLeyna.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(08-12,08-13)">special://skin/backgrounds/BirthdayAleda.jpg</value>
 		<!-- Jamy anniversary -->
-		<value condition="Skin.HasSetting(IsB808) + System.Date(10-07,10-08)">special://skin/backgrounds/Valentines.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(10-07,10-08)">special://skin/backgrounds/Valentines.jpg</value>
 		<!-- Need annual updates to these dates! -->
-		<value condition="Skin.HasSetting(IsB808) + System.Date(05-10,05-11)">special://skin/backgrounds/MothersDay.jpg</value>
-		<value condition="Skin.HasSetting(IsB808) + System.Date(09-06,09-07)">special://skin/backgrounds/FathersDay.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(05-10,05-11)">special://skin/backgrounds/MothersDay.jpg</value>
+		<value condition="$EXP[IsBossanova808] + System.Date(09-06,09-07)">special://skin/backgrounds/FathersDay.jpg</value>
 		<value condition="System.Date(04-03,04-06)">special://skin/backgrounds/Easter.jpg</value>
 		<!-- All skin users	-->
 		<value condition="System.Date(02-14,02-15)">special://skin/backgrounds/Valentines.jpg</value>
@@ -859,6 +859,10 @@
 	<expression name="Thumbnail">!$EXP[Poster] + [!String.IsEmpty(Player.Art(thumbnail)) | !String.IsEmpty(Player.Art(tvshow.thumbnail))]</expression>
 	<expression name="Icon">!$EXP[ClearSomething] + !$EXP[Poster] + !$EXP[Thumbnail] + !String.IsEmpty(Player.Icon)</expression>
 	<!--  END BOSSANOVA808 MOD CLEARART -->
+
+	<!-- BOSSANOVA808 MOD - true only on Bossanova808's own installs, marked by the private marker add-on (install-wide, so covers every profile) -->
+	<!-- AddonIsEnabled, not HasAddon - HasAddon is still true when the add-on is installed but disabled -->
+	<expression name="IsBossanova808">System.AddonIsEnabled(script.bossanova808.private)</expression>
 
 	<!-- ============================================================ -->
 	<!-- Variables from p3i Estuary for DialogPlayerProcessInfo     -->

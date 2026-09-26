@@ -29,6 +29,37 @@
         </extension>
     </addon>
     
+    <addon id="script.bossanova808.private" name="Bossanova808 Private - DO NOT INSTALL" version="1.0.0" provider-name="bossanova808">
+      <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+      </requires>
+      <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Testing only - this add-on may break your system - DON'T INSTALL!</summary>
+        <description lang="en_GB">
+          Testing only - this add-on may break your system - DON'T INSTALL!
+    
+          This is a private add-on for Bossanova808's own Kodi systems only. It switches on personal, household-specific behaviour in Bossanova808's skins (custom menus, profile handling and more) that will not make sense - and may not work - anywhere else.
+    
+          If you have installed it by accident, please uninstall it.
+        </description>
+        <platform>all</platform>
+        <license>GPL-3.0-only</license>
+        <website>https://github.com/bossanova808/repository.bossanova808/</website>
+        <source>https://github.com/bossanova808/repository.bossanova808/</source>
+        <forum />
+        <email />
+        <news>v1.0.0
+    - Initial release - marks a Kodi install as one of Bossanova808's own, so the Bossanova808 skins enable their household-specific behaviour
+        </news>
+        <assets>
+          <icon>resources/icon.png</icon>
+        </assets>
+      </extension>
+    </addon>
+    
     <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.1.3" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
@@ -172,7 +203,7 @@
         </extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.omega" version="5.0.933" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
+    <addon id="skin.confluence.bossanova808.omega" version="5.0.934" name="Confluence Bossanova808 Omega" provider-name="Jezz_X, Team Kodi, Bossanova808">
     	<requires>
     		<import addon="xbmc.gui" version="5.17.0"/>
     	</requires>
@@ -193,14 +224,15 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.0.933
-    - JemFlix branding shown in place of the Kodi logo (login screen and home screen), dimmed slightly, when the Jellyfin add-on is installed; original Kodi logo shown otherwise
-    - Login screen: profiles without a custom icon now show icon_profile.png instead of the passport-style default
+    		<news>v5.0.934
+    - Our household-specific behaviour (custom TV menus on the Adults profiles, fast Adults/Kids profile switching, family birthday backgrounds, skin utilities) is now switched on by the private script.bossanova808.private marker add-on, replacing the per-profile IsB808 skin setting
+    - Fix TV sub-menus: every profile now gets exactly one sub-menu, so other people's installs with an "Adults" profile get the standard menus instead of none
+    - Profile switch button does a normal log-off everywhere except our own installs
     		</news>
     	</extension>
     </addon>
     
-    <addon id="skin.confluence.bossanova808.piers" version="5.1.322" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+    <addon id="skin.confluence.bossanova808.piers" version="5.1.323" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
     	<requires>
     		<import addon="xbmc.gui" version="5.18.0"/>
     	</requires>
@@ -221,9 +253,10 @@
     			<screenshot>resources/screenshot-01.jpg</screenshot>
     			<screenshot>resources/screenshot-02.jpg</screenshot>
     		</assets>
-    		<news>v5.1.322
-    - JemFlix branding shown in place of the Kodi logo (login screen and home screen), dimmed slightly, when the Jellyfin add-on is installed; original Kodi logo shown otherwise
-    - Login screen: profiles without a custom icon now show icon_profile.png instead of the passport-style default
+    		<news>v5.1.323
+    - Our household-specific behaviour (custom TV menus on the Adults profiles, fast Adults/Kids profile switching, family birthday backgrounds, skin utilities) is now switched on by the private script.bossanova808.private marker add-on, replacing the per-profile IsB808 skin setting
+    - Fix TV sub-menus: every profile now gets exactly one sub-menu, so other people's installs with an "Adults" profile get the standard menus instead of none
+    - Profile switch button does a normal log-off everywhere except our own installs
     		</news>
     	</extension>
     </addon>
