@@ -6,12 +6,37 @@ import os
 import re
 import sys
 import shutil
+import filecmp
 import hashlib
+import xml.etree.ElementTree as ET
 
 # uv install rich dirhash
 from dirhash import dirhash
 from rich.console import Console
 from rich.theme import Theme
+
+
+def publish_assets(addon_folder_staging, addon_folder_repository_downloads, console):
+    # Kodi's add-on browser fetches artwork as loose files from <datadir>/<addon id>/<asset path>, not from the zip
+    with open(os.path.join(addon_folder_staging, "addon.xml"), 'r', encoding="utf-8") as f:
+        # Only parse the <assets> block - Kodi tolerates things like a bare '&' in <news> that ElementTree rejects
+        assets_block = re.search(r"<assets>.*?</assets>", f.read(), flags=re.S)
+    if not assets_block:
+        return
+    for asset in ET.fromstring(assets_block.group(0)):
+        asset_path = (asset.text or "").strip()
+        if not asset_path:
+            continue
+        source = os.path.join(addon_folder_staging, asset_path)
+        destination = os.path.join(addon_folder_repository_downloads, asset_path)
+        if not os.path.isfile(source):
+            console.log(f"addon.xml declares <{asset.tag}> '{asset_path}' but it doesn't exist in staging", style="warning")
+            continue
+        if os.path.isfile(destination) and filecmp.cmp(source, destination, shallow=False):
+            continue
+        os.makedirs(os.path.dirname(destination), exist_ok=True)
+        shutil.copy2(source, destination)
+        console.log(f"Published <{asset.tag}> asset for the add-on browser: '{asset_path}'")
 
 
 def main():
@@ -122,6 +147,9 @@ def main():
                 console.log(zips_to_delete)
                 for zips_to_delete in zips_to_delete:
                     os.remove(f"{zips_to_delete}")
+
+        # Every run, not just new releases, so missing/stale artwork self-heals
+        publish_assets(ADDON_FOLDER_STAGING, ADDON_FOLDER_REPOSITORY_DOWNLOADS, console)
 
     console.rule(f"Repository Actions", style="exec")
 
