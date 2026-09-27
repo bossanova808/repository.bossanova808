@@ -13,40 +13,12 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-msgctxt "#32001"
-msgid "Resuming a few seconds earlier can help regain the context..."
-msgstr ""
-
-msgctxt "#32002"
-msgid "Resume playback this many seconds behind Kodi resume point"
-msgstr ""
-
-msgctxt "#32007"
-msgid "If Kodi <> Jellyfin Resume Point differs...
-msgstr ""
-
-msgctxt "#32008"
-msgid "Minimum difference threshold to invoke fix (seconds)"
-msgstr ""
-
 msgctxt "#32010"
 msgid "Purge Ratings"
 msgstr ""
 
 msgctxt "#32011"
 msgid "Purge all ratings from media library"
-msgstr ""
-
-msgctxt "#32012"
-msgid "[Legacy] Should Jellyfin Fixer monitor resume behaviour?"
-msgstr ""
-
-msgctxt "#32013"
-msgid "Use Kodi resume point if Jellyfin resume point differs?"
-msgstr ""
-
-msgctxt "#32014"
-msgid "Resume Fixes"
 msgstr ""
 
 msgctxt "#32015"

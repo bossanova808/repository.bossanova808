@@ -21,8 +21,8 @@ JELLYFIN_SYNC_SETTLE = 30  # seconds
 
 # Sent with a "Jellyfin" heading/icon, so it reads as a continuation of Jellyfin for Kodi's
 # own startup notifications (e.g. its "Welcome <user>" toast), rather than as a separate addon
-JELLYFIN_SYNC_NOTIFICATION_HEADING = 'Jellyfin'
-JELLYFIN_SYNC_NOTIFICATION_MESSAGE = 'Kodi library updated.'
+JELLYFIN_SYNC_NOTIFICATION_HEADING = 'Jellyfin for Kodi'
+JELLYFIN_SYNC_NOTIFICATION_MESSAGE = 'Jellyfin library sync complete.'
 JELLYFIN_SYNC_NOTIFICATION_ICON = xbmcvfs.translatePath(f'special://home/addons/{ADDON_ID}/resources/notification_icon.png')
 
 
@@ -45,7 +45,6 @@ def run():
 
         kodi_monitor.onSettingsChanged = updated_settings_callback
 
-        player = None
         Logger.info(f'Waiting for Jellyfin startup/intial sync (timeout: {JELLYFIN_STARTUP_TIMEOUT}s)...')
         home = xbmcgui.Window(10000)
         elapsed = 0
@@ -92,16 +91,10 @@ def run():
             # Fire initial sanitation run when the startup delay completes or is bypassed
             purge_tv_ratings()
 
-            if Store.enable_resume_fix:
-                # noinspection PyPackages
-                from .player import KodiPlayer
-                player = KodiPlayer()
-
             while not kodi_monitor.abortRequested():
                 if kodi_monitor.waitForAbort(1):
                     break
     finally:
         # We're done...
         Logger.stop()
-        player = None
         kodi_monitor = None

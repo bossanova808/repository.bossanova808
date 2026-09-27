@@ -60,7 +60,7 @@
       </extension>
     </addon>
     
-    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.1.3" provider-name="bossanova808">
+    <addon id="script.jellyfin-fixer" name="Jellyfin Fixer" version="0.2.0" provider-name="bossanova808">
         <requires>
             <import addon="xbmc.python" version="3.0.0"/>
             <import addon="script.module.bossanova808" version="1.0.2"/>
@@ -81,8 +81,10 @@
             <source>https://github.com/bossanova808/repository.bossanova808/</source>
             <forum />
             <email />
-            <news>v0.1.3
-    - Simplify the sync-complete notification text to "Kodi library updated."
+            <news>v0.2.0
+    - Remove the resume-point fix (settings, code and the Kodi player hook) - the upstream Jellyfin for Kodi defect it worked around is now fixed
+    - Reorder settings to Purge Ratings, then Notifications
+    - Reword the sync-complete notification to "Jellyfin for Kodi" / "Jellyfin library sync complete"
             </news>
             <assets>
                 <icon>resources/icon.png</icon>
