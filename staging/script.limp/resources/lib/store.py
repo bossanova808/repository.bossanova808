@@ -1,9 +1,11 @@
 import json
 import os
 
-from bossanova808.constants import PROFILE
+from bossanova808.constants import HOME_WINDOW, PROFILE
 from bossanova808.logger import Logger
-from bossanova808.utilities import get_setting, get_setting_as_bool
+from bossanova808.utilities import get_setting, get_setting_as_bool, set_property, clear_property
+# noinspection PyPackages
+from .messages import CONTEXT_MENU_PROPERTY
 # noinspection PyPackages
 from .rotation import probe_needs_software_decode
 
@@ -26,6 +28,9 @@ class Store:
 
     # If true, every video everywhere is a candidate, regardless of paths above
     apply_everywhere = False
+
+    # Whether the "Limp: software decode" context menu item is offered
+    show_context_menu = True
 
     # Cache of file path -> whether it needs software decoding forced (True/False), so each file
     # only ever needs probing (reading its rotation matrix or AVI codec) once. Persisted so it
@@ -61,7 +66,23 @@ class Store:
                 paths.append(path)
         Store.paths = paths
 
+        # On unless explicitly turned off
+        show_context_menu = get_setting_as_bool("ShowContextMenu")
+        Store.show_context_menu = True if show_context_menu is None else show_context_menu
+        Store.publish_context_menu_visibility()
+
         Store.log_configuration()
+
+    @staticmethod
+    def publish_context_menu_visibility():
+        """
+        The context menu item's visibility condition (in addon.xml) can't read our settings, so
+        mirror the "show context menu item" setting into a Home window property for it to check.
+        """
+        if Store.show_context_menu:
+            set_property(HOME_WINDOW, CONTEXT_MENU_PROPERTY, "true")
+        else:
+            clear_property(HOME_WINDOW, CONTEXT_MENU_PROPERTY)
 
     @staticmethod
     def log_configuration():
@@ -69,6 +90,7 @@ class Store:
         Log out our key configuration values
         :return:
         """
+        Logger.info(f'Show context menu item: {Store.show_context_menu}')
         if Store.apply_everywhere:
             Logger.info('Forcing software decoding for problem files everywhere (not limited by path).')
         elif Store.paths:

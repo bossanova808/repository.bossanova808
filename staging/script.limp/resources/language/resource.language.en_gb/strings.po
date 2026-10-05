@@ -21,7 +21,7 @@ msgid "Automatically forces software decoding for rotated or otherwise broken vi
 msgstr ""
 
 msgctxt "Addon Description"
-msgid "CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all. Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere."
+msgid "CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all. Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere. Or play any video with software decoding from the video context menu (\"Limp: software decode\")."
 msgstr ""
 
 msgctxt "#32000"
@@ -42,4 +42,16 @@ msgstr ""
 
 msgctxt "#32010"
 msgid "Path"
+msgstr ""
+
+msgctxt "#32020"
+msgid "Limp: software decode"
+msgstr ""
+
+msgctxt "#32021"
+msgid "Limp couldn't force software decoding - is the service running?"
+msgstr ""
+
+msgctxt "#32016"
+msgid "Enable the Limp context menu?"
 msgstr ""

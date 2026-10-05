@@ -11,4 +11,6 @@ Two known problems trigger it: rotated phone/camera clips, which usually play st
 
 Runs as a service, watching one or more paths you configure in settings (or, less safely, applied everywhere). Only files that actually benefit from software decoding are switched. Other files (such as 4K HDR files, too heavy for the CPU) are ignored.
 
+To play any other video with software decoding (e.g. one outside your Limp paths), use the **Limp: software decode** item in the context menu in the Videos window. Hardware decoding is restored afterwards. You can turn this menu item off in settings.
+
 Confirmed working on Amlogic S9xx (CoreELEC/Ugoos AM6B+). Issues and PRs welcome on GitHub - e.g. for other platforms, or other playback problems this could help with.

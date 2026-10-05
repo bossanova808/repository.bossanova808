@@ -1,3 +1,5 @@
+import time
+
 import xbmc
 
 from bossanova808.logger import Logger
@@ -11,6 +13,9 @@ from .store import Store
 # Android, videoplayer.usevaapi on Linux/VAAPI, videoplayer.usedxva2 on Windows) - add support for
 # those here if/when needed.
 HARDWARE_DECODE_SETTING = "videoplayer.useamcodec"
+
+# How long a manual (context menu) override waits for its playback to start before lapsing
+MANUAL_REQUEST_TIMEOUT_SECONDS = 30
 
 
 def _set_kodi_setting(setting, value):
@@ -68,10 +73,19 @@ class DecoderOverride:
     look-ahead) evaluate a specific file directly, rather than auto-detecting the current one - so
     a multi-clip "play from here"/"play all" queue can get the next clip's decode mode set
     correctly before Kodi opens it, not just after.
+
+    The context menu's "software decode" action arms a one-off manual override instead (see
+    request_manual_force()): it forces software decode for the very next playback, whatever the
+    file and wherever it lives, and is dropped again once that playback finishes.
     """
 
     _forcing = False
     _original_value = None
+
+    # One-off manual override, armed by the context menu action
+    _manual = False
+    _manual_started = False
+    _manual_armed_at = 0.0
 
     @classmethod
     def recheck(cls, reason):
@@ -92,12 +106,56 @@ class DecoderOverride:
         :param file_path: the file to evaluate
         :param reason: a short human-readable reason, used in the log message on a state change
         """
-        should_force = Store.needs_software_decode(file_path)
+        should_force = cls._manual_active() or Store.needs_software_decode(file_path)
 
         if should_force and not cls._forcing:
             cls._force(reason)
         elif not should_force and cls._forcing:
             cls._restore(reason)
+
+    @classmethod
+    def request_manual_force(cls):
+        """
+        Arm a one-off override: force software decode for the next playback, regardless of file or
+        path. Applies immediately, so it's in place before the caller starts that playback.
+
+        :return: True if software decode is now being forced
+        """
+        cls._manual = True
+        cls._manual_started = False
+        cls._manual_armed_at = time.monotonic()
+        cls.recheck('Manual request')
+        return cls._forcing
+
+    @classmethod
+    def note_playback_started(cls):
+        """
+        Playback has started - if a manual override is armed, this is the playback it was for.
+        """
+        if cls._manual:
+            cls._manual_started = True
+
+    @classmethod
+    def note_playback_finished(cls):
+        """
+        Playback has ended, stopped or failed - drops a manual override once its playback is done.
+        (A stop that arrives before the armed playback has started belongs to whatever was playing
+        before it, so is ignored.)
+        """
+        if cls._manual and cls._manual_started:
+            cls._manual = False
+            cls._manual_started = False
+
+    @classmethod
+    def _manual_active(cls):
+        """
+        Whether a manual override is currently in force. One that never gets as far as a playback
+        starting (e.g. the file failed to open) lapses after a while, rather than sticking forever.
+        """
+        if cls._manual and not cls._manual_started and time.monotonic() - cls._manual_armed_at > MANUAL_REQUEST_TIMEOUT_SECONDS:
+            Logger.info('Manual software decode request lapsed - no playback started.')
+            cls._manual = False
+        return cls._manual
 
     @classmethod
     def _force(cls, reason):

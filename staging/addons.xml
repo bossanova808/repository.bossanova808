@@ -121,18 +121,26 @@
         </extension>
     </addon>
     
-    <addon id="script.limp" name="Limp" version="1.0.0" provider-name="bossanova808">
+    <addon id="script.limp" name="Limp" version="1.1.0" provider-name="bossanova808">
       <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.bossanova808" version="1.0.4"/>
       </requires>
       <extension point="xbmc.service" library="default.py" />
+      <extension point="kodi.context.item">
+        <menu id="kodi.core.main">
+          <item library="context.py">
+            <label>32020</label>
+            <visible>Window.IsVisible(videos) + !ListItem.IsFolder + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
+          </item>
+        </menu>
+      </extension>
       <extension point="xbmc.addon.metadata">
         <summary lang="en_GB">Automatically forces software decoding for rotated or otherwise broken video played from chosen paths, restoring hardware decoding afterwards.</summary>
         <description lang="en_GB">
           CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all.
     
-          Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere.
+          Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere. Or play any video with software decoding from the video context menu ("Limp: software decode").
         </description>
         <platform>all</platform>
         <license>GPL-3.0-only</license>
@@ -140,10 +148,8 @@
         <source>https://github.com/bossanova808/repository.bossanova808/</source>
         <forum />
         <email />
-        <news>v1.0.0
-    - Detects and forces software decoding for video that trips up Amlogic's amcodec hardware decoder - files with a rotation tag, and MJPEG-in-AVI clips that hang on hardware decode entirely
-    - Scope it to specific paths, or apply everywhere
-    - Restores hardware decoding once affected playback ends
+        <news>v1.1.0
+    - Add a "Limp: software decode" context menu item to play any video with software decoding, e.g. files outside your Limp paths (can be turned off in settings)
         </news>
         <assets>
           <icon>resources/icon.png</icon>

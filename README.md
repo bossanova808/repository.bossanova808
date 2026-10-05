@@ -27,7 +27,7 @@ Script for displaying some simple 'now playing' information (remaining time & cu
 
 ## Limp
 
-Forces software decoding for video files Amlogic's `amcodec` hardware decoder gets wrong (rotated phone/camera clips, and old MJPEG-in-AVI clips that hang on hardware decode), restoring hardware decoding afterwards. Scoped by path, or optionally applied everywhere. See the [full README](https://github.com/bossanova808/repository.bossanova808/blob/main/staging/script.limp/README.md) for details.
+Forces software decoding for video files Amlogic's `amcodec` hardware decoder gets wrong (rotated phone/camera clips, and old MJPEG-in-AVI clips that hang on hardware decode), restoring hardware decoding afterwards. Scoped by path, or optionally applied everywhere - plus a context menu item to play any video with software decoding on demand. See the [full README](https://github.com/bossanova808/repository.bossanova808/blob/main/staging/script.limp/README.md) for details.
 
 ## Bossanova808 Friends & Family Confluence
 

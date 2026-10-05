@@ -27,15 +27,19 @@ class KodiPlayer(xbmc.Player):
             self._playlist_position = xbmc.PlayList(xbmc.PLAYLIST_VIDEO).getposition()
         except Exception:
             self._playlist_position = -1
+        DecoderOverride.note_playback_started()
         DecoderOverride.recheck('Playback started')
 
     def onPlayBackEnded(self):
+        DecoderOverride.note_playback_finished()
         self._recheck_for_end('Playback ended')
 
     def onPlayBackStopped(self):
+        DecoderOverride.note_playback_finished()
         self._recheck_for_end('Playback stopped')
 
     def onPlayBackError(self):
+        DecoderOverride.note_playback_finished()
         self._recheck_for_end('Playback error')
 
     def _recheck_for_end(self, reason):

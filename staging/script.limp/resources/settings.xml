@@ -3,13 +3,20 @@
 	<section id="script.limp">
 		<category help="" id="default" label="32000">
 			<group id="1">
+				<setting id="ShowContextMenu" label="32016" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="2">
 				<setting help="32015" id="ApplyEverywhere" label="32014" type="boolean">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="2" label="32012">
+			<group id="3" label="32012">
 				<setting id="Path1" label="32010" type="path">
 					<level>0</level>
 					<default/>
