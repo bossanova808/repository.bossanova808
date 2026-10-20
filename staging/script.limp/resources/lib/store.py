@@ -5,9 +5,11 @@ from bossanova808.constants import HOME_WINDOW, PROFILE
 from bossanova808.logger import Logger
 from bossanova808.utilities import get_setting, get_setting_as_bool, set_property, clear_property
 # noinspection PyPackages
-from .messages import CONTEXT_MENU_PROPERTY
+from .messages import CONTEXT_MENU_PROPERTY, SERIES_FILE, SERIES_LISTED_PROPERTY
 # noinspection PyPackages
 from .rotation import probe_needs_software_decode
+# noinspection PyPackages
+from .show_list import ShowList, title_key
 
 # Number of path slots offered in the add-on's settings
 NUMBER_OF_PATH_SETTINGS = 5
@@ -32,6 +34,12 @@ class Store:
     # Whether the "Limp: software decode" context menu item is offered
     show_context_menu = True
 
+    # TV shows set (via the context menu) to always use software decoding
+    series_list = None
+
+    # Whether the focused item's show is on that list, as last published (None until the first time)
+    _series_listed_published = None
+
     # Cache of file path -> whether it needs software decoding forced (True/False), so each file
     # only ever needs probing (reading its rotation matrix or AVI codec) once. Persisted so it
     # survives a service restart.
@@ -48,6 +56,8 @@ class Store:
             os.makedirs(PROFILE)
         Store.probe_cache_file = os.path.join(PROFILE, "probe_cache.json")
         Store._load_probe_cache()
+        Store.series_list = ShowList(SERIES_FILE)
+        Logger.info(f'Series set to software decoding: {[title for _, title in Store.series_list.items()]}')
 
     @staticmethod
     def load_config_from_settings():
@@ -72,6 +82,41 @@ class Store:
         Store.publish_context_menu_visibility()
 
         Store.log_configuration()
+
+    @staticmethod
+    def load_series_list():
+        """
+        Reload the list of series from disk - it's changed by the context menu and settings scripts,
+        which run as separate processes.
+        """
+        Store.series_list.load()
+        Logger.info(f'Series set to software decoding: {[title for _, title in Store.series_list.items()]}')
+
+    @staticmethod
+    def is_series_listed(show_title):
+        """
+        Whether a TV show has been set to always use software decoding.
+
+        :param show_title: the show's title, as Kodi reports it
+        :return: True if the show is on the list
+        """
+        return bool(show_title) and Store.series_list is not None and Store.series_list.contains(title_key(show_title))
+
+    @staticmethod
+    def publish_series_listed(listed):
+        """
+        Mirror whether the focused item's TV show is on the series list into a Home window property,
+        for the context menu's visibility conditions (see SERIES_LISTED_PROPERTY).
+
+        :param listed: True if the focused item's show is on the list
+        """
+        if listed == Store._series_listed_published:
+            return
+        Store._series_listed_published = listed
+        if listed:
+            set_property(HOME_WINDOW, SERIES_LISTED_PROPERTY, "true")
+        else:
+            clear_property(HOME_WINDOW, SERIES_LISTED_PROPERTY)
 
     @staticmethod
     def publish_context_menu_visibility():

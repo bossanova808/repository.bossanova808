@@ -8,7 +8,7 @@ from bossanova808.utilities import send_kodi_json, set_property
 # noinspection PyPackages
 from .decoder_override import DecoderOverride
 # noinspection PyPackages
-from .messages import NOTIFY_SENDER, NOTIFY_MESSAGE, ACK_PROPERTY
+from .messages import NOTIFY_SENDER, NOTIFY_MESSAGE, NOTIFY_SERIES_CHANGED, ACK_PROPERTY
 # noinspection PyPackages
 from .store import Store
 
@@ -29,12 +29,24 @@ class KodiEventMonitor(xbmc.Monitor):
 
     def onNotification(self, sender, method, data):
         """
+        Handle messages from the context menu and settings scripts, which run as separate processes.
+        """
+        if sender != NOTIFY_SENDER:
+            return
+        if method.endswith(NOTIFY_SERIES_CHANGED):
+            Store.load_series_list()
+            DecoderOverride.recheck('Series list changed')
+        elif method.endswith(NOTIFY_MESSAGE):
+            self._play_with_software_decode(data)
+
+    @staticmethod
+    def _play_with_software_decode(data):
+        """
         Handle the context menu's "software decode" request: force software decode, then play the
         item - in that order, from here, so the setting is in place before the file is opened.
-        """
-        if sender != NOTIFY_SENDER or not method.endswith(NOTIFY_MESSAGE):
-            return
 
+        :param data: the request, as a JSON string
+        """
         try:
             request = json.loads(data)
             request_id = request['id']
@@ -42,7 +54,7 @@ class KodiEventMonitor(xbmc.Monitor):
             Logger.error(f'Ignoring malformed software decode request: {data}')
             return
 
-        item = self._item_from_request(request)
+        item = KodiEventMonitor._item_from_request(request)
         if not item:
             Logger.error(f'Ignoring software decode request with nothing to play: {request}')
             return

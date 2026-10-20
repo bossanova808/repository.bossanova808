@@ -17,19 +17,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgctxt "Addon Summary"
-msgid "Automatically forces software decoding for rotated or otherwise broken video played from chosen paths, restoring hardware decoding afterwards."
+msgid "Forces software decoding for video that hardware decoding gets wrong - by path, by series or on demand - then restores hardware decoding."
 msgstr ""
 
 msgctxt "Addon Description"
-msgid "CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all. Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere. Or play any video with software decoding from the video context menu (\"Limp: software decode\")."
+msgid "CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched, some old MJPEG AVI clips won't play at all, and some 50 fps video drops frames. Limp forces software decoding just for the videos that need it, then restores hardware decoding. Apply it to files under paths you choose (or everywhere), to TV series you pick, or to any single video from the context menu."
 msgstr ""
 
 msgctxt "#32000"
-msgid "Paths"
+msgid "By Path"
 msgstr ""
 
 msgctxt "#32014"
-msgid "Apply everywhere (not recommended)"
+msgid "Apply everywhere (not recommended!)"
 msgstr ""
 
 msgctxt "#32015"
@@ -37,7 +37,7 @@ msgid "Applies to every video played, not just under the paths below. Not recomm
 msgstr ""
 
 msgctxt "#32012"
-msgid "Or, limit by these paths..."
+msgid "Apply to these paths..."
 msgstr ""
 
 msgctxt "#32010"
@@ -54,4 +54,52 @@ msgstr ""
 
 msgctxt "#32016"
 msgid "Enable the Limp context menu?"
+msgstr ""
+
+msgctxt "#32022"
+msgid "Limp: software decode series"
+msgstr ""
+
+msgctxt "#32030"
+msgid "Series using software decoding - select any to remove"
+msgstr ""
+
+msgctxt "#32031"
+msgid "No series are set to software decoding"
+msgstr ""
+
+msgctxt "#32032"
+msgid "Software decoding on for {}"
+msgstr ""
+
+msgctxt "#32033"
+msgid "Limp couldn't find the series for this item"
+msgstr ""
+
+msgctxt "#32034"
+msgid "{} is already set to software decoding"
+msgstr ""
+
+msgctxt "#32040"
+msgid "Manage series using software decoding..."
+msgstr ""
+
+msgctxt "#32001"
+msgid "General"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Limp: stop software decoding series"
+msgstr ""
+
+msgctxt "#32035"
+msgid "{} isn't set to software decoding"
+msgstr ""
+
+msgctxt "#32036"
+msgid "Software decoding off for {}"
+msgstr ""
+
+msgctxt "#32017"
+msgid "We recommend you limit Limp by path (next settings page)."
 msgstr ""

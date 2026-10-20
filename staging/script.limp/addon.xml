@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.limp" name="Limp" version="1.1.0" provider-name="bossanova808">
+<addon id="script.limp" name="Limp" version="1.2.0" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.bossanova808" version="1.0.4"/>
@@ -11,14 +11,22 @@
         <label>32020</label>
         <visible>Window.IsVisible(videos) + !ListItem.IsFolder + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
       </item>
+      <item library="context_series.py">
+        <label>32022</label>
+        <visible>Window.IsVisible(videos) + !String.IsEmpty(ListItem.TVShowTitle) + String.IsEmpty(Window(Home).Property(Limp.SeriesListed)) + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
+      </item>
+      <item library="context_series_stop.py">
+        <label>32023</label>
+        <visible>Window.IsVisible(videos) + !String.IsEmpty(ListItem.TVShowTitle) + !String.IsEmpty(Window(Home).Property(Limp.SeriesListed)) + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
+      </item>
     </menu>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Automatically forces software decoding for rotated or otherwise broken video played from chosen paths, restoring hardware decoding afterwards.</summary>
+    <summary lang="en_GB">Forces software decoding for video that hardware decoding gets wrong - by path, by series or on demand - then restores hardware decoding.</summary>
     <description lang="en_GB">
-      CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched (occasionally with the wrong orientation), and some old MJPEG AVI clips won't play at all.
+      CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched, some old MJPEG AVI clips won't play at all, and some 50 fps video drops frames.
 
-      Limp detects affected files and forces software decoding just for those, restoring hardware decoding afterwards. Scope it to specific paths, or apply everywhere. Or play any video with software decoding from the video context menu ("Limp: software decode").
+      Limp forces software decoding just for the videos that need it, then restores hardware decoding. Apply it to files under paths you choose (or everywhere), to TV series you pick, or to any single video from the context menu.
     </description>
     <platform>all</platform>
     <license>GPL-3.0-only</license>
@@ -26,8 +34,10 @@
     <source>https://github.com/bossanova808/repository.bossanova808/</source>
     <forum />
     <email />
-    <news>v1.1.0
-- Add a "Limp: software decode" context menu item to play any video with software decoding, e.g. files outside your Limp paths (can be turned off in settings)
+    <news>v1.2.0
+- Add "Limp: software decode series" and "Limp: stop software decoding series" context menu items, to always use software decoding for a TV series (e.g. 50 fps shows that drop frames) - manage the list in settings
+- Add start-up and periodic checks that hardware decoding is restored, e.g. after a Kodi crash or profile switch
+- Split the settings into General and By Path pages
     </news>
     <assets>
       <icon>resources/icon.png</icon>

@@ -1,3 +1,8 @@
+v1.2.0 (2026-10-20)
+- Add "Limp: software decode series" and "Limp: stop software decoding series" context menu items, to always use software decoding for a TV series (e.g. 50 fps shows that drop frames) - manage the list in settings
+- Add start-up and periodic checks that hardware decoding is restored, e.g. after a Kodi crash or profile switch
+- Split the settings into General and By Path pages
+
 v1.1.0 (2026-10-05)
 - Add a "Limp: software decode" context menu item to play any video with software decoding, e.g. files outside your Limp paths (can be turned off in settings)
 

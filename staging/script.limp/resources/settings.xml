@@ -1,21 +1,31 @@
 <?xml version="1.0" ?>
 <settings version="1">
 	<section id="script.limp">
-		<category help="" id="default" label="32000">
+		<category help="" id="general" label="32001">
 			<group id="1">
 				<setting id="ShowContextMenu" label="32016" type="boolean">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+				<setting id="ManageSeries" label="32040" type="action">
+					<level>0</level>
+					<data>RunScript(script.limp,ManageSeries)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="action" type="button"/>
+				</setting>
 			</group>
-			<group id="2">
+			<group id="2" label="32017">
 				<setting help="32015" id="ApplyEverywhere" label="32014" type="boolean">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
 				</setting>
 			</group>
+		</category>
+		<category help="" id="paths" label="32000">
 			<group id="3" label="32012">
 				<setting id="Path1" label="32010" type="path">
 					<level>0</level>

@@ -50,36 +50,36 @@ class KodiPlayer(xbmc.Player):
 
         :param reason: a short human-readable reason, used in the log message on a state change
         """
-        next_file = self._get_next_queued_file()
-        if next_file:
-            DecoderOverride.recheck_for_file(next_file, f'{reason} (next queued item)')
+        next_file, next_show = self._get_next_queued_item()
+        if next_file or next_show:
+            DecoderOverride.recheck_for_file(next_file, f'{reason} (next queued item)', next_show)
         else:
             DecoderOverride.recheck(reason)
 
-    def _get_next_queued_file(self):
+    def _get_next_queued_item(self):
         """
-        The file path of the next item in the video playlist after the one that was just playing,
-        if there is one.
+        The next item in the video playlist after the one that was just playing, if there is one.
 
-        :return: a file path, or None if we're not in a playlist, or this was the last item
+        :return: (file path, TV show title) - both None if we're not in a playlist, or this was the
+            last item
         """
         if self._playlist_position < 0:
-            return None
+            return None, None
 
         next_position = self._playlist_position + 1
         try:
             if next_position >= xbmc.PlayList(xbmc.PLAYLIST_VIDEO).size():
-                return None
+                return None, None
         except Exception:
-            return None
+            return None, None
 
         response = send_kodi_json("Get video playlist items", {
                 "jsonrpc": "2.0",
                 "id": 1,
                 "method": "Playlist.GetItems",
-                "params": {"playlistid": xbmc.PLAYLIST_VIDEO, "properties": ["file"]},
+                "params": {"playlistid": xbmc.PLAYLIST_VIDEO, "properties": ["file", "showtitle"]},
         })
         items = (response or {}).get('result', {}).get('items') or []
         if next_position >= len(items):
-            return None
-        return items[next_position].get('file')
+            return None, None
+        return items[next_position].get('file'), items[next_position].get('showtitle') or None

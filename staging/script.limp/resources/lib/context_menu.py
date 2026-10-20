@@ -6,9 +6,11 @@ import xbmc
 from bossanova808.constants import HOME_WINDOW, TRANSLATE
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
-from bossanova808.utilities import send_kodi_json, get_property, clear_property
+from bossanova808.utilities import get_property, clear_property
 # noinspection PyPackages
-from .messages import NOTIFY_SENDER, NOTIFY_MESSAGE, ACK_PROPERTY
+from .messages import NOTIFY_MESSAGE, NOTIFY_SERIES_CHANGED, ACK_PROPERTY, SERIES_FILE, notify_service
+# noinspection PyPackages
+from .show_list import ShowList, title_key
 
 # How long to wait for the Limp service to pick up the request
 ACK_TIMEOUT_SECONDS = 3
@@ -34,12 +36,7 @@ def run():
     }
 
     clear_property(HOME_WINDOW, ACK_PROPERTY)
-    send_kodi_json('Ask Limp service to play with software decode', {
-            "jsonrpc": "2.0",
-            "id": 1,
-            "method": "JSONRPC.NotifyAll",
-            "params": {"sender": NOTIFY_SENDER, "message": NOTIFY_MESSAGE, "data": request},
-    })
+    notify_service(NOTIFY_MESSAGE, request)
 
     deadline = time.monotonic() + ACK_TIMEOUT_SECONDS
     while time.monotonic() < deadline:
@@ -51,3 +48,57 @@ def run():
         Notify.warning(TRANSLATE(32021))
 
     Logger.stop('(Context menu)')
+
+
+def run_series():
+    """
+    The "Limp: software decode series" context menu action: add the selected item's TV show to the
+    list of series that always use software decoding (taken off again in the settings).
+
+    :return:
+    """
+    Logger.start('(Context menu - series)')
+
+    title = sys.listitem.getVideoInfoTag().getTVShowTitle()
+    if not title:
+        Logger.warning('The selected item has no TV show title.')
+        Notify.warning(TRANSLATE(32033))
+    else:
+        series = ShowList(SERIES_FILE)
+        if series.contains(title_key(title)):
+            Notify.info(TRANSLATE(32034).format(title))
+        else:
+            series.add(title_key(title), title)
+            series.save()
+            Logger.info(f'Added to the series list: {title}')
+            notify_service(NOTIFY_SERIES_CHANGED)
+            Notify.info(TRANSLATE(32032).format(title))
+
+    Logger.stop('(Context menu - series)')
+
+
+def run_series_stop():
+    """
+    The "Limp: stop software decoding series" context menu action: take the selected item's TV
+    show off the list of series that always use software decoding.
+
+    :return:
+    """
+    Logger.start('(Context menu - stop series)')
+
+    title = sys.listitem.getVideoInfoTag().getTVShowTitle()
+    if not title:
+        Logger.warning('The selected item has no TV show title.')
+        Notify.warning(TRANSLATE(32033))
+    else:
+        series = ShowList(SERIES_FILE)
+        if not series.contains(title_key(title)):
+            Notify.info(TRANSLATE(32035).format(title))
+        else:
+            series.remove([title_key(title)])
+            series.save()
+            Logger.info(f'Removed from the series list: {title}')
+            notify_service(NOTIFY_SERIES_CHANGED)
+            Notify.info(TRANSLATE(32036).format(title))
+
+    Logger.stop('(Context menu - stop series)')
