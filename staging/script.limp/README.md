@@ -7,7 +7,7 @@ Limp
 
 Limp forces software decoding for the videos you choose, then restores your previous hardware decoding setting once playback ends. 
 
-On some platform, hardware decoding just gets some videos wrong (e.g. on CoreELEC, with Amlogic's `amcodec`, rotated phone clips play stretched, old MJPEG AVI clips just won't play at all, and some 50 fps video playback inexplicably drops frames). And sometimes you may just prefer software decoding for some of your videos.
+On some platforms, hardware decoding just gets some videos wrong (e.g. on CoreELEC, with Amlogic's `amcodec`, rotated phone clips play stretched, old MJPEG AVI clips just won't play at all, and some 50 fps video playback inexplicably drops frames). And sometimes you may just prefer software decoding for some of your videos.
 
 Limp supports Amlogic (CoreELEC), Windows, Apple devices (macOS, iOS, tvOS) and webOS. Apple and webOS are as yet untested - reports welcome.
 
