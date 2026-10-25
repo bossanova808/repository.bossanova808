@@ -17,27 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgctxt "Addon Summary"
-msgid "Forces software decoding for video that hardware decoding gets wrong - by path, by series or on demand - then restores hardware decoding."
+msgid "Automatically switch Kodi to software decoding by video type or per TV show, or to fix known hardware decoder issues."
 msgstr ""
 
 msgctxt "Addon Description"
-msgid "CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched, some old MJPEG AVI clips won't play at all, and some 50 fps video drops frames. Limp forces software decoding just for the videos that need it, then restores hardware decoding. Apply it to files under paths you choose (or everywhere), to TV series you pick, or to any single video from the context menu."
+msgid "Hardware decoding is usually preferred, but sometimes it gets things wrong, or there are known issues.  Manually changing settings is a chore, so Limp aims to make that easier by automatically engaging software decoding when you need or want it, and automatically switching back when done.\n\nYou can choose when software decoding engages:\n\n* for video types known to trip up the hardware decoder (Amlogic/CoreELEC)\n* automatically, for all videos 1080p and below\n* for any single video, from the context menu\n* for specific TV shows you choose (via the context menu)\n\nCurrently works on Amlogic (CoreELEC and derivatives), Windows, Apple devices and webOS.  If you need other platforms, please create a GitHub issue to discuss."
 msgstr ""
 
 msgctxt "#32000"
-msgid "By Path"
+msgid "Path Limits"
 msgstr ""
 
 msgctxt "#32014"
-msgid "Apply everywhere (not recommended!)"
-msgstr ""
-
-msgctxt "#32015"
-msgid "Applies to every video played, not just under the paths below. Not recommended - without a path to exclude modern high-resolution video, this can force unnecessary, CPU-heavy software decoding on files that don't need it."
+msgid "All videos 1080p and below?"
 msgstr ""
 
 msgctxt "#32012"
-msgid "Apply to these paths..."
+msgid "By default, Limp applies everywhere, or you can limit by these paths..."
 msgstr ""
 
 msgctxt "#32010"
@@ -81,7 +77,7 @@ msgid "{} is already set to software decoding"
 msgstr ""
 
 msgctxt "#32040"
-msgid "Manage series using software decoding..."
+msgid "Manage shows Limp has been set to software decode..."
 msgstr ""
 
 msgctxt "#32001"
@@ -101,5 +97,53 @@ msgid "Software decoding off for {}"
 msgstr ""
 
 msgctxt "#32017"
-msgid "We recommend you limit Limp by path (next settings page)."
+msgid "When should Limp automatically engage software decoding?"
+msgstr ""
+
+msgctxt "#32050"
+msgid "Hardware decoding is off"
+msgstr ""
+
+msgctxt "#32051"
+msgid "Hardware video decoding is switched off, and Limp isn't the one holding it off. Turn it back on?"
+msgstr ""
+
+msgctxt "#32052"
+msgid "Hardware decoding is back on"
+msgstr ""
+
+msgctxt "#32053"
+msgid "Limp couldn't turn hardware decoding back on"
+msgstr ""
+
+msgctxt "#32054"
+msgid "Limp couldn't save the series list"
+msgstr ""
+
+msgctxt "#32060"
+msgid "Videos that trigger known Amlogic decoding failures?"
+msgstr ""
+
+msgctxt "#32062"
+msgid "By TV Show"
+msgstr ""
+
+msgctxt "#32063"
+msgid "You can use the context menu to trigger Limp for specific shows."
+msgstr ""
+
+msgctxt "#32064"
+msgid "Clear all paths"
+msgstr ""
+
+msgctxt "#32065"
+msgid "Paths cleared - Limp now applies everywhere"
+msgstr ""
+
+msgctxt "#32066"
+msgid "Force hardware decoding on at start-up?"
+msgstr ""
+
+msgctxt "#32067"
+msgid "(options below vary by platform)"
 msgstr ""

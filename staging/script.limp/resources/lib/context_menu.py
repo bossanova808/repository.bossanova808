@@ -7,10 +7,9 @@ from bossanova808.constants import HOME_WINDOW, TRANSLATE
 from bossanova808.logger import Logger
 from bossanova808.notify import Notify
 from bossanova808.utilities import get_property, clear_property
+from bossanova808.show_list import ShowList, title_key
 # noinspection PyPackages
 from .messages import NOTIFY_MESSAGE, NOTIFY_SERIES_CHANGED, ACK_PROPERTY, SERIES_FILE, notify_service
-# noinspection PyPackages
-from .show_list import ShowList, title_key
 
 # How long to wait for the Limp service to pick up the request
 ACK_TIMEOUT_SECONDS = 3
@@ -69,10 +68,12 @@ def run_series():
             Notify.info(TRANSLATE(32034).format(title))
         else:
             series.add(title_key(title), title)
-            series.save()
-            Logger.info(f'Added to the series list: {title}')
-            notify_service(NOTIFY_SERIES_CHANGED)
-            Notify.info(TRANSLATE(32032).format(title))
+            if series.save():
+                Logger.info(f'Added to the series list: {title}')
+                notify_service(NOTIFY_SERIES_CHANGED)
+                Notify.info(TRANSLATE(32032).format(title))
+            else:
+                Notify.error(TRANSLATE(32054))
 
     Logger.stop('(Context menu - series)')
 
@@ -95,10 +96,12 @@ def run_series_stop():
         if not series.contains(title_key(title)):
             Notify.info(TRANSLATE(32035).format(title))
         else:
-            series.remove([title_key(title)])
-            series.save()
-            Logger.info(f'Removed from the series list: {title}')
-            notify_service(NOTIFY_SERIES_CHANGED)
-            Notify.info(TRANSLATE(32036).format(title))
+            series.remove(title_key(title))
+            if series.save():
+                Logger.info(f'Removed from the series list: {title}')
+                notify_service(NOTIFY_SERIES_CHANGED)
+                Notify.info(TRANSLATE(32036).format(title))
+            else:
+                Notify.error(TRANSLATE(32054))
 
     Logger.stop('(Context menu - stop series)')

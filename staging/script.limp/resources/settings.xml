@@ -3,11 +3,46 @@
 	<section id="script.limp">
 		<category help="" id="general" label="32001">
 			<group id="1">
-				<setting id="ShowContextMenu" label="32016" type="boolean">
-					<level>0</level>
-					<default>true</default>
-					<control type="toggle"/>
-				</setting>
+					<setting id="ShowContextMenu" label="32016" type="boolean">
+						<level>0</level>
+						<default>true</default>
+						<control type="toggle"/>
+					</setting>
+					<setting id="HardwareAtStartup" label="32066" type="boolean">
+						<level>0</level>
+						<default>true</default>
+						<control type="toggle"/>
+					</setting>
+			</group>
+			<group id="2" label="32017">
+					<setting id="PlatformNote" label="32067" type="action">
+						<level>0</level>
+						<data>noop</data>
+						<constraints>
+							<allowempty>true</allowempty>
+						</constraints>
+						<dependencies>
+							<dependency type="enable"><condition on="property" name="InfoBool">!String.IsEmpty(Window(Home).Property(Limp.Never))</condition></dependency>
+						</dependencies>
+						<control format="action" type="button"/>
+					</setting>
+					<setting id="RuleAmlogic" label="32060" type="boolean">
+						<level>0</level>
+						<default>true</default>
+						<dependencies>
+							<dependency type="visible"><condition on="property" name="InfoBool">!String.IsEmpty(Window(Home).Property(Limp.Amlogic))</condition></dependency>
+						</dependencies>
+						<control type="toggle"/>
+					</setting>
+					<setting id="Rule1080p" label="32014" type="boolean">
+						<level>0</level>
+						<default>false</default>
+						<control type="toggle"/>
+					</setting>
+			</group>
+		</category>
+		<category help="" id="shows" label="32062">
+			<group id="3" label="32063">
 				<setting id="ManageSeries" label="32040" type="action">
 					<level>0</level>
 					<data>RunScript(script.limp,ManageSeries)</data>
@@ -17,106 +52,87 @@
 					<control format="action" type="button"/>
 				</setting>
 			</group>
-			<group id="2" label="32017">
-				<setting help="32015" id="ApplyEverywhere" label="32014" type="boolean">
-					<level>0</level>
-					<default>false</default>
-					<control type="toggle"/>
-				</setting>
-			</group>
 		</category>
-		<category help="" id="paths" label="32000">
-			<group id="3" label="32012">
-				<setting id="Path1" label="32010" type="path">
+		<category help="" id="limits" label="32000">
+			<group id="4" label="32012">
+				<setting id="ClearPaths" label="32064" type="action">
 					<level>0</level>
-					<default/>
+					<data>RunScript(script.limp,ClearPaths)</data>
 					<constraints>
-						<sources>
-							<source>video</source>
-						</sources>
-						<writable>false</writable>
 						<allowempty>true</allowempty>
 					</constraints>
-					<dependencies>
-						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-					</dependencies>
-					<control format="path" type="button">
-						<heading>32010</heading>
-					</control>
+					<control format="action" type="button"/>
 				</setting>
-				<setting id="Path2" label="32010" type="path">
-					<level>0</level>
-					<default/>
-					<constraints>
-						<sources>
-							<source>video</source>
-						</sources>
-						<writable>false</writable>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-					</dependencies>
-					<control format="path" type="button">
-						<heading>32010</heading>
-					</control>
-				</setting>
-				<setting id="Path3" label="32010" type="path">
-					<level>0</level>
-					<default/>
-					<constraints>
-						<sources>
-							<source>video</source>
-						</sources>
-						<writable>false</writable>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-					</dependencies>
-					<control format="path" type="button">
-						<heading>32010</heading>
-					</control>
-				</setting>
-				<setting id="Path4" label="32010" type="path">
-					<level>0</level>
-					<default/>
-					<constraints>
-						<sources>
-							<source>video</source>
-						</sources>
-						<writable>false</writable>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-					</dependencies>
-					<control format="path" type="button">
-						<heading>32010</heading>
-					</control>
-				</setting>
-				<setting id="Path5" label="32010" type="path">
-					<level>0</level>
-					<default/>
-					<constraints>
-						<sources>
-							<source>video</source>
-						</sources>
-						<writable>false</writable>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="enable"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-						<dependency type="visible"><condition operator="is" setting="ApplyEverywhere">false</condition></dependency>
-					</dependencies>
-					<control format="path" type="button">
-						<heading>32010</heading>
-					</control>
-				</setting>
+					<setting id="Path1" label="32010" type="path">
+						<level>0</level>
+						<default/>
+						<constraints>
+							<sources>
+								<source>video</source>
+							</sources>
+							<writable>false</writable>
+							<allowempty>true</allowempty>
+						</constraints>
+						<control format="path" type="button">
+							<heading>32010</heading>
+						</control>
+					</setting>
+					<setting id="Path2" label="32010" type="path">
+						<level>0</level>
+						<default/>
+						<constraints>
+							<sources>
+								<source>video</source>
+							</sources>
+							<writable>false</writable>
+							<allowempty>true</allowempty>
+						</constraints>
+						<control format="path" type="button">
+							<heading>32010</heading>
+						</control>
+					</setting>
+					<setting id="Path3" label="32010" type="path">
+						<level>0</level>
+						<default/>
+						<constraints>
+							<sources>
+								<source>video</source>
+							</sources>
+							<writable>false</writable>
+							<allowempty>true</allowempty>
+						</constraints>
+						<control format="path" type="button">
+							<heading>32010</heading>
+						</control>
+					</setting>
+					<setting id="Path4" label="32010" type="path">
+						<level>0</level>
+						<default/>
+						<constraints>
+							<sources>
+								<source>video</source>
+							</sources>
+							<writable>false</writable>
+							<allowempty>true</allowempty>
+						</constraints>
+						<control format="path" type="button">
+							<heading>32010</heading>
+						</control>
+					</setting>
+					<setting id="Path5" label="32010" type="path">
+						<level>0</level>
+						<default/>
+						<constraints>
+							<sources>
+								<source>video</source>
+							</sources>
+							<writable>false</writable>
+							<allowempty>true</allowempty>
+						</constraints>
+						<control format="path" type="button">
+							<heading>32010</heading>
+						</control>
+					</setting>
 			</group>
 		</category>
 	</section>

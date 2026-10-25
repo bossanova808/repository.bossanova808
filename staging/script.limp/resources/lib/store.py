@@ -1,18 +1,48 @@
 import json
 import os
+import re
+
+import xbmcvfs
 
 from bossanova808.constants import HOME_WINDOW, PROFILE
 from bossanova808.logger import Logger
 from bossanova808.utilities import get_setting, get_setting_as_bool, set_property, clear_property
+from bossanova808.show_list import ShowList, title_key
 # noinspection PyPackages
-from .messages import CONTEXT_MENU_PROPERTY, SERIES_FILE, SERIES_LISTED_PROPERTY
+from .messages import AMLOGIC_PROPERTY, CONTEXT_MENU_PROPERTY, SERIES_FILE, SERIES_LISTED_PROPERTY
 # noinspection PyPackages
-from .rotation import probe_needs_software_decode
+from .platforms import Platform
 # noinspection PyPackages
-from .show_list import ShowList, title_key
+from .probe import probe_file, BROKEN_ROTATIONS, BROKEN_AVI_CODECS
 
 # Number of path slots offered in the add-on's settings
 NUMBER_OF_PATH_SETTINGS = 5
+
+# What Kodi calls the resolutions that count as "1080p and below" (ListItem.VideoResolution)
+LOW_RESOLUTIONS = ("480", "576", "540", "720", "1080")
+# Otherwise, the size a video may be (1088 allows for macroblock padding) to count as "1080p and below"
+LOW_RESOLUTION_MAX_WIDTH = 1920
+LOW_RESOLUTION_MAX_HEIGHT = 1088
+
+# Live TV only reveals its resolution once playing, by which time Kodi has already chosen the decoder
+IGNORED_PREFIXES = ('pvr://',)
+# Paths whose files we can't read the headers of - all we can go on is the resolution Kodi tells us
+UNPROBEABLE_PREFIXES = ('plugin://', 'videodb://', 'http://', 'https://')
+
+OLD_PROBE_CACHE = "probe_cache.json"
+FACTS_CACHE = "facts_cache.json"
+
+
+def _loggable(file_path):
+    """
+    :return: the path with any API key in it masked, for the log
+    """
+    return re.sub(r'(?i)(api_?key=)[^&]*', r'...', file_path)
+
+
+def _setting_bool(setting, default):
+    value = get_setting_as_bool(setting)
+    return default if value is None else bool(value)
 
 
 class Store:
@@ -25,14 +55,22 @@ class Store:
     kodi_event_monitor = None
     kodi_player = None
 
-    # Paths (and subfolders) under which files are candidates for forced software decoding
-    paths = []
+    # The automatic rules: engage software decoding for...
+    rule_amlogic = False  # videos with a known Amlogic decoding failure (Amlogic only)
+    rule_1080p = False  # all videos 1080p and below
+    # All interlaced videos - not offered as a setting, as it's too unreliable (it can only see inside
+    # files Kodi can read, so not Jellyfin and the like, and the flags aren't always right), but the
+    # file reading in probe.py and the rule below are kept in case it's wanted again.
+    rule_interlaced = False
 
-    # If true, every video everywhere is a candidate, regardless of paths above
-    apply_everywhere = False
+    # Paths (and subfolders) the automatic rules are limited to - empty means everywhere
+    paths = []
 
     # Whether the "Limp: software decode" context menu item is offered
     show_context_menu = True
+
+    # Whether to quietly switch hardware decoding back on at start-up if it's found off
+    hardware_at_startup = True
 
     # TV shows set (via the context menu) to always use software decoding
     series_list = None
@@ -40,22 +78,35 @@ class Store:
     # Whether the focused item's show is on that list, as last published (None until the first time)
     _series_listed_published = None
 
-    # Cache of file path -> whether it needs software decoding forced (True/False), so each file
-    # only ever needs probing (reading its rotation matrix or AVI codec) once. Persisted so it
-    # survives a service restart.
-    probe_cache = {}
-    probe_cache_file = None
+    # Cache of file path -> facts read from the file's headers (see probe.py), so each file only
+    # ever needs probing once. Persisted so it survives a service restart.
+    facts_cache = {}
+    facts_cache_file = None
+
+    # Resolutions Kodi has told us about for files (library items), by path. Not persisted - Kodi
+    # tells us again whenever the item is focused.
+    resolutions = {}
+
+    # The last decision made for each file, so it's only logged when it's new or changes
+    decisions = {}
+
+    # Files we failed to read this session - not retried until the service restarts
+    unreadable = set()
 
     def __init__(self):
         """
         Load in the addon settings and do some basic initialisation stuff
         """
+        Platform.detect()
         Store.load_config_from_settings()
 
-        if not os.path.exists(PROFILE):
-            os.makedirs(PROFILE)
-        Store.probe_cache_file = os.path.join(PROFILE, "probe_cache.json")
-        Store._load_probe_cache()
+        if not xbmcvfs.exists(PROFILE):
+            xbmcvfs.mkdirs(PROFILE)
+        old_cache = os.path.join(PROFILE, OLD_PROBE_CACHE)
+        if xbmcvfs.exists(old_cache):
+            xbmcvfs.delete(old_cache)
+        Store.facts_cache_file = os.path.join(PROFILE, FACTS_CACHE)
+        Store._load_facts_cache()
         Store.series_list = ShowList(SERIES_FILE)
         Logger.info(f'Series set to software decoding: {[title for _, title in Store.series_list.items()]}')
 
@@ -67,7 +118,10 @@ class Store:
         """
         Logger.info("Loading configuration")
 
-        Store.apply_everywhere = bool(get_setting_as_bool("ApplyEverywhere"))
+        # The Amlogic rule is hidden (and ignored) anywhere else. On by default there, as it's
+        # what Limp was originally for.
+        Store.rule_amlogic = Platform.is_amlogic() and _setting_bool("RuleAmlogic", True)
+        Store.rule_1080p = _setting_bool("Rule1080p", False)
 
         paths = []
         for i in range(1, NUMBER_OF_PATH_SETTINGS + 1):
@@ -76,10 +130,13 @@ class Store:
                 paths.append(path)
         Store.paths = paths
 
-        # On unless explicitly turned off
-        show_context_menu = get_setting_as_bool("ShowContextMenu")
-        Store.show_context_menu = True if show_context_menu is None else show_context_menu
+        Store.show_context_menu = _setting_bool("ShowContextMenu", True)
+        Store.hardware_at_startup = _setting_bool("HardwareAtStartup", True)
         Store.publish_context_menu_visibility()
+        if Platform.is_amlogic():
+            set_property(HOME_WINDOW, AMLOGIC_PROPERTY, "true")
+        else:
+            clear_property(HOME_WINDOW, AMLOGIC_PROPERTY)
 
         Store.log_configuration()
 
@@ -123,8 +180,9 @@ class Store:
         """
         The context menu item's visibility condition (in addon.xml) can't read our settings, so
         mirror the "show context menu item" setting into a Home window property for it to check.
+        Not offered at all on a platform we can't do anything on.
         """
-        if Store.show_context_menu:
+        if Store.show_context_menu and Platform.hardware_setting:
             set_property(HOME_WINDOW, CONTEXT_MENU_PROPERTY, "true")
         else:
             clear_property(HOME_WINDOW, CONTEXT_MENU_PROPERTY)
@@ -135,85 +193,130 @@ class Store:
         Log out our key configuration values
         :return:
         """
-        Logger.info(f'Show context menu item: {Store.show_context_menu}')
-        if Store.apply_everywhere:
-            Logger.info('Forcing software decoding for problem files everywhere (not limited by path).')
+        Logger.info(f'Show context menu item: {Store.show_context_menu}, hardware decoding on at start-up: {Store.hardware_at_startup}')
+        Logger.info(f'Automatic rules - known Amlogic failures: {Store.rule_amlogic}, '
+                    f'1080p and below: {Store.rule_1080p}')
+        if not Store.rules_enabled():
+            Logger.info('No automatic rules are on - software decoding only for listed series and the context menu.')
         elif Store.paths:
-            Logger.info(f'Forcing software decoding for problem files under: {Store.paths}')
+            Logger.info(f'Automatic rules limited to: {Store.paths}')
         else:
-            Logger.info('No paths configured - add one or more in the add-on settings for this to do anything.')
+            Logger.info('Automatic rules apply everywhere (no paths set).')
 
     @staticmethod
-    def is_managed_path(file_path):
+    def rules_enabled():
         """
-        Whether the given file is a candidate for the software decode override - either because
-        "apply everywhere" is enabled, or because it lives under one of the paths configured in
-        the add-on's settings.
+        :return: True if any automatic rule is on
+        """
+        return Store.rule_amlogic or Store.rule_1080p or Store.rule_interlaced
+
+    @staticmethod
+    def is_within_limits(file_path):
+        """
+        Whether the automatic rules apply to the given file - anywhere, unless limited to the
+        paths set in the add-on's settings.
 
         :param file_path: the full path of the file to check
-        :return: True if this file is in scope
+        :return: True if the rules apply to this file
         """
-        if not file_path:
-            return False
-        if Store.apply_everywhere:
-            return True
-        return any(path in file_path for path in Store.paths)
+        return not Store.paths or any(path in file_path for path in Store.paths)
 
     @staticmethod
-    def needs_software_decode(file_path):
+    def needs_software_decode(file_path, resolution=None):
         """
-        Whether playback of the given file should be forced to software decoding - i.e. whether it
-        is in scope (under a configured path, or "apply everywhere" is on) AND actually has a
-        specific, known problem amcodec has with it: a 90/270 degree rotation matrix (MP4/MOV) it
-        mishandles, or a video codec (e.g. MJPEG in old camera .avi files) it can't decode at all -
-        see rotation.py. This deliberately excludes in-scope files that don't need it (e.g. modern
-        4K clips from a mirrorless camera, which are rarely rotated but are too CPU-heavy to
-        software decode, and forcing it was also observed to leave CoreELEC's HDR/HDMI mode-switch
-        in a bad state on playback end).
-
-        Successfully-determined results are cached per file path so each file is only ever probed
-        once; a failed/undetermined lookup is deliberately not cached, so it's retried next time
-        rather than being stuck reporting "doesn't need it" forever (e.g. after a bug fix here).
+        Whether playback of the given file should be forced to software decoding by the automatic
+        rules: it's within the limits, and it meets the condition of at least one rule that's on.
+        An explicit choice overrules any smarts - if a rule is on and the video meets it, software
+        decoding it is. Anything we can't tell is left to hardware decoding.
 
         :param file_path: the full path of the file about to play/be focused
-        :return: True if this file needs software decoding forced
+        :param resolution: Kodi's resolution label for it, if known ("720", "1080", "4K"...)
+        :return: True if this file should use software decoding
         """
         # Kodi VFS paths for directories always end in a separator (e.g. focusing a folder in the
         # file browser reports it via the same ListItem.FileNameAndPath used for files) - a folder
-        # can't be probed, and this can otherwise be re-checked every poll tick while someone is
-        # just sitting on a folder, since a failed lookup deliberately isn't cached.
-        if not file_path or file_path.endswith('/') or file_path.endswith('\\') or not Store.is_managed_path(file_path):
+        # can't be probed.
+        if not Store.rules_enabled() or not file_path or file_path.endswith(('/', '\\')) \
+                or file_path.startswith(IGNORED_PREFIXES) or not Store.is_within_limits(file_path):
             return False
 
-        if file_path in Store.probe_cache:
-            return Store.probe_cache[file_path]
+        if resolution and Store.resolutions.get(file_path) != resolution:
+            Store.resolutions[file_path] = resolution
 
-        result = probe_needs_software_decode(file_path)
-        if result is not None:
-            Store.probe_cache[file_path] = result
-            Store._save_probe_cache()
+        facts = Store._get_facts(file_path)
 
-        return bool(result)
+        result = bool(
+                (Store.rule_amlogic and (facts.get('rotation') in BROKEN_ROTATIONS
+                                         or str(facts.get('avi_codec') or '').upper() in BROKEN_AVI_CODECS))
+                or (Store.rule_1080p and Store._is_1080p_or_below(file_path, facts))
+                or (Store.rule_interlaced and facts.get('interlaced')))
+
+        if Store.decisions.get(file_path) != result:
+            Store.decisions[file_path] = result
+            Logger.info(f'Automatic rules say software decoding {"YES" if result else "no"} for [{_loggable(file_path)}] '
+                        f'(Kodi resolution: {Store.resolutions.get(file_path)}, file facts: {facts})')
+        return result
 
     @staticmethod
-    def _load_probe_cache():
-        if not Store.probe_cache_file or not os.path.exists(Store.probe_cache_file):
-            Store.probe_cache = {}
+    def is_stream(file_path):
+        """
+        Whether a path is a stream rather than a file we can look at - what a Jellyfin item turns into
+        once playback starts, or live TV. Its details only show up a moment into playback, and what
+        Kodi reports at first can be left over from the previous video, so only what was decided
+        beforehand (when the item was focused) can be trusted.
+
+        :return: True if the path is a stream
+        """
+        return bool(file_path) and file_path.startswith(UNPROBEABLE_PREFIXES + IGNORED_PREFIXES)
+
+    @staticmethod
+    def _is_1080p_or_below(file_path, facts):
+        resolution = Store.resolutions.get(file_path)
+        if resolution:
+            return resolution in LOW_RESOLUTIONS
+        width, height = facts.get('width'), facts.get('height')
+        return bool(width and height and width <= LOW_RESOLUTION_MAX_WIDTH and height <= LOW_RESOLUTION_MAX_HEIGHT)
+
+    @staticmethod
+    def _get_facts(file_path):
+        """
+        The facts about a file from its headers, probing it the first time. Successfully-read
+        results are cached per file path; a failed read is only remembered for this session, so
+        it's neither retried every second nor stuck for good (e.g. after a bug fix here). Not
+        probed at all if Kodi already told us the resolution and that's all the rules need.
+
+        :return: a dict of facts - empty if there aren't any
+        """
+        if file_path in Store.facts_cache:
+            return Store.facts_cache[file_path]
+        if file_path in Store.unreadable or file_path.startswith(UNPROBEABLE_PREFIXES):
+            return {}
+        if Store.rule_1080p and not (Store.rule_amlogic or Store.rule_interlaced) and Store.resolutions.get(file_path):
+            return {}
+
+        facts = probe_file(file_path)
+        if facts is None:
+            Store.unreadable.add(file_path)
+            return {}
+        Store.facts_cache[file_path] = facts
+        Store._save_facts_cache()
+        return facts
+
+    @staticmethod
+    def _load_facts_cache():
+        if not Store.facts_cache_file or not xbmcvfs.exists(Store.facts_cache_file):
+            Store.facts_cache = {}
             return
         try:
-            with open(Store.probe_cache_file, 'r', encoding='utf-8') as f:
-                # Drop any previously-persisted undetermined (null) entries so they get retried,
-                # rather than being permanently stuck - see needs_software_decode() above.
-                Store.probe_cache = {path: result for path, result in json.load(f).items() if result is not None}
-            Logger.info(f'Loaded {len(Store.probe_cache)} cached file probe result(s)')
+            with xbmcvfs.File(Store.facts_cache_file) as f:
+                Store.facts_cache = json.loads(f.read())
+            Logger.info(f'Loaded {len(Store.facts_cache)} cached file probe result(s)')
         except (OSError, ValueError) as e:
             Logger.warning(f'Could not load probe cache, starting fresh: {e}')
-            Store.probe_cache = {}
+            Store.facts_cache = {}
 
     @staticmethod
-    def _save_probe_cache():
-        try:
-            with open(Store.probe_cache_file, 'w', encoding='utf-8') as f:
-                json.dump(Store.probe_cache, f)
-        except OSError as e:
-            Logger.warning(f'Could not save probe cache: {e}')
+    def _save_facts_cache():
+        with xbmcvfs.File(Store.facts_cache_file, 'w') as f:
+            if not f.write(json.dumps(Store.facts_cache)):
+                Logger.warning('Could not save probe cache')

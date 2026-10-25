@@ -1,3 +1,11 @@
+v2.0.0 (2026-10-26)
+- Limp is now more general: choose when it uses software decoding - for videos Amlogic's hardware decoder gets wrong, or for all videos 1080p and below
+- The rules now apply everywhere by default (the Apply everywhere option is gone) - limit them to paths on the new Path Limits page, with a Clear all paths button
+- Settings are now General, By TV Show and Path Limits pages
+- Add Windows support, and untested support for Apple devices and webOS
+- Add an option, on by default, to force hardware decoding on at start-up in case it has been left off
+- If Limp finds hardware decoding switched off mid-session when it is not the one holding it off, it asks if you want to turn it back on
+
 v1.2.0 (2026-10-20)
 - Add "Limp: software decode series" and "Limp: stop software decoding series" context menu items, to always use software decoding for a TV series (e.g. 50 fps shows that drop frames) - manage the list in settings
 - Add start-up and periodic checks that hardware decoding is restored, e.g. after a Kodi crash or profile switch

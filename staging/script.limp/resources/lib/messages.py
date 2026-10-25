@@ -20,6 +20,10 @@ CONTEXT_MENU_PROPERTY = "Limp.ContextMenu"
 # menu can offer "stop" rather than "start" for it (addon.xml checks this too).
 SERIES_LISTED_PROPERTY = "Limp.SeriesListed"
 
+# Set on the Home window by the service when running on Amlogic, so the settings can show the
+# Amlogic-only option (settings.xml checks this)
+AMLOGIC_PROPERTY = "Limp.Amlogic"
+
 
 def notify_service(message, data=None):
     """

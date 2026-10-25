@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.limp" name="Limp" version="1.2.0" provider-name="bossanova808">
+<addon id="script.limp" name="Limp" version="2.0.0" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
-    <import addon="script.module.bossanova808" version="1.0.4"/>
+    <import addon="script.module.bossanova808" version="1.0.5"/>
   </requires>
   <extension point="xbmc.service" library="default.py" />
   <extension point="kodi.context.item">
@@ -22,11 +22,18 @@
     </menu>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">Forces software decoding for video that hardware decoding gets wrong - by path, by series or on demand - then restores hardware decoding.</summary>
+    <summary lang="en_GB">Automatically switch Kodi to software decoding by video type or per TV show, or to fix known hardware decoder issues.</summary>
     <description lang="en_GB">
-      CoreELEC's amcodec hardware decoder mishandles some videos: rotated phone/camera clips usually play stretched, some old MJPEG AVI clips won't play at all, and some 50 fps video drops frames.
+      Hardware decoding is usually preferred, but sometimes it gets things wrong, or there are known issues.  Manually changing settings is a chore, so Limp aims to make that easier by automatically engaging software decoding when you need or want it, and automatically switching back when done.
 
-      Limp forces software decoding just for the videos that need it, then restores hardware decoding. Apply it to files under paths you choose (or everywhere), to TV series you pick, or to any single video from the context menu.
+      You can choose when software decoding engages:
+
+      * for video types known to trip up the hardware decoder (Amlogic/CoreELEC)
+      * automatically, for all videos 1080p and below
+      * for any single video, from the context menu
+      * for specific TV shows you choose (via the context menu)
+
+      Currently works on Amlogic (CoreELEC and derivatives), Windows, Apple devices and webOS.  If you need other platforms, please create a GitHub issue to discuss.
     </description>
     <platform>all</platform>
     <license>GPL-3.0-only</license>
@@ -34,10 +41,13 @@
     <source>https://github.com/bossanova808/repository.bossanova808/</source>
     <forum />
     <email />
-    <news>v1.2.0
-- Add "Limp: software decode series" and "Limp: stop software decoding series" context menu items, to always use software decoding for a TV series (e.g. 50 fps shows that drop frames) - manage the list in settings
-- Add start-up and periodic checks that hardware decoding is restored, e.g. after a Kodi crash or profile switch
-- Split the settings into General and By Path pages
+    <news>v2.0.0
+- Limp is now more general: choose when it uses software decoding - for videos Amlogic's hardware decoder gets wrong, or for all videos 1080p and below
+- The rules now apply everywhere by default (the Apply everywhere option is gone) - limit them to paths on the new Path Limits page, with a Clear all paths button
+- Settings are now General, By TV Show and Path Limits pages
+- Add Windows support, and untested support for Apple devices and webOS
+- Add an option, on by default, to force hardware decoding on at start-up in case it has been left off
+- If Limp finds hardware decoding switched off mid-session when it is not the one holding it off, it asks if you want to turn it back on
     </news>
     <assets>
       <icon>resources/icon.png</icon>
