@@ -1,3 +1,9 @@
+v2.1.0 (2026-10-29)
+- Add "Limp: toggle video as software decode" (replacing the one-off "Limp: software decode") - it remembers a video so it always uses software decoding until toggled off again, and the new By Video settings page lists them
+- The two series context menu items are now a single "Limp: toggle series as software decode", and the By TV Show settings page is now By Series
+- Notifications now use the Limp icon
+- Limp no longer checks what is focused every second when no rules, series or videos are set up
+
 v2.0.0 (2026-10-26)
 - Limp is now more general: choose when it uses software decoding - for videos Amlogic's hardware decoder gets wrong, or for all videos 1080p and below
 - The rules now apply everywhere by default (the Apply everywhere option is gone) - limit them to paths on the new Path Limits page, with a Clear all paths button

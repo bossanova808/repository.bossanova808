@@ -22,9 +22,9 @@ If a rule is on and a video meets the rule, Limp automatically engages software 
 
 (N.B. for video from add-ons such as Jellyfin, Limp can't pre-decode the file itself, so it can only determine if a video meets the rule using the resolution given by Jellyfin to Kodi.  Thus, the 1080p rule works, but the Amlogic rule can't...so if you're trying to solve issues with your old home videos, direct access (SMB/NFS etc), will be the better option for those).
 
-**By series** - **Limp: software decode series** in the Videos window context menu makes every episode of a TV series use software decoding. **Limp: stop software decoding series** reverses it, and **Manage shows Limp has been set to software decode...** on the By TV Show settings page lists the series and removes any you pick. N.B. Explicitly chosen series ignore the Path Limits.
+**By series** - **Limp: toggle series as software decode** in the Videos window context menu makes every episode of a TV series use software decoding, and toggles it off again. **Manage series Limp has been set to software decode...** on the By Series settings page lists the series and removes any you pick. N.B. Explicitly chosen series ignore the Path Limits.
 
-**On demand** - **Limp: software decode** in the same menu plays _any_ one video with software decoding.
+**By video** - **Limp: toggle video as software decode** in the same menu plays any one video with software decoding, and remembers it, so it uses software decoding every time it is played, until you toggle it off again. (The menu item doesn't show which state a video is in - Limp tells you with a notification each time). **Manage videos Limp has been set to software decode...** on the By Video settings page lists the videos and removes any you pick. N.B. As with series, these ignore the Path Limits.
 
 (The context menu items can be disabled in the add-on settings, if you prefer).
 

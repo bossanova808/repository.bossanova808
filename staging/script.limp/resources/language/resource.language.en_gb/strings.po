@@ -41,7 +41,7 @@ msgid "Path"
 msgstr ""
 
 msgctxt "#32020"
-msgid "Limp: software decode"
+msgid "Limp: toggle video as software decode"
 msgstr ""
 
 msgctxt "#32021"
@@ -53,7 +53,7 @@ msgid "Enable the Limp context menu?"
 msgstr ""
 
 msgctxt "#32022"
-msgid "Limp: software decode series"
+msgid "Limp: toggle series as software decode"
 msgstr ""
 
 msgctxt "#32030"
@@ -72,24 +72,12 @@ msgctxt "#32033"
 msgid "Limp couldn't find the series for this item"
 msgstr ""
 
-msgctxt "#32034"
-msgid "{} is already set to software decoding"
-msgstr ""
-
 msgctxt "#32040"
-msgid "Manage shows Limp has been set to software decode..."
+msgid "Manage series Limp has been set to software decode..."
 msgstr ""
 
 msgctxt "#32001"
 msgid "General"
-msgstr ""
-
-msgctxt "#32023"
-msgid "Limp: stop software decoding series"
-msgstr ""
-
-msgctxt "#32035"
-msgid "{} isn't set to software decoding"
 msgstr ""
 
 msgctxt "#32036"
@@ -125,11 +113,11 @@ msgid "Videos that trigger known Amlogic decoding failures?"
 msgstr ""
 
 msgctxt "#32062"
-msgid "By TV Show"
+msgid "By Series"
 msgstr ""
 
 msgctxt "#32063"
-msgid "You can use the context menu to trigger Limp for specific shows."
+msgid "You can use the context menu to trigger Limp for specific series."
 msgstr ""
 
 msgctxt "#32064"
@@ -146,4 +134,28 @@ msgstr ""
 
 msgctxt "#32067"
 msgid "(options below vary by platform)"
+msgstr ""
+
+msgctxt "#32069"
+msgid "By Video"
+msgstr ""
+
+msgctxt "#32070"
+msgid "You can use the context menu to trigger Limp for specific videos."
+msgstr ""
+
+msgctxt "#32071"
+msgid "Manage videos Limp has been set to software decode..."
+msgstr ""
+
+msgctxt "#32072"
+msgid "Videos using software decoding - select any to remove"
+msgstr ""
+
+msgctxt "#32073"
+msgid "No videos are set to software decoding"
+msgstr ""
+
+msgctxt "#32074"
+msgid "Limp couldn't save the video list"
 msgstr ""

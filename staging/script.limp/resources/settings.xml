@@ -53,6 +53,18 @@
 				</setting>
 			</group>
 		</category>
+		<category help="" id="videos" label="32069">
+			<group id="5" label="32070">
+				<setting id="ManageFiles" label="32071" type="action">
+					<level>0</level>
+					<data>RunScript(script.limp,ManageFiles)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="action" type="button"/>
+				</setting>
+			</group>
+		</category>
 		<category help="" id="limits" label="32000">
 			<group id="4" label="32012">
 				<setting id="ClearPaths" label="32064" type="action">

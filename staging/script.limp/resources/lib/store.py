@@ -9,7 +9,7 @@ from bossanova808.logger import Logger
 from bossanova808.utilities import get_setting, get_setting_as_bool, set_property, clear_property
 from bossanova808.show_list import ShowList, title_key
 # noinspection PyPackages
-from .messages import AMLOGIC_PROPERTY, CONTEXT_MENU_PROPERTY, SERIES_FILE, SERIES_LISTED_PROPERTY
+from .messages import AMLOGIC_PROPERTY, CONTEXT_MENU_PROPERTY, FILES_FILE, SERIES_FILE
 # noinspection PyPackages
 from .platforms import Platform
 # noinspection PyPackages
@@ -75,8 +75,8 @@ class Store:
     # TV shows set (via the context menu) to always use software decoding
     series_list = None
 
-    # Whether the focused item's show is on that list, as last published (None until the first time)
-    _series_listed_published = None
+    # Individual videos (by path) set via the context menu to always use software decoding
+    file_list = None
 
     # Cache of file path -> facts read from the file's headers (see probe.py), so each file only
     # ever needs probing once. Persisted so it survives a service restart.
@@ -109,6 +109,8 @@ class Store:
         Store._load_facts_cache()
         Store.series_list = ShowList(SERIES_FILE)
         Logger.info(f'Series set to software decoding: {[title for _, title in Store.series_list.items()]}')
+        Store.file_list = ShowList(FILES_FILE)
+        Logger.info(f'Videos set to software decoding: {[title for _, title in Store.file_list.items()]}')
 
     @staticmethod
     def load_config_from_settings():
@@ -160,20 +162,23 @@ class Store:
         return bool(show_title) and Store.series_list is not None and Store.series_list.contains(title_key(show_title))
 
     @staticmethod
-    def publish_series_listed(listed):
+    def load_file_list():
         """
-        Mirror whether the focused item's TV show is on the series list into a Home window property,
-        for the context menu's visibility conditions (see SERIES_LISTED_PROPERTY).
+        Reload the list of individual videos from disk - it's changed by the context menu and settings
+        scripts, which run as separate processes.
+        """
+        Store.file_list.load()
+        Logger.info(f'Videos set to software decoding: {[title for _, title in Store.file_list.items()]}')
 
-        :param listed: True if the focused item's show is on the list
+    @staticmethod
+    def is_file_listed(file_path):
         """
-        if listed == Store._series_listed_published:
-            return
-        Store._series_listed_published = listed
-        if listed:
-            set_property(HOME_WINDOW, SERIES_LISTED_PROPERTY, "true")
-        else:
-            clear_property(HOME_WINDOW, SERIES_LISTED_PROPERTY)
+        Whether an individual video has been set to always use software decoding.
+
+        :param file_path: the video's full path, as Kodi reports it
+        :return: True if the video is on the list
+        """
+        return bool(file_path) and Store.file_list is not None and Store.file_list.contains(file_path)
 
     @staticmethod
     def publish_context_menu_visibility():
@@ -209,6 +214,17 @@ class Store:
         :return: True if any automatic rule is on
         """
         return Store.rule_amlogic or Store.rule_1080p or Store.rule_interlaced
+
+    @staticmethod
+    def has_work():
+        """
+        Whether anything is set up that could call for software decoding - an automatic rule, or a
+        remembered series or video. If not, there's no point watching what's focused.
+
+        :return: True if there's something to watch for
+        """
+        return bool(Store.rules_enabled() or (Store.series_list is not None and len(Store.series_list))
+                    or (Store.file_list is not None and len(Store.file_list)))
 
     @staticmethod
     def is_within_limits(file_path):

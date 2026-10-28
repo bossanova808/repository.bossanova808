@@ -1,3 +1,5 @@
+from bossanova808.constants import ADDON_ICON
+from bossanova808.notify import Notify
 from bossanova808.utilities import send_kodi_json
 
 # Shared between the context menu scripts and the settings action (which run as their own
@@ -6,23 +8,32 @@ from bossanova808.utilities import send_kodi_json
 NOTIFY_SENDER = "script.limp"
 NOTIFY_MESSAGE = "SoftwareDecode"
 NOTIFY_SERIES_CHANGED = "SeriesListChanged"
+NOTIFY_FILES_CHANGED = "FilesListChanged"
 ACK_PROPERTY = "Limp.SoftwareDecodeAck"
 
 # The TV shows set to always use software decoding, in the addon's profile folder
 SERIES_FILE = "series.json"
+
+# The individual videos set to always use software decoding, in the addon's profile folder
+FILES_FILE = "files.json"
 
 # Set on the Home window by the service while the "show context menu item" setting is on - the
 # context items' <visible> conditions in addon.xml check this (they can't read addon settings
 # themselves), so keep the two in step.
 CONTEXT_MENU_PROPERTY = "Limp.ContextMenu"
 
-# Set on the Home window while the focused item's TV show is on the series list, so the context
-# menu can offer "stop" rather than "start" for it (addon.xml checks this too).
-SERIES_LISTED_PROPERTY = "Limp.SeriesListed"
-
 # Set on the Home window by the service when running on Amlogic, so the settings can show the
 # Amlogic-only option (settings.xml checks this)
 AMLOGIC_PROPERTY = "Limp.Amlogic"
+
+
+def notify_info(message):
+    """
+    Show an info notification, with Limp's own icon rather than Kodi's generic info one.
+
+    :param message: the message to show
+    """
+    Notify.kodi_notification(message, 5000, ADDON_ICON)
 
 
 def notify_service(message, data=None):

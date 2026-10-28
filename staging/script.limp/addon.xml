@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.limp" name="Limp" version="2.0.0" provider-name="bossanova808">
+<addon id="script.limp" name="Limp" version="2.1.0" provider-name="bossanova808">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.bossanova808" version="1.0.5"/>
@@ -13,11 +13,7 @@
       </item>
       <item library="context_series.py">
         <label>32022</label>
-        <visible>Window.IsVisible(videos) + !String.IsEmpty(ListItem.TVShowTitle) + String.IsEmpty(Window(Home).Property(Limp.SeriesListed)) + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
-      </item>
-      <item library="context_series_stop.py">
-        <label>32023</label>
-        <visible>Window.IsVisible(videos) + !String.IsEmpty(ListItem.TVShowTitle) + !String.IsEmpty(Window(Home).Property(Limp.SeriesListed)) + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
+        <visible>Window.IsVisible(videos) + !String.IsEmpty(ListItem.TVShowTitle) + !String.IsEmpty(Window(Home).Property(Limp.ContextMenu))</visible>
       </item>
     </menu>
   </extension>
@@ -41,13 +37,11 @@
     <source>https://github.com/bossanova808/repository.bossanova808/</source>
     <forum />
     <email />
-    <news>v2.0.0
-- Limp is now more general: choose when it uses software decoding - for videos Amlogic's hardware decoder gets wrong, or for all videos 1080p and below
-- The rules now apply everywhere by default (the Apply everywhere option is gone) - limit them to paths on the new Path Limits page, with a Clear all paths button
-- Settings are now General, By TV Show and Path Limits pages
-- Add Windows support, and untested support for Apple devices and webOS
-- Add an option, on by default, to force hardware decoding on at start-up in case it has been left off
-- If Limp finds hardware decoding switched off mid-session when it is not the one holding it off, it asks if you want to turn it back on
+    <news>v2.1.0
+- Add "Limp: toggle video as software decode" (replacing the one-off "Limp: software decode") - it remembers a video so it always uses software decoding until toggled off again, and the new By Video settings page lists them
+- The two series context menu items are now a single "Limp: toggle series as software decode", and the By TV Show settings page is now By Series
+- Notifications now use the Limp icon
+- Limp no longer checks what is focused every second when no rules, series or videos are set up
     </news>
     <assets>
       <icon>resources/icon.png</icon>

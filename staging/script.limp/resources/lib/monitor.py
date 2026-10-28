@@ -8,7 +8,7 @@ from bossanova808.utilities import send_kodi_json, set_property
 # noinspection PyPackages
 from .decoder_override import DecoderOverride
 # noinspection PyPackages
-from .messages import NOTIFY_SENDER, NOTIFY_MESSAGE, NOTIFY_SERIES_CHANGED, ACK_PROPERTY
+from .messages import NOTIFY_SENDER, NOTIFY_MESSAGE, NOTIFY_SERIES_CHANGED, NOTIFY_FILES_CHANGED, ACK_PROPERTY
 # noinspection PyPackages
 from .store import Store
 
@@ -36,6 +36,9 @@ class KodiEventMonitor(xbmc.Monitor):
         if method.endswith(NOTIFY_SERIES_CHANGED):
             Store.load_series_list()
             DecoderOverride.recheck('Series list changed')
+        elif method.endswith(NOTIFY_FILES_CHANGED):
+            Store.load_file_list()
+            DecoderOverride.recheck('Video list changed')
         elif method.endswith(NOTIFY_MESSAGE):
             self._play_with_software_decode(data)
 

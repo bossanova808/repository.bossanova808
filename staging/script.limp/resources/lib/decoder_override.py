@@ -12,6 +12,8 @@ from bossanova808.logger import Logger
 from bossanova808.notify import Notify
 from bossanova808.utilities import get_kodi_setting, send_kodi_json
 # noinspection PyPackages
+from .messages import notify_info
+# noinspection PyPackages
 from .platforms import Platform
 # noinspection PyPackages
 from .store import Store
@@ -162,6 +164,18 @@ class DecoderOverride:
     _restore_prompt_declined = False
 
     @classmethod
+    def tick(cls):
+        """
+        One pass of the service loop. Watching what's focused only matters if something is set up
+        that could call for software decoding (or we're already forcing it, or a one-off request from
+        the context menu is pending, and so need to be able to put things back) - otherwise it's
+        skipped, leaving just the occasional check of the setting itself.
+        """
+        if Store.has_work() or cls._forcing or cls._manual:
+            cls.recheck('Periodic check')
+        cls.periodic_check()
+
+    @classmethod
     def recheck(cls, reason):
         """
         Work out whether software decode should currently be forced for whatever file is currently
@@ -171,7 +185,6 @@ class DecoderOverride:
         :param reason: a short human-readable reason, used in the log message on a state change
         """
         file_path, show_title, resolution, streaming = _current_item()
-        Store.publish_series_listed(Store.is_series_listed(xbmc.getInfoLabel('ListItem.TVShowTitle')))
         cls.recheck_for_file(file_path, reason, show_title, resolution, streaming)
 
     @classmethod
@@ -187,7 +200,7 @@ class DecoderOverride:
         """
         if not Platform.hardware_setting:
             return
-        should_force = cls._manual_active() or Store.is_series_listed(show_title)
+        should_force = cls._manual_active() or Store.is_series_listed(show_title) or Store.is_file_listed(file_path)
 
         # Once a stream is playing, the decoder is already chosen, and what Kodi says about it is
         # unreliable at first - so leave what was decided beforehand (while the item was focused) alone
@@ -411,7 +424,7 @@ class DecoderOverride:
             return
         if cls._turn_hardware_on():
             Logger.info(f'User chose to turn {Platform.hardware_setting} back on.')
-            Notify.info(TRANSLATE(32052))
+            notify_info(TRANSLATE(32052))
         else:
             Notify.error(TRANSLATE(32053))
 
