@@ -797,11 +797,9 @@
 					<!-- <visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label) + [System.IsMaster | !Skin.HasSetting(HomeMenuTVShowUsePlaylist)]</visible> -->
 					<visible>Container(9000).HasFocus(11) + !String.IsEmpty(Container(90170).ListItemNoWrap(0).Label)</visible>
 					<!-- Buttons for the grouplist -->
-					<!-- Force a different menu for Bossanova808/Adults Profile -->
-					<include condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Adults)">HomeSubMenuTVShowsAdults</include>
-					<include condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Adults Jellyfin)">HomeSubMenuTVShowsAdultsJelly</include>
-					<!-- Exact complement of the two above, so every case gets exactly one sub-menu -->
-					<include condition="!$EXP[IsBossanova808] | [!String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Adults Jellyfin)]">HomeSubMenuTVShows</include>
+					<!-- Custom sub-menu when this profile has switched it on in script.bossanova808.private's settings -->
+					<include condition="$EXP[CustomTVMenu]">HomeSubMenuTVShowsCustom</include>
+					<include condition="!$EXP[CustomTVMenu]">HomeSubMenuTVShows</include>
                     <!-- END BOSSANOVA808 MOD -->
 				</control>
 				<control type="grouplist" id="9011">
@@ -1196,14 +1194,9 @@
 					<font />
 <!-- Traditional profile switching - log off current user & return to log in screen -->
                     <onclick condition="!Integer.IsGreater(System.ProfileCount,1)">System.LogOff</onclick>
-                    <onclick condition="Integer.IsGreater(System.ProfileCount,1) + [!$EXP[IsBossanova808] | [!String.IsEqual(System.ProfileName,Adults) + !String.IsEqual(System.ProfileName,Kids) + !String.IsEqual(System.ProfileName,Adults HDD) + !String.IsEqual(System.ProfileName,Kids HDD) + !String.IsEqual(System.ProfileName,Adults Jellyfin) + !String.IsEqual(System.ProfileName,Kids Jellyfin)]]">System.LogOff</onclick>
-<!-- Bossanova808 Specific fast profile switching -->
-					<onclick condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Adults)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids)</onclick>
-					<onclick condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Kids)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults)</onclick>
-					<onclick condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Adults HDD)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids HDD)</onclick>
-					<onclick condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Kids HDD)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults HDD)</onclick>
-					<onclick condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Adults Jellyfin)">RunScript(special://skin/macros/macros.py,switch_to_profile,Kids Jellyfin)</onclick>
-					<onclick condition="$EXP[IsBossanova808] + String.IsEqual(System.ProfileName,Kids Jellyfin)">RunScript(special://skin/macros/macros.py,switch_to_profile,Adults Jellyfin)</onclick>
+                    <onclick condition="Integer.IsGreater(System.ProfileCount,1) + [!$EXP[IsBossanova808] | String.IsEmpty(Skin.String(B808FastSwitchTarget))]">System.LogOff</onclick>
+<!-- Bossanova808 Specific fast profile switching - target profile is set per profile in script.bossanova808.private's settings -->
+					<onclick condition="$EXP[IsBossanova808] + !String.IsEmpty(Skin.String(B808FastSwitchTarget))">RunScript(special://skin/macros/macros.py,switch_to_profile,$INFO[Skin.String(B808FastSwitchTarget)])</onclick>
 <!-- END Bossanova808 Specific fast profile switching -->
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<texturenofocus border="5">floor_button.png</texturenofocus>

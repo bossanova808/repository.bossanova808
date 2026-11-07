@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version="1">
+	<section id="script.bossanova808.private">
+		<category id="profileswitch" label="30005">
+			<group id="1">
+				<setting id="fastswitch_target" type="string" label="30006">
+					<level>0</level>
+					<default></default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<control type="edit" format="string"><heading>30006</heading></control>
+				</setting>
+				<setting id="fastswitch_pick" type="action" label="30007">
+					<level>0</level>
+					<data>RunScript(script.bossanova808.private,pick_profile)</data>
+					<control type="button" format="action" />
+				</setting>
+			</group>
+		</category>
+		<category id="tvmenu" label="30000">
+			<group id="1" label="30004">
+				<setting id="tvmenu_enabled" type="boolean" label="30001">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle" />
+				</setting>
+			</group>
+			<group id="2" label="30011">
+				<setting id="tvmenu_1_label" type="string" label="30002">
+					<level>0</level>
+					<default>Amy</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30002</heading></control>
+				</setting>
+				<setting id="tvmenu_1_path" type="string" label="30003">
+					<level>0</level>
+					<default>library://video/kofin/kofintvshowsac0355f09867e7c9a36e41f42dfc7e3f/all.xml</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30003</heading></control>
+				</setting>
+			</group>
+			<group id="3" label="30012">
+				<setting id="tvmenu_2_label" type="string" label="30002">
+					<level>0</level>
+					<default>Everything</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30002</heading></control>
+				</setting>
+				<setting id="tvmenu_2_path" type="string" label="30003">
+					<level>0</level>
+					<default>videodb://tvshows/titles</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30003</heading></control>
+				</setting>
+			</group>
+			<group id="4" label="30013">
+				<setting id="tvmenu_3_label" type="string" label="30002">
+					<level>0</level>
+					<default>Jem</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30002</heading></control>
+				</setting>
+				<setting id="tvmenu_3_path" type="string" label="30003">
+					<level>0</level>
+					<default>library://video/kofin/kofintvshows142cbe15f1c0a4dfa363725312a561da/all.xml</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30003</heading></control>
+				</setting>
+			</group>
+			<group id="5" label="30014">
+				<setting id="tvmenu_4_label" type="string" label="30002">
+					<level>0</level>
+					<default>YT Channels</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30002</heading></control>
+				</setting>
+				<setting id="tvmenu_4_path" type="string" label="30003">
+					<level>0</level>
+					<default>library://video/kofin/kofintvshowsd5550cb109a47ad88527d95f371d0834/all.xml</default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30003</heading></control>
+				</setting>
+			</group>
+			<group id="6" label="30015">
+				<setting id="tvmenu_5_label" type="string" label="30002">
+					<level>0</level>
+					<default></default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30002</heading></control>
+				</setting>
+				<setting id="tvmenu_5_path" type="string" label="30003">
+					<level>0</level>
+					<default></default>
+					<constraints><allowempty>true</allowempty></constraints>
+					<dependencies><dependency type="enable" setting="tvmenu_enabled">true</dependency></dependencies>
+					<control type="edit" format="string"><heading>30003</heading></control>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

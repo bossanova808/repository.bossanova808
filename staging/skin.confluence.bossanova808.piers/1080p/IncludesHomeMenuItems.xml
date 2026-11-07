@@ -101,8 +101,8 @@
 			<texture border="0,0,0,3">HomeSubEnd.png</texture>
 		</control>
 	</include>
-	<!-- BOSSANOVA808 MOD - Special TV Show Menus -->
-	<include name="HomeSubMenuTVShowsAdults">
+	<!-- BOSSANOVA808 MOD - Custom TV Shows sub-menu: up to 5 buttons from script.bossanova808.private's per-profile settings (kept as skin strings, synced by its service when a setting changes) -->
+	<include name="HomeSubMenuTVShowsCustom">
 		<control type="image" id="90171">
 			<width>53</width>
 			<height>53</height>
@@ -110,45 +110,33 @@
 		</control>
 		<control type="button" id="90172">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Amy</label>
-			<onclick>ActivateWindow(Videos,special://profile/playlists/video/Amy Shows.xsp,return)</onclick>
+			<label>$INFO[Skin.String(B808TVMenu1Label)]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Skin.String(B808TVMenu1Path)],return)</onclick>
+			<visible>!String.IsEmpty(Skin.String(B808TVMenu1Label))</visible>
 		</control>
 		<control type="button" id="90173">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Everything</label>
-			<onclick>ActivateWindow(Videos,videodb://tvshows/titles,return)</onclick>
+			<label>$INFO[Skin.String(B808TVMenu2Label)]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Skin.String(B808TVMenu2Path)],return)</onclick>
+			<visible>!String.IsEmpty(Skin.String(B808TVMenu2Label))</visible>
 		</control>
 		<control type="button" id="90174">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Jem</label>
-			<onclick>ActivateWindow(Videos,special://profile/playlists/video/Jem Shows.xsp,return)</onclick>
+			<label>$INFO[Skin.String(B808TVMenu3Label)]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Skin.String(B808TVMenu3Path)],return)</onclick>
+			<visible>!String.IsEmpty(Skin.String(B808TVMenu3Label))</visible>
 		</control>
-		<control type="image" id="90178">
-			<width>53</width>
-			<height>53</height>
-			<texture border="0,0,0,3">HomeSubEnd.png</texture>
-		</control>
-	</include>
-	<include name="HomeSubMenuTVShowsAdultsJelly">
-		<control type="image" id="90171">
-			<width>53</width>
-			<height>53</height>
-			<texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
-		</control>
-		<control type="button" id="90172">
+		<control type="button" id="90175">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Amy</label>
-			<onclick>ActivateWindow(Videos,special://profile/playlists/video/jellyfintvshowsac0355f09867e7c9a36e41f42dfc7e3f.xsp,return)</onclick>
+			<label>$INFO[Skin.String(B808TVMenu4Label)]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Skin.String(B808TVMenu4Path)],return)</onclick>
+			<visible>!String.IsEmpty(Skin.String(B808TVMenu4Label))</visible>
 		</control>
-		<control type="button" id="90173">
+		<control type="button" id="90176">
 			<include>ButtonHomeSubCommonValues</include>
-			<label>Everything</label>
-			<onclick>ActivateWindow(Videos,videodb://tvshows/titles,return)</onclick>
-		</control>
-		<control type="button" id="90174">
-			<include>ButtonHomeSubCommonValues</include>
-			<label>Jem</label>
-			<onclick>ActivateWindow(Videos,special://profile/playlists/video/jellyfintvshows142cbe15f1c0a4dfa363725312a561da.xsp,return)</onclick>
+			<label>$INFO[Skin.String(B808TVMenu5Label)]</label>
+			<onclick>ActivateWindow(Videos,$INFO[Skin.String(B808TVMenu5Path)],return)</onclick>
+			<visible>!String.IsEmpty(Skin.String(B808TVMenu5Label))</visible>
 		</control>
 		<control type="image" id="90178">
 			<width>53</width>

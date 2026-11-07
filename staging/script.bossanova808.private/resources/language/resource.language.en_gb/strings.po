@@ -1,0 +1,67 @@
+# Bossanova808 Private - strings
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8
+"
+"Language: en_GB
+"
+
+msgctxt "#30000"
+msgid "TV Shows menu"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Use custom TV Shows sub-menu (this profile)"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Sub-menu label (empty to hide)"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Target"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Sub-menu 1"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Sub-menu 2"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Sub-menu 3"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Sub-menu 4"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Sub-menu 5"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Target can be a library node, a playlist or a videodb:// path"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Profile Switching"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Fast switch to this profile"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Choose profile..."
+msgstr ""
+
+msgctxt "#30008"
+msgid "None (log off as normal)"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Fast switch to this profile"
+msgstr ""

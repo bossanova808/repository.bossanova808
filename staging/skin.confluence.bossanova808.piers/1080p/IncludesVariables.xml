@@ -863,6 +863,9 @@
 	<!-- BOSSANOVA808 MOD - true only on Bossanova808's own installs, marked by the private marker add-on (install-wide, so covers every profile) -->
 	<!-- AddonIsEnabled, not HasAddon - HasAddon is still true when the add-on is installed but disabled -->
 	<expression name="IsBossanova808">System.AddonIsEnabled(script.bossanova808.private)</expression>
+	<!-- BOSSANOVA808 MOD - this profile has switched on the custom TV Shows sub-menu in script.bossanova808.private's settings -->
+	<!-- Bracketed: Kodi pastes $EXP[] in verbatim, so a leading ! would otherwise only negate the first term -->
+	<expression name="CustomTVMenu">[$EXP[IsBossanova808] + String.IsEqual(Skin.String(B808TVMenuEnabled),true)]</expression>
 
 	<!-- ============================================================ -->
 	<!-- Variables from p3i Estuary for DialogPlayerProcessInfo     -->

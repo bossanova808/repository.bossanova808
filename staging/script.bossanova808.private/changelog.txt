@@ -1,2 +1,6 @@
+v1.1.0 (2026-11-07)
+- Settings pages (per profile): a custom TV Shows sub-menu of up to 5 buttons (label + target each), and a fast profile switch target with a profile picker
+- A small service keeps these in skin strings so the skins show the right menus instantly, with no wait for the service to start
+
 v1.0.0 (2026-09-26)
 - Initial release - marks a Kodi install as one of Bossanova808's own, so the Bossanova808 skins enable their household-specific behaviour
