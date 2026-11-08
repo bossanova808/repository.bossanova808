@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.confluence.bossanova808.piers" version="5.1.324" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
+<addon id="skin.confluence.bossanova808.piers" version="5.1.325" name="Confluence Bossanova808 Piers" provider-name="Bossanova808, Jezz_X, Hitcher, Team Kodi">
 	<requires>
 		<import addon="xbmc.gui" version="5.18.0"/>
 	</requires>
@@ -20,15 +20,8 @@
 			<screenshot>resources/screenshot-01.jpg</screenshot>
 			<screenshot>resources/screenshot-02.jpg</screenshot>
 		</assets>
-		<news>v5.1.324
-- The custom TV Shows sub-menu and fast profile switching are now set per profile in script.bossanova808.private's settings (up to 5 sub-menu buttons, and a target profile for the profile button), replacing the hardcoded Adults/Kids/HDD profile-name checks
-- Both are held in skin strings, so the right menus show immediately
-- Without the private add-on nothing changes: standard TV Shows sub-menu and a normal log-off
-
-v5.1.323
-- Our household-specific behaviour (custom TV menus on the Adults profiles, fast Adults/Kids profile switching, family birthday backgrounds, skin utilities) is now switched on by the private script.bossanova808.private marker add-on, replacing the per-profile IsB808 skin setting
-- Fix TV sub-menus: every profile now gets exactly one sub-menu, so other people's installs with an "Adults" profile get the standard menus instead of none
-- Profile switch button does a normal log-off everywhere except our own installs
+		<news>v5.1.325
+- Playback info panel: title now on top, with the Premiered/Studio (or show/episode) line and the media flags each on their own row beneath it, so long studio lists no longer run into the flags
 		</news>
 	</extension>
 </addon>

@@ -1098,35 +1098,15 @@
 				<!--					<visible>![VideoPlayer.Content(LiveTV) + [PVR.IsRecordingPlayingChannel | PVR.IsPlayingActiveRecording]]</visible>-->
 				<!--					<animation effect="slide" start="0,0" end="0,38" time="0" condition="!VideoPlayer.Content(Movies) + !VideoPlayer.Content(Episodes) + !VideoPlayer.Content(MusicVideos) + !VideoPlayer.Content(LiveTV) + !PVR.IsPlayingRecording">conditional</animation>-->
 				<!--				</control>-->
-				<control type="image" id="1">
-					<top>0</top>
-					<width>75</width>
-					<height>38</height>
-					<aspectratio align="center" aligny="center">keep</aspectratio>
-					<texture>PVR-IsRecording.png</texture>
-					<visible>VideoPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
-				</control>
-				<control type="label" id="1">
-					<description>Heading label</description>
-					<left>75</left>
-					<top>0</top>
-					<width>1290</width>
-					<height>38</height>
-					<align>left</align>
-					<aligny>center</aligny>
-					<font>font13</font>
-					<label>$LOCALIZE[19158]</label>
-					<textcolor>white</textcolor>
-					<shadowcolor>black</shadowcolor>
-					<visible>VideoPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
-				</control>
+				<!-- BOSSANOVA808 MOD - title, then this info line, then the media flags, each on its own row so they can't overlap -->
 				<control type="label" id="1">
 					<description>Studio label</description>
 					<left>10</left>
-					<top>45</top>
-					<width>1365</width>
+					<top>55</top>
+					<width>1355</width>
 					<height>38</height>
 					<align>left</align>
+					<aligny>center</aligny>
 					<font>font12</font>
 					<!--  BOSSANOVA808 MOD - Premiered Date -->
 					<label>$INFO[VideoPlayer.Premiered,Premiered: ,$COMMA ] Studio: $INFO[VideoPlayer.Studio]</label>
@@ -1137,10 +1117,11 @@
 				<control type="label" id="1">
 					<description>TV Show label</description>
 					<left>10</left>
-					<top>45</top>
-					<width>1365</width>
+					<top>55</top>
+					<width>1355</width>
 					<height>38</height>
 					<align>left</align>
+					<aligny>center</aligny>
 					<font>font12</font>
 					<!--  BOSSANOVA808 MOD - Broadcast date -->
 					<label>$INFO[VideoPlayer.TVShowTitle] ($INFO[VideoPlayer.Season,,x]$INFO[VideoPlayer.Episode]$INFO[VideoPlayer.Premiered,$COMMA ,])</label>
@@ -1151,33 +1132,61 @@
 				<control type="label" id="1">
 					<description>Music Info label</description>
 					<left>10</left>
-					<top>45</top>
-					<width>1365</width>
+					<top>55</top>
+					<width>1355</width>
 					<height>38</height>
 					<align>left</align>
+					<aligny>center</aligny>
 					<font>font12</font>
 					<label>$INFO[VideoPlayer.Artist] $INFO[VideoPlayer.Album, - ]</label>
 					<textcolor>grey2</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<visible>VideoPlayer.Content(MusicVideos)</visible>
 				</control>
-				<control type="label" id="1">
-					<description>LiveTV Info label</description>
+				<!-- BOSSANOVA808 MOD - Live TV shares the info row with the recording heading, so a grouplist keeps them side by side -->
+				<control type="grouplist" id="1">
 					<left>10</left>
-					<top>45</top>
-					<width>1365</width>
+					<top>55</top>
+					<width>1355</width>
 					<height>38</height>
-					<align>left</align>
-					<font>font12</font>
-					<label>$INFO[VideoPlayer.ChannelNumberLabel,([COLOR=blue],[/COLOR]) ]$INFO[VideoPlayer.ChannelName]$INFO[VideoPlayer.EpisodeName, (,)]</label>
-					<textcolor>grey2</textcolor>
-					<shadowcolor>black</shadowcolor>
-					<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
+					<itemgap>10</itemgap>
+					<orientation>horizontal</orientation>
+					<control type="image" id="1">
+						<width>75</width>
+						<height>38</height>
+						<aspectratio align="center" aligny="center">keep</aspectratio>
+						<texture>PVR-IsRecording.png</texture>
+						<visible>VideoPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
+					</control>
+					<control type="label" id="1">
+						<description>Heading label</description>
+						<width min="0" max="1280">auto</width>
+						<height>38</height>
+						<align>left</align>
+						<aligny>center</aligny>
+						<font>font13</font>
+						<label>$LOCALIZE[19158]</label>
+						<textcolor>white</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>VideoPlayer.Content(LiveTV) + [[PVR.IsRecordingPlayingChannel + !Player.ChannelPreviewActive] | PVR.IsPlayingActiveRecording]</visible>
+					</control>
+					<control type="label" id="1">
+						<description>LiveTV Info label</description>
+						<width min="0" max="1355">auto</width>
+						<height>38</height>
+						<align>left</align>
+						<aligny>center</aligny>
+						<font>font12</font>
+						<label>$INFO[VideoPlayer.ChannelNumberLabel,([COLOR=blue],[/COLOR]) ]$INFO[VideoPlayer.ChannelName]$INFO[VideoPlayer.EpisodeName, (,)]</label>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>VideoPlayer.Content(LiveTV) | PVR.IsPlayingRecording</visible>
+					</control>
 				</control>
 <!-- BOSSANOVA808 MOD - move media codec items to give more room for episode title and disable scrolling due to CoreElec performance issues	-->
 				<control type="label" id="1">
 					<left>10</left>
-					<top>90</top>
+					<top>0</top>
 					<width>1365</width>
 					<height>53</height>
 					<width min="15" max="1350">auto</width>
@@ -1189,13 +1198,12 @@
 					<textcolor>orange</textcolor>
 					<scroll>false</scroll>
 				</control>
-				<!-- BOSSANOVA808 MOD - port Piers's modern text-badge media flag row (was icon-image based) -->
+				<!-- BOSSANOVA808 MOD - port Piers's modern text-badge media flag row (was icon-image based), on its own row (left-aligned, under the info line) -->
 				<control type="grouplist" id="1">
-					<left>20</left>
-					<top>45</top>
-					<align>right</align>
-					<width>1365</width>
-					<height>53</height>
+					<left>10</left>
+					<top>100</top>
+					<width>1355</width>
+					<height>45</height>
 					<itemgap>8</itemgap>
 					<orientation>horizontal</orientation>
 					<include content="MediaFlag">

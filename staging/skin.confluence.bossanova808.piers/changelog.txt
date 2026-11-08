@@ -1,3 +1,6 @@
+v5.1.325 (2026-11-08)
+- Playback info panel: title now on top, with the Premiered/Studio (or show/episode) line and the media flags each on their own row beneath it, so long studio lists no longer run into the flags
+
 v5.1.324 (2026-11-07)
 - The custom TV Shows sub-menu and fast profile switching are now set per profile in script.bossanova808.private's settings (up to 5 sub-menu buttons, and a target profile for the profile button), replacing the hardcoded Adults/Kids/HDD profile-name checks
 - Both are held in skin strings, so the right menus show immediately
